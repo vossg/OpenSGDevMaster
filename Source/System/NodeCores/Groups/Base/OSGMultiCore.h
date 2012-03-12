@@ -184,6 +184,19 @@ class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
 
 typedef MultiCore *MultiCoreP;
 
+OSG_SYSTEM_DLLMAPPING
+void addCoreToNode  (Node     *pNode,
+                     NodeCore *pCore);
+
+template <class ObjectT>
+void addCoreToNode  (Node                *pNode,
+                     TransitPtr<ObjectT>  pCore);
+
+OSG_SYSTEM_DLLMAPPING
+void subCoreFromNode(Node     *pNode,
+                     NodeCore *pCore,
+                     bool      bSimplify = true);
+
 OSG_END_NAMESPACE
 
 #include "OSGMultiCoreBase.inl"

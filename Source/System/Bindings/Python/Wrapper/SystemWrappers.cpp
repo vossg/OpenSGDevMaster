@@ -32,7 +32,7 @@ namespace osgwrap
  * Wraps the traversal entry callback invocation. The callback to invoke is
  * the given boost::python::object instance. The given callable must accept an
  * osg2.Node object as its only argument and return a value of type
- * OSG::Action::ResultE.
+ * OSG::ActionBase::ResultE.
  *
  * @param obj  A Python callable.
  * @param node The node that has been entered by OSG::traverse().
@@ -46,9 +46,9 @@ namespace osgwrap
  * @see osgwrap::traverseWrapper3()
  * @see osgwrap::traverseWrapper4()
  */
-OSG::Action::ResultE wrapEnterCallback(bp::object obj, OSG::Node* node)
+OSG::ActionBase::ResultE wrapEnterCallback(bp::object obj, OSG::Node* node)
 {
-   return bp::extract<OSG::Action::ResultE>(
+   return bp::extract<OSG::ActionBase::ResultE>(
              obj(OSG::Node::ObjRecPtr(node))
           );
 }
@@ -73,21 +73,21 @@ OSG::Action::ResultE wrapEnterCallback(bp::object obj, OSG::Node* node)
  * @see osgwrap::traverseWrapper3()
  * @see osgwrap::traverseWrapper4()
  */
-OSG::Action::ResultE wrapExitCallback(bp::object obj, OSG::Node* node,
-                                      OSG::Action::ResultE result)
+OSG::ActionBase::ResultE wrapExitCallback(bp::object obj, OSG::Node* node,
+                                          OSG::Action::ResultE result)
 {
-   return bp::extract<OSG::Action::ResultE>(
+   return bp::extract<OSG::ActionBase::ResultE>(
              obj(OSG::Node::ObjRecPtr(node), result)
           );
 }
 
-OSG::Action::ResultE traverseWrapper1(OSG::Node::ObjRecPtr root,
-                                      bp::object func)
+OSG::ActionBase::ResultE traverseWrapper1(OSG::Node::ObjRecPtr root,
+                                          bp::object func)
 {
    return OSG::traverse(root, boost::bind(wrapEnterCallback, func, _1));
 }
 
-OSG::Action::ResultE traverseWrapper2(bp::list nodeList, bp::object func)
+OSG::ActionBase::ResultE traverseWrapper2(bp::list nodeList, bp::object func)
 {
    // Construct a vector of OSG::Node objects from the given Python list
    // of osg2.Node objects.
@@ -104,17 +104,17 @@ OSG::Action::ResultE traverseWrapper2(bp::list nodeList, bp::object func)
    return OSG::traverse(node_vec, boost::bind(wrapEnterCallback, func, _1));
 }
 
-OSG::Action::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
-                                      bp::object enterFunc,
-                                      bp::object exitFunc)
+OSG::ActionBase::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
+                                          bp::object enterFunc,
+                                          bp::object exitFunc)
 {
    return OSG::traverse(root, boost::bind(wrapEnterCallback, enterFunc, _1),
                         boost::bind(wrapExitCallback, exitFunc, _1, _2));
 }
 
-OSG::Action::ResultE traverseWrapper4(bp::list nodeList,
-                                      bp::object enterFunc,
-                                      bp::object exitFunc)
+OSG::ActionBase::ResultE traverseWrapper4(bp::list nodeList,
+                                          bp::object enterFunc,
+                                          bp::object exitFunc)
 {
    // Construct a vector of OSG::Node objects from the given Python list
    // of osg2.Node objects.

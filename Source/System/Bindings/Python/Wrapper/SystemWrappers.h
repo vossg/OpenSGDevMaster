@@ -35,7 +35,7 @@ namespace osgwrap
  * single callback. The Python interface is simply a free function that
  * accepts a scene graph node (osg2.Node) and a Python callable. The
  * callable must accept an osg2.Node object as its only argument and return a
- * value of type OSG::Action::ResultE.
+ * value of type OSG::ActionBase::ResultE.
  *
  * @param root The root of the scene graph to traverse.
  * @param func The callable used as the traversal node entry callback.
@@ -43,15 +43,15 @@ namespace osgwrap
  * @return The traversal continue/skip/stop value is returned. This is the
  *         return value from the OSG::traverse() call.
  */
-OSG::Action::ResultE traverseWrapper1(OSG::Node::ObjRecPtr root,
-                                      bp::object func);
+OSG::ActionBase::ResultE traverseWrapper1(OSG::Node::ObjRecPtr root,
+                                          bp::object func);
 
 /**
  * Wraps the overload of OSG::traverse() that takes a vector of nodes and a
  * single callback. The Python interface is a free function that accepts a
  * Python list of scene graph nodes (osg2.Node objects) and a Python callable.
  * The callable must accept an osg2.Node object as its only argument and
- * return a value of type OSG::Action::ResultE.
+ * return a value of type OSG::ActionBase::ResultE.
  *
  * @param nodeList The list of root nodes whose subtrees will be traversed.
  * @param func     The callable used as the traversal node entry callback.
@@ -59,14 +59,14 @@ OSG::Action::ResultE traverseWrapper1(OSG::Node::ObjRecPtr root,
  * @return The traversal continue/skip/stop value is returned. This is the
  *         return value from the OSG::traverse() call.
  */
-OSG::Action::ResultE traverseWrapper2(bp::list nodeList, bp::object func);
+OSG::ActionBase::ResultE traverseWrapper2(bp::list nodeList, bp::object func);
 
 /**
  * Wraps the overload of OSG::traverse() that takes a single node and
  * traversal entry and exit callbacks. The Python interface is a free function
  * that accepts a scene graph node (osg2.Node) and two Python callables. The
  * first callable, \p enterFunc, must accept an osg2.Node object as its only
- * argument and return a value of type OSG::Action::ResultE. The second
+ * argument and return a value of type OSG::ActionBase::ResultE. The second
  * callable, \p exitFunc, must accept an osg2.Node object and an
  * osg2.ActionBase.ResultE value. The node is the same as the node passed to
  * \p enterFunc, and the result value is what \p enterFunc returned. In
@@ -79,9 +79,9 @@ OSG::Action::ResultE traverseWrapper2(bp::list nodeList, bp::object func);
  * @return The traversal continue/skip/stop value is returned. This is the
  *         return value from the OSG::traverse() call.
  */
-OSG::Action::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
-                                      bp::object enterFunc,
-                                      bp::object exitFunc);
+OSG::ActionBase::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
+                                          bp::object enterFunc,
+                                          bp::object exitFunc);
 
 /**
  * Wraps the overload of OSG::traverse() that takes a vector of nodes and
@@ -89,7 +89,7 @@ OSG::Action::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
  * that accepts a Python list of scene graph nodes (osg2.Node objects) and two
  * Python callables. The first callable, \p enterFunc, must accept an
  * osg2.Node object as its only argument and return a value of type
- * OSG::Action::ResultE. The second callable, \p exitFunc, must accept an
+ * OSG::ActionBase::ResultE. The second callable, \p exitFunc, must accept an
  * osg2.Node object and an osg2.ActionBase.ResultE value. The node is the same
  * as the node passed to \p enterFunc, and the result value is what
  * \p enterFunc returned. In general, \p exitFunc should return the same value
@@ -102,9 +102,9 @@ OSG::Action::ResultE traverseWrapper3(OSG::Node::ObjRecPtr root,
  * @return The traversal continue/skip/stop value is returned. This is the
  *         return value from the OSG::traverse() call.
  */
-OSG::Action::ResultE traverseWrapper4(bp::list nodeList,
-                                      bp::object enterFunc,
-                                      bp::object exitFunc);
+OSG::ActionBase::ResultE traverseWrapper4(bp::list nodeList,
+                                          bp::object enterFunc,
+                                          bp::object exitFunc);
 //@}
 
 /** @name General Wrapper Functions */

@@ -345,4 +345,79 @@ void MultiCore::replaceCoreByObj(NodeCore * const pOldElem,
     }
 }
 
+OSG_SYSTEM_DLLMAPPING
+void addCoreToNode(Node     *pNode,
+                   NodeCore *pCore)
+{
+    if(pNode == NULL || pCore == NULL)
+        return;
+
+    NodeCore  *pCurrCore = pNode->getCore();
+    MultiCore *pMCore    = dynamic_cast<MultiCore *>(pCurrCore);
+    
+    if(pMCore != NULL)
+    {
+        Int32 iIdx = pMCore->findCore(pCore);
+
+        if(iIdx == -1)
+        {
+            pMCore->addCore(pCore);
+        }
+    }
+    else if(pCurrCore == NULL)
+    {
+        pNode->setCore(pCore);
+    }
+    else
+    {
+        if(pCore != pCurrCore)
+        {
+            MultiCoreUnrecPtr pNewMCore = MultiCore::create();
+
+            pNewMCore->addCore(pCurrCore);
+            pNewMCore->addCore(pCore    );
+
+            pNode->setCore(pNewMCore);
+        }
+    }
+}
+
+OSG_SYSTEM_DLLMAPPING
+void subCoreFromNode(Node     *pNode,
+                     NodeCore *pCore,
+                     bool      bSimplify)
+{
+    if(pNode == NULL || pCore == NULL)
+        return;
+
+    NodeCore          *pCurrCore = pNode->getCore();
+    MultiCoreUnrecPtr  pMCore    = dynamic_cast<MultiCore *>(pCurrCore);
+    
+    if(pMCore != NULL)
+    {
+        pMCore->subCoreByObj(pCore);
+
+        if(bSimplify == true)
+        {
+            if(pMCore->getNCores() == 1)
+            {
+                pNode->setCore(pMCore->getCores(0));
+                
+                pMCore = NULL;
+            }
+            else if(pMCore->getNCores() == 0)
+            {
+                pNode->setCore(NULL);
+            }
+        }
+    }
+    else
+    {
+        if(pCore == pCurrCore)
+        {
+            pNode->setCore(NULL);
+        }
+    }
+}
+
 OSG_END_NAMESPACE

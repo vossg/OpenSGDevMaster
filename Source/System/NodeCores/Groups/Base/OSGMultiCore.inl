@@ -137,4 +137,11 @@ void MultiCore::clearCores(void)
     Inherited::clearCores();
 }
 
+template <class ObjectT> inline
+void addCoreToNode(Node                *pNode,
+                   TransitPtr<ObjectT>  pCore)
+{
+    addCoreToNode(pCore.get(), pNode);
+}
+
 OSG_END_NAMESPACE
