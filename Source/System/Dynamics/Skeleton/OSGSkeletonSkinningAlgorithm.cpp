@@ -216,7 +216,7 @@ SkeletonSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersectEnter(action);
+    return skinGeo->SkinnedGeometry::Inherited::intersectEnter(action);
 }
 
 SkeletonSkinningAlgorithm::RenderModeE

@@ -113,7 +113,7 @@ UnskinnedSkinningAlgorithm::renderEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->renderEnter(action);
+    return skinGeo->SkinnedGeometry::Inherited::renderEnter(action);
 }
 
 Action::ResultE
@@ -121,7 +121,7 @@ UnskinnedSkinningAlgorithm::renderLeave(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->renderLeave(action);
+    return skinGeo->SkinnedGeometry::Inherited::renderLeave(action);
 }
 
 Action::ResultE
@@ -129,7 +129,7 @@ UnskinnedSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersectEnter(action);
+    return skinGeo->SkinnedGeometry::Inherited::intersectEnter(action);
 }
 
 UnskinnedSkinningAlgorithm::RenderModeE

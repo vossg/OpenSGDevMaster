@@ -261,7 +261,7 @@ GPUSkinningAlgorithm::renderEnter(Action *action)
         ract->addOverride(ShaderProgramChunk::getStaticClassId(),
                           shCode                                 );
 
-        res = skinGeo->renderEnter(ract);
+        res = skinGeo->SkinnedGeometry::Inherited::renderEnter(ract);
     }
     ract->popState ();
 
@@ -277,7 +277,7 @@ GPUSkinningAlgorithm::renderLeave(Action *action)
 
     skel->renderLeave(action, skinGeo);
 
-    res = skinGeo->renderLeave(action);
+    res = skinGeo->SkinnedGeometry::Inherited::renderLeave(action);
 
     return res;
 }
@@ -287,7 +287,7 @@ GPUSkinningAlgorithm::intersectEnter(Action *action)
 {
     SkinnedGeometry *skinGeo = getSkin();
 
-    return skinGeo->intersectEnter(action);
+    return skinGeo->SkinnedGeometry::Inherited::intersectEnter(action);
 }
 
 GPUSkinningAlgorithm::RenderModeE
