@@ -68,6 +68,7 @@ DepthSortTreeBuilder::add(RenderActionBase    *pAction,
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     pRPart->getModelViewMatrix().mult(objPos, objPos);
+    pRPart->getProjectionTrans().mult(objPos, objPos);
 
     pNode->setScalar     (objPos[2]                 );
     pNode->setMatrixStore(pRPart->getMatrixStackTop());
@@ -75,11 +76,17 @@ DepthSortTreeBuilder::add(RenderActionBase    *pAction,
     Pnt3d tmpPos(objPos[0], objPos[1], objPos[2]);
     pRPart->getModelViewMatrix().mult(tmpPos, tmpPos);
 
+    // convert back to Real32 (proj trans is only Matrix4f)
+    objPos[0] = tmpPos[0];
+    objPos[1] = tmpPos[1];
+    objPos[2] = tmpPos[2];
+    pRPart->getProjectionTrans().mult(objPos, objPos);
+
     Matrix4f tmpMat;
     tmpMat.convertFrom(pRPart->getModelViewMatrix());
     MatrixStore tmpMS(pRPart->getMatrixStackTop().first, tmpMat);
 
-    pNode->setScalar     (tmpPos[2]);
+    pNode->setScalar     (objPos[2]);
     pNode->setMatrixStore(tmpMS    );
 #endif
 
