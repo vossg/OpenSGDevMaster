@@ -52,6 +52,8 @@
 
 #include "OSGConfig.h"
 
+#include "OSGGL.h"
+
 #include "OSGCgFXPassChunk.h"
 #include "OSGCgFXMaterial.h"
 #include "OSGDrawEnv.h"

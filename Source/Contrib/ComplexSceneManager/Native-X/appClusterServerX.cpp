@@ -13,6 +13,7 @@
 
 #include <unistd.h>
 
+#include "OSGGL.h"
 #include <GL/glx.h>
 
 // General OpenSG configuration, needed everywhere

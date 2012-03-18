@@ -11,12 +11,20 @@
 
 #ifndef WIN32
 
+#ifdef OSG_BUILD_ACTIVE
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+#include <OSGGL.h>
+#else
+// General OpenSG configuration, needed everywhere
+#include <OpenSG/OSGConfig.h>
+#include <OpenSG/OSGGL.h>
+#endif
+
 #include <iostream>
 #include <GL/glx.h>
 
 #ifdef OSG_BUILD_ACTIVE
-// General OpenSG configuration, needed everywhere
-#include <OSGConfig.h>
 // The Cluster server definition
 #include <OSGClusterServer.h>
 // The GLUT-OpenSG connection class
@@ -24,8 +32,6 @@
 // Render action definition. 
 #include <OSGRenderAction.h>
 #else
-// General OpenSG configuration, needed everywhere
-#include <OpenSG/OSGConfig.h>
 // The Cluster server definition
 #include <OpenSG/OSGClusterServer.h>
 // The GLUT-OpenSG connection class

@@ -44,6 +44,8 @@
 
 #include "OSGConfig.h"
 
+#include "OSGGL.h"
+
 #ifdef OSG_NO_GLUT_GLSUBDIR
 #include <glut.h>
 #elif defined(__APPLE__)

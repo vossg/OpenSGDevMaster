@@ -44,6 +44,10 @@
 
 #include "OSGConfig.h"
 
+#ifdef OSG_GL_INCLUDE_GLEW
+#include "GL/glew.h"
+#endif
+
 #if defined(OSG_OGL_ES2)
 
 # if defined(__APPLE__)
