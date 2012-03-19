@@ -369,14 +369,37 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             else
             {
 #if 0
-                fprintf(stderr, "%WM_KEYDOWN : d\n", (int) wParam);
+                fprintf(stderr, "sk : 0x%04hx\n",
+                        GetKeyState(VK_SHIFT));
 #endif
 
-                ComplexSceneManager::the()->key(
-                    0,
-                    0,
-                    CSMKeyData::ButtonDown,
-                    Char8(wParam));
+                if((GetKeyState(VK_SHIFT) & 0xFF00) == 0x0000)
+                {
+#if 0
+                    fprintf(stderr, "%WM_KEYDOWN NSHIFT : %d (%c)\n", 
+                            Int32(wParam) + 32,
+                            Char8(wParam) + 32);
+#endif
+
+                    ComplexSceneManager::the()->key(
+                        0,
+                        0,
+                        CSMKeyData::ButtonDown,
+                        Char8(wParam) + 32);
+                }
+                else
+                {
+#if 0
+                    fprintf(stderr, "%WM_KEYDOWN SHIFT : %d (%c)\n", 
+                            Int32(wParam),
+                            Char8(wParam));
+#endif
+                    ComplexSceneManager::the()->key(
+                        0,
+                        0,
+                        CSMKeyData::ButtonDown,
+                        Char8(wParam));
+                }
             }
             break;
 
@@ -394,11 +417,22 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
                         Char8(wParam));
 #endif
 
-                ComplexSceneManager::the()->key(
-                    0,
-                    0,
-                    CSMKeyData::ButtonUp,
-                    Char8(wParam));
+                if((GetKeyState(VK_SHIFT) & 0xFF00) == 0x0000)
+                {
+                    ComplexSceneManager::the()->key(
+                        0,
+                        0,
+                        CSMKeyData::ButtonUp,
+                        Char8(wParam) + 32);
+                }
+                else
+                {
+                    ComplexSceneManager::the()->key(
+                        0,
+                        0,
+                        CSMKeyData::ButtonUp,
+                        Char8(wParam));
+                }
             }
             break;
             
