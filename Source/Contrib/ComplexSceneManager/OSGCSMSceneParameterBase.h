@@ -68,6 +68,7 @@
 #include "OSGNodeFields.h"              // SceneRef type
 #include "OSGSysFields.h"               // DistScale type
 #include "OSGVecFields.h"               // SceneDiag type
+#include "OSGOSGAnyFields.h"            // Reset type
 
 #include "OSGCSMSceneParameterFields.h"
 
@@ -103,7 +104,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
         SceneCenterFieldId = InitViewPosFieldId + 1,
         SceneNearFieldId = SceneCenterFieldId + 1,
         SceneFarFieldId = SceneNearFieldId + 1,
-        NextFieldId = SceneFarFieldId + 1
+        ResetFieldId = SceneFarFieldId + 1,
+        NextFieldId = ResetFieldId + 1
     };
 
     static const OSG::BitVector SceneRefFieldMask =
@@ -120,6 +122,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
         (TypeTraits<BitVector>::One << SceneNearFieldId);
     static const OSG::BitVector SceneFarFieldMask =
         (TypeTraits<BitVector>::One << SceneFarFieldId);
+    static const OSG::BitVector ResetFieldMask =
+        (TypeTraits<BitVector>::One << ResetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -130,6 +134,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     typedef SFPnt3f           SFSceneCenterType;
     typedef SFReal32          SFSceneNearType;
     typedef SFReal32          SFSceneFarType;
+    typedef SFOSGAny          SFResetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -175,6 +180,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
                   SFReal32            *editSFSceneFar       (void);
             const SFReal32            *getSFSceneFar        (void) const;
 
+                  SFOSGAny            *editSFReset          (void);
+            const SFOSGAny            *getSFReset           (void) const;
+
 
                   Node * getSceneRef       (void) const;
 
@@ -196,6 +204,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
                   Real32              &editSceneFar       (void);
                   Real32               getSceneFar        (void) const;
 
+                  OSGAny              &editReset          (void);
+            const OSGAny              &getReset           (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -208,6 +219,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
             void setSceneCenter    (const Pnt3f &value);
             void setSceneNear      (const Real32 value);
             void setSceneFar       (const Real32 value);
+            void setReset          (const OSGAny &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -279,6 +291,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     SFPnt3f           _sfSceneCenter;
     SFReal32          _sfSceneNear;
     SFReal32          _sfSceneFar;
+    SFOSGAny          _sfReset;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,6 +334,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     EditFieldHandlePtr editHandleSceneNear      (void);
     GetFieldHandlePtr  getHandleSceneFar        (void) const;
     EditFieldHandlePtr editHandleSceneFar       (void);
+    GetFieldHandlePtr  getHandleReset           (void) const;
+    EditFieldHandlePtr editHandleReset          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

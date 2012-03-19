@@ -240,6 +240,31 @@ void CSMSceneParameterBase::setSceneFar(const Real32 value)
 
     _sfSceneFar.setValue(value);
 }
+//! Get the value of the CSMSceneParameter::_sfReset field.
+
+inline
+OSGAny &CSMSceneParameterBase::editReset(void)
+{
+    editSField(ResetFieldMask);
+
+    return _sfReset.getValue();
+}
+
+//! Get the value of the CSMSceneParameter::_sfReset field.
+inline
+const OSGAny &CSMSceneParameterBase::getReset(void) const
+{
+    return _sfReset.getValue();
+}
+
+//! Set the value of the CSMSceneParameter::_sfReset field.
+inline
+void CSMSceneParameterBase::setReset(const OSGAny &value)
+{
+    editSField(ResetFieldMask);
+
+    _sfReset.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -272,6 +297,9 @@ void CSMSceneParameterBase::execSync (      CSMSceneParameterBase *pFrom,
 
     if(FieldBits::NoField != (SceneFarFieldMask & whichField))
         _sfSceneFar.syncWith(pFrom->_sfSceneFar);
+
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+        _sfReset.syncWith(pFrom->_sfReset);
 }
 #endif
 

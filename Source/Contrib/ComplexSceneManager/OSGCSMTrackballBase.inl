@@ -324,6 +324,31 @@ void CSMTrackballBase::setMouseData(const MouseData &value)
 
     _sfMouseData.setValue(value);
 }
+//! Get the value of the CSMTrackball::_sfReset field.
+
+inline
+OSGAny &CSMTrackballBase::editReset(void)
+{
+    editSField(ResetFieldMask);
+
+    return _sfReset.getValue();
+}
+
+//! Get the value of the CSMTrackball::_sfReset field.
+inline
+const OSGAny &CSMTrackballBase::getReset(void) const
+{
+    return _sfReset.getValue();
+}
+
+//! Set the value of the CSMTrackball::_sfReset field.
+inline
+void CSMTrackballBase::setReset(const OSGAny &value)
+{
+    editSField(ResetFieldMask);
+
+    _sfReset.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -365,6 +390,9 @@ void CSMTrackballBase::execSync (      CSMTrackballBase *pFrom,
 
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
         _sfMouseData.syncWith(pFrom->_sfMouseData);
+
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+        _sfReset.syncWith(pFrom->_sfReset);
 }
 #endif
 

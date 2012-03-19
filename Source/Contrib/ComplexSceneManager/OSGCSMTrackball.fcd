@@ -94,4 +94,13 @@
 		access="public"
 	>
 	</Field>
+
+	<Field
+		name="reset"
+		type="OSGAny"
+		cardinality="single"
+		visibility="internal"
+        defaultValue=""
+	>
+	</Field>
 </FieldContainer>

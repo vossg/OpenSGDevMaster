@@ -332,18 +332,13 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                                         _sfTranslationScaleFactor.getValue());
     }
 
-#if 0
     if(0x0000 != (whichField & ResetFieldMask))
     {
         _oTrackball.reset();
 
-        VSC::beginEdit(this, MatrixResultFieldMask);
-        {
-            _sfMatrixResult.setValue(_oTrackball.getFullTrackballMatrix());
-        }
-        VSC::endEdit  (this, MatrixResultFieldMask);
+        editSFMatrixResult()->setValue(_oTrackball.getFullTrackballMatrix());
+        editSFRotationMatrixResult()->setValue(_oTrackball.getRotationMatrix());
     }
-#endif
 
     Inherited::changed(whichField, origin, details);
 }

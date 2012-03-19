@@ -63,6 +63,11 @@ ContainerCollection
       step  0.01
     }
 
+    DEF ResetKey KeySensor
+    {
+      key "q"
+      stateFlipFlop FALSE
+    }       
    ]
 }
 
@@ -86,3 +91,6 @@ ROUTE CEUp  .signalPressed  TO EyeSepCounter.incTrigger
 ROUTE CEDown.signalPressed  TO EyeSepCounter.decTrigger
 
 ROUTE EyeSepCounter.value   TO PerspCamGL.eyeSeparation
+
+ROUTE ResetKey.signalPressed TO ScenePara.reset
+ROUTE ResetKey.signalPressed TO Trackball.reset

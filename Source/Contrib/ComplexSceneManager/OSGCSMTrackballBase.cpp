@@ -121,6 +121,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var OSGAny          CSMTrackballBase::_sfReset
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -272,6 +276,18 @@ void CSMTrackballBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleMouseData));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFOSGAny::Description(
+        SFOSGAny::getClassType(),
+        "reset",
+        "",
+        ResetFieldId, ResetFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMTrackball::editHandleReset),
+        static_cast<FieldGetMethodSig >(&CSMTrackball::getHandleReset));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -380,6 +396,15 @@ CSMTrackballBase::TypeObject CSMTrackballBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"reset\"\n"
+    "\t\ttype=\"OSGAny\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "        defaultValue=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -536,6 +561,19 @@ const SFMouseData *CSMTrackballBase::getSFMouseData(void) const
 }
 
 
+SFOSGAny *CSMTrackballBase::editSFReset(void)
+{
+    editSField(ResetFieldMask);
+
+    return &_sfReset;
+}
+
+const SFOSGAny *CSMTrackballBase::getSFReset(void) const
+{
+    return &_sfReset;
+}
+
+
 
 
 
@@ -586,6 +624,10 @@ SizeT CSMTrackballBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfMouseData.getBinSize();
     }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        returnValue += _sfReset.getBinSize();
+    }
 
     return returnValue;
 }
@@ -634,6 +676,10 @@ void CSMTrackballBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MouseDataFieldMask & whichField))
     {
         _sfMouseData.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        _sfReset.copyToBin(pMem);
     }
 }
 
@@ -691,6 +737,11 @@ void CSMTrackballBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(MouseDataFieldMask);
         _sfMouseData.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        editSField(ResetFieldMask);
+        _sfReset.copyFromBin(pMem);
     }
 }
 
@@ -799,7 +850,8 @@ CSMTrackballBase::CSMTrackballBase(void) :
     _sfReferenceMatrix        (),
     _sfTransformCenter        (),
     _sfWorldDiag              (),
-    _sfMouseData              ()
+    _sfMouseData              (),
+    _sfReset                  ()
 {
 }
 
@@ -814,7 +866,8 @@ CSMTrackballBase::CSMTrackballBase(const CSMTrackballBase &source) :
     _sfReferenceMatrix        (source._sfReferenceMatrix        ),
     _sfTransformCenter        (source._sfTransformCenter        ),
     _sfWorldDiag              (source._sfWorldDiag              ),
-    _sfMouseData              (source._sfMouseData              )
+    _sfMouseData              (source._sfMouseData              ),
+    _sfReset                  (source._sfReset                  )
 {
 }
 
@@ -1072,6 +1125,31 @@ EditFieldHandlePtr CSMTrackballBase::editHandleMouseData      (void)
 
 
     editSField(MouseDataFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMTrackballBase::getHandleReset           (void) const
+{
+    SFOSGAny::GetHandlePtr returnValue(
+        new  SFOSGAny::GetHandle(
+             &_sfReset,
+             this->getType().getFieldDesc(ResetFieldId),
+             const_cast<CSMTrackballBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMTrackballBase::editHandleReset          (void)
+{
+    SFOSGAny::EditHandlePtr returnValue(
+        new  SFOSGAny::EditHandle(
+             &_sfReset,
+             this->getType().getFieldDesc(ResetFieldId),
+             this));
+
+
+    editSField(ResetFieldMask);
 
     return returnValue;
 }

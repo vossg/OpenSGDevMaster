@@ -69,6 +69,7 @@
 #include "OSGMathFields.h"              // MatrixResult type
 #include "OSGVecFields.h"               // ReferencePosition type
 #include "OSGMouseDataFields.h"         // MouseData type
+#include "OSGOSGAnyFields.h"            // Reset type
 
 #include "OSGCSMTrackballFields.h"
 
@@ -107,7 +108,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
         TransformCenterFieldId = ReferenceMatrixFieldId + 1,
         WorldDiagFieldId = TransformCenterFieldId + 1,
         MouseDataFieldId = WorldDiagFieldId + 1,
-        NextFieldId = MouseDataFieldId + 1
+        ResetFieldId = MouseDataFieldId + 1,
+        NextFieldId = ResetFieldId + 1
     };
 
     static const OSG::BitVector ModifierMaskFieldMask =
@@ -130,6 +132,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << WorldDiagFieldId);
     static const OSG::BitVector MouseDataFieldMask =
         (TypeTraits<BitVector>::One << MouseDataFieldId);
+    static const OSG::BitVector ResetFieldMask =
+        (TypeTraits<BitVector>::One << ResetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -143,6 +147,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     typedef SFPnt3f           SFTransformCenterType;
     typedef SFVec3f           SFWorldDiagType;
     typedef SFMouseData       SFMouseDataType;
+    typedef SFOSGAny          SFResetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -195,6 +200,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
                   SFMouseData         *editSFMouseData      (void);
             const SFMouseData         *getSFMouseData       (void) const;
 
+                  SFOSGAny            *editSFReset          (void);
+            const SFOSGAny            *getSFReset           (void) const;
+
 
                   UInt32              &editModifierMask   (void);
                   UInt32               getModifierMask    (void) const;
@@ -223,6 +231,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
                   MouseData           &editMouseData      (void);
             const MouseData           &getMouseData       (void) const;
 
+                  OSGAny              &editReset          (void);
+            const OSGAny              &getReset           (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -237,6 +248,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
             void setTransformCenter(const Pnt3f &value);
             void setWorldDiag      (const Vec3f &value);
             void setMouseData      (const MouseData &value);
+            void setReset          (const OSGAny &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -306,6 +318,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     SFPnt3f           _sfTransformCenter;
     SFVec3f           _sfWorldDiag;
     SFMouseData       _sfMouseData;
+    SFOSGAny          _sfReset;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -353,6 +366,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     EditFieldHandlePtr editHandleWorldDiag      (void);
     GetFieldHandlePtr  getHandleMouseData       (void) const;
     EditFieldHandlePtr editHandleMouseData      (void);
+    GetFieldHandlePtr  getHandleReset           (void) const;
+    EditFieldHandlePtr editHandleReset          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

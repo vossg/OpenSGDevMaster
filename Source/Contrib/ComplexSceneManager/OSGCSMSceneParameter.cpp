@@ -104,7 +104,7 @@ void CSMSceneParameter::changed(ConstFieldMaskArg whichField,
 {
     Inherited::changed(whichField, origin, details);
 
-    if(0x0000 != (whichField & SceneRefFieldMask))
+    if(0x0000 != (whichField & (SceneRefFieldMask | ResetFieldMask)))
     {
         reset();
     }

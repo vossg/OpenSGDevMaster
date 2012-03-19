@@ -110,6 +110,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var OSGAny          CSMSceneParameterBase::_sfReset
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -225,6 +229,18 @@ void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleSceneFar));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFOSGAny::Description(
+        SFOSGAny::getClassType(),
+        "reset",
+        "",
+        ResetFieldId, ResetFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMSceneParameter::editHandleReset),
+        static_cast<FieldGetMethodSig >(&CSMSceneParameter::getHandleReset));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -310,6 +326,15 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "        defaultValue=\"20000.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"reset\"\n"
+    "\t\ttype=\"OSGAny\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "        defaultValue=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\n"
@@ -428,6 +453,19 @@ const SFReal32 *CSMSceneParameterBase::getSFSceneFar(void) const
 }
 
 
+SFOSGAny *CSMSceneParameterBase::editSFReset(void)
+{
+    editSField(ResetFieldMask);
+
+    return &_sfReset;
+}
+
+const SFOSGAny *CSMSceneParameterBase::getSFReset(void) const
+{
+    return &_sfReset;
+}
+
+
 
 
 
@@ -466,6 +504,10 @@ SizeT CSMSceneParameterBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfSceneFar.getBinSize();
     }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        returnValue += _sfReset.getBinSize();
+    }
 
     return returnValue;
 }
@@ -502,6 +544,10 @@ void CSMSceneParameterBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (SceneFarFieldMask & whichField))
     {
         _sfSceneFar.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        _sfReset.copyToBin(pMem);
     }
 }
 
@@ -544,6 +590,11 @@ void CSMSceneParameterBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(SceneFarFieldMask);
         _sfSceneFar.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ResetFieldMask & whichField))
+    {
+        editSField(ResetFieldMask);
+        _sfReset.copyFromBin(pMem);
     }
 }
 
@@ -649,7 +700,8 @@ CSMSceneParameterBase::CSMSceneParameterBase(void) :
     _sfInitViewPos            (Pnt3f(1.f)),
     _sfSceneCenter            (Pnt3f(1.f)),
     _sfSceneNear              (Real32(0.1f)),
-    _sfSceneFar               (Real32(20000.f))
+    _sfSceneFar               (Real32(20000.f)),
+    _sfReset                  ()
 {
 }
 
@@ -661,7 +713,8 @@ CSMSceneParameterBase::CSMSceneParameterBase(const CSMSceneParameterBase &source
     _sfInitViewPos            (source._sfInitViewPos            ),
     _sfSceneCenter            (source._sfSceneCenter            ),
     _sfSceneNear              (source._sfSceneNear              ),
-    _sfSceneFar               (source._sfSceneFar               )
+    _sfSceneFar               (source._sfSceneFar               ),
+    _sfReset                  (source._sfReset                  )
 {
 }
 
@@ -858,6 +911,31 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneFar       (void)
 
 
     editSField(SceneFarFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMSceneParameterBase::getHandleReset           (void) const
+{
+    SFOSGAny::GetHandlePtr returnValue(
+        new  SFOSGAny::GetHandle(
+             &_sfReset,
+             this->getType().getFieldDesc(ResetFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMSceneParameterBase::editHandleReset          (void)
+{
+    SFOSGAny::EditHandlePtr returnValue(
+        new  SFOSGAny::EditHandle(
+             &_sfReset,
+             this->getType().getFieldDesc(ResetFieldId),
+             this));
+
+
+    editSField(ResetFieldMask);
 
     return returnValue;
 }
