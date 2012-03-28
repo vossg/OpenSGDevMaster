@@ -1,0 +1,408 @@
+diff --git a/src/doxygen.cpp b/src/doxygen.cpp
+index 3cc4902..54c55ff 100644
+--- a/src/doxygen.cpp
++++ b/src/doxygen.cpp
+@@ -10162,6 +10162,7 @@ void parseInput()
+ 
+   msg("Building example list...\n");
+   buildExampleList(rootNav);
++  clearIsAccessibleFromCache();
+   
+   msg("Searching for enumerations...\n");
+   findEnums(rootNav);
+@@ -10187,18 +10188,23 @@ void parseInput()
+ 
+   msg("Building member list...\n"); // using class info only !
+   buildFunctionList(rootNav);
++  clearIsAccessibleFromCache();
+ 
+   msg("Searching for friends...\n");
+   findFriends();
++  clearIsAccessibleFromCache();
+   
+   msg("Searching for documented defines...\n");
+   findDefineDocumentation(rootNav); 
++  clearIsAccessibleFromCache();
+   
+   findClassEntries(rootNav);         
+   msg("Computing class inheritance relations...\n");
+   findInheritedTemplateInstances();       
++  clearIsAccessibleFromCache();
+   msg("Computing class usage relations...\n");
+   findUsedTemplateInstances();       
++  clearIsAccessibleFromCache();
+ 
+   msg("Flushing cached template relations that have become invalid...\n");
+   flushCachedTemplateRelations();
+@@ -10210,7 +10216,9 @@ void parseInput()
+   computeTemplateClassRelations(); 
+   flushUnresolvedRelations();
+ 
++  clearIsAccessibleFromCache();
+   computeClassRelations();        
++  clearIsAccessibleFromCache();
+ 
+   if (Config_getBool("OPTIMIZE_OUTPUT_VHDL"))
+     VhdlDocGen::computeVhdlComponentRelations();
+@@ -10220,6 +10228,7 @@ void parseInput()
+   msg("Add enum values to enums...\n");
+   addEnumValuesToEnums(rootNav);
+   findEnumDocumentation(rootNav);
++  clearIsAccessibleFromCache();
+ 
+   msg("Searching for member function documentation...\n");
+   findObjCMethodDefinitions(rootNav);
+@@ -10261,6 +10270,7 @@ void parseInput()
+ 
+   msg("Computing member relations...\n");
+   computeMemberRelations();
++  clearIsAccessibleFromCache();
+ 
+   msg("Building full member lists recursively...\n");
+   buildCompleteMemberLists();
+diff --git a/src/lodepng.cpp b/src/lodepng.cpp
+index 8da4293..12d8478 100644
+--- a/src/lodepng.cpp
++++ b/src/lodepng.cpp
+@@ -165,6 +165,16 @@ static void uivector_init(uivector* p)
+   p->size = p->allocsize = 0;
+ }
+ 
++static void uivector_clear(uivector* p)
++{
++  memset(p->data, 0, p->size * sizeof(unsigned));
++}
++
++static void uivector_reset(uivector* p)
++{
++  p->size = 0;
++}
++
+ #ifdef LODEPNG_COMPILE_ENCODER
+ static unsigned uivector_push_back(uivector* p, unsigned c) /*returns 1 if success, 0 if failure ==> nothing done*/
+ {
+@@ -1033,15 +1043,74 @@ static void addLengthDistance(uivector* values, size_t length, size_t distance)
+   uivector_push_back(values, extra_distance);
+ }
+ 
+-#if 0
++#if 1
++
+ /*the "brute force" version of the encodeLZ7 algorithm, not used anymore, kept here for reference*/
+-static void encodeLZ77_brute(uivector* out, const unsigned char* in, size_t size, unsigned windowSize)
++static unsigned encodeLZ77(uivector* out, const unsigned char* in, size_t size, unsigned windowSize)
+ {
+   size_t pos;
+   /*using pointer instead of vector for input makes it faster when NOT using optimization when compiling; no influence if optimization is used*/
+   for(pos = 0; pos < size; pos++)
+   {
+-    size_t length = 0, offset = 0; /*the length and offset found for the current position*/
++    /*Phase 1: doxygen images often have long runs of the same color, try to find them*/   
++    const int minLength = 4; // Minimum length for a run to make sense
++    
++    if(pos < size - minLength * 4)
++    {
++      size_t p, fp;
++      size_t current_length;
++      
++      /*RGBA pixel run?*/
++      p  = pos;
++      fp = pos + 4;
++      current_length = 0;
++      
++      while(fp < size && in[p] == in[fp] && current_length < MAX_SUPPORTED_DEFLATE_LENGTH)
++      {
++        ++p;
++        ++fp;
++        ++current_length;
++      }
++      
++      if (current_length > (minLength - 1 ) * 4) /*worth using?*/
++      {
++        uivector_push_back(out, in[pos    ]);
++        uivector_push_back(out, in[pos + 1]);
++        uivector_push_back(out, in[pos + 2]);
++        uivector_push_back(out, in[pos + 3]);
++        addLengthDistance(out, current_length, 4);
++        
++        pos += current_length + 4 - 1; /*-1 for loop's pos++*/
++        continue;
++      }
++      
++      /*RGB pixel run?*/
++      p  = pos;
++      fp = pos + 3;
++      current_length = 0;
++      
++      while(fp < size && in[p] == in[fp] && current_length < MAX_SUPPORTED_DEFLATE_LENGTH)
++      {
++        ++p;
++        ++fp;
++        ++current_length;
++      }
++      
++      if (current_length > (minLength - 1 ) * 3) /*worth using?*/
++      {
++        uivector_push_back(out, in[pos    ]);
++        uivector_push_back(out, in[pos + 1]);
++        uivector_push_back(out, in[pos + 2]);
++        addLengthDistance(out, current_length, 3);
++        
++        pos += current_length + 3 - 1; /*-1 for loop's pos++*/
++        continue;
++      }
++    }
++    
++    /*Phase 2: Regular LZ77 encoding*/
++    
++    size_t length = 0, offset = 0; /*the length and offset found for the current position*/   
+     size_t max_offset = pos < windowSize ? pos : windowSize; /*how far back to test*/
+     size_t current_offset;
+   
+@@ -1082,8 +1151,11 @@ static void encodeLZ77_brute(uivector* out, const unsigned char* in, size_t size
+       pos += (length - 1);
+     }
+   } /*end of the loop through each character of input*/
++  
++  return 0;
+ }
+-#endif
++
++#else
+ 
+ static const unsigned HASH_NUM_VALUES = 65536;
+ static const unsigned HASH_NUM_CHARACTERS = 6;
+@@ -1196,6 +1268,8 @@ static unsigned encodeLZ77(uivector* out, const unsigned char* in, size_t size,
+   return error;
+ }
+ 
++#endif
++
+ /* /////////////////////////////////////////////////////////////////////////// */
+ 
+ static unsigned deflateNoCompression(ucvector* out, const unsigned char* data, size_t datasize)
+diff --git a/src/util.cpp b/src/util.cpp
+index a2a9c85..2b26452 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -20,6 +20,10 @@
+ #include <errno.h>
+ #include <math.h>
+ 
++#include <map>
++#include <vector>
++#include <algorithm>
++
+ #include <md5.h>
+ 
+ #include "qtbc.h"
+@@ -838,6 +842,56 @@ bool accessibleViaUsingNamespace(const NamespaceSDict *nl,
+ }
+ 
+ 
++struct isAccessibleFrom_visitedKey
++{
++  isAccessibleFrom_visitedKey(Definition *scope,FileDef *fileScope,Definition *item)
++  : _scope(scope), _fileScope(fileScope), _item(item)
++  {}
++
++  bool operator <(const struct isAccessibleFrom_visitedKey &other) const
++  {
++    if (_scope             < other._scope            )  return true;
++    if (_scope             > other._scope            )  return false;
++    if (_fileScope         < other._fileScope        )  return true;
++    if (_fileScope         > other._fileScope        )  return false;
++    if (_item              < other._item             )  return true;
++    if (_item              > other._item             )  return false;
++
++    return false;
++  }
++
++  bool operator ==(const struct isAccessibleFrom_visitedKey &other) const
++  {
++    if (_scope     == other._scope     &&
++        _fileScope == other._fileScope &&
++        _item      == other._item      )  
++      return true;
++
++    return false;
++  }
++
++  const Definition *_scope;
++  const FileDef *_fileScope;
++  const Definition *_item;
++};
++
++#define USE_ISACCESSIBLEFROM_CACHE
++
++#ifdef USE_ISACCESSIBLEFROM_CACHE
++static std::map<isAccessibleFrom_visitedKey, int> isAccessibleFromCache;
++
++/* Clear the isAccessibleFromCache. Claled between phases to avoid false matches */
++void clearIsAccessibleFromCache(void)
++{
++  isAccessibleFromCache.clear();
++}
++#else
++void clearIsAccessibleFromCache(void)
++{
++}
++#endif
++
++
+ /* Returns the "distance" (=number of levels up) from item to scope, or -1
+  * if item in not inside scope. 
+  */
+@@ -845,16 +899,31 @@ int isAccessibleFrom(Definition *scope,FileDef *fileScope,Definition *item)
+ {
+   //printf("<isAccesibleFrom(scope=%s,item=%s itemScope=%s)\n",
+   //    scope->name().data(),item->name().data(),item->getOuterScope()->name().data());
+-
+-  QCString key(40);
+-  key.sprintf("%p:%p:%p",scope,fileScope,item);
+-  static QDict<void> visitedDict;
+-  if (visitedDict.find(key)) 
++  
++  isAccessibleFrom_visitedKey key(scope, fileScope, item);
++  
++#ifdef USE_ISACCESSIBLEFROM_CACHE
++  std::map<isAccessibleFrom_visitedKey, int>::iterator cit;
++  
++  cit = isAccessibleFromCache.find(key);
++  if (cit != isAccessibleFromCache.end())
+   {
+-    //printf("> already found\n");
++    return cit->second;
++  } 
++#endif
++  
++  static std::vector<isAccessibleFrom_visitedKey> visitedDict;
++  std::vector<isAccessibleFrom_visitedKey>::iterator it;
++  
++  it = std::find(visitedDict.begin(), visitedDict.end(), key);
++  
++  if (it != visitedDict.end()) 
++  {
++    //printf("Already visited!\n");
+     return -1; // already looked at this
+   }
+-  visitedDict.insert(key,(void *)0x8);
++
++  visitedDict.push_back(key);
+ 
+   int result=0; // assume we found it
+   int i;
+@@ -923,11 +992,54 @@ int isAccessibleFrom(Definition *scope,FileDef *fileScope,Definition *item)
+     result= (i==-1) ? -1 : i+2;
+   }
+ done:
+-  visitedDict.remove(key);
++//printf("isAccessibleFrom: leave %p %p %p dictsize %ld return %d\n", scope,fileScope,item,visitedDict.size(), result);
++  visitedDict.pop_back();
++  
++#ifdef USE_ISACCESSIBLEFROM_CACHE
++  isAccessibleFromCache[key] = result;
++#endif
++  
+   //Doxygen::lookupCache.insert(key,new int(result));
+   return result;
+ }
+ 
++struct isAccessibleFromWithExpScope_visitedKey
++{
++  isAccessibleFromWithExpScope_visitedKey(Definition *scope,FileDef *fileScope,Definition *item, 
++          char *explicitScopePart)
++  : _scope(scope), _fileScope(fileScope), _item(item), 
++  _explicitScopePart(explicitScopePart)
++  {}
++
++  bool operator <(const struct isAccessibleFromWithExpScope_visitedKey &other) const
++  {
++    if (_scope             < other._scope            )  return true;
++    if (_scope             > other._scope            )  return false;
++    if (_item              < other._item             )  return true;
++    if (_item              > other._item             )  return false;
++    if (_fileScope         < other._fileScope        )  return true;
++    if (_fileScope         > other._fileScope        )  return false;
++    if (_explicitScopePart < other._explicitScopePart)  return true;
++    if (_explicitScopePart > other._explicitScopePart)  return false;
++
++    return false;
++  }
++
++  bool operator ==(const struct isAccessibleFromWithExpScope_visitedKey &other) const
++  {
++    if (_scope             == other._scope             &&
++        _fileScope         == other._fileScope         &&
++        _item              == other._item              &&  
++        _explicitScopePart == other._explicitScopePart      )  
++      return true;
++
++    return false;
++  }
++  const Definition *_scope;
++  const FileDef *_fileScope;
++  const Definition *_item;
++  const char *_explicitScopePart;
++};
+ 
+ /* Returns the "distance" (=number of levels up) from item to scope, or -1
+  * if item in not in this scope. The explicitScopePart limits the search
+@@ -952,16 +1064,20 @@ int isAccessibleFromWithExpScope(Definition *scope,FileDef *fileScope,
+     // handle degenerate case where there is no explicit scope.
+     return isAccessibleFrom(scope,fileScope,item);
+   }
+-
+-  QCString key(40+explicitScopePart.length());
+-  key.sprintf("%p:%p:%p:%s",scope,fileScope,item,explicitScopePart.data());
+-  static QDict<void> visitedDict;
+-  if (visitedDict.find(key)) 
++  
++  static std::vector<isAccessibleFromWithExpScope_visitedKey> visitedDict;
++  std::vector<isAccessibleFromWithExpScope_visitedKey>::iterator it;
++  
++  isAccessibleFromWithExpScope_visitedKey key(scope,fileScope,item,explicitScopePart.data());
++  
++  it = std::find(visitedDict.begin(), visitedDict.end(), key);
++  
++  if (it != visitedDict.end()) 
+   {
+     //printf("Already visited!\n");
+     return -1; // already looked at this
+   }
+-  visitedDict.insert(key,(void *)0x8);
++  visitedDict.push_back(key);
+ 
+   //printf("  <isAccessibleFromWithExpScope(%s,%s,%s)\n",scope?scope->name().data():"<global>",
+   //                                      item?item->name().data():"<none>",
+@@ -1092,7 +1208,7 @@ int isAccessibleFromWithExpScope(Definition *scope,FileDef *fileScope,
+   }
+ done:
+   //printf("  > result=%d\n",result);
+-  visitedDict.remove(key);
++  visitedDict.pop_back();
+   //Doxygen::lookupCache.insert(key,new int(result));
+   return result;
+ }
+@@ -1779,7 +1895,7 @@ void linkifyText(const TextGeneratorIntf &out,Definition *scope,
+     { 
+       if (txtStr.at(i)=='"') insideString=!insideString; 
+     }
+-    autoBreak = false;
++///!!! why?    autoBreak = false;
+     //printf("floatingIndex=%d strlen=%d autoBreak=%d\n",floatingIndex,strLen,autoBreak);
+     if (strLen>35 && floatingIndex>30 && autoBreak) // try to insert a split point
+     {
+diff --git a/src/util.h b/src/util.h
+index 5720343..b228d41 100644
+--- a/src/util.h
++++ b/src/util.h
+@@ -312,6 +312,8 @@ QCString stripExtension(const char *fName);
+ 
+ void replaceNamespaceAliases(QCString &scope,int i);
+ 
++void clearIsAccessibleFromCache(void);
++
+ int isAccessibleFrom(Definition *scope,FileDef *fileScope,Definition *item);
+ 
+ int isAccessibleFromWithExpScope(Definition *scope,FileDef *fileScope,Definition *item,

@@ -3,6 +3,7 @@
 <FieldContainer
     name="CSMSceneParameter"
     parent="AttachmentContainer"
+    mixinparent="AttachmentContainerFrameTaskParent"
     library="ContribCSM"
     pointerfieldtypes="both"
     structure="concrete"
@@ -12,7 +13,7 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
->
+    >
 	<Field
 		name="sceneRef"
 		type="Node"

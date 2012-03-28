@@ -78,6 +78,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameter :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    virtual bool init (void                      );
+    virtual void frame(Time oTime, UInt32 uiFrame);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void reset(void);
 
     /*! \}                                                                 */

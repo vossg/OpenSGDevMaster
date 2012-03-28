@@ -86,8 +86,9 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     /*! \name                      Tasks                                   */
     /*! \{                                                                 */
 
-    void addTask   (FrameTaskInterface *pTask);
-    void removeTask(FrameTaskInterface *pTask);
+    void addTask   (FrameTaskInterface *pTask, 
+                    bool                bNoFrameFunction = false);
+    void removeTask(FrameTaskInterface *pTask                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -139,6 +140,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     InterfaceStore _mfFrameTasks;
     InterfaceStore _mfUninitializedFrameTasks;
+    InterfaceStore _mfInitializedFrameTasks;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -163,7 +165,8 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     const InterfaceStore *getMFFrameTasks      (void) const;
     
-    const InterfaceStore *getMFUninitializedFrameTasks (void) const;
+    const InterfaceStore *getMFUninitializedFrameTasks(void) const;
+    const InterfaceStore *getMFInitializedFrameTasks  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -177,6 +180,10 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     void pushToUninitializedFrameTasks       (FrameTaskInterface * const value);
     bool removeObjFromUninitializedFrameTasks(FrameTaskInterface * const value);
     void clearUninitializedFrameTasks        (void                            );
+
+    void pushToInitializedFrameTasks         (FrameTaskInterface * const value);
+    bool removeObjFromInitializedFrameTasks  (FrameTaskInterface * const value);
+    void clearInitializedFrameTasks          (void                            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

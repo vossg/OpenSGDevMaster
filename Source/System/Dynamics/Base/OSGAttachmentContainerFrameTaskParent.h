@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,79 +36,32 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGATTACHMENTCONTAINERFRAMETASKPARENT_H_
+#define _OSGATTACHmENTCONTAINERFRAMETASKPARENT_H_
+
+#include "OSGAttachmentContainer.h"
+#include "OSGFrameTaskMixin.h"
+
 OSG_BEGIN_NAMESPACE
 
-/*-------------------------------------------------------------------------*/
-/*                                Set                                      */
+/*! \ingroup GrpDynamicsBaseObj
+    \nohierarchy
+*/
 
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-template <class ParentT> inline
-FrameTaskMixin<ParentT>::FrameTaskMixin(void) :
-     Inherited       (     ),
-     Interface       (     ),
-    _bNoFrameFunction(false)
+struct AttachmentContainerFrameTaskDesc
 {
-}
+    typedef AttachmentContainer        ParentT;
+    typedef FieldContainer::TypeObject TypeObject;
+};
 
-template <class ParentT> inline
-FrameTaskMixin<ParentT>::FrameTaskMixin(const FrameTaskMixin &source) :
+/*! \ingroup GrpDynamicsBaseObj
+ */
 
-     Inherited       (source),
-     Interface       (      ),
-    _bNoFrameFunction(false )
-{
-}
-
-template <class ParentT> inline
-FrameTaskMixin<ParentT>::~FrameTaskMixin(void)
-{
-    // Don't add the prototype instances to the list
-    if(GlobalSystemState < Shutdown && FrameHandler::the() != NULL)
-    {
-        FrameHandler::the()->removeTask(this);
-    }
-}
-
-template <class ParentT> inline
-void FrameTaskMixin<ParentT>::dump(      UInt32    uiIndent,
-                                   const BitVector bvFlags ) const
-{
-}
-
-template <class ParentT> inline
-void FrameTaskMixin<ParentT>::onCreateAspect(
-    const FieldContainer *createAspect,
-    const FrameTaskMixin *source          )
-{
-    Inherited::onCreateAspect(createAspect, source);
-
-    // Don't add the prototype instances to the list
-    if(GlobalSystemState != Running || FrameHandler::the() == NULL)
-        return;
-
-    if(this == createAspect)
-    {
-        FrameHandler::the()->addTask(this, _bNoFrameFunction);
-    }
-}
-
-template <class ParentT> inline
-void FrameTaskMixin<ParentT>::onDestroyAspect(
-    UInt32 uiContainerId, UInt32 uiAspect)
-{
-    // Don't add the prototype instances to the list
-    if(GlobalSystemState < Shutdown && FrameHandler::the() != NULL)
-    {
-        FrameHandler::the()->removeTask(this);
-    }
-
-    Inherited::onDestroyAspect(uiContainerId, uiAspect);
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Comparison                                  */
+typedef 
+  FrameTaskMixin< 
+    ContainerMixinHead< 
+      AttachmentContainerFrameTaskDesc > > AttachmentContainerFrameTaskParent;
 
 OSG_END_NAMESPACE
 
+#endif /* _OSGNODECORESENSORPARENT_H_ */

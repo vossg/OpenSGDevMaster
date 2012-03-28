@@ -134,6 +134,8 @@ class FrameTaskMixin  : public ParentT, public FrameTaskInterface
 
   protected:
 
+    bool _bNoFrameFunction;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */

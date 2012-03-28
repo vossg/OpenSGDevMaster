@@ -72,6 +72,8 @@
 
 #include "OSGCSMSceneParameterFields.h"
 
+#include "OSGAttachmentContainerFrameTaskParent.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -79,11 +81,11 @@ class CSMSceneParameter;
 
 //! \brief CSMSceneParameter Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContainerFrameTaskParent
 {
   public:
 
-    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainerFrameTaskParent Inherited;
     typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;

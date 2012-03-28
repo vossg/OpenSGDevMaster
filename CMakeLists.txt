@@ -1014,7 +1014,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Python/Helper/processed")
 
@@ -1047,7 +1047,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Python/Helper/processed")
 
@@ -1112,7 +1112,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/processed")
 
@@ -1178,7 +1178,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Source/Base/Bindings/Python/Wrapper/processed")
 
@@ -1202,7 +1202,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Source/Base/Bindings/Python/Wrapper/processed")
 
@@ -1227,7 +1227,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Source/System/Bindings/Python/Wrapper/processed")
 
@@ -1251,7 +1251,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Source/System/Bindings/Python/Wrapper/processed")
 
@@ -1275,7 +1275,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
 
@@ -1299,7 +1299,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
 
@@ -1323,7 +1323,7 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_IN}"
                   "${_OSG_FILE_OUT_PROC}")
 
-      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+      EXECUTE_PROCESS(COMMAND "patch" 
                       INPUT_FILE "${_OSG_PATCH_FILE}"
                       WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/processed")
 

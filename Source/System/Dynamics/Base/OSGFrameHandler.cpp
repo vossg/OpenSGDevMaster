@@ -121,14 +121,16 @@ bool FrameHandler::releaseGlobalInstance(void)
 FrameHandler::FrameHandler(void) :
      Inherited                (),
     _mfFrameTasks             (),
-    _mfUninitializedFrameTasks()
+    _mfUninitializedFrameTasks(),
+    _mfInitializedFrameTasks  ()
 {
 }
 
 FrameHandler::FrameHandler(const FrameHandler &source) :
      Inherited                (source),
     _mfFrameTasks             (      ),
-    _mfUninitializedFrameTasks(      )
+    _mfUninitializedFrameTasks(      ),
+    _mfInitializedFrameTasks  (      )
 {
 }
 
@@ -151,12 +153,15 @@ void FrameHandler::dump(      UInt32    ,
     SLOG << "Dump FrameHandler NI" << std::endl;
 }
 
-void FrameHandler::addTask(FrameTaskInterface *pTask)
+void FrameHandler::addTask(FrameTaskInterface *pTask,
+                           bool                bNoFrameFunction)
 {
     if(pTask == NULL)
         return;
 
-    this->pushToFrameTasks             (pTask);
+    if(bNoFrameFunction == false)
+        this->pushToFrameTasks             (pTask);
+
     this->pushToUninitializedFrameTasks(pTask);
 }
 
@@ -164,8 +169,10 @@ void FrameHandler::removeTask(FrameTaskInterface *pTask)
 {
     if(pTask != NULL)
     {
-        bool rc  = this->removeObjFromFrameTasks             (pTask);
-        bool rcU = this->removeObjFromUninitializedFrameTasks(pTask);
+        bool rc   = this->removeObjFromFrameTasks             (pTask);
+             rc  |= this->removeObjFromInitializedFrameTasks  (pTask);
+
+        bool rcU  = this->removeObjFromUninitializedFrameTasks(pTask);
 
         if(rc == true && rcU == false)
         {
@@ -185,6 +192,8 @@ bool FrameHandler::init(void)
     {
         returnValue &= (*tIt)->init();
         
+        this->pushToInitializedFrameTasks(*tIt);
+
         ++tIt;
     }
 
@@ -246,8 +255,8 @@ void FrameHandler::frame(void)
 
 void FrameHandler::shutdown(void)
 {
-    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
-    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
+    InterfaceStoreConstIt tIt  = getMFInitializedFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd = getMFInitializedFrameTasks()->end  ();
 
     while(tIt != tEnd)
     {
@@ -257,8 +266,7 @@ void FrameHandler::shutdown(void)
     }
 }
 
-void
-FrameHandler::callTasks(void)
+void FrameHandler::callTasks(void)
 {
     Int32                 currPrio = TypeTraits<Int32>::getMin();
     InterfaceStoreConstIt tIt      = getMFFrameTasks()->begin();
@@ -291,6 +299,13 @@ const FrameHandler::InterfaceStore *
     return &_mfUninitializedFrameTasks;
 }
 
+//! Get the FrameHandler::_mfUninitializedFrameTasks field.
+const FrameHandler::InterfaceStore *
+    FrameHandler::getMFInitializedFrameTasks(void) const
+{
+    return &_mfInitializedFrameTasks;
+}
+
 void FrameHandler::pushToFrameTasks(FrameTaskInterface * const value)
 {
     InterfaceStoreIt tIt = std::lower_bound(_mfFrameTasks.begin(),
@@ -304,6 +319,12 @@ void FrameHandler::pushToUninitializedFrameTasks(
     FrameTaskInterface * const value)
 {
     _mfUninitializedFrameTasks.push_back(value);
+}
+
+void FrameHandler::pushToInitializedFrameTasks(
+    FrameTaskInterface * const value)
+{
+    _mfInitializedFrameTasks.push_back(value);
 }
 
 
@@ -342,6 +363,24 @@ bool FrameHandler::removeObjFromUninitializedFrameTasks(
     return returnValue;
 }
 
+bool FrameHandler::removeObjFromInitializedFrameTasks(
+    FrameTaskInterface * const value)
+{
+    bool returnValue = false;
+
+    InterfaceStoreIt it = std::find(_mfInitializedFrameTasks.begin(), 
+                                    _mfInitializedFrameTasks.end  (), value);
+
+    if(it != _mfInitializedFrameTasks.end())
+    {
+        _mfInitializedFrameTasks.erase(it);
+
+        returnValue = true;
+    }
+
+    return returnValue;
+}
+
 void FrameHandler::clearFrameTasks(void)
 {
     _mfFrameTasks.clear();
@@ -352,12 +391,18 @@ void FrameHandler::clearUninitializedFrameTasks(void)
     _mfUninitializedFrameTasks.clear();
 }
 
+void FrameHandler::clearInitializedFrameTasks(void)
+{
+    _mfInitializedFrameTasks.clear();
+}
+
 void FrameHandler::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
     static_cast<FrameHandler *>(this)->clearFrameTasks();
     static_cast<FrameHandler *>(this)->clearUninitializedFrameTasks();
+    static_cast<FrameHandler *>(this)->clearInitializedFrameTasks  ();
 }
 
 OSG_END_NAMESPACE

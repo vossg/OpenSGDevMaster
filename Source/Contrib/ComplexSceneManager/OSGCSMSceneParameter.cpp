@@ -85,11 +85,13 @@ void CSMSceneParameter::initMethod(InitPhase ePhase)
 CSMSceneParameter::CSMSceneParameter(void) :
     Inherited()
 {
+    Inherited::_bNoFrameFunction = true;
 }
 
 CSMSceneParameter::CSMSceneParameter(const CSMSceneParameter &source) :
     Inherited(source)
 {
+    Inherited::_bNoFrameFunction = true;
 }
 
 CSMSceneParameter::~CSMSceneParameter(void)
@@ -108,6 +110,18 @@ void CSMSceneParameter::changed(ConstFieldMaskArg whichField,
     {
         reset();
     }
+}
+
+bool CSMSceneParameter::init(void)
+{
+    reset();
+
+    return true;
+}
+
+void CSMSceneParameter::frame(Time oTime, UInt32 uiFrame)
+{
+    OSG_ASSERT(false);
 }
 
 void CSMSceneParameter::reset(void)

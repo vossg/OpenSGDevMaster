@@ -20,7 +20,9 @@ IF(OSGDoxygenSrcDir)
                             marshal.cpp
                             memberlist.cpp
                             scanner.l
-                            util.cpp)
+                            util.cpp
+                            util.h
+                            lodepng.cpp)
 
   SET(OSG_DOXYGEN_CONFIGURE_FILES configure
                                   Makefile.in
@@ -423,7 +425,8 @@ IF(OSGDoxygenSrcDir)
                        "${CMAKE_BINARY_DIR}/External/doxygen/qtools")
 
   SET(OSG_DOXYGEN_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/01_custom_commands.patch
-                          ${CMAKE_CURRENT_SOURCE_DIR}/02_infinite_recursion_fix.patch)
+                          ${CMAKE_CURRENT_SOURCE_DIR}/02_infinite_recursion_fix.patch
+                          ${CMAKE_CURRENT_SOURCE_DIR}/03_perf.patch)
 
   FOREACH(_DX_DIR ${OSG_DOXYGEN_DIRS})
     EXECUTE_PROCESS(

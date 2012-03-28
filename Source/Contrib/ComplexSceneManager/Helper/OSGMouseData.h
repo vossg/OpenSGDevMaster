@@ -65,19 +65,19 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   constants                                                           
     //-----------------------------------------------------------------------
 
-    static const UInt32 ButtonDown      = 0x0000;
-    static const UInt32 ButtonUp        = 0x0001;
+    static const Int32 ButtonDown      = 0x0000;
+    static const Int32 ButtonUp        = 0x0001;
 
-    static const UInt32 LeftButton      = 0x0000;
-    static const UInt32 MiddleButton    = 0x0001;
-    static const UInt32 RightButton     = 0x0002;
-    static const UInt32 WheelUpButton   = 0x0003;
-    static const UInt32 WheelDownButton = 0x0004;
+    static const Int32 LeftButton      = 0x0000;
+    static const Int32 MiddleButton    = 0x0001;
+    static const Int32 RightButton     = 0x0002;
+    static const Int32 WheelUpButton   = 0x0003;
+    static const Int32 WheelDownButton = 0x0004;
 
-    static const UInt32 NoModifier      = 0x0001;
-    static const UInt32 ShiftActive     = 0x0002;
-    static const UInt32 CtrlActive      = 0x0004;
-    static const UInt32 AltActive       = 0x0008;
+    static const Int32 NoModifier      = 0x0001;
+    static const Int32 ShiftActive     = 0x0002;
+    static const Int32 CtrlActive      = 0x0004;
+    static const Int32 AltActive       = 0x0008;
 
     static const UInt32 AbsValues       = 0x0001;
     static const UInt32 RelValues       = 0x0002;

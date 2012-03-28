@@ -143,6 +143,8 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void CSMSceneParameterBase::classDescInserter(TypeObject &oType)
 {
+    Inherited::classDescInserter(oType);
+
     FieldDescriptionBase *pDesc = NULL;
 
 
@@ -260,6 +262,7 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     "<FieldContainer\n"
     "    name=\"CSMSceneParameter\"\n"
     "    parent=\"AttachmentContainer\"\n"
+    "    mixinparent=\"AttachmentContainerFrameTaskParent\"\n"
     "    library=\"ContribCSM\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
@@ -269,7 +272,7 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    ">\n"
+    "    >\n"
     "\t<Field\n"
     "\t\tname=\"sceneRef\"\n"
     "\t\ttype=\"Node\"\n"

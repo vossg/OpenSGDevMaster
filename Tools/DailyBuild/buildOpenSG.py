@@ -10,6 +10,11 @@ common_deps_src = [\
     ("OSGLibMiniSrcDir", "http://stereofx.org/download/mini/MINI-9.8.zip", None, "mini"),\
     ("OSGOpenNurbsSrcDir", "http://files.na.mcneel.com/opennurbs/5.0/2011-02-02/opennurbs_20110202.zip", None, None),\
     ("OSGGLEWSrcDir", "http://sourceforge.net/projects/glew/files/glew/1.7.0/glew-1.7.0.zip/download", None, None)\
+  ]
+
+bq_deps_src = [("BOOST_ROOT", "http://sourceforge.net/projects/boost/files/boost/1.44.0/boost_1_44_0.zip/download", None, None), \
+               ("BOOST_JAM", "http://sourceforge.net/projects/boost/files/boost-jam/3.1.18/boost-jam-3.1.18-1-ntx86.zip/download", None, None),\
+               ("QT_ROOT", "ftp://ftp.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.7.4.zip", None, None) \
               ]
 
 win_deps_src = [("OSGZLibSrcDir", "http://sourceforge.net/projects/libpng/files/zlib/1.2.5/zlib125.zip/download", None, None), \
@@ -23,16 +28,18 @@ win_deps_src = [("OSGZLibSrcDir", "http://sourceforge.net/projects/libpng/files/
                 ("OSGGdalSrcDir", "http://download.osgeo.org/gdal/gdal180.zip", None, "gdal-1.8.0"),\
                 ("OSGExpatSrcDir", "http://sourceforge.net/projects/expat/files/expat/2.0.1/expat-2.0.1.tar.gz/download", None, None),\
                 ("OSGLibXml2SrcDir", "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz", None, None), \
-                ("BOOST_ROOT", "http://sourceforge.net/projects/boost/files/boost/1.44.0/boost_1_44_0.zip/download", None, None), \
-                ("BOOST_JAM", "http://sourceforge.net/projects/boost/files/boost-jam/3.1.18/boost-jam-3.1.18-1-ntx86.zip/download", None, None),\
-                ("QT_ROOT", "ftp://ftp.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.7.4.zip", None, None) \
-           ]
+               ]
 
 common_deps_fhg = [\
     ("OSGColladaSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/Collada%20DOM%202.2.zip", "Collada DOM 2.2.zip", "collada-dom"),\
     ("OSGLibMiniSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/MINI-9.8.zip", None, "mini"),\
     ("OSGOpenNurbsSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/opennurbs_20110202.zip", None, None),\
     ("OSGGLEWSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/glew-1.7.0.zip", None, None)\
+  ]
+
+bq_deps_fhg = [("BOOST_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost_1_44_0.zip", None, None), \
+               ("BOOST_JAM", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost-jam-3.1.18-1-ntx86.zip", None, None),\
+               ("QT_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support//qt-everywhere-opensource-src-4.7.4.zip", None, None), \
               ]
 
 win_deps_fhg = [("OSGZLibSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/zlib125.zip", None, None), \
@@ -46,10 +53,7 @@ win_deps_fhg = [("OSGZLibSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenS
                 ("OSGGdalSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/gdal180.zip", None, "gdal-1.8.0"),\
                 ("OSGExpatSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/expat-2.0.1.tar.gz", None, None),\
                 ("OSGLibXml2SrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/libxml2-2.7.8.tar.gz", None, None), \
-                ("BOOST_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost_1_44_0.zip", None, None), \
-                ("BOOST_JAM", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/boost-jam-3.1.18-1-ntx86.zip", None, None),\
-                ("QT_ROOT", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support//qt-everywhere-opensource-src-4.7.4.zip", None, None), \
-           ]
+               ]
 
 failed_support_libs = []
 
@@ -61,17 +65,8 @@ class OSGBaseBuilder:
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False,
-               subDir            = None ):
+               oOptions    ,
+               subDir      = None ):
 
     if subDir == None:
       subDir = ""
@@ -99,6 +94,8 @@ class OSGBaseBuilder:
 
     self.buildSubDir      = subDir
 
+    self.noSuppDirInit    = None
+
     self.boostroot_path   = None
     self.boostjam_path    = None
     self.boostjam         = None
@@ -110,17 +107,20 @@ class OSGBaseBuilder:
     self.cmSupportFile    = os.path.join(self.osg_path,    "CMakeSupport.txt")
     self.cmOSGFile        = os.path.join(self.osg_path,    "CMakeOSG.txt")
 
-    self.nodownload     = optNoDownload
-    self.sgdownload     = optSGDownload
-    self.nounpack       = optNoUnpack
-    self.nogitclone     = optNoGitClone
-    self.localgitclone  = optLocalGitClone
+    self.nodownload     = oOptions.nodownload     # optNoDownload
+    self.sgdownload     = oOptions.sgdownload     # optSGDownload
+    self.nounpack       = oOptions.nounpack       # optNoUnpack
+    self.nogitclone     = oOptions.nogitclone     # optNoGitClone
+    self.localgitclone  = oOptions.localgitclone  # optLocalGitClone
 
-    self.nosupportbuild = optNoSupportBuild
-    self.noboostbuild   = optNoBoostBuild
-    self.noqtbuild      = optNoQtBuild
-    self.noosgbuild     = optNoOSGBuild
-    self.nomssecure     = optNoMSSecure
+    self.nosupportbuild = oOptions.nosupportbuild # optNoSupportBuild
+    self.noboostbuild   = oOptions.noboostbuild   # optNoBoostBuild
+    self.noqtbuild      = oOptions.noqtbuild      # optNoQtBuild
+    self.bqonly         = oOptions.bqonly
+    self.noosgbuild     = oOptions.noosgbuild     # optNoOSGBuild
+    self.nomssecure     = oOptions.nomssecure     # optNoMSSecure
+
+    self.noSuppDirInit  = oOptions.nosuppdirinit
 
     self.cmakeCmd       = None
     self.makeCmd        = None
@@ -131,11 +131,13 @@ class OSGBaseBuilder:
 
     if self.sgdownload == True:
       self.common_deps = common_deps_fhg
+      self.bq_deps     = bq_deps_fhg
       self.win_deps    = win_deps_fhg
     else:
       self.common_deps = common_deps_src
+      self.bq_deps     = bq_deps_src
       self.win_deps    = win_deps_src
-
+      
     if self.buildSubDir != None and self.buildSubDir != "" and not os.path.exists(self.buildSubDir):
       os.mkdir(self.buildSubDir)
 
@@ -143,29 +145,33 @@ class OSGBaseBuilder:
 
   def dumpOptions(self):
 
-    print "download      : ", not self.nodownload
-    print "sgdownload    : ", self.sgdownload
+    print "download        : ", not self.nodownload
+    print "sgdownload      : ", self.sgdownload
 
-    print "unpack        : ", not self.nounpack
+    print "unpack          : ", not self.nounpack
 
-    print "gitclone      : ", not self.nogitclone
-    print "localgitclone : ", self.localgitclone
-    print "support build : ", not self.nosupportbuild
-    print "boost build   : ", not self.noboostbuild
+    print "gitclone        : ", not self.nogitclone
+    print "localgitclone   : ", self.localgitclone
+    print "support build   : ", not self.nosupportbuild
 
-    print "osg build     : ", not self.noosgbuild
+    print "boost build     : ", not self.noboostbuild
+    print "qt build        : ", not self.noqtbuild
+    print "bq build        : ", self.bqonly
 
-    print "ms secure     : ", self.nomssecure
+    print "osg build       : ", not self.noosgbuild
 
-    print "build subdir  : ", self.buildSubDir
+    print "ms secure       : ", self.nomssecure
 
-    print "build         : ", self.build_path
-    print "supp.build    : ", self.suppBuild_path
-    print "supp.inst     : ", self.suppInst_path
+    print "build subdir    : ", self.buildSubDir
+    print "No SuppDir init : ", self.noSuppDirInit
+
+    print "build           : ", self.build_path
+    print "supp.build      : ", self.suppBuild_path
+    print "supp.inst       : ", self.suppInst_path
     
-    print "osg.dbg.build : ", self.dbgBuild_path
-    print "osg.opt.build : ", self.optBuild_path
-    print "osg.install   : ", self.osgInst_path
+    print "osg.dbg.build   : ", self.dbgBuild_path
+    print "osg.opt.build   : ", self.optBuild_path
+    print "osg.install     : ", self.osgInst_path
 
   def which(self, program):
 
@@ -364,10 +370,14 @@ class OSGBaseBuilder:
       cmSupportOut = file(self.cmSuppArchFile, "w")
       cmSupportOut.write("# Auto-downloaded support libs defines\n\n")
 
-      self.prepareArchives(cmSupportOut, self.common_deps)
+      if self.bqonly == False:
+        self.prepareArchives(cmSupportOut, self.common_deps)
 
       if system == "windows":
-        self.prepareArchives(cmSupportOut, self.win_deps)
+        if self.bqonly == False:
+          self.prepareArchives(cmSupportOut, self.win_deps)
+
+        self.prepareArchives(cmSupportOut, self.bq_deps)
 
       cmSupportOut.write('\n')
 
@@ -424,14 +434,18 @@ class OSGBaseBuilder:
 
   def buildOSGSupport(self):
 
-    self.initDir(self.suppBuild_path)
-    self.initDir(self.suppInst_path)
+    if self.noSuppDirInit == False:
+      self.initDir(self.suppBuild_path)
+      self.initDir(self.suppInst_path)
 
     if system == "windows":
       self.buildBoost()
 
     if system == "windows":
       self.buildQt()
+
+    if self.bqonly == True:
+      return
 
     os.chdir(self.suppBuild_path)
 
@@ -540,20 +554,11 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
+               oOptions    ):
 
     buildSubDir = "MSDefaults"
 
-    if optNoMSSecure == True:
+    if oOptions.nomssecure == True:
       buildSubDir = "NoMSSec"
 
 ##32    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
@@ -576,17 +581,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     OSGBaseBuilder.__init__(self, 
                             startup_path,
-                            optNoDownload,
-                            optSGDownload,
-                            optNoUnpack,
-                            optNoGitClone,
-                            optLocalGitClone,
-                            optNoSupportBuild,
-                            optNoBoostBuild,
-                            optNoQtBuild,
-                            optNoOSGBuild,
-                            optNoMSSecure,
-                            buildSubDir)
+                            oOptions,
+                            buildSubDir )
 
     #"-d+2",
     #"-q",
@@ -701,18 +697,20 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     print "boost install cmd: ", boostInstallCmd
 
-    retcode = subprocess.call(boostInstallCmd)
+    if self.noboostbuild == False:
+      retcode = subprocess.call(boostInstallCmd)
 
     binPath = os.path.join(self.suppInst_path, "bin")
     libPath = os.path.join(self.suppInst_path, "lib")
 
-    os.mkdir(binPath);
+    if self.noboostbuild == False:
+      os.mkdir(binPath);
 
-    for file in os.listdir(libPath):
-      if fnmatch.fnmatch(file, '*.dll'):
-        srcFile = os.path.join(libPath, file)
-        dstFile = os.path.join(binPath, file)
-        shutil.move(srcFile, dstFile)
+      for file in os.listdir(libPath):
+        if fnmatch.fnmatch(file, '*.dll'):
+          srcFile = os.path.join(libPath, file)
+          dstFile = os.path.join(binPath, file)
+          shutil.move(srcFile, dstFile)
 
     os.chdir(startup_path)
 
@@ -740,7 +738,11 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     if not os.path.exists(self.qtroot_path):
       print "copy qt"
-      shutil.copytree(self.qtsrc_path, self.qtroot_path);
+
+      if self.noqtbuild == False:
+        shutil.copytree(self.qtsrc_path, self.qtroot_path);
+      else:
+        os.mkdir(self.qtroot_path)
 
     os.chdir(self.qtroot_path)
 
@@ -785,7 +787,9 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     qtCfgAnswer.write("y")
     qtCfgAnswer.close()
 
-    retcode = subprocess.call(qtConfigureCmd)
+    
+    if self.noqtbuild == False:
+      retcode = subprocess.call(qtConfigureCmd)
 
     qtBuildCmd = []
     qtBuildCmd.extend(qtBaseCmd)
@@ -793,7 +797,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     print "qt build : ", qtBuildCmd
 
-    retcode = subprocess.call(qtBuildCmd)
+    if self.noqtbuild == False:
+      retcode = subprocess.call(qtBuildCmd)
 
     qtInstallBat = file("qtinstall.bat", "w")
 
@@ -817,7 +822,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     print "qt install tmp : ", qtInstallCmd
 
-    retcode = subprocess.call(qtInstallCmd)
+    if self.noqtbuild == False:
+      retcode = subprocess.call(qtInstallCmd)
 
     qtTmpInstallPath    = self.unpack_path + "\\qt.tmpinstall";
     qtTmpInstallPath   += qtTail
@@ -826,26 +832,28 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     print "foo ", qtTmpInstallPath.replace('\\', '/')
     print "bar ", qtFinalInstallPath
 
-    shutil.move(qtTmpInstallPath.replace('\\', '/'), qtFinalInstallPath)
+    if self.noqtbuild == False:
+      shutil.move(qtTmpInstallPath.replace('\\', '/'), qtFinalInstallPath)
 
     qtLocalConfigFile = qtFinalInstallPath + "/bin/qt.conf"
 
-    qtLocalConf = file(qtLocalConfigFile, "w")
+    if self.noqtbuild == False:
+      qtLocalConf = file(qtLocalConfigFile, "w")
 
-    qtLocalConf.write("[Paths]\n");
-    qtLocalConf.write("Prefix=\n");
-    qtLocalConf.write("Documentation=../doc\n");
-    qtLocalConf.write("Headers=../include\n");
-    qtLocalConf.write("Libraries=../lib\n");
-    qtLocalConf.write("Binaries=\n");
-    qtLocalConf.write("Plugins=../plugins\n");
-    qtLocalConf.write("Data=..\n");
-    qtLocalConf.write("Translations=../translations\n");
-    qtLocalConf.write("Settings=../etc\n");
-    qtLocalConf.write("Examples=../examples\n");
-    qtLocalConf.write("Demos=../demos\n");
+      qtLocalConf.write("[Paths]\n");
+      qtLocalConf.write("Prefix=\n");
+      qtLocalConf.write("Documentation=../doc\n");
+      qtLocalConf.write("Headers=../include\n");
+      qtLocalConf.write("Libraries=../lib\n");
+      qtLocalConf.write("Binaries=\n");
+      qtLocalConf.write("Plugins=../plugins\n");
+      qtLocalConf.write("Data=..\n");
+      qtLocalConf.write("Translations=../translations\n");
+      qtLocalConf.write("Settings=../etc\n");
+      qtLocalConf.write("Examples=../examples\n");
+      qtLocalConf.write("Demos=../demos\n");
 
-    qtLocalConf.close();
+      qtLocalConf.close();
 
     os.chdir(startup_path)
 
@@ -855,6 +863,9 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
       return
 
     OSGBaseBuilder.buildOSGSupport(self)
+
+    if self.bqonly == True:
+      return
 
     os.chdir(self.suppBuild_path)
 
@@ -970,32 +981,13 @@ class OSGWin32Builder(OSGWinBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
+               oOptions    ):
 
     self.vcvarsarch = "x86"
 
     OSGWinBaseBuilder.__init__(self, 
                                startup_path,
-                               optNoDownload,
-                               optSGDownload,
-                               optNoUnpack,
-                               optNoGitClone,
-                               optLocalGitClone,
-                               optNoSupportBuild,
-                               optNoBoostBuild,
-                               optNoQtBuild,
-                               optNoOSGBuild,
-                               optNoMSSecure    )
-
+                               oOptions    )
 
     self.cmakeGen = "Visual Studio 10"
 
@@ -1015,33 +1007,13 @@ class OSGWin64Builder(OSGWinBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
-
-
+               oOptions    ):
 
     self.vcvarsarch = "amd64"
 
     OSGWinBaseBuilder.__init__(self, 
                                startup_path,
-                               optNoDownload,
-                               optSGDownload,
-                               optNoUnpack,
-                               optNoGitClone,
-                               optLocalGitClone,
-                               optNoSupportBuild,
-                               optNoBoostBuild,
-                               optNoQtBuild,
-                               optNoOSGBuild,
-                               optNoMSSecure)
+                               oOptions    )
 
     self.boostAddrOpt = ["address-model=64"]
 
@@ -1062,29 +1034,11 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
+               oOptions    ):
 
     OSGBaseBuilder.__init__(self, 
                             startup_path,
-                            optNoDownload,
-                            optSGDownload,
-                            optNoUnpack,
-                            optNoGitClone,
-                            optLocalGitClone,
-                            optNoSupportBuild,
-                            optNoBoostBuild,
-                            optNoQtBuild,
-                            optNoOSGBuild,
-                            optNoMSSecure)
+                            oOptions    )
 
     self.cmakeCmd = "cmake"
     self.makeCmd  = "make"
@@ -1179,30 +1133,11 @@ class OSGLinuxBuilder(OSGUnixBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
+               oOptions    ):
 
     OSGUnixBaseBuilder.__init__(self, 
                                 startup_path,
-                                optNoDownload,
-                                optSGDownload,
-                                optNoUnpack,
-                                optNoGitClone,
-                                optLocalGitClone,
-                                optNoSupportBuild,
-                                optNoBoostBuild,
-                                optNoQtBuild,
-                                optNoOSGBuild,
-                                optNoMSSecure)
-
+                                oOptions    )
 
     print "Build for Linux"
 
@@ -1216,29 +1151,11 @@ class OSGOSXBuilder(OSGUnixBaseBuilder):
 
   def __init__(self, 
                startup_path,  
-               optNoDownload     = False,
-               optSGDownload     = False,
-               optNoUnpack       = False,
-               optNoGitClone     = False,
-               optLocalGitClone  = False,
-               optNoSupportBuild = False,
-               optNoBoostBuild   = False,
-               optNoQtBuild      = False,
-               optNoOSGBuild     = False,
-               optNoMSSecure     = False):
+               oOptions    ):
 
     OSGUnixBaseBuilder.__init__(self, 
                                 startup_path,
-                                optNoDownload,
-                                optSGDownload,
-                                optNoUnpack,
-                                optNoGitClone,
-                                optLocalGitClone,
-                                optNoSupportBuild,
-                                optNoBoostBuild,
-                                optNoQtBuild,
-                                optNoOSGBuild,
-                                optNoMSSecure)
+                                oOptions    )
 
     print "Build for OSX"
 
@@ -1311,6 +1228,12 @@ m_parser.add_option("-q",
                     dest="noqtbuild",
                     help="no qt build (just install existing)",
                     metavar="OpenSG");
+m_parser.add_option("--bq-only",
+                    action="store_true",
+                    default=False,
+                    dest="bqonly",
+                    help="only build boost and qt",
+                    metavar="OpenSG");
 m_parser.add_option("-o", 
                     "--no-osbbuild",
                     action="store_true",
@@ -1333,6 +1256,13 @@ m_parser.add_option("--force-win32",
                     help="force win32 build on win64 machines",
                     metavar="OpenSG");
 
+m_parser.add_option("--no-suppdirinit",
+                    action="store_true",
+                    default=False,
+                    dest="nosuppdirinit",
+                    help="do not clear and init Support build/inst subdirs",
+                    metavar="OpenSG");
+
 args = sys.argv[1:];
         
 (m_options, m_args) = m_parser.parse_args(args);
@@ -1346,57 +1276,26 @@ print "uname : ", platform.uname()
 
 # ----- defines -----
 if(platform.system() == "Microsoft" or platform.system() == "Windows"):
+
   system = "windows"
   if platform.machine() == "AMD64" and not m_options.forceWin32 :
     builder = OSGWin64Builder(startup_path,
-                              m_options.nodownload,
-                              m_options.sgdownload,
-                              m_options.nounpack,
-                              m_options.nogitclone,
-                              m_options.localgitclone,
-                              m_options.nosupportbuild,
-                              m_options.noboostbuild,
-                              m_options.noqtbuild,
-                              m_options.noosgbuild,
-                              m_options.nomssecure)
+                              m_options   )
   else:
     builder = OSGWin32Builder(startup_path,
-                              m_options.nodownload,
-                              m_options.sgdownload,
-                              m_options.nounpack,
-                              m_options.nogitclone,
-                              m_options.localgitclone,
-                              m_options.nosupportbuild,
-                              m_options.noboostbuild,
-                              m_options.noqtbuild,
-                              m_options.noosgbuild,
-                              m_options.nomssecure)
+                              m_options   )
+
 elif(platform.system() == "Linux"):
+
   system = "unix"
   builder = OSGLinuxBuilder(startup_path,
-                            m_options.nodownload,
-                            m_options.sgdownload,
-                            m_options.nounpack,
-                            m_options.nogitclone,
-                            m_options.localgitclone,
-                            m_options.nosupportbuild,
-                            m_options.noboostbuild,
-                            m_options.noqtbuild,
-                            m_options.noosgbuild,
-                            m_options.nomssecure)
+                            m_options   )
+
 if(platform.system() == "Darwin"):
+
   system = "unix"
   builder = OSGOSXBuilder(startup_path,
-                          m_options.nodownload,
-                          m_options.sgdownload,
-                          m_options.nounpack,
-                          m_options.nogitclone,
-                          m_options.localgitclone,
-                          m_options.nosupportbuild,
-                          m_options.noboostbuild,
-                          m_options.noqtbuild,
-                          m_options.noosgbuild,
-                          m_options.nomssecure)
+                          m_options   )
 
 builder.dumpOptions()
 
