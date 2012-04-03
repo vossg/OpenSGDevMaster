@@ -38,20 +38,19 @@
 
 #ifndef _OSGSIMPLESHLCHUNKFILE_H_
 #define _OSGSIMPLESHLCHUNKFILE_H_
-#ifdef __sgi
-#pragma once
-#endif
 
 #include "OSGSimpleSHLChunkFileBase.h"
+#include "OSGFileContextHandlerMixin.h"
 
 OSG_BEGIN_NAMESPACE
+
 
 /*! \brief SimpleSHLChunkFile class. See \ref
            PageContribCSMSimpleSHLChunkFile for a description.
 */
 
 class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFile : 
-    public SimpleSHLChunkFileBase
+    public FileContextHandlerMixin<SimpleSHLChunkFileBase, SimpleSHLChunkFile>
 {
   protected:
 
@@ -59,8 +58,9 @@ class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFile :
 
   public:
 
-    typedef SimpleSHLChunkFileBase Inherited;
-    typedef SimpleSHLChunkFile     Self;
+    typedef FileContextHandlerMixin<SimpleSHLChunkFileBase, 
+                                    SimpleSHLChunkFile    > Inherited;
+    typedef SimpleSHLChunkFile                              Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -104,7 +104,7 @@ class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFile :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void postOSGLoading(void);
+    void postOSGLoading(FileContextAttachment * const pContext);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -120,6 +120,8 @@ class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFile :
 
     friend class FieldContainer;
     friend class SimpleSHLChunkFileBase;
+    friend class FileContextHandlerMixin<SimpleSHLChunkFileBase, 
+                                         SimpleSHLChunkFile    >;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleSHLChunkFile &source);

@@ -50,6 +50,7 @@
 #include "OSGNode.h"
 #include "OSGField.h"
 #include "OSGFieldContainer.h"
+#include "OSGFileContextAttachment.h"
 
 #include "OSGDynamicAttachmentMixin.h"
 
@@ -58,6 +59,8 @@
 #include <string>
 
 OSG_BEGIN_NAMESPACE
+
+class FileContextAttachment;
 
 /*! \ingroup GrpSystemFileIOOSG
     \nohierarchy
@@ -114,13 +117,15 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
   public :
 
-    typedef boost::function<void(FieldContainer * const)> Functor;
+    typedef boost::function<void(FieldContainer        * const,
+                                 FileContextAttachment * const)> Functor;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSGLoader(const std::vector<Functor> &endNodeFunctors);
+    OSGLoader(const std::vector<Functor>  &       endNodeFunctors,
+                    FileContextAttachment * const pFileContext   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,6 +217,8 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     
           BitVector                                _bvChanged;
           std::stack<      BitVector             > _sChangedStack;
+
+          FileContextAttachmentUnrecPtr            _pFileContext;
 
     void              initFieldTypeMapper   (      void                      );
 

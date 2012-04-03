@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2006 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,124 +36,96 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGINLINE_H_
-#define _OSGINLINE_H_
+#ifndef _OSGFILECONTEXTATTACHMENT_H_
+#define _OSGFILECONTEXTATTACHMENT_H_
 
-#include "OSGAction.h"
-
-#include "OSGInlineBase.h"
-#include "OSGFileContextHandlerMixin.h"
+#include "OSGFileContextAttachmentBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Inline
-    \ingroup GrpGroupMiscObj
-    \ingroup GrpLibOSGGroup
-    \includebasedoc
+/*! \brief FileContextAttachment class. See \ref
+    PageSystemFileIOFileContextAttachment for a description. 
+
+  \ingroup GrpSystemWindowBase
+  \ingroup GrpLibOSGSystem
+  \includebasedoc
  */
 
-class OSG_GROUP_DLLMAPPING Inline : 
-    public FileContextHandlerMixin<InlineBase, Inline>
+class OSG_SYSTEM_DLLMAPPING FileContextAttachment : 
+    public FileContextAttachmentBase
 {
-    /*==========================  PUBLIC  =================================*/  
+    /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef FileContextAttachmentBase Inherited;
+    
     /*---------------------------------------------------------------------*/
-    /*! \name                    Sync                                      */
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin,
                          BitVector         detail);
- 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void postOSGLoading(FileContextAttachment * const pContext);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
-                      const BitVector bvFlags  = 0) const;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef FileContextHandlerMixin<InlineBase, Inline> Inherited;
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Inline(void);
-    Inline(const Inline &source);
-    
+    FileContextAttachment(void);
+    FileContextAttachment(const FileContextAttachment &source);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
-    
-    virtual ~Inline(void); 
+
+    virtual ~FileContextAttachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter (Action *action);
-
-    void            adjustVolume(Volume &volume);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    void rootChanged(FieldContainer    *pFC,
-                     ConstFieldMaskArg  whichField,
-                     UInt32             origin    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
+    /*! \name                       Init                                   */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
-    
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                GL setup handling                             */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class InlineBase;
+    friend class FileContextAttachmentBase;
 
-    /*---------------------------------------------------------------------*/
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const Inline &source);
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const FileContextAttachment &source);
 };
 
-typedef Inline              *InlineP;
+typedef FileContextAttachment *FileContextAttachmentP;
 
 OSG_END_NAMESPACE
 
-#include "OSGInlineBase.inl"
-#include "OSGInline.inl"
+#include "OSGFileContextAttachmentBase.inl"
 
-#endif /* _OSGINLINE_H_ */
+#endif /* _OSGFILECONTEXTATTACHMENT_H_ */
+

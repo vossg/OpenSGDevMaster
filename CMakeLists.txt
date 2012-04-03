@@ -631,20 +631,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### QT
     #############
 
-    OSG_FIND_PACKAGE(Qt4)
-
-    IF(QT4_FOUND)
-        OSG_SET(OSG_WITH_QT 1)
-        OSG_SET(OSG_QT4_INC_DIR ${QT_INCLUDE_DIR})
-        OSG_SET(OSG_QT4_LIBS ${QT_LIBRARY_DIR})
-    ELSE(QT4_FOUND)
-        OSG_SET(OSG_QT4_INC_DIR "")
-        OSG_SET(OSG_QT4_LIBS "")
-    ENDIF(QT4_FOUND)
-
-    OSG_ADD_OPT(QT_QTCORE_LIBRARY)
-    OSG_ADD_OPT(QT_QTGUI_LIBRARY)
-    OSG_ADD_OPT(QT_QTOPENGL_LIBRARY)
+    OSG_CONFIGURE_QT()
 
     #############
     #### OpenGL
@@ -878,6 +865,7 @@ IF(NOT WIN32)
         # Needed to get the correct vtk/boost settings
         FIND_PACKAGE(VTK)
         OSG_BOOST_DEP_SETUP()
+        OSG_CONFIGURE_QT()
     ELSE(OSG_BUILD_DEPENDEND)
 #        OSG_WRITE_SETTINGS(${CMAKE_BINARY_DIR}/CMake.settings)
     ENDIF(OSG_BUILD_DEPENDEND)

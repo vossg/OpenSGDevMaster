@@ -77,7 +77,7 @@ void ShaderProgramFile::initMethod(InitPhase ePhase)
     }
 }
 
-void ShaderProgramFile::postOSGLoading(void)
+void ShaderProgramFile::postOSGLoading(FileContextAttachment * const pContext)
 {
     if(_sfProgramUrl.getValue().empty() == false)
     {

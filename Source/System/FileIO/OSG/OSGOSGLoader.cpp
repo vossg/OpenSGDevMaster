@@ -499,7 +499,8 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
 /** \brief Constructor
  */
 
-OSGLoader::OSGLoader(const std::vector<Functor> &endNodeFunctors) :
+OSGLoader::OSGLoader(const std::vector<Functor>  &       endNodeFunctors,
+                           FileContextAttachment * const pFileContext   ) :
      Inherited        (               ),
     _pCurrentFC       (NULL           ),
     _pRootNode        (NULL           ),
@@ -514,7 +515,8 @@ OSGLoader::OSGLoader(const std::vector<Functor> &endNodeFunctors) :
     _fStack           (               ),
     _fdStack          (               ),
     _bvChanged        (              0),
-    _sChangedStack    (               )
+    _sChangedStack    (               ),
+    _pFileContext     (pFileContext   )
 {
     Self::setReferenceHeader("#OSG V1.0 ");
     initFieldTypeMapper();
@@ -734,7 +736,7 @@ void OSGLoader::endNode(void)
         if(uiFunctorIndex < _endNodeFunctors.size() && 
            ! _endNodeFunctors[uiFunctorIndex].empty())
         {
-            (_endNodeFunctors[uiFunctorIndex])(_pCurrentFC);
+            (_endNodeFunctors[uiFunctorIndex])(_pCurrentFC, _pFileContext);
         }
     }
 

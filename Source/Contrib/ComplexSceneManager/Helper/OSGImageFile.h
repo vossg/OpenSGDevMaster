@@ -38,11 +38,9 @@
 
 #ifndef _OSGIMAGEFILE_H_
 #define _OSGIMAGEFILE_H_
-#ifdef __sgi
-#pragma once
-#endif
 
 #include "OSGImageFileBase.h"
+#include "OSGFileContextHandlerMixin.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -50,7 +48,8 @@ OSG_BEGIN_NAMESPACE
            PageContribCSMImageFile for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING ImageFile : public ImageFileBase
+class OSG_CONTRIBCSM_DLLMAPPING ImageFile : 
+    public FileContextHandlerMixin<ImageFileBase, ImageFile>
 {
   protected:
 
@@ -58,8 +57,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFile : public ImageFileBase
 
   public:
 
-    typedef ImageFileBase Inherited;
-    typedef ImageFile     Self;
+    typedef FileContextHandlerMixin<ImageFileBase, ImageFile> Inherited;
+    typedef ImageFile                                         Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -103,7 +102,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFile : public ImageFileBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void postOSGLoading(void);
+    void postOSGLoading(FileContextAttachment * const pContext);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,6 +118,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFile : public ImageFileBase
 
     friend class FieldContainer;
     friend class ImageFileBase;
+    friend class FileContextHandlerMixin<ImageFileBase, ImageFile>;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ImageFile &source);

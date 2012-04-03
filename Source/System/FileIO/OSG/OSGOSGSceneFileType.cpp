@@ -112,10 +112,15 @@ const Char8 *OSGSceneFileType::getName(void) const
 
 
 NodeTransitPtr OSGSceneFileType::read(      std::istream &is, 
-                                      const Char8        *,
-                                            Resolver      resolver) const
+                                      const Char8        *fileNameOrExtension,
+                                            Resolver      resolver      ) const
 {
-    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors);
+    FileContextAttachmentUnrecPtr 
+        pFileContext = FileContextAttachment::create();
+
+    pFileContext->setResolvedName(fileNameOrExtension);
+
+    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors, pFileContext);
 
     NodeTransitPtr returnValue = _pFile->scanStream(is, resolver);
 
@@ -123,6 +128,8 @@ NodeTransitPtr OSGSceneFileType::read(      std::istream &is,
     {
         returnValue = returnValue->getChild(0);
     }
+
+    returnValue->addAttachment(pFileContext);
 
     delete _pFile;
 
@@ -141,12 +148,25 @@ FieldContainerTransitPtr OSGSceneFileType::readContainer(
         return FieldContainerTransitPtr(NULL);
     }
 
-    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors);
+    FileContextAttachmentUnrecPtr 
+        pFileContext = FileContextAttachment::create();
+
+    pFileContext->setResolvedName(fileName);
+
+    OSGLoader *_pFile = new OSGLoader(_endNodeFunctors, pFileContext);
 
     std::ifstream is(fileName, std::ios::binary);
 
     FieldContainerTransitPtr returnValue = 
         _pFile->scanStreamContainer(is, resolver);
+
+    AttachmentContainer *pAttCnt = 
+        dynamic_cast<AttachmentContainer *>(returnValue.get());
+
+    if(pAttCnt != NULL)
+    {
+        pAttCnt->addAttachment(pFileContext);
+    }
 
     delete _pFile;
 

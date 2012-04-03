@@ -4335,7 +4335,7 @@ void VRMLInlineHelper::endNode(FieldContainer *pFC)
 
         if(pInline != NULL)
         {
-            pInline->postOSGLoading();
+            pInline->postOSGLoading(NULL);
         }
     }
 }

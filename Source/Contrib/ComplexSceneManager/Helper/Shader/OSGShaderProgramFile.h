@@ -38,13 +38,12 @@
 
 #ifndef _OSGSHADERPROGRAMFILE_H_
 #define _OSGSHADERPROGRAMFILE_H_
-#ifdef __sgi
-#pragma once
-#endif
 
 #include "OSGShaderProgramFileBase.h"
 
 OSG_BEGIN_NAMESPACE
+
+class FileContextAttachment;
 
 /*! \brief ShaderProgramFile class. See \ref
            PageContribCSMShaderProgramFile for a description.
@@ -103,7 +102,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ShaderProgramFile : public ShaderProgramFileBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void postOSGLoading(void);
+    void postOSGLoading(FileContextAttachment * const pContext);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

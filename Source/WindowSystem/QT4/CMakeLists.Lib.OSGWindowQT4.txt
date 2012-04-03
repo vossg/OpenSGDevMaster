@@ -33,9 +33,7 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGWindow)
 
 # dependencies - External
-SET(${PROJECT_NAME}_DEP_LIB QT_QTCORE_LIBRARY
-                            QT_QTGUI_LIBRARY
-                            QT_QTOPENGL_LIBRARY)
+SET(${PROJECT_NAME}_DEP_LIB OSG_QT4_LIBS)
 # SET(${PROJECT_NAME}_DEP_LIBDIR)
 SET(${PROJECT_NAME}_DEP_INCDIR OSG_QT4_INC_DIR)
 
@@ -45,12 +43,7 @@ SET(${PROJECT_NAME}_DEP_INCDIR OSG_QT4_INC_DIR)
 
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
-SET(${PROJECT_NAME}_DEP_DEFS "QT_THREAD_SUPPORT"
-                             "QT_ACCESSIBILITY_SUPPORT"
-                             "QT_CLEAN_NAMESPACE"
-                             "QT_CORE_LIB"
-                             "QT_GUI_LIB"
-                             "QT_OPENGL_LIB")
+SET(${PROJECT_NAME}_DEP_DEFS ${OSG_QT4_DEFS})
 
 SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
 

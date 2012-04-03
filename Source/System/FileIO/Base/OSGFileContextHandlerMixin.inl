@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,86 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
-
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGImageFile.h"
-#include "OSGImageFileHandler.h"
-#include "OSGOSGSceneFileType.h"
-
 OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGImageFileBase.cpp file.
-// To modify it, please change the .fcd file (OSGImageFile.fcd) and
-// regenerate the base file.
-
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-void ImageFile::initMethod(InitPhase ePhase)
+template <class ParentT, class ContainerT> inline
+void FileContextHandlerMixin<ParentT, ContainerT>::initMethod(
+    typename Inherited::InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
-    if(ePhase == TypeObject::SystemPost)
+    if(ePhase == Inherited::TypeObject::SystemPost)
     {
+#ifdef WIN32
+        typedef OSGSceneFileType::PostLoadingDispatcher<
+                  ContainerT> PLDOSGSceneItem;
+
+        OSGSceneFileType::the().registerEndNodeCallback(
+            ContainerT::getClassType(),
+            boost::bind(&PLDOSGSceneItem::dispatch,
+                        PLDOSGSceneItem(), _1, _2)); 
+#else
+        OSGSceneFileType::the().registerEndNodeCallback(
+            ContainerT::getClassType(),
+            reinterpret_cast<OSGSceneFileType::Callback>(
+                &ContainerT::postOSGLoading));
+#endif
     }
 }
 
-void ImageFile::postOSGLoading(FileContextAttachment * const pContext)
+/*-------------------------------------------------------------------------*/
+/*                                Set                                      */
+
+template <class ParentT, class ContainerT> inline
+void FileContextHandlerMixin<ParentT, ContainerT>::postOSGLoading(
+    FileContextAttachment * const pContext)
 {
-    Inherited::postOSGLoading(pContext);
-
-    if(_sfUrl.getValue().empty() == false)
+    if(pContext != NULL)
     {
-        ImageFileHandler::the()->read(this, _sfUrl.getValue().c_str());
+        fprintf(stderr, "file context: %p : %s\n",
+                pContext,
+                pContext->getResolvedName().c_str());
+
+        this->addAttachment(pContext);
+    }
+    else
+    {
+        fprintf(stderr, "file context: NULL\n");
     }
 }
 
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
+/*-------------------------------------------------------------------------*/
+/* Binary access                                                           */
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+/*                             Assignment                                  */
 
-/*----------------------- constructors & destructors ----------------------*/
 
-ImageFile::ImageFile(void) :
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+template <class ParentT, class ContainerT> inline
+FileContextHandlerMixin<ParentT, ContainerT>::FileContextHandlerMixin(void) :
     Inherited()
 {
 }
 
-ImageFile::ImageFile(const ImageFile &source) :
+template <class ParentT, class ContainerT> inline
+FileContextHandlerMixin<ParentT, ContainerT>::FileContextHandlerMixin(
+    const FileContextHandlerMixin &source) :
+
     Inherited(source)
 {
 }
 
-ImageFile::~ImageFile(void)
+template <class ParentT, class ContainerT> inline
+FileContextHandlerMixin<ParentT, ContainerT>::~FileContextHandlerMixin(void)
 {
 }
 
-/*----------------------------- class specific ----------------------------*/
 
-void ImageFile::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void ImageFile::dump(      UInt32    ,
-                     const BitVector ) const
-{
-    SLOG << "Dump ImageFile NI" << std::endl;
-}
+/*-------------------------------------------------------------------------*/
+/*                             Comparison                                  */
 
 OSG_END_NAMESPACE
+

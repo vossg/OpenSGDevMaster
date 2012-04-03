@@ -105,19 +105,16 @@ void Inline::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        OSGSceneFileType::the().registerEndNodeCallback(
-            Inline::getClassType(),
-            reinterpret_cast<OSGSceneFileType::Callback>(
-                &Inline::postOSGLoading));
-
         RenderAction::registerEnterDefault(
             Inline::getClassType(),
             reinterpret_cast<Action::Callback>(&Inline::renderEnter));
     }
 }
  
-void Inline::postOSGLoading(void)
+void Inline::postOSGLoading(FileContextAttachment * const pContext)
 {
+    Inherited::postOSGLoading(pContext);
+
     UInt32 i = 0;
 
     for(; i < _mfUrl.size(); ++i)

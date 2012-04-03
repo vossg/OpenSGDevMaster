@@ -64,6 +64,7 @@
 #include "OSGThread.h"
 #include "OSGThreadManager.h"
 #include "OSGBaseFunctions.h"
+#include "OSGFileContextAttachment.h"
 
 #include "OSGSingletonHolder.ins"
 
@@ -326,6 +327,20 @@ NodeTransitPtr SceneFileHandlerBase::read(const Char8      *fileName,
             if(scene != NULL)
             {
                 triggerReadEnd(fullFilePath.c_str());
+
+                FileContextAttachmentUnrecPtr pFContext = 
+                    dynamic_cast<FileContextAttachment *>(
+                        scene->findAttachment(
+                            FileContextAttachment::getClassGroupId()));
+
+                if(pFContext == NULL)
+                {
+                    pFContext = FileContextAttachment::create();
+
+                    pFContext->setResolvedName(fullFilePath);
+
+                    scene->addAttachment(pFContext);
+                }
             }
         }
         else

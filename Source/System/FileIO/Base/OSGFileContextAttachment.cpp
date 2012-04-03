@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2006 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,90 +36,58 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
-
 #include <cstdlib>
 #include <cstdio>
 
 #include "OSGConfig.h"
+#include "OSGGLEXT.h"
 
-#include "OSGImageFile.h"
-#include "OSGImageFileHandler.h"
-#include "OSGOSGSceneFileType.h"
+#include "OSGFileContextAttachment.h"
 
-OSG_BEGIN_NAMESPACE
+OSG_USING_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGImageFileBase.cpp file.
-// To modify it, please change the .fcd file (OSGImageFile.fcd) and
+// Documentation for this class is emited in the
+// OSGFileContextAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGFileContextAttachment.fcd) and
 // regenerate the base file.
 
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
+/*!
+ */
 
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-void ImageFile::initMethod(InitPhase ePhase)
-{
-    Inherited::initMethod(ePhase);
-
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
-
-void ImageFile::postOSGLoading(FileContextAttachment * const pContext)
-{
-    Inherited::postOSGLoading(pContext);
-
-    if(_sfUrl.getValue().empty() == false)
-    {
-        ImageFileHandler::the()->read(this, _sfUrl.getValue().c_str());
-    }
-}
-
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-ImageFile::ImageFile(void) :
+FileContextAttachment::FileContextAttachment(void) :
     Inherited()
 {
 }
 
-ImageFile::ImageFile(const ImageFile &source) :
+/*!
+ */
+
+FileContextAttachment::FileContextAttachment(
+    const FileContextAttachment &source) :
+
     Inherited(source)
 {
 }
 
-ImageFile::~ImageFile(void)
+/*!
+ */
+FileContextAttachment::~FileContextAttachment(void)
 {
 }
 
-/*----------------------------- class specific ----------------------------*/
+/*!
+ */
+void FileContextAttachment::initMethod(InitPhase ePhase)
+{
+    Inherited::initMethod(ePhase);
+}
 
-void ImageFile::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+/*!
+ */
+void FileContextAttachment::changed(ConstFieldMaskArg whichField, 
+                                    UInt32            origin,
+                                    BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void ImageFile::dump(      UInt32    ,
-                     const BitVector ) const
-{
-    SLOG << "Dump ImageFile NI" << std::endl;
-}
-
-OSG_END_NAMESPACE

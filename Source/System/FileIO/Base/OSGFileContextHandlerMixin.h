@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,114 +36,101 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOSGSCENEFILETYPE_H_
-#define _OSGOSGSCENEFILETYPE_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGFILECONTEXTHANDLERMIXIN_H_
+#define _OSGFILECONTEXTHANDLERMIXIN_H_
 
-#include "boost/function.hpp"
-
-#include "OSGBaseTypes.h"
-#include "OSGSceneFileType.h"
+#include "OSGFileContextAttachment.h"
+#include "OSGOSGSceneFileType.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSGLoader;
-class FieldContainer;
-class FileContextAttachment;
-
-/*! \brief OSGSceneFileType
-    \ingroup GrpSystemFileIOOSG
-    \ingroup GrpLibOSGSystem
+/*! \ingroup GrpSystemFieldContainerMixins
+    \ingroup GrpLibOSGBase
  */
 
-class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
+template <class ParentT, class ContainerT>
+class FileContextHandlerMixin  : public ParentT
 {
+    /*==========================  PRIVATE  ================================*/
+
+  protected:
+
+    typedef ParentT Inherited;
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef boost::function<void(FieldContainer        * const,
-                                 FileContextAttachment * const)> Functor;
-
-    typedef void (FieldContainer::*Callback)(FileContextAttachment * const);
-
-    template <class T>
-        struct PostLoadingDispatcher
-    {
-        PostLoadingDispatcher(FileContextAttachment * const) { }
-
-        void dispatch(FieldContainer        *       pTarget, 
-                      FileContextAttachment * const pContext)
-        {
-            static_cast<T *>(pTarget)->postOSGLoading(pContext);
-        }
-    };
+    typedef FileContextHandlerMixin<ParentT, ContainerT> Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                Class Get                                     */
+    /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    static OSGSceneFileType &the(void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name        General Fieldcontainer Declaration                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~OSGSceneFileType (void);
-
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name                    Helper                                    */
     /*! \{                                                                 */
-
-    virtual const Char8 *getName(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name                      Get                                     */
     /*! \{                                                                 */
-
-    virtual NodeTransitPtr read(      std::istream &is,
-                                const Char8        *fileNameOrExtension,
-                                      Resolver      resolver  = NULL   ) const;
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name                      Set                                     */
     /*! \{                                                                 */
-
-    virtual 
-    FieldContainerTransitPtr readContainer(
-        const Char8    *fileName,
-              Resolver  resolver = NULL) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name                   your_category                              */
     /*! \{                                                                 */
-
-    virtual bool write(Node *       const  node, 
-                       std::ostream       &os,
-                       Char8        const *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name                 Container Access                             */
     /*! \{                                                                 */
-
-    virtual bool writeContainer(FieldContainer * const  pContainer, 
-                                Char8            const *fileName  ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    void registerEndNodeCallback(const FieldContainerType &type, 
-                                 const Functor            &func);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_operators                             */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Comparison                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -151,49 +138,64 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
   protected:
 
     /*---------------------------------------------------------------------*/
+    /*! \name                  Type information                            */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    static const Char8                *_suffixA[];
-    static       OSGSceneFileType      _the;
+    FileContextHandlerMixin(void);
+    FileContextHandlerMixin(const FileContextHandlerMixin &source);
 
-                 std::vector<Functor>  _endNodeFunctors;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    OSGSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
+    virtual ~FileContextHandlerMixin(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Termination                                */
+    /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void terminate(void);
+    void postOSGLoading(FileContextAttachment * const pContext);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   MT Destruction                             */
+    /*! \{                                                                 */
+
+    static void initMethod(typename Inherited::InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Edit                                   */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Edit                                   */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef SceneFileType Inherited;
-
     /*!\brief prohibit default function (move to 'public' if needed) */
-    OSGSceneFileType(const OSGSceneFileType &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const OSGSceneFileType &source);
+    void operator =(const FileContextHandlerMixin &source);
 };
-
-//---------------------------------------------------------------------------
-//   Exported Types
-//---------------------------------------------------------------------------
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGOSGSCENEFILETYPE_H_ */
+#include "OSGFileContextHandlerMixin.inl"
+
+#endif /* _OSGFILECONTEXTHANDLERMIXIN_H_ */

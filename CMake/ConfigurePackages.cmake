@@ -714,6 +714,74 @@ MACRO(OSG_CONFIGURE_BOOST)
 ENDMACRO(OSG_CONFIGURE_BOOST)
 
 ##############################################################################
+# Boost
+##############################################################################
+
+MACRO(OSG_CONFIGURE_QT)
+    OSG_FIND_PACKAGE(Qt4)
+
+    IF(QT4_FOUND)
+        OSG_SET(OSG_WITH_QT 1)
+        OSG_SET(OSG_QT4_INC_DIR ${QT_INCLUDE_DIR})
+        OSG_SET(OSG_QT4_LIBS ${QT_LIBRARY_DIR})
+
+        OSG_SET(OSG_QT4_DEFS "QT_THREAD_SUPPORT"
+                             "QT_ACCESSIBILITY_SUPPORT"
+                             "QT_CLEAN_NAMESPACE"
+                             "QT_CORE_LIB"
+                             "QT_GUI_LIB"
+                             "QT_OPENGL_LIB")
+
+        SET(OSG_QT4_LIBS "")
+
+        IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
+           CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
+
+          IF(QT_QTCORE_LIBRARY_DEBUG)
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTCORE_LIBRARY_DEBUG})
+          ELSE()
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTCORE_LIBRARY_RELEASE})
+          ENDIF()
+
+          IF(QT_QTGUI_LIBRARY_DEBUG)
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTGUI_LIBRARY_DEBUG})
+          ELSE()
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTGUI_LIBRARY_RELEASE})
+          ENDIF()
+
+          IF(QT_QTOPENGL_LIBRARY_DEBUG)
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTOPENGL_LIBRARY_DEBUG})
+          ELSE()
+            LIST(APPEND OSG_QT4_LIBS ${QT_QTOPENGL_LIBRARY_RELEASE})
+          ENDIF()
+
+        ELSE()
+
+          LIST(APPEND OSG_QT4_LIBS ${QT_QTCORE_LIBRARY_RELEASE})
+          LIST(APPEND OSG_QT4_LIBS ${QT_QTGUI_LIBRARY_RELEASE})
+          LIST(APPEND OSG_QT4_LIBS ${QT_QTOPENGL_LIBRARY_RELEASE})
+
+        ENDIF()
+
+
+        IF(WIN32)
+          OSG_ADD_IMPORT_LIB(QT_QTCORE_TARGET QT_QTCORE_LIBRARY)
+          OSG_ADD_IMPORT_LIB(QT_QTGUI_TARGET QT_QTGUI_LIBRARY)
+          OSG_ADD_IMPORT_LIB(QT_QTOPENGL_TARGET QT_QTOPENGL_LIBRARY)
+
+          OSG_SET(OSG_QT4_LIBS QT_QTCORE_TARGET QT_QTGUI_TARGET QT_QTOPENGL_TARGET)
+        ENDIF(WIN32)
+    
+#        OSG_ADD_OPT(QT4_FOUND)
+
+    ELSE(QT4_FOUND)
+        OSG_SET(OSG_QT4_INC_DIR "")
+        OSG_SET(OSG_QT4_LIBS "")
+    ENDIF(QT4_FOUND)
+
+ENDMACRO(OSG_CONFIGURE_QT)
+
+##############################################################################
 # Glew
 ##############################################################################
 
@@ -747,7 +815,7 @@ MACRO(OSG_CONFIGURE_GLEW)
         SET(GLEW_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libosgglew.so)
       ENDIF()
       IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgglew.so)
-        SET(GLEW_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debugb/libosgglew.so)
+        SET(GLEW_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgglew.so)
       ENDIF()
     ENDIF(WIN32)
 

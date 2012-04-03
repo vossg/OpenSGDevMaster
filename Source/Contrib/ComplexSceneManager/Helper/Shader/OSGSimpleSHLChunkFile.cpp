@@ -70,15 +70,13 @@ void SimpleSHLChunkFile::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        OSGSceneFileType::the().registerEndNodeCallback(
-            SimpleSHLChunkFile::getClassType(),
-            reinterpret_cast<OSGSceneFileType::Callback>(
-                &SimpleSHLChunkFile::postOSGLoading));
     }
 }
 
-void SimpleSHLChunkFile::postOSGLoading(void)
+void SimpleSHLChunkFile::postOSGLoading(FileContextAttachment * const pContext)
 {
+    Inherited::postOSGLoading(pContext);
+
     if(_sfVertexProgramUrl.getValue().empty() == false)
     {
         std::string szFilenameResolved = 
