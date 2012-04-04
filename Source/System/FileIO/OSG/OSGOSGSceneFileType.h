@@ -72,7 +72,7 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
     template <class T>
         struct PostLoadingDispatcher
     {
-        PostLoadingDispatcher(FileContextAttachment * const) { }
+        PostLoadingDispatcher(void) { }
 
         void dispatch(FieldContainer        *       pTarget, 
                       FileContextAttachment * const pContext)

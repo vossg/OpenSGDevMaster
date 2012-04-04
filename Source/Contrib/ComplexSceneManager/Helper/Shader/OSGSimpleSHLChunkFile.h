@@ -118,10 +118,11 @@ class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFile :
 
   private:
 
-    friend class FieldContainer;
-    friend class SimpleSHLChunkFileBase;
-    friend class FileContextHandlerMixin<SimpleSHLChunkFileBase, 
-                                         SimpleSHLChunkFile    >;
+    friend class  FieldContainer;
+    friend class  SimpleSHLChunkFileBase;
+    friend class  FileContextHandlerMixin<SimpleSHLChunkFileBase, 
+                                          SimpleSHLChunkFile    >;
+    friend struct OSGSceneFileType::PostLoadingDispatcher<SimpleSHLChunkFile>;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleSHLChunkFile &source);

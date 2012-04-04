@@ -42,6 +42,8 @@
 #include "OSGFileContextAttachment.h"
 #include "OSGOSGSceneFileType.h"
 
+#include <boost/bind.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpSystemFieldContainerMixins

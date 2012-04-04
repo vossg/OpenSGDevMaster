@@ -116,9 +116,10 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFile :
 
   private:
 
-    friend class FieldContainer;
-    friend class ImageFileBase;
-    friend class FileContextHandlerMixin<ImageFileBase, ImageFile>;
+    friend class  FieldContainer;
+    friend class  ImageFileBase;
+    friend class  FileContextHandlerMixin<ImageFileBase, ImageFile>;
+    friend struct OSGSceneFileType::PostLoadingDispatcher<ImageFile>;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ImageFile &source);
