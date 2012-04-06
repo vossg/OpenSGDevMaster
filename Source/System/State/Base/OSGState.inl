@@ -77,6 +77,18 @@ bool State::chunkPresent(StateChunk *chunk) const
 }
 
 inline
+void State::setCoreGLChunkLimit(UInt32 uiCoreGLChunkLimit)
+{
+    _uiCoreGLChunkLimit = uiCoreGLChunkLimit;
+}
+
+inline
+UInt32 State::getCoreGLChunkLimit(void)
+{
+    return _uiCoreGLChunkLimit;
+}
+
+inline
 void State::setDefaultSortKey(UInt32 uiSortKey)
 {
     _uiDefaultSortKey = (uiSortKey | DefaultKeyMask);

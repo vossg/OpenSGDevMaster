@@ -74,6 +74,31 @@ OSG::UInt16 PrimeMaterialBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the PrimeMaterial::_sfCoreGLChunkLimit field.
+
+inline
+UInt32 &PrimeMaterialBase::editCoreGLChunkLimit(void)
+{
+    editSField(CoreGLChunkLimitFieldMask);
+
+    return _sfCoreGLChunkLimit.getValue();
+}
+
+//! Get the value of the PrimeMaterial::_sfCoreGLChunkLimit field.
+inline
+      UInt32  PrimeMaterialBase::getCoreGLChunkLimit(void) const
+{
+    return _sfCoreGLChunkLimit.getValue();
+}
+
+//! Set the value of the PrimeMaterial::_sfCoreGLChunkLimit field.
+inline
+void PrimeMaterialBase::setCoreGLChunkLimit(const UInt32 value)
+{
+    editSField(CoreGLChunkLimitFieldMask);
+
+    _sfCoreGLChunkLimit.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -85,6 +110,9 @@ void PrimeMaterialBase::execSync (      PrimeMaterialBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CoreGLChunkLimitFieldMask & whichField))
+        _sfCoreGLChunkLimit.syncWith(pFrom->_sfCoreGLChunkLimit);
 }
 #endif
 

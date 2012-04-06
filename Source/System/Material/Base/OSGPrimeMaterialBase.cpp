@@ -81,6 +81,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var UInt32          PrimeMaterialBase::_sfCoreGLChunkLimit
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -110,6 +114,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void PrimeMaterialBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "coreGLChunkLimit",
+        "",
+        CoreGLChunkLimitFieldId, CoreGLChunkLimitFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&PrimeMaterial::editHandleCoreGLChunkLimit),
+        static_cast<FieldGetMethodSig >(&PrimeMaterial::getHandleCoreGLChunkLimit));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -138,6 +156,15 @@ PrimeMaterialBase::TypeObject PrimeMaterialBase::_type(
     "   useLocalIncludes=\"false\"\n"
     "   docGroupBase=\"GrpSystemMaterial\"\n"
     "   >\n"
+    "  <Field\n"
+    "\t name=\"coreGLChunkLimit\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"4096\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -162,6 +189,19 @@ UInt32 PrimeMaterialBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFUInt32 *PrimeMaterialBase::editSFCoreGLChunkLimit(void)
+{
+    editSField(CoreGLChunkLimitFieldMask);
+
+    return &_sfCoreGLChunkLimit;
+}
+
+const SFUInt32 *PrimeMaterialBase::getSFCoreGLChunkLimit(void) const
+{
+    return &_sfCoreGLChunkLimit;
+}
+
+
 
 
 
@@ -172,6 +212,10 @@ SizeT PrimeMaterialBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (CoreGLChunkLimitFieldMask & whichField))
+    {
+        returnValue += _sfCoreGLChunkLimit.getBinSize();
+    }
 
     return returnValue;
 }
@@ -181,6 +225,10 @@ void PrimeMaterialBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CoreGLChunkLimitFieldMask & whichField))
+    {
+        _sfCoreGLChunkLimit.copyToBin(pMem);
+    }
 }
 
 void PrimeMaterialBase::copyFromBin(BinaryDataHandler &pMem,
@@ -188,6 +236,11 @@ void PrimeMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CoreGLChunkLimitFieldMask & whichField))
+    {
+        editSField(CoreGLChunkLimitFieldMask);
+        _sfCoreGLChunkLimit.copyFromBin(pMem);
+    }
 }
 
 
@@ -196,12 +249,14 @@ void PrimeMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 /*------------------------- constructors ----------------------------------*/
 
 PrimeMaterialBase::PrimeMaterialBase(void) :
-    Inherited()
+    Inherited(),
+    _sfCoreGLChunkLimit       (UInt32(4096))
 {
 }
 
 PrimeMaterialBase::PrimeMaterialBase(const PrimeMaterialBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfCoreGLChunkLimit       (source._sfCoreGLChunkLimit       )
 {
 }
 
@@ -212,6 +267,31 @@ PrimeMaterialBase::~PrimeMaterialBase(void)
 {
 }
 
+
+GetFieldHandlePtr PrimeMaterialBase::getHandleCoreGLChunkLimit (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfCoreGLChunkLimit,
+             this->getType().getFieldDesc(CoreGLChunkLimitFieldId),
+             const_cast<PrimeMaterialBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr PrimeMaterialBase::editHandleCoreGLChunkLimit(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfCoreGLChunkLimit,
+             this->getType().getFieldDesc(CoreGLChunkLimitFieldId),
+             this));
+
+
+    editSField(CoreGLChunkLimitFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

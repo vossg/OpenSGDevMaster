@@ -373,6 +373,8 @@ void ChunkMaterial::rebuildState(void)
 
     }
 
+    _pState->setCoreGLChunkLimit(_sfCoreGLChunkLimit.getValue());
+
     addChunks(_pState);
 }
 

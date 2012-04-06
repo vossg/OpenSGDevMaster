@@ -65,6 +65,7 @@
 
 #include "OSGMaterial.h" // Parent
 
+#include "OSGSysFields.h"               // CoreGLChunkLimit type
 
 #include "OSGPrimeMaterialFields.h"
 
@@ -91,6 +92,18 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterialBase : public Material
 
   public:
 
+    enum
+    {
+        CoreGLChunkLimitFieldId = Inherited::NextFieldId,
+        NextFieldId = CoreGLChunkLimitFieldId + 1
+    };
+
+    static const OSG::BitVector CoreGLChunkLimitFieldMask =
+        (TypeTraits<BitVector>::One << CoreGLChunkLimitFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFCoreGLChunkLimitType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -109,6 +122,31 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterialBase : public Material
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFUInt32            *editSFCoreGLChunkLimit(void);
+            const SFUInt32            *getSFCoreGLChunkLimit (void) const;
+
+
+                  UInt32              &editCoreGLChunkLimit(void);
+                  UInt32               getCoreGLChunkLimit (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setCoreGLChunkLimit(const UInt32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,6 +170,13 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterialBase : public Material
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUInt32          _sfCoreGLChunkLimit;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -157,6 +202,8 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterialBase : public Material
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleCoreGLChunkLimit (void) const;
+    EditFieldHandlePtr editHandleCoreGLChunkLimit(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

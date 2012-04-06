@@ -153,6 +153,9 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
+    void   setCoreGLChunkLimit(UInt32 uiCoreGLChunkLimit);
+    UInt32 getCoreGLChunkLimit(void                     );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Properties                                */
@@ -188,6 +191,7 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     UInt32 _uiDefaultSortKey;
     UInt32 _uiSortKey;
     UInt32 _uiKeyGen;
+    UInt32 _uiCoreGLChunkLimit;
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */

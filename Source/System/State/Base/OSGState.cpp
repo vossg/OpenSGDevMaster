@@ -127,7 +127,12 @@ State::State(void) :
      Inherited         (                              ),
     _uiDefaultSortKey  (0                             ),
     _uiSortKey         (0                             ),
-    _uiKeyGen          (0                             )
+    _uiKeyGen          (0                             ),
+#if defined(OSG_OGL_COREONLY)
+    _uiCoreGLChunkLimit(LightChunk::getStaticClassId())
+#else
+    _uiCoreGLChunkLimit(4096                          ) // Arbitrary high value
+#endif
 {
 }
 
@@ -135,7 +140,12 @@ State::State(const State &source) :
      Inherited         (                        source),
     _uiDefaultSortKey  (                             0),
     _uiSortKey         (                             0),
-    _uiKeyGen          (                             0)
+    _uiKeyGen          (                             0),
+#if defined(OSG_OGL_COREONLY)
+    _uiCoreGLChunkLimit(LightChunk::getStaticClassId())
+#else
+    _uiCoreGLChunkLimit(4096                          ) // Arbitrary high value
+#endif
 {
 }
 
@@ -261,10 +271,11 @@ void State::activate(DrawEnv *pEnv) const
     Int32                        ind    = 0;
     UInt32                       cind   = osgMin(State::SkipNumChunks,
                                                  _mfChunks.size32()  );
+    UInt32 const                 climit = _uiCoreGLChunkLimit;
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
         {
@@ -289,10 +300,11 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
     UInt32                       i;
     UInt32                       cind   = osgMin(State::SkipNumChunks,
                                                  _mfChunks.size32()  );
+    UInt32 const                 climit = _uiCoreGLChunkLimit;
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
         StateChunk *n = *cIt;
@@ -320,7 +332,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
 
-    for(i = cind; (i < pOld->getMFChunks()->size()); ++i)
+    for(i = cind; (i < pOld->getMFChunks()->size()) && (i < climit); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -348,10 +360,11 @@ void State::deactivate(DrawEnv *pEnv) const
     Int32                        ind    = 0;
     UInt32                       cind   = osgMin(State::SkipNumChunks,
                                                  _mfChunks.size32()  );
+    UInt32 const                 climit = _uiCoreGLChunkLimit;
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
             (*cIt)->deactivate(pEnv, UInt32(ind));

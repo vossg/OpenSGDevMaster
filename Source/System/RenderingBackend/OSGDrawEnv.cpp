@@ -418,9 +418,11 @@ void DrawEnv::activate(State         *pState,
     UInt32                    cind   = osgMin(State::SkipNumChunks, 
                                               pState->getMFChunks()->size32());
 
+    UInt32 const              climit = pState->getCoreGLChunkLimit();
+
     OSG_SKIP_IT    (cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)
         {
@@ -445,6 +447,9 @@ void DrawEnv::activate(State         *pState,
 
     while(overIt != pOverride->end())
     {
+        if(overIt->first >= climit)
+            break;
+
         if(overIt->second->getIgnore() == false)
         {
             overIt->second->activate(this,
@@ -483,11 +488,13 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    cind   = osgMin(State::SkipNumChunks, 
                                               pState->getMFChunks()->size32());
 
+    UInt32 const              climit = pState->getCoreGLChunkLimit();
+
     StateChunk               *n      = NULL;
 
     OSG_SKIP_IT(cIt, cind);
    
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
 
@@ -526,7 +533,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; (i < pOld->getMFChunks()->size32()); ++i)
+    for(i = cind; (i < pOld->getMFChunks()->size32()) && (i < climit); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -552,6 +559,9 @@ void DrawEnv::changeTo(State         *pState,
 
     while(overIt != pOldOverride->end())
     {
+        if(overIt->first >= climit)
+            break;
+
         if(overIt->second->getIgnore() == false)
         {
             overIt->second->deactivate(this,
@@ -579,11 +589,13 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    cind   = osgMin(State::SkipNumChunks, 
                                               pState->getMFChunks()->size32());
 
+    UInt32 const              climit = pState->getCoreGLChunkLimit();
+
     StateChunk               *n      = NULL;
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
                     n = *cIt;
@@ -621,7 +633,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; (i < pOld->getMFChunks()->size32()); ++i)
+    for(i = cind; (i < pOld->getMFChunks()->size32()) && (i < climit); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -657,6 +669,9 @@ void DrawEnv::changeTo(State         *pState,
 
     while(overIt != pOverride->end())
     {
+        if(overIt->first >= climit)
+            break;
+
         if(overIt->second->getIgnore() == false)
         {
             overIt->second->activate(this,
@@ -685,11 +700,14 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    i;
     UInt32                    cind   = osgMin(State::SkipNumChunks, 
                                               pState->getMFChunks()->size32());
+
+    UInt32 const              climit = pState->getCoreGLChunkLimit();
+
     StateChunk               *n      = NULL;
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
                     n = *cIt;
@@ -734,7 +752,7 @@ void DrawEnv::changeTo(State         *pState,
 
     cind = osgMax(cind, State::SkipNumChunks);
 
-    for(i = cind; (i < pOld->getMFChunks()->size32()); ++i)
+    for(i = cind; (i < pOld->getMFChunks()->size32()) && (i < climit); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
         n = NULL;
@@ -775,6 +793,9 @@ void DrawEnv::changeTo(State         *pState,
 
     while(oldOverIt != pOldOverride->end())
     {
+        if(oldOverIt->first >= climit)
+            break;
+
         n = NULL;
 
         if(newOverIt        != pOverride->end() &&
@@ -814,6 +835,9 @@ void DrawEnv::changeTo(State         *pState,
 
     while(newOverIt != pOverride->end())
     {
+        if(newOverIt->first >= climit)
+            break;
+
         if(newOverIt->second->getIgnore() == false)
         {
             newOverIt->second->activate(this,
@@ -846,9 +870,11 @@ void DrawEnv::deactivate(State         *pState,
     UInt32                    cind   = osgMin(State::SkipNumChunks, 
                                               pState->getMFChunks()->size32());
 
+    UInt32 const              climit = pState->getCoreGLChunkLimit();
+
     OSG_SKIP_IT(cIt, cind);
 
-    for(; (cIt != cEnd); ++cIt, ++cind)
+    for(; (cIt != cEnd) && (cind < climit); ++cIt, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)
         {
@@ -873,6 +899,9 @@ void DrawEnv::deactivate(State         *pState,
 
     while(overIt !=  pOverride->end())
     {
+        if(overIt->first >= climit)
+            break;
+
         if(overIt->second->getIgnore() == false)
         {
             overIt->second->deactivate(this,
@@ -951,8 +980,9 @@ void DrawEnv::update(State         *pState,
 void DrawEnv::updateChunk(State *pState)
 {
     StateChunk   *c      = pState->getChunk(State::UpdateChunk);
+    UInt32 const  climit = pState->getCoreGLChunkLimit();
    
-    if(c != NULL && c->getIgnore() == false)
+    if(c != NULL && c->getIgnore() == false && c->getClassId() < climit)
     {
         (c)->changeFrom(this, c, UInt32(0));
     }
@@ -962,6 +992,7 @@ void DrawEnv::updateChunk(State         *pState,
                           StateOverride *pOverride)
 {
     StateChunk   *c      = pState->getChunk(State::UpdateChunk);
+    UInt32 const  climit = pState->getCoreGLChunkLimit();
 
     if(pOverride->size()         >  0                  &&
        pOverride->begin()->first == State::UpdateChunk  )
@@ -969,7 +1000,7 @@ void DrawEnv::updateChunk(State         *pState,
         c = pOverride->begin()->second;
     }
 
-    if(c != NULL && c->getIgnore() == false)
+    if(c != NULL && c->getIgnore() == false && c->getClassId() < climit)
     {
         c->changeFrom(this, c, UInt32(0));
     }

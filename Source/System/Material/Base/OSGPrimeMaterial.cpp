@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGPrimeMaterial.h"
+#include "OSGLightChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -92,6 +93,11 @@ PrimeMaterial::PrimeMaterial(void) :
      Inherited(    ),
     _pState   (NULL)
 {
+#if defined(OSG_OGL_COREONLY)
+    _sfCoreGLChunkLimit.setValue(LightChunk::getStaticClassId());
+#else
+    _sfCoreGLChunkLimit.setValue(4096                          );
+#endif
 }
 
 PrimeMaterial::PrimeMaterial(const PrimeMaterial &source) :
@@ -112,7 +118,13 @@ void PrimeMaterial::changed(ConstFieldMaskArg whichField,
 {
     Inherited::changed(whichField, origin, details);
 
-    rebuildState();
+    if(whichField != CoreGLChunkLimitFieldMask)
+    {
+        rebuildState();
+    }
+
+    if(_pState != NULL)
+        _pState->setCoreGLChunkLimit(_sfCoreGLChunkLimit.getValue());
 }
 
 void PrimeMaterial::dump(      UInt32    ,

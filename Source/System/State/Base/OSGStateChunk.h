@@ -90,12 +90,13 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \name                  Class Access                                */
     /*! \{                                                                 */
 
-    static const Char8  *getName              (UInt32 index);
-    static       Int32   getNumSlots          (UInt32 index);
-    static       UInt32  getUsedSlots         (void        );
+    static const Char8    *getName              (UInt32 index);
+    static       Int32     getNumSlots          (UInt32 index);
+    static       UInt32    getUsedSlots         (void        );
+    static       UInt32    getCoreGLProfileLimit(void        );
 
-    static       iterator begin(void);
-    static       iterator end  (void);
+    static       iterator  begin                (void        );
+    static       iterator  end                  (void        );
 
     bool operator ==(const StateChunkClass &rhs) const;
 
@@ -129,6 +130,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     static std::vector<StateChunkClass *> *_initClasses;
 
     static std::vector<     UInt32      > *_numslots;
+    static UInt32                          _uiCoreGLProfileLimit;
 
     static bool terminate (void);
     static bool initialize(void);
