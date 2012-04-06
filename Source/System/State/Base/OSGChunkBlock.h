@@ -141,11 +141,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
-#if 0
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */

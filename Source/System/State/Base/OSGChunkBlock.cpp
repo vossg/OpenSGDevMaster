@@ -69,17 +69,6 @@ void ChunkBlock::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#if 0
-        RenderAction::registerEnterDefault(
-            ChunkOverrideGroup::getClassType(), 
-            reinterpret_cast<Action::Callback>(
-                &ChunkOverrideGroup::renderEnter));
-
-        RenderAction::registerLeaveDefault(
-            ChunkOverrideGroup::getClassType(), 
-            reinterpret_cast<Action::Callback>(
-                &ChunkOverrideGroup::renderLeave));
-#endif
     }
 }
 
@@ -325,48 +314,6 @@ void ChunkBlock::dump(      UInt32    ,
 {
     SLOG << "Dump ChunkOverrideGroup NI" << std::endl;
 }
-
-#if 0
-ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
-{
-    RenderAction *pAction = 
-        dynamic_cast<RenderAction *>(action);
-
-    if(pAction != NULL)
-    {
-        pAction->pushState();
-
-        MFUnrecStateChunkPtr::const_iterator chIt   = this->beginChunks();
-        MFUnrecStateChunkPtr::const_iterator chEnd  = this->endChunks  ();
-        UInt32                               uiSlot = 0;
-
-        while(chIt != chEnd)
-        {
-            if(*chIt != NULL)
-                pAction->addOverride(uiSlot, *chIt);
-            
-            ++uiSlot;
-            ++chIt;
-        }
-    }
-
-    return Inherited::renderEnter(action);
-}
-
-ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
-{
-    RenderAction *pAction = 
-        dynamic_cast<RenderAction *>(action);
-
-    if(pAction != NULL)
-    {
-        pAction->popState();
-    }
-
-
-    return Inherited::renderLeave(action);
-}
-#endif
 
 
 void ChunkBlock::pushToChunks(StateChunk * const value)

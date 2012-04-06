@@ -402,6 +402,11 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
     void operator =(const Node &source);
 };
 
+namespace TraversalMasks
+{
+    static const UInt32 FindNamedComponentTraversal = 0x80000000;
+}
+
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
     const OSG::Node                               *rootNode,

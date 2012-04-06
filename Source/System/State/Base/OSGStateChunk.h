@@ -65,13 +65,15 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 
   public:
 
+    typedef std::vector<StateChunkClass *>::const_iterator iterator;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructor                                */
     /*! \{                                                                 */
 
     StateChunkClass(const Char8  *name, 
                           UInt32  numslots  = 1,
-                          UInt32  priortity = 50);
+                          UInt32  priortity = 100);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -88,14 +90,12 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \name                  Class Access                                */
     /*! \{                                                                 */
 
-           static const Char8  *getName     (UInt32 index);
-           static       Int32   getNumSlots (UInt32 index);
-    inline static       UInt32  getUsedSlots(void        );
+    static const Char8  *getName              (UInt32 index);
+    static       Int32   getNumSlots          (UInt32 index);
+    static       UInt32  getUsedSlots         (void        );
 
-    typedef std::vector<StateChunkClass *>::const_iterator iterator;
-
-    static iterator begin(void);
-    static iterator end  (void);
+    static       iterator begin(void);
+    static       iterator end  (void);
 
     bool operator ==(const StateChunkClass &rhs) const;
 
@@ -151,8 +151,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunk : public StateChunkBase
     /*! \name                 Chunk Class Access                           */
     /*! \{                                                                 */
 
-                         UInt32           getClassId      (void) const;
-           virtual const StateChunkClass *getClass        (void) const;
+                  UInt32           getClassId      (void) const;
+    virtual const StateChunkClass *getClass        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

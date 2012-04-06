@@ -137,8 +137,9 @@ bool StateChunkClass::initialize(void)
 
     for(UInt32 i = 0; i < _classes->size(); ++i)
     {
-        FDEBUG_GV(("[%d][%d] %s %d %d\n",
+        FDEBUG_GV(("[%d/%d][%d] %s %d %d\n",
                    i,
+                   StateChunkClass::getUsedSlots(),
                    (*_classes)[i]->_classId,
                    (*_classes)[i]->_className.c_str(),
                    (*_classes)[i]->_priority,

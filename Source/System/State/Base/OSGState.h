@@ -105,6 +105,11 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name               OpenGL State Management                        */
     /*! \{                                                                 */
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name               OpenGL State Management                        */
+    /*! \{                                                                 */
+
     void activate  (DrawEnv *pEnv) const;
 
     void changeFrom(DrawEnv *pEnv, 
@@ -128,21 +133,25 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    StateChunk * getChunk     (UInt32      chunkId                ) const;
+    StateChunk *getChunk     (UInt32      chunkId                ) const;
 
-    bool         chunkPresent (UInt32      chunkId                ) const;
-    bool         chunkPresent (StateChunk *chunk                  ) const;
+    bool        chunkPresent (UInt32      chunkId                ) const;
+    bool        chunkPresent (StateChunk *chunk                  ) const;
    
-    bool         addChunk     (StateChunk *chunk, 
-                               Int32       index = AutoSlotReplace);
+    bool        addChunk     (StateChunk *chunk, 
+                              Int32       index = AutoSlotReplace);
 
-    bool         subChunk     (StateChunk *chunk                  );
+    bool        subChunk     (StateChunk *chunk                  );
 
-    bool         subChunk     (UInt32      classid, 
-                               Int32       index                  );
+    bool        subChunk     (UInt32      classid, 
+                              Int32       index                  );
 
-    void         clearChunks  (void                               );
+    void        clearChunks  (void                               );
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

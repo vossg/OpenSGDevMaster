@@ -71,16 +71,19 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
 
   public:
 
-    typedef std::pair  <UInt32, StateChunk *>           ChunkElement;
+    typedef std::pair  <UInt32, StateChunk *>                 ChunkElement;
 
-    typedef std::vector<ChunkElement        >           ChunkStore;
-    typedef std::vector<ChunkElement        >::iterator ChunkStoreIt;
+    typedef std::vector<ChunkElement        >                 ChunkStore;
+    typedef std::vector<ChunkElement        >::iterator       ChunkStoreIt;
+    typedef std::vector<ChunkElement        >::const_iterator ChunkStoreConstIt;
 
-    typedef std::vector<UInt16              >           IdStore;
-    typedef std::vector<UInt16              >::iterator IdStoreIt;
+    typedef std::vector<UInt16              >                 IdStore;
+    typedef std::vector<UInt16              >::iterator       IdStoreIt;
+
 
     typedef std::vector<ShaderProgramChunk *>           ProgramChunkStore;
     typedef std::vector<ShaderProgramVariableChunk *>   ProgramVarChunkStore;
+
 
     static const UInt32 InvalidKey     = State::InvalidKey;
 
@@ -123,10 +126,10 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    ChunkStoreIt begin (void);
-    ChunkStoreIt end   (void);
-    SizeT        size  (void);
-    UInt32       size32(void);
+    ChunkStoreConstIt begin (void) const;
+    ChunkStoreConstIt end   (void) const;
+    SizeT             size  (void) const;
+    UInt32            size32(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

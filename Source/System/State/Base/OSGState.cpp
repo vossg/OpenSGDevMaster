@@ -59,6 +59,7 @@
 #else
 #include "OSGSimpleSHLChunk.h"
 #endif
+#include "OSGLightChunk.h"
 
 OSG_USING_NAMESPACE
 
@@ -123,18 +124,18 @@ void State::onCreateAspect(const State *createAspect,
 /*------------- constructors & destructors --------------------------------*/
 
 State::State(void) :
-     Inherited       ( ),
-    _uiDefaultSortKey(0),
-    _uiSortKey       (0),
-    _uiKeyGen        (0)
+     Inherited         (                              ),
+    _uiDefaultSortKey  (0                             ),
+    _uiSortKey         (0                             ),
+    _uiKeyGen          (0                             )
 {
 }
 
 State::State(const State &source) :
-     Inherited       (source),
-    _uiDefaultSortKey(     0),
-    _uiSortKey       (     0),
-    _uiKeyGen        (     0)
+     Inherited         (                        source),
+    _uiDefaultSortKey  (                             0),
+    _uiSortKey         (                             0),
+    _uiKeyGen          (                             0)
 {
 }
 
@@ -255,15 +256,15 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 void State::activate(DrawEnv *pEnv) const
 {
-    MFChunksType::const_iterator cIt  = _mfChunks.begin();
-    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind  = 0;
-    UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size32()  );
+    MFChunksType::const_iterator cIt    = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd   = _mfChunks.end  ();
+    Int32                        ind    = 0;
+    UInt32                       cind   = osgMin(State::SkipNumChunks,
+                                                 _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; cIt != cEnd; ++cIt, ++cind)
+    for(; (cIt != cEnd); ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
         {
@@ -282,16 +283,16 @@ void State::activate(DrawEnv *pEnv) const
 
 void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 {
-    MFChunksType::const_iterator cIt  = _mfChunks.begin();
-    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind  = 0;
-    UInt32                               i;
-    UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size32()  );
+    MFChunksType::const_iterator cIt    = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd   = _mfChunks.end  ();
+    Int32                        ind    = 0;
+    UInt32                       i;
+    UInt32                       cind   = osgMin(State::SkipNumChunks,
+                                                 _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; cIt != cEnd; ++cIt, ++cind)
+    for(; (cIt != cEnd); ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
         StateChunk *n = *cIt;
@@ -319,7 +320,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
     if(ind >= StateChunkClass::getNumSlots(cind))
         ind = 0;
 
-    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
+    for(i = cind; (i < pOld->getMFChunks()->size()); ++i)
     {
         StateChunk *o = pOld->getChunk(i);
 
@@ -342,15 +343,15 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 
 void State::deactivate(DrawEnv *pEnv) const
 {
-    MFChunksType::const_iterator cIt  = _mfChunks.begin();
-    MFChunksType::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind  = 0;
-    UInt32                               cind = osgMin(State::SkipNumChunks,
-                                                       _mfChunks.size32()  );
+    MFChunksType::const_iterator cIt    = _mfChunks.begin();
+    MFChunksType::const_iterator cEnd   = _mfChunks.end  ();
+    Int32                        ind    = 0;
+    UInt32                       cind   = osgMin(State::SkipNumChunks,
+                                                 _mfChunks.size32()  );
 
     OSG_SKIP_IT(cIt, cind);
 
-    for(; cIt != cEnd; ++cIt, ++cind)
+    for(; (cIt != cEnd); ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
             (*cIt)->deactivate(pEnv, UInt32(ind));

@@ -42,6 +42,7 @@
 #include "OSGAttachment.h"
 #include "OSGAttachmentMapSFields.h"
 #include "OSGNameAttachment.h"
+#include "OSGNode.h"
 
 #include <boost/bind.hpp>
 #include <boost/format.hpp>
@@ -482,6 +483,17 @@ FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
     if(oVisited.visit(pCnt->getId()) == false)
     {
         return NULL;
+    }
+
+    const Node *pNode = dynamic_cast<const Node *>(pCnt);
+
+    if(pNode != NULL)
+    {
+        if(0x0000 == (pNode->getTravMask() & 
+                      TraversalMasks::FindNamedComponentTraversal))
+        {
+            return NULL;
+        }
     }
 
     const FieldContainerType &fcType = pCnt->getType();

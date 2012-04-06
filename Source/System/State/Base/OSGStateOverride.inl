@@ -136,25 +136,25 @@ bool StateOverride::isTransparent(void)
 }
 
 inline
-StateOverride::ChunkStoreIt StateOverride::begin(void)
+StateOverride::ChunkStoreConstIt StateOverride::begin(void) const
 {
     return _vChunks.begin();
 }
 
 inline
-StateOverride::ChunkStoreIt StateOverride::end(void)
+StateOverride::ChunkStoreConstIt StateOverride::end(void) const
 {
     return _vChunks.end();
 }
 
 inline
-SizeT StateOverride::size(void)
+SizeT StateOverride::size(void) const
 {
     return _vChunks.size();
 }
 
 inline
-UInt32 StateOverride::size32(void)
+UInt32 StateOverride::size32(void) const
 {
     return UInt32(_vChunks.size());
 }
