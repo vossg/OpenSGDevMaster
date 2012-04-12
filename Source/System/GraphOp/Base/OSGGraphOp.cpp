@@ -376,6 +376,21 @@ bool GraphOp::ParamSet::operator()(const char *name, UInt32 &val)
     return false;
 }
 
+bool GraphOp::ParamSet::operator()(const char *name, Int32 &val)
+{
+    valuesT::iterator it = _values.find(name);
+    
+    if(it != _values.end())
+    {
+        const Char8* c = (*it).second.c_str();
+        val = TypeTraits<Int32>::getFromCString(c);
+        
+        _used[name] = true;
+        return true;
+    }
+    return false;
+}
+
 bool GraphOp::ParamSet::operator()(const char *name, bool &val)
 {
     valuesT::iterator it = _values.find(name);

@@ -93,6 +93,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     ShaderProgramBase::_sfDefines
+    
+*/
+
 /*! \var UInt32          ShaderProgramBase::_sfGLId
     
 */
@@ -182,6 +186,18 @@ void ShaderProgramBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleProgram),
         static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleProgram));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "defines",
+        "",
+        DefinesFieldId, DefinesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderProgram::editHandleDefines),
+        static_cast<FieldGetMethodSig >(&ShaderProgram::getHandleDefines));
 
     oType.addInitialDesc(pDesc);
 
@@ -342,6 +358,15 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "    </Field>\n"
     "\n"
     "    <Field\n"
+    "        name=\"defines\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
     "        name=\"GLId\"\n"
     "        type=\"UInt32\"\n"
     "        cardinality=\"single\"\n"
@@ -485,6 +510,19 @@ const SFString *ShaderProgramBase::getSFProgram(void) const
 }
 
 
+SFString *ShaderProgramBase::editSFDefines(void)
+{
+    editSField(DefinesFieldMask);
+
+    return &_sfDefines;
+}
+
+const SFString *ShaderProgramBase::getSFDefines(void) const
+{
+    return &_sfDefines;
+}
+
+
 SFUInt32 *ShaderProgramBase::editSFGLId(void)
 {
     editSField(GLIdFieldMask);
@@ -596,6 +634,10 @@ SizeT ShaderProgramBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfProgram.getBinSize();
     }
+    if(FieldBits::NoField != (DefinesFieldMask & whichField))
+    {
+        returnValue += _sfDefines.getBinSize();
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         returnValue += _sfGLId.getBinSize();
@@ -649,6 +691,10 @@ void ShaderProgramBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfProgram.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DefinesFieldMask & whichField))
+    {
+        _sfDefines.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyToBin(pMem);
@@ -701,6 +747,11 @@ void ShaderProgramBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ProgramFieldMask);
         _sfProgram.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DefinesFieldMask & whichField))
+    {
+        editSField(DefinesFieldMask);
+        _sfDefines.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
@@ -874,6 +925,7 @@ ShaderProgramBase::ShaderProgramBase(void) :
     Inherited(),
     _sfShaderType             (GLenum(GL_NONE)),
     _sfProgram                (),
+    _sfDefines                (),
     _sfGLId                   (UInt32(0)),
     _sfVariables              (this,
                           VariablesFieldId,
@@ -892,6 +944,7 @@ ShaderProgramBase::ShaderProgramBase(const ShaderProgramBase &source) :
     Inherited(source),
     _sfShaderType             (source._sfShaderType             ),
     _sfProgram                (source._sfProgram                ),
+    _sfDefines                (source._sfDefines                ),
     _sfGLId                   (source._sfGLId                   ),
     _sfVariables              (this,
                           VariablesFieldId,
@@ -1083,6 +1136,31 @@ EditFieldHandlePtr ShaderProgramBase::editHandleProgram        (void)
 
 
     editSField(ProgramFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderProgramBase::getHandleDefines         (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfDefines,
+             this->getType().getFieldDesc(DefinesFieldId),
+             const_cast<ShaderProgramBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProgramBase::editHandleDefines        (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfDefines,
+             this->getType().getFieldDesc(DefinesFieldId),
+             this));
+
+
+    editSField(DefinesFieldMask);
 
     return returnValue;
 }

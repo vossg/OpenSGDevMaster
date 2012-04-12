@@ -121,6 +121,8 @@ class OSGBaseBuilder:
     self.nomssecure     = oOptions.nomssecure     # optNoMSSecure
 
     self.noSuppDirInit  = oOptions.nosuppdirinit
+    self.useVS2008      = oOptions.useVS2008
+
 
     self.cmakeCmd       = None
     self.makeCmd        = None
@@ -161,6 +163,7 @@ class OSGBaseBuilder:
     print "osg build       : ", not self.noosgbuild
 
     print "ms secure       : ", self.nomssecure
+    print "vs2008          : ", self.useVS2008
 
     print "build subdir    : ", self.buildSubDir
     print "No SuppDir init : ", self.noSuppDirInit
@@ -566,11 +569,21 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
 ##32    cmdirs = glob.glob("C:/Program Files/CMake *")
 
-    self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
-                          "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC",
-                          "C:/Program Files/Git/bin",
-                          "C:/Program Files (x86)/Git/bin"]
+    if oOptions.useVS2008 == True:
+      self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 9.0/VC",
+                            "C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC",
+                            "C:/Program Files/Git/bin",
+                            "C:/Program Files (x86)/Git/bin"]
 
+      self.boostToolset = "toolset=msvc-9.0"
+    else:
+      self.fallbackPaths = ["C:/Program Files/Microsoft Visual Studio 10.0/VC",
+                            "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC",
+                            "C:/Program Files/Git/bin",
+                            "C:/Program Files (x86)/Git/bin"]
+
+      self.boostToolset = "toolset=msvc-10.0"
+      
     cmdirs = glob.glob("C:/Program Files*/CMake *")
 
     for path in cmdirs:
@@ -590,7 +603,7 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                             "--without-mpi",
                             "--stagedir=./stage." + self.buildSubDir,
                             "--build-dir=./bin.v2." + self.buildSubDir,
-                            "toolset=msvc-10.0",
+                            self.boostToolset,
                             "variant=debug,release",
                             "threading=multi",
                             "link=shared,static",
@@ -989,11 +1002,15 @@ class OSGWin32Builder(OSGWinBaseBuilder):
                                startup_path,
                                oOptions    )
 
-    self.cmakeGen = "Visual Studio 10"
+    if self.useVS2008 == True:
+      self.cmakeGen = "Visual Studio 2008 9"
+      self.qtPlatform   = "win32-msvc2008"
+    else:
+      self.cmakeGen = "Visual Studio 10"
+      self.qtPlatform   = "win32-msvc2010"
 
     self.boostAddrOpt = ["address-model=32"]
 
-    self.qtPlatform   = "win32-msvc2010"
 
     print "Build for Win32"
 
@@ -1017,9 +1034,13 @@ class OSGWin64Builder(OSGWinBaseBuilder):
 
     self.boostAddrOpt = ["address-model=64"]
 
-    self.qtPlatform   = "win32-msvc2010"
+    if self.useVS2008 == True:
+      self.cmakeGen = "Visual Studio 9 2008 Win64"
+      self.qtPlatform   = "win32-msvc2008"
+    else:
+      self.cmakeGen = "Visual Studio 10 Win64"
+      self.qtPlatform   = "win32-msvc2010"
 
-    self.cmakeGen = "Visual Studio 10 Win64"
 
     print "Build for Win64"
 
@@ -1261,6 +1282,13 @@ m_parser.add_option("--no-suppdirinit",
                     default=False,
                     dest="nosuppdirinit",
                     help="do not clear and init Support build/inst subdirs",
+                    metavar="OpenSG");
+
+m_parser.add_option("--vs2008",
+                    action="store_true",
+                    default=False,
+                    dest="useVS2008",
+                    help="use vs2008",
                     metavar="OpenSG");
 
 args = sys.argv[1:];

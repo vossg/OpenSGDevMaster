@@ -1,0 +1,51 @@
+
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  RETURN()
+ENDIF()
+
+OSG_ADD_PROJECT("OSGContribWebInterface")
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGSystem OSGGroup)
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGUtil OSGDynamics OSGWindowGLUT)
+
+# dependencies - External
+# SET(${PROJECT_NAME}_DEP_LIB)
+# SET(${PROJECT_NAME}_DEP_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_INCDIR)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+# dependencies - Additional
+# SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
+SET(${PROJECT_NAME}_NO_DOC TRUE)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}")
+
+##############################################################################
+# setup python bindings
+##############################################################################
+
+SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+
+##############################################################################
+# setup build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBWEBINTERFACELIB")

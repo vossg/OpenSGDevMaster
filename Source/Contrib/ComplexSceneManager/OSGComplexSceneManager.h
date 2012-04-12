@@ -51,7 +51,12 @@
 //#include "OSGSensorTask.h"
 #include "OSGCSMKeySensorHelper.h"
 
+#ifdef OSG_WITH_WEBSERVICE
+#include "OSGWebInterface.h"
+#endif
+
 OSG_BEGIN_NAMESPACE
+
 
 class FrameProducerInterface;
 
@@ -174,15 +179,18 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
 
     // Variables should all be in ComplexSceneManagerBase.
 
-    static Time                                 SystemTime;
-    static ComplexSceneManagerUnrecPtr         _the;
-    static PathHandler                         _oPathHandler;
-    static std::vector<FieldContainerUnrecPtr> _vStaticGlobals;
-    static std::vector<DeferredFCUse         > _vStaticUnresolvedFCs;
+    static Time                                  SystemTime;
+    static ComplexSceneManagerUnrecPtr          _the;
+    static PathHandler                          _oPathHandler;
+    static std::vector<FieldContainerUnrecPtr>  _vStaticGlobals;
+    static std::vector<DeferredFCUse         >  _vStaticUnresolvedFCs;
 
-           MainLoopFuncF                       _fMainloop;
-           CSMKeySensorHelper                  _oKeyHelper;
-           std::vector<DeferredFCUse         > _vUnresolvedFCs;
+           MainLoopFuncF                        _fMainloop;
+           CSMKeySensorHelper                   _oKeyHelper;
+           std::vector<DeferredFCUse         >  _vUnresolvedFCs;
+#ifdef OSG_WITH_WEBSERVICE
+           WebInterfaceRefPtr                   _pWebInterface;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

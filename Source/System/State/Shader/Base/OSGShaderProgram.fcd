@@ -34,6 +34,15 @@
     </Field>
 
     <Field
+        name="defines"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        >
+    </Field>
+
+    <Field
         name="GLId"
         type="UInt32"
         cardinality="single"

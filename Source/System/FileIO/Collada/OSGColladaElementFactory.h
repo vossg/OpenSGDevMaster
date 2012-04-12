@@ -88,7 +88,8 @@ class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
 
     bool registerElement  (CreateFunctor      createFunc,
                            const std::string &elemName,
-                           const std::string &profile = "");
+                           const std::string &profile = "",
+                                 bool         override = false);
     bool unregisterElement(const std::string &elemName,
                            const std::string &profile = "");
 
@@ -128,7 +129,8 @@ class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
 
     bool          doRegisterElement  (CreateFunctor      createFunc,
                                       const std::string &elemName,
-                                      HandlerMap        &handlerMap );
+                                      HandlerMap        &handlerMap,
+                                      bool               override   );
     bool          doUnregisterElement(const std::string &elemName,
                                       HandlerMap        &handlerMap );
 

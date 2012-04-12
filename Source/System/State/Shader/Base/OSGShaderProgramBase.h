@@ -102,7 +102,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     {
         ShaderTypeFieldId = Inherited::NextFieldId,
         ProgramFieldId = ShaderTypeFieldId + 1,
-        GLIdFieldId = ProgramFieldId + 1,
+        DefinesFieldId = ProgramFieldId + 1,
+        GLIdFieldId = DefinesFieldId + 1,
         VariablesFieldId = GLIdFieldId + 1,
         FeedbackVaryingsFieldId = VariablesFieldId + 1,
         ParameterFieldId = FeedbackVaryingsFieldId + 1,
@@ -118,6 +119,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
         (TypeTraits<BitVector>::One << ShaderTypeFieldId);
     static const OSG::BitVector ProgramFieldMask =
         (TypeTraits<BitVector>::One << ProgramFieldId);
+    static const OSG::BitVector DefinesFieldMask =
+        (TypeTraits<BitVector>::One << DefinesFieldId);
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector VariablesFieldMask =
@@ -141,6 +144,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
         
     typedef SFGLenum          SFShaderTypeType;
     typedef SFString          SFProgramType;
+    typedef SFString          SFDefinesType;
     typedef SFUInt32          SFGLIdType;
     typedef SFUnrecChildShaderProgramVariablesPtr SFVariablesType;
     typedef MFString          MFFeedbackVaryingsType;
@@ -181,6 +185,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
                   SFString            *editSFProgram        (void);
             const SFString            *getSFProgram         (void) const;
 
+                  SFString            *editSFDefines        (void);
+            const SFString            *getSFDefines         (void) const;
+
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
             const SFUnrecChildShaderProgramVariablesPtr *getSFVariables      (void) const;
@@ -207,6 +214,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
 
                   std::string         &editProgram        (void);
             const std::string         &getProgram         (void) const;
+
+                  std::string         &editDefines        (void);
+            const std::string         &getDefines         (void) const;
 
                   UInt32              &editGLId           (void);
                   UInt32               getGLId            (void) const;
@@ -235,6 +245,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
 
             void setShaderType     (const GLenum &value);
             void setProgram        (const std::string &value);
+            void setDefines        (const std::string &value);
             void setGLId           (const UInt32 value);
             void setVariables      (ShaderProgramVariables * const value);
             void setCgFrontEnd     (const bool value);
@@ -305,6 +316,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
 
     SFGLenum          _sfShaderType;
     SFString          _sfProgram;
+    SFString          _sfDefines;
     SFUInt32          _sfGLId;
     SFUnrecChildShaderProgramVariablesPtr _sfVariables;
     MFString          _mfFeedbackVaryings;
@@ -365,6 +377,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     EditFieldHandlePtr editHandleShaderType     (void);
     GetFieldHandlePtr  getHandleProgram         (void) const;
     EditFieldHandlePtr editHandleProgram        (void);
+    GetFieldHandlePtr  getHandleDefines         (void) const;
+    EditFieldHandlePtr editHandleDefines        (void);
     GetFieldHandlePtr  getHandleGLId            (void) const;
     EditFieldHandlePtr editHandleGLId           (void);
     GetFieldHandlePtr  getHandleVariables       (void) const;

@@ -62,7 +62,8 @@ OSG_BEGIN_NAMESPACE
 class OSG_SYSTEM_DLLMAPPING GraphOp : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
-public:
+
+  public:
 
     typedef MemoryObject Inherited;
     typedef GraphOp      Self;
@@ -105,8 +106,8 @@ public:
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Exclusion                                 */
-    /*! \{                                                                 */    
-    
+    /*! \{                                                                 */
+
     void addToExcludeList      (      Node        * const node);
     void addToExcludeList      (const std::string &       name);
     void removeFromExcludeList (      Node        * const node);
@@ -128,7 +129,8 @@ public:
     /*! \}                                                                 */
 
     /*=========================  PROTECTED  ===============================*/
-protected:
+
+  protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                Parameter Helpers                             */
@@ -146,10 +148,11 @@ protected:
         // Set given value to parameter value, return true if set,
         // false if not
         bool operator()(const char *name, std::string &val); 
-        bool operator()(const char *name, Real32 &val); 
-        bool operator()(const char *name, UInt16 &val); 
-        bool operator()(const char *name, UInt32 &val); 
-        bool operator()(const char *name, bool &val); 
+        bool operator()(const char *name, Real32      &val); 
+        bool operator()(const char *name, UInt16      &val); 
+        bool operator()(const char *name, UInt32      &val); 
+        bool operator()(const char *name, Int32       &val); 
+        bool operator()(const char *name, bool        &val); 
 
         void markUsed(const char *name);
         
@@ -188,7 +191,9 @@ protected:
     NameListType _preserveListNames;
 
     /*==========================  PRIVATE  ================================*/
-private:
+
+  private:
+
     std::string            _name;
 };
 

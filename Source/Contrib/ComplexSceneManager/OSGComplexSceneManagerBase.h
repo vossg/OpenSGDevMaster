@@ -105,7 +105,10 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         ConstantTimeFieldId = ConstantTimeStepFieldId + 1,
         PausedFieldId = ConstantTimeFieldId + 1,
         DumpFrameStartFieldId = PausedFieldId + 1,
-        NextFieldId = DumpFrameStartFieldId + 1
+        EnableWebServiceFieldId = DumpFrameStartFieldId + 1,
+        WebServicePortFieldId = EnableWebServiceFieldId + 1,
+        WebServiceRootFieldId = WebServicePortFieldId + 1,
+        NextFieldId = WebServiceRootFieldId + 1
     };
 
     static const OSG::BitVector GlobalsFieldMask =
@@ -124,6 +127,12 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         (TypeTraits<BitVector>::One << PausedFieldId);
     static const OSG::BitVector DumpFrameStartFieldMask =
         (TypeTraits<BitVector>::One << DumpFrameStartFieldId);
+    static const OSG::BitVector EnableWebServiceFieldMask =
+        (TypeTraits<BitVector>::One << EnableWebServiceFieldId);
+    static const OSG::BitVector WebServicePortFieldMask =
+        (TypeTraits<BitVector>::One << WebServicePortFieldId);
+    static const OSG::BitVector WebServiceRootFieldMask =
+        (TypeTraits<BitVector>::One << WebServiceRootFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -135,6 +144,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     typedef SFBool            SFConstantTimeType;
     typedef SFBool            SFPausedType;
     typedef SFBool            SFDumpFrameStartType;
+    typedef SFBool            SFEnableWebServiceType;
+    typedef SFUInt32          SFWebServicePortType;
+    typedef SFString          SFWebServiceRootType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -182,6 +194,15 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   SFBool              *editSFDumpFrameStart (void);
             const SFBool              *getSFDumpFrameStart  (void) const;
 
+                  SFBool              *editSFEnableWebService(void);
+            const SFBool              *getSFEnableWebService (void) const;
+
+                  SFUInt32            *editSFWebServicePort (void);
+            const SFUInt32            *getSFWebServicePort  (void) const;
+
+                  SFString            *editSFWebServiceRoot (void);
+            const SFString            *getSFWebServiceRoot  (void) const;
+
 
                   FieldContainer * getGlobals        (const UInt32 index) const;
 
@@ -205,6 +226,15 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   bool                &editDumpFrameStart (void);
                   bool                 getDumpFrameStart  (void) const;
 
+                  bool                &editEnableWebService(void);
+                  bool                 getEnableWebService (void) const;
+
+                  UInt32              &editWebServicePort (void);
+                  UInt32               getWebServicePort  (void) const;
+
+                  std::string         &editWebServiceRoot (void);
+            const std::string         &getWebServiceRoot  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -217,6 +247,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
             void setConstantTime   (const bool value);
             void setPaused         (const bool value);
             void setDumpFrameStart (const bool value);
+            void setEnableWebService(const bool value);
+            void setWebServicePort (const UInt32 value);
+            void setWebServiceRoot (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -295,6 +328,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     SFBool            _sfConstantTime;
     SFBool            _sfPaused;
     SFBool            _sfDumpFrameStart;
+    SFBool            _sfEnableWebService;
+    SFUInt32          _sfWebServicePort;
+    SFString          _sfWebServiceRoot;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,6 +375,12 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     EditFieldHandlePtr editHandlePaused         (void);
     GetFieldHandlePtr  getHandleDumpFrameStart  (void) const;
     EditFieldHandlePtr editHandleDumpFrameStart (void);
+    GetFieldHandlePtr  getHandleEnableWebService (void) const;
+    EditFieldHandlePtr editHandleEnableWebService(void);
+    GetFieldHandlePtr  getHandleWebServicePort  (void) const;
+    EditFieldHandlePtr editHandleWebServicePort (void);
+    GetFieldHandlePtr  getHandleWebServiceRoot  (void) const;
+    EditFieldHandlePtr editHandleWebServiceRoot (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

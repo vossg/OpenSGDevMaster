@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2009 by the OpenSG Forum                  *
+ *                 Copyright (C) 2003 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,26 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
+
+#ifndef _OSGCONTRIBWEBINTERFACEDEF_H_
+#define _OSGCONTRIBWEBINTERFACEDEF_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGColladaElementFactoryHelper.h"
+//---------------------------------------------------------------------------
+//  Defines
+//---------------------------------------------------------------------------
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#if defined(WIN32)
+#   ifdef OSG_COMPILECONTRIBWEBINTERFACELIB
+#       define OSG_CONTRIBWEBINTERFACE_DLLMAPPING     __declspec(dllexport)
+#       define OSG_CONTRIBWEBINTERFACE_DLLTMPLMAPPING __declspec(dllexport)
+#   else
+#       define OSG_CONTRIBWEBINTERFACE_DLLMAPPING     __declspec(dllimport)
+#       define OSG_CONTRIBWEBINTERFACE_DLLTMPLMAPPING __declspec(dllimport)
+#   endif
+#else
+#define OSG_CONTRIBWEBINTERFACE_DLLMAPPING
+#define OSG_CONTRIBWEBINTERFACE_DLLTMPLMAPPING
+#endif
 
-OSG_BEGIN_NAMESPACE
-
-ColladaElementRegistrationHelper::ColladaElementRegistrationHelper(
-          CreateFunctor  createFunctor,
-    const std::string   &elemName, 
-    const std::string   &profile,
-          bool           override     )
-{
-    ColladaElementFactory::the()->registerElement(
-        createFunctor, elemName, profile, override);
-}
-
-OSG_END_NAMESPACE
-
-#endif // OSG_WITH_COLLADA
+#endif /* _OSGCONTRIBWEBINTERFACEDEF_H_ */

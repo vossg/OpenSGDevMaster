@@ -62,20 +62,24 @@ template class SingletonHolder<OSG::ColladaElementFactorySingleton>;
 
 bool
 ColladaElementFactorySingleton::registerElement(
-    CreateFunctor createFunc,
-    const std::string &elemName, const std::string &profile)
+          CreateFunctor  createFunc,
+    const std::string   &elemName, 
+    const std::string   &profile,
+          bool           override)
 {
     bool retVal = true;
     
     if(profile.empty() == false)
     {
         retVal = doRegisterElement(createFunc, elemName,
-                                   _profileHandlerMap[profile]);
+                                   _profileHandlerMap[profile],
+                                   override                   );
     }
     else
     {
         retVal = doRegisterElement(createFunc, elemName,
-                                   _defaultHandlerMap         );
+                                   _defaultHandlerMap,
+                                   override            );
     }
 
     return retVal;
@@ -217,19 +221,32 @@ ColladaElementFactorySingleton::create(daeElement        *daeElem,
 
 bool
 ColladaElementFactorySingleton::doRegisterElement(
-    CreateFunctor createFunc,
-    const std::string &elemName, HandlerMap &handlerMap)
+          CreateFunctor createFunc,
+    const std::string &elemName, 
+          HandlerMap  &handlerMap,
+          bool         override  )
 {
     bool         retVal = true;
     HandlerMapIt hIt    = handlerMap.find(elemName);
 
     if(hIt != handlerMap.end())
     {
-        SWARNING << "ColladaElementFactorySingleton::doRegisterElement: "
-                 << "elemName [" << elemName << "] already registered."
-                 << std::endl;
+        if(override == false)
+        {
+            SWARNING << "ColladaElementFactorySingleton::doRegisterElement: "
+                     << "elemName [" << elemName << "] already registered."
+                     << std::endl;
 
-        retVal = false;
+            retVal = false;
+        }
+        else
+        {
+            SWARNING << "ColladaElementFactorySingleton::doRegisterElement: "
+                     << "overrode elemName [" << elemName << "] handler."
+                     << std::endl;
+            
+            hIt->second = createFunc;
+        }
     }
     else
     {

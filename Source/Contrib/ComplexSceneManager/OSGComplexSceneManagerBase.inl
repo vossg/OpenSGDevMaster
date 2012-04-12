@@ -240,6 +240,81 @@ void ComplexSceneManagerBase::setDumpFrameStart(const bool value)
 
     _sfDumpFrameStart.setValue(value);
 }
+//! Get the value of the ComplexSceneManager::_sfEnableWebService field.
+
+inline
+bool &ComplexSceneManagerBase::editEnableWebService(void)
+{
+    editSField(EnableWebServiceFieldMask);
+
+    return _sfEnableWebService.getValue();
+}
+
+//! Get the value of the ComplexSceneManager::_sfEnableWebService field.
+inline
+      bool  ComplexSceneManagerBase::getEnableWebService(void) const
+{
+    return _sfEnableWebService.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfEnableWebService field.
+inline
+void ComplexSceneManagerBase::setEnableWebService(const bool value)
+{
+    editSField(EnableWebServiceFieldMask);
+
+    _sfEnableWebService.setValue(value);
+}
+//! Get the value of the ComplexSceneManager::_sfWebServicePort field.
+
+inline
+UInt32 &ComplexSceneManagerBase::editWebServicePort(void)
+{
+    editSField(WebServicePortFieldMask);
+
+    return _sfWebServicePort.getValue();
+}
+
+//! Get the value of the ComplexSceneManager::_sfWebServicePort field.
+inline
+      UInt32  ComplexSceneManagerBase::getWebServicePort(void) const
+{
+    return _sfWebServicePort.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfWebServicePort field.
+inline
+void ComplexSceneManagerBase::setWebServicePort(const UInt32 value)
+{
+    editSField(WebServicePortFieldMask);
+
+    _sfWebServicePort.setValue(value);
+}
+//! Get the value of the ComplexSceneManager::_sfWebServiceRoot field.
+
+inline
+std::string &ComplexSceneManagerBase::editWebServiceRoot(void)
+{
+    editSField(WebServiceRootFieldMask);
+
+    return _sfWebServiceRoot.getValue();
+}
+
+//! Get the value of the ComplexSceneManager::_sfWebServiceRoot field.
+inline
+const std::string &ComplexSceneManagerBase::getWebServiceRoot(void) const
+{
+    return _sfWebServiceRoot.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfWebServiceRoot field.
+inline
+void ComplexSceneManagerBase::setWebServiceRoot(const std::string &value)
+{
+    editSField(WebServiceRootFieldMask);
+
+    _sfWebServiceRoot.setValue(value);
+}
 
 //! Get the value of the \a index element the ComplexSceneManager::_mfGlobals field.
 inline
@@ -285,6 +360,15 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 
     if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
         _sfDumpFrameStart.syncWith(pFrom->_sfDumpFrameStart);
+
+    if(FieldBits::NoField != (EnableWebServiceFieldMask & whichField))
+        _sfEnableWebService.syncWith(pFrom->_sfEnableWebService);
+
+    if(FieldBits::NoField != (WebServicePortFieldMask & whichField))
+        _sfWebServicePort.syncWith(pFrom->_sfWebServicePort);
+
+    if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
+        _sfWebServiceRoot.syncWith(pFrom->_sfWebServiceRoot);
 }
 #endif
 

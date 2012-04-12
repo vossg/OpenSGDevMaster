@@ -467,10 +467,13 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 /*----------------------- constructors & destructors ----------------------*/
 
 ComplexSceneManager::ComplexSceneManager(void) :
-     Inherited     (),
-    _fMainloop     (),
-    _oKeyHelper    (),
-    _vUnresolvedFCs()
+     Inherited     (    ),
+    _fMainloop     (    ),
+    _oKeyHelper    (    ),
+    _vUnresolvedFCs(    )
+#ifdef OSG_WITH_WEBSERVICE
+   ,_pWebInterface (NULL)
+#endif
 {
 }
 
@@ -479,7 +482,9 @@ ComplexSceneManager::ComplexSceneManager(const ComplexSceneManager &source) :
     _fMainloop     (      ),
     _oKeyHelper    (      ),
     _vUnresolvedFCs(      )
-    
+#ifdef OSG_WITH_WEBSERVICE
+   ,_pWebInterface (NULL  )
+#endif
 {
 }
 
@@ -946,6 +951,10 @@ void ComplexSceneManager::terminate(void)
 
 void ComplexSceneManager::shutdown(void)
 {
+#ifdef OSG_WITH_WEBSERVICE
+    _pWebInterface = NULL;
+#endif
+
     if(FrameHandler::the() != NULL)
     {
         FrameHandler::the()->shutdown();
@@ -970,6 +979,27 @@ void ComplexSceneManager::setMainloop(MainLoopFuncF fMainloop)
 
 void ComplexSceneManager::run(void)
 {
+#ifdef OSG_WITH_WEBSERVICE
+    if(this->getEnableWebService() == true)
+    {
+        _pWebInterface = WebInterface::create(this->getWebServicePort());
+
+        FieldContainer *pRoot = 
+            this->resolve(this->getWebServiceRoot().c_str(), NULL, 0);
+
+        Node *pRootNode = dynamic_cast<Node *>(pRoot);
+
+        if(pRootNode != NULL)
+        {
+            fprintf(stderr, "WebService using : %p\n",
+                    pRootNode                        );
+
+            _pWebInterface->setRoot           (pRootNode);
+            _pWebInterface->setSystemContainer(this     );
+        }
+    }
+#endif
+
     if(_fMainloop)
     {
         _fMainloop();
@@ -1043,6 +1073,14 @@ void ComplexSceneManager::frame(void)
     SystemTime = FrameHandler::the()->getTimeStamp();
 
     commitChanges();
+
+#ifdef OSG_WITH_WEBSERVICE
+    if(_pWebInterface != NULL)
+    {
+        _pWebInterface->waitRequest(0.01);
+        _pWebInterface->handleRequests();
+    }
+#endif
 
     if(_sfDrawManager.getValue() != NULL)
     {

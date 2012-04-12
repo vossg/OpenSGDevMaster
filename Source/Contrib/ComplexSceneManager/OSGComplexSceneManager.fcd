@@ -102,4 +102,32 @@
 	>
 	</Field>
 
+	<Field
+		name="enableWebService"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
+	<Field
+		name="webServicePort"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="8080"
+	>
+	</Field>
+	<Field
+		name="webServiceRoot"
+		type="std::string"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue='"RootNode"'
+	>
+	</Field>
+
 </FieldContainer>

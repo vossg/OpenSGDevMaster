@@ -186,8 +186,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    daeElement     *findDOMParam(const std::string &name) const;
-    ColladaElement *findParam   (const std::string &name) const;
+    virtual daeElement     *findDOMParam(const std::string &name) const;
+    virtual ColladaElement *findParam   (const std::string &name) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -255,14 +255,14 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Profile Handlers                                             */
     /*! \{                                                                 */
 
-            void readImageArray   (const domImage_Array    &images);
+    virtual void readImageArray   (const domImage_Array    &images);
     virtual void readNewParams    (const CommonParamArray  &newParams);
 
     virtual void readProfileCommon(      domProfile_COMMON *prof     );
     virtual void readProfileGLSL  (      domProfile_GLSL   *prof     );
     virtual void readProfileCG    (      domProfile_CG     *prof     );
 
-            void readTextureParams(
+    virtual void readTextureParams(
                 domCommon_color_or_texture_type::domTexture    *texture,
                 TextureTarget                                   target );
 
@@ -305,35 +305,36 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         BlendChunkUnrecPtr              &blendChunk,
         DepthChunkUnrecPtr              &depthChunk,
         UInt32                          &texCount     );
+
     void handleProfileCommonSpecular(
         domCommon_color_or_texture_type *specular,
         MaterialChunk                   *matChunk     );
 
-    void fillColorParamTex  (
+    virtual void fillColorParamTex  (
         domCommon_color_or_texture_type                *colTex,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
         domCommon_color_or_texture_type::domTextureRef &texOut     );
 
-    void fillColorParamTex  (
+    virtual void fillColorParamTex  (
         domCommon_transparent_type                     *colTex,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
         domCommon_color_or_texture_type::domTextureRef &texOut     );
 
-    void fillFloatParam     (
+    virtual void fillFloatParam     (
         domCommon_float_or_param_type                  *floatParam,
         domCommon_float_or_param_type::domFloatRef     &floatOut,
         domCommon_float_or_param_type::domParamRef     &paramOut   );
 
-    void addTexture(const std::string           &tcSemantic,
-                          ColladaInstanceEffect *colInstEffect,
-                          ColladaTexture        *colTexture,
-                          ChunkMaterial         *mat,
-                          GLenum                 envMode,
-                          UInt32                &texCount       );
+    virtual void addTexture(const std::string           &tcSemantic,
+                                  ColladaInstanceEffect *colInstEffect,
+                                  ColladaTexture        *colTexture,
+                                  ChunkMaterial         *mat,
+                                  GLenum                 envMode,
+                                  UInt32                &texCount       );
 
-    Real32 luminance(const Color4f &col);
+    virtual Real32 luminance(const Color4f &col);
 
     static ColladaElementRegistrationHelper _regHelper;
 

@@ -158,6 +158,14 @@ void CSMSceneParameter::reset(void)
         
         std::cerr << "Center: " << getSceneCenter()
                   << std::endl;
+
+        setSceneNear(osgPow(10.f, Int32(        log10f(_sfSceneDiag.getValue().length()))  - 2));
+        setSceneFar (osgPow(10.f, Int32(osgCeil(log10f(_sfSceneDiag.getValue().length()))) + 1));
+
+        std::cerr << "clipping (" << _sfSceneDiag.getValue().length() 
+                  << ": from " 
+                  << getSceneNear() << " to " 
+                  << getSceneFar () << std::endl;
     }
 }
 

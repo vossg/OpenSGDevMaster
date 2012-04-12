@@ -115,6 +115,18 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            ComplexSceneManagerBase::_sfEnableWebService
+    
+*/
+
+/*! \var UInt32          ComplexSceneManagerBase::_sfWebServicePort
+    
+*/
+
+/*! \var std::string     ComplexSceneManagerBase::_sfWebServiceRoot
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -234,6 +246,42 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleDumpFrameStart));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableWebService",
+        "",
+        EnableWebServiceFieldId, EnableWebServiceFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleEnableWebService),
+        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleEnableWebService));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "webServicePort",
+        "",
+        WebServicePortFieldId, WebServicePortFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleWebServicePort),
+        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleWebServicePort));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "webServiceRoot",
+        "",
+        WebServiceRootFieldId, WebServiceRootFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleWebServiceRoot),
+        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleWebServiceRoot));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -349,6 +397,34 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
+    "\t\tname=\"enableWebService\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"webServicePort\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"8080\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"webServiceRoot\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue='\"RootNode\"'\n"
     "\t>\n"
     "\t</Field>\n"
     "\n"
@@ -480,6 +556,45 @@ const SFBool *ComplexSceneManagerBase::getSFDumpFrameStart(void) const
 }
 
 
+SFBool *ComplexSceneManagerBase::editSFEnableWebService(void)
+{
+    editSField(EnableWebServiceFieldMask);
+
+    return &_sfEnableWebService;
+}
+
+const SFBool *ComplexSceneManagerBase::getSFEnableWebService(void) const
+{
+    return &_sfEnableWebService;
+}
+
+
+SFUInt32 *ComplexSceneManagerBase::editSFWebServicePort(void)
+{
+    editSField(WebServicePortFieldMask);
+
+    return &_sfWebServicePort;
+}
+
+const SFUInt32 *ComplexSceneManagerBase::getSFWebServicePort(void) const
+{
+    return &_sfWebServicePort;
+}
+
+
+SFString *ComplexSceneManagerBase::editSFWebServiceRoot(void)
+{
+    editSField(WebServiceRootFieldMask);
+
+    return &_sfWebServiceRoot;
+}
+
+const SFString *ComplexSceneManagerBase::getSFWebServiceRoot(void) const
+{
+    return &_sfWebServiceRoot;
+}
+
+
 
 
 void ComplexSceneManagerBase::pushToGlobals(FieldContainer * const value)
@@ -575,6 +690,18 @@ SizeT ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDumpFrameStart.getBinSize();
     }
+    if(FieldBits::NoField != (EnableWebServiceFieldMask & whichField))
+    {
+        returnValue += _sfEnableWebService.getBinSize();
+    }
+    if(FieldBits::NoField != (WebServicePortFieldMask & whichField))
+    {
+        returnValue += _sfWebServicePort.getBinSize();
+    }
+    if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
+    {
+        returnValue += _sfWebServiceRoot.getBinSize();
+    }
 
     return returnValue;
 }
@@ -615,6 +742,18 @@ void ComplexSceneManagerBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DumpFrameStartFieldMask & whichField))
     {
         _sfDumpFrameStart.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableWebServiceFieldMask & whichField))
+    {
+        _sfEnableWebService.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (WebServicePortFieldMask & whichField))
+    {
+        _sfWebServicePort.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
+    {
+        _sfWebServiceRoot.copyToBin(pMem);
     }
 }
 
@@ -662,6 +801,21 @@ void ComplexSceneManagerBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(DumpFrameStartFieldMask);
         _sfDumpFrameStart.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableWebServiceFieldMask & whichField))
+    {
+        editSField(EnableWebServiceFieldMask);
+        _sfEnableWebService.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (WebServicePortFieldMask & whichField))
+    {
+        editSField(WebServicePortFieldMask);
+        _sfWebServicePort.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
+    {
+        editSField(WebServiceRootFieldMask);
+        _sfWebServiceRoot.copyFromBin(pMem);
     }
 }
 
@@ -768,7 +922,10 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(void) :
     _sfConstantTimeStep       (Time(0.0)),
     _sfConstantTime           (bool(false)),
     _sfPaused                 (bool(false)),
-    _sfDumpFrameStart         (bool(false))
+    _sfDumpFrameStart         (bool(false)),
+    _sfEnableWebService       (bool(false)),
+    _sfWebServicePort         (UInt32(8080)),
+    _sfWebServiceRoot         (std::string("RootNode"))
 {
 }
 
@@ -781,7 +938,10 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(const ComplexSceneManagerBase &
     _sfConstantTimeStep       (source._sfConstantTimeStep       ),
     _sfConstantTime           (source._sfConstantTime           ),
     _sfPaused                 (source._sfPaused                 ),
-    _sfDumpFrameStart         (source._sfDumpFrameStart         )
+    _sfDumpFrameStart         (source._sfDumpFrameStart         ),
+    _sfEnableWebService       (source._sfEnableWebService       ),
+    _sfWebServicePort         (source._sfWebServicePort         ),
+    _sfWebServiceRoot         (source._sfWebServiceRoot         )
 {
 }
 
@@ -1027,6 +1187,81 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleDumpFrameStart (void)
 
 
     editSField(DumpFrameStartFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComplexSceneManagerBase::getHandleEnableWebService (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableWebService,
+             this->getType().getFieldDesc(EnableWebServiceFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComplexSceneManagerBase::editHandleEnableWebService(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableWebService,
+             this->getType().getFieldDesc(EnableWebServiceFieldId),
+             this));
+
+
+    editSField(EnableWebServiceFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComplexSceneManagerBase::getHandleWebServicePort  (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfWebServicePort,
+             this->getType().getFieldDesc(WebServicePortFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComplexSceneManagerBase::editHandleWebServicePort (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfWebServicePort,
+             this->getType().getFieldDesc(WebServicePortFieldId),
+             this));
+
+
+    editSField(WebServicePortFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComplexSceneManagerBase::getHandleWebServiceRoot  (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfWebServiceRoot,
+             this->getType().getFieldDesc(WebServiceRootFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComplexSceneManagerBase::editHandleWebServiceRoot (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfWebServiceRoot,
+             this->getType().getFieldDesc(WebServiceRootFieldId),
+             this));
+
+
+    editSField(WebServiceRootFieldMask);
 
     return returnValue;
 }

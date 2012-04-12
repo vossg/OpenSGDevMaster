@@ -622,7 +622,7 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
                 uiShader = osgGlCreateShader(shaderType);
             }
 
-            const Char8 *source = _sfProgram.getValue().c_str();
+            const Char8 *source  = _sfProgram.getValue().c_str();
 
             OSGGETGLFUNCBYID_GL3_ES(glShaderSource,
                                     osgGlShaderSource,
@@ -639,10 +639,28 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
                                     FuncIdGetShaderiv,
                                     pWin);
 
-            osgGlShaderSource(uiShader, 
-                              1, 
-                              static_cast<const char **>(&source), 
-                              0);
+            if(_sfDefines.getValue().empty() == true)
+            {
+                osgGlShaderSource(uiShader, 
+                                  1, 
+                                  static_cast<const char **>(&source), 
+                                  0);
+            }
+            else
+            {
+                const Char8 *defines = _sfDefines.getValue().c_str();
+
+                const char *shaderSources[2] = 
+                {
+                    defines,
+                    source
+                };
+
+                osgGlShaderSource(uiShader, 
+                                  2, 
+                                  shaderSources, 
+                                  0);
+            }
 
             osgGlCompileShader(uiShader);
 

@@ -124,6 +124,31 @@ void ShaderProgramBase::setProgram(const std::string &value)
 
     _sfProgram.setValue(value);
 }
+//! Get the value of the ShaderProgram::_sfDefines field.
+
+inline
+std::string &ShaderProgramBase::editDefines(void)
+{
+    editSField(DefinesFieldMask);
+
+    return _sfDefines.getValue();
+}
+
+//! Get the value of the ShaderProgram::_sfDefines field.
+inline
+const std::string &ShaderProgramBase::getDefines(void) const
+{
+    return _sfDefines.getValue();
+}
+
+//! Set the value of the ShaderProgram::_sfDefines field.
+inline
+void ShaderProgramBase::setDefines(const std::string &value)
+{
+    editSField(DefinesFieldMask);
+
+    _sfDefines.setValue(value);
+}
 //! Get the value of the ShaderProgram::_sfGLId field.
 
 inline
@@ -280,6 +305,9 @@ void ShaderProgramBase::execSync (      ShaderProgramBase *pFrom,
 
     if(FieldBits::NoField != (ProgramFieldMask & whichField))
         _sfProgram.syncWith(pFrom->_sfProgram);
+
+    if(FieldBits::NoField != (DefinesFieldMask & whichField))
+        _sfDefines.syncWith(pFrom->_sfDefines);
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);

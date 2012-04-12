@@ -72,7 +72,8 @@ class OSG_FILEIO_DLLMAPPING ColladaElementRegistrationHelper
 
     ColladaElementRegistrationHelper(CreateFunctor      createFunc,
                                      const std::string &elemName,
-                                     const std::string &profile     = "");
+                                     const std::string &profile     = "",
+                                           bool         override    = false);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

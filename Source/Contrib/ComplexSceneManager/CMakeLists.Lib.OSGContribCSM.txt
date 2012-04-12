@@ -39,7 +39,16 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGWindow
                                 OSGFileIO
                                 OSGDynamics
-                                OSGUtil)
+                                OSGUtil   )
+
+IF(OSGBUILD_OSGContribWebInterface)
+  LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGContribWebInterface)
+
+  SET(${PROJECT_NAME}_DEP_DEFS OSG_WITH_WEBSERVICE=1)
+
+MESSAGE("FOOOOOOO")
+ENDIF()
+
 
 IF(OSGBUILD_OSGCluster AND NOT OSG_OGL_COREONLY OR OSG_CHECK_COREONLY)
     LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGCluster)
