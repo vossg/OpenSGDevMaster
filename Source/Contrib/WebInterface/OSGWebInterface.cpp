@@ -74,8 +74,27 @@ WebInterface::ObjTransitPtr WebInterface::create(UInt32 port)
     }
 }
 
+void WebInterface::setCreatorFunc(CreateFunc createFunc)
+{
+    _createFunc = createFunc;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
+
+WebInterface::WebInterface(void) :
+     Inherited      (                  ),
+    _socket         (                  ),
+    _accepted       (                  ),
+    _body           (                  ),
+    _handler        (                  ),
+    _root           (NULL              ),
+    _systemContainer(NULL              ),
+    _header         (getDefaultHeader()),
+    _footer         (                  ),
+    _clist          (NULL              )
+{
+}
 
 /*! Cunstruct a WebInterface for the given port. If the port
   is used, try to bind to the following port number.

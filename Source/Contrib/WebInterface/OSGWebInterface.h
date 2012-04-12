@@ -73,40 +73,40 @@ class OSG_CONTRIBWEBINTERFACE_DLLMAPPING WebInterface : public MemoryObject
     /*! \name                  request handling                            */
     /*! \{                                                                 */
 
-    static ObjTransitPtr create        (UInt32       port       = 8080);
-    static void          setCreatorFunc(CreateFunc *_createFunc       );
+    static ObjTransitPtr create        (UInt32     port       = 8080);
+    static void          setCreatorFunc(CreateFunc createFunc       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  request handling                            */
     /*! \{                                                                 */
 
-    void handleRequests(void              );
-    bool waitRequest   (double duration=-1);
-    void flush         (void              );
+    virtual void handleRequests(void                );
+    virtual bool waitRequest   (double duration = -1);
+    virtual void flush         (void                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void setSystemContainer(      FieldContainer *system);
-    void setRoot           (      Node           *root  );
-    void setChangeList     (      ChangeList     *clist );
+    virtual void setSystemContainer(      FieldContainer *system);
+    virtual void setRoot           (      Node           *root  );
+    virtual void setChangeList     (      ChangeList     *clist );
     
-    void setHeader         (const std::string    &header);
-    void setFooter         (const std::string    &footer);
+    virtual void setHeader         (const std::string    &header);
+    virtual void setFooter         (const std::string    &footer);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-          FieldContainer *getSystemContainer(void);
-          Node           *getRoot           (void);
+    virtual       FieldContainer *getSystemContainer(void);
+    virtual       Node           *getRoot           (void);
     
-    const std::string    &getHeader         (void);
-    const std::string    &getFooter         (void);
+    virtual const std::string    &getHeader         (void);
+    virtual const std::string    &getFooter         (void);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -121,7 +121,8 @@ class OSG_CONTRIBWEBINTERFACE_DLLMAPPING WebInterface : public MemoryObject
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    WebInterface(UInt32 port = 8888);
+    WebInterface(void);
+    WebInterface(UInt32 port);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
