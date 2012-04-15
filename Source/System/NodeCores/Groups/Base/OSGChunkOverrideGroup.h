@@ -71,6 +71,8 @@ struct ChunkOverrideMapCache
 
     typedef ChunkBlock                              FinalizedElement;
 
+    static const bool IsInternal = false;
+
     static void setFallback(ParentT *pContainer, MapCacheElement pElem)
     {
         pContainer->setFallbackChunkBlock(pElem);

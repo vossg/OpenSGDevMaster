@@ -553,6 +553,7 @@ typedef long double Real128;
 
 typedef UInt64 BitVector;
 
+
 #ifndef OSG_WIN_TYPES
 
 /*! \var UInt32 RefCountStore;
@@ -582,6 +583,12 @@ typedef size_t SizeT;
  */
 
 typedef ptrdiff_t PtrDiffT;
+
+/*! \var UInt32 AspectId;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
+typedef UInt32 AspectId;
 
 /*! \var UInt8 *MemoryHandle;
  *  Handle to raw memory

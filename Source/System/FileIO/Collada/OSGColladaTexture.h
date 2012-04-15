@@ -113,10 +113,10 @@ class OSG_FILEIO_DLLMAPPING ColladaTexture : public ColladaElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-          bool         hasAlpha      (void) const;
-          bool         hasBinaryAlpha(void) const;
+                  bool        hasAlpha      (void) const;
+                  bool        hasBinaryAlpha(void) const;
 
-    const std::string &getSemantic   (void) const;
+    virtual const std::string getSemantic   (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

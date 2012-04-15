@@ -180,6 +180,18 @@ bool ColladaTexture::hasBinaryAlpha(void) const
     return retVal;
 }
 
+const std::string ColladaTexture::getSemantic(void) const
+{
+    domCommon_color_or_texture_type::domTextureRef texture = 
+        dynamic_cast< domCommon_color_or_texture_type::domTexture * >(
+            this->getDOMElement());
+
+    if(texture != NULL)
+        return texture->getTexcoord();
+
+    return std::string();
+}
+
 ColladaTexture::ColladaTexture(daeElement    *elem, 
                                ColladaGlobal *global) : 
      Inherited    (elem, 

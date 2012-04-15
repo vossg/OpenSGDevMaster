@@ -52,7 +52,7 @@ void MapCacheHandlerMixin<Desc>::classDescInserter(TypeObject &oType)
         Desc::getFieldName(),
         "map cache.",
         OSG_RC_FIELD_DESC(Self::MapCache),
-        false,
+        Desc::IsInternal,
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&Self::editHandleMapCache),
         static_cast<FieldGetMethodSig >(&Self::getHandleMapCache ));

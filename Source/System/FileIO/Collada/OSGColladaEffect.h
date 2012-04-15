@@ -190,6 +190,16 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     virtual ColladaElement *findParam   (const std::string &name) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual void setTexture(
+        TextureTarget                                eTarget,
+        ColladaTexture                              *pColTexture,
+        domCommon_color_or_texture_type::domTexture *pDomTexture = NULL);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

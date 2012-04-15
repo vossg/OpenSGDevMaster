@@ -69,6 +69,8 @@ struct VarMatMapCache
 
     typedef PrimeMaterial                         FinalizedElement;
 
+    static const bool IsInternal = false;
+
     static void setFallback(ParentT *pContainer, MapCacheElement pElem)
     {
         pContainer->setFallbackMaterial(pElem);

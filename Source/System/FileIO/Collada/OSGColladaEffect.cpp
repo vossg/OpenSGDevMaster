@@ -339,6 +339,19 @@ ColladaElement *ColladaEffect::findParam(const std::string &name) const
     return NULL;
 }
 
+void ColladaEffect::setTexture(
+        TextureTarget                                eTarget,
+        ColladaTexture                              *pColTexture,
+        domCommon_color_or_texture_type::domTexture *pDomTexture)
+{
+    ParamTexture oTexParam;
+
+    oTexParam.colTexture = pColTexture;
+    oTexParam.texture    = pDomTexture;
+
+    _textures[eTarget]   = oTexParam;
+}
+ 
 ColladaEffect::ColladaEffect(daeElement    *elem, 
                              ColladaGlobal *global) : 
     

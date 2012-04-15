@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2009 by the OpenSG Forum                  *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,73 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAHANDLERFACTORYHELPER_H_
-#define _OSGCOLLADAHANDLERFACTORYHELPER_H_
-#ifdef __sgi
-#pragma once
-#endif
+#include "OSGField.h"
 
-#include "OSGConfig.h"
+#include "OSGSField.h"
+#include "OSGSField.ins"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#include "OSGMField.h"
+#include "OSGMField.ins"
 
-#include "OSGFileIODef.h"
-#include "OSGColladaHandlerFactory.h"
+#include "OSGAspectIdFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
- */
+DataType FieldTraits<AspectId, 2>::_type("AspectId", "BaseType");
 
-class OSG_FILEIO_DLLMAPPING ColladaExtraHandlerRegHelper
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
+OSG_FIELDTRAITS_GETTYPE_NS(AspectId, 2)
 
-    typedef 
-      ColladaHandlerFactoryBase::ExtraHandlerCreator ExtraHandlerCreator;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructor                                                  */
-    /*! \{                                                                 */
-
-    ColladaExtraHandlerRegHelper(ExtraHandlerCreator fCreate);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-};
-
-class OSG_FILEIO_DLLMAPPING ColladaDomProfileHandlerRegHelper
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
-
-    typedef ColladaHandlerFactoryBase::DomProfileHandlerCreator 
-        DomProfileHandlerCreator;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructor                                                  */
-    /*! \{                                                                 */
-
-    ColladaDomProfileHandlerRegHelper(UInt32                   uiProfileId,
-                                      DomProfileHandlerCreator fCreate    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-};
-
+#if 0
+OSG_FIELD_DLLEXPORT_DEF2(SField, AspectId, 2)
+OSG_FIELD_DLLEXPORT_DEF2(MField, AspectId, 2)
+#endif
 
 OSG_END_NAMESPACE
-
-#endif // OSG_WITH_COLLADA
-
-#endif // _OSGCOLLADAHANDLERFACTORYHELPER_H_

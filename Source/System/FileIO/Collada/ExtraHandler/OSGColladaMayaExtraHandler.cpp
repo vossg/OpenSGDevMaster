@@ -64,11 +64,9 @@ void ColladaMayaExtraHandler::readTextureExtraElements(
           ColladaTexture *texture,
     const domExtra       *extra  )
 {
-#if 0
-    fprintf(stderr, "ColladaMayaExtraHandler::readTextureParams %p %p\n",
-            texture,
-            extra);
-#endif
+    OSG_COLLADA_LOG(("ColladaMayaExtraHandler::readTextureParams %p %p\n",
+                     texture,
+                     extra                                               ));
 
     const domTechnique_Array &extraTechniques = extra->getTechnique_array();
 
@@ -76,16 +74,12 @@ void ColladaMayaExtraHandler::readTextureExtraElements(
     {
         xsNMTOKEN extraProfile = extraTechniques[j]->getProfile();
 
-#if 0
-        fprintf(stderr, "Found extra profile %s\n",
-                extraProfile);
-#endif
+        OSG_COLLADA_LOG(("Found extra profile %s\n",
+                         extraProfile              ));
 
         if(osgStringNCmp(extraProfile, "OpenCOLLADAMaya", 15) == 0)
         {
-#if 0
-            fprintf(stderr, "processing OpenCOLLADAMaya\n");
-#endif
+            OSG_COLLADA_LOG(("processing OpenCOLLADAMaya\n"));
 
             const daeElementRefArray &profileElements = 
                 extraTechniques[j]->getContents();
@@ -98,11 +92,9 @@ void ColladaMayaExtraHandler::readTextureExtraElements(
 
             for(UInt32 k = 0; k < profileElements.getCount(); ++k)
             {
-#if 0
-                fprintf(stderr, "prElemName : %s | %s\n",
-                        profileElements[k]->getElementName(),
-                        profileElements[k]->getCharData().c_str());
-#endif
+                OSG_COLLADA_LOG(("prElemName : %s | %s\n",
+                                 profileElements[k]->getElementName(),
+                                 profileElements[k]->getCharData().c_str()));
 
                 if(osgStringNCmp(profileElements[k]->getElementName(),
                                  "blend_mode",
@@ -280,20 +272,16 @@ void ColladaMayaExtraHandler::readTextureExtraElements(
         }
         else if(osgStringNCmp(extraProfile, "MAYA", 4) == 0)
         {
-#if 0
-            fprintf(stderr, "processing MAYA\n");
-#endif
+            OSG_COLLADA_LOG(("processing MAYA\n"));
 
             const daeElementRefArray &profileElements = 
                 extraTechniques[j]->getContents();
 
             for(UInt32 k = 0; k < profileElements.getCount(); ++k)
             {
-#if 0
-                fprintf(stderr, "prElemName : %s | %s\n",
-                        profileElements[k]->getElementName(),
-                        profileElements[k]->getCharData().c_str());
-#endif
+                OSG_COLLADA_LOG(("prElemName : %s | %s\n",
+                                 profileElements[k]->getElementName(),
+                                 profileElements[k]->getCharData().c_str()));
 
                 if(osgStringNCmp(profileElements[k]->getElementName(),
                                  "wrapU",
@@ -352,11 +340,9 @@ void ColladaMayaExtraHandler::readGeometryExtraElements(
           ColladaGeometry *geometry,
     const domExtra        *extra   )
 {
-#if 0
-    fprintf(stderr, "ColladaMayaExtraHandler::readGeoExtraElems %p %p\n",
-            geometry,
-            extra);
-#endif
+    OSG_COLLADA_LOG(("ColladaMayaExtraHandler::readGeoExtraElems %p %p\n",
+                     geometry,
+                     extra                                               ));
 
     const domTechnique_Array &extraTechniques = extra->getTechnique_array();
 
@@ -364,27 +350,22 @@ void ColladaMayaExtraHandler::readGeometryExtraElements(
     {
         xsNMTOKEN extraProfile = extraTechniques[j]->getProfile();
 
-#if 0
-        fprintf(stderr, "Found extra profile %s\n",
-                extraProfile);
-#endif
+        OSG_COLLADA_LOG(("Found extra profile %s\n",
+                         extraProfile              ));
 
         if(osgStringNCmp(extraProfile, "OpenCOLLADAMaya", 15) == 0)
         {
-#if 0
-            fprintf(stderr, "processing\n");
-#endif
+            OSG_COLLADA_LOG(("processing\n"));
 
             const daeElementRefArray &profileElements = 
                 extraTechniques[j]->getContents();
 
             for(UInt32 k = 0; k < profileElements.getCount(); ++k)
             {
-#if 0
-                fprintf(stderr, "prElemName : %s | %s\n",
-                        profileElements[k]->getElementName(),
-                        profileElements[k]->getCharData().c_str());
-#endif
+                OSG_COLLADA_LOG(("prElemName : %s | %s\n",
+                                 profileElements[k]->getElementName(),
+                                 profileElements[k]->getCharData().c_str()));
+
 
                 if(osgStringNCmp(profileElements[k]->getElementName(),
                                  "double_sided",

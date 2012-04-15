@@ -51,8 +51,11 @@
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
 #endif
+#include "OSGSceneFileHandler.h"
 #include "OSGGLFuncProtos.h"
 #include "OSGGLXFuncProtos.h"
+
+#include "OSGDotFileGeneratorGraphOp.h"
 
 #include <X11/keysym.h>
 
@@ -163,6 +166,66 @@ void CSMNativeWindow::xMainLoop(void)
                         else if(keysym == XK_F12) 
                         {
                             FieldContainerFactory::the()->dump();
+                        }
+                        else if(keysym == XK_F11) 
+                        {
+                            fprintf(stderr, "dump vp[0] root\n");
+
+                            Window *pWin = (*winIt)->getWindow();
+
+                            if(pWin != NULL)
+                            {
+                                Viewport *pPort = pWin->getPort(0);
+
+                                if(pPort != NULL)
+                                {
+                                    fprintf(stderr, "root %p\n",
+                                            pPort->getRoot());
+
+                                    DotFileGeneratorGraphOpRefPtr pGO =
+                                        DotFileGeneratorGraphOp::create();
+
+                                    pGO->traverse(pPort->getRoot());
+                                }
+                                else
+                                {
+                                    fprintf(stderr, "viewport NULL\n");
+                                }
+                            }
+                            else
+                            {
+                                fprintf(stderr, "win NULL\n");
+                            }
+                        }
+                        else if(keysym == XK_F10) 
+                        {
+                            fprintf(stderr, "osg dump vp[0] root\n");
+
+                            Window *pWin = (*winIt)->getWindow();
+
+                            if(pWin != NULL)
+                            {
+                                Viewport *pPort = pWin->getPort(0);
+
+                                if(pPort != NULL)
+                                {
+                                    fprintf(stderr, "root %p\n",
+                                            pPort->getRoot());
+
+                                    SceneFileHandler::the()->write(
+                                        pPort->getRoot(),
+                                        "/tmp/csm.osg");
+
+                                }
+                                else
+                                {
+                                    fprintf(stderr, "viewport NULL\n");
+                                }
+                            }
+                            else
+                            {
+                                fprintf(stderr, "win NULL\n");
+                            }
                         }
                         else if(keysym == XK_Home) 
                         {

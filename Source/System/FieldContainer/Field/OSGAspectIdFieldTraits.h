@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2009 by the OpenSG Forum                  *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,73 +36,46 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAHANDLERFACTORYHELPER_H_
-#define _OSGCOLLADAHANDLERFACTORYHELPER_H_
+#ifndef _OSGASPECTIDFIELDTRAITS_H_
+#define _OSGASPECTIDFIELDTRAITS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
-
-#include "OSGFileIODef.h"
-#include "OSGColladaHandlerFactory.h"
+#include "OSGFieldTraits.h"
+#include "OSGDataType.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpFileIOCollada
-    \nohierarchy
+/*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
-class OSG_FILEIO_DLLMAPPING ColladaExtraHandlerRegHelper
+template <>
+struct FieldTraits<AspectId, 2> : 
+    public FieldTraitsPODTemplateBase<AspectId, 2>
 {
-    /*==========================  PUBLIC  =================================*/
+  private:
+
+    static  DataType                  _type;
+
   public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
 
-    typedef 
-      ColladaHandlerFactoryBase::ExtraHandlerCreator ExtraHandlerCreator;
+    typedef FieldTraits<AspectId, 2>   Self;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructor                                                  */
-    /*! \{                                                                 */
+    enum              { Convertible = Self::NotConvertible             };
 
-    ColladaExtraHandlerRegHelper(ExtraHandlerCreator fCreate);
+    static OSG_BASE_DLLMAPPING
+                 DataType  &getType (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
+    static const Char8     *getSName(void)   { return "SFAspectId";    }
+
+    static const Char8     *getMName(void)   { return "MFAspectId";    }
+
+    static       BitVector  getDefault(void) { return AspectId();      }
 };
-
-class OSG_FILEIO_DLLMAPPING ColladaDomProfileHandlerRegHelper
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-    /*---------------------------------------------------------------------*/
-    /*! \name Types                                                        */
-    /*! \{                                                                 */
-
-    typedef ColladaHandlerFactoryBase::DomProfileHandlerCreator 
-        DomProfileHandlerCreator;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Constructor                                                  */
-    /*! \{                                                                 */
-
-    ColladaDomProfileHandlerRegHelper(UInt32                   uiProfileId,
-                                      DomProfileHandlerCreator fCreate    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-};
-
 
 OSG_END_NAMESPACE
 
-#endif // OSG_WITH_COLLADA
+#endif /* _OSGASPECTIDFIELDTRAITS_H_ */
 
-#endif // _OSGCOLLADAHANDLERFACTORYHELPER_H_
