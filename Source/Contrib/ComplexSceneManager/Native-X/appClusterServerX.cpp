@@ -78,7 +78,14 @@ int main(int argc,char **argv)
           std::string     address        = "";
           bool            doStereo       = false;
           std::string     serviceGroup   = "224.245.211.234";
+          bool            noDecor        = false;
 
+          bool            geoSpec        = false;
+
+          OSG::UInt32     width          = 512;
+          OSG::UInt32     height         = 512;
+          OSG::UInt32     xPos           = 0;
+          OSG::UInt32     yPos           = 0;
 
     FILE *pOut = fopen("/tmp/cluster_server.log", "w");
 
@@ -103,23 +110,9 @@ int main(int argc,char **argv)
         {
             switch(argv[a][1])
             {
-                case 'm': 
-                    connectionType="Multicast";
-                    break;
+                case 'a': 
+                    address = argv[a][2] ? argv[a]+2 : argv[++a];
 
-                case 's':
-                    doStereo=true;
-                    break;
-                    
-                case 'w': 
-                    fullscreen=false;
-                    break;
-
-                case 'e':
-                    exitOnError=true;
-                    break;
-
-                case 'a': address = argv[a][2] ? argv[a]+2 : argv[++a];
                     if(address == argv[argc])
                     { 
                         SLOG << "address missing" << OSG::endLog;
@@ -129,12 +122,68 @@ int main(int argc,char **argv)
                     std::cout << address << OSG::endLog;
                     break;
 
+                case 'd':
+                    noDecor = true;
+                    break;
+
+                case 'e':
+                    exitOnError=true;
+                    break;
+
+                case 'g':
+                {
+                    int rc = 0;
+
+                    if(argv[a][2] != '\0')
+                    {
+                        rc = sscanf(argv[a] + 2, 
+                                    "%dx%d+%d+%d",
+                                    &width,
+                                    &height,
+                                    &xPos,
+                                    &yPos          );
+                    }
+                    else
+                    {
+                        rc = sscanf(argv[++a], 
+                                    "%dx%d+%d+%d",
+                                    &width,
+                                    &height,
+                                    &xPos,
+                                    &yPos          );
+                    }
+
+                    if(rc == 4)
+                    {
+                        geoSpec = true;
+                    }
+
+                    break;
+                }
+
                 case 'j':
+
                     if(argv[a][2] != '\0')
                         serviceGroup=argv[a]+2;
                     else
                         serviceGroup=argv[++a];
                     break;
+
+                case 'm': 
+                    connectionType="Multicast";
+                    break;
+
+
+                case 's':
+                    doStereo=true;
+                    break;
+                    
+                case 'w': 
+                    fullscreen = false;
+                    break;
+
+
+
               
                 case 'h':
                 default:  
@@ -255,7 +304,7 @@ int main(int argc,char **argv)
         XSetStandardProperties(dpy, hwin, "testWindowX", "testWindowX", 
                                None, argv, argc, NULL);
         
-        if(fullscreen == true)
+        if(fullscreen == true || noDecor == true)
         {
             Atom noDecorAtom = XInternAtom(dpy, 
                                            "_MOTIF_WM_HINTS",
@@ -339,6 +388,15 @@ int main(int argc,char **argv)
                           hwin, 
                           cursor);
             XFlush(dpy);
+        }
+        else if(geoSpec == true)
+        {
+            XMoveResizeWindow(dpy, 
+                              hwin, 
+                              xPos, 
+                              yPos,
+                              width, 
+                              height);
         }
 
         window->activate();
