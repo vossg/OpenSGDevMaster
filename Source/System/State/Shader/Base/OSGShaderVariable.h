@@ -65,6 +65,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
 
     typedef ShaderVariableBase Inherited;
 
+    static bool WarnUnknown;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */

@@ -1225,7 +1225,7 @@ void SimpleSHLChunk::updateVariables(DrawEnv *pEnv,
     ShaderProgramVariables::MFVariableChangedType::iterator mVarChgIt =
         pMFVarChg->begin();
 
-    bool warnUnknown = true;
+    bool warnUnknown = ShaderVariable::WarnUnknown;
 
     for(; mVarIt != mVarEnd; ++mVarIt, ++mLocIt, ++mVarChgIt)
     {

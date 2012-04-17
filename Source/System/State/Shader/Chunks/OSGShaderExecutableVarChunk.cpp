@@ -244,7 +244,7 @@ void ShaderExecutableVarChunk::updateVariables(DrawEnv *pEnv)
     ShaderProgramVariables::MFVariablesType::const_iterator mVarEnd =
         pMFVars->end  ();
 
-    bool warnUnknown = true;
+    bool warnUnknown = ShaderVariable::WarnUnknown;
 
     for(; mVarIt != mVarEnd; ++mVarIt, ++mLocIt)
     {

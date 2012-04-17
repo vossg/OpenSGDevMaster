@@ -2924,6 +2924,15 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
     UInt32 uiCurrId     = 0;
     UInt32 uiLastId     = UInt32(vIds.size());
 
+#ifdef OSG_DEBUG    
+    FDEBUG(("scv3::add : "));
+    for(UInt32 i = 0; i < uiLastId; ++i)
+    {
+        FDEBUG(("%d ", vIds[i]));
+    }
+    FDEBUG(("\n"));
+#endif
+
     if(_pRoot == NULL)
     {
         _pRoot = allocateNode();
@@ -3254,6 +3263,10 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
 template<class ObjectT, UInt32 LevelBits> inline
 void ShaderCacheTreeV3<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 {
+#ifdef OSG_DEBUG    
+    FDEBUG(("scv3::sub : %d\n", uiIdx));
+#endif
+
     IdType uiStartLevel  = IdType((uiIdx - 1) * LevelFactor);
 
     if(uiStartLevel >= _vLevelEntries.size())
