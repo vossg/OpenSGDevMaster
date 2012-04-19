@@ -114,15 +114,6 @@ StatElemDesc<StatIntElem > RenderAction::statNShaderParams(
     "RT-ShaderParams",
     "number of shader params changes");
 
-/*
-StatElemDesc<StatIntElem > RenderAction::statNGeometries  (
-    "RT-NGeometries",
-    "number of Geometry nodes");
-StatElemDesc<StatIntElem > RenderAction::statNTransGeometries(
-    "shNTransGeometries",
-    "number of transformed Geometry nodes");
- */
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
