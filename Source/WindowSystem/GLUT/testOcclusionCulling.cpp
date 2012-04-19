@@ -791,14 +791,8 @@ int main(int argc, char **argv)
                        "Draw FPS: %r.3f");
     statfg->addElement(OSG::RenderAction::statNMatrices, 
                        "Matrix Changes: %d");
-    //statfg->addElement(RenderAction::statNGeometries, 
-    //                   "Geometries drawn: %d");
     statfg->addElement(OSG::RenderAction::statNStates, 
                        "State Changes: %d");
-    //statfg->addElement(RenderAction::statNShaders, 
-    //                   "Shader Changes: %d");
-    //statfg->addElement(RenderAction::statNShaderParams, 
-    //                   "Shader Param Changes: %d");
                        
     statfg->addElement(OSG::RenderPartition::statCullTestedNodes, 
                        "Cull-tested Nodes: %d");
@@ -813,9 +807,6 @@ int main(int argc, char **argv)
                        "Invisible Nodes: %d");
     statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccSuccessTestPer, 
                        "OCC Success rate: %per%%");
-
-    statfg->addElement(OSG::RenderAction::statNTriangles, 
-                       "Triangles:        %d");
     statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccTriangles, 
                        "Triangles culled: %d");
    

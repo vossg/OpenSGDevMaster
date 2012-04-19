@@ -285,12 +285,17 @@ int main(int argc, char **argv)
         statfg->addElement(OSG::RenderAction::statDrawTime, "Draw FPS: %r.3f");
         statfg->addElement(OSG::RenderAction::statDrawTime, "DrawTime: %.3f s");
         statfg->addElement(OSG::RenderAction::statTravTime, "TravTime: %.3f s");
+
+        statfg->addElement(OSG::RenderPartition::statCullTestedNodes,
+                           "%d nodes cull tested");
+        statfg->addElement(OSG::RenderPartition::statCulledNodes,
+                           "%d nodes culled");
         
-        statfg->addElement(OSG::RenderAction::statNStates,   "%d state changes");
         statfg->addElement(OSG::RenderAction::statNMatrices, "%d matrix changes");
-        statfg->addElement(OSG::RenderAction::statNGeometries, "%d Geometries drawn");
-        statfg->addElement(OSG::RenderAction::statNShaders, "%d shaders");
-        statfg->addElement(OSG::RenderAction::statNShaders, "%d shader parameters");
+        statfg->addElement(OSG::RenderAction::statNStates,   "%d state changes");
+        statfg->addElement(OSG::RenderAction::statNChunks,   "%d state chunk changes");
+        statfg->addElement(OSG::RenderAction::statNShaders,  "%d shaders");
+        statfg->addElement(OSG::RenderAction::statNShaders,  "%d shader parameters");
 
         statfg->addElement(OSG::Drawable::statNVertices, "%d vertices drawn");
         statfg->addElement(OSG::Drawable::statNPrimitives, "%d primitives drawn");
