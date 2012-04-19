@@ -124,6 +124,8 @@ void TwoSidedLightingChunk::dump(      UInt32    ,
 void TwoSidedLightingChunk::activate (DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 #else
     OSG_ASSERT(false);
@@ -148,6 +150,8 @@ void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv,
     // TwoSidedLightingChunk didn't change so do nothing.
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 #else

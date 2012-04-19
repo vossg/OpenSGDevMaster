@@ -50,6 +50,7 @@
 
 #include "OSGMaterialChunk.h"
 #include "OSGShaderAttribute.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -229,12 +230,14 @@ void MaterialChunk::dump(      UInt32    uiIndent,
 
 /*------------------------------ State ------------------------------------*/
 
-void MaterialChunk::activate(DrawEnv *, UInt32)
+void MaterialChunk::activate(DrawEnv *pEnv, UInt32)
 {
 	glErr("material:activate:precheck");
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     GLenum target;
+
+    pEnv->incNumChunkChanges();
 
     if(getBackMaterial())
     {
@@ -324,9 +327,9 @@ void MaterialChunk::activate(DrawEnv *, UInt32)
 	glErr("material:activate:postcheck");
 }
 
-void MaterialChunk::changeFrom(DrawEnv    *, 
-                               StateChunk * old_chunk, 
-                               UInt32                )
+void MaterialChunk::changeFrom(DrawEnv    *pEnv, 
+                               StateChunk *old_chunk, 
+                               UInt32               )
 {
 	glErr("material:changed:precheck");
 
@@ -343,6 +346,8 @@ void MaterialChunk::changeFrom(DrawEnv    *,
         glColor4fv(_sfDiffuse.getValue().getValuesRGBA());
         return;
     }
+
+    pEnv->incNumChunkChanges();
 
     if(getColorMaterial()     != old->getColorMaterial    () || 
        getBackColorMaterial() != old->getBackColorMaterial()  )

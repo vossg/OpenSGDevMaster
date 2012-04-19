@@ -513,6 +513,8 @@ void ProgramChunk::activate(DrawEnv *pEnv, UInt32)
     
     if(getProgram().empty())
         return;
+
+    pEnv->incNumChunkChanges();
         
     pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
            
@@ -550,7 +552,9 @@ void ProgramChunk::changeFrom(DrawEnv     *pEnv,
 
     if(!pEnv->getWindow()->hasExtension(extension))
         return;
-     
+
+    pEnv->incNumChunkChanges();
+
     if(getProgram().empty())
     {
         if(old->getProgram().empty())

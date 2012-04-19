@@ -201,7 +201,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
 
     // Stat
     UInt32   _uiNumMatrixChanges;
-    UInt32   _uiNumTriangles;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  

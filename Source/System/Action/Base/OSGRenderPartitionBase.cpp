@@ -100,9 +100,7 @@ RenderPartitionBase::RenderPartitionBase(void) :
     _bZWriteTrans      (false),
     _bCorrectNegScale  (false),
     _ubState           ( Full),
-
-    _uiNumMatrixChanges(    0),
-    _uiNumTriangles    (    0)
+    _uiNumMatrixChanges(    0)
 {
 }
 

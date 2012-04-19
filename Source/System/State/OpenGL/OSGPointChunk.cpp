@@ -164,6 +164,8 @@ void PointChunk::activate(DrawEnv *pEnv, UInt32)
         glEnable(GL_POINT_SMOOTH);
 #endif
 
+    pEnv->incNumChunkChanges();
+
     Window *pWin = pEnv->getWindow();
 
     osgSinkUnusedWarning(pWin);
@@ -252,6 +254,8 @@ void PointChunk::changeFrom(DrawEnv    *pEnv,
         glDisable(GL_POINT_SMOOTH);
     }
 #endif
+
+    pEnv->incNumChunkChanges();
 
     Window *pWin = pEnv->getWindow();
 

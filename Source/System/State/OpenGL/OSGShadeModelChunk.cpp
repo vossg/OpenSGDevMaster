@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGShadeModelChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -123,9 +124,11 @@ void ShadeModelChunk::dump(      UInt32,
 
 /*------------------------------ State ------------------------------------*/
 
-void ShadeModelChunk::activate(DrawEnv *, UInt32)
+void ShadeModelChunk::activate(DrawEnv *pEnv, UInt32)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     if(getShadeModel() != GL_SMOOTH)
         glShadeModel(getShadeModel());
 #else
@@ -133,7 +136,7 @@ void ShadeModelChunk::activate(DrawEnv *, UInt32)
 #endif
 }
 
-void ShadeModelChunk::changeFrom(DrawEnv    *act,
+void ShadeModelChunk::changeFrom(DrawEnv    *pEnv,
                                  StateChunk *old_chunk,
                                  UInt32      index    )
 {
@@ -151,6 +154,8 @@ void ShadeModelChunk::changeFrom(DrawEnv    *act,
         return;
     
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     if(old->getShadeModel() != getShadeModel())
         glShadeModel(getShadeModel());
 #else

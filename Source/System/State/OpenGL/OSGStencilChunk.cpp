@@ -121,6 +121,8 @@ void StencilChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void StencilChunk::activate(DrawEnv *pEnv, UInt32)
 {
+    pEnv->incNumChunkChanges();
+
     if (_sfStencilFunc.getValue() != GL_NONE)
     {
         glEnable(GL_STENCIL_TEST);
@@ -147,6 +149,8 @@ void StencilChunk::changeFrom(DrawEnv    *pEnv,
                               UInt32               )
 {
     StencilChunk *old = dynamic_cast<StencilChunk *>(old_chunk);
+
+    pEnv->incNumChunkChanges();
     
     if(_sfStencilFunc.getValue() != GL_NONE)
     {

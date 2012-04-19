@@ -142,9 +142,19 @@ void CSMStatisticsForeground::addElement(
             pStatFG->addElement(RenderAction::statTravTime, 
                                 szFormat.c_str());
         }
+        else if(szStatElem.compare("statNMatrices") == 0)
+        {
+            pStatFG->addElement(RenderAction::statNMatrices, 
+                                szFormat.c_str());
+        }
         else if(szStatElem.compare("statNStates") == 0)
         {
             pStatFG->addElement(RenderAction::statNStates, 
+                                szFormat.c_str());
+        }
+        else if(szStatElem.compare("statNChunks") == 0)
+        {
+            pStatFG->addElement(RenderAction::statNChunks, 
                                 szFormat.c_str());
         }
         else if(szStatElem.compare("statNShaders") == 0)
@@ -155,21 +165,6 @@ void CSMStatisticsForeground::addElement(
         else if(szStatElem.compare("statNShaderParams") == 0)
         {
             pStatFG->addElement(RenderAction::statNShaderParams, 
-                                szFormat.c_str());
-        }
-        else if(szStatElem.compare("statNGeometries") == 0)
-        {
-            pStatFG->addElement(RenderAction::statNGeometries, 
-                                szFormat.c_str());
-        }
-        else if(szStatElem.compare("statNMatrices") == 0)
-        {
-            pStatFG->addElement(RenderAction::statNMatrices, 
-                                szFormat.c_str());
-        }
-        else if(szStatElem.compare("statNTriangles") == 0)
-        {
-            pStatFG->addElement(RenderAction::statNTriangles, 
                                 szFormat.c_str());
         }
         else
@@ -248,6 +243,16 @@ void CSMStatisticsForeground::addElement(
             pStatFG->addElement(Drawable::statNPrimitives, 
                                 szFormat.c_str());
         }
+        else if(szStatElem.compare("statNGeoBytes") == 0)
+        {
+            pStatFG->addElement(Drawable::statNGeoBytes, 
+                                szFormat.c_str());
+        }
+        else if(szStatElem.compare("statNDrawFunctors") == 0)
+        {
+            pStatFG->addElement(Drawable::statNDrawFunctors, 
+                                szFormat.c_str());
+        }
         else
         {
             fprintf(stderr, "Unknown stat elem %s for %s\n",
@@ -294,6 +299,25 @@ void CSMStatisticsForeground::addElement(
         else if(szStatElem.compare("statNPoolSize") == 0)
         {
             pStatFG->addElement(ChangeList::statNPoolSize, 
+                                szFormat.c_str());
+        }
+        else
+        {
+            fprintf(stderr, "Unknown stat elem %s for %s\n",
+                    szStatElem.c_str(),
+                    szStatObj.c_str());
+        }
+    }
+    else if(szStatObj.compare("Partition") == 0)
+    {
+        if(szStatElem.compare("statCullTestedNodes") == 0)
+        {
+            pStatFG->addElement(RenderPartition::statCullTestedNodes, 
+                                szFormat.c_str());
+        }
+        else if(szStatElem.compare("statCulledNodes") == 0)
+        {
+            pStatFG->addElement(RenderPartition::statCulledNodes, 
                                 szFormat.c_str());
         }
         else

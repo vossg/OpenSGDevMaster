@@ -272,9 +272,11 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
 
     UInt32 getNumStateChanges      (void) const;
+    UInt32 getNumChunkChanges      (void) const;
     UInt32 getNumShaderChanges     (void) const;
     UInt32 getNumShaderParamChanges(void) const;
 
+    void   incNumChunkChanges      (void);
     void   incNumShaderChanges     (void);
     void   incNumShaderParamChanges(void);
 
@@ -425,8 +427,10 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     StateOverride *_pActiveStateOverride;
 
     UInt32         _uiNumStateChanges;
+    UInt32         _uiNumChunkChanges;
     UInt32         _uiNumShaderChanges;
     UInt32         _uiNumShaderParamChanges;
+
     StatCollector *_pStatCollector;
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];

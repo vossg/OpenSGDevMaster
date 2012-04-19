@@ -140,7 +140,7 @@ void CSMWindow::mouse(Int32 iButton,
                       Int32 x,       
                       Int32 y)
 {
-    if(UInt32(iState) == MouseData::ButtonDown)
+    if(iState == MouseData::ButtonDown)
     {
         _bMouseActive = true;
     }
@@ -151,7 +151,7 @@ void CSMWindow::mouse(Int32 iButton,
 
     if(_sfMouseAsMTouch.getValue() == true)
     {
-        if(UInt32(iState) == MouseData::ButtonDown)
+        if(iState == MouseData::ButtonDown)
         {
             editMTouchData().addCursor(0, x, y, MTouchData::WindowAbs);
         }

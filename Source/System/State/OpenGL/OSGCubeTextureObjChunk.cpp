@@ -289,6 +289,8 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     // does the window support cubemaps?
     if(pEnv->getWindow()->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200) == false)
         return;
+
+    pEnv->incNumChunkChanges();
         
     Window *win = pEnv->getWindow();
     
@@ -371,6 +373,8 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
     // is that a valid assumption?
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
     
     // If the old one is not a cube texture chunk, deactivate it and
     // activate ourselves

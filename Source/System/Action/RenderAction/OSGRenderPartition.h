@@ -183,11 +183,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- your_operators ------------------------------*/
 
-#if 0
-    void      setViewport      (Viewport   *pViewport  );
-    Viewport *getViewport      (void                   );
-#endif
-
     void      setWindow        (Window     *pWindow    );
     Window   *getWindow        (void                   );
 
@@ -364,12 +359,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*-------------------------- comparison ---------------------------------*/
 
     /*-------------------------- comparison ---------------------------------*/
-
-    UInt32 getNumMatrixChanges     (void);
-    UInt32 getNumStateChanges      (void);
-    UInt32 getNumShaderChanges     (void);
-    UInt32 getNumShaderParamChanges(void);
-    UInt32 getNumTriangles         (void);
 
     /*-------------------------- comparison ---------------------------------*/
 

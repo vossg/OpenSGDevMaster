@@ -115,20 +115,6 @@ StatCollectorP RenderPartition::getStatCollector(void)
     return _oDrawEnv.getStatCollector();
 }
 
-#if 0
-inline
-void RenderPartition::setViewport(Viewport *pViewport)
-{
-    _oDrawEnv.setViewport(pViewport);
-}
-
-inline
-Viewport *RenderPartition::getViewport(void)
-{
-    return _oDrawEnv.getViewport();
-}
-#endif
-
 inline
 void RenderPartition::setWindow(Window *pWindow)
 {
@@ -475,37 +461,6 @@ inline
 void RenderPartition::setFrustum(FrustumVolume &frust)
 {
     _oFrustum = frust;
-}
-
-
-inline
-UInt32 RenderPartition::getNumMatrixChanges(void)
-{
-    return _uiNumMatrixChanges;
-}
-
-inline
-UInt32 RenderPartition::getNumStateChanges(void)
-{
-    return _oDrawEnv.getNumStateChanges();
-}
-
-inline
-UInt32 RenderPartition::getNumShaderChanges(void)
-{
-    return _oDrawEnv.getNumShaderChanges();
-}
-
-inline
-UInt32 RenderPartition::getNumShaderParamChanges(void)
-{
-    return _oDrawEnv.getNumShaderParamChanges();
-}
-
-inline
-UInt32 RenderPartition::getNumTriangles(void)
-{
-    return _uiNumTriangles;
 }
 
 inline

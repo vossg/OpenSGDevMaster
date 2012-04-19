@@ -88,11 +88,11 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //-----------------------------------------------------------------------
 
     static StatElemDesc<StatTimeElem>     statDrawTime;
-    static StatElemDesc<StatIntElem >     statNStates;
     static StatElemDesc<StatIntElem >     statNMatrices;
-    static StatElemDesc<StatIntElem >     statNGeometries;
+//    static StatElemDesc<StatIntElem >     statNGeometries;
 //    static StatElemDesc<StatIntElem > statNTransGeometries;
-    static StatElemDesc<StatIntElem >     statNTriangles;
+    static StatElemDesc<StatIntElem >     statNStates;
+    static StatElemDesc<StatIntElem >     statNChunks;
     static StatElemDesc<StatIntElem >     statNShaders;
     static StatElemDesc<StatIntElem >     statNShaderParams;
 

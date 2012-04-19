@@ -160,6 +160,8 @@ void TextureObjRefChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {    
     Window *pWin = pEnv->getWindow();
 
+    pEnv->incNumChunkChanges();
+
     if(activateTexture(pWin, idx))
         return; // trying to access too many textures
 
@@ -181,6 +183,8 @@ void TextureObjRefChunk::changeFrom(DrawEnv    *pEnv,
     // is that a valid assumption?
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     Window *pWin = pEnv->getWindow();
 

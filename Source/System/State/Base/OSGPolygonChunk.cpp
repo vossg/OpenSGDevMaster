@@ -48,6 +48,7 @@
 #include "OSGGL.h"
 
 #include "OSGPolygonChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -127,9 +128,10 @@ void PolygonChunk::dump(      UInt32    uiIndent,
 
 /*------------------------------ State ------------------------------------*/
 
-void PolygonChunk::activate(DrawEnv *, UInt32)
+void PolygonChunk::activate(DrawEnv *pEnv, UInt32)
 {
 // cullFace
+    pEnv->incNumChunkChanges();
 
     if(_sfCullFace.getValue() != GL_NONE)
     {
@@ -192,7 +194,7 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
 }
 
 
-void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
+void PolygonChunk::changeFrom(DrawEnv *pEnv, StateChunk *old_chunk, UInt32)
 {
     PolygonChunk const *old = dynamic_cast<PolygonChunk const*>(old_chunk);
 
@@ -202,6 +204,8 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
 
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
 // cullFace
 

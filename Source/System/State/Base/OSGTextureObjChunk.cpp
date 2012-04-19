@@ -1758,8 +1758,9 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         pColl->getElem(statNTextures)->inc(getGLId());
         pColl->getElem(statNTexBytes)->add(getGLId(), 
                                            img->getSize(true,true,true));
-    }
 
+        pEnv->incNumChunkChanges();
+    }
 
     glBindTexture(target, win->getGLObjectId(getGLId()));
 

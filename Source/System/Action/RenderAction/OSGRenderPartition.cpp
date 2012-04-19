@@ -62,6 +62,8 @@
 #include "OSGOcclusionCullingTreeBuilder.h"
 
 #include "OSGDrawableStatsAttachment.h"
+#include "OSGDrawable.h"
+
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
@@ -336,8 +338,10 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
     bool           bOverrodeState = false;
     StateOverride *pStateOverride = NULL;
 
-    if(_oDrawEnv.getStatCollector() != NULL             ||
-       _eMode                       == OcclusionCulling   )
+    StatCollector *pStatColl      = _oDrawEnv.getStatCollector();
+
+    if(pStatColl != NULL             ||
+       _eMode    == OcclusionCulling   )
     {
         DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
 
@@ -349,8 +353,28 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
         }
 
         st->validate();
+        
+        if(pStatColl != NULL)
+        {
+            pStatColl->getElem(
+                Drawable::statNTriangles)->add(st->getTriangles());
 
-        _uiNumTriangles += st->getTriangles();
+            pStatColl->getElem(
+                Drawable::statNLines)->add(st->getLines());
+
+            pStatColl->getElem(
+                Drawable::statNPoints)->add(st->getPoints());
+
+            pStatColl->getElem(
+                Drawable::statNVertices)->add(st->getVertices());
+
+            pStatColl->getElem(
+                Drawable::statNGeoBytes)->add(
+                    st->getId(),
+                    st->getProcessedAttributeBytes());
+
+            pStatColl->getElem(Drawable::statNDrawFunctors)->inc();
+        }
     }
 
 #ifdef OSG_NEW_SHADER
@@ -890,7 +914,6 @@ void RenderPartition::reset(Mode eMode)
         _oSimpleDrawCallback = NULL;
     }
 
-    _uiNumTriangles = 0;
     _ubState        = RenderPartitionBase::Full;
 
     _pNode = NULL;
@@ -1161,6 +1184,8 @@ void RenderPartition::doExecution(bool bRestoreViewport)
     }
 #endif
 
+    StatCollector *pStatColl = _oDrawEnv.getStatCollector();
+
     if(_eMode == SimpleCallback)
     {
         _oSimpleDrawCallback(&_oDrawEnv);
@@ -1200,6 +1225,12 @@ void RenderPartition::doExecution(bool bRestoreViewport)
             ++mapIt;
         }
 
+        if(pStatColl != NULL)
+        {
+            pStatColl->getElem(
+                RenderAction::statNMatrices)->add(_uiNumMatrixChanges);
+        }
+
         if(!_bZWriteTrans)
             glDepthMask(true);
     }
@@ -1226,6 +1257,25 @@ void RenderPartition::doExecution(bool bRestoreViewport)
     for(UInt16 i = 0; i < _vpForegrounds.size(); ++i)
     {
         _vpForegrounds[i]->draw(&_oDrawEnv);
+    }
+
+    if(pStatColl != NULL)
+    {
+        pStatColl->getElem(
+            RenderAction::statNStates      )->add(
+                _oDrawEnv.getNumStateChanges()      );
+
+        pStatColl->getElem(
+            RenderAction::statNChunks      )->add(
+                _oDrawEnv.getNumChunkChanges()      );
+
+        pStatColl->getElem(
+            RenderAction::statNShaders     )->add(
+                _oDrawEnv.getNumShaderChanges()     );
+
+        pStatColl->getElem(
+            RenderAction::statNShaderParams)->add(
+                _oDrawEnv.getNumShaderParamChanges());
     }
 
     // We always push/pop so stages with callback can modify the values

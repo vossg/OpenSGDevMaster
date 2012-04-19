@@ -48,6 +48,7 @@
 #include "OSGGL.h"
 
 #include "OSGTransformChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -120,9 +121,11 @@ void TransformChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 /*------------------------------ State ------------------------------------*/
 
-void TransformChunk::activate(DrawEnv *,  UInt32)
+void TransformChunk::activate(DrawEnv *pEnv,  UInt32)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     glPushMatrix();
     glMultMatrixf( getMatrix().getValues() );
 #else
@@ -130,7 +133,7 @@ void TransformChunk::activate(DrawEnv *,  UInt32)
 #endif
 }
 
-void TransformChunk::changeFrom(DrawEnv *,  StateChunk *old, UInt32)
+void TransformChunk::changeFrom(DrawEnv *pEnv,  StateChunk *old, UInt32)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // change from me to me?
@@ -139,6 +142,8 @@ void TransformChunk::changeFrom(DrawEnv *,  StateChunk *old, UInt32)
 
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     glPopMatrix();
     glPushMatrix();

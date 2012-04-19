@@ -607,6 +607,8 @@ void SimpleSHLChunk::activate(DrawEnv    *pEnv,
         osgGlUseProgram(uiProgId);
     }
 
+    pEnv->incNumShaderChanges();
+        
     updateProceduralVariables(pEnv, ShaderProcVariable::SHDAll);
 
     if(_sfPointSize.getValue() == true)
@@ -693,6 +695,8 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
             }
 
             uiDep = ShaderProcVariable::SHDAll;
+
+            pEnv->incNumShaderChanges();
         }
 
         updateProceduralVariables(pEnv, uiDep);
@@ -701,6 +705,8 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
     {
         pOther->deactivate(pEnv, uiIdx);
         activate          (pEnv, uiIdx);
+
+        pEnv->incNumShaderChanges();
     }
 }
 

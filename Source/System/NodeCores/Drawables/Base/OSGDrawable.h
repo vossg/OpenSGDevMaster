@@ -75,6 +75,7 @@ class OSG_SYSTEM_DLLMAPPING Drawable : public DrawableBase
     static StatElemDesc<StatIntElem    > statNVertices;
     static StatElemDesc<StatIntElem    > statNPrimitives;
     static StatElemDesc<StatIntOnceElem> statNGeoBytes;
+    static StatElemDesc<StatIntElem    > statNDrawFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

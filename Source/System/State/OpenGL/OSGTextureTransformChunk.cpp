@@ -131,6 +131,8 @@ void TextureTransformChunk::dump(      UInt32    ,
 void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     Window *win = pEnv->getWindow();
     
     Real32 ntexcoords;
@@ -186,6 +188,8 @@ void TextureTransformChunk::changeFrom(DrawEnv    *pEnv,
 
     if ( old == this )
         return;
+
+    pEnv->incNumChunkChanges();
 
     Window *win = pEnv->getWindow();
     

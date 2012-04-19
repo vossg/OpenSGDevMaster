@@ -80,6 +80,10 @@ StatElemDesc<StatIntOnceElem> Drawable::statNGeoBytes(
     "NGeoBytes",
     "memory usages of geometry on the gfx card");
 
+StatElemDesc<StatIntElem    > Drawable::statNDrawFunctors(
+    "NDrawFunctors",
+    "number of draw functors dropped");
+
 /*----------------------- constructors & destructors ----------------------*/
 
 //! Constructor

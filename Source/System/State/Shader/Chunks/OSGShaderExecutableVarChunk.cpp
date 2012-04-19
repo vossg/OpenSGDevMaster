@@ -221,6 +221,8 @@ void ShaderExecutableVarChunk::updateVariables(DrawEnv *pEnv)
     if(uiProgram == 0)
         return;
 
+    pEnv->incNumShaderParamChanges();
+
     const ShaderProgramVariables::MFVariablesType       *pMFVars   = NULL;
 
     if(_sfVariables.getValue() != NULL)

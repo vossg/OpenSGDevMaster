@@ -48,6 +48,7 @@
 #include "OSGGLEXT.h"
 
 #include "OSGLightModelChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -140,6 +141,8 @@ void LightModelChunk::dump(      UInt32    uiIndent,
 void LightModelChunk::activate(DrawEnv *pEnv, UInt32)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, 
                    _sfAmbient.getValue().getValuesRGBA());
 
@@ -178,6 +181,8 @@ void LightModelChunk::changeFrom(DrawEnv    *pEnv,
     // LightModelChunk didn't change so do nothing.
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     if(old->_sfAmbient.getValue() != _sfAmbient.getValue())
     {

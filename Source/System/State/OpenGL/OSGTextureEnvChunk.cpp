@@ -534,6 +534,8 @@ void TextureEnvChunk::dump(      UInt32    uiIndent,
 void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     Window *win = pEnv->getWindow();
 
     Real32 nteximages, ntexcoords;
@@ -699,6 +701,8 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
     // is that a valid assumption?
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     TextureEnvChunk *oldp = dynamic_cast<TextureEnvChunk *>(old);
 

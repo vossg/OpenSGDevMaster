@@ -98,26 +98,26 @@ StatElemDesc<StatTimeElem> RenderAction::statDrawTime     (
     "RT-DrawTime",
     "time for draw tree traversal");
 
-StatElemDesc<StatIntElem > RenderAction::statNStates      (
-    "RT-States",
-    "number of material changes");
 StatElemDesc<StatIntElem > RenderAction::statNMatrices    (
     "RT-NMatrices",
     "number of matrix changes");
-StatElemDesc<StatIntElem > RenderAction::statNGeometries  (
-    "RT-NGeometries",
-    "number of Geometry nodes");
+StatElemDesc<StatIntElem > RenderAction::statNStates      (
+    "RT-States",
+    "number of material changes");
+StatElemDesc<StatIntElem > RenderAction::statNChunks      (
+    "RT-Chunks",
+    "number of chunk changes");
 StatElemDesc<StatIntElem > RenderAction::statNShaders     (
     "RT-Shaders",
     "number of shader changes");
 StatElemDesc<StatIntElem > RenderAction::statNShaderParams(
     "RT-ShaderParams",
     "number of shader params changes");
-StatElemDesc<StatIntElem > RenderAction::statNTriangles   (
-    "RT-Triangles",
-    "number of triangles");
 
 /*
+StatElemDesc<StatIntElem > RenderAction::statNGeometries  (
+    "RT-NGeometries",
+    "number of Geometry nodes");
 StatElemDesc<StatIntElem > RenderAction::statNTransGeometries(
     "shNTransGeometries",
     "number of transformed Geometry nodes");
@@ -432,46 +432,6 @@ Action::ResultE RenderAction::stop(ResultE res)
 
         if(getVolumeDrawing())
             drawVolume(_oFrustum);
-
-        if(_pStatistics != NULL)
-        {
-            UInt32 uiNMatrix      = 0;
-            UInt32 uiNState       = 0;
-            UInt32 uiNShader      = 0;
-            UInt32 uiNShaderParam = 0;
-            UInt32 uiNTriangles   = 0;
-            
-            for(UInt32 i = 0; 
-                       i < _vRenderPartitions[_currentBuffer].size(); 
-                     ++i)
-            {
-                uiNMatrix +=
-                    _vRenderPartitions[
-                        _currentBuffer][i]->getNumMatrixChanges();
-                
-                uiNState  +=
-                    _vRenderPartitions[
-                        _currentBuffer][i]->getNumStateChanges();
-                
-                uiNShader +=
-                    _vRenderPartitions[
-                        _currentBuffer][i]->getNumShaderChanges();
-                
-                uiNShaderParam +=
-                    _vRenderPartitions[
-                        _currentBuffer][i]->getNumShaderParamChanges();
-                
-                uiNTriangles +=
-                    _vRenderPartitions[_currentBuffer][i]->getNumTriangles();
-            }
-
-
-            _pStatistics->getElem(statNMatrices    )->add(uiNMatrix     );
-            _pStatistics->getElem(statNStates      )->add(uiNState      );
-            _pStatistics->getElem(statNShaders     )->add(uiNShader     );
-            _pStatistics->getElem(statNShaderParams)->add(uiNShaderParam);
-            _pStatistics->getElem(statNTriangles   )->add(uiNTriangles  );
-        }
     }
 
     if(_pViewarea != NULL && _pViewarea->getRenderOptions() != NULL)

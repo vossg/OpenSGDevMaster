@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGFogChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -104,6 +105,8 @@ const StateChunkClass *FogChunk::getClass(void) const
 void FogChunk::activate(DrawEnv *pEnv, UInt32 /* index */)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     glFogi (GL_FOG_MODE,    getMode   ()                );
     glFogf (GL_FOG_DENSITY, getDensity()                );
     glFogf (GL_FOG_START,   getStart  ()                );

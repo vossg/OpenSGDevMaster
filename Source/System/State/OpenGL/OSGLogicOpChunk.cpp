@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGLogicOpChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -104,9 +105,11 @@ void LogicOpChunk::dump(      UInt32    ,
 
 /*----------------------------- State Commands ---------------------------*/
 
-void LogicOpChunk::activate(DrawEnv *drawEnv, UInt32 index)
+void LogicOpChunk::activate(DrawEnv *pEnv, UInt32 index)
 {
 #ifndef OSG_OGL_ES2
+    pEnv->incNumChunkChanges();
+
     if(_sfLogicOp.getValue() != GL_COPY)
     {
         glLogicOp(_sfLogicOp.getValue());
@@ -115,15 +118,15 @@ void LogicOpChunk::activate(DrawEnv *drawEnv, UInt32 index)
 #endif
 }
 
-void LogicOpChunk::changeFrom(DrawEnv    *drawEnv,
+void LogicOpChunk::changeFrom(DrawEnv    *pEnv,
                               StateChunk *old,
                               UInt32      index  )
 {
-    old ->deactivate(drawEnv, index);
-    this->activate  (drawEnv, index);
+    old ->deactivate(pEnv, index);
+    this->activate  (pEnv, index);
 }
 
-void LogicOpChunk::deactivate(DrawEnv *drawEnv, UInt32 index)
+void LogicOpChunk::deactivate(DrawEnv *pEnv, UInt32 index)
 {
 #ifndef OSG_OGL_ES2
     if(_sfLogicOp.getValue() != GL_COPY)

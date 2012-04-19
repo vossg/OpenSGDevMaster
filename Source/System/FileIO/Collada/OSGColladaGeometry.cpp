@@ -256,6 +256,17 @@ ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
         groupN->addChild(geoN);
     }
 
+    // if there is only one child remove the group
+    if(groupN->getNChildren() == 1)
+    {
+        Node *geoN = groupN->getChild(0);
+
+        groupN->setCore(geoN->getCore());
+        geoN  ->setCore(NULL           );
+
+        groupN->clearChildren();
+    }
+
     // store the generated group node
     editInstStore().push_back(groupN);
 

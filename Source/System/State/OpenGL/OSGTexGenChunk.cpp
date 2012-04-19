@@ -205,6 +205,8 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
     glErr("TexGenChunk::activate precheck");
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -372,6 +374,8 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
     }
 
     glErr("TexGenChunk::changeFrom precheck");
+
+    pEnv->incNumChunkChanges();
 
     Window *win = pEnv->getWindow();   
 

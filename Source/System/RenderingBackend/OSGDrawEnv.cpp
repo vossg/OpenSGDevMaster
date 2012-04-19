@@ -116,9 +116,12 @@ DrawEnv::DrawEnv(void) :
 
     _pActiveState           (NULL ),
     _pActiveStateOverride   (NULL ),
+
     _uiNumStateChanges      (0    ),
+    _uiNumChunkChanges      (0    ),
     _uiNumShaderChanges     (0    ),
     _uiNumShaderParamChanges(0    ),
+
     _pStatCollector         (NULL ),
     _uiActiveShader         (0    ),
     _uiRequiredOGLFeature   (0    )

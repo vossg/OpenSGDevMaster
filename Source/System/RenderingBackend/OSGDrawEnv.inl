@@ -401,6 +401,12 @@ UInt32 DrawEnv::getNumStateChanges(void) const
 }
 
 inline
+UInt32 DrawEnv::getNumChunkChanges(void) const
+{
+    return _uiNumChunkChanges;
+}
+
+inline
 UInt32 DrawEnv::getNumShaderChanges(void) const
 {
     return _uiNumShaderChanges;
@@ -410,6 +416,12 @@ inline
 UInt32 DrawEnv::getNumShaderParamChanges(void) const
 {
     return _uiNumShaderParamChanges;
+}
+
+inline
+void DrawEnv::incNumChunkChanges(void)
+{
+    ++_uiNumChunkChanges;
 }
 
 inline
@@ -441,10 +453,11 @@ void DrawEnv::clearState(void)
 {
     _pActiveState            = NULL;
     _pActiveStateOverride    = NULL;
+
     _uiNumStateChanges       = 0;
+    _uiNumChunkChanges       = 0;
     _uiNumShaderChanges      = 0;
     _uiNumShaderParamChanges = 0;
-
 
     _cameraDecoration .setIdentity();
 

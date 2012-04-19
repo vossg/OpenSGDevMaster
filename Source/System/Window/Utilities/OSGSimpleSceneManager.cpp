@@ -577,12 +577,16 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(TextureObjChunk::statNTexBytes, 
                        " Tex Mem: %MB MB");
 
+#if 0
         sf->addElement(RenderAction::statNGeometries,   
                        "    Geom nodes: %d");
+#endif
         sf->addElement(RenderAction::statNMatrices,     
                        "Matrix changes: %d");
+#if 0
         sf->addElement(RenderAction::statNTriangles,
                        "     Triangles: %d");
+#endif
 
         sf->addElement(PointLight::statNPointLights,
                            "%d active point lights");

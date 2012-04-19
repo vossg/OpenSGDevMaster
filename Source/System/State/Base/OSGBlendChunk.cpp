@@ -170,6 +170,8 @@ void BlendChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void BlendChunk::activate(DrawEnv *pEnv, UInt32)
 {
+    pEnv->incNumChunkChanges();
+
     GLenum src   = _sfSrcFactor.getValue();
     GLenum dest  = _sfDestFactor.getValue();
     GLenum asrc  = _sfAlphaSrcFactor.getValue();
@@ -283,6 +285,8 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
                             StateChunk *old_chunk, 
                             UInt32               )
 {
+    pEnv->incNumChunkChanges();
+
     BlendChunk *old = dynamic_cast<BlendChunk *>(old_chunk);
 
     GLenum src    = _sfSrcFactor.getValue();

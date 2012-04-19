@@ -633,6 +633,8 @@ void ShaderExecutableChunk::activate(DrawEnv    *pEnv,
         }
     }
 
+    pEnv->incNumShaderChanges();
+
     updateProceduralVariables(pEnv, ShaderProcVariable::SHDAll);
 
     if(_sfPointSize.getValue() == true)
@@ -697,6 +699,8 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
             }
 
             uiDep = ShaderProcVariable::SHDAll;
+
+            pEnv->incNumShaderChanges();
         }
 
         updateProceduralVariables(pEnv, uiDep);
@@ -705,6 +709,8 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
     {
         pOther->deactivate(pEnv, uiIdx);
         activate          (pEnv, uiIdx);
+
+        pEnv->incNumShaderChanges();
     }
 }
 

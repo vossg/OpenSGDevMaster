@@ -136,6 +136,8 @@ void LightChunk::activate(DrawEnv *pEnv, UInt32 index)
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     glErr("light:activate:precheck");
 
+    pEnv->incNumChunkChanges();
+
     Matrix tobeacon;
 
     if(_sfBeacon.getValue() != NULL)
@@ -227,6 +229,8 @@ void LightChunk::changeFrom(DrawEnv    *pEnv,
 
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     Matrix tobeacon;
 

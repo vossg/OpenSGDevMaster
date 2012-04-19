@@ -125,8 +125,10 @@ void LineChunk::dump(      UInt32    ,
 
 /*------------------------------ State ------------------------------------*/
 
-void LineChunk::activate(DrawEnv *, UInt32)
+void LineChunk::activate(DrawEnv *pEnv, UInt32)
 {
+    pEnv->incNumChunkChanges();
+
     if(_sfWidth.getValue() != 1)
     {
         glLineWidth(_sfWidth.getValue());
@@ -149,13 +151,13 @@ void LineChunk::activate(DrawEnv *, UInt32)
 #endif
 }
 
-void LineChunk::changeFrom(DrawEnv    *act, 
+void LineChunk::changeFrom(DrawEnv    *pEnv, 
                            StateChunk *old_chunk, 
                            UInt32      index    )
 {
-    old_chunk->deactivate(act, index);
+    old_chunk->deactivate(pEnv, index);
 
-    activate( act, index );
+    activate(pEnv, index);
 }
 
 void LineChunk::deactivate(DrawEnv *, UInt32)

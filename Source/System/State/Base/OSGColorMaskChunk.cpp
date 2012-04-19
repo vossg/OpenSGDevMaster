@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGColorMaskChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -118,8 +119,10 @@ void ColorMaskChunk::dump(      UInt32    ,
 
 /*------------------------------ State ------------------------------------*/
 
-void ColorMaskChunk::activate(DrawEnv *, UInt32)
+void ColorMaskChunk::activate(DrawEnv *pEnv, UInt32)
 {
+    pEnv->incNumChunkChanges();
+
     glColorMask(getMaskR(), getMaskG(), getMaskB(), getMaskA());
 }
 

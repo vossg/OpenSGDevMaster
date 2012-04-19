@@ -28,6 +28,8 @@ ContainerCollection
       [
         0.5 0.5
       ]
+
+      active TRUE
     }
 
     DEF StatFGnd CSMStatisticsForeground
@@ -42,27 +44,36 @@ ContainerCollection
         "RenderAction::statDrawTime::Draw Time : %.5f s"        
         "RenderAction::statTravTime::Trav FPS  : %r.3f"        
         "RenderAction::statTravTime::Trav Time : %.5f s"        
-        "RenderAction::statNStates:: State changes: %d"        
-        "RenderAction::statNShaders:: Shader changes: %d"        
-        "RenderAction::statNShaderParams:: Shader param changes: %d"        
-        "TextureObjChunk::statNTextures:: Textures: %d"        
-        "TextureObjChunk::statNTexBytes:: Tex Mem: %MB MB"        
-        "RenderAction::statNGeometries::    Geom nodes: %d"        
+        "Text::freetext::-----------------------"        
+        "Partition::statCullTestedNodes::Cull Tested Nodes: %d"        
+        "Partition::statCulledNodes::Culled Nodes     : %d"        
+        "Text::freetext::-----------------------"        
         "RenderAction::statNMatrices::Matrix changes: %d"        
-        "RenderAction::statNTriangles::     Triangles: %d"        
-        "PointLight::statNPointLights::%d active point lights"        
-        "DirectionalLight::statNDirectionalLights::%d active directional lights"        
-        "SpotLight::statNSpotLights::%d active spot lights"        
+        "Text::freetext::-----------------------"        
+        "RenderAction::statNStates::State changes: %d"        
+        "RenderAction::statNChunks::Chunk changes: %d"        
+        "RenderAction::statNShaders::Shader changes: %d"        
+        "RenderAction::statNShaderParams::Shader param changes: %d"        
+        "Text::freetext::-----------------------"        
+        "TextureObjChunk::statNTextures::Textures: %d"        
+        "TextureObjChunk::statNTexBytes::Tex Mem: %MB MB"        
+        "Text::freetext::-----------------------"        
         "Text::freetext::Drawables: (drawn)"        
-        "Drawable::statNTriangles::  tris: %d"        
+        "Drawable::statNTriangles:: tris: %d"        
         "Drawable::statNLines:: lines: %d"        
-        "Drawable::statNPoints::points: %d"        
+        "Drawable::statNPoints:: points: %d"        
         "Drawable::statNVertices:: verts: %d"        
-        "Text::freetext::ChangeList: "        
-        "ChangeList::statNChangedStoreSize::    %d entries in changedStore"
-        "ChangeList::statNCreatedStoreSize::    %d entries in createdStore"
-        "ChangeList::statNUnCommittedStoreSize::    %d entries in uncommitedStore"
-        "ChangeList::statNPoolSize::    %d entries in pool"
+        "Drawable::statNGeoBytes:: Geo Mem: %MB MB"        
+        "Drawable::statNDrawFunctors:: Draw Functors: %d"        
+        "Text::freetext::-----------------------"        
+        "PointLight::statNPointLights::%d Active Point Lights"        
+        "DirectionalLight::statNDirectionalLights::%d Active Directional Lights"        
+        "SpotLight::statNSpotLights::%d Active Spot Lights"        
+#        "Text::freetext::ChangeList: "        
+#        "ChangeList::statNChangedStoreSize::    %d entries in changedStore"
+#        "ChangeList::statNCreatedStoreSize::    %d entries in createdStore"
+#        "ChangeList::statNUnCommittedStoreSize::    %d entries in uncommitedStore"
+#        "ChangeList::statNPoolSize::    %d entries in pool"
       ]
     }
 

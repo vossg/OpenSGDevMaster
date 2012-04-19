@@ -124,6 +124,8 @@ void ClipPlaneChunk::dump(      UInt32    ,
 void ClipPlaneChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+    pEnv->incNumChunkChanges();
+
     Matrix beaconMat;
 
     Matrix cameraMat = pEnv->getCameraViewing();
@@ -180,6 +182,8 @@ void ClipPlaneChunk::changeFrom(DrawEnv    *pEnv,
 
     if(old == this)
         return;
+
+    pEnv->incNumChunkChanges();
 
     Matrix beaconMat;
 

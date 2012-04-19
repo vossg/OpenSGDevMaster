@@ -123,8 +123,10 @@ void DepthChunk::dump(      UInt32    ,
 
 /*------------------------------ State ------------------------------------*/
 
-void DepthChunk::activate(DrawEnv *, UInt32)
+void DepthChunk::activate(DrawEnv *pEnv, UInt32)
 {
+    pEnv->incNumChunkChanges();
+
     if(_sfFunc.getValue() != GL_NONE)
     {
         glDepthFunc(_sfFunc.getValue());
