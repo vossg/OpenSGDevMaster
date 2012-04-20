@@ -103,7 +103,7 @@ void GeometryMergeGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);
     
-    ps("mergeThreshold", _mergeThreshold);
+    ps("mergethreshold", _mergeThreshold);
     
     std::string out = ps.getUnusedParams();
     if(out.length())
@@ -229,6 +229,10 @@ Action::ResultE GeometryMergeGraphOp::traverseLeave(
         MergeGroup::iterator mgEnd   = mlIt->end  ();
         
         geo1 = dynamic_cast<Geometry *>((*mgIt)->getCore());
+
+        // remove the first geo as well
+        subStore.push_back(*mgIt);
+
         ++mgIt;
         
         for(UInt32 i = 0; mgIt != mgEnd; ++mgIt, ++i)

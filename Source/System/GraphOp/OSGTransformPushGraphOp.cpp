@@ -295,9 +295,13 @@ void TransformPushGraphOp::pushToGeometry(
     typedef Pnt3f  PntType;
     
     Matrix mat    = srcTrans->getMatrix();
-    Matrix invMat;
-    invMat.invertFrom(mat);
-    
+    Matrix invMat = mat;
+
+    invMat[3][0] = invMat[3][1] = invMat[3][2] = 0.f;
+
+    invMat.invert   ();
+    invMat.transpose();
+
     const Geometry::SFLengthsType     *sfLen  = dstGeo->getSFLengths     ();
           Geometry::MFPropertiesType  *mfProp = dstGeo->editMFProperties ();
           Geometry::MFPropIndicesType *mfInd  = dstGeo->editMFPropIndices();

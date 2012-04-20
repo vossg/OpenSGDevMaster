@@ -203,38 +203,38 @@ void TravMaskGraphOp::setParams(const std::string params)
 {
     ParamSet ps(params);   
     
-    ps("NewTraversalMask",         mNewTravMask             );
-    ps("ApplyMaskToAllDecendents", mApplyMaskToAllDecendents);
-    ps("ApplyToNonMatching",       mApplyToNonMatching      );
+    ps("newtraversalmask",         mNewTravMask             );
+    ps("applymasktoalldecendents", mApplyMaskToAllDecendents);
+    ps("applytononmatching",       mApplyToNonMatching      );
     //ps("ApplyNewMaskOperation", mApplyNewMaskOperation);
 
 
     //Name Matching
-    ps("MatchName", mMatchName);
+    ps("matchname", mMatchName);
 
     std::string MatchRegex;
 
-	ps("MatchRegex",     MatchRegex     );
-    ps("MatchWholeName", mMatchWholeName);
+	ps("matchregex",     MatchRegex     );
+    ps("matchwholename", mMatchWholeName);
 
 	mMatchRegex = boost::xpressive::cregex::compile(
         MatchRegex, 
         boost::xpressive::regex_constants::icase);
 
     //Type Matching
-    ps("MatchNodeCoreType",     mMatchNodeCoreType    );
-    ps("MatchDerivedCoreTypes", mMatchDerivedCoreTypes);
+    ps("matchnodecoretype",     mMatchNodeCoreType    );
+    ps("matchderivedcoretypes", mMatchDerivedCoreTypes);
 
     std::string NodeCoreTypeName;
 
-    ps("NodeCoreTypeName", NodeCoreTypeName);
+    ps("nodecoretypename", NodeCoreTypeName);
 
 	mNodeCoreType = 
         FieldContainerFactory::the()->findType(NodeCoreTypeName.c_str());
 
     //Mask Matching
-	ps("MatchCurTravMask",      mMatchCurTravMask     );
-	ps("MatchCurTravMaskValue", mMatchCurTravMaskValue);
+	ps("matchcurtravmask",      mMatchCurTravMask     );
+	ps("matchcurtravmaskvalue", mMatchCurTravMaskValue);
 	//ps("MatchMaskCondition",mMatchMaskCondition);
     
     std::string out = ps.getUnusedParams();
