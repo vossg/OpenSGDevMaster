@@ -92,6 +92,15 @@ class OSG_BASE_DLLMAPPING MemoryConsumption
     TypeMemMap _memMap;
 };
 
+class ControlFindNamedElemInterface
+{
+  public:
+    
+    ControlFindNamedElemInterface(void);
+    virtual ~ControlFindNamedElemInterface(void);
+
+    virtual BitVector excludeFields(void) const = 0;
+};
 
 #if 0
 struct FieldPathEntry;

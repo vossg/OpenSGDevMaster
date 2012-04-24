@@ -204,21 +204,25 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     template <class ValueTypeT>
     bool              setOptionAs(const std::string &suffix,
                                   const std::string &name,
-                                  const ValueTypeT  &value  );
+                                  const ValueTypeT  &value         );
     bool              setOption  (const std::string &suffix,
                                   const std::string &name,
-                                  const std::string &value  );
+                                  const std::string &value         );
     
     bool              unsetOption(const std::string &suffix,
-                                  const std::string &name   );
+                                  const std::string &name          );
     
     template <class ValueTypeT>
     bool              getOptionAs(const std::string &suffix,
                                   const std::string &name,
-                                        ValueTypeT  &value  );
+                                        ValueTypeT  &value         );
     bool              getOption  (const std::string &suffix,
                                   const std::string &name,
-                                        std::string &value  );
+                                        std::string &value         );
+
+    void              pushOptions(const std::string &suffix,
+                                        bool         copyTop = true);
+    void              popOptions (const std::string &suffix        );
 
 #if defined(OSG_1_COMPAT)
     void setOptions(const std::string &suffix,

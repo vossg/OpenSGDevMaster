@@ -96,6 +96,15 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \name Options                                                      */
     /*! \{                                                                 */
 
+    template <class ValueTypeT>
+    bool getOptionAs(const std::string &name,
+                           ValueTypeT  &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Options                                                      */
+    /*! \{                                                                 */
+
     bool getInvertTransparency   (void      ) const;
     void setInvertTransparency   (bool value);
 
@@ -113,7 +122,9 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
@@ -124,11 +135,15 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    bool _invertTransparency;
-    bool _mergeTransforms;
-    bool _createNameAttachments;
-    bool _loadAnimations;
-    bool _loadLights;
+    bool      _invertTransparency;
+    bool      _mergeTransforms;
+    bool      _createNameAttachments;
+    bool      _loadAnimations;
+    bool      _loadLights;
+
+    // remaining options
+    OptionSet _oOptions;
+
 };
 
 OSG_GEN_MEMOBJPTR(ColladaOptions);

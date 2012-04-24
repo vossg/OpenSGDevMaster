@@ -64,6 +64,8 @@ ColladaOptions::parseOptions(const OptionSet &optSet)
         optSet, "loadAnimations", _loadAnimations);
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "loadLights", _loadLights);
+
+    _oOptions = optSet;
 }
 
 /*! Return \c true if transparency values should be inverted, \c false
@@ -155,6 +157,7 @@ ColladaOptions::ColladaOptions(void)
     , _createNameAttachments(true)
     , _loadAnimations       (true)
     , _loadLights           (true)
+    , _oOptions             (    )
 {
 }
 

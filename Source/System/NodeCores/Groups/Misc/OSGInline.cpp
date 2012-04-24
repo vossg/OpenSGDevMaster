@@ -154,6 +154,36 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
             pGraphOp = GraphOpSeq::create(_sfGraphOp.getValue());
         }
 
+        std::string urlExt;
+
+        if(_mfOptions.size() != 0)
+        {
+            boost::filesystem::path urlPath(_mfUrl[i]);
+
+            urlExt = urlPath.extension().native();
+
+            if(urlExt.empty() == false)
+            {
+                SceneFileHandler::the()->pushOptions(urlExt);
+
+                for(UInt32 i = 0; i < _mfOptions.size(); ++i)
+                {
+                    SizeT uiSplit = _mfOptions[i].find('=');
+
+                    if(uiSplit != std::string::npos)
+                    {
+                        std::string name  = _mfOptions[i].substr(0,
+                                                                 uiSplit    );
+                        std::string value = _mfOptions[i].substr(uiSplit + 1);
+
+                        SceneFileHandler::the()->setOption(urlExt,
+                                                           name,
+                                                           value );
+                    }
+                }
+            }
+        }
+
         NodeUnrecPtr pFile = SceneFileHandler::the()->read(
             szFName.c_str(),
             pGraphOp,
@@ -177,6 +207,9 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
                     false);
             }
         }
+
+        if(_mfOptions.size() != 0 && urlExt.empty() == false)
+            SceneFileHandler::the()->popOptions(urlExt);
 
         if(pFile != NULL)
         {
@@ -207,6 +240,19 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
 
         setRoot(NULL);
     }
+}
+
+void Inline::moveRootTo(Node *pTarget)
+{
+    if(pTarget == NULL)
+        return;
+
+    NodeUnrecPtr pInlineRoot = this->getRoot();
+
+    this->setRoot(NULL);
+
+    pTarget->addChild(pInlineRoot);
+
 }
 
 Action::ResultE Inline::renderEnter(Action *action)

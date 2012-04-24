@@ -157,6 +157,22 @@ std::string &InlineBase::editUrl(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the Inline::_mfOptions field.
+inline
+const std::string &InlineBase::getOptions(const UInt32 index) const
+{
+    return _mfOptions[index];
+}
+
+inline
+std::string &InlineBase::editOptions(const UInt32 index)
+{
+    editMField(OptionsFieldMask, _mfOptions);
+
+    return _mfOptions[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -182,6 +198,12 @@ void InlineBase::execSync (      InlineBase *pFrom,
 
     if(FieldBits::NoField != (GraphOpFieldMask & whichField))
         _sfGraphOp.syncWith(pFrom->_sfGraphOp);
+
+    if(FieldBits::NoField != (OptionsFieldMask & whichField))
+        _mfOptions.syncWith(pFrom->_mfOptions,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

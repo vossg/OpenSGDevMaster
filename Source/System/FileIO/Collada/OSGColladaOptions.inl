@@ -44,4 +44,11 @@ ColladaOptions::create(void)
     return ColladaOptionsTransitPtr(new ColladaOptions);
 }
 
+template <class ValueTypeT> inline
+bool ColladaOptions::getOptionAs(const std::string &name,
+                                       ValueTypeT  &value)
+{
+    return IOFileTypeBase::getOptionAs<ValueTypeT>(_oOptions, name, value);
+}
+
 OSG_END_NAMESPACE

@@ -79,6 +79,13 @@ class OSG_GROUP_DLLMAPPING Inline :
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    void moveRootTo(Node *pTarget);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32    uiIndent = 0, 
                       const BitVector bvFlags  = 0) const;
 

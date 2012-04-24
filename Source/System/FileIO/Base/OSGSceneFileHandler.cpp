@@ -682,6 +682,27 @@ bool
     return retVal;
 }
 
+void SceneFileHandlerBase::pushOptions(const std::string &suffix,
+                                             bool         copyTop)
+{
+    SceneFileType *type   = getFileType(suffix.c_str());
+
+    if(type != NULL)
+    {
+        type->pushOptions(copyTop);
+    }
+}
+
+void SceneFileHandlerBase::popOptions(const std::string &suffix)
+{
+    SceneFileType *type   = getFileType(suffix.c_str());
+
+    if(type != NULL)
+    {
+        type->popOptions();
+    }
+}
+
 #if defined(OSG_1_COMPAT)
 void SceneFileHandlerBase::setOptions(const std::string &suffix,
                                       const std::string &osg1Options)

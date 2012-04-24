@@ -46,4 +46,12 @@
 	 access="public"
 	 >
   </Field>
+  <Field
+	 name="options"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
 </FieldContainer>

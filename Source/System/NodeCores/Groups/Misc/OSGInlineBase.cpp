@@ -98,6 +98,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     InlineBase::_mfOptions
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -177,6 +181,18 @@ void InlineBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Inline::getHandleGraphOp));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFString::Description(
+        MFString::getClassType(),
+        "options",
+        "",
+        OptionsFieldId, OptionsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Inline::editHandleOptions),
+        static_cast<FieldGetMethodSig >(&Inline::getHandleOptions));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -236,6 +252,14 @@ InlineBase::TypeObject InlineBase::_type(
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue='\"default\"'\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"options\"\n"
+    "\t type=\"std::string\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
     "\t access=\"public\"\n"
     "\t >\n"
     "  </Field>\n"
@@ -315,6 +339,19 @@ const SFString *InlineBase::getSFGraphOp(void) const
 }
 
 
+MFString *InlineBase::editMFOptions(void)
+{
+    editMField(OptionsFieldMask, _mfOptions);
+
+    return &_mfOptions;
+}
+
+const MFString *InlineBase::getMFOptions(void) const
+{
+    return &_mfOptions;
+}
+
+
 
 
 
@@ -341,6 +378,10 @@ SizeT InlineBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfGraphOp.getBinSize();
     }
+    if(FieldBits::NoField != (OptionsFieldMask & whichField))
+    {
+        returnValue += _mfOptions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -365,6 +406,10 @@ void InlineBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GraphOpFieldMask & whichField))
     {
         _sfGraphOp.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (OptionsFieldMask & whichField))
+    {
+        _mfOptions.copyToBin(pMem);
     }
 }
 
@@ -392,6 +437,11 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(GraphOpFieldMask);
         _sfGraphOp.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (OptionsFieldMask & whichField))
+    {
+        editMField(OptionsFieldMask, _mfOptions);
+        _mfOptions.copyFromBin(pMem);
     }
 }
 
@@ -521,7 +571,8 @@ InlineBase::InlineBase(void) :
     _mfUrl                    (),
     _sfLoaded                 (bool(true)),
     _sfRoot                   (NULL),
-    _sfGraphOp                (std::string("default"))
+    _sfGraphOp                (std::string("default")),
+    _mfOptions                ()
 {
 }
 
@@ -530,7 +581,8 @@ InlineBase::InlineBase(const InlineBase &source) :
     _mfUrl                    (source._mfUrl                    ),
     _sfLoaded                 (source._sfLoaded                 ),
     _sfRoot                   (NULL),
-    _sfGraphOp                (source._sfGraphOp                )
+    _sfGraphOp                (source._sfGraphOp                ),
+    _mfOptions                (source._mfOptions                )
 {
 }
 
@@ -656,6 +708,31 @@ EditFieldHandlePtr InlineBase::editHandleGraphOp        (void)
     return returnValue;
 }
 
+GetFieldHandlePtr InlineBase::getHandleOptions         (void) const
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfOptions,
+             this->getType().getFieldDesc(OptionsFieldId),
+             const_cast<InlineBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr InlineBase::editHandleOptions        (void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfOptions,
+             this->getType().getFieldDesc(OptionsFieldId),
+             this));
+
+
+    editMField(OptionsFieldMask, _mfOptions);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void InlineBase::execSyncV(      FieldContainer    &oFrom,
@@ -703,6 +780,10 @@ void InlineBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfUrl.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfOptions.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

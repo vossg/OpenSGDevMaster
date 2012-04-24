@@ -100,7 +100,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         LoadedFieldId = UrlFieldId + 1,
         RootFieldId = LoadedFieldId + 1,
         GraphOpFieldId = RootFieldId + 1,
-        NextFieldId = GraphOpFieldId + 1
+        OptionsFieldId = GraphOpFieldId + 1,
+        NextFieldId = OptionsFieldId + 1
     };
 
     static const OSG::BitVector UrlFieldMask =
@@ -111,6 +112,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
         (TypeTraits<BitVector>::One << RootFieldId);
     static const OSG::BitVector GraphOpFieldMask =
         (TypeTraits<BitVector>::One << GraphOpFieldId);
+    static const OSG::BitVector OptionsFieldMask =
+        (TypeTraits<BitVector>::One << OptionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -118,6 +121,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     typedef SFBool            SFLoadedType;
     typedef SFUnrecNodePtr    SFRootType;
     typedef SFString          SFGraphOpType;
+    typedef MFString          MFOptionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -152,6 +156,9 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   SFString            *editSFGraphOp        (void);
             const SFString            *getSFGraphOp         (void) const;
 
+                  MFString            *editMFOptions        (void);
+            const MFString            *getMFOptions         (void) const;
+
 
                   std::string         &editUrl            (const UInt32 index);
             const std::string         &getUrl             (const UInt32 index) const;
@@ -161,6 +168,9 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
 
                   std::string         &editGraphOp        (void);
             const std::string         &getGraphOp         (void) const;
+
+                  std::string         &editOptions        (const UInt32 index);
+            const std::string         &getOptions         (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -237,6 +247,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     SFBool            _sfLoaded;
     SFUnrecNodePtr    _sfRoot;
     SFString          _sfGraphOp;
+    MFString          _mfOptions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -273,6 +284,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     EditFieldHandlePtr editHandleRoot           (void);
     GetFieldHandlePtr  getHandleGraphOp         (void) const;
     EditFieldHandlePtr editHandleGraphOp        (void);
+    GetFieldHandlePtr  getHandleOptions         (void) const;
+    EditFieldHandlePtr editHandleOptions        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

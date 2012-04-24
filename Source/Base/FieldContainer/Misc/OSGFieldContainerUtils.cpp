@@ -473,6 +473,12 @@ FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
     const AttachmentContainer *pAC = 
         dynamic_cast<const AttachmentContainer *>(pCnt);
 
+#if 0
+    fprintf(stderr, "findNamedComponent::visit %p type %s\n",
+            pCnt,
+            pCnt->getType().getCName());
+#endif            
+
     szTmpName = OSG::getName(pAC);
         
     if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
@@ -496,6 +502,16 @@ FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
         }
     }
 
+    BitVector bvExcludedFields = TypeTraits<BitVector>::BitsSet;
+
+    const ControlFindNamedElemInterface *pCFNInterface =
+        dynamic_cast<ControlFindNamedElemInterface *>(pCnt);
+
+    if(pCFNInterface != NULL)
+    {
+        bvExcludedFields = pCFNInterface->excludeFields();
+    }
+
     const FieldContainerType &fcType = pCnt->getType();
           UInt32              fCount = fcType.getNumFieldDescs();
 
@@ -504,6 +520,9 @@ FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
         const FieldDescriptionBase *fDesc = fcType.getFieldDesc(i);
 
         if(fDesc->getFieldType().getClass() == FieldType::ParentPtrField)
+            continue;
+
+        if(0x0000 == (bvExcludedFields & fDesc->getFieldMask()))
             continue;
 
         GetFieldHandlePtr srcField = pCnt->getField(i);
@@ -663,6 +682,13 @@ MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
     return _memMap.end();
 }
 
+ControlFindNamedElemInterface::ControlFindNamedElemInterface(void)
+{
+}
+
+ControlFindNamedElemInterface::~ControlFindNamedElemInterface(void)
+{
+}
 
 
 FieldContainer *resolveFieldPath(const Char8             *szNodeName, 
