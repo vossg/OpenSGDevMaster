@@ -70,6 +70,15 @@
      >
   </Field>
   <Field
+     name="travMask"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="TypeTraits&lt;UInt32&gt;::BitsSet"
+     >
+  </Field>
+  <Field
      name="renderOptions"
      type="RenderOptionsPtr"
      cardinality="single"

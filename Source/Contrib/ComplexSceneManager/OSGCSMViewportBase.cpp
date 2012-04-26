@@ -110,6 +110,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          CSMViewportBase::_sfTravMask
+    
+*/
+
 /*! \var RenderOptions * CSMViewportBase::_sfRenderOptions
     
 */
@@ -228,6 +232,18 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleRightTop),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRightTop));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "travMask",
+        "",
+        TravMaskFieldId, TravMaskFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleTravMask),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleTravMask));
 
     oType.addInitialDesc(pDesc);
 
@@ -362,6 +378,15 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"1.f, 1.f\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"travMask\"\n"
+    "     type=\"UInt32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"TypeTraits&lt;UInt32&gt;::BitsSet\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -505,6 +530,19 @@ const SFVec2f *CSMViewportBase::getSFRightTop(void) const
 }
 
 
+SFUInt32 *CSMViewportBase::editSFTravMask(void)
+{
+    editSField(TravMaskFieldMask);
+
+    return &_sfTravMask;
+}
+
+const SFUInt32 *CSMViewportBase::getSFTravMask(void) const
+{
+    return &_sfTravMask;
+}
+
+
 //! Get the CSMViewport::_sfRenderOptions field.
 const SFUnrecRenderOptionsPtr *CSMViewportBase::getSFRenderOptions(void) const
 {
@@ -644,6 +682,10 @@ SizeT CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRightTop.getBinSize();
     }
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+    {
+        returnValue += _sfTravMask.getBinSize();
+    }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
         returnValue += _sfRenderOptions.getBinSize();
@@ -692,6 +734,10 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RightTopFieldMask & whichField))
     {
         _sfRightTop.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+    {
+        _sfTravMask.copyToBin(pMem);
     }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
@@ -745,6 +791,11 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(RightTopFieldMask);
         _sfRightTop.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+    {
+        editSField(TravMaskFieldMask);
+        _sfTravMask.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
@@ -870,6 +921,7 @@ CSMViewportBase::CSMViewportBase(void) :
     _mfForegrounds            (),
     _sfLeftBottom             (Vec2f(0.f, 0.f)),
     _sfRightTop               (Vec2f(1.f, 1.f)),
+    _sfTravMask               (UInt32(TypeTraits<UInt32>::BitsSet)),
     _sfRenderOptions          (NULL),
     _sfStereoMode             (std::string("none")),
     _sfPassive                (bool(false)),
@@ -885,6 +937,7 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _mfForegrounds            (),
     _sfLeftBottom             (source._sfLeftBottom             ),
     _sfRightTop               (source._sfRightTop               ),
+    _sfTravMask               (source._sfTravMask               ),
     _sfRenderOptions          (NULL),
     _sfStereoMode             (source._sfStereoMode             ),
     _sfPassive                (source._sfPassive                ),
@@ -1096,6 +1149,31 @@ EditFieldHandlePtr CSMViewportBase::editHandleRightTop       (void)
 
 
     editSField(RightTopFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleTravMask        (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfTravMask,
+             this->getType().getFieldDesc(TravMaskFieldId),
+             const_cast<CSMViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleTravMask       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfTravMask,
+             this->getType().getFieldDesc(TravMaskFieldId),
+             this));
+
+
+    editSField(TravMaskFieldMask);
 
     return returnValue;
 }

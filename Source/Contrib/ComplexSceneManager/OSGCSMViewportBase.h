@@ -70,9 +70,9 @@
 #include "OSGBackgroundFields.h"        // Background type
 #include "OSGForegroundFields.h"        // Foregrounds type
 #include "OSGVecFields.h"               // LeftBottom type
+#include "OSGSysFields.h"               // TravMask type
 #include "OSGRenderOptionsFields.h"     // RenderOptions type
 #include "OSGBaseFields.h"              // StereoMode type
-#include "OSGSysFields.h"               // Passive type
 
 #include "OSGCSMViewportFields.h"
 
@@ -107,7 +107,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         ForegroundsFieldId = BackgroundFieldId + 1,
         LeftBottomFieldId = ForegroundsFieldId + 1,
         RightTopFieldId = LeftBottomFieldId + 1,
-        RenderOptionsFieldId = RightTopFieldId + 1,
+        TravMaskFieldId = RightTopFieldId + 1,
+        RenderOptionsFieldId = TravMaskFieldId + 1,
         StereoModeFieldId = RenderOptionsFieldId + 1,
         PassiveFieldId = StereoModeFieldId + 1,
         ServerIdFieldId = PassiveFieldId + 1,
@@ -126,6 +127,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         (TypeTraits<BitVector>::One << LeftBottomFieldId);
     static const OSG::BitVector RightTopFieldMask =
         (TypeTraits<BitVector>::One << RightTopFieldId);
+    static const OSG::BitVector TravMaskFieldMask =
+        (TypeTraits<BitVector>::One << TravMaskFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
     static const OSG::BitVector StereoModeFieldMask =
@@ -143,6 +146,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     typedef MFUnrecForegroundPtr MFForegroundsType;
     typedef SFVec2f           SFLeftBottomType;
     typedef SFVec2f           SFRightTopType;
+    typedef SFUInt32          SFTravMaskType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
     typedef SFString          SFStereoModeType;
     typedef SFBool            SFPassiveType;
@@ -185,6 +189,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
 
                   SFVec2f             *editSFRightTop       (void);
             const SFVec2f             *getSFRightTop        (void) const;
+
+                  SFUInt32            *editSFTravMask       (void);
+            const SFUInt32            *getSFTravMask        (void) const;
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
@@ -212,6 +219,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                   Vec2f               &editRightTop       (void);
             const Vec2f               &getRightTop        (void) const;
 
+                  UInt32              &editTravMask       (void);
+                  UInt32               getTravMask        (void) const;
+
                   RenderOptions * getRenderOptions  (void) const;
 
                   std::string         &editStereoMode     (void);
@@ -233,6 +243,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
             void setBackground     (Background * const value);
             void setLeftBottom     (const Vec2f &value);
             void setRightTop       (const Vec2f &value);
+            void setTravMask       (const UInt32 value);
             void setRenderOptions  (RenderOptions * const value);
             void setStereoMode     (const std::string &value);
             void setPassive        (const bool value);
@@ -313,6 +324,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     MFUnrecForegroundPtr _mfForegrounds;
     SFVec2f           _sfLeftBottom;
     SFVec2f           _sfRightTop;
+    SFUInt32          _sfTravMask;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
     SFString          _sfStereoMode;
     SFBool            _sfPassive;
@@ -357,6 +369,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     EditFieldHandlePtr editHandleLeftBottom     (void);
     GetFieldHandlePtr  getHandleRightTop        (void) const;
     EditFieldHandlePtr editHandleRightTop       (void);
+    GetFieldHandlePtr  getHandleTravMask        (void) const;
+    EditFieldHandlePtr editHandleTravMask       (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
     GetFieldHandlePtr  getHandleStereoMode      (void) const;

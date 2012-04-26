@@ -145,17 +145,17 @@ Action *Action::getPrototype(void)
  */
 
 Action::Action(void) :
-     Inherited    (                            ),
-    _enterFunctors(                            ),
-    _leaveFunctors(                            ),
-    _actNode      (NULL                        ),
-    _actParent    (NULL                        ),
-    _actList      (NULL                        ),
-    _useNewList   (false                       ),
-    _travMask     (TypeTraits<UInt32>::getMax()),
-    _sTravMask    (                            ),
-    _nodeEnterCB  (                            ),
-    _nodeLeaveCB  (                            )
+     Inherited    (                           ),
+    _enterFunctors(                           ),
+    _leaveFunctors(                           ),
+    _actNode      (NULL                       ),
+    _actParent    (NULL                       ),
+    _actList      (NULL                       ),
+    _useNewList   (false                      ),
+    _travMask     (TypeTraits<UInt32>::BitsSet),
+    _sTravMask    (                           ),
+    _nodeEnterCB  (                           ),
+    _nodeLeaveCB  (                           )
 {
     if(_defaultEnterFunctors)
         _enterFunctors = *_defaultEnterFunctors;
@@ -300,8 +300,10 @@ Action::ResultE Action::recurse(Node * const node)
     if(node == NULL)
         return Continue;
 
-    if((node->getTravMask() & getTravMask()) == 0)
+    if((node->getTravMask() & getTravMask()) == 0x0000)
+    {
         return Continue;
+    }
 
 #if OSG_1_COMPAT
     if(node->getOcclusionMask() & 1)
@@ -400,8 +402,10 @@ Action::ResultE Action::recurseNoCallback(Node * const node)
     if(node == NULL)
         return Continue;
 
-    if((node->getTravMask() & getTravMask()) == 0)
+    if((node->getTravMask() & getTravMask()) == 0x0000)
+    {
         return Continue;
+    }
 
     NodeCore *core = node->getCore();
 
@@ -455,8 +459,10 @@ Action::ResultE Action::recurseMultiCoreFrom(Node      * const node,
     if(node == NULL)
         return Continue;
 
-    if((node->getTravMask() & getTravMask()) == 0)
+    if((node->getTravMask() & getTravMask()) == 0x0000)
+    {
         return Continue;
+    }
 
     OSG_ASSERT(node->getCore() == mcore);
 

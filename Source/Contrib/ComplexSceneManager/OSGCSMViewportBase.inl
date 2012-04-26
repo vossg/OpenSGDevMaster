@@ -172,6 +172,31 @@ void CSMViewportBase::setRightTop(const Vec2f &value)
 
     _sfRightTop.setValue(value);
 }
+//! Get the value of the CSMViewport::_sfTravMask field.
+
+inline
+UInt32 &CSMViewportBase::editTravMask(void)
+{
+    editSField(TravMaskFieldMask);
+
+    return _sfTravMask.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfTravMask field.
+inline
+      UInt32  CSMViewportBase::getTravMask(void) const
+{
+    return _sfTravMask.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfTravMask field.
+inline
+void CSMViewportBase::setTravMask(const UInt32 value)
+{
+    editSField(TravMaskFieldMask);
+
+    _sfTravMask.setValue(value);
+}
 
 //! Get the value of the CSMViewport::_sfRenderOptions field.
 inline
@@ -302,6 +327,9 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (RightTopFieldMask & whichField))
         _sfRightTop.syncWith(pFrom->_sfRightTop);
+
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+        _sfTravMask.syncWith(pFrom->_sfTravMask);
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);

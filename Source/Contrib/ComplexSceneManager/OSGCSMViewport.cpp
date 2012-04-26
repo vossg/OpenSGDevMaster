@@ -461,6 +461,7 @@ bool CSMViewport::init(CSMWindow *pCSMWin)
         (*vIt)->setRoot         (_sfRoot         .getValue());
         (*vIt)->setBackground   (_sfBackground   .getValue());
         (*vIt)->setRenderOptions(_sfRenderOptions.getValue());
+        (*vIt)->setTravMask     (_sfTravMask     .getValue());
 
         MFUnrecForegroundPtr::const_iterator fIt  = getMFForegrounds()->begin();
         MFUnrecForegroundPtr::const_iterator fEnd = getMFForegrounds()->end  ();
