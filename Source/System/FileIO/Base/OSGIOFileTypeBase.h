@@ -79,7 +79,7 @@ class OSG_SYSTEM_DLLMAPPING IOFileTypeBase
     /*! \nohierarchy
      */
 
-    struct IOOption
+    struct OSG_SYSTEM_DLLMAPPING IOOption
     {
         IOOption(void                                             );
         IOOption(const IOOption    &other                         );
