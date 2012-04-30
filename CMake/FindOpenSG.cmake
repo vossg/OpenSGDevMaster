@@ -48,6 +48,12 @@ ENDIF(NOT OSG_FORCE_CACHE_UPDATE)
 # OpenSG.
 set(OpenSG_ERROR_REASON)
 
+SET(__OSG_LIBDIR_SUFFIX "")
+
+IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  SET(__OSG_LIBDIR_SUFFIX "64")
+ENDIF()
+
 ############################################
 #
 # Check the existence of the libraries.
@@ -239,6 +245,13 @@ ELSE(__OpenSG_IN_CACHE)
             ${OPENSG_ROOT}/lib
             ${OPENSG_ROOT}/stage/lib
             ${__OpenSG_LIBRARIES_SEARCH_DIRS})
+
+        IF(__OSG_LIBDIR_SUFFIX)
+          SET(__OpenSG_LIBRARIES_SEARCH_DIRS
+              ${OPENSG_ROOT}/lib${__OSG_LIBDIR_SUFFIX}
+              ${OPENSG_ROOT}/stage/lib${__OSG_LIBDIR_SUFFIX}
+              ${__OpenSG_LIBRARIES_SEARCH_DIRS})
+        ENDIF()
     ENDIF(OPENSG_ROOT)
 
     # handle input variable OPENSG_INCLUDE_DIR
