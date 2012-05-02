@@ -2388,13 +2388,9 @@ MACRO(OSG_BOOST_DEP_SETUP)
     SET(Boost_USE_MULTITHREAD ON )
     SET(Boost_USE_STATIC_LIBS OFF)
 
-    FIND_PACKAGE(Boost COMPONENTS filesystem)
+    FIND_PACKAGE(Boost COMPONENTS filesystem system)
 
     IF(Boost_FOUND)
-
-        IF(${Boost_MINOR_VERSION} GREATER 34)
-          FIND_PACKAGE(Boost COMPONENTS system)
-        ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
         IF(PYTHON_INCLUDE_PATH AND PYTHON_LIBRARY)
           FIND_PACKAGE(Boost COMPONENTS python)
@@ -2453,23 +2449,15 @@ MACRO(OSG_BOOST_DEP_SETUP)
         IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
            CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
 
-          IF(${Boost_MINOR_VERSION} GREATER 34)
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
-                               ${Boost_SYSTEM_LIBRARY_DEBUG})
-          ELSE()
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
-          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
+          SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
+                             ${Boost_SYSTEM_LIBRARY_DEBUG})
 
           SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_DEBUG})
 
         ELSE()
 
-          IF(${Boost_MINOR_VERSION} GREATER 34)
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE} 
-                               ${Boost_SYSTEM_LIBRARY_RELEASE})
-          ELSE()
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
-          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
+          SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE} 
+                             ${Boost_SYSTEM_LIBRARY_RELEASE})
 
           SET(OSG_BOOST_PYTHON_LIBS ${Boost_PYTHON_LIBRARY_RELEASE})
 

@@ -609,20 +609,12 @@ MACRO(OSG_CONFIGURE_BOOST)
     ENDIF(NOT Boost_USE_STATIC_LIBS)
 
     IF(APPLE AND IOS)
-      FIND_PACKAGE(BoostIOS COMPONENTS filesystem)
+      FIND_PACKAGE(BoostIOS COMPONENTS filesystem system)
     ELSE()
-      FIND_PACKAGE(Boost COMPONENTS filesystem)
+      FIND_PACKAGE(Boost COMPONENTS filesystem system)
     ENDIF()
 
     IF(Boost_FOUND)
-
-        IF(${Boost_MINOR_VERSION} GREATER 34)
-          IF(APPLE AND IOS)
-            FIND_PACKAGE(BoostIOS COMPONENTS system)
-          ELSE()
-            FIND_PACKAGE(Boost COMPONENTS system)
-          ENDIF()
-        ENDIF(${Boost_MINOR_VERSION} GREATER 34)
 
         LIST(APPEND OSG_GLOBAL_DEP_INCDIR OSG_BOOST_INCDIRS)
 
@@ -633,21 +625,12 @@ MACRO(OSG_CONFIGURE_BOOST)
         IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
            CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
 
-          IF(${Boost_MINOR_VERSION} GREATER 34)
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
-                               ${Boost_SYSTEM_LIBRARY_DEBUG})
-          ELSE()
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
-          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
-
+          SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
+                             ${Boost_SYSTEM_LIBRARY_DEBUG})
         ELSE()
 
-          IF(${Boost_MINOR_VERSION} GREATER 34)
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE} 
-                               ${Boost_SYSTEM_LIBRARY_RELEASE})
-          ELSE()
-            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
-          ENDIF(${Boost_MINOR_VERSION} GREATER 34)
+          SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE} 
+                             ${Boost_SYSTEM_LIBRARY_RELEASE})
 
         ENDIF()
 
@@ -657,21 +640,12 @@ MACRO(OSG_CONFIGURE_BOOST)
 
         IF(WIN32)
 
-            SET(OSG_BOOST_TARGETS )
+          SET(OSG_BOOST_TARGETS )
 
-            OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_FILESYSTEM_LIBRARY)
+          OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_FILESYSTEM_LIBRARY)
+          OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_SYSTEM_LIBRARY)
 
-            IF(${Boost_MINOR_VERSION} GREATER 34)
-              IF(APPLE AND IOS)
-                FIND_PACKAGE(BoostIOS COMPONENTS system)
-              ELSE()
-                FIND_PACKAGE(Boost COMPONENTS system)
-              ENDIF()
-
-              OSG_ADD_IMPORT_LIB(OSG_BOOST_TARGETS Boost_SYSTEM_LIBRARY)
-            ENDIF()
-
-            SET(OSG_BOOST_LIBS ${OSG_BOOST_TARGETS})
+          SET(OSG_BOOST_LIBS ${OSG_BOOST_TARGETS})
 
         ENDIF(WIN32)
 
