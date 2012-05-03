@@ -933,57 +933,75 @@ void WebInterface::fcEditHandler(std::ostream &os,
                                  const char *,
                                  ParameterT &param)
 {
-#if 0
-    FieldContainerPtr fcPtr=NullFC;
-    std::string       value="";
-    UInt32            cid=0;
-    UInt32            fid=0;
-    Field            *field;
-    FieldDescription *desc=NULL;
+    FieldContainer       *fcPtr    = NULL;
+    std::string           value    = "";
+    UInt32                cid      = 0;
+    UInt32                fid      = 0;
+    GetFieldHandlePtr     fHandle;
+    FieldDescriptionBase *desc     = NULL;
 
     if(getParam(param,"id"))
     {
         cid = atoi(getParam(param,"id"));
+
         fcPtr = FieldContainerFactory::the()->getContainer(cid);
     }
+
     if(getParam(param,"field"))
     {
         fid = atoi(getParam(param,"field"));
     }
-    if(fcPtr == NullFC)
+
+    if(fcPtr == NULL)
     {
         os << "Content-Type: text/html\r\n"
               "\r\n"
               "<html>" << _header
            << "Unknown field container"
            << _footer << "</html>";
+
         return;
     }
-    field = fcPtr->getField(fid);
-    if(field == NULL)
+
+    fHandle = fcPtr->getField(fid);
+
+    if(fHandle == NULL || fHandle->isValid() == false)
     {
         os << "Content-Type: text/html\r\n"
               "\r\n"
               "<html>" << _header
            << "Unknown field in container"
            << _footer << "</html>";
+
         return;
     }
-    desc=fcPtr->getType().getFieldDescription(fid);
-    if(getParam(param,"value"))
+
+    desc = fcPtr->getFieldDescription(fid);
+
+    if(getParam(param, "value"))
     {
-        beginEditCP(fcPtr,desc->getFieldMask());
-        field->pushValueByStr(getParam(param,"value"));
-        endEditCP(fcPtr,desc->getFieldMask());
+		EditFieldHandlePtr curField = fcPtr->editField(fid);
+
+        if(curField != NULL && curField->isValid() == true)
+            curField->pushValueFromCString(getParam(param, "value"));
     }
-    field->getValueByStr(value);
+
+	std::stringstream ss;
+
+	OutStream oss(ss);
+
+	fHandle->pushValueToStream(oss);
+
+	value = ss.str();
+
+
     os << "Content-Type: text/html\r\n"
           "\r\n"
           "<html>" << _header
        << "<h1>Edit "
        << fcPtr->getTypeName()
        << "."
-       << desc->getName().str()
+       << desc->getName()
        << "</h1>\n"
        << "<form action=\"fcedit\">"
        << "<textarea name=\"value\" cols=\"50\" rows=\"10\">"
@@ -998,7 +1016,6 @@ void WebInterface::fcEditHandler(std::ostream &os,
        << "\">"
        << "</form>"
        << _footer << "</html>";
-#endif
 }
 
 /*! Show scenegraph tree. For each leave to open, a parameter with
