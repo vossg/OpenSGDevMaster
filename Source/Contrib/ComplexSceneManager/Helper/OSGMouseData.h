@@ -201,6 +201,10 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     void operator = (const MouseData &rhs);
     bool operator ==(const MouseData &rhs) const;
 
+    /*------------------------- assignment ----------------------------------*/
+
+    void dump(void) const;
+
     /*------------------------- comparison ----------------------------------*/
 };
 

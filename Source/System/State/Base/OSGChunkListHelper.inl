@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,18 +34,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
-
-/*! set the click center mode of the navigator
- */
- 
-inline
-bool NavigationManager::setClickCenter(bool mode)
-{
-    return _navigator.setClickCenter(mode);
-}
-
-
 
 OSG_END_NAMESPACE

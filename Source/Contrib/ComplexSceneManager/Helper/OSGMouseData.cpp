@@ -128,6 +128,18 @@ bool MouseData::operator ==(const MouseData &rhs) const
             _uiMode    == rhs._uiMode      );
 }
 
+void MouseData::dump(void) const
+{
+    fprintf(stderr, "MouseData : %d %d %d | %f %f | %p | %d\n",
+            _iButton,
+            _iState,
+            _iModifier,
+            _rX,
+            _rY,
+            _pWindow,
+            _uiMode   );
+}
+    
 
 DataType FieldTraits<MouseData>::_type("MouseData",        "BaseType"    );
 

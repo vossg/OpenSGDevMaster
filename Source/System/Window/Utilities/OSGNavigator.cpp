@@ -141,32 +141,35 @@ OSG_USING_NAMESPACE
 /*------------------------- constructors ----------------------------------*/
 
 Navigator::Navigator() :
-    _engine(NULL), // pointer to current engine
+    
+    _engine          (NULL                     ), // pointer to current engine
 
-    _trackballEngine(TrackballEngine::create()),
-    _flyEngine      (FlyEngine      ::create()),
-    _walkEngine     (WalkEngine     ::create()),
-    _navballEngine  (NavballEngine  ::create()),
-    _noneEngine     (NoneEngine     ::create()),
-    _userEngine     (TrackballEngine::create()),
+    _trackballEngine (TrackballEngine::create()),
+    _flyEngine       (FlyEngine      ::create()),
+    _walkEngine      (WalkEngine     ::create()),
+    _navballEngine   (NavballEngine  ::create()),
+    _noneEngine      (NoneEngine     ::create()),
+    _userEngine      (TrackballEngine::create()),
 
-    _rRotationAngle(0.04908739f),
-    _rMotionFactor(1.f),
-    _absolute(true),
-    _vp(NULL),
-    _cartN(NULL),
-    _moved(false),
-    _clickCenter(true),
-    _clickNoIntersect(false),
-    _lastX(0),
-    _lastY(0)
+    _rRotationAngle  (0.04908739f              ),
+    _rMotionFactor   (1.f                      ),
+    _absolute        (true                     ),
+    _vp              (NULL                     ),
+    _cartN           (NULL                     ),
+    _moved           (false                    ),
+    _clickCenter     (true                     ),
+    _clickNoIntersect(false                    ),
+    _lastX           (0                        ),
+    _lastY           (0                        ),
+    _width           (0                        ),
+    _height          (0                        )
 {
     setMode(TRACKBALL); // use trackball as default
 }
 
 /*-------------------------- destructors ----------------------------------*/
 
-Navigator::~Navigator()
+Navigator::~Navigator(void)
 {
     _cartN = NULL;
     _vp    = NULL;
@@ -186,7 +189,9 @@ Navigator::~Navigator()
 */
 void Navigator::buttonPress(Int16 button, Int16 x, Int16 y)
 {
-    _lastX = x; _lastY = y;
+    _lastX = x; 
+    _lastY = y;
+
     _moved = false;
 
     _engine->buttonPress(button, x, y, this);
@@ -213,7 +218,9 @@ void Navigator::moveTo(Int16 x, Int16 y)
     _moved = true;
 
     Real32 fromX, fromY, toX, toY;
-    if (!calcFromTo(x, y, fromX, fromY, toX, toY)) return;
+
+    if(!calcFromTo(x, y, fromX, fromY, toX, toY)) 
+        return;
 
     _engine->moveTo(x, y, this);
 
@@ -228,33 +235,98 @@ void Navigator::idle(Int16 buttons, Int16 x, Int16 y)
     _engine->idle(buttons, x, y, this);
 }
 
+void Navigator::buttonPress(Int16 button,  
+                            Int16 x, 
+                            Int16 y,
+                            Int16 width,
+                            Int16 height )
+{
+    this->_width  = width;
+    this->_height = height;
+
+    this->buttonPress(button, x, y);
+}
+
+void Navigator::buttonRelease(Int16 button,  
+                              Int16 x, 
+                              Int16 y,
+                              Int16 width,
+                              Int16 height )
+{
+    this->_width  = width;
+    this->_height = height;
+
+    this->buttonRelease(button, x, y);
+}
+
+void Navigator::keyPress(Int16 key,  
+                         Int16 x, 
+                         Int16 y,
+                         Int16 width,
+                         Int16 height )
+{
+    this->_width  = width;
+    this->_height = height;
+
+    this->keyPress(key, x, y);
+}
+
+void Navigator::moveTo(Int16 x, 
+                       Int16 y,
+                       Int16 width,
+                       Int16 height )
+{
+    this->_width  = width;
+    this->_height = height;
+
+    this->moveTo(x, y);
+}
+
+void Navigator::idle(Int16 buttons, 
+                     Int16 x, 
+                     Int16 y,
+                     Int16 width,
+                     Int16 height )
+{
+    this->_width  = width;
+    this->_height = height;
+
+    this->idle(buttons, x, y);
+}
+
+
 /*! Updates the camera transformation matrix directly in the node specified as
     the cart.
 */
-void Navigator::updateCameraTransformation()
+void Navigator::updateCameraTransformation(void)
 {
-    theMatrix.setIdentity();
+    _theMatrix.setIdentity();
+
     if(_absolute && _cartN != NULL && _cartN->getParent() != NULL)
     {
-        _cartN->getParent()->getToWorld(theMatrix);
-        theMatrix.inverse(theMatrix);
+        _cartN->getParent()->getToWorld(_theMatrix);
+
+        _theMatrix.inverse(_theMatrix);
     }
 
     _engine->onUpdateCameraTransformation(this);
-    theMatrix.mult(_engine->getMatrix());
+
+    _theMatrix.mult(_engine->getMatrix());
 
     if(_cartN != NULL)
     {
         Transform *t = dynamic_cast<Transform *>(_cartN->getCore());
+
         if(t == NULL)
         {
-            FWARNING (("Navigator: updateCamTrans, core is not TransformPtr\n"));
+            FWARNING (("Navigator: updateCamTrans, "
+                       "core is not TransformPtr\n"));
         }
         else
         {
-            if(t->getMatrix() != theMatrix)
+            if(t->getMatrix() != _theMatrix)
             {
-                t->setMatrix(theMatrix);
+                t->setMatrix(_theMatrix);
             }
         }
     }
@@ -270,27 +342,47 @@ void Navigator::updateCameraTransformation()
 */
 void Navigator::setMode(Navigator::Mode new_mode, bool copyViewParams)
 {
-    NavigatorEngine* engine = _trackballEngine;
+    NavigatorEngine *engine = _trackballEngine;
 
-    switch (new_mode) {
-        case TRACKBALL: engine = _trackballEngine; break;
-        case FLY:       engine = _flyEngine;       break;
-        case WALK:      engine = _walkEngine;      break;
-        case NAVBALL:   engine = _navballEngine;   break;
-        case NONE:      engine = _noneEngine;      break;
-        case USER:      engine = _userEngine;      break;
+    switch (new_mode) 
+    {
+        case TRACKBALL: 
+            engine = _trackballEngine; 
+            break;
+
+        case FLY:       
+            engine = _flyEngine;       
+            break;
+
+        case WALK:      
+            engine = _walkEngine;      
+            break;
+
+        case NAVBALL:   
+            engine = _navballEngine;   
+            break;
+
+        case NONE:      
+            engine = _noneEngine;      
+            break;
+
+        case USER:      
+            engine = _userEngine;      
+            break;
+
         default:
             FWARNING (("Navigator: unknown mode. Fallback to trackball.\n"));
     }
 
     assert(engine);
 
-    if (engine != _engine)
+    if(engine != _engine)
     {
-        if (copyViewParams && _engine)
-            engine->set(_engine->getFrom(),_engine->getAt(),_engine->getUp());
+        if(copyViewParams && _engine)
+            engine->set(_engine->getFrom(), _engine->getAt(), _engine->getUp());
 
         _engine = engine;
+
         _engine->onActivation(this);
     }
 }
@@ -314,6 +406,7 @@ void Navigator::setMotionFactor(Real32 new_factor)
 void Navigator::setViewport(Viewport *new_viewport)
 {
     _vp = new_viewport;
+
     _engine->onViewportChanged(this);
 }
 
@@ -384,21 +477,21 @@ const Matrix &Navigator::getMatrix(void)
 
 /*! Get the from point, i.e. the viewer position.
 */
-const Pnt3f  &Navigator::getFrom(void)
+const Pnt3f &Navigator::getFrom(void)
 {
     return _engine->getFrom();
 }
 
 /*! Get the at point, i.e. the target position.
 */
-const Pnt3f  &Navigator::getAt(void)
+const Pnt3f &Navigator::getAt(void)
 {
     return _engine->getAt();
 }
 
 /*! Get the up vector.
 */
-const Vec3f  &Navigator::getUp(void)
+const Vec3f &Navigator::getUp(void)
 {
     return _engine->getUp();
 }
@@ -422,11 +515,20 @@ Navigator::State Navigator::getState(void)
 */
 Navigator::Mode Navigator::getMode(void)
 {
-    if (_engine == _trackballEngine) return TRACKBALL;
-    if (_engine == _flyEngine)       return FLY;
-    if (_engine == _walkEngine)      return WALK;
-    if (_engine == _navballEngine)   return NAVBALL;
-    if (_engine == _noneEngine)      return NONE;
+    if(_engine == _trackballEngine) 
+        return TRACKBALL;
+
+    if(_engine == _flyEngine)       
+        return FLY;
+
+    if(_engine == _walkEngine)      
+        return WALK;
+
+    if(_engine == _navballEngine)   
+        return NAVBALL;
+
+    if(_engine == _noneEngine)      
+        return NONE;
 
     return USER;
 }
@@ -487,22 +589,22 @@ Int16 Navigator::getLastY(void)
     return _lastY;
 }
 
-NavballEngine& Navigator::getNavballEngine(void)
+NavballEngine &Navigator::getNavballEngine(void)
 { 
     return *_navballEngine; 
 }
 
-TrackballEngine& Navigator::getTrackballEngine(void)
+TrackballEngine &Navigator::getTrackballEngine(void)
 { 
     return *_trackballEngine; 
 }
 
-FlyEngine& Navigator::getFlyEngine(void)
+FlyEngine &Navigator::getFlyEngine(void)
 { 
     return *_flyEngine;
 }
 
-WalkEngine& Navigator::getWalkEngine(void)
+WalkEngine &Navigator::getWalkEngine(void)
 { 
     return *_walkEngine;
 }
@@ -512,21 +614,23 @@ NoneEngine &Navigator::getNoneEngine(void)
     return *_noneEngine;
 }
 
-NavigatorEngine& Navigator::getUserEngine(void)
+NavigatorEngine &Navigator::getUserEngine(void)
 {
     return *_userEngine;
 }
 
-void Navigator::setUserEngine(NavigatorEngine* userEngine)
+void Navigator::setUserEngine(NavigatorEngine *userEngine)
 {
-    if (userEngine == NULL) return;
+    if(userEngine == NULL) 
+        return;
 
-    if (userEngine != _userEngine)
+    if(userEngine != _userEngine)
     {
         _userEngine = userEngine;
     }
 
-    if (getMode() == USER) setMode(USER); // assign userEngine to _engine
+    if(getMode() == USER) 
+        setMode(USER); // assign userEngine to _engine
 }
 
 
@@ -537,6 +641,7 @@ bool Navigator::setClickCenter(bool state)
     bool old = _clickCenter;
 
     _clickCenter = state;
+
     return old;
 }
 
@@ -547,6 +652,7 @@ bool Navigator::setAbsolute(bool state)
     bool old = _absolute;
 
     _absolute = state;
+
     return old;
 }
 
@@ -557,31 +663,66 @@ bool Navigator::setClickNoIntersect(bool state)
     bool old = _clickNoIntersect;
 
     _clickNoIntersect = state;
+
     return old;
 }
 
 bool Navigator::calcFromTo(Int16   x,     Int16   y,
-                           Real32& fromX, Real32& fromY,
-                           Real32& toX,   Real32& toY)
+                           Real32 &fromX, Real32 &fromY,
+                           Real32 &toX,   Real32 &toY)
 {
-    Real32 width  = Real32(_vp->calcPixelWidth());
+    if(_vp == NULL)
+        return this->calcFromTo(x, y, _width, _height, fromX, fromY, toX, toY);
+
+    Real32 width  = Real32(_vp->calcPixelWidth ());
     Real32 height = Real32(_vp->calcPixelHeight());
 
-    if(width <= 0 || height <= 0) return false;
+    if(width <= 0 || height <= 0) 
+        return false;
 
     Window *par = _vp->getParent();
-    Real32 winHeight;
+    Real32  winHeight;
     
     if(par != NULL)
+    {
         winHeight = Real32(par->getHeight());
+    }
     else
+    {
         winHeight = height;
+    }
         
     fromX = (2.0f * (_lastX - _vp->calcPixelLeft())- width) /  width;
     fromY = (2.0f * (winHeight-_lastY-_vp->calcPixelBottom())-height) / height;
 
     toX   = (2.0f * (x - _vp->calcPixelLeft()) - width) / width;
     toY   = (2.0f * (winHeight - y - _vp->calcPixelBottom()) - height) / height;
+
+    fprintf(stderr, "%d %d | %f %f | %f %f | %f %f | %f %f\n",
+            UInt32(x),
+            UInt32(y),
+            width,
+            height,
+            Real32(_vp->calcPixelLeft()),
+            Real32( _vp->calcPixelBottom()),
+            fromX,
+            fromY,
+            toX,
+            toY      );
+
+    return true;
+}
+
+bool Navigator::calcFromTo(Int16   x,     Int16   y,
+                           Real32  width, Real32  height,
+                           Real32 &fromX, Real32 &fromY,
+                           Real32 &toX,   Real32 &toY)
+{
+    fromX = (2.0f * (         _lastX) - width ) /  width;
+    fromY = (2.0f * (height - _lastY) - height) / height;
+
+    toX   = (2.0f * (          x    ) - width ) / width;
+    toY   = (2.0f * (height -  y    ) - height) / height;
 
     return true;
 }

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2009 by the OpenSG Forum                    *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,69 +36,95 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_NAVIGATORBASE_H_
-#define _OSG_NAVIGATORBASE_H_
+#ifndef _OSGCHUNKLISTHELPER_H_
+#define _OSGCHUNKLISTHELPER_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGChunkListHelperBase.h"
+#include "OSGStateChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpUtilNavigation
-    \ingroup GrpLibOSGUtil
- */
+/*! \brief ChunkListHelper class. 
+    \ingroup GrpBaseFieldContainerHelper
+    \ingroup GrpLibOSGBase
+    \includebasedoc
+*/
 
-class OSG_UTIL_DLLMAPPING NavigatorBase
+class OSG_SYSTEM_DLLMAPPING ChunkListHelper : public ChunkListHelperBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef ChunkListHelperBase Inherited;
+    typedef ChunkListHelper     Self;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                      Types                                   */
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    enum Mode
-    {
-        TRACKBALL = 0x0000,
-        FLY       = 0x0001,
-        WALK      = 0x0002,
-        NAVBALL   = 0x0003,
-        NONE      = 0x0004,
-        USER      = 0x0005
-    };
-
-    enum State
-    {
-        IDLE=0,
-        ROTATING,
-        TRANSLATING_XY,
-        TRANSLATING_Z,
-
-        TRANSLATING_ZPLUS=10,
-        TRANSLATING_ZMINUS
-    };
-
-    enum MouseButton
-    {
-        LEFT_MOUSE   = 0x0000,
-        MIDDLE_MOUSE = 0x0001,
-        RIGHT_MOUSE  = 0x0002,
-        UP_MOUSE     = 0x0003,
-        DOWN_MOUSE   = 0x0004
-    };
-
-    enum Key
-    {
-        LEFT=0,
-        RIGHT,
-        FORWARDS,
-        BACKWARDS,
-        LEFTROT,
-        RIGHTROT
-    };
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    // Variables should all be in ChunkListHelperBase.
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Constructors                                */
+    /*! \{                                                                 */
+
+    ChunkListHelper(void);
+    ChunkListHelper(const ChunkListHelper &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~ChunkListHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class FieldContainer;
+    friend class ChunkListHelperBase;
+
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const ChunkListHelper &source);
 };
+
+typedef ChunkListHelper *ChunkListHelperP;
 
 OSG_END_NAMESPACE
 
-#endif //_OSG_NAVIGATORBASE_H_
+#include "OSGChunkListHelperBase.inl"
+#include "OSGChunkListHelper.inl"
+
+#endif /* _OSGCHUNKLISTHELPER_H_ */

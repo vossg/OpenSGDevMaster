@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ChunkBlock"
-	parent="FieldContainer"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+    name="ChunkBlock"
+    parent="FieldContainer"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
     isNodeCore="false"
->
-	<Field
-		name="chunks"
-		type="StateChunkPtr"
-		cardinality="multi"
-		visibility="external"
-        access="protected"
-        ptrFieldAccess = "custom"
-        pushToFieldAs="pushToChunks"
     >
-	</Field>
+  <Field
+      name="chunks"
+      type="StateChunkPtr"
+      cardinality="multi"
+      visibility="external"
+      access="protected"
+      ptrFieldAccess = "custom"
+      pushToFieldAs="pushToChunks"
+      >
+  </Field>
 </FieldContainer>

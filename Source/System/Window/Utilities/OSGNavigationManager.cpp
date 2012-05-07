@@ -181,6 +181,7 @@ void NavigationManager::setWindow(Window *win)
     }
 
     _win = win;
+
     if(_win->getMFPort()->size() > 0 && _win->getPort(0) != NULL)
         _navigator.setViewport(_win->getPort(0));
 }
@@ -190,22 +191,28 @@ void NavigationManager::setWindow(Window *win)
  */
 void NavigationManager::setBeacon(Node * const newBeacon)
 {
-    if (newBeacon == NULL) {
+    if(newBeacon == NULL) 
+    {
         setNavigationMode(Navigator::NONE);
+
         TransformNodeRefPtr xnode = TransformNodeRefPtr::create();
+
         _navigator.setCameraTransformation(xnode);
     }
     else
+    {
         _navigator.setCameraTransformation(newBeacon);
+    }
 }
 
 /*! Sets the navigation mode
  */
 void NavigationManager::setNavigationMode (Navigator::Mode new_mode)
 {
-    Matrix m=_navigator.getMatrix();
+    Matrix m = _navigator.getMatrix();
+
     _navigator.setMode(new_mode);
-    _navigator.set(m);
+    _navigator.set    (m       );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -222,10 +229,11 @@ void NavigationManager::resize(UInt16 width, UInt16 height)
  */
 void NavigationManager::mouseMove(Int16 x, Int16 y)
 {
-    if ( _mousebuttons) _navigator.moveTo(x,y);
+    if(_mousebuttons) 
+        _navigator.moveTo(x,y);
+
     _lastx = x;
     _lasty = y;
-
 }
 
 /*! call when a mouse button is pressed. button is the number of the pressed
@@ -238,16 +246,25 @@ void NavigationManager::mouseButtonPress(UInt16 button, Int16 x, Int16 y)
 {
     switch (button)
     {
-    case MouseLeft:    _navigator.buttonPress(Navigator::LEFT_MOUSE,x,y);
-      break;
-    case MouseMiddle:  _navigator.buttonPress(Navigator::MIDDLE_MOUSE,x,y);
-      break;
-    case MouseRight:   _navigator.buttonPress(Navigator::RIGHT_MOUSE,x,y);
-      break;
-    case MouseUp:      _navigator.buttonPress(Navigator::UP_MOUSE,x,y);
-      break;
-    case MouseDown:    _navigator.buttonPress(Navigator::DOWN_MOUSE,x,y);
-      break;
+        case MouseLeft:    
+            _navigator.buttonPress(Navigator::LEFT_MOUSE, x, y);
+            break;
+
+        case MouseMiddle:  
+            _navigator.buttonPress(Navigator::MIDDLE_MOUSE, x, y);
+            break;
+
+        case MouseRight:   
+            _navigator.buttonPress(Navigator::RIGHT_MOUSE, x, y);
+            break;
+
+        case MouseUp:      
+            _navigator.buttonPress(Navigator::UP_MOUSE, x, y);
+            break;
+
+        case MouseDown:    
+            _navigator.buttonPress(Navigator::DOWN_MOUSE, x, y);
+            break;
     }
 
     updateMouseButtonPress(button, x, y);
@@ -263,16 +280,25 @@ void NavigationManager::mouseButtonRelease(UInt16 button, Int16 x, Int16 y)
 {
     switch (button)
     {
-    case MouseLeft:     _navigator.buttonRelease(Navigator::LEFT_MOUSE,x,y);
-                        break;
-    case MouseMiddle:   _navigator.buttonRelease(Navigator::MIDDLE_MOUSE,x,y);
-                        break;
-    case MouseRight:    _navigator.buttonRelease(Navigator::RIGHT_MOUSE,x,y);
-                        break;
-    case MouseUp:       _navigator.buttonRelease(Navigator::UP_MOUSE,x,y);
-                        break;
-    case MouseDown:     _navigator.buttonRelease(Navigator::DOWN_MOUSE,x,y);
-                        break;
+        case MouseLeft:     
+            _navigator.buttonRelease(Navigator::LEFT_MOUSE, x, y);
+            break;
+
+        case MouseMiddle:   
+            _navigator.buttonRelease(Navigator::MIDDLE_MOUSE, x, y);
+            break;
+
+        case MouseRight:    
+            _navigator.buttonRelease(Navigator::RIGHT_MOUSE, x, y);
+            break;
+
+        case MouseUp:       
+            _navigator.buttonRelease(Navigator::UP_MOUSE, x, y);
+            break;
+
+        case MouseDown:     
+            _navigator.buttonRelease(Navigator::DOWN_MOUSE, x, y);
+            break;
     }
 
     updateMouseButtonRelease(button, x, y);
@@ -282,16 +308,31 @@ void NavigationManager::key(UChar8 key, Int16 x, Int16 y)
 {
     switch ( key )
     {
-        case 'j': _navigator.keyPress(Navigator::LEFT,x,y); break;
-        case 'g': _navigator.keyPress(Navigator::RIGHT,x,y); break;
-        case 'u': _navigator.keyPress(Navigator::LEFTROT,x,y); break;
-        case 't': _navigator.keyPress(Navigator::RIGHTROT,x,y); break;
-        case 'y': _navigator.keyPress(Navigator::FORWARDS,x,y); break;
-        case 'h': _navigator.keyPress(Navigator::BACKWARDS,x,y); break;
+        case 'j': 
+            _navigator.keyPress(Navigator::LEFT, x, y); 
+            break;
+
+        case 'g': 
+            _navigator.keyPress(Navigator::RIGHT, x, y); 
+            break;
+
+        case 'u': 
+            _navigator.keyPress(Navigator::LEFTROT, x, y); 
+            break;
+
+        case 't': 
+            _navigator.keyPress(Navigator::RIGHTROT, x, y); 
+            break;
+
+        case 'y': 
+            _navigator.keyPress(Navigator::FORWARDS, x, y); 
+            break;
+
+        case 'h': 
+            _navigator.keyPress(Navigator::BACKWARDS, x, y); 
+            break;
     }
 }
-
-
 
 /*-------------------------------------------------------------------------*/
 /*                                Actions                                  */
@@ -300,7 +341,7 @@ void NavigationManager::key(UChar8 key, Int16 x, Int16 y)
  */
 void NavigationManager::idle(void)
 {
-    _navigator.idle(_mousebuttons,_lastx, _lasty);
+    _navigator.idle(_mousebuttons, _lastx, _lasty);
 }
 
 /*! Update data needed for rendering.
@@ -348,9 +389,11 @@ void NavigationManager::redraw(void)
     current status of _mousebuttons, _lastx and _lasty 
  */
 void NavigationManager::updateMouseButtonPress(UInt16 button,
-                                               Int16 x, Int16 y)
+                                               Int16  x, 
+                                               Int16  y     )
 {
     _mousebuttons |= 1 << button;
+
     _lastx = x;
     _lasty = y;
 }
@@ -360,9 +403,11 @@ void NavigationManager::updateMouseButtonPress(UInt16 button,
     current status of _mousebuttons, _lastx and _lasty 
  */
 void NavigationManager::updateMouseButtonRelease(UInt16 button,
-                                                 Int16 x, Int16 y)
+                                                 Int16  x, 
+                                                 Int16  y     )
 {
     _mousebuttons &= ~(1 << button);
+
     _lastx = x;
     _lasty = y;
 }

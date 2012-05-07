@@ -93,38 +93,40 @@ class OSG_UTIL_DLLMAPPING NavigationManager : public MemoryObject
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual Window                *getWindow          ( void );
-    virtual Navigator             *getNavigator       ( void );
+    virtual Window    *getWindow   (void);
+    virtual Navigator *getNavigator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual void  setWindow        (Window         *win       );
-    virtual void  setBeacon        (Node * const    newBeacon);
-            void  setNavigationMode(Navigator::Mode new_mode);
-    inline  bool  setClickCenter   (bool            mode    );
+    virtual void  setWindow        (Window          *       win      );
+    virtual void  setBeacon        (Node            * const newBeacon);
+            void  setNavigationMode(Navigator::Mode         new_mode );
+            bool  setClickCenter   (bool                    mode     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Interaction handling                           */
     /*! \{                                                                 */
 
-    virtual void resize(UInt16 width, UInt16 height);
-    virtual void mouseMove(Int16 x, Int16 y);
-    virtual void mouseButtonPress(UInt16 button, Int16 x, Int16 y);
+    virtual void resize            (UInt16 width,  
+                                    UInt16 height                  );
+
+    virtual void mouseMove         (               Int16 x, Int16 y);
+    virtual void mouseButtonPress  (UInt16 button, Int16 x, Int16 y);
     virtual void mouseButtonRelease(UInt16 button, Int16 x, Int16 y);
-    virtual void key(UChar8 key, Int16 x, Int16 y);
+    virtual void key               (UChar8 key,    Int16 x, Int16 y);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Actions                                  */
     /*! \{                                                                 */
 
-    virtual void update( void );
-    virtual void redraw( void );
-    virtual void idle  ( void );
+    virtual void update(void);
+    virtual void redraw(void);
+    virtual void idle  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,11 +169,11 @@ class OSG_UTIL_DLLMAPPING NavigationManager : public MemoryObject
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    WindowRecPtr                 _win;
-    Navigator                    _navigator;
-    Int16                        _lastx;
-    Int16                        _lasty;
-    UInt16                       _mousebuttons;
+    WindowRecPtr _win;
+    Navigator    _navigator;
+    Int16        _lastx;
+    Int16        _lasty;
+    UInt16       _mousebuttons;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

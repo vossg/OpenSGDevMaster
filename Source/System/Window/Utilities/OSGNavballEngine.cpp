@@ -117,8 +117,7 @@ see \ref PageSystemWindowNavigatorsNavball for a description.
     Temporary ray direction for intersection testing.
 */
 
-NavballEngineTransitPtr
-NavballEngine::create(Real32 rSize)
+NavballEngineTransitPtr NavballEngine::create(Real32 rSize)
 {
     return NavballEngineTransitPtr(new NavballEngine(rSize));
 }
@@ -130,7 +129,7 @@ NavballEngine::create(Real32 rSize)
     The final matrix needs to be valid for this to work, if in doubt, call 
     updateFinalMatrix() beforehand.
 */
-const Pnt3f& NavballEngine::getFrom(void)
+const Pnt3f &NavballEngine::getFrom(void)
 {
     return _pFrom;
 }
@@ -139,7 +138,7 @@ const Pnt3f& NavballEngine::getFrom(void)
     The final matrix needs to be valid for this to work, if in doubt, call 
     updateFinalMatrix() beforehand.
 */
-const Pnt3f& NavballEngine::getAt(void)    
+const Pnt3f &NavballEngine::getAt(void)    
 {
     return _pAt;
 }
@@ -148,16 +147,17 @@ const Pnt3f& NavballEngine::getAt(void)
     The final matrix needs to be valid for this to work, if in doubt, call 
     updateFinalMatrix() beforehand.
 */
-const Vec3f& NavballEngine::getUp(void)
+const Vec3f &NavballEngine::getUp(void)
 {
     return _vUp;
 }
 
 /*! Get the current transformation matrix.
 */
-const Matrix& NavballEngine::getMatrix(void)
+const Matrix &NavballEngine::getMatrix(void)
 {
     updateFinalMatrix();
+
     return _finalMatrix;
 }
 
@@ -179,27 +179,33 @@ void NavballEngine::setFrom(Pnt3f new_from)
 */
 void NavballEngine::setAt(Pnt3f new_at)
 {
-    set(getFrom(),new_at,getUp());
+    set(getFrom(), new_at, getUp());
 }
 
 /*! Sets the up vector.
 */
 void NavballEngine::setUp(Vec3f new_up)
 {
-    set(getFrom(),getAt(),new_up);
+    set(getFrom(), getAt(), new_up);
 }
 
 /*! Set all viewer parameters of the navigator separately.
 */
 void NavballEngine::set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)
 {
-    bool b = MatrixLookAt(_finalMatrix, new_at, new_at+(new_at-new_from), new_up);
+    bool b = MatrixLookAt(_finalMatrix, 
+
+                          new_at, 
+                          new_at + (new_at - new_from), 
+                          new_up                      );
     if(!b)
     {
         _pFrom = new_from;
-        _pAt = new_at;
-        _vUp = new_up;
+        _pAt   = new_at;
+        _vUp   = new_up;
+
         _rDistance = (_pAt - _pFrom).length();
+
         updateFinalMatrix();
     }
     else
@@ -215,17 +221,17 @@ void NavballEngine::set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up)
     NavballNavigator::set(Pnt3f,Pnt3f,Vec3f) to set the values, especially
     when copying from one NavballNavigator to another one.
 */
-void NavballEngine::set(const Matrix & new_matrix)
+void NavballEngine::set(const Matrix &new_matrix)
 {
     // get distance
-    Vec3f translation( new_matrix[3][0], new_matrix[3][1], new_matrix[3][2] );
+    Vec3f translation( new_matrix[3][0], new_matrix[3][1], new_matrix[3][2]);
 
     _rDistance = translation.length();
 
     _pFrom = Pnt3f(new_matrix[3]);
     _pAt   = Pnt3f(new_matrix[3] - (_rDistance * new_matrix[2]));
     _vUp   = Vec3f(new_matrix[1]);
-    _vUp   = Vec3f(0.0f,1.0f,0.0f);
+    _vUp   = Vec3f(0.0f, 1.0f, 0.0f);
 }
 
 /*! Sets the distance from the target point in the view direction.
@@ -233,14 +239,17 @@ void NavballEngine::set(const Matrix & new_matrix)
 void NavballEngine::setDistance(Real32 new_distance)
 {
     _rDistance = new_distance;
+
     updateFinalMatrix();
 }
 
 
 /*--------------------  navigator engine callbacks ------------------------*/
 
-void NavballEngine::buttonPress(Int16 button, Int16 x, Int16 y,
-                                  Navigator* nav)
+void NavballEngine::buttonPress(Int16      button, 
+                                Int16      x, 
+                                Int16      y,
+                                Navigator *nav   )
 {
     switch (button)
     {
@@ -295,10 +304,11 @@ void NavballEngine::buttonRelease(Int16, Int16 x, Int16 y, Navigator* nav)
 
         delete act;
     }*/
+
     _currentState = Navigator::IDLE;
 }
 
-void NavballEngine::keyPress(Int16 key, Int16 , Int16, Navigator* nav)
+void NavballEngine::keyPress(Int16 key, Int16 , Int16, Navigator *nav)
 {
     switch (key)
     {
@@ -323,6 +333,7 @@ void NavballEngine::moveTo(Int16 x, Int16 y, Navigator* nav)
 {
     
     Real32 fromX, fromY, toX, toY;
+
     nav->calcFromTo(x, y, fromX, fromY, toX, toY);
 
     switch (_currentState)
@@ -348,6 +359,7 @@ void NavballEngine::moveTo(Int16 x, Int16 y, Navigator* nav)
             Real32 distance = osgSgn(toY-fromY) * 100.f;
 
             distance *= osgPow(osgAbs(toY-fromY), 2.f);
+
             translateZ(distance * nav->getMotionFactor());
         }
         break;
@@ -452,15 +464,17 @@ void NavballEngine::translateZ(Real32 distance)
 /*------------------------- constructors ----------------------------------*/
 
 NavballEngine::NavballEngine(Real32 rSize) : 
-    Inherited(), 
-    _ip(0,0,0),
-    _dir(0,0,0)
+     Inherited(       ), 
+    _ip       (0, 0, 0),
+    _dir      (0, 0, 0)
 {
     _finalMatrix.setIdentity();
-    _pFrom.setValues(0,0,0);
-    _pAt  .setValues(0,0,1);
-    _vUp  .setValues(0,1,0);
-    _rDistance=(_pAt-_pFrom).length();
+
+    _pFrom.setValues(0, 0, 0);
+    _pAt  .setValues(0, 0, 1);
+    _vUp  .setValues(0, 1, 0);
+
+    _rDistance=(_pAt - _pFrom).length();
 }
 
 /*-------------------------- destructors ----------------------------------*/
@@ -469,21 +483,26 @@ NavballEngine::~NavballEngine()
 {
 }
 
-/*! Calculate the final matrix, the matrix that reflects the actual state of the 
-    NavballEngine.
+/*! Calculate the final matrix, the matrix that reflects the actual state of
+    the NavballEngine.
 */
 void NavballEngine::updateFinalMatrix()
 {
-    MatrixLookAt(_finalMatrix,_pFrom,_pAt,_vUp);
+    MatrixLookAt(_finalMatrix, _pFrom, _pAt, _vUp);
 }
 
-static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
-                               Viewport * const port)
+static void myCalcCCtoWCMatrix(      Matrix   &       cctowc, 
+                               const Matrix   &       view,
+                                     Viewport * const port  )
 {
     Matrix proj, projtrans;
 
+    if(port == NULL)
+        return;
+
     port->getCamera()->getProjection( proj, port->calcPixelWidth(),
                                             port->calcPixelHeight());
+
     port->getCamera()->getProjectionTranslation( projtrans,
                                                  port->calcPixelWidth(),
                                                  port->calcPixelHeight());
@@ -499,10 +518,13 @@ static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,
     through the position on the screen given by x,y with the world, if no
     intersection point exists the intersection is set to (0,0,0)
 */
-void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
+void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator *nav)
 {
     Viewport *vp  = nav->getViewport();
-    Line line;
+    Line      line;
+
+    if(vp == NULL)
+        return;
     
     vp->getCamera()->calcViewRay(line, x, y, *vp);
     
@@ -551,12 +573,19 @@ void NavballEngine::getIntersectionPoint(Int16 x, Int16 y, Navigator* nav)
     trackball can actually drag the object in the plane parallel to the
     screen.
 */
-void NavballEngine::calcDeltas(Int16 , Int16 , Int16 toX, Int16 toY,
-                                 Real32 &distanceX, Real32 &distanceY,
-                                 Navigator* nav)
+void NavballEngine::calcDeltas(Int16, 
+                               Int16, 
+                               Int16   toX, 
+                               Int16   toY,
+                               Real32    &distanceX, 
+                               Real32    &distanceY,
+                               Navigator *nav)
 {
     Matrix    view = getMatrix();
     Viewport *vp   = nav->getViewport();
+
+    if(vp == NULL)
+        return;
 
     Pnt3f from( view[3][0], view[3][1], view[3][2] );
 

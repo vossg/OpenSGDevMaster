@@ -43,12 +43,25 @@
 #endif
 
 #include "OSGChunkBlockBase.h"
+#include "OSGChunkListHandlerMixin.h"
+#include "OSGChunkListHelper.h"
+
+#include "OSGStateChunkFields.h"
 #include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
 template <class Desc>
 class MapCacheHandlerMixin;
+
+struct ChunkBlockListHandlerDesc
+{
+    typedef ChunkBlockBase       ParentT;
+    typedef ChunkBlock           FinalContainer;
+    typedef ChunkListHelper      ChunkHelper;
+
+    typedef MFUnrecStateChunkPtr ChunksFieldType;
+};
 
 /*! \brief ChunkBlock class. See \ref
            PageSystemChunkBlock for a description.
@@ -58,7 +71,8 @@ class MapCacheHandlerMixin;
     \includebasedoc
  */
 
-class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
+class OSG_SYSTEM_DLLMAPPING ChunkBlock : 
+    public ChunkListHandlerMixin<ChunkBlockListHandlerDesc>
 {
   protected:
 
@@ -66,8 +80,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 
   public:
 
-    typedef ChunkBlockBase Inherited;
-    typedef ChunkBlock     Self;
+    typedef ChunkListHandlerMixin<ChunkBlockListHandlerDesc> Inherited;
+    typedef ChunkBlock                                       Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -164,6 +178,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 
     friend class FieldContainer;
     friend class ChunkBlockBase;
+    friend class ChunkListHandlerMixin<ChunkBlockListHandlerDesc>;
 
     template <class Desc>
     friend class MapCacheHandlerMixin;

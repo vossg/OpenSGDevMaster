@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ChunkBlock!
+ **     class ChunkListHelper!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -57,10 +57,10 @@
 
 
 
-#include "OSGStateChunk.h"              // Chunks Class
+#include "OSGStateChunk.h"              // Chunk Class
 
-#include "OSGChunkBlockBase.h"
-#include "OSGChunkBlock.h"
+#include "OSGChunkListHelperBase.h"
+#include "OSGChunkListHelper.h"
 
 #include <boost/bind.hpp>
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::ChunkBlock
+/*! \class OSG::ChunkListHelper
     
  */
 
@@ -82,7 +82,11 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var StateChunk *    ChunkBlockBase::_mfChunks
+/*! \var Int32           ChunkListHelperBase::_sfSlot
+    
+*/
+
+/*! \var StateChunk *    ChunkListHelperBase::_sfChunk
     
 */
 
@@ -92,78 +96,96 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<ChunkBlock *, nsOSG>::_type(
-    "ChunkBlockPtr", 
+PointerType FieldTraits<ChunkListHelper *, nsOSG>::_type(
+    "ChunkListHelperPtr", 
     "FieldContainerPtr", 
-    ChunkBlock::getClassType(),
+    ChunkListHelper::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(ChunkBlock *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(ChunkListHelper *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ChunkBlock *,
+                           ChunkListHelper *,
                            nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ChunkBlock *,
+                           ChunkListHelper *,
                            nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void ChunkBlockBase::classDescInserter(TypeObject &oType)
+void ChunkListHelperBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecStateChunkPtr::Description(
-        MFUnrecStateChunkPtr::getClassType(),
-        "chunks",
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "slot",
         "",
-        ChunksFieldId, ChunksFieldMask,
+        SlotFieldId, SlotFieldMask,
         false,
-        (Field::MFDefaultFlags | Field::FCustomAccess),
-        static_cast<FieldEditMethodSig>(&ChunkBlock::editHandleChunks),
-        static_cast<FieldGetMethodSig >(&ChunkBlock::getHandleChunks));
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ChunkListHelper::editHandleSlot),
+        static_cast<FieldGetMethodSig >(&ChunkListHelper::getHandleSlot));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecStateChunkPtr::Description(
+        SFUnrecStateChunkPtr::getClassType(),
+        "chunk",
+        "",
+        ChunkFieldId, ChunkFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ChunkListHelper::editHandleChunk),
+        static_cast<FieldGetMethodSig >(&ChunkListHelper::getHandleChunk));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-ChunkBlockBase::TypeObject ChunkBlockBase::_type(
-    ChunkBlockBase::getClassname(),
+ChunkListHelperBase::TypeObject ChunkListHelperBase::_type(
+    ChunkListHelperBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&ChunkBlockBase::createEmptyLocal),
-    ChunkBlock::initMethod,
-    ChunkBlock::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkBlock::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&ChunkListHelperBase::createEmptyLocal),
+    ChunkListHelper::initMethod,
+    ChunkListHelper::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkListHelper::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
+    "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"ChunkBlock\"\n"
-    "    parent=\"FieldContainer\"\n"
-    "    library=\"System\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    >\n"
+    "   name=\"ChunkListHelper\"\n"
+    "   parent=\"FieldContainer\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemFieldContainer\"\n"
+    ">\n"
     "  <Field\n"
-    "      name=\"chunks\"\n"
-    "      type=\"StateChunkPtr\"\n"
-    "      cardinality=\"multi\"\n"
-    "      visibility=\"external\"\n"
-    "      access=\"protected\"\n"
-    "      ptrFieldAccess = \"custom\"\n"
-    "      pushToFieldAs=\"pushToChunks\"\n"
-    "      >\n"
+    "\t name=\"slot\"\n"
+    "\t type=\"Int32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"chunk\"\n"
+    "\t type=\"StateChunkPtr\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "\t >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -171,30 +193,49 @@ ChunkBlockBase::TypeObject ChunkBlockBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ChunkBlockBase::getType(void)
+FieldContainerType &ChunkListHelperBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &ChunkBlockBase::getType(void) const
+const FieldContainerType &ChunkListHelperBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 ChunkBlockBase::getContainerSize(void) const
+UInt32 ChunkListHelperBase::getContainerSize(void) const
 {
-    return sizeof(ChunkBlock);
+    return sizeof(ChunkListHelper);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the ChunkBlock::_mfChunks field.
-const MFUnrecStateChunkPtr *ChunkBlockBase::getMFChunks(void) const
+SFInt32 *ChunkListHelperBase::editSFSlot(void)
 {
-    return &_mfChunks;
+    editSField(SlotFieldMask);
+
+    return &_sfSlot;
 }
 
+const SFInt32 *ChunkListHelperBase::getSFSlot(void) const
+{
+    return &_sfSlot;
+}
+
+
+//! Get the ChunkListHelper::_sfChunk field.
+const SFUnrecStateChunkPtr *ChunkListHelperBase::getSFChunk(void) const
+{
+    return &_sfChunk;
+}
+
+SFUnrecStateChunkPtr *ChunkListHelperBase::editSFChunk          (void)
+{
+    editSField(ChunkFieldMask);
+
+    return &_sfChunk;
+}
 
 
 
@@ -202,94 +243,107 @@ const MFUnrecStateChunkPtr *ChunkBlockBase::getMFChunks(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-SizeT ChunkBlockBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ChunkListHelperBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    if(FieldBits::NoField != (SlotFieldMask & whichField))
     {
-        returnValue += _mfChunks.getBinSize();
+        returnValue += _sfSlot.getBinSize();
+    }
+    if(FieldBits::NoField != (ChunkFieldMask & whichField))
+    {
+        returnValue += _sfChunk.getBinSize();
     }
 
     return returnValue;
 }
 
-void ChunkBlockBase::copyToBin(BinaryDataHandler &pMem,
+void ChunkListHelperBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    if(FieldBits::NoField != (SlotFieldMask & whichField))
     {
-        _mfChunks.copyToBin(pMem);
+        _sfSlot.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ChunkFieldMask & whichField))
+    {
+        _sfChunk.copyToBin(pMem);
     }
 }
 
-void ChunkBlockBase::copyFromBin(BinaryDataHandler &pMem,
+void ChunkListHelperBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+    if(FieldBits::NoField != (SlotFieldMask & whichField))
     {
-        editMField(ChunksFieldMask, _mfChunks);
-        _mfChunks.copyFromBin(pMem);
+        editSField(SlotFieldMask);
+        _sfSlot.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ChunkFieldMask & whichField))
+    {
+        editSField(ChunkFieldMask);
+        _sfChunk.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-ChunkBlockTransitPtr ChunkBlockBase::createLocal(BitVector bFlags)
+ChunkListHelperTransitPtr ChunkListHelperBase::createLocal(BitVector bFlags)
 {
-    ChunkBlockTransitPtr fc;
+    ChunkListHelperTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkListHelper>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-ChunkBlockTransitPtr ChunkBlockBase::createDependent(BitVector bFlags)
+ChunkListHelperTransitPtr ChunkListHelperBase::createDependent(BitVector bFlags)
 {
-    ChunkBlockTransitPtr fc;
+    ChunkListHelperTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkListHelper>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-ChunkBlockTransitPtr ChunkBlockBase::create(void)
+ChunkListHelperTransitPtr ChunkListHelperBase::create(void)
 {
-    ChunkBlockTransitPtr fc;
+    ChunkListHelperTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkListHelper>(tmpPtr);
     }
 
     return fc;
 }
 
-ChunkBlock *ChunkBlockBase::createEmptyLocal(BitVector bFlags)
+ChunkListHelper *ChunkListHelperBase::createEmptyLocal(BitVector bFlags)
 {
-    ChunkBlock *returnValue;
+    ChunkListHelper *returnValue;
 
-    newPtr<ChunkBlock>(returnValue, bFlags);
+    newPtr<ChunkListHelper>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -297,11 +351,11 @@ ChunkBlock *ChunkBlockBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkBlock *ChunkBlockBase::createEmpty(void)
+ChunkListHelper *ChunkListHelperBase::createEmpty(void)
 {
-    ChunkBlock *returnValue;
+    ChunkListHelper *returnValue;
 
-    newPtr<ChunkBlock>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<ChunkListHelper>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -310,12 +364,12 @@ ChunkBlock *ChunkBlockBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr ChunkBlockBase::shallowCopyLocal(
+FieldContainerTransitPtr ChunkListHelperBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ChunkBlock *tmpPtr;
+    ChunkListHelper *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ChunkBlock *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ChunkListHelper *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -324,12 +378,12 @@ FieldContainerTransitPtr ChunkBlockBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr ChunkBlockBase::shallowCopyDependent(
+FieldContainerTransitPtr ChunkListHelperBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    ChunkBlock *tmpPtr;
+    ChunkListHelper *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ChunkBlock *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ChunkListHelper *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -338,12 +392,12 @@ FieldContainerTransitPtr ChunkBlockBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr ChunkBlockBase::shallowCopy(void) const
+FieldContainerTransitPtr ChunkListHelperBase::shallowCopy(void) const
 {
-    ChunkBlock *tmpPtr;
+    ChunkListHelper *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const ChunkBlock *>(this),
+           dynamic_cast<const ChunkListHelper *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -358,86 +412,103 @@ FieldContainerTransitPtr ChunkBlockBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-ChunkBlockBase::ChunkBlockBase(void) :
+ChunkListHelperBase::ChunkListHelperBase(void) :
     Inherited(),
-    _mfChunks                 ()
+    _sfSlot                   (),
+    _sfChunk                  (NULL)
 {
 }
 
-ChunkBlockBase::ChunkBlockBase(const ChunkBlockBase &source) :
+ChunkListHelperBase::ChunkListHelperBase(const ChunkListHelperBase &source) :
     Inherited(source),
-    _mfChunks                 ()
+    _sfSlot                   (source._sfSlot                   ),
+    _sfChunk                  (NULL)
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-ChunkBlockBase::~ChunkBlockBase(void)
+ChunkListHelperBase::~ChunkListHelperBase(void)
 {
 }
 
-void ChunkBlockBase::onCreate(const ChunkBlock *source)
+void ChunkListHelperBase::onCreate(const ChunkListHelper *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        ChunkBlock *pThis = static_cast<ChunkBlock *>(this);
+        ChunkListHelper *pThis = static_cast<ChunkListHelper *>(this);
 
-        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
-            source->_mfChunks.begin();
-        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
-            source->_mfChunks.end  ();
-
-        while(ChunksIt != ChunksEnd)
-        {
-            pThis->pushToChunks(*ChunksIt);
-
-            ++ChunksIt;
-        }
+        pThis->setChunk(source->getChunk());
     }
 }
 
-GetFieldHandlePtr ChunkBlockBase::getHandleChunks          (void) const
+GetFieldHandlePtr ChunkListHelperBase::getHandleSlot            (void) const
 {
-    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
-        new  MFUnrecStateChunkPtr::GetHandle(
-             &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId),
-             const_cast<ChunkBlockBase *>(this)));
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfSlot,
+             this->getType().getFieldDesc(SlotFieldId),
+             const_cast<ChunkListHelperBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ChunkBlockBase::editHandleChunks         (void)
+EditFieldHandlePtr ChunkListHelperBase::editHandleSlot           (void)
 {
-    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
-        new  MFUnrecStateChunkPtr::EditHandle(
-             &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId),
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfSlot,
+             this->getType().getFieldDesc(SlotFieldId),
              this));
 
-    returnValue->setAddMethod(
-        boost::bind(&ChunkBlock::pushToChunks,
-                    static_cast<ChunkBlock *>(this), _1));
 
-    editMField(ChunksFieldMask, _mfChunks);
+    editSField(SlotFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ChunkListHelperBase::getHandleChunk           (void) const
+{
+    SFUnrecStateChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecStateChunkPtr::GetHandle(
+             &_sfChunk,
+             this->getType().getFieldDesc(ChunkFieldId),
+             const_cast<ChunkListHelperBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ChunkListHelperBase::editHandleChunk          (void)
+{
+    SFUnrecStateChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecStateChunkPtr::EditHandle(
+             &_sfChunk,
+             this->getType().getFieldDesc(ChunkFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&ChunkListHelper::setChunk,
+                    static_cast<ChunkListHelper *>(this), _1));
+
+    editSField(ChunkFieldMask);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void ChunkBlockBase::execSyncV(      FieldContainer    &oFrom,
+void ChunkListHelperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    ChunkBlock *pThis = static_cast<ChunkBlock *>(this);
+    ChunkListHelper *pThis = static_cast<ChunkListHelper *>(this);
 
-    pThis->execSync(static_cast<ChunkBlock *>(&oFrom),
+    pThis->execSync(static_cast<ChunkListHelper *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -447,24 +518,24 @@ void ChunkBlockBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ChunkBlockBase::createAspectCopy(
+FieldContainer *ChunkListHelperBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    ChunkBlock *returnValue;
+    ChunkListHelper *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const ChunkBlock *>(pRefAspect),
-                  dynamic_cast<const ChunkBlock *>(this));
+                  dynamic_cast<const ChunkListHelper *>(pRefAspect),
+                  dynamic_cast<const ChunkListHelper *>(this));
 
     return returnValue;
 }
 #endif
 
-void ChunkBlockBase::resolveLinks(void)
+void ChunkListHelperBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ChunkBlock *>(this)->clearChunks();
+    static_cast<ChunkListHelper *>(this)->setChunk(NULL);
 
 
 }

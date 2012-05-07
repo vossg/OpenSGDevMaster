@@ -329,11 +329,11 @@ void ChunkBlock::pushToChunks(StateChunk * const value)
            _mfChunks.size() >= (value->getClassId() + 
                                 value->getClass()->getNumSlots()))
         {
-            SWARNING << "pushToChunk: chunk ( " 
+            SWARNING << "pushToChunk: chunk (" 
                      << value->getClassId()
                      << " | "
                      << value->getClass()->getNumSlots()
-                     << "does not match available slot "
+                     << ") does not match available slot "
                      << _mfChunks.size()
                      << ",  ignored!" 
                      << std::endl;

@@ -83,8 +83,7 @@ PageSystemWindowNavigatorsFly for a description.
 
 /*------------------------- constructors ----------------------------------*/
 
-FlyEngineTransitPtr
-FlyEngine::create(void)
+FlyEngineTransitPtr FlyEngine::create(void)
 {
     return FlyEngineTransitPtr(new FlyEngine);
 }
@@ -93,37 +92,38 @@ FlyEngine::create(void)
 
 /*! Get the from point.
 */
-const Pnt3f &FlyEngine::getFrom()
+const Pnt3f &FlyEngine::getFrom(void)
 {
     return _rFrom;
 }
 
 /*! Get the at point.
 */
-const Pnt3f &FlyEngine::getAt()
+const Pnt3f &FlyEngine::getAt(void)
 {
     return _rAt;
 }
 
 /*! Get the up vector.
 */
-const Vec3f &FlyEngine::getUp()
+const Vec3f &FlyEngine::getUp(void)
 {
     return _vUp;
 }
 
 /*! Get the current transformation matrix.
 */
-const Matrix &FlyEngine::getMatrix()
+const Matrix &FlyEngine::getMatrix(void)
 {
-    MatrixLookAt(_tMatrix,_rFrom,_rAt,_vUp);
+    MatrixLookAt(_tMatrix, _rFrom, _rAt, _vUp);
+
     return _tMatrix;
 }
 
 /*! Not needed by FlyEngine!!!
 */
 // FIXME: remove getDistance() from NavigatorEngine???
-Real32 FlyEngine::getDistance()
+Real32 FlyEngine::getDistance(void)
 {
     return 0.0f;
 }
@@ -135,39 +135,39 @@ Real32 FlyEngine::getDistance()
 */
 void FlyEngine::setFrom(Pnt3f new_from)
 {
-    _rFrom=new_from;
+    _rFrom = new_from;
 }
 
 /*! Sets the target point at which the viewer is looking.
 */
 void FlyEngine::setAt(Pnt3f new_At)
 {
-    _rAt=new_At;
+    _rAt = new_At;
 }
 
 /*! Sets the up vector, i.e. the direction that point up on the screen.
 */
 void FlyEngine::setUp(Vec3f new_up)
 {
-    _vUp=new_up;
+    _vUp = new_up;
 }
 
 /*! Set the position and the orientation at once.
 */
 void FlyEngine::set(Pnt3f new_from,Pnt3f new_At,Vec3f new_up)
 {
-    _rFrom=new_from;
-    _rAt=new_At;
-    _vUp=new_up;
+    _rFrom = new_from;
+    _rAt   = new_At;
+    _vUp   = new_up;
 }
 
 /*! Set the position and the orientation at once using a matrix.
 */
-void FlyEngine::set(const Matrix& new_matrix)
+void FlyEngine::set(const Matrix &new_matrix)
 {
-    _rFrom= Pnt3f(new_matrix[3]);
-    _rAt  = Pnt3f(new_matrix[3] - new_matrix[2]);
-    _vUp  = Vec3f(new_matrix[1]);
+    _rFrom = Pnt3f(new_matrix[3]);
+    _rAt   = Pnt3f(new_matrix[3] - new_matrix[2]);
+    _vUp   = Vec3f(new_matrix[1]);
 
     set(_rFrom, _rAt, _vUp);
 }
@@ -188,20 +188,29 @@ void FlyEngine::buttonPress(Int16 button, Int16 x, Int16 y, Navigator* nav)
         case Navigator::LEFT_MOUSE:  
             _currentState = Navigator::TRANSLATING_ZPLUS;
             break;                            
+
         case Navigator::MIDDLE_MOUSE:
             _currentState = Navigator::ROTATING;           
             break;          
+
         case Navigator::RIGHT_MOUSE:  
             _currentState = Navigator::TRANSLATING_ZMINUS; 
             break;
+
         case Navigator::UP_MOUSE:  
             _currentState = Navigator::IDLE;
+
             forward(-nav->getMotionFactor());
+
             break;
+
         case Navigator::DOWN_MOUSE:
             _currentState = Navigator::IDLE;
+
             forward(nav->getMotionFactor());
+
             break;
+
         default:
             FNOTICE(("FlyEngine: buttonPress, unknown button\n"));
             break;
@@ -241,17 +250,18 @@ void FlyEngine::keyPress(Int16 key, Int16 x,Int16 y,Navigator* nav)
     }
 }
 
-void FlyEngine::moveTo(Int16 x,Int16 y,Navigator* nav)
+void FlyEngine::moveTo(Int16 x, Int16 y, Navigator *nav)
 {
-    Real32 fromX,fromY, toX,toY;  
+    Real32 fromX, fromY, toX, toY;  
 
     nav->calcFromTo(x,y, fromX,fromY, toX,toY);
 
-    Real32 distanceX = -(fromX-toX);
-    Real32 distanceY =  (fromY-toY);
+    Real32 distanceX = -(fromX - toX);
+    Real32 distanceY =  (fromY - toY);
+
     rotate(distanceX, distanceY);
 
-    switch (_currentState)
+    switch(_currentState)
     {
         case Navigator::TRANSLATING_ZPLUS:
             forward(-nav->getMotionFactor());
@@ -267,7 +277,7 @@ void FlyEngine::moveTo(Int16 x,Int16 y,Navigator* nav)
     }
 }
 
-void FlyEngine::idle(Int16 buttons, Int16 x,Int16 y,Navigator* nav)
+void FlyEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator *nav)
 {
 }
 
@@ -276,6 +286,7 @@ void FlyEngine::idle(Int16 buttons, Int16 x,Int16 y,Navigator* nav)
 /*! Rotate the viewer \a deltaX around the up axis and deltaY around the 
     left/right axis. \a deltaX and \a deltaY should be between -Pi and Pi.
 */
+
 void FlyEngine::rotate(Real32 deltaX, Real32 deltaY)
 {
     // rotate around the up vector
@@ -322,14 +333,19 @@ void FlyEngine::rotate(Real32 deltaX, Real32 deltaY)
 Real32 FlyEngine::forward(Real32 step)
 {
     Vec3f lv;
-    lv = _rFrom-_rAt;
+
+    lv = _rFrom - _rAt;
     lv.normalize();
+
     lv *= (step);
+
     Matrix transl;
     transl.setIdentity();
     transl.setTranslate(lv);
+
     transl.mult(_rAt,   _rAt  );
     transl.mult(_rFrom, _rFrom);
+
     return 0.0;
 }
 
@@ -352,11 +368,13 @@ Real32 FlyEngine::right(Real32 step)
 
 /*-------------------------- constructors ---------------------------------*/
 
-FlyEngine::FlyEngine(void) : Inherited()
+FlyEngine::FlyEngine(void) : 
+    Inherited()
 {
-    _rFrom  .setValues(0,0,0);
-    _rAt    .setValues(0,0,1);
-    _vUp    .setValues(0,1,0);
+    _rFrom  .setValues(0, 0, 0);
+    _rAt    .setValues(0, 0, 1);
+    _vUp    .setValues(0, 1, 0);
+
     _tMatrix.setIdentity();
 }
 

@@ -86,38 +86,59 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
 
     NavigatorBase::State getState() const;
 
-    virtual const Pnt3f  &getFrom(void)      = 0;
-    virtual const Pnt3f  &getAt(void)        = 0;
-    virtual const Vec3f  &getUp(void)        = 0;
-    virtual const Matrix &getMatrix(void)    = 0;
-    virtual Real32 getDistance(void)         = 0;
+    virtual const Pnt3f  &getFrom    (void) = 0;
+    virtual const Pnt3f  &getAt      (void) = 0;
+    virtual const Vec3f  &getUp      (void) = 0;
+    virtual const Matrix &getMatrix  (void) = 0;
+    virtual       Real32  getDistance(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    virtual void setFrom(Pnt3f new_from)                         = 0;
-    virtual void setAt(Pnt3f new_at)                             = 0;
-    virtual void setUp(Vec3f new_up)                             = 0;
-    virtual void set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up) = 0;
-    virtual void set(const Matrix & new_matrix)                  = 0;
-    virtual void setDistance(Real32 new_distance)                = 0;
+    virtual void setFrom    (      Pnt3f   new_from    ) = 0;
+    virtual void setAt      (      Pnt3f   new_at      ) = 0;
+    virtual void setUp      (      Vec3f   new_up      ) = 0;
+    virtual void set        (      Pnt3f   new_from, 
+                                   Pnt3f   new_at, 
+                                   Vec3f   new_up      ) = 0;
+    virtual void set        (const Matrix &new_matrix  ) = 0;
+    virtual void setDistance(      Real32  new_distance) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              navigator engine callbacks                      */
     /*! \{                                                                 */
 
-    virtual void buttonPress(Int16 button,Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void buttonRelease(Int16 ,    Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void keyPress(Int16 key,      Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void moveTo(                  Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void idle(Int16 buttons,      Int16 x,Int16 y,Navigator* nav) = 0;
+    virtual void buttonPress  (Int16      button,
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    ) = 0;
+    virtual void buttonRelease(Int16       ,    
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    ) = 0;
+    virtual void keyPress     (Int16      key,      
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    ) = 0;
+    virtual void moveTo       (Int16      x,
+                               Int16      y,
+                               Navigator *nav    ) = 0;
+    virtual void idle         (Int16      buttons,      
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    ) = 0;
 
-    virtual void onViewportChanged(Navigator* nav);
-    virtual void onActivation(Navigator* nav);
-    virtual void onUpdateCameraTransformation(Navigator* nav);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name              navigator engine callbacks                      */
+    /*! \{                                                                 */
+
+    virtual void onViewportChanged           (Navigator *nav);
+    virtual void onActivation                (Navigator *nav);
+    virtual void onUpdateCameraTransformation(Navigator *nav);
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
@@ -138,6 +159,7 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     NavigatorBase::State _currentState;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
   private:
 

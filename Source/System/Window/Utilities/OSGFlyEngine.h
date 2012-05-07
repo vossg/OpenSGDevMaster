@@ -89,43 +89,60 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    virtual const Pnt3f  &getFrom(void);
-    virtual const Pnt3f  &getAt(void);
-    virtual const Vec3f  &getUp(void);
-    virtual const Matrix &getMatrix(void);
-    virtual Real32 getDistance(void);
+    virtual const Pnt3f  &getFrom    (void);
+    virtual const Pnt3f  &getAt      (void);
+    virtual const Vec3f  &getUp      (void);
+    virtual const Matrix &getMatrix  (void);
+    virtual       Real32  getDistance(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    virtual void setFrom(Pnt3f new_from);
-    virtual void setAt(Pnt3f new_at);
-    virtual void setUp(Vec3f new_up);
-    virtual void set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up);
-    virtual void set(const Matrix & new_matrix);
-    virtual void setDistance(Real32 dist);
+    virtual void setFrom    (      Pnt3f   new_from  );
+    virtual void setAt      (      Pnt3f   new_at    );
+    virtual void setUp      (      Vec3f   new_up    );
+    virtual void set        (      Pnt3f   new_from, 
+                                   Pnt3f   new_at, 
+                                   Vec3f   new_up    );
+    virtual void set        (const Matrix &new_matrix);
+    virtual void setDistance(      Real32  dist      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              navigator engine callbacks                      */
     /*! \{                                                                 */
 
-    virtual void buttonPress(Int16 button,Int16 x,Int16 y,Navigator* nav);
-    virtual void buttonRelease(Int16 ,    Int16 x,Int16 y,Navigator* nav);
-    virtual void keyPress(Int16 key,      Int16 x,Int16 y,Navigator* nav);
-    virtual void moveTo(                  Int16 x,Int16 y,Navigator* nav);
-    virtual void idle(Int16 buttons,      Int16 x,Int16 y,Navigator* nav);
+    virtual void buttonPress  (Int16      button,
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    );
+    virtual void buttonRelease(Int16       ,    
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    );
+    virtual void keyPress     (Int16      key,      
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    );
+    virtual void moveTo       (Int16      x,
+                               Int16      y,
+                               Navigator *nav    );
+    virtual void idle         (Int16      buttons,      
+                               Int16      x,
+                               Int16      y,
+                               Navigator *nav    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Flyer Transformations                       */
     /*! \{                                                                 */
 
-    virtual void   rotate (Real32 deltaX, Real32 deltaY);
-    virtual Real32 forward(Real32 step);
-    virtual Real32 right  (Real32 step);
+    virtual void   rotate (Real32 deltaX, 
+                           Real32 deltaY);
+    virtual Real32 forward(Real32 step  );
+    virtual Real32 right  (Real32 step  );
 
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
@@ -150,6 +167,7 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     Matrix _tMatrix;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
   private:
 

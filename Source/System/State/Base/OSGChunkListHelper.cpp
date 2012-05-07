@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,18 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
+#include <cstdlib>
+#include <cstdio>
+
+#include "OSGConfig.h"
+
+#include "OSGChunkListHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! set the click center mode of the navigator
- */
- 
-inline
-bool NavigationManager::setClickCenter(bool mode)
+// Documentation for this class is emitted in the
+// OSGChunkListHelperBase.cpp file.
+// To modify it, please change the .fcd file (OSGChunkListHelper.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void ChunkListHelper::initMethod(InitPhase ePhase)
 {
-    return _navigator.setClickCenter(mode);
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
 }
 
 
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+ChunkListHelper::ChunkListHelper(void) :
+    Inherited()
+{
+}
+
+ChunkListHelper::ChunkListHelper(const ChunkListHelper &source) :
+    Inherited(source)
+{
+}
+
+ChunkListHelper::~ChunkListHelper(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void ChunkListHelper::changed(ConstFieldMaskArg whichField, 
+                              UInt32            origin,
+                              BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void ChunkListHelper::dump(      UInt32    ,
+                           const BitVector ) const
+{
+    SLOG << "Dump ChunkListHelper NI" << std::endl;
+}
 
 OSG_END_NAMESPACE

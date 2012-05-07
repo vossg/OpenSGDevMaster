@@ -102,61 +102,107 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
     virtual void moveTo       (               Int16 x, Int16 y);
     virtual void idle         (Int16 buttons, Int16 x, Int16 y);
 
-    void updateCameraTransformation();
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Notificators                              */
+    /*! \{                                                                 */
+
+    virtual void buttonPress  (Int16 button,  
+                               Int16 x, 
+                               Int16 y,
+                               Int16 width,
+                               Int16 height );
+    virtual void buttonRelease(Int16 button,  
+                               Int16 x, 
+                               Int16 y,
+                               Int16 width,
+                               Int16 height );
+    virtual void keyPress     (Int16 key,  
+                               Int16 x, 
+                               Int16 y,
+                               Int16 width,
+                               Int16 height );
+    virtual void moveTo       (Int16 x, 
+                               Int16 y,
+                               Int16 width,
+                               Int16 height );
+    virtual void idle         (Int16 buttons, 
+                               Int16 x, 
+                               Int16 y,
+                               Int16 width,
+                               Int16 height );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Set                                   */
     /*! \{                                                                 */
 
-    void setMode         (Mode new_mode, bool copyViewParams=false);
-    void setViewport     (Viewport     *new_viewport);
-    void setRotationAngle(Real32        new_angle   );
-    void setMotionFactor (Real32        new_factor  );
-    void setFrom         (Pnt3f         new_from    );
-    void setAt           (Pnt3f         new_at      );
-    void setDistance     (Real32        new_distance);
-    void setUp           (Vec3f         new_up      );
-    void set             (Pnt3f         new_from, Pnt3f new_at, Vec3f new_up);
-    void set             (const Matrix &new_matrix  );
-    bool setAbsolute     (bool          state       );
-    bool setClickCenter  (bool          state       );
+    void updateCameraTransformation(void);
 
-    bool setClickNoIntersect (bool state);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Set                                   */
+    /*! \{                                                                 */
 
-    void setCameraTransformation(Node * const new_cartn);
+    void setMode         (      Mode      new_mode, 
+                                bool      copyViewParams = false);
+    void setViewport     (      Viewport *new_viewport          );
+    void setRotationAngle(      Real32    new_angle             );
+    void setMotionFactor (      Real32    new_factor            );
+    void setFrom         (      Pnt3f     new_from              );
+    void setAt           (      Pnt3f     new_at                );
+    void setDistance     (      Real32    new_distance          );
+    void setUp           (      Vec3f     new_up                );
+    void set             (      Pnt3f     new_from, 
+                                Pnt3f     new_at, 
+                                Vec3f     new_up                );
+    void set             (const Matrix   &new_matrix            );
+    bool setAbsolute     (      bool      state                 );
+    bool setClickCenter  (      bool      state                 );
 
-    void setUserEngine(NavigatorEngine* userEngine);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Set                                   */
+    /*! \{                                                                 */
+
+    bool setClickNoIntersect    (bool                    state     );
+    void setCameraTransformation(Node            * const new_cartn );
+    void setUserEngine          (NavigatorEngine *       userEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    const Matrix &getMatrix();
-    const Pnt3f  &getFrom();
-    const Pnt3f  &getAt();
-    const Vec3f  &getUp();
-          Real32  getDistance();
-          State   getState();
-          Mode    getMode();
-          Real32  getRotationAngle();
-          Real32  getMotionFactor();
-          bool    getAbsolute();
-          bool    getClickCenter();
-          bool    getClickNoIntersect();
+    const Matrix &getMatrix          (void);
+    const Pnt3f  &getFrom            (void);
+    const Pnt3f  &getAt              (void);
+    const Vec3f  &getUp              (void);
+          Real32  getDistance        (void);
+          State   getState           (void);
+          Mode    getMode            (void);
+          Real32  getRotationAngle   (void);
+          Real32  getMotionFactor    (void);
+          bool    getAbsolute        (void);
+          bool    getClickCenter     (void);
+          bool    getClickNoIntersect(void);
 
-          bool    getMoved(void);
-          Int16   getLastX(void);
-          Int16   getLastY(void);
-    Viewport     *getViewport(void);
+          bool    getMoved           (void);
+          Int16   getLastX           (void);
+          Int16   getLastY           (void);
+    Viewport     *getViewport        (void);
 
-    NavballEngine&   getNavballEngine  (void);
-    TrackballEngine& getTrackballEngine(void);
-    FlyEngine&       getFlyEngine      (void);
-    WalkEngine&      getWalkEngine     (void);
-    NoneEngine&      getNoneEngine     (void);
-    NavigatorEngine& getUserEngine     (void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Get                                   */
+    /*! \{                                                                 */
+
+    NavballEngine   &getNavballEngine  (void);
+    TrackballEngine &getTrackballEngine(void);
+    FlyEngine       &getFlyEngine      (void);
+    WalkEngine      &getWalkEngine     (void);
+    NoneEngine      &getNoneEngine     (void);
+    NavigatorEngine &getUserEngine     (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -176,27 +222,43 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
     NoneEngineRefPtr      _noneEngine;
     NavigatorEngineRefPtr _userEngine;
 
-    Real32             _rRotationAngle;
-    Real32             _rMotionFactor;
-    bool               _absolute;
+    Real32                _rRotationAngle;
+    Real32                _rMotionFactor;
+    bool                  _absolute;
 
-    ViewportRecPtr     _vp;
-    NodeRecPtr         _cartN;
+    ViewportRecPtr        _vp;
+    NodeRecPtr            _cartN;
 
-    bool               _moved;
-    bool               _clickCenter;
-    bool               _clickNoIntersect;
-    Int16              _lastX;
-    Int16              _lastY;
+    bool                  _moved;
+    bool                  _clickCenter;
+    bool                  _clickNoIntersect;
+    Int16                 _lastX;
+    Int16                 _lastY;
+    Int16                 _width;
+    Int16                 _height;
 
-    Matrix      theMatrix;
+    Matrix                _theMatrix;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
- public:
+  public:
 
-    bool calcFromTo(Int16 x, Int16 y, Real32& fromX, Real32& fromY,
-                    Real32& toX, Real32& toY);
+    bool calcFromTo(Int16   x, 
+                    Int16   y, 
+                    Real32 &fromX, 
+                    Real32 &fromY,
+                    Real32 &toX, 
+                    Real32 &toY  );
+
+    bool calcFromTo(Int16   x, 
+                    Int16   y, 
+                    Real32  width,
+                    Real32  height,
+                    Real32 &fromX, 
+                    Real32 &fromY,
+                    Real32 &toX, 
+                    Real32 &toY  );
 };
 
 OSG_END_NAMESPACE

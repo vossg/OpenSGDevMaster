@@ -66,7 +66,8 @@ OSG_USING_NAMESPACE
 
 /*------------------------- constructors ----------------------------------*/
 
-NavigatorEngine::NavigatorEngine(void) : Inherited()
+NavigatorEngine::NavigatorEngine(void) : 
+    Inherited()
 {
 }
 
@@ -88,17 +89,17 @@ NavigatorBase::State NavigatorEngine::getState(void) const
 
 /*-------------------- navigator engine callbacks -------------------------*/
 
-void NavigatorEngine::onViewportChanged(Navigator* nav)
+void NavigatorEngine::onViewportChanged(Navigator *nav)
 {
     // nothing to do here
 }
 
-void NavigatorEngine::onActivation(Navigator* nav)
+void NavigatorEngine::onActivation(Navigator *nav)
 {
     // nothing to do here
 }
 
-void NavigatorEngine::onUpdateCameraTransformation(Navigator* nav)
+void NavigatorEngine::onUpdateCameraTransformation(Navigator *nav)
 {
     // nothing to do here
 }
