@@ -161,6 +161,31 @@ void TextureBuffer::validate(DrawEnv *pEnv)
     }
 }
 
+void TextureBuffer::resizeBuffers(UInt32 uiWidth, UInt32 uiHeight)
+{
+    TextureObjChunk *pTex = this->getTexture();
+
+    if(pTex == NULL)
+        return;
+
+    Image *pImg = pTex->getImage();
+
+    if(pImg == NULL)
+        return;
+
+    pImg->set(pImg->getPixelFormat(), //Image::OSG_RGB_PF, 
+              uiWidth, 
+              uiHeight,
+              pImg->getDepth      (),
+              pImg->getMipMapCount(),
+              pImg->getFrameCount (),
+              pImg->getFrameDelay (),
+              NULL,
+              pImg->getDataType   (), //Image::OSG_UINT8_IMAGEDATA,
+              false,
+              pImg->getSideCount  ());
+}
+
 void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
 {
     if(_sfReadBack.getValue() == true)

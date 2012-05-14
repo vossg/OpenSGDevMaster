@@ -193,6 +193,13 @@ void RenderBuffer::dump(      UInt32    ,
     SLOG << "Dump RenderBuffer NI" << std::endl;
 }
 
+void RenderBuffer::resizeBuffers(UInt32 uiWidth, UInt32 uiHeight)
+{
+    Inherited::resize(uiWidth, uiHeight);
+
+    Window::reinitializeGLObject(getGLId());
+}
+
 UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv, 
                               UInt32                   osgid, 
                               Window::GLObjectStatusE  mode,

@@ -158,6 +158,36 @@ void FrameBufferObject::setSize(UInt32 uiWidth, UInt32 uiHeight)
     setHeight(uiHeight);
 }
 
+void FrameBufferObject::resizeAll(UInt32 uiWidth, UInt32 uiHeight)
+{
+    MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+        _mfColorAttachments.begin();
+    MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+        _mfColorAttachments.end  ();
+    
+    for(; attIt != attEnd; ++attIt)
+    {
+        if(*attIt == NULL)
+            continue;
+        
+        (*attIt)->resizeBuffers(uiWidth, uiHeight);
+    }
+
+    if(_sfDepthAttachment.getValue() != NULL)
+    {
+        _sfDepthAttachment.getValue()->resizeBuffers(uiWidth, uiHeight);
+    }
+
+    if(_sfStencilAttachment.getValue() != NULL)
+    {
+        _sfStencilAttachment.getValue()->resizeBuffers(uiWidth, uiHeight);
+    }
+
+    this->setSize(uiWidth, uiHeight);
+
+    Window::refreshGLObject(getGLId());
+}
+
 /*----------------------- constructors & destructors ----------------------*/
 
 FrameBufferObject::FrameBufferObject(void) :

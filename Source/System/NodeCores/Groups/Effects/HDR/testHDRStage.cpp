@@ -556,8 +556,10 @@ int doMain (int argc, char **argv)
 
         OSG::TextureObjChunkUnrecPtr pBackTex = OSG::TextureObjChunk::create();
 
-        pBackTex->setImage(pBackImg);
-        pBackTex->setInternalFormat(GL_RGB32F_ARB);
+        pBackTex->setImage         (pBackImg        );
+        pBackTex->setInternalFormat(GL_RGB32F_ARB   );
+        pBackTex->setWrapS         (GL_CLAMP_TO_EDGE);
+        pBackTex->setWrapT         (GL_CLAMP_TO_EDGE);
 
         bkgnd->setBackTexture  (pBackTex);
         bkgnd->setFrontTexture (pBackTex);

@@ -85,14 +85,12 @@ void generateGaussianWeights(Real32               fBlurWidth,
     }
 }
 
-SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
-                                                       bool   vertical, 
-                                                       bool   tex2D, 
-                                                       Int32  imgWidth, 
-                                                       Int32  imgHeight)
+std::string generate1DConvolutionFilterFPString(Real32 fBlurWidth,
+                                                bool   vertical, 
+                                                bool   tex2D, 
+                                                Int32  imgWidth, 
+                                                Int32  imgHeight)
 {
-    SimpleSHLChunkTransitPtr returnValue = SimpleSHLChunk::create();
-    
     int width;
     std::vector<Real32> weights;
 
@@ -170,10 +168,28 @@ SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
         << "    gl_FragColor = sum;\n"
         << "}\n";
 
-    returnValue->setFragmentProgram(ost.str());
-
     delete [] weights2;
     delete [] offsets;
+
+    return ost.str();
+}
+
+SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
+                                                       bool   vertical, 
+                                                       bool   tex2D, 
+                                                       Int32  imgWidth, 
+                                                       Int32  imgHeight)
+{
+    SimpleSHLChunkTransitPtr returnValue = SimpleSHLChunk::create();
+
+    std::string szFragProg = generate1DConvolutionFilterFPString(fBlurWidth,
+                                                                 vertical, 
+                                                                 tex2D, 
+                                                                 imgWidth, 
+                                                                 imgHeight );
+
+    
+    returnValue->setFragmentProgram(szFragProg);
 
     return returnValue;
 }

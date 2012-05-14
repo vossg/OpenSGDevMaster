@@ -135,6 +135,9 @@ Action::ResultE HDRStage::renderEnter(Action *action)
 
     a->disableDefaultPartition();
 
+    Int32 iVPWidth  = a->getActivePartition()->getViewportWidth ();
+    Int32 iVPHeight = a->getActivePartition()->getViewportHeight();
+
     this->beginPartitionGroup(a);
     {
         this->pushPartition(a);
@@ -147,9 +150,13 @@ Action::ResultE HDRStage::renderEnter(Action *action)
             
             if(pTarget == NULL)
             {
-                this->initData(a);
+                this->initData(a, iVPWidth, iVPHeight);
 
                 pTarget  = this->getRenderTarget();
+            }
+            else
+            {
+                this->updateData(a, iVPWidth, iVPHeight);
             }
 
             pPart->setRenderTarget(pTarget);
@@ -586,8 +593,45 @@ void HDRStage::resizeStageData(HDRStageData *pData,
                                Int32         iPixelWidth,
                                Int32         iPixelHeight)
 {
-    FWARNING(("HDRStage resize not implemented ==> wrong results\n"));
-}
+    FrameBufferObject *pSceneFBO = this->getRenderTarget();
+
+    pSceneFBO->resizeAll(iPixelWidth, iPixelHeight);
+
+
+    FrameBufferObject *pShrinkFBO = pData->getShrinkRenderTarget();
+
+    pShrinkFBO->resizeAll(iPixelWidth / 2, iPixelHeight / 2);
+
+
+    FrameBufferObject *pBlurFBO = pData->getBlurRenderTarget();
+
+    pBlurFBO->resizeAll(iPixelWidth  / 4,
+                        iPixelHeight / 4);
+
+
+    SimpleSHLChunk *pHBlurShader = pData->getHBlurShader();
+
+    std::string szNewFragProg =         
+        generate1DConvolutionFilterFPString(getBlurWidth(), 
+                                            false, 
+                                            true, 
+                                            iPixelWidth  / 2, 
+                                            iPixelHeight / 2);
+
+    pHBlurShader->setFragmentProgram(szNewFragProg);
+
+    szNewFragProg = generate1DConvolutionFilterFPString(getBlurWidth(),  
+                                                        true, 
+                                                        true, 
+                                                        iPixelWidth  / 2, 
+                                                        iPixelHeight / 2);
+
+    SimpleSHLChunkUnrecPtr pVBlurShader = pData->getVBlurShader();
+
+    pVBlurShader->setFragmentProgram(szNewFragProg);
+
+    commitChanges();
+} 
 
 void HDRStage::postProcess(DrawEnv *pEnv)
 {
@@ -617,15 +661,6 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     {
         return;
     }
-
-    if((pData->getWidth () != pEnv->getPixelWidth() ) ||
-       (pData->getHeight() != pEnv->getPixelHeight())  )
-    {
-        resizeStageData(pData, 
-                        pEnv->getPixelWidth(),
-                        pEnv->getPixelHeight());
-    }
-    
 
     // Shrink to w/2 h/2
 
@@ -703,16 +738,22 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     // HBlur
 
-    StateOverride oOverride;        
-
     GLenum aDrawBuffers[] = { GL_COLOR_ATTACHMENT1_EXT };
+
+#define OVERSHADER 1
+
+#if OVERSHADER
+    StateOverride oOverride;        
 
     oOverride.addOverride(pData->getHBlurShader()->getClassId(), 
                           pData->getHBlurShader());
 
 
     pEnv->activateState(pBlurState, &oOverride);
-            
+#else
+    pData->getHBlurShader()->activate(pEnv);
+#endif
+
     osgGlDrawBuffers(1, aDrawBuffers);
 
 
@@ -732,10 +773,13 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     }
     glEnd();
 
-
+#if !OVERSHADER
+    pData->getHBlurShader()->deactivate(pEnv);
+#endif
 
     // VBlur
            
+#if OVERSHADER
     StateOverride oOverride1;        
 
     oOverride1.addOverride(pData->getVBlurShader()->getClassId(), 
@@ -743,6 +787,9 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     
 
     pEnv->activateState(pBlurState, &oOverride1);
+#else
+    pData->getVBlurShader()->activate(pEnv);
+#endif
 
     aDrawBuffers[0] = GL_COLOR_ATTACHMENT0_EXT;
     
@@ -764,6 +811,9 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     }
     glEnd();
     
+#if !OVERSHADER
+    pData->getVBlurShader()->deactivate(pEnv);
+#endif
     
     pBlurTarget->deactivate(pEnv);
 
@@ -808,7 +858,9 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     glPopMatrix();
 }
 
-void HDRStage::initData(RenderAction *pAction)
+void HDRStage::initData(RenderAction *pAction,
+                        Int32         iVPWidth,
+                        Int32         iVPHeight)
 {
     HDRStageDataUnrecPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
 
@@ -822,14 +874,48 @@ void HDRStage::initData(RenderAction *pAction)
         pData->setHeight(pViewport->getPixelHeight());
 #endif
 
+        fprintf(stderr, "use pixe size %d %d\n",
+                pAction->getActivePartition()->getViewportWidth (),
+                pAction->getActivePartition()->getViewportHeight());
+
+#if 0
         pData = setupStageData(
             pAction->getActivePartition()->getViewportWidth (),
             pAction->getActivePartition()->getViewportHeight());
         
         pData->setWidth (pAction->getActivePartition()->getViewportWidth ());
         pData->setHeight(pAction->getActivePartition()->getViewportHeight());
+#endif
+
+        pData = setupStageData(iVPWidth,
+                               iVPHeight);
+        
+        pData->setWidth (iVPWidth );
+        pData->setHeight(iVPHeight);
 
         this->setData(pData, _iDataSlotId, pAction);
+    }
+}
+
+void HDRStage::updateData(RenderAction *pAction,
+                          Int32         iVPWidth,
+                          Int32         iVPHeight)
+{
+    HDRStageDataUnrecPtr pData = pAction->getData<HDRStageData *>(_iDataSlotId);
+
+    if(pData == NULL)
+    {
+        initData(pAction, iVPWidth, iVPHeight);
+    }
+    else if((pData->getWidth () != iVPWidth ) ||
+            (pData->getHeight() != iVPHeight)  )
+    {
+        resizeStageData(pData, 
+                        iVPWidth,
+                        iVPHeight);
+
+        pData->setWidth (iVPWidth );
+        pData->setHeight(iVPHeight);
     }
 }
 

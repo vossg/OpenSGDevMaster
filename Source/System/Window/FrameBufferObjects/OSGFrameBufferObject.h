@@ -82,7 +82,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    void setSize(UInt32 uiWidth, UInt32 uiHeight);
+    void setSize  (UInt32 uiWidth, UInt32 uiHeight);
+
+    void resizeAll(UInt32 uiWidth, UInt32 uiHeight);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -126,7 +126,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachment :
     /*! \name                        size                                  */
     /*! \{                                                                 */
 
-    void resize(UInt32 uiWidth, UInt32 uiHeight);
+            void resize       (UInt32 uiWidth, UInt32 uiHeight);
+    virtual void resizeBuffers(UInt32 uiWidth, UInt32 uiHeight) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

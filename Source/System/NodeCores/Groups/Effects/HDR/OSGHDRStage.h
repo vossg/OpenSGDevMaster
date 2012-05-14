@@ -88,7 +88,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void initData(RenderAction *pAction);
+    void initData  (RenderAction *pAction,
+                    Int32         iVPWidth,
+                    Int32         iVPHeight);
+
+    void updateData(RenderAction *pAction,
+                    Int32         iVPWidth,
+                    Int32         iVPHeight);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

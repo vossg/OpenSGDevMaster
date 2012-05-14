@@ -59,6 +59,7 @@ class ShaderExecutableVarChunk;
 class ShaderProgramChunk;
 class ShaderProgramVariableChunk;
 class ShaderProgram;
+class SimpleSHLChunk;
 
 /*! \ingroup GrpSystemStateBase
     \ingroup GrpLibOSGSystem
@@ -141,6 +142,8 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     void addOverride  (UInt32                      uiSlot, 
                        StateChunk                 *pChunk);
     void addOverride  (UInt32                      uiSlot, 
+                       SimpleSHLChunk             *pChunk);
+    void addOverride  (UInt32                      uiSlot, 
                        ShaderProgramChunk         *pChunk);
     void addOverride  (UInt32                      uiSlot, 
                        ShaderProgramVariableChunk *pChunk);
@@ -202,6 +205,14 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \{                                                                 */
 
     void rebuildSortKey(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void insertOverride(UInt32      uiSlot, 
+                        StateChunk *pChunk);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -47,6 +47,7 @@
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
+#include "OSGSimpleSHLChunk.h"
 #endif
 
 OSG_USING_NAMESPACE
@@ -195,6 +196,90 @@ void StateOverride::addOverride(UInt32                      uiSlot,
     _pShaderVar = NULL;
 }
 
+void StateOverride::addOverride(UInt32          uiSlot, 
+                                SimpleSHLChunk *pChunk)
+{
+#ifdef OSG_NEW_SHADER
+    insertOverride(uiSlot, pChunk);
+#endif
+}
+
+void StateOverride::insertOverride(UInt32      uiSlot, 
+                                   StateChunk *pChunk)
+{
+    ChunkElement newElem(uiSlot, pChunk);
+
+    ChunkStoreIt cIt = std::lower_bound(_vChunks.begin(),
+                                        _vChunks.end  (),
+                                         newElem        );
+
+    if(cIt == _vChunks.end())
+    {
+        _vChunks.insert(cIt, newElem);
+    }
+    else
+    {
+        if(cIt->first == uiSlot)
+        {
+            cIt->second = pChunk;
+        }
+        else
+        {
+            _vChunks.insert(cIt, newElem);
+        }
+    }
+    
+    if(pChunk == NULL)
+    {
+        return;
+    }
+            
+    UInt32 uiKey1 =  _uiKeyGen & Key1Mask;
+    UInt32 uiKey2 = (_uiKeyGen & Key2Mask) >> 10;
+    UInt32 uiKey3 = (_uiKeyGen & Key3Mask) >> 20;
+            
+    if(uiKey1 != InvalidKey && uiKey1 == uiSlot)
+    {
+        uiKey1 = 
+            (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
+        
+        _uiKeyMask &= ~Key1Mask;
+    }
+    else
+    {
+        uiKey1 = 0;
+    }
+    
+    if(uiKey2 != InvalidKey && uiKey2 == uiSlot)
+    {
+        uiKey2 = 
+            (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
+        
+        _uiKeyMask &= ~Key2Mask;
+    }
+    else
+    {
+        uiKey2 = 0;
+    }
+    
+    if(uiKey3 != InvalidKey && uiKey3 == uiSlot)
+    {
+        uiKey3 = 
+            (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
+        
+        _uiKeyMask &= ~Key3Mask;
+    }
+    else
+    {
+        uiKey3 = 0;
+    }
+    
+    _uiSortKey = 
+        (uiKey1 & Key1Mask)        | 
+        ((uiKey2 & Key1Mask) << 10) |
+        ((uiKey3 & Key1Mask) << 20);
+}
+
 void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
 {
 #ifdef OSG_NEW_SHADER
@@ -208,77 +293,7 @@ void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
         if(pSPVChunk == NULL)
         {
 #endif
-            ChunkElement newElem(uiSlot, pChunk);
-
-            ChunkStoreIt cIt = std::lower_bound(_vChunks.begin(),
-                                                _vChunks.end  (),
-                                                 newElem        );
-
-            if(cIt == _vChunks.end())
-            {
-                _vChunks.insert(cIt, newElem);
-            }
-            else
-            {
-                if(cIt->first == uiSlot)
-                {
-                    cIt->second = pChunk;
-                }
-                else
-                {
-                    _vChunks.insert(cIt, newElem);
-                }
-            }
-            
-            if(pChunk == NULL)
-            {
-                return;
-            }
-            
-            UInt32 uiKey1 =  _uiKeyGen & Key1Mask;
-            UInt32 uiKey2 = (_uiKeyGen & Key2Mask) >> 10;
-            UInt32 uiKey3 = (_uiKeyGen & Key3Mask) >> 20;
-            
-            if(uiKey1 != InvalidKey && uiKey1 == uiSlot)
-            {
-                uiKey1 = 
-                    (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
-                
-                _uiKeyMask &= ~Key1Mask;
-            }
-            else
-            {
-                uiKey1 = 0;
-            }
-
-            if(uiKey2 != InvalidKey && uiKey2 == uiSlot)
-            {
-                uiKey2 = 
-                    (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
-                
-                _uiKeyMask &= ~Key2Mask;
-            }
-            else
-            {
-                uiKey2 = 0;
-            }
-
-            if(uiKey3 != InvalidKey && uiKey3 == uiSlot)
-            {
-                uiKey3 = 
-                    (pChunk->getIgnore() == false) ? pChunk->getChunkId() : 0;
-                
-                _uiKeyMask &= ~Key3Mask;
-            }
-            else
-            {
-                uiKey3 = 0;
-            }
-            
-            _uiSortKey = 
-                 (uiKey1 & Key1Mask)        | 
-                ((uiKey2 & Key1Mask) << 10) |
-                ((uiKey3 & Key1Mask) << 20);
+            insertOverride(uiSlot, pChunk);
 #ifdef OSG_NEW_SHADER
         }
         else

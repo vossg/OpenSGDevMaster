@@ -95,6 +95,13 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+    virtual void resizeBuffers(UInt32 uiWidth, UInt32 uiHeight);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
     virtual void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
     virtual void processPostDeactivate(DrawEnv *pEnv);
 

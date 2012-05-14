@@ -48,6 +48,13 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpSystemShaderSHLFuncs
  */
 OSG_SYSTEM_DLLMAPPING
+std::string generate1DConvolutionFilterFPString(Real32 fBlurWidth,
+                                                bool   vertical, 
+                                                bool   tex2D, 
+                                                Int32  imgWidth, 
+                                                Int32  imgHeight);
+
+OSG_SYSTEM_DLLMAPPING
 SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
                                                        bool   vertical, 
                                                        bool   tex2D, 

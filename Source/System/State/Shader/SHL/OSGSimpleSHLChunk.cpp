@@ -633,7 +633,7 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
 
         UInt32 uiDep = ShaderProcVariable::SHDObject;
 
-        if(uiProgId != pEnv->getActiveShader())
+        if(uiProgId != pEnv->getActiveShader() || uiProgId == 0)
         {
             FragmentShaderIt fIt  = _mfFragmentShader.begin();
             FragmentShaderIt fEnd = _mfFragmentShader.end  ();

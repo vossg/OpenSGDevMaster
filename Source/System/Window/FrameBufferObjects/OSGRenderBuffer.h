@@ -87,6 +87,13 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+    virtual void resizeBuffers(UInt32 uiWidth, UInt32 uiHeight);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
     virtual void bind    (DrawEnv *pEnv, UInt32 index = 0);
     virtual void validate(DrawEnv *pEnv                  );
 
