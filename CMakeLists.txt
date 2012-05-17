@@ -132,6 +132,7 @@ IF(WIN32)
 ENDIF(WIN32)
 
 OSG_OPTION(OSG_INSTALL_EXAMPLES "" OFF)
+OSG_OPTION(OSG_INSTALL_EXAMPLE_EXE "" OFF)
 OSG_OPTION(OSG_INSTALL_APPS "" ON)
 
 OSG_OPTION(OSGCOMPAT_ENABLE                  "" OFF)
@@ -1913,9 +1914,13 @@ ENDIF()
 # Images/Icons
 ##################
 
-#INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Data/Images"
-#        DESTINATION share/OpenSG
-#        COMPONENT data_images)
+##################
+# CSM Example
+##################
+
+INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Examples/CSM"
+        DESTINATION share/OpenSG/Examples/
+        COMPONENT examples_basic)
 
 ##################
 # Packaging

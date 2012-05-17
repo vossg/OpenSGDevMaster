@@ -97,20 +97,27 @@ FOREACH(SRC ${SRCFILES})
     ENDFOREACH()
 
     #Install
-    IF(OSG_INSTALL_EXAMPLES)
+    IF(OSG_INSTALL_EXAMPLES_EXE)
         INSTALL(TARGETS ${EXE}
-                DESTINATION share/OpenSG/Examples/Advanced
+                DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
                 COMPONENT examples_advanced)
+    ENDIF()
+    IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"
-                DESTINATION share/OpenSG/Examples/Advanced
+                DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
                 COMPONENT examples_advanced)
     ENDIF()
 ENDFOREACH(SRC)
 
 #GLSL files
 IF(OSG_INSTALL_EXAMPLES)
+    INSTALL(FILES CMakeLists.standalone.txt
+            DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
+            RENAME CMakeLists.txt
+            COMPONENT examples_advanced)
+
     FILE(GLOB GLSLFILES "*.glsl")
     INSTALL(FILES ${GLSLFILES}
-            DESTINATION share/OpenSG/Examples/Advanced
+            DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
             COMPONENT examples_advanced)
 ENDIF()

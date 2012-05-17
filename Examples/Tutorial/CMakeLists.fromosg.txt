@@ -113,20 +113,27 @@ FOREACH(SRC ${SRCFILES})
     
     
     #Install
-    IF(OSG_INSTALL_EXAMPLES)
+    IF(OSG_INSTALL_EXAMPLES_EXE)
         INSTALL(TARGETS ${EXE}
-                DESTINATION share/OpenSG/Examples/Simple
+                DESTINATION share/OpenSG/Examples/Tutorial
                 COMPONENT examples_basic)
+    ENDIF()
+    IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"
-                DESTINATION share/OpenSG/Examples/Simple
+                DESTINATION share/OpenSG/Examples/Tutorial
                 COMPONENT examples_basic)
     ENDIF()
 ENDFOREACH(SRC)
     
 
 IF(OSG_INSTALL_EXAMPLES)
+    INSTALL(FILES CMakeLists.standalone.txt
+            DESTINATION share/OpenSG/Examples/Tutorial
+            RENAME CMakeLists.txt
+            COMPONENT examples_basic)
+
     INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Examples/Tutorial/Data"
-            DESTINATION share/OpenSG/Examples/Simple
+            DESTINATION share/OpenSG/Examples/Tutorial
             COMPONENT examples_basic)
 ENDIF()
 

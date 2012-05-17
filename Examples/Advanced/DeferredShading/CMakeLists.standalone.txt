@@ -5,10 +5,26 @@ PROJECT(OpenSGExamplesAdvancedDeferredShading)
 
 MESSAGE(STATUS "Building ${PROJECT_NAME} standalone")
 
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${$PROJECT_NAME}_SOURCE_DIR}/../../CMake")
+IF(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/../../CMake")
+  SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${PROJECT_NAME}_SOURCE_DIR}/../../CMake")
+ENDIF()
+
+IF(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/../../../cmake")
+  SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${PROJECT_NAME}_SOURCE_DIR}/../../../cmake")
+ENDIF()
 
 # show build command lines
 SET(CMAKE_VERBOSE_MAKEFILE ON)
+
+OPTION(OSG_USE_OSGSUPPORT_LIBS "" OFF)
+
+IF(NOT OSG_SUPPORT_ROOT)
+  SET(OSG_SUPPORT_ROOT "" CACHE PATH "")
+ENDIF()
+
+IF(NOT OpenSG_DIR)
+  SET(OpenSG_DIR "" CACHE PATH "")
+ENDIF()
 
 #############################################################################
 # find sources

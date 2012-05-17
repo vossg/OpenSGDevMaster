@@ -69,6 +69,19 @@ IF(COLLADA_ROOT_DIR)
                                       "${__COLLADA_LIBRARY_SEARCH_DIRS}")
 ENDIF(COLLADA_ROOT_DIR)
 
+IF(OSG_SUPPORT_ROOT AND OSG_USE_OSGSUPPORT_LIBS)
+    FILE(TO_CMAKE_PATH ${OSG_SUPPORT_ROOT} _OSG_SUPPORT_ROOT)
+
+    SET(__COLLADA_INCLUDE_SEARCH_DIRS "${_OSG_SUPPORT_ROOT}/include"
+                                      "${_OSG_SUPPORT_ROOT}/include/colladadom"
+                                      "${_OSG_SUPPORT_ROOT}/include/collada-dom"
+                                      "${__COLLADA_INCLUDE_SEARCH_DIRS}")
+    SET(__COLLADA_LIBRARY_SEARCH_DIRS "${_OSG_SUPPORT_ROOT}/lib"
+                                      "${_OSG_SUPPORT_ROOT}/lib64"
+                                      "${__COLLADA_LIBRARY_SEARCH_DIRS}")
+ENDIF(OSG_SUPPORT_ROOT AND OSG_USE_OSGSUPPORT_LIBS)
+
+
 # handle COLLADA_INCLUDE_DIR input variable
 IF(COLLADA_INCLUDE_DIR)
     FILE(TO_CMAKE_PATH ${COLLADA_INCLUDE_DIR} COLLADA_INCLUDE_DIR)
@@ -92,6 +105,17 @@ FIND_PATH(COLLADA_DOM_INCLUDE_DIR "dom/domNode.h"
     PATHS ${__COLLADA_INCLUDE_SEARCH_DIRS}
     PATH_SUFFIXES "1.4")
 
+IF(OSG_USE_OSGSUPPORT_LIBS)
+# locate libraries 
+FIND_LIBRARY(COLLADA_LIBRARY_RELEASE
+    NAMES osgcollada14dom22 osgcollada14dom22lib collada_dom collada14dom libcollada14dom21
+    PATHS ${__COLLADA_LIBRARY_SEARCH_DIRS})
+
+FIND_LIBRARY(COLLADA_LIBRARY_DEBUG
+    NAMES osgcollada14dom22 osgcollada14dom22lib collada_dom-d collada14dom-d libcollada14dom21-d
+    PATH_SUFFIXES debug
+    PATHS ${__COLLADA_LIBRARY_SEARCH_DIRS})
+ELSE()
 # locate libraries
 FIND_LIBRARY(COLLADA_LIBRARY_RELEASE
     NAMES collada_dom collada14dom libcollada14dom21
@@ -100,7 +124,7 @@ FIND_LIBRARY(COLLADA_LIBRARY_RELEASE
 FIND_LIBRARY(COLLADA_LIBRARY_DEBUG
     NAMES collada_dom-d collada14dom-d libcollada14dom21-d
     PATHS ${__COLLADA_LIBRARY_SEARCH_DIRS})
-
+ENDIF()
 
 # handle the QUIETLY and REQUIRED arguments and set COLLADA_FOUND to TRUE if 
 # all listed variables are TRUE

@@ -96,20 +96,52 @@ FOREACH(SRC ${SRCFILES})
     ENDFOREACH()
 
     #Install
-    IF(OSG_INSTALL_EXAMPLES)
+    IF(OSG_INSTALL_EXAMPLES_EXE)
         INSTALL(TARGETS ${EXE}
-                DESTINATION share/OpenSG/Examples/Advanced
+                DESTINATION share/OpenSG/Examples/Advanced/Character
                 COMPONENT examples_advanced)
+    ENDIF()
+    IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"
-                DESTINATION share/OpenSG/Examples/Advanced
+                DESTINATION share/OpenSG/Examples/Advanced/Character
                 COMPONENT examples_advanced)
     ENDIF()
 ENDFOREACH(SRC)
 
 #GLSL files
 IF(OSG_INSTALL_EXAMPLES)
-    FILE(GLOB GLSLFILES "*.glsl")
-    INSTALL(FILES ${GLSLFILES}
-            DESTINATION share/OpenSG/Examples/Advanced
+    INSTALL(FILES CMakeLists.standalone.txt
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            RENAME CMakeLists.txt
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.glsl")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.tga")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.png")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.jpg")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.mesh")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
+            COMPONENT examples_advanced)
+
+    FILE(GLOB GLOBFILES "*.skeleton")
+    INSTALL(FILES ${GLOBFILES}
+            DESTINATION share/OpenSG/Examples/Advanced/Character
             COMPONENT examples_advanced)
 ENDIF()

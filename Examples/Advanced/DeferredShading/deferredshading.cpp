@@ -45,7 +45,7 @@
 
 #include <OpenSG/OSGDeferredShadingStage.h>
 #include <OpenSG/OSGDirectionalLight.h>
-#include <OpenSG/OSSPointLight.h>
+#include <OpenSG/OSGPointLight.h>
 #include <OpenSG/OSGSpotLight.h>
 
 #include <OpenSG/OSGShaderShadowMapEngine.h>
