@@ -3,8 +3,8 @@
 
 \mainpage OpenSG - The Open Source Scenegraph
 
-<b> Warning </b> a lot of the documentation is currently just copied from 1.8 and was
-    not updated, hence the concepts will be <b> out of date </b> for now.
+Most of the documentation is currently doxygen generated class documentation.
+Over time we will try to improve on the general concept documentation.
 
 */
 

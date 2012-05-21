@@ -245,6 +245,41 @@ void StageHandlerMixin<ParentT>::setData(
                             _1),
                 this);
         }
+
+        if(pData != NULL)
+        {
+            this->addChangedFunctor(
+                boost::bind(&StageData::updateData, 
+                            pData, 
+                            _1, 
+                            _2,
+                            _3),
+                "");
+            
+            pData->addChangedFunctor(
+                boost::bind(&Self::dataDestroyed, 
+                            this, 
+                            _1, 
+                            _2,
+                            _3),
+                "");
+        }
+        if(pStoredData != NULL)
+        {
+            this->subChangedFunctor(
+                boost::bind(&StageData::updateData, 
+                            pStoredData, 
+                            _1, 
+                            _2,
+                            _3));
+            
+            pStoredData->subChangedFunctor(
+                boost::bind(&Self::dataDestroyed, 
+                            this, 
+                            _1, 
+                            _2,
+                            _3));
+         }
     }
 }
 
@@ -280,6 +315,22 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::~StageHandlerMixin(void)
 {
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::dataDestroyed(FieldContainer *pCore,
+                                               BitVector       whichField,
+                                               UInt32          origin    )
+{
+    if(whichField == 0x0000)
+    {
+        this->subChangedFunctor(
+            boost::bind(&StageData::updateData, 
+                        pCore, 
+                        _1, 
+                        _2,
+                        _3));
+    }
 }
 
 template <class ParentT> inline

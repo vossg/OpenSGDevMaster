@@ -111,4 +111,10 @@ void StageData::dump(      UInt32    ,
     SLOG << "Dump StageData NI" << std::endl;
 }
 
+void StageData::updateData(FieldContainer *pCore,
+                           BitVector       whichField,
+                           UInt32          origin    )
+{
+}
+
 OSG_END_NAMESPACE

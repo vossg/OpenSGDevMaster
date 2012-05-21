@@ -113,6 +113,15 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void updateData(FieldContainer *pCore,
+                            BitVector       whichField,
+                            UInt32          origin    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

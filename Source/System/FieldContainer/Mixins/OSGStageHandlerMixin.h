@@ -189,6 +189,10 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
+    virtual void dataDestroyed(FieldContainer *pCore,
+                               BitVector       whichField,
+                               UInt32          origin    );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
