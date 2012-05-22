@@ -301,6 +301,12 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
+    if (0x0000 != (whichField & MTouchDataFieldMask))
+    {
+        _sfMTouchData.getValue().setWindow(_pWindow);
+        _sfMTouchData.getValue().setCSMWindow(this);
+        
+    }
     Inherited::changed(whichField, origin, details);
 }
 

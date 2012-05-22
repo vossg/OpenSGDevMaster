@@ -47,6 +47,7 @@
 OSG_BEGIN_NAMESPACE
 
 class Window;
+class CSMWindow;
 
 class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 {
@@ -172,7 +173,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     MTouchBlobStore  _vBlobs;
     ActiveBlobsStore _vActiveBlobs;
 
-//    Window    *_pWindow;
+    Window    *_pWindow;
+    CSMWindow    *_pCSMWindow;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -194,6 +196,12 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     virtual ~MTouchData(void); 
 
     /*------------------------- your_category -------------------------------*/
+
+    void setWindow( Window* pWindow );
+    Window* getWindow( void ) const;
+
+    void setCSMWindow( CSMWindow* pCSMWindow );
+    CSMWindow* getCSMWindow( void ) const;
 
     void addCursor   (UInt32 uiId, 
                       Real32 rX, 

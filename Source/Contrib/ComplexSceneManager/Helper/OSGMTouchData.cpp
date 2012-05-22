@@ -82,13 +82,17 @@ bool MTouchData::MTouchBlob::operator < (const MTouchBlob &rhs) const
 
 
 MTouchData::MTouchData(void) :
-    _vBlobs      (),
-    _vActiveBlobs()
+    _pWindow     (NULL ),
+    _pCSMWindow     (NULL ),
+    _vBlobs      (     ),
+    _vActiveBlobs(     )
 {
 }
 
 
 MTouchData::MTouchData(const MTouchData &source) :
+    _pWindow     (NULL                ),
+    _pCSMWindow     (NULL                ),
     _vBlobs      (source._vBlobs      ),
     _vActiveBlobs(source._vActiveBlobs)
 {
@@ -103,11 +107,18 @@ MTouchData::~MTouchData(void)
 void MTouchData::operator = (const MTouchData &rhs)
 {
     _vBlobs = rhs._vBlobs;
+
+    _pWindow = rhs._pWindow;
+    _pCSMWindow = rhs._pCSMWindow;
 }
 
 bool MTouchData::operator ==(const MTouchData &rhs) const
 {
-    return (_vBlobs == rhs._vBlobs);
+    //return (_vBlobs == rhs._vBlobs    &&
+    //        _pWindow   == rhs._pWindow  );
+    //        _pCSMWindow   == rhs._pCSMWindow  );
+
+    return (_vBlobs == rhs._vBlobs  );
 }
 
 void MTouchData::addCursor(UInt32 uiId, 
@@ -222,6 +233,7 @@ void MTouchData::removeCursor(UInt32 uiId)
     }
     
 }
+
 
 void MTouchData::prepSubmission(void)
 {
