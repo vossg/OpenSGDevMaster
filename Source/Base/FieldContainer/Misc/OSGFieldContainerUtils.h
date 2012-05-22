@@ -92,7 +92,7 @@ class OSG_BASE_DLLMAPPING MemoryConsumption
     TypeMemMap _memMap;
 };
 
-class ControlFindNamedElemInterface
+class OSG_BASE_DLLMAPPING ControlFindNamedElemInterface
 {
   public:
     

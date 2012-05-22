@@ -111,7 +111,7 @@ void StageData::dump(      UInt32    ,
     SLOG << "Dump StageData NI" << std::endl;
 }
 
-void StageData::updateData(FieldContainer *pCore,
+void StageData::updateData(FieldContainer *pStageCore,
                            BitVector       whichField,
                            UInt32          origin    )
 {
