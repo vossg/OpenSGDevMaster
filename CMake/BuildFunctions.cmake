@@ -2492,7 +2492,7 @@ FUNCTION(OSG_WRITE_SETTINGS FILENAME)
           "                      IMPORTED_LOCATION_DEBUGGV ${${_OSG_OPT_OSGBASE}_DEBUG})\n")
       ELSE()
         FILE(APPEND ${FILENAME}
-             "SET(${OSG_OPT} ${${OSG_OPT}} CACHE INTERNAL \"\")\n")
+             "SET(${OSG_OPT} \"${${OSG_OPT}}\" CACHE INTERNAL \"\")\n")
       ENDIF()
     ENDFOREACH(OSG_OPT ${OSG_OPTION_LIST})
 
