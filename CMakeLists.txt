@@ -686,7 +686,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
       IF(VTK_FOUND)
           OSG_SET(OSG_WITH_VTK 1)
-          OSG_SET(OSG_VTK_LIBS vtkRendering)
+          OSG_SET(OSG_VTK_LIBS "vtkCommon;vtkFiltering;vtkGraphics;vtkIO;vtkRendering")
 
           OSG_ADD_OPT(OSG_VTK_LIBS)
           OSG_ADD_OPT(VTK_LIBRARY_DIRS)
