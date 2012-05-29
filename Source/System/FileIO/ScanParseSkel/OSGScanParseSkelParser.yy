@@ -811,6 +811,10 @@ sfstringValue:
     | TOK_hex
     { /* Not VRML conformant */
         SKEL->addBufferAsStringValue();
+    }
+    | TOK_int32
+    { /* Not VRML conformant */
+        SKEL->addBufferAsStringValue();
     };
 
 sftimeValue:

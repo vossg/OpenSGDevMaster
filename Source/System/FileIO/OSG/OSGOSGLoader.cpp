@@ -66,6 +66,8 @@
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"
 
+#include "OSGAspectIdFields.h"
+
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.h"
 
@@ -267,6 +269,11 @@ void OSGLoader::initFieldTypeMapper(void)
                      ScanParseSkel::OSGsfString);
     setIntExtMapping(MFGLenum::getClassType().getId(),
                      ScanParseSkel::OSGmfString);
+
+    setIntExtMapping(SFAspectId::getClassType().getId(),
+                     ScanParseSkel::OSGsfString);
+//    setIntExtMapping(MFGLenum::getClassType().getId(),
+//                     ScanParseSkel::OSGmfString);
 
 #ifdef OSG_NEW_SHADER
     setIntExtMapping(MFShaderParameter::getClassType().getId(),

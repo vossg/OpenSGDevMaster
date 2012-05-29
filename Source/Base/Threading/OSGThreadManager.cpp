@@ -51,6 +51,7 @@
 #include "OSGBaseInitFunctions.h"
 
 #include "OSGThread.h"
+#include "OSGAspectPool.h"
 
 OSG_USING_NAMESPACE
 
@@ -528,6 +529,8 @@ bool ThreadManager::init(void)
              
 
     FINFO(("OSGTM : got application thread %p\n", _pAppThread.get()));
+
+    AspectPool::the()->get("AppThreadAspect");
 
     _pAppThread->init();
 

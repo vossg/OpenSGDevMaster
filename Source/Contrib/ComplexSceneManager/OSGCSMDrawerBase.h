@@ -67,7 +67,7 @@
 
 #include "OSGCSMWindowFields.h"         // Windows type
 #include "OSGBaseFields.h"              // DisplayString type
-#include "OSGSysFields.h"               // Aspect type
+#include "OSGAspectIdFields.h"          // Aspect type
 
 #include "OSGCSMDrawerFields.h"
 
@@ -113,7 +113,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
         
     typedef MFUnrecChildCSMWindowPtr MFWindowsType;
     typedef SFString          SFDisplayStringType;
-    typedef SFUInt32          SFAspectType;
+    typedef SFAspectId        SFAspectType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -144,8 +144,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
                   SFString            *editSFDisplayString  (void);
             const SFString            *getSFDisplayString   (void) const;
 
-                  SFUInt32            *editSFAspect         (void);
-            const SFUInt32            *getSFAspect          (void) const;
+                  SFAspectId          *editSFAspect         (void);
+            const SFAspectId          *getSFAspect          (void) const;
 
 
                   CSMWindow * getWindows        (const UInt32 index) const;
@@ -153,8 +153,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
                   std::string         &editDisplayString  (void);
             const std::string         &getDisplayString   (void) const;
 
-                  UInt32              &editAspect         (void);
-                  UInt32               getAspect          (void) const;
+                  AspectId            &editAspect         (void);
+            const AspectId            &getAspect          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,7 +162,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setDisplayString  (const std::string &value);
-            void setAspect         (const UInt32 value);
+            void setAspect         (const AspectId &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,7 +235,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
 
     MFUnrecChildCSMWindowPtr _mfWindows;
     SFString          _sfDisplayString;
-    SFUInt32          _sfAspect;
+    SFAspectId        _sfAspect;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

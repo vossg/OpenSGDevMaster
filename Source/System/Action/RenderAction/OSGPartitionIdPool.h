@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpSystemRenderAction
  */
 
-typedef NamedPool<Int32    > PartitionIdPoolBase;
+typedef NamedPool<Int32> PartitionIdPoolBase;
 
 /*! \nohierarchy
  */
@@ -65,4 +65,4 @@ typedef TaggedSingletonHolder<PartitionIdPoolBase,
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPARTITIONPOOL_H_ */
+#endif /* _OSGPARTITIONIDPOOL_H_ */

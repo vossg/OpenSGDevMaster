@@ -90,7 +90,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var UInt32          CSMDrawerBase::_sfAspect
+/*! \var AspectId        CSMDrawerBase::_sfAspect
     
 */
 
@@ -164,8 +164,8 @@ void CSMDrawerBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFAspectId::Description(
+        SFAspectId::getClassType(),
         "aspect",
         "",
         AspectFieldId, AspectFieldMask,
@@ -226,7 +226,7 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     "\t</Field>\n"
     "    <Field\n"
     "       name=\"aspect\"\n"
-    "       type=\"UInt32\"\n"
+    "       type=\"AspectId\"\n"
     "       cardinality=\"single\"\n"
     "       visibility=\"external\"\n"
     "       access=\"public\"\n"
@@ -283,14 +283,14 @@ const SFString *CSMDrawerBase::getSFDisplayString(void) const
 }
 
 
-SFUInt32 *CSMDrawerBase::editSFAspect(void)
+SFAspectId *CSMDrawerBase::editSFAspect(void)
 {
     editSField(AspectFieldMask);
 
     return &_sfAspect;
 }
 
-const SFUInt32 *CSMDrawerBase::getSFAspect(void) const
+const SFAspectId *CSMDrawerBase::getSFAspect(void) const
 {
     return &_sfAspect;
 }
@@ -516,7 +516,7 @@ CSMDrawerBase::CSMDrawerBase(void) :
                           WindowsFieldId,
                           CSMWindow::ParentFieldId),
     _sfDisplayString          (),
-    _sfAspect                 (UInt32(1))
+    _sfAspect                 (AspectId(1))
 {
 }
 
@@ -668,8 +668,8 @@ EditFieldHandlePtr CSMDrawerBase::editHandleDisplayString  (void)
 
 GetFieldHandlePtr CSMDrawerBase::getHandleAspect          (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFAspectId::GetHandlePtr returnValue(
+        new  SFAspectId::GetHandle(
              &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId),
              const_cast<CSMDrawerBase *>(this)));
@@ -679,8 +679,8 @@ GetFieldHandlePtr CSMDrawerBase::getHandleAspect          (void) const
 
 EditFieldHandlePtr CSMDrawerBase::editHandleAspect         (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFAspectId::EditHandlePtr returnValue(
+        new  SFAspectId::EditHandle(
              &_sfAspect,
              this->getType().getFieldDesc(AspectFieldId),
              this));

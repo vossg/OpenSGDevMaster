@@ -46,14 +46,17 @@
 
 #include "OSGAspectIdFields.h"
 
+#include "OSGFieldContainer.h"
+
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<AspectId, 2>::_type("AspectId", "BaseType");
 
 OSG_FIELDTRAITS_GETTYPE_NS(AspectId, 2)
 
-#if 0
 OSG_FIELD_DLLEXPORT_DEF2(SField, AspectId, 2)
+
+#if 0
 OSG_FIELD_DLLEXPORT_DEF2(MField, AspectId, 2)
 #endif
 

@@ -102,7 +102,7 @@ void CSMDrawerBase::setDisplayString(const std::string &value)
 //! Get the value of the CSMDrawer::_sfAspect field.
 
 inline
-UInt32 &CSMDrawerBase::editAspect(void)
+AspectId &CSMDrawerBase::editAspect(void)
 {
     editSField(AspectFieldMask);
 
@@ -111,14 +111,14 @@ UInt32 &CSMDrawerBase::editAspect(void)
 
 //! Get the value of the CSMDrawer::_sfAspect field.
 inline
-      UInt32  CSMDrawerBase::getAspect(void) const
+const AspectId &CSMDrawerBase::getAspect(void) const
 {
     return _sfAspect.getValue();
 }
 
 //! Set the value of the CSMDrawer::_sfAspect field.
 inline
-void CSMDrawerBase::setAspect(const UInt32 value)
+void CSMDrawerBase::setAspect(const AspectId &value)
 {
     editSField(AspectFieldMask);
 

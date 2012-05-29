@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,85 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGASPECTIDFIELDTRAITS_H_
-#define _OSGASPECTIDFIELDTRAITS_H_
+#ifndef _OSGASPECTPOOL_H_
+#define _OSGASPECTPOOL_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSysFieldTraits.h"
-#include "OSGAspectPool.h"
+#include "OSGTaggedSingletonHolder.h"
+#include "OSGNamedPool.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseFieldTraits
-    \ingroup GrpLibOSGBase 
+/*! \ingroup GrpSystemRenderAction
  */
 
-template <>
-struct FieldTraits<AspectId, 2> : 
-    public FieldTraitsPODTemplateBase<AspectId, 2>
-{
-  private:
+typedef NamedPool<Int32> AspectPoolBase;
 
-    static  DataType                  _type;
+/*! \nohierarchy
+ */
 
-  public:
+struct AspectTag   {};
 
-    typedef FieldTraits<AspectId, 2>   Self;
+/*! \ingroup GrpSystemRenderAction
+ */
 
-    enum              { Convertible = (Self::ToStreamConvertible  |
-                                       Self::FromStringConvertible)    };
-
-    static OSG_BASE_DLLMAPPING
-                 DataType  &getType (void);
-
-    static const Char8     *getSName(void)   { return "SFAspectId";    }
-
-    static const Char8     *getMName(void)   { return "MFAspectId";    }
-
-    static       BitVector  getDefault(void) { return AspectId();      }
-
-    static void putToStream(const AspectId  &val,
-                                  OutStream &str)
-    {
-        FieldTraits<UInt32>::putToStream(val, str);
-    }
-
-    static bool getFromCString(      AspectId  &outVal,
-                               const Char8    *&inVal )
-    {
-        outVal = 0;
-
-        if(inVal[0] == '\0')
-            return false;
-        
-        if(inVal[0] >= '0' && inVal[0] <= '9')
-        {
-            FieldTraits<UInt32>::getFromCString(outVal, inVal);
-
-            return true;
-        }
-        
-        outVal = AspectPool::the()->get(inVal);
-
-        return true;
-    }
-};
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-/*! \ingroup GrpBaseFieldSingle */
-typedef SField<AspectId, 2>   SFAspectId;
-
-#else
-
-/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
-struct SFAspectId    : public SField<AspectId, 2> {};
-
-#endif
+typedef TaggedSingletonHolder<AspectPoolBase,
+                              AspectTag     > AspectPool;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGASPECTIDFIELDTRAITS_H_ */
-
+#endif /* _OSGASPECTPOOL_H_ */

@@ -106,7 +106,7 @@ ComplexSceneManager
     [
       CSMDrawer
       {
-        aspect 1
+        aspect Drawer0Aspect
 
         windows
         [
@@ -138,7 +138,7 @@ ComplexSceneManager
 
       CSMDrawer
       {
-        aspect 2
+        aspect Drawer1Aspect
 
         windows
         [
@@ -170,7 +170,7 @@ ComplexSceneManager
 
       CSMDrawer
       {
-        aspect 3
+        aspect Drawer2Aspect
 
         windows
         [
@@ -202,7 +202,7 @@ ComplexSceneManager
 
       CSMDrawer
       {
-        aspect 4
+        aspect Drawer3Aspect
 
         windows
         [
