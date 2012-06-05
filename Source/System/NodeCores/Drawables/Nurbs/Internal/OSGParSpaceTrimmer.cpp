@@ -3403,7 +3403,7 @@ DCTPVertex *ParSpaceTrimmer::intersectsLoop(DCTPVertex *pclVertex1, DCTPVertex *
         }
     }
 
-    return false;
+    return NULL;
 }
 
 bool ParSpaceTrimmer::doIntersect(Vec2d clV1, Vec2d clV2, Vec2d clV3, Vec2d clV4, double &rdParam)
