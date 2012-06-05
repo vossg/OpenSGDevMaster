@@ -307,6 +307,12 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
         _sfMTouchData.getValue().setCSMWindow(this);
         
     }
+    if (0x0000 != (whichField & GestureDataFieldMask))
+    {
+        _sfGestureData.getValue().setWindow(_pWindow);
+        _sfGestureData.getValue().setCSMWindow(this);
+        
+    }
     Inherited::changed(whichField, origin, details);
 }
 

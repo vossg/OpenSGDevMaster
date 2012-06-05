@@ -100,6 +100,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var GestureData     CSMWindowBase::_sfGestureData
+    
+*/
+
 /*! \var bool            CSMWindowBase::_sfMouseAsMTouch
     
 */
@@ -259,6 +263,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleMTouchData),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleMTouchData));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGestureData::Description(
+        SFGestureData::getClassType(),
+        "GestureData",
+        "",
+        GestureDataFieldId, GestureDataFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleGestureData),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleGestureData));
 
     oType.addInitialDesc(pDesc);
 
@@ -518,6 +534,14 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"GestureData\"\n"
+    "\t\ttype=\"GestureData\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"mouseAsMTouch\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -735,6 +759,19 @@ SFMTouchData *CSMWindowBase::editSFMTouchData(void)
 const SFMTouchData *CSMWindowBase::getSFMTouchData(void) const
 {
     return &_sfMTouchData;
+}
+
+
+SFGestureData *CSMWindowBase::editSFGestureData(void)
+{
+    editSField(GestureDataFieldMask);
+
+    return &_sfGestureData;
+}
+
+const SFGestureData *CSMWindowBase::getSFGestureData(void) const
+{
+    return &_sfGestureData;
 }
 
 
@@ -1025,6 +1062,10 @@ SizeT CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfMTouchData.getBinSize();
     }
+    if(FieldBits::NoField != (GestureDataFieldMask & whichField))
+    {
+        returnValue += _sfGestureData.getBinSize();
+    }
     if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
     {
         returnValue += _sfMouseAsMTouch.getBinSize();
@@ -1113,6 +1154,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
     {
         _sfMTouchData.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (GestureDataFieldMask & whichField))
+    {
+        _sfGestureData.copyToBin(pMem);
     }
     if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
     {
@@ -1204,6 +1249,11 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(MTouchDataFieldMask);
         _sfMTouchData.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (GestureDataFieldMask & whichField))
+    {
+        editSField(GestureDataFieldMask);
+        _sfGestureData.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MouseAsMTouchFieldMask & whichField))
     {
@@ -1298,6 +1348,7 @@ CSMWindowBase::CSMWindowBase(void) :
     _mfViewports              (),
     _sfMouseData              (),
     _sfMTouchData             (),
+    _sfGestureData            (),
     _sfMouseAsMTouch          (bool(false)),
     _sfSize                   (Vec2f(300, 300)),
     _sfPosition               (Vec2f(100, 100)),
@@ -1323,6 +1374,7 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _mfViewports              (),
     _sfMouseData              (source._sfMouseData              ),
     _sfMTouchData             (source._sfMTouchData             ),
+    _sfGestureData            (source._sfGestureData            ),
     _sfMouseAsMTouch          (source._sfMouseAsMTouch          ),
     _sfSize                   (source._sfSize                   ),
     _sfPosition               (source._sfPosition               ),
@@ -1548,6 +1600,31 @@ EditFieldHandlePtr CSMWindowBase::editHandleMTouchData     (void)
 
 
     editSField(MTouchDataFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleGestureData     (void) const
+{
+    SFGestureData::GetHandlePtr returnValue(
+        new  SFGestureData::GetHandle(
+             &_sfGestureData,
+             this->getType().getFieldDesc(GestureDataFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleGestureData    (void)
+{
+    SFGestureData::EditHandlePtr returnValue(
+        new  SFGestureData::EditHandle(
+             &_sfGestureData,
+             this->getType().getFieldDesc(GestureDataFieldId),
+             this));
+
+
+    editSField(GestureDataFieldMask);
 
     return returnValue;
 }
