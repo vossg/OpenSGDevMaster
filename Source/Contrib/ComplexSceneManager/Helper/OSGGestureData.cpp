@@ -44,19 +44,20 @@
 
 OSG_BEGIN_NAMESPACE
 
-GestureData::GestureBlob::GestureBlob(UInt32 uiEvent,
-                                   Int32  iGestureId,
-                                   const std::string& szGesture, 
-                                   Real32 rX,
-                                   Real32 rY,
-                                   UInt32 uiCoordSys) :
+GestureData::GestureBlob::GestureBlob(      UInt32       uiEvent,
+                                            Int32        iGestureId,
+                                      const std::string &szGesture, 
+                                            Real32       rX,
+                                            Real32       rY,
+                                            UInt32       uiCoordSys) :
 
-    _uiEvent    (uiEvent    ),
-    _iGestureId (iGestureId  ),
-    _szGesture  (szGesture  ),
-    _vPosition  (rX, rY, 0.f),
+    _uiEvent   (uiEvent    ),
+    _iGestureId(iGestureId ),
+    _vPosition (rX, rY, 0.f),
    
-    _uiCoordSys(uiCoordSys )
+    _uiCoordSys(uiCoordSys ),
+
+    _szGesture (szGesture  )
 {
 }
 
@@ -78,26 +79,25 @@ bool GestureData::GestureBlob::operator !=(const GestureBlob &rhs) const
 bool GestureData::GestureBlob::operator < (const GestureBlob &rhs) const
 {
     return ((_iGestureId <  rhs._iGestureId) ||
-            (_iGestureId == rhs._iGestureId && _uiEvent < rhs._uiEvent)
-           );
+            (_iGestureId == rhs._iGestureId && _uiEvent < rhs._uiEvent));
 }
 
 
 
 GestureData::GestureData(void) :
-    _pWindow     (NULL ),
-    _pCSMWindow     (NULL ),
     _vBlobs      (     ),
-    _vActiveBlobs(     )
+    _vActiveBlobs(     ),
+    _pWindow     (NULL ),
+    _pCSMWindow  (NULL )
 {
 }
 
 
 GestureData::GestureData(const GestureData &source) :
-    _pWindow     (NULL                ),
-    _pCSMWindow     (NULL                ),
     _vBlobs      (source._vBlobs      ),
-    _vActiveBlobs(source._vActiveBlobs)
+    _vActiveBlobs(source._vActiveBlobs),
+    _pWindow     (NULL                ),
+    _pCSMWindow  (NULL                )
 {
 }
 
@@ -109,9 +109,9 @@ GestureData::~GestureData(void)
 
 void GestureData::operator = (const GestureData &rhs)
 {
-    _vBlobs = rhs._vBlobs;
+    _vBlobs     = rhs._vBlobs;
 
-    _pWindow = rhs._pWindow;
+    _pWindow    = rhs._pWindow;
     _pCSMWindow = rhs._pCSMWindow;
 }
 
@@ -121,20 +121,25 @@ bool GestureData::operator ==(const GestureData &rhs) const
     //        _pWindow   == rhs._pWindow  );
     //        _pCSMWindow   == rhs._pCSMWindow  );
 
-    return (_vBlobs == rhs._vBlobs  );
+    return (_vBlobs == rhs._vBlobs);
 }
 
-void GestureData::addGesture(UInt32 uiId,
-                           const std::string& szGesture,                        
-                           Real32 rX, 
-                           Real32 rY,
-                           UInt32 uiCoordSys)
+void GestureData::addGesture(      UInt32       uiId,
+                             const std::string &szGesture,
+                                   Real32       rX, 
+                                   Real32       rY,
+                                   UInt32       uiCoordSys)
 {
-    GestureBlob tmpBlob(GestureData::AddGesture, uiId, szGesture, rX, rY, uiCoordSys);
+    GestureBlob tmpBlob(GestureData::AddGesture, 
+                        uiId, 
+                        szGesture, 
+                        rX, 
+                        rY, 
+                        uiCoordSys             );
 
     GestureBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
-                                              _vBlobs.end  (),
-                                               tmpBlob       );
+                                               _vBlobs.end  (),
+                                                tmpBlob       );
     if(tbIt == _vBlobs.end())
     {
         _vBlobs.push_back(tmpBlob);
@@ -151,11 +156,11 @@ void GestureData::addGesture(UInt32 uiId,
     }
 }
 
-void GestureData::updateGesture(UInt32 uiId,
-                              const std::string& szGesture, 
-                              Real32 rX, 
-                              Real32 rY,
-                              UInt32 uiCoordSys)
+void GestureData::updateGesture(      UInt32       uiId,
+                                const std::string &szGesture, 
+                                      Real32       rX, 
+                                      Real32       rY,
+                                      UInt32       uiCoordSys)
 {
     ActiveBlobsStoreIt aIt = std::lower_bound(_vActiveBlobs.begin(),
                                               _vActiveBlobs.end  (),
@@ -185,8 +190,8 @@ void GestureData::updateGesture(UInt32 uiId,
 //            uiId, rX, rY);
 
     GestureBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
-                                              _vBlobs.end  (),
-                                               tmpBlob       );
+                                               _vBlobs.end  (),
+                                                tmpBlob       );
 
     if(tbIt == _vBlobs.end())
     {
@@ -207,8 +212,8 @@ void GestureData::removeGesture(UInt32 uiId)
     GestureBlob tmpBlob(GestureData::RemoveGesture, uiId, "", 0.f, 0.f);
 
     GestureBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
-                                              _vBlobs.end  (),
-                                               tmpBlob       );
+                                               _vBlobs.end  (),
+                                                tmpBlob       );
 
     if(tbIt == _vBlobs.end())
     {
@@ -236,7 +241,6 @@ void GestureData::removeGesture(UInt32 uiId)
             _vActiveBlobs.erase(aIt);
         }
     }
-    
 }
 
 
@@ -266,6 +270,7 @@ void GestureData::dump(void) const
     }
 
     fprintf(stderr, "Active Blobs (%"PRISize") :\n", _vActiveBlobs.size());
+
     for(UInt32 i = 0; i < _vActiveBlobs.size(); ++i)
     {
         fprintf(stderr, "[%d] : %d\n",

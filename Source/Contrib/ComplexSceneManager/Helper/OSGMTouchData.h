@@ -170,11 +170,11 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    MTouchBlobStore  _vBlobs;
-    ActiveBlobsStore _vActiveBlobs;
+    MTouchBlobStore   _vBlobs;
+    ActiveBlobsStore  _vActiveBlobs;
 
-    Window    *_pWindow;
-    CSMWindow    *_pCSMWindow;
+    Window           *_pWindow;
+    CSMWindow        *_pCSMWindow;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -197,11 +197,13 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 
     /*------------------------- your_category -------------------------------*/
 
-    void setWindow( Window* pWindow );
-    Window* getWindow( void ) const;
+    void       setWindow   (Window    *pWindow   );
+    Window    *getWindow   (void                 ) const;
 
-    void setCSMWindow( CSMWindow* pCSMWindow );
-    CSMWindow* getCSMWindow( void ) const;
+    void       setCSMWindow(CSMWindow *pCSMWindow);
+    CSMWindow *getCSMWindow(void                 ) const;
+
+    /*------------------------- your_category -------------------------------*/
 
     void addCursor   (UInt32 uiId, 
                       Real32 rX, 
@@ -276,7 +278,7 @@ struct FieldTraits<MTouchData> : public FieldTraitsTemplateBase<MTouchData>
     static void copyToBin(      BinaryDataHandler  &pMem, 
                           const MTouchData         &oObject)
     {
-    	//pMem.putValue(oObject);
+        //pMem.putValue(oObject);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 

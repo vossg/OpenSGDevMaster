@@ -99,7 +99,7 @@ ComplexSceneManager
     [
       CSMDrawer
       {
-        aspect 1
+        aspect Drawer0Aspect
 
         windows
         [

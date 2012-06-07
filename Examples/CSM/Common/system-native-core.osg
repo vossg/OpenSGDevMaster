@@ -161,8 +161,8 @@ ComplexSceneManager
                    USE ForeGnd3
                    USE ForeGnd4
 
-                   USE LogoFGnd
-                   USE StatFGnd
+#                   USE LogoFGnd
+#                   USE StatFGnd
                  ]
                }
              ]

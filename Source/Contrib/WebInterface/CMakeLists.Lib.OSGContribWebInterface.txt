@@ -42,7 +42,7 @@ OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}")
 # setup python bindings
 ##############################################################################
 
-SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+SET(${PROJECT_NAME}_NO_PYTHON FALSE)
 
 ##############################################################################
 # setup build

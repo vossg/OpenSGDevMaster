@@ -298,26 +298,26 @@ void CSMWindow::queueTask(DrawTask *pTask)
 /*----------------------------- class specific ----------------------------*/
 
 void CSMWindow::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                        UInt32            origin,
+                        BitVector         details)
 {
     if (0x0000 != (whichField & MTouchDataFieldMask))
     {
         _sfMTouchData.getValue().setWindow(_pWindow);
         _sfMTouchData.getValue().setCSMWindow(this);
-        
     }
+
     if (0x0000 != (whichField & GestureDataFieldMask))
     {
         _sfGestureData.getValue().setWindow(_pWindow);
         _sfGestureData.getValue().setCSMWindow(this);
-        
     }
+
     Inherited::changed(whichField, origin, details);
 }
 
 void CSMWindow::dump(      UInt32    ,
-                         const BitVector ) const
+                     const BitVector ) const
 {
     SLOG << "Dump CSMWindow NI" << std::endl;
 }

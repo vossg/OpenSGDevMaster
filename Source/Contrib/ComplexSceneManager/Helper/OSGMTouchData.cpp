@@ -82,19 +82,19 @@ bool MTouchData::MTouchBlob::operator < (const MTouchBlob &rhs) const
 
 
 MTouchData::MTouchData(void) :
-    _pWindow     (NULL ),
-    _pCSMWindow     (NULL ),
     _vBlobs      (     ),
-    _vActiveBlobs(     )
+    _vActiveBlobs(     ),
+    _pWindow     (NULL ),
+    _pCSMWindow  (NULL )
 {
 }
 
 
 MTouchData::MTouchData(const MTouchData &source) :
-    _pWindow     (NULL                ),
-    _pCSMWindow     (NULL                ),
     _vBlobs      (source._vBlobs      ),
-    _vActiveBlobs(source._vActiveBlobs)
+    _vActiveBlobs(source._vActiveBlobs),
+    _pWindow     (NULL                ),
+    _pCSMWindow  (NULL                )
 {
 }
 

@@ -45,25 +45,25 @@ MTouchData::MTouchBlobStore &MTouchData::getBlobStore(void)
 }
 
 inline
-void MTouchData::setWindow(Window* pWindow)
+void MTouchData::setWindow(Window *pWindow)
 {
     _pWindow = pWindow;
 }
 
 inline
-Window* MTouchData::getWindow(void) const
+Window *MTouchData::getWindow(void) const
 {
     return _pWindow;
 }
 
 inline
-void MTouchData::setCSMWindow(CSMWindow* pCSMWindow)
+void MTouchData::setCSMWindow(CSMWindow *pCSMWindow)
 {
     _pCSMWindow = pCSMWindow;
 }
 
 inline
-CSMWindow* MTouchData::getCSMWindow(void) const
+CSMWindow *MTouchData::getCSMWindow(void) const
 {
     return _pCSMWindow;
 }

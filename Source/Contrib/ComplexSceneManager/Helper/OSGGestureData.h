@@ -65,12 +65,12 @@ class OSG_CONTRIBCSM_DLLMAPPING GestureData
 
     struct OSG_CONTRIBCSM_DLLMAPPING GestureBlob
     {
-        UInt32  _uiEvent;
+        UInt32      _uiEvent;
 
-        Int32   _iGestureId;
-        Vec3f   _vPosition;
+        Int32       _iGestureId;
+        Vec3f       _vPosition;
 
-        UInt32  _uiCoordSys;
+        UInt32      _uiCoordSys;
 
         std::string _szGesture;
 
@@ -174,10 +174,10 @@ class OSG_CONTRIBCSM_DLLMAPPING GestureData
     //-----------------------------------------------------------------------
 
     GestureBlobStore  _vBlobs;
-    ActiveBlobsStore _vActiveBlobs;
+    ActiveBlobsStore  _vActiveBlobs;
 
-    Window    *_pWindow;
-    CSMWindow    *_pCSMWindow;
+    Window           *_pWindow;
+    CSMWindow        *_pCSMWindow;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -200,23 +200,25 @@ class OSG_CONTRIBCSM_DLLMAPPING GestureData
 
     /*------------------------- your_category -------------------------------*/
 
-    void setWindow( Window* pWindow );
-    Window* getWindow( void ) const;
+    void       setWindow   (Window    *pWindow   );
+    Window    *getWindow   (void                 ) const;
 
-    void setCSMWindow( CSMWindow* pCSMWindow );
-    CSMWindow* getCSMWindow( void ) const;
+    void       setCSMWindow(CSMWindow *pCSMWindow);
+    CSMWindow *getCSMWindow(void                 ) const;
 
-    void addGesture   (UInt32 uiId, 
-                      const std::string& szGesture, 
-                      Real32 rX, 
-                      Real32 rY,
-                      UInt32 uiCoordSys = GlobalRel);
-    void updateGesture(UInt32 uiId, 
-                      const std::string& szGesture, 
-                      Real32 rX, 
-                      Real32 rY,
-                      UInt32 uiCoordSys = GlobalRel);
-    void removeGesture(UInt32 uiId                  );
+    /*------------------------- your_category -------------------------------*/
+
+    void addGesture   (      UInt32       uiId, 
+                       const std::string &szGesture, 
+                             Real32       rX, 
+                             Real32       rY,
+                             UInt32       uiCoordSys = GlobalRel);
+    void updateGesture(      UInt32       uiId, 
+                       const std::string &szGesture, 
+                             Real32       rX, 
+                             Real32       rY,
+                             UInt32       uiCoordSys = GlobalRel);
+    void removeGesture(      UInt32       uiId                  );
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -281,7 +283,7 @@ struct FieldTraits<GestureData> : public FieldTraitsTemplateBase<GestureData>
     static void copyToBin(      BinaryDataHandler  &pMem, 
                           const GestureData         &oObject)
     {
-    	//pMem.putValue(oObject);
+        //pMem.putValue(oObject);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 
