@@ -105,7 +105,7 @@ void wrapSetMainloop(OSG::ComplexSceneManager* csm, bp::object fMainLoop)
 
 
 
-  for class_name in ["CSMClusterWindow", "CSMDrawManager", "CSMDrawer", "CSMWindow"]:
+  for class_name in ["CSMClusterWindow", "CSMDrawManager", "CSMDrawer"]:
     c = osg[class_name]
     c["findNamedComponent"].exclude()
 

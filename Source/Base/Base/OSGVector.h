@@ -476,21 +476,22 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>::Type
     /*! \name                   Common Math                                */
     /*! \{                                                                 */
 
-          bool            isZero  (      void                 ) const;
+          bool            isZero   (      void                 ) const;
 
-          void            negate  (      void                 );
+          void            negate   (      void                 );
 
-          bool            equals  (const Point      &pnt,
-                                   const ValueType   tolerance) const;
+          bool            equals   (const Point      &pnt,
+                                    const ValueType   tolerance) const;
 
-          VectorType     &subZero (      void                 );
-    const VectorType     &subZero (      void                 ) const;
+          VectorType     &subZero  (      void                 );
+    const VectorType     &subZero  (      void                 ) const;
 
-          RealReturnType  dist    (const Point      &pnt      ) const;
-          RealReturnType  dist2   (const Point      &pnt      ) const;
+          RealReturnType  dist     (const Point      &pnt      ) const;
+          RealReturnType  dist2    (const Point      &pnt      ) const;
 
-          RealReturnType  maxValue(      void                 ) const;
-          UInt32          maxDim  (      void                 ) const;
+          RealReturnType  maxValue (      void                 ) const;
+          UInt32          maxDim   (      void                 ) const;
+          UInt32          maxDimAbs(      void                 ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

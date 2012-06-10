@@ -39,16 +39,21 @@ class Geometry;
 // Algorithms are probably best run in order from top to bottom.
 
 OSG_DRAWABLE_DLLMAPPING
-void makeSingleIndexed(Geometry *geo);
+void makeSingleIndexed          (Geometry *geo                           );
 
 OSG_DRAWABLE_DLLMAPPING
-void makeIndexedTriangles(Geometry *geo);
+void makeIndexedTriangles       (Geometry *geo, 
+                                 bool      bKeepLowerDimPrimitives = true);
 
 OSG_DRAWABLE_DLLMAPPING
-void makeOptimizedIndex(Geometry *geo);
+void makeIndexedTrianglesConcave(Geometry *geo, 
+                                 bool      bKeepLowerDimPrimitives = true);
 
 OSG_DRAWABLE_DLLMAPPING
-void makeOptimizedProperties(Geometry *geo);
+void makeOptimizedIndex         (Geometry *geo                           );
+
+OSG_DRAWABLE_DLLMAPPING
+void makeOptimizedProperties    (Geometry *geo                           );
 
 OSG_END_NAMESPACE
 

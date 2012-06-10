@@ -260,13 +260,13 @@ namespace
 
     typedef std::vector<OSG::GeoVectorPropertyUnrecPtr  > PropertyStore;
     typedef std::vector<OSG::GeoIntegralPropertyUnrecPtr> PropIndexStore;
+    typedef std::vector<std::pair<UInt32, UInt32>       > IndexVec;
 
-    void
-    copyIndices(const PropIndexStore &srcIdx,
-                UInt32                srcOffset,
-                const PropIndexStore &dstIdx,
-                UInt32                dstOffset,
-                UInt32                count = 1 )
+    void copyIndices(const PropIndexStore &srcIdx,
+                           UInt32          srcOffset,
+                     const PropIndexStore &dstIdx,
+                           UInt32          dstOffset,
+                           UInt32          count = 1 )
     {
         OSG_ASSERT(srcIdx.size() == dstIdx.size());
 
@@ -282,6 +282,270 @@ namespace
                 dstIdx[i]->setValue(val, dstOffset + j);
             }
         }
+    }
+
+    void copyIndexSet(const PropIndexStore      &srcIdx,
+                      const std::vector<UInt32> &srcIndices,
+                      const PropIndexStore      &dstIdx,
+                           UInt32                dstOffset)
+    {
+        OSG_ASSERT(srcIdx.size() == dstIdx.size());
+
+        UInt32 count = srcIndices.size();
+
+        for(UInt32 i = 0; i < srcIdx.size(); ++i)
+        {
+            if(dstIdx[i]->size() < (dstOffset + count))
+                dstIdx[i]->resize(dstOffset + count);
+
+            for(UInt32 j = 0; j < count; ++j)
+            {
+                GeoIntegralProperty::MaxTypeT val;
+
+                srcIdx[i]->getValue(val, srcIndices[j]);
+                dstIdx[i]->setValue(val, dstOffset + j);
+            }
+        }
+    }
+
+    Real32 polyArea(GeoVectorProperty   *pPos,
+                    IndexVec            &vPolyIndex,
+                    Int32                len,
+                    UInt32               uiXIdx,
+                    UInt32               uiYIdx   )
+    {
+        float A = 0.0f;
+
+        Pnt3f oPntP;
+        Pnt3f oPntQ;
+
+        for(Int32 p = len - 1, q = 0; q < len; p = q++)
+        {
+            pPos->getValue(oPntP, vPolyIndex[p].first);
+            pPos->getValue(oPntQ, vPolyIndex[q].first);
+
+            A += oPntP[uiXIdx] * oPntQ[uiYIdx] - oPntQ[uiXIdx] * oPntP[uiYIdx];
+        }
+
+        return A*0.5f;
+    }
+
+    /* InsideTriangle decides if a point P is Inside of the triangle
+       defined by A, B, C.
+     */
+
+    bool InsideTriangle(Real32 Ax, Real32 Ay,
+                        Real32 Bx, Real32 By,
+                        Real32 Cx, Real32 Cy,
+                        Real32 Px, Real32 Py)
+
+    {
+        Real32 ax, ay, bx, by, cx, cy, apx, apy, bpx, bpy, cpx, cpy;
+        Real32 cCROSSap, bCROSScp, aCROSSbp;
+
+        ax = Cx - Bx;  ay = Cy - By;
+        bx = Ax - Cx;  by = Ay - Cy;
+        cx = Bx - Ax;  cy = By - Ay;
+        apx= Px - Ax;  apy= Py - Ay;
+        bpx= Px - Bx;  bpy= Py - By;
+        cpx= Px - Cx;  cpy= Py - Cy;
+        
+        aCROSSbp = ax * bpy - ay * bpx;
+        cCROSSap = cx * apy - cy * apx;
+        bCROSScp = bx * cpy - by * cpx;
+
+        return ((aCROSSbp >= 0.0f) && (bCROSScp >= 0.0f) && (cCROSSap >= 0.0f));
+    };
+
+    static const float EPSILON = 0.0000000001f;
+
+    bool Snip(GeoVectorProperty *pPos,
+              IndexVec          &vPolyIndex,
+              Int32              u,
+              Int32              v,
+              Int32              w,
+              Int32              n,
+              UInt32             uiXIdx,
+              UInt32             uiYIdx    )
+    {
+        Int32 p;
+        Real32 Ax, Ay, Bx, By, Cx, Cy, Px, Py;
+
+        Pnt3f oPnt;
+
+        pPos->getValue(oPnt, vPolyIndex[u].first);
+
+        Ax = oPnt[uiXIdx]; 
+        Ay = oPnt[uiYIdx]; 
+
+        pPos->getValue(oPnt, vPolyIndex[v].first);
+  
+        Bx = oPnt[uiXIdx]; 
+        By = oPnt[uiYIdx];
+
+        pPos->getValue(oPnt, vPolyIndex[w].first);
+        
+        Cx = oPnt[uiXIdx]; 
+        Cy = oPnt[uiYIdx];
+
+        if(EPSILON > (((Bx - Ax) * (Cy - Ay)) - ((By - Ay) * (Cx - Ax)))) 
+            return false;
+    
+        for(p = 0; p < n; ++p)
+        {
+            if((p == u) || (p == v) || (p == w)) 
+                continue;
+
+            pPos->getValue(oPnt, vPolyIndex[p].first);
+
+            Px = oPnt[uiXIdx]; 
+            Py = oPnt[uiYIdx];
+
+            if(InsideTriangle(Ax, Ay, Bx, By, Cx, Cy, Px, Py)) 
+                return false;
+        }
+        
+        return true;
+    }
+
+    // Simple polygon triangulation, base on 
+    // http://www.flipcode.com/archives/Efficient_Polygon_Triangulation.shtml
+    // from John W. Ratcliff 
+    
+    UInt32 triangulatePoly(      IndexVec       &vPolyIndex,
+                           const PropIndexStore &srcIdx,
+                           const PropIndexStore &dstIdx,
+                                 UInt32         &dstOffset,
+                                 UInt32          len,
+                                 Geometry       *pGeo     )
+    {
+        OSG_ASSERT(len >= 3 && pGeo != NULL);
+
+        GeoVectorProperty *pPos = pGeo->getProperty(Geometry::PositionsIndex);
+
+        // figure out the coordinate plane to use:
+
+        Pnt3f oP0;
+        Pnt3f oP1;
+        Pnt3f oP2;
+
+        pPos->getValue(oP0, vPolyIndex[0].first);
+        pPos->getValue(oP1, vPolyIndex[1].first);
+        pPos->getValue(oP2, vPolyIndex[2].first);
+        
+        Vec3f oE0 = oP1 - oP0;
+        Vec3f oE1 = oP2 - oP0;
+
+        Vec3f  oN       = oE0.cross(oE1);
+        UInt32 uiMaxIdx = oN.maxDimAbs();
+
+        UInt32 uiXIdx = 0;
+        UInt32 uiYIdx = 1;
+
+        if(uiMaxIdx == 0)
+        {
+            uiXIdx = 1;
+            uiYIdx = 2;
+        }
+        else if(uiMaxIdx == 1)
+        {
+            uiYIdx = 2;
+        }
+
+        Real32 fArea = polyArea(pPos,
+                                vPolyIndex,
+                                len,
+                                uiXIdx,
+                                uiYIdx);
+
+        bool bReversed = false;
+
+        if(fArea < 0.f)
+        {
+            std::reverse(vPolyIndex.begin(), vPolyIndex.end());
+
+            bReversed = true;
+        }
+
+        Int32 nv = len;
+
+        /*  remove nv-2 Vertices, creating 1 triangle every time */
+        Int32 count = 2 * nv;   /* error detection */
+
+        std::vector<UInt32> vTriIndices;
+
+        vTriIndices.resize(3);
+
+        UInt32 returnValue = 0;
+
+        for(Int32 m = 0, v = nv - 1; nv > 2;)
+        {
+
+            /* if we loop, it is probably a non-simple polygon */
+            if(0 >= (count--))
+            {
+                //** Triangulate: ERROR - probable bad polygon!
+                return 0;
+            }
+
+            /* three consecutive vertices in current polygon, <u,v,w> */
+            Int32 u = v; 
+
+            if (nv <= u) 
+                u = 0;     /* previous */
+
+            v = u + 1; 
+
+            if (nv <= v) 
+                v = 0;     /* new v    */
+
+            Int32 w = v + 1; 
+            
+            if(nv <= w) 
+                w = 0;     /* next     */
+
+            if(Snip(pPos,
+                    vPolyIndex,
+                    u, v, w, 
+                    nv, 
+                    uiXIdx,
+                    uiYIdx)   )
+            {
+                vTriIndices[0] = vPolyIndex[u].second;
+                
+                if(bReversed == false)
+                {
+                    vTriIndices[1] = vPolyIndex[v].second;
+                    vTriIndices[2] = vPolyIndex[w].second;
+                }
+                else
+                {
+                    vTriIndices[1] = vPolyIndex[w].second;
+                    vTriIndices[2] = vPolyIndex[v].second;
+                }
+
+                copyIndexSet(srcIdx,
+                             vTriIndices,
+                             dstIdx,
+                             dstOffset  );
+
+                dstOffset += 3;
+
+                ++returnValue;
+                ++m;
+
+                /* remove v from remaining polygon */
+                for(Int32 s = v, t = v + 1; t < nv; ++s, ++t) 
+                    vPolyIndex[s] = vPolyIndex[t]; 
+
+                --nv;
+
+                /* resest error detection counter */
+                count = 2 * nv;
+            }
+        }
+
+        return returnValue;
     }
 
 } // namespace
@@ -487,14 +751,16 @@ makeSingleIndexed(Geometry *geo)
 /* ======================================================================== */
 
 /*! Converts all "face" primitives (triangles strips/fans, quads, quad strips,
-    polygons) to triangle lists.
+    polygons) to triangle lists. 
 
     This modifies the types and lengths of the geometry and replaces indices
     with new ones.
-*/
 
-void
-makeIndexedTriangles(Geometry *geo)
+    Assumes valid OpenGL conforming convex primitives
+ */
+
+void makeIndexedTriangles(Geometry *geo,
+                          bool      bKeepLowerDimPrimitives)
 {
 #if defined(OSG_GEOOPT_STATISTICS)
     Time start = getSystemTime();
@@ -558,54 +824,61 @@ makeIndexedTriangles(Geometry *geo)
     UInt32 srcOffset    = 0;
     UInt32 dstOffset    = 0;
 
-    for(UInt32 i = 0; i < primCount; ++i)
+    if(bKeepLowerDimPrimitives == true)
     {
-        UInt32 type = oldTypes  ->getValue(i);
-        UInt32 len  = oldLengths->getValue(i);
-
-        switch(type)
+        for(UInt32 i = 0; i < primCount; ++i)
         {
-        case GL_POINTS:
-        case GL_LINES:
-        case GL_LINE_LOOP:
-        case GL_LINE_STRIP:
-        {
-            // not a "face" primitive, copy indices unchanged
-            copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
-            srcOffset += len;
-            dstOffset += len;
+            UInt32 type = oldTypes  ->getValue(i);
+            UInt32 len  = oldLengths->getValue(i);
 
-            newTypes  ->push_back(type);
-            newLengths->push_back(len );
-        }
-        break;
+            switch(type)
+            {
+                case GL_POINTS:
+                case GL_LINES:
+                case GL_LINE_LOOP:
+                case GL_LINE_STRIP:
+                {
+                    // not a "face" primitive, copy indices unchanged
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
+                    srcOffset += len;
+                    dstOffset += len;
 
-        case GL_TRIANGLES:
-        case GL_TRIANGLE_STRIP:
-        case GL_TRIANGLE_FAN:
-        case GL_POLYGON:
-        case GL_QUADS:
-        case GL_QUAD_STRIP:
-        {
-            // these can be converted, we handle them later
-            doSecondPass = true;
-        }
-        break;
+                    newTypes  ->push_back(type);
+                    newLengths->push_back(len );
+                }
+                break;
 
-        default:
-        {
-             // unknown primitive, copy indices unchanged
-            SWARNING << "Unknown primitive type " << type
-                     << " copying indices unchanged." << std::endl;
-            copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
-            srcOffset += len;
-            dstOffset += len;
-
-            newTypes  ->push_back(type);
-            newLengths->push_back(len );
+                case GL_TRIANGLES:
+                case GL_TRIANGLE_STRIP:
+                case GL_TRIANGLE_FAN:
+                case GL_POLYGON:
+                case GL_QUADS:
+                case GL_QUAD_STRIP:
+                {
+                    // these can be converted, we handle them later
+                    doSecondPass = true;
+                }
+                break;
+                
+                default:
+                {
+                    // unknown primitive, copy indices unchanged
+                    SWARNING << "Unknown primitive type " << type
+                             << " copying indices unchanged." << std::endl;
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
+                    srcOffset += len;
+                    dstOffset += len;
+                    
+                    newTypes  ->push_back(type);
+                    newLengths->push_back(len );
+                }
+                break;
+            }
         }
-        break;
-        }
+    }
+    else
+    {
+        doSecondPass = true;
     }
 
     // 2b) if we encountered any primitive that can be converted,
@@ -806,6 +1079,405 @@ makeIndexedTriangles(Geometry *geo)
                 }
             }
             break;
+            }
+        }
+    }
+
+    geo->setTypes  (newTypes  );
+    geo->setLengths(newLengths);
+
+    for(UInt16 i = 0; i <= Geometry::LastIndex; ++i)
+    {
+        if(geo->getIndex(i) != NULL)
+        {
+            for(UInt32 j = 0; j < oldIdx.size(); ++j)
+            {
+                if(geo->getIndex(i) == oldIdx[j])
+                {
+                    geo->setIndex(newIdx[j], i);
+                    break;
+                }
+            }
+        }
+    }
+
+#if defined(OSG_GEOOPT_STATISTICS)
+    SLOG << "time to rewrite types/len/indices: " << (getSystemTime() - start)
+         << std::endl;
+#endif
+}
+
+/*! Converts all "face" primitives (triangles strips/fans, quads, quad strips,
+    polygons) to triangle lists. 
+
+    This modifies the types and lengths of the geometry and replaces indices
+    with new ones.
+
+    Does not assume valid, OpenGL conforming convex GL_POLYGON and GL_QUADS
+    primitives.
+
+    GL_QUAD_STRIPs are assumed to contain convex primitives.
+ */
+
+void makeIndexedTrianglesConcave(Geometry *geo, 
+                                 bool      bKeepLowerDimPrimitives)
+{
+#if defined(OSG_GEOOPT_STATISTICS)
+    Time start = getSystemTime();
+#endif
+
+    // 1) find unique index properties used by the geometry and create
+    //    new ones of the same size (if necessary the new indices are
+    //    grown by the copyIndices() helper function)
+
+    PropIndexStore oldIdx;
+    PropIndexStore newIdx;
+
+    for(UInt16 i = 0; i <= Geometry::LastIndex; ++i)
+    {
+        if(geo->getIndex(i) != NULL)
+        {
+            bool add = true;
+
+            for(UInt32 j = 0; add == true && j < oldIdx.size(); ++j)
+            {
+                if(geo->getIndex(i) == oldIdx[j])
+                    add = false;
+            }
+
+            if(add == true)
+            {
+                oldIdx.push_back(geo->getIndex(i));
+
+                newIdx.push_back(GeoUInt32Property::create());
+                newIdx.back()->resize(oldIdx.back()->size());
+            }
+        }
+    }
+
+    GeoIntegralProperty *oldTypes   = geo->getTypes  ();
+    GeoIntegralProperty *oldLengths = geo->getLengths();
+    
+    if(oldTypes->size() != oldLengths->size())
+    {
+        SWARNING << "Types and Lengths have inconsistent size, aborting."
+                 << std::endl;
+        return;
+    }
+
+    // 2a) loop over all primitives first copying those that can
+    //     not be converted to GL_TRIANGLES (e.g. lines, points,
+    //     unknown primitives).
+    //     This allows group all primitives that can be converted
+    //     to be grouped into one GL_TRIANGLES primitive at
+    //     the end.
+
+    GeoIntegralPropertyUnrecPtr newTypes   =
+        dynamic_pointer_cast<GeoIntegralProperty>(
+            oldTypes->getType().createContainer());
+    GeoIntegralPropertyUnrecPtr newLengths =
+        dynamic_pointer_cast<GeoIntegralProperty>(
+            oldLengths->getType().createContainer());
+
+    bool   doSecondPass = false;
+    UInt32 primCount    = oldTypes->size32();
+    UInt32 srcOffset    = 0;
+    UInt32 dstOffset    = 0;
+
+    if(bKeepLowerDimPrimitives == true)
+    {
+        for(UInt32 i = 0; i < primCount; ++i)
+        {
+            UInt32 type = oldTypes  ->getValue(i);
+            UInt32 len  = oldLengths->getValue(i);
+
+            switch(type)
+            {
+                case GL_POINTS:
+                case GL_LINES:
+                case GL_LINE_LOOP:
+                case GL_LINE_STRIP:
+                {
+                    // not a "face" primitive, copy indices unchanged
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
+                    srcOffset += len;
+                    dstOffset += len;
+                
+                    newTypes  ->push_back(type);
+                    newLengths->push_back(len );
+                }
+                break;
+
+                case GL_TRIANGLES:
+                case GL_TRIANGLE_STRIP:
+                case GL_TRIANGLE_FAN:
+                case GL_POLYGON:
+                case GL_QUADS:
+                case GL_QUAD_STRIP:
+                {
+                    // these can be converted, we handle them later
+                    doSecondPass = true;
+                }
+                break;
+
+                default:
+                {
+                    // unknown primitive, copy indices unchanged
+                    SWARNING << "Unknown primitive type " << type
+                             << " copying indices unchanged." << std::endl;
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
+                    srcOffset += len;
+                    dstOffset += len;
+                    
+                    newTypes  ->push_back(type);
+                    newLengths->push_back(len );
+                }
+                break;
+            }
+        }
+    }
+    else
+    {
+        doSecondPass = true;
+    }
+
+    // 2b) if we encountered any primitive that can be converted,
+    //     do a second pass over all primitives handling only the
+    //     ones that can be converted.
+
+    if(doSecondPass == true)
+    {
+        GLenum lastPrim = GL_NONE;
+
+        IndexVec vPolyIndex;
+
+        for(UInt32 i = 0; i < primCount; ++i)
+        {
+            UInt32 lengthsCount = newLengths->size32();
+            UInt32 type         = oldTypes  ->getValue(i);
+            UInt32 len          = oldLengths->getValue(i);
+
+            switch(type)
+            {
+                case GL_TRIANGLES:
+                {
+                    // already tris, copy indices unchanged
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, len);
+                    srcOffset += len;
+                    dstOffset += len;
+                    
+                    if(lastPrim == GL_TRIANGLES)
+                    {
+                        newLengths->setValue(
+                            newLengths->getValue(lengthsCount - 1) + len,
+                            lengthsCount - 1);
+                    }
+                    else
+                    {
+                        newTypes  ->push_back(GL_TRIANGLES);
+                        newLengths->push_back(len);
+                        lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
+
+                case GL_TRIANGLE_STRIP:
+                {
+                    if(len < 3)
+                    {
+                        SWARNING << "Encountered degenerate TRIANGLE_STRIP,"
+                                 << " aborting."
+                                 << std::endl;
+                        return;
+                    }
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, 3);
+                    srcOffset += 3;
+                    dstOffset += 3;
+
+                    for(UInt32 j = 3; j < len; ++j)
+                    {
+                        if(j % 2 == 0)
+                        {
+                            copyIndices(oldIdx, srcOffset-2, 
+                                        newIdx, dstOffset  );
+                            copyIndices(oldIdx, srcOffset-1, 
+                                        newIdx, dstOffset+1);
+                            copyIndices(oldIdx, srcOffset,   
+                                        newIdx, dstOffset+2);
+                        }
+                        else
+                        {
+                            copyIndices(oldIdx, srcOffset-1, 
+                                        newIdx, dstOffset  );
+                            copyIndices(oldIdx, srcOffset-2, 
+                                        newIdx, dstOffset+1);
+                            copyIndices(oldIdx, srcOffset,   
+                                        newIdx, dstOffset+2);
+                        }
+
+                        srcOffset += 1;
+                        dstOffset += 3;
+                    }
+
+                    if(lastPrim == GL_TRIANGLES)
+                    {
+                        newLengths->setValue(
+                            newLengths->getValue(
+                                lengthsCount - 1) + 3 * (len - 2),
+                            lengthsCount - 1);
+                    }
+                    else
+                    {
+                        newTypes  ->push_back(GL_TRIANGLES);
+                        newLengths->push_back(3 * (len - 2));
+                        lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
+
+                case GL_TRIANGLE_FAN:
+                {
+                    if(len < 3)
+                    {
+                        SWARNING << "Encountered degenerate TRIANGLE_FAN, "
+                                 << "aborting."
+                                 << std::endl;
+                        return;
+                    }
+
+                    UInt32 firstSrcOffset = srcOffset;
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, 3);
+                    srcOffset += 3;
+                    dstOffset += 3;
+
+                    for(UInt32 j = 3; j < len; ++j)
+                    {
+                        copyIndices(oldIdx, firstSrcOffset, 
+                                    newIdx, dstOffset  );
+                        copyIndices(oldIdx, srcOffset-1,    
+                                    newIdx, dstOffset+1);
+                        copyIndices(oldIdx, srcOffset,      
+                                    newIdx, dstOffset+2);
+                        
+                        srcOffset += 1;
+                        dstOffset += 3;
+                    }
+
+                    if(lastPrim == GL_TRIANGLES)
+                    {
+                        newLengths->setValue(
+                            newLengths->getValue(
+                                lengthsCount - 1) + 3 * (len - 2),
+                            lengthsCount - 1);
+                    }
+                    else
+                    {
+                        newTypes  ->push_back(GL_TRIANGLES);
+                        newLengths->push_back(3 * (len - 2));
+                        lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
+
+                case GL_POLYGON:
+                case GL_QUADS:
+                {
+                    if(type == GL_POLYGON && len < 3)
+                    {
+                        SWARNING << "Encountered degenerate "
+                                 << "POLYGON, aborting."
+                                 << std::endl;
+                        return;
+                    }
+                    else if(type == GL_QUADS && (len < 4 || len % 4 != 0))
+                    {
+                        SWARNING << "Encountered degenerate QUADS, aborting."
+                                 << std::endl;
+                        return;
+                    }
+
+                    vPolyIndex.resize(len);
+
+                    for(UInt32 j = 0; j < len; ++j)
+                    {
+                        oldIdx[0]->getValue(vPolyIndex[j].first, srcOffset + j);
+
+                        vPolyIndex[j].second = srcOffset + j;
+                    }
+
+                    UInt32 res = triangulatePoly(vPolyIndex, 
+
+                                                 oldIdx,
+
+                                                 newIdx, 
+                                                 dstOffset,
+
+                                                 len,
+                                                 geo       );
+
+                    srcOffset += len;
+
+                    if(lastPrim == GL_TRIANGLES)
+                    {
+                        newLengths->setValue(
+                            newLengths->getValue(
+                                lengthsCount - 1) + 3 * res,
+                            lengthsCount - 1);
+                    }
+                    else
+                    {
+                        newTypes  ->push_back(GL_TRIANGLES);
+                        newLengths->push_back(3 * res);
+                        lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
+
+                case GL_QUAD_STRIP:
+                {
+                    if(len < 4 || len % 2 != 0)
+                    {
+                        SWARNING << "Encountered degenerate QUAD_STRIP, "
+                                 << "aborting."
+                                 << std::endl;
+                        return;
+                    }
+
+                    copyIndices(oldIdx, srcOffset,   newIdx, dstOffset  );
+                    copyIndices(oldIdx, srcOffset+2, newIdx, dstOffset+1);
+                    copyIndices(oldIdx, srcOffset+1, newIdx, dstOffset+2);
+                    srcOffset += 1;
+                    dstOffset += 3;
+                    copyIndices(oldIdx, srcOffset, newIdx, dstOffset, 3);
+                    srcOffset += 3;
+                    dstOffset += 3;
+                    
+                    for(UInt32 j = 4; j < len; j += 2)
+                    {
+                        copyIndices(oldIdx, srcOffset-2, newIdx, dstOffset  );
+                        copyIndices(oldIdx, srcOffset,   newIdx, dstOffset+1);
+                        copyIndices(oldIdx, srcOffset-1, newIdx, dstOffset+2);
+                        dstOffset += 3;
+                        copyIndices(oldIdx, srcOffset-1, newIdx, dstOffset, 3);
+                        srcOffset += 2;
+                        dstOffset += 3;
+                    }
+                    
+                    if(lastPrim == GL_TRIANGLES)
+                    {
+                        newLengths->setValue(
+                            newLengths->getValue(
+                                lengthsCount - 1) + 3 * (len - 2),
+                            lengthsCount - 1);
+                    }
+                    else
+                    {
+                        newTypes  ->push_back(GL_TRIANGLES);
+                        newLengths->push_back(3 * (len - 2));
+                        lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
             }
         }
     }

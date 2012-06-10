@@ -949,6 +949,23 @@ UInt32 Point<ValueTypeT, SizeI>::maxDim(void) const
     return returnValue;
 }
 
+//! Returns which axis contains the largest absolute value.
+
+template <class  ValueTypeT,
+          UInt32 SizeI      > inline
+UInt32 Point<ValueTypeT, SizeI>::maxDimAbs(void) const
+{
+    UInt32 returnValue = 0;
+
+    for(UInt32 i = 1; i < Self::_uiSize; ++i)
+    {
+        if(osgAbs(Self::_values[i]) > osgAbs(Self::_values[returnValue]))
+            returnValue = i;
+    }
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                                Math                                     */
 
