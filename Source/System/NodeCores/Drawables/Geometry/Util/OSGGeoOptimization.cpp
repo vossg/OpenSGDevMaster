@@ -1380,18 +1380,11 @@ void makeIndexedTrianglesConcave(Geometry *geo,
                 break;
 
                 case GL_POLYGON:
-                case GL_QUADS:
                 {
-                    if(type == GL_POLYGON && len < 3)
+                    if(len < 3)
                     {
                         SWARNING << "Encountered degenerate "
                                  << "POLYGON, aborting."
-                                 << std::endl;
-                        return;
-                    }
-                    else if(type == GL_QUADS && (len < 4 || len % 4 != 0))
-                    {
-                        SWARNING << "Encountered degenerate QUADS, aborting."
                                  << std::endl;
                         return;
                     }
@@ -1429,6 +1422,58 @@ void makeIndexedTrianglesConcave(Geometry *geo,
                         newTypes  ->push_back(GL_TRIANGLES);
                         newLengths->push_back(3 * res);
                         lastPrim = GL_TRIANGLES;
+                    }
+                }
+                break;
+
+                case GL_QUADS:
+                {
+                    if((len < 4 || len % 4 != 0))
+                    {
+                        SWARNING << "Encountered degenerate QUADS, aborting."
+                                 << std::endl;
+                        return;
+                    }
+
+                    vPolyIndex.resize(4);
+
+                    for(UInt32 k = 0; k < len; k += 4)
+                    {
+                        for(UInt32 j = 0; j < 4; ++j)
+                        {
+                            oldIdx[0]->getValue(vPolyIndex[j].first, 
+                                                srcOffset + j);
+
+                            vPolyIndex[j].second = srcOffset + j;
+                        }
+
+                        UInt32 res = triangulatePoly(vPolyIndex, 
+
+                                                     oldIdx,
+
+                                                     newIdx, 
+                                                     dstOffset,
+
+                                                     4,
+                                                     geo       );
+
+                        srcOffset += 4;
+
+                        if(lastPrim == GL_TRIANGLES)
+                        {
+                            newLengths->setValue(
+                                newLengths->getValue(
+                                    lengthsCount - 1) + 3 * res,
+                                lengthsCount - 1);
+                        }
+                        else
+                        {
+                            newTypes  ->push_back(GL_TRIANGLES);
+                            newLengths->push_back(3 * res);
+                            lastPrim = GL_TRIANGLES;
+                        }
+
+                        lengthsCount = newLengths->size32();
                     }
                 }
                 break;
