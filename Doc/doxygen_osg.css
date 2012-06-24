@@ -800,3 +800,14 @@ dl.bug
 	border-bottom: 1px solid #5373B4;
 }
 
+
+
+
+
+
+div.line
+{
+  font-family:Monospace;
+
+  white-space:pre;
+}

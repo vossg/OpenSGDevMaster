@@ -339,13 +339,13 @@ IF(OSGOpenNurbsSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_OPENNURBS_HDR}
-          DESTINATION include/opennurbs
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/opennurbs
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OPENNURBS_ZLIB_HDR}
-          DESTINATION include/opennurbs/zlib
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/opennurbs/zlib
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

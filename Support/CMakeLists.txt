@@ -110,6 +110,8 @@ IF(WIN32)
   ADD_SUBDIRECTORY(gdal)
 ELSE(WIN32)
   ADD_SUBDIRECTORY(doxygen)
+
+  SET(OSG_SUPPORT_INC_SUBDIR "/OpenSG")
 ENDIF(WIN32)
 
 ADD_SUBDIRECTORY(glew)
@@ -150,10 +152,27 @@ FILE(APPEND  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake"
              "SET(OSG_SUPPORT_DISABLE_MS_ITERATOR_DEBUGGING ${OSG_DISABLE_MS_ITERATOR_DEBUGGING} CACHE INTERNAL \"\")\n\n")
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
-        DESTINATION include
+        DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ)
+
+IF(NOT WIN32)
+  CONFIGURE_FILE(CMakeLists.packaging.unix.txt 
+                 ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
+                 @ONLY                                      )
+ELSE()
+  CONFIGURE_FILE(CMakeLists.packaging.win.txt 
+                 ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
+                 @ONLY                                      )
+ENDIF()
+
+INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
+        DESTINATION share/OpenSG/Packaging
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ
+        RENAME CMakeLists.txt)
 
 IF(CUDA_FOUND)
   CUDA_BUILD_CLEAN_TARGET()

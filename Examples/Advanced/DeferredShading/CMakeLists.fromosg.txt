@@ -98,9 +98,26 @@ FOREACH(SRC ${SRCFILES})
 
     #Install
     IF(OSG_INSTALL_EXAMPLES_EXE)
+      IF(WIN32)
         INSTALL(TARGETS ${EXE}
                 DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
                 COMPONENT examples_advanced)
+      ELSE()
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin
+                COMPONENT examples_advanced)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/debug
+                COMPONENT examples_advanced)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugGV
+                DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/debug
+                COMPONENT examples_advanced)
+      ENDIF()
     ENDIF()
     IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"
@@ -118,6 +135,6 @@ IF(OSG_INSTALL_EXAMPLES)
 
     FILE(GLOB GLSLFILES "*.glsl")
     INSTALL(FILES ${GLSLFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
+            DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/Data
             COMPONENT examples_advanced)
 ENDIF()

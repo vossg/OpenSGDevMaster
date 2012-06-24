@@ -120,14 +120,14 @@ IF(OSGNVidiaSDKSrcDir)
 
 
   INSTALL(FILES ${OSG_NVSDKCOMMON_HDR} 
-          DESTINATION include/nvsdk
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/nvsdk
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   IF(NOT WIN32)
     INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
-            DESTINATION include/nvsdk/GL
+            DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/nvsdk/GL
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
                         WORLD_READ)

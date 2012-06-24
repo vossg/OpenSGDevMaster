@@ -1,0 +1,184 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(OpenSGSupportPack)
+
+IF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+  MESSAGE(FATAL_ERROR "OpenSG requires an out of source Build. \n"
+                      "Please create a separate binary directory and run "
+                      "CMake there.")
+ENDIF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+
+IF(CMAKE_INSTALL_PREFIX STREQUAL /usr/local)
+  SET(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/Pack.install 
+                           CACHE PATH "" FORCE)
+ENDIF()
+
+################
+# Ref Dir
+################
+
+STRING(REGEX REPLACE /[^/]*/[^/]*/[^/]*$ "" _BASE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
+#MESSAGE("BASE DIR : ${_BASE_INSTALL_DIR}")
+
+################
+# includes 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_INCLUDES 
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/include/*)
+
+#MESSAGE("INC : ${_${PROJECT_NAME}_INCLUDES}")
+
+FOREACH(_INCLUDE_ELEM ${_${PROJECT_NAME}_INCLUDES})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_INCLUDE_ELEM})
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_INCLUDE_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT headers)
+
+ENDFOREACH()
+
+################
+# libs 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_LIBS
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/lib@OSG_LIBDIR_BASE_SUFFIX@/*)
+
+
+FOREACH(_LIB_ELEM ${_${PROJECT_NAME}_LIBS})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_LIB_ELEM})
+
+  SET(_ELEM_COMPONENT libraries)
+
+  IF(${_INST_PATH} MATCHES /debug$)
+    SET(_ELEM_COMPONENT libraries_debug)
+  ENDIF()
+
+#  MESSAGE("LIB : ${_LIB_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_LIB_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+
+ENDFOREACH()
+
+
+################
+# bin
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/bin/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT development_tools)
+
+#  MESSAGE("BIN : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+STRING(REGEX REPLACE ".*\\.(fc[1-9][0-9])\\..*" "\\1" 
+             _OSG_FC_VERSION ${CMAKE_SYSTEM_VERSION})
+
+SET(OSG_HOST_SYSTEM_NAME ${CMAKE_HOST_SYSTEM_NAME})
+
+IF(_OSG_FC_VERSION)
+  SET(OSG_HOST_SYSTEM_NAME ${_OSG_FC_VERSION})
+ENDIF()
+
+SET(SYSTEM_SPEC ${OSG_HOST_SYSTEM_NAME}.${CMAKE_HOST_SYSTEM_PROCESSOR})
+
+
+SET(CPACK_PACKAGE_NAME                "OpenSGSupport")
+SET(CPACK_PACKAGE_VERSION             @OSG_VERSION@)
+SET(CPACK_PACKAGE_VERSION_MAJOR       @OSG_VERSION_MAJOR@)
+SET(CPACK_PACKAGE_VERSION_MINOR       @OSG_VERSION_MINOR@)
+SET(CPACK_PACKAGE_VERSION_PATCH       @OSG_VERSION_PATCH@)
+SET(CPACK_PACKAGE_VENDOR              "OpenSG")
+SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSGSupport provides the third party libraries OpenSG uses")
+
+SET(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
+IF(NOT OSG_SINGLE_PACKAGE)
+  SET(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+  SET(CPACK_RPM_COMPONENT_INSTALL     ON)
+ENDIF()
+
+SET(CPACK_PACKAGE_FILE_NAME           "OpenSGSupport.@OSG_VERSION@.${SYSTEM_SPEC}")
+
+#MESSAGE("CPFN : ${CPACK_PACKAGE_FILE_NAME}")
+
+# Determine package type
+IF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
+  IF(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "ZIP")
+  ELSE(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "TBZ2")
+  ENDIF(WIN32)
+ENDIF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
+
+STRING(TOUPPER ${OSGBUILD_PACKAGE_TYPE} CPACK_GENERATOR)
+
+SET(CPACK_COMPONENTS_ALL libraries
+                         libraries_debug
+
+                         headers
+                         development_tools)
+
+SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION        "Suport Files needed to execute software with OpenSG.")
+SET(CPACK_COMPONENT_GROUP_DEVEL_DESCRIPTION          "Development support files needed to develop software with OpenSG.")
+
+SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME           "Support Release Runtime")
+SET(CPACK_COMPONENT_LIBRARIES_DESCRIPTION            "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_GROUP                  "runtime")
+SET(CPACK_COMPONENT_LIBRARIES_INSTALL_TYPES          Full Developer Runtime)
+
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DISPLAY_NAME     "Support Debug Runtime")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DESCRIPTION      "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_GROUP            "devel")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_INSTALL_TYPES    Full Developer Runtime)
+
+SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME             "Support Headers")
+SET(CPACK_COMPONENT_HEADERS_DESCRIPTION              "Support Headers Description")
+SET(CPACK_COMPONENT_HEADERS_GROUP                    "devel")
+SET(CPACK_COMPONENT_HEADER_INSTALL_TYPES             Full Developer)
+
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DISPLAY_NAME   "Support Dev Tools")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DESCRIPTION    "Support Dev Tools Description")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_GROUP          "devel")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_INSTALL_TYPES  Full Developer)
+
+IF(CPACK_GENERATOR STREQUAL "RPM")
+  SET(CPACK_RPM_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
+  SET(CPACK_RPM_PACKAGE_REQUIRES "boost >= 1.46.0, expat >= 2.1.0, libxml2 >= 2.7.8, zlib >= 1.2.5")
+  SET(CPACK_RPM_devel_PACKAGE_REQUIRES "OpenSGSupport-runtime >= 2.0.0, boost-devel >= 1.46.0,  expat-devel >= 2.1.0, libxml2-devel >= 2.7.8, zlib-devel >= 1.2.5")
+  SET(CPACK_PACKAGING_INSTALL_PREFIX    "/usr/local")
+ENDIF()
+
+INCLUDE(CPack)

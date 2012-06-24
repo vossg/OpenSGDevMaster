@@ -87,14 +87,14 @@ IF(OSGNVidiaSDKSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_CUDACOMMON_HDR} 
-          DESTINATION include/cuda
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   IF(NOT WIN32)
     INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
-            DESTINATION include/cuda/GL
+            DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda/GL
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
                         WORLD_READ)

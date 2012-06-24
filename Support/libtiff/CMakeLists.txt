@@ -110,7 +110,7 @@ IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_TIFFLIB_HDR}
-          DESTINATION include
+          DESTINATION ${OSG_SUPPORT_INC_SUBDIR}include
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

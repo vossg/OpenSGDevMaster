@@ -51,7 +51,7 @@ IF(OSGGLEWSrcDir)
   ENDIF(BUILD_SHARED_LIBS)
 
   INSTALL(FILES ${OSG_GLEW_HDR}
-          DESTINATION include/GL
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/GL
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

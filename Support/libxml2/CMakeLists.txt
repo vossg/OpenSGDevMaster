@@ -206,7 +206,7 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_LIBXML2_HDR}
-          DESTINATION include/libxml
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/libxml
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

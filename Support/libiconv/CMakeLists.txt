@@ -98,7 +98,7 @@ IF(OSGLibIconvSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_LIBICONV_HDR}
-          DESTINATION include
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

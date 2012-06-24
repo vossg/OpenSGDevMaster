@@ -85,14 +85,14 @@ IF(OSGNVidiaSDKSrcDir AND EXISTS ${OSGNVidiaSDKSrcDir}/OpenCL AND OPENCL_FOUND)
   ENDIF(WIN32)
 
   INSTALL(FILES ${OSG_NVOCLUTIL_HDR} 
-          DESTINATION include/nvocl
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/nvocl
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
 #  IF(NOT WIN32)
 #    INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
-#            DESTINATION include/cuda/GL
+#            DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda/GL
 #            PERMISSIONS OWNER_WRITE OWNER_READ
 #                        GROUP_READ
 #                        WORLD_READ)

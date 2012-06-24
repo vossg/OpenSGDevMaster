@@ -117,9 +117,26 @@ FOREACH(SRC ${SRCFILES})
     
     #Install
     IF(OSG_INSTALL_EXAMPLES_EXE)
+      IF(WIN32)
         INSTALL(TARGETS ${EXE}
                 DESTINATION share/OpenSG/Examples/Simple
                 COMPONENT examples_basic)
+      ELSE()
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                DESTINATION share/OpenSG/Examples/Simple/bin
+                COMPONENT examples_basic)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                DESTINATION share/OpenSG/Examples/Simple/bin/debug
+                COMPONENT examples_basic)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugGV
+                DESTINATION share/OpenSG/Examples/Simple/bin/debug
+                COMPONENT examples_basic)
+      ENDIF()
     ENDIF()
     IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"

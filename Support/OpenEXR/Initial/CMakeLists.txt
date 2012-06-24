@@ -242,31 +242,31 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_OEXR_HALF_HDR}
-          DESTINATION include/OpenEXR
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_IEX_HDR}
-          DESTINATION include/OpenEXR
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_ITR_HDR}
-          DESTINATION include/OpenEXR
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_IMF_HDR}
-          DESTINATION include/OpenEXR
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_MATH_HDR}
-          DESTINATION include/OpenEXR
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

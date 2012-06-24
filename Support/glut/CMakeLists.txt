@@ -87,7 +87,7 @@ IF(OSGGlutSrcDir)
 
 
   INSTALL(FILES ${OSG_GLUT_HDR}
-          DESTINATION include/GL
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/GL
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

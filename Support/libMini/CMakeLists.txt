@@ -173,7 +173,7 @@ IF(OSGLibMiniSrcDir)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_LIBMINI_HDR}
-          DESTINATION include/mini
+          DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/mini
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

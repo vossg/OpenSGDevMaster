@@ -97,9 +97,26 @@ FOREACH(SRC ${SRCFILES})
 
     #Install
     IF(OSG_INSTALL_EXAMPLES_EXE)
+      IF(WIN32)
         INSTALL(TARGETS ${EXE}
                 DESTINATION share/OpenSG/Examples/Advanced/Character
                 COMPONENT examples_advanced)
+      ELSE()
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                DESTINATION share/OpenSG/Examples/Advanced/Character/bin
+                COMPONENT examples_advanced)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                DESTINATION share/OpenSG/Examples/Advanced/Character/bin/debug
+                COMPONENT examples_advanced)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugGV
+                DESTINATION share/OpenSG/Examples/Advanced/Character/bin/debug
+                COMPONENT examples_advanced)
+      ENDIF()
     ENDIF()
     IF(OSG_INSTALL_EXAMPLES)
         INSTALL(FILES "${SRC}"
@@ -117,31 +134,31 @@ IF(OSG_INSTALL_EXAMPLES)
 
     FILE(GLOB GLOBFILES "*.glsl")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 
     FILE(GLOB GLOBFILES "*.tga")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 
     FILE(GLOB GLOBFILES "*.png")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 
     FILE(GLOB GLOBFILES "*.jpg")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 
     FILE(GLOB GLOBFILES "*.mesh")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 
     FILE(GLOB GLOBFILES "*.skeleton")
     INSTALL(FILES ${GLOBFILES}
-            DESTINATION share/OpenSG/Examples/Advanced/Character
+            DESTINATION share/OpenSG/Examples/Advanced/Character/Data
             COMPONENT examples_advanced)
 ENDIF()
