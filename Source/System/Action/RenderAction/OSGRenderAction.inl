@@ -168,6 +168,15 @@ void RenderAction::popVisibility(void)
 }
 
 inline
+void RenderAction::setFrustumCulling(bool val)
+{
+    Inherited::setFrustumCulling(val);
+
+    if(_pActivePartition != NULL)
+        _pActivePartition->setFrustumCulling(val);
+}
+
+inline
 void RenderAction::overrideMaterial(Material *       pMaterial,
                                     Node     * const pNode    )
 {
