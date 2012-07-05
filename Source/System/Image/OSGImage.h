@@ -83,7 +83,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 #else
         OSG_BGR_PF     = 0,
 #endif
-        
+
 /*** BGRA ***/
 #if defined(GL_BGRA)
         OSG_BGRA_PF    = GL_BGRA,
@@ -119,6 +119,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 #else
         OSG_RGBA_DXT5  = 0,
 #endif
+
+        OSG_DEPTH_PF                   = GL_DEPTH_COMPONENT,
 
 /*** GL_EXT_packed_depth_stencil ***/
 #if defined(GL_DEPTH_STENCIL_EXT)
