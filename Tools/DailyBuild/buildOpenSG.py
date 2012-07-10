@@ -1,6 +1,6 @@
 
-import sys,os,subprocess,shutil,platform,time
-import urllib, tarfile, zipfile, sys, os, shutil, glob
+import sys,os,subprocess,shutil,platform,time,errno
+import urllib, tarfile, zipfile, sys, os, shutil, glob, stat
 import commands
 import optparse
 import fnmatch
@@ -30,6 +30,8 @@ win_deps_src = [("OSGZLibSrcDir", "http://sourceforge.net/projects/libpng/files/
                 ("OSGLibXml2SrcDir", "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz", None, None), \
                ]
 
+linux_deps_src = [("OSGDoxygenSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/doxygen_r752.tar.gz", None, None) ]
+               
 common_deps_fhg = [\
     ("OSGColladaSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/Collada%20DOM%202.2.zip", "Collada DOM 2.2.zip", "collada-dom"),\
     ("OSGLibMiniSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/MINI-9.8.zip", None, "mini"),\
@@ -54,6 +56,8 @@ win_deps_fhg = [("OSGZLibSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenS
                 ("OSGExpatSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/expat-2.0.1.tar.gz", None, None),\
                 ("OSGLibXml2SrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/libxml2-2.7.8.tar.gz", None, None), \
                ]
+
+linux_deps_fhg = linux_deps_src
 
 failed_support_libs = []
 
@@ -112,6 +116,7 @@ class OSGBaseBuilder:
     self.nounpack       = oOptions.nounpack       # optNoUnpack
     self.nogitclone     = oOptions.nogitclone     # optNoGitClone
     self.localgitclone  = oOptions.localgitclone  # optLocalGitClone
+    self.updatelocalgit = oOptions.updatelocalgit
 
     self.nosupportbuild = oOptions.nosupportbuild # optNoSupportBuild
     self.noboostbuild   = oOptions.noboostbuild   # optNoBoostBuild
@@ -135,15 +140,46 @@ class OSGBaseBuilder:
       self.common_deps = common_deps_fhg
       self.bq_deps     = bq_deps_fhg
       self.win_deps    = win_deps_fhg
+      self.linux_deps  = linux_deps_fhg
     else:
       self.common_deps = common_deps_src
       self.bq_deps     = bq_deps_src
       self.win_deps    = win_deps_src
-      
+      self.linux_deps  = linux_deps_src
+
     if self.buildSubDir != None and self.buildSubDir != "" and not os.path.exists(self.buildSubDir):
       os.mkdir(self.buildSubDir)
 
     return
+
+  def openLog(self):
+    
+    if os.path.exists("log.txt") == True:
+      self.logOut = file("log.txt", "a")
+    else:
+      self.logOut = file("log.txt", "w")
+   
+
+  def closeLog(self):
+    self.logOut.close()
+
+  def exitOne(self):
+      self.closeLog()
+      sys.exit(1)
+
+  def handleRetCode(self, rc, info):
+
+    if rc != 0:
+      print "%-27s : [Failed]" % info
+      self.logOut.write("%-27s : [Failed]\n" % info)
+      self.logOut.flush()
+      os.fsync(self.logOut.fileno())
+      self.exitOne()
+    else:
+      print "%-27s : [Ok]" % info
+      self.logOut.write("%-27s : [Ok]\n" % info)
+      self.logOut.flush()
+      os.fsync(self.logOut.fileno())
 
   def dumpOptions(self):
 
@@ -154,6 +190,7 @@ class OSGBaseBuilder:
 
     print "gitclone        : ", not self.nogitclone
     print "localgitclone   : ", self.localgitclone
+    print "updatelocalgit  : ", self.updatelocalgit
     print "support build   : ", not self.nosupportbuild
 
     print "boost build     : ", not self.noboostbuild
@@ -201,12 +238,18 @@ class OSGBaseBuilder:
 
     return None
 
+  def removeTree(self, dirname):
+
+    if os.path.isdir(dirname):
+      shutil.rmtree(dirname)
+
   def initDir(self, dirname, createDir = True):
 
     print "init dir ", dirname
 
-    if os.path.isdir(dirname):
-      shutil.rmtree(dirname)
+#    if os.path.isdir(dirname):
+#      shutil.rmtree(dirname)
+    self.removeTree(dirname)
 
     if createDir == True:
       os.mkdir(dirname)
@@ -301,8 +344,9 @@ class OSGBaseBuilder:
             z.close()
           except:
 
-            if os.path.exists(dir):
-              shutil.rmtree(dir)
+#            if os.path.exists(dir):
+#              shutil.rmtree(dir)
+            self.removeTree(dir)
 
             unzipCmd  = self.which("unzip")
 
@@ -335,7 +379,8 @@ class OSGBaseBuilder:
         
       else:
         print "Unknown file type for '%s', aborting!" % file
-        sys.exit(1)
+        self.closeLog()
+        self.exitOne()
 
       # Only one dir? Move up 
       files = glob.glob(os.path.join(dir, "*"))
@@ -373,6 +418,15 @@ class OSGBaseBuilder:
       cmSupportOut = file(self.cmSuppArchFile, "w")
       cmSupportOut.write("# Auto-downloaded support libs defines\n\n")
 
+      if self.sgdownload == True:
+        try:
+          self.getUrl("http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/wake_up_server.txt", "wake_up_server.txt")
+        except:
+          print "don't care"
+
+        if os.path.exists("wake_up_server.txt") == True:
+          os.remove("wake_up_server.txt")
+
       if self.bqonly == False:
         self.prepareArchives(cmSupportOut, self.common_deps)
 
@@ -381,6 +435,9 @@ class OSGBaseBuilder:
           self.prepareArchives(cmSupportOut, self.win_deps)
 
         self.prepareArchives(cmSupportOut, self.bq_deps)
+
+      if system == "unix":
+        self.prepareArchives(cmSupportOut, self.linux_deps)
 
       cmSupportOut.write('\n')
 
@@ -421,9 +478,35 @@ class OSGBaseBuilder:
       if self.localgitclone == False:
         gitCloneCmd = [self.gitCmd, "clone", "git://opensg.git.sourceforge.net/gitroot/opensg/opensg", "OpenSG"]
       else:
+
+        if self.updatelocalgit == True:
+
+          os.chdir("OpenSG.repo")
+
+
+          gitCmd = [self.gitCmd, "fetch"]
+
+          retcode = subprocess.call(gitCmd)
+
+          self.handleRetCode(retcode, "update local fetch")
+
+
+          gitCmd = [self.gitCmd, "pull", ".", "remotes/origin/master"]
+
+          retcode = subprocess.call(gitCmd)
+
+          self.handleRetCode(retcode, "update local pull")
+
+      
+          os.chdir(self.startup_path)
+
+
         gitCloneCmd = [self.gitCmd, "clone", "OpenSG.repo", "OpenSG"]
 
+
       retcode = subprocess.call(gitCloneCmd)
+
+      self.handleRetCode(retcode, "Cloning git")
 
   def buildBoost(self):
 
@@ -463,6 +546,8 @@ class OSGBaseBuilder:
 
     retcode = subprocess.call(cmCfgCmd)
 
+    self.handleRetCode(retcode, "Support Initial CMake")
+
     os.chdir(self.startup_path)
 
 
@@ -480,8 +565,9 @@ class OSGBaseBuilder:
     cmOSGOut.write('SET(CMAKE_INSTALL_PREFIX "%s" CACHE PATH "")\n' % self.osgInst_path)
     cmOSGOut.write('SET(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "" FORCE)\n')
 
-    cmOSGOut.write('SET(BOOST_ROOT "%s" CACHE PATH "" FORCE)\n' % self.suppInst_path)
-    cmOSGOut.write('SET(QT_QMAKE_EXECUTABLE "%s/qt/bin/qmake.exe" CACHE FILEPATH "" FORCE)\n' % self.suppInst_path)
+    if self.vcvars != None:
+      cmOSGOut.write('SET(BOOST_ROOT "%s" CACHE PATH "" FORCE)\n' % self.suppInst_path)
+      cmOSGOut.write('SET(QT_QMAKE_EXECUTABLE "%s/qt/bin/qmake.exe" CACHE FILEPATH "" FORCE)\n' % self.suppInst_path)
     
     cmOSGOut.write('SET(OSG_USE_OSGSUPPORT_LIBS     ON  CACHE BOOL "")\n')
     cmOSGOut.write('SET(OSG_SUPPORT_ROOT "%s" CACHE PATH "")\n' % self.suppInst_path)
@@ -489,6 +575,10 @@ class OSGBaseBuilder:
 
     cmOSGOut.write('SET(OSGBUILD_EXAMPLES_SIMPLE   ON CACHE BOOL "")\n')
     cmOSGOut.write('SET(OSGBUILD_EXAMPLES_ADVANCED ON CACHE BOOL "")\n')
+    cmOSGOut.write('SET(OSGBUILD_EXAMPLES_TUTORIAL ON CACHE BOOL "")\n')
+    cmOSGOut.write('SET(OSG_INSTALL_EXAMPLES       ON CACHE BOOL "")\n')
+
+    cmOSGOut.write('SET(OSG_DOXY_DOC_TYPE Developer CACHE STRING "" FORCE)\n\n')
 
     cmOSGOut.write('SET(OSG_ENABLE_PAR_PARTITION_DRAWING ON CACHE BOOL "")\n')
     cmOSGOut.write('SET(OSG_ENABLE_DEFAULT_READONLY_CHANGELIST ON CACHE BOOL "")\n')
@@ -532,6 +622,8 @@ class OSGBaseBuilder:
 
     retcode = subprocess.call(cmCfgCmd)
 
+    self.handleRetCode(retcode, "OSG Initial CMake")
+
     os.chdir(self.startup_path)
 
   def reconfigureOSG(self, changeDir = False):
@@ -544,6 +636,8 @@ class OSGBaseBuilder:
     print "runnuing ", cmCfgCmd
 
     retcode = subprocess.call(cmCfgCmd)
+
+    self.handleRetCode(retcode, "OSG cmake . Run")
 
     if changeDir == True:
       os.chdir(self.startup_path)
@@ -636,17 +730,38 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     if self.cmakeCmd == None:
       print "Error could not find cmake"
-      sys.exit(1)
+      self.exitOne()
 
     if self.vcvars == None:
       print "Error could not find vcvars.bat"
-      sys.exit(1)
+      self.exitOne()
 
     if self.gitCmd == None:
       print "Error could not find git"
-      sys.exit(1)
+      self.exitOne()
 
     return
+
+  def handleRemoveReadonly(self, func, path, exc):
+    excvalue = exc[1]
+
+    if func in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
+      # ensure parent directory is writeable too
+      pardir = os.path.abspath(os.path.join(path, os.path.pardir))
+
+      if not os.access(pardir, os.W_OK):
+        os.chmod(pardir, stat.S_IRWXU| stat.S_IRWXG| stat.S_IRWXO)
+
+      os.chmod(path, stat.S_IRWXU| stat.S_IRWXG| stat.S_IRWXO) # 0777
+      func(path)
+    else:
+      raise
+
+  def removeTree(self, dirname):
+
+    if os.path.isdir(dirname):
+      shutil.rmtree(dirname, ignore_errors = False, onerror = self.handleRemoveReadonly)
+#      shutil.rmtree(dirname)
 
   def checkBoostPath(self):
 
@@ -663,7 +778,7 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
         self.boostjam_path = files[0].replace('\\', '/')
 
     if(self.boostroot_path == None or self.boostjam_path == None):
-      sys.exit(1)
+      self.exitOne()
 
     self.boostjam = os.path.join(self.boostjam_path, "bjam.exe")
 
@@ -700,6 +815,7 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     if self.noboostbuild == False:
       retcode = subprocess.call(boostBuildCmd)
 
+    self.handleRetCode(retcode, "Boost Build")
 
     boostInstallCmd = []
 
@@ -712,6 +828,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     if self.noboostbuild == False:
       retcode = subprocess.call(boostInstallCmd)
+
+      self.handleRetCode(retcode, "Boost Install")
 
     binPath = os.path.join(self.suppInst_path, "bin")
     libPath = os.path.join(self.suppInst_path, "lib")
@@ -804,6 +922,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     if self.noqtbuild == False:
       retcode = subprocess.call(qtConfigureCmd)
 
+      self.handleRetCode(retcode, "Qt Configure")
+
     qtBuildCmd = []
     qtBuildCmd.extend(qtBaseCmd)
     qtBuildCmd.extend(["nmake"])
@@ -812,6 +932,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     if self.noqtbuild == False:
       retcode = subprocess.call(qtBuildCmd)
+
+      self.handleRetCode(retcode, "Qt Build")
 
     qtInstallBat = file("qtinstall.bat", "w")
 
@@ -837,6 +959,7 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     if self.noqtbuild == False:
       retcode = subprocess.call(qtInstallCmd)
+      self.handleRetCode(retcode, "Qt Install")
 
     qtTmpInstallPath    = self.unpack_path + "\\qt.tmpinstall";
     qtTmpInstallPath   += qtTail
@@ -896,6 +1019,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     retcode = subprocess.call(buildCmd)
 
+    self.handleRetCode(retcode, "Build OSG Support Debug")
+
     buildCmd = [self.vcvars, 
                 self.vcvarsarch, 
                 "&",
@@ -907,6 +1032,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                 "OpenSGSupport.sln"]
 
     retcode = subprocess.call(buildCmd)
+
+    self.handleRetCode(retcode, "Build OSG Support Release")
 
     print "building osg support"
 
@@ -922,6 +1049,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     retcode = subprocess.call(buildCmd)
 
+    self.handleRetCode(retcode, "Install OSG Support Debug")
+
     buildCmd = [self.vcvars, 
                 self.vcvarsarch, 
                 "&",
@@ -933,6 +1062,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
                 "OpenSGSupport.sln"]
 
     retcode = subprocess.call(buildCmd)
+
+    self.handleRetCode(retcode, "Install OSG Support Release")
 
     os.chdir(self.startup_path)
 
@@ -955,6 +1086,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
     print "build cmd : ", buildCmd
     retcode = subprocess.call(buildCmd)
 
+    self.handleRetCode(retcode, "Build OSG All")
+
     self.reconfigureOSG(False)
 
     buildCmd = [self.vcvars, 
@@ -969,6 +1102,8 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     print "install cmd : ", buildCmd
     retcode = subprocess.call(buildCmd)
+
+    self.handleRetCode(retcode, "Install OSG All")
 
     self.reconfigureOSG(False)
 
@@ -1081,17 +1216,27 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     mkBldCmd = [self.makeCmd]
     retcode = subprocess.call(mkBldCmd)
 
+    self.handleRetCode(retcode, "Build OSG Support Release")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSG Support Release")
 
     cmCfgOptCmd = [self.cmakeCmd, "-DCMAKE_BUILD_TYPE:STRING=Debug", "."]
     retcode = subprocess.call(cmCfgOptCmd)
 
+    self.handleRetCode(retcode, "Configure OSG Support Debug")
+
     mkBldCmd = [self.makeCmd]
     retcode = subprocess.call(mkBldCmd)
 
+    self.handleRetCode(retcode, "Build OSG Support Debug")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSG Support Debug")
 
     os.chdir(self.startup_path)
 
@@ -1107,8 +1252,12 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     mkBldCmd = [self.makeCmd, "OSGAll"]
     retcode = subprocess.call(mkBldCmd)
 
+    self.handleRetCode(retcode, "Build OSG Debug")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSG Debug")
 
     os.chdir(self.startup_path)
 
@@ -1130,11 +1279,17 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     print "runnuing ", cmCfgCmd
     retcode = subprocess.call(cmCfgCmd)
 
+    self.handleRetCode(retcode, "Configure OSG Release")
+
     mkBldCmd = [self.makeCmd, "OSGAll"]
     retcode = subprocess.call(mkBldCmd)
 
+    self.handleRetCode(retcode, "Build OSG Release")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSG Release")
 
     os.chdir(self.startup_path)
 
@@ -1227,6 +1382,12 @@ m_parser.add_option("-l",
                     default=False,
                     dest="localgitclone",
                     help="clone from OpenSG.repo in the current directory",
+                    metavar="OpenSG");
+m_parser.add_option("--update-localgit",
+                    action="store_true",
+                    default=False,
+                    dest="updatelocalgit",
+                    help="update local git repo before cloning",
                     metavar="OpenSG");
 m_parser.add_option("-s", 
                     "--no-supportbuild",
@@ -1329,6 +1490,8 @@ builder.dumpOptions()
 
 print "Building OpenSG for %s in %s" % (system, startup_path)
 
+builder.openLog()
+
 builder.cloneGit()
 
 builder.prepareOSGSupport()
@@ -1342,8 +1505,14 @@ if len(failed_support_libs) != 0:
 
   print "##########################################################"
 
+  builder.handleRetCode(1, "Prepare SupportArchives")
+
+builder.handleRetCode(0, "Prepare SupportArchives")
+
 builder.buildOSGSupport()
 
 builder.prepOSG()
 
 builder.buildOpenSG()
+
+builder.closeLog()
