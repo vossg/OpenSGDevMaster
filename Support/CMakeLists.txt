@@ -165,6 +165,19 @@ ELSE()
   CONFIGURE_FILE(CMakeLists.packaging.win.txt 
                  ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
                  @ONLY                                      )
+
+  INSTALL(FILES "${CMAKE_SOURCE_DIR}/../CMake/Packaging/Windows/OpenSG2_Icon.ico"
+          DESTINATION share/OpenSG/Packaging
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ            )
+
+  INSTALL(FILES "${CMAKE_SOURCE_DIR}/../CMake/Packaging/Windows/InstallerHeader.bmp"
+          DESTINATION share/OpenSG/Packaging
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ            )
+
 ENDIF()
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt

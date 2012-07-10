@@ -1,1 +1,507 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
+PROJECT(OpenSGSupportPack)
+
+IF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+  MESSAGE(FATAL_ERROR "OpenSG requires an out of source Build. \n"
+                      "Please create a separate binary directory and run "
+                      "CMake there.")
+ENDIF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+
+IF(CMAKE_INSTALL_PREFIX STREQUAL /usr/local OR WIN32)
+  SET(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/Pack.install 
+                           CACHE PATH "" FORCE)
+ENDIF()
+
+################
+# Ref Dir
+################
+
+STRING(REGEX REPLACE /[^/]*/[^/]*/[^/]*$ "" _BASE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
+#MESSAGE("BASE DIR : ${_BASE_INSTALL_DIR}")
+
+################
+# includes 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_INCLUDES 
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/include/*)
+
+FOREACH(_INCLUDE_ELEM ${_${PROJECT_NAME}_INCLUDES})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_INCLUDE_ELEM})
+
+#  MESSAGE("INC : ${_INCLUDE_ELEM} headers")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_INCLUDE_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT headers)
+
+ENDFOREACH()
+
+################
+# libs 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_LIBS
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/lib@OSG_LIBDIR_BASE_SUFFIX@/*)
+
+
+FOREACH(_LIB_ELEM ${_${PROJECT_NAME}_LIBS})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_LIB_ELEM})
+
+  SET(_ELEM_COMPONENT libraries_release)
+
+  IF(${_LIB_ELEM} MATCHES [dD]\\.lib$)
+    SET(_ELEM_COMPONENT libraries_debug)
+  ELSEIF(${_LIB_ELEM} MATCHES l?i?b?boost.*-[gG][dD]-)
+    SET(_ELEM_COMPONENT libraries_debug)
+  ELSEIF(${_LIB_ELEM} MATCHES l?i?b?boost.*-[gG][dD]\\.lib$)
+    SET(_ELEM_COMPONENT libraries_debug)
+  ENDIF()
+
+#  MESSAGE("LIB : ${_LIB_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_LIB_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+
+ENDFOREACH()
+
+
+################
+# bin
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/bin/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+  IF(${_BIN_ELEM} MATCHES [dD]\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES boost.*-[gG][dD]-)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES boost.*-[gG][dD]\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ENDIF()
+
+#  MESSAGE("BIN : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# qt includes 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_INCLUDES 
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/include/*)
+
+FOREACH(_INCLUDE_ELEM ${_${PROJECT_NAME}_INCLUDES})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_INCLUDE_ELEM})
+
+#  MESSAGE("INC : ${_INCLUDE_ELEM} headers ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_INCLUDE_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT headers)
+
+ENDFOREACH()
+
+################
+# qt mkspecs
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_MKSPECS
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/mkspecs/*)
+
+
+LIST(APPEND _${PROJECT_NAME}_MKSPECS qt/q3porting.xml)
+
+FOREACH(_MKSPEC_ELEM ${_${PROJECT_NAME}_MKSPECS})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_MKSPEC_ELEM})
+
+#  MESSAGE("MKSPEC : ${_MKSPEC_ELEM} headers ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_MKSPEC_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT headers)
+
+ENDFOREACH()
+
+
+################
+# qt libs 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_LIBS
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/lib/*)
+
+
+FOREACH(_LIB_ELEM ${_${PROJECT_NAME}_LIBS})
+
+  IF(NOT ${_LIB_ELEM} MATCHES .*\\.dll$)
+ 
+    STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_LIB_ELEM})
+
+    SET(_ELEM_COMPONENT libraries_release)
+ 
+    IF(${_LIB_ELEM} MATCHES [dD]\\.lib$)
+      SET(_ELEM_COMPONENT libraries_debug)
+    ELSEIF(${_LIB_ELEM} MATCHES [dD]4\\.lib$)
+      SET(_ELEM_COMPONENT libraries_debug)
+    ELSEIF(${_LIB_ELEM} MATCHES [dD]4\\.pdb$)
+      SET(_ELEM_COMPONENT libraries_debug)
+    ELSEIF(${_LIB_ELEM} MATCHES [dD]\\.prl)
+      SET(_ELEM_COMPONENT libraries_debug)
+    ENDIF()
+
+#    MESSAGE("LIB : ${_LIB_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+    INSTALL(FILES ${_BASE_INSTALL_DIR}/${_LIB_ELEM}
+                  DESTINATION ${_INST_PATH}
+                  PERMISSIONS OWNER_WRITE OWNER_READ
+                              GROUP_READ
+                              WORLD_READ
+                  COMPONENT ${_ELEM_COMPONENT})
+
+  ENDIF()
+
+ENDFOREACH()
+
+
+################
+# qt bin
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/bin/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+  IF(${_BIN_ELEM} MATCHES [dD]\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*d4\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*\\.exe$)
+    SET(_ELEM_COMPONENT development_tools)
+  ENDIF()
+
+#  MESSAGE("QTBIN : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# qt trans
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/translations/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+#  MESSAGE("QTTRANS : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# qt phrase
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/phrasebooks/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+#  MESSAGE("QTPH : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# qt imports
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/imports/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+  IF(${_BIN_ELEM} MATCHES [dD]\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES [dD]\\.pdb)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*d4\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*\\.exe$)
+    SET(_ELEM_COMPONENT development_tools)
+  ENDIF()
+
+#  MESSAGE("QTIMP : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# qt plugins
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/qt/plugins/*)
+
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+  IF(${_BIN_ELEM} MATCHES [dD]\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES [dD]\\.pdb)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*d4\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*d4\\.pdb)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES .*\\.exe$)
+    SET(_ELEM_COMPONENT development_tools)
+  ENDIF()
+
+#  MESSAGE("QTIMP : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+STRING(REGEX REPLACE ".*\\.(fc[1-9][0-9])\\..*" "\\1" 
+             _OSG_FC_VERSION ${CMAKE_SYSTEM_VERSION})
+
+SET(OSG_HOST_SYSTEM_NAME ${CMAKE_HOST_SYSTEM_NAME})
+
+IF(_OSG_FC_VERSION)
+  SET(OSG_HOST_SYSTEM_NAME ${_OSG_FC_VERSION})
+ENDIF()
+
+IF(WIN32)
+  SET(OSG_HOST_SYSTEM_NAME "win")
+ENDIF()
+
+IF(CMAKE_CL_64)
+  SET(OSG_HOST_SYSTEM_PROCESSOR ${CMAKE_HOST_SYSTEM_PROCESSOR}_64)
+ENDIF()
+
+SET(SYSTEM_SPEC ${OSG_HOST_SYSTEM_NAME}.${OSG_HOST_SYSTEM_PROCESSOR})
+
+SET(CPACK_PACKAGE_NAME                "OpenSGSupport")
+SET(CPACK_PACKAGE_VERSION             @OSG_VERSION@)
+SET(CPACK_PACKAGE_VERSION_MAJOR       @OSG_VERSION_MAJOR@)
+SET(CPACK_PACKAGE_VERSION_MINOR       @OSG_VERSION_MINOR@)
+SET(CPACK_PACKAGE_VERSION_PATCH       @OSG_VERSION_PATCH@)
+SET(CPACK_PACKAGE_VENDOR              "OpenSG")
+SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSGSupport provides the third party libraries OpenSG uses")
+
+SET(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
+IF(NOT OSG_SINGLE_PACKAGE)
+  SET(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+  SET(CPACK_RPM_COMPONENT_INSTALL     ON)
+ENDIF()
+
+SET(CPACK_PACKAGE_FILE_NAME           "OpenSGSupport.@OSG_VERSION@.${SYSTEM_SPEC}")
+
+MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
+
+SET(OSGBUILD_PACKAGE_TYPE "ZIP" CACHE STRING "")
+
+IF(NOT OSGBUILD_PACKAGE_TYPE OR OSGBUILD_PACKAGE_TYPE STREQUAL "")
+  IF(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "ZIP")
+  ELSE(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "TBZ2")
+  ENDIF(WIN32)
+ENDIF()
+
+STRING(TOUPPER ${OSGBUILD_PACKAGE_TYPE} CPACK_GENERATOR)
+
+SET(CPACK_COMPONENTS_ALL libraries_release
+                         libraries_debug
+
+                         runtime_release
+                         runtime_debug
+
+                         headers
+                         development_tools)
+
+SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION        "Suport Files needed to execute software with OpenSG.")
+SET(CPACK_COMPONENT_GROUP_DEVEL_DESCRIPTION          "Development support files needed to develop software with OpenSG.")
+
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_DISPLAY_NAME   "Support Release Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_DESCRIPTION    "Support Release Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_GROUP          "devel")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_INSTALL_TYPES  Full Developer)
+
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DISPLAY_NAME     "Support Debug Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DESCRIPTION      "Support Debug Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_GROUP            "devel")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_INSTALL_TYPES    Full Developer)
+
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_DISPLAY_NAME     "Support Release Runtime")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_DESCRIPTION      "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_GROUP            "runtime")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_INSTALL_TYPES    Full Developer Runtime)
+
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_DISPLAY_NAME       "Support Debug Runtime")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_DESCRIPTION        "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_GROUP              "devel")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_INSTALL_TYPES      Full Developer)
+
+SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME             "Support Headers")
+SET(CPACK_COMPONENT_HEADERS_DESCRIPTION              "Support Headers Description")
+SET(CPACK_COMPONENT_HEADERS_GROUP                    "devel")
+SET(CPACK_COMPONENT_HEADERS_INSTALL_TYPES             Full Developer)
+
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DISPLAY_NAME   "Support Dev Tools")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DESCRIPTION    "Support Dev Tools Description")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_GROUP          "devel")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_INSTALL_TYPES  Full Developer)
+
+#NSIS specific configuration
+IF(WIN32)
+  INCLUDE(InstallRequiredSystemLibraries)
+  IF(OSGBUILD_PACKAGE_TYPE STREQUAL "NSIS")
+    IF(MSVC AND (${CMAKE_VERSION} VERSION_GREATER "2.8.0" OR
+                 ${CMAKE_VERSION} VERSION_EQUAL   "2.8.0"   ))
+      INCLUDE(CMakeDetermineVSServicePack)
+      DetermineVSServicePack( my_service_pack )
+
+      IF(my_service_pack)
+        SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
+      ENDIF()
+    ENDIF()
+
+    #Extra install commands
+    SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "")
+    SET(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "")
+
+
+    SET(CPACK_NSIS_MUI_ICON            "${CMAKE_SOURCE_DIR}/OpenSG2_Icon.ico")
+    SET(CPACK_NSIS_MUI_UNIICON         "${CMAKE_SOURCE_DIR}/OpenSG2_Icon.ico")
+    FILE(TO_NATIVE_PATH                "${CMAKE_SOURCE_DIR}\\InstallerHeader.bmp" WS_CPACK_PACKAGE_ICON)
+    STRING(REPLACE "\\" "\\\\\\\\" CPACK_PACKAGE_ICON ${WS_CPACK_PACKAGE_ICON})
+    SET(CPACK_NSIS_MODIFY_PATH         ON)
+    SET(CPACK_NSIS_INSTALLED_ICON_NAME "${CPACK_PACKAGE_NAME}")
+    SET(CPACK_NSIS_HELP_LINK           "http://www.opensg.org/wiki/Help")
+    SET(CPACK_NSIS_URL_INFO_ABOUT      "http://www.opensg.org")
+    SET(CPACK_NSIS_CONTACT             "${CPACK_PACKAGE_CONTACT}")
+    SET(CPACK_NSIS_CREATE_ICONS_EXTRA  "createShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk' '$INSTDIR'")
+    SET(CPACK_NSIS_DELETE_ICONS_EXTRA  "Delete '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk'")
+    SET(CPACK_NSIS_MENU_LINKS          "")
+
+    IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+      SET(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64")
+    ELSE()
+      SET(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES32")
+    ENDIF()
+
+  ENDIF()
+ENDIF()
+
+INCLUDE(CPack)

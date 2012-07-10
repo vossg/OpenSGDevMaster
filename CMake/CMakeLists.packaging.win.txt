@@ -1,1 +1,473 @@
 
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(OpenSGPack)
+
+IF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+  MESSAGE(FATAL_ERROR "OpenSG requires an out of source Build. \n"
+                      "Please create a separate binary directory and run "
+                      "CMake there.")
+ENDIF("${${PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${PROJECT_NAME}_BINARY_DIR}")
+
+IF(CMAKE_INSTALL_PREFIX STREQUAL /usr/local OR WIN32)
+  SET(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/Pack.install 
+                           CACHE PATH "" FORCE)
+ENDIF()
+
+################
+# Ref Dir
+################
+
+STRING(REGEX REPLACE /[^/]*/[^/]*/[^/]*$ "" _BASE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
+#MESSAGE("BASE DIR : ${_BASE_INSTALL_DIR}")
+
+################
+# includes 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_INCLUDES 
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/include/*)
+
+FOREACH(_INCLUDE_ELEM ${_${PROJECT_NAME}_INCLUDES})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_INCLUDE_ELEM})
+
+#  MESSAGE("INC : ${_INCLUDE_ELEM} headers")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_INCLUDE_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT headers)
+
+ENDFOREACH()
+
+################
+# libs 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_LIBS
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/lib@OSG_LIBDIR_BASE_SUFFIX@/*)
+
+
+FOREACH(_LIB_ELEM ${_${PROJECT_NAME}_LIBS})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_LIB_ELEM})
+
+  SET(_ELEM_COMPONENT libraries_release)
+
+  IF(${_LIB_ELEM} MATCHES [dD]\\.lib$)
+    SET(_ELEM_COMPONENT libraries_debug)
+  ELSEIF(${_LIB_ELEM} MATCHES [dD][oO]\\.lib$)
+    SET(_ELEM_COMPONENT libraries_debugopt)
+  ELSEIF(${_LIB_ELEM} MATCHES [rR][nN]\\.lib$)
+    SET(_ELEM_COMPONENT libraries_releasenoopt)
+  ELSEIF(${_LIB_ELEM} MATCHES /python/rel/)
+    SET(_ELEM_COMPONENT python_release)
+  ELSEIF(${_LIB_ELEM} MATCHES /python/relnoopt/)
+    SET(_ELEM_COMPONENT python_releasenoopt)
+  ELSEIF(${_LIB_ELEM} MATCHES /python/debugopt/)
+    SET(_ELEM_COMPONENT python_debugopt)
+  ELSEIF(${_LIB_ELEM} MATCHES /python/debug/)
+    SET(_ELEM_COMPONENT python_debug)
+  ENDIF()
+
+#  MESSAGE("LIB : ${_LIB_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_LIB_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+
+ENDFOREACH()
+
+
+################
+# bin
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_BIN
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/bin/*)
+
+FOREACH(_BIN_ELEM ${_${PROJECT_NAME}_BIN})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_BIN_ELEM})
+
+  SET(_ELEM_COMPONENT runtime_release)
+
+  IF(${_BIN_ELEM} MATCHES bin/debug/.*\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/debugopt/.*\\.dll$)
+    SET(_ELEM_COMPONENT runtime_debugopt)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/relnoopt/.*\\.dll$)
+    SET(_ELEM_COMPONENT runtime_releasenoopt)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/rel/.*\\.exe$)
+    SET(_ELEM_COMPONENT app_release)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/relnoopt/.*\\.exe$)
+    SET(_ELEM_COMPONENT app_releasenoopt)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/debugopt/.*\\.exe$)
+    SET(_ELEM_COMPONENT app_debugopt)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/debug/.*\\.exe$)
+    SET(_ELEM_COMPONENT app_debug)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/fcd2code/)
+    SET(_ELEM_COMPONENT development_tools)
+  ELSEIF(${_BIN_ELEM} MATCHES bin/[^/]*$)
+    SET(_ELEM_COMPONENT development_tools)
+  ENDIF()
+
+#  MESSAGE("BIN : ${_BIN_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+  INSTALL(FILES ${_BASE_INSTALL_DIR}/${_BIN_ELEM}
+                DESTINATION ${_INST_PATH}
+                PERMISSIONS OWNER_WRITE OWNER_READ
+                            GROUP_READ
+                            WORLD_READ
+                COMPONENT ${_ELEM_COMPONENT})
+ 
+ENDFOREACH()
+
+
+################
+# share 
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_SHARE
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/share/*)
+
+#MESSAGE("SHARE IN : ${_${PROJECT_NAME}_SHARE}")
+
+FOREACH(_SHARE_ELEM ${_${PROJECT_NAME}_SHARE})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_SHARE_ELEM})
+
+  SET(_ELEM_COMPONENT Unknown)
+
+  IF(NOT ${_INST_PATH} MATCHES /Packaging)
+
+    IF(${_INST_PATH} MATCHES /cmake)
+      SET(_ELEM_COMPONENT development_config)
+    ENDIF()
+
+    IF(${_INST_PATH} MATCHES /Doc)
+      SET(_ELEM_COMPONENT doc)
+    ENDIF()
+
+    IF(${_INST_PATH} MATCHES /Doc$)
+      SET(BASE_DOC_DIR ${_INST_PATH})
+    ENDIF()
+
+    IF(${_INST_PATH} MATCHES /Examples/)
+      IF(${_INST_PATH} MATCHES /bin/rel$)
+        SET(_ELEM_COMPONENT examples_release)
+      ELSEIF(${_INST_PATH} MATCHES /bin/relnoopt)
+        SET(_ELEM_COMPONENT examples_releasenoopt)
+      ELSEIF(${_INST_PATH} MATCHES /bin/debugopt$)
+        SET(_ELEM_COMPONENT examples_debugopt)
+      ELSEIF(${_INST_PATH} MATCHES /bin/debug$)
+        SET(_ELEM_COMPONENT examples_debug)
+      ELSEIF(${_INST_PATH} MATCHES /CSM/)
+        SET(_ELEM_COMPONENT app_data)
+      ELSE()
+        SET(_ELEM_COMPONENT example_projects)
+      ENDIF()
+    ENDIF()
+
+#    MESSAGE("SHARE : ${_SHARE_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+    INSTALL(FILES ${_BASE_INSTALL_DIR}/${_SHARE_ELEM}
+                  DESTINATION ${_INST_PATH}
+                  PERMISSIONS OWNER_WRITE OWNER_READ
+                              GROUP_READ
+                              WORLD_READ
+                  COMPONENT ${_ELEM_COMPONENT})
+  ENDIF()
+ 
+ENDFOREACH()
+
+STRING(REGEX REPLACE ".*\\.(fc[1-9][0-9])\\..*" "\\1" 
+             _OSG_FC_VERSION ${CMAKE_SYSTEM_VERSION})
+
+SET(OSG_HOST_SYSTEM_NAME ${CMAKE_HOST_SYSTEM_NAME})
+
+IF(_OSG_FC_VERSION)
+  SET(OSG_HOST_SYSTEM_NAME ${_OSG_FC_VERSION})
+ENDIF()
+
+IF(WIN32)
+  SET(OSG_HOST_SYSTEM_NAME "win")
+ENDIF()
+
+IF(CMAKE_CL_64)
+  SET(OSG_HOST_SYSTEM_PROCESSOR ${CMAKE_HOST_SYSTEM_PROCESSOR}_64)
+ENDIF()
+
+SET(SYSTEM_SPEC ${OSG_HOST_SYSTEM_NAME}.${OSG_HOST_SYSTEM_PROCESSOR})
+
+SET(CPACK_PACKAGE_NAME                "OpenSG")
+SET(CPACK_PACKAGE_VERSION             @OSG_VERSION@)
+SET(CPACK_PACKAGE_VERSION_MAJOR       @OSG_VERSION_MAJOR@)
+SET(CPACK_PACKAGE_VERSION_MINOR       @OSG_VERSION_MINOR@)
+SET(CPACK_PACKAGE_VERSION_PATCH       @OSG_VERSION_PATCH@)
+SET(CPACK_PACKAGE_VENDOR              "OpenSG")
+SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSG provides the third party libraries OpenSG uses")
+
+SET(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
+IF(NOT OSG_SINGLE_PACKAGE)
+  SET(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+  SET(CPACK_RPM_COMPONENT_INSTALL     ON)
+ENDIF()
+
+SET(CPACK_PACKAGE_FILE_NAME           "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}")
+
+MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
+
+SET(OSGBUILD_PACKAGE_TYPE "ZIP" CACHE STRING "")
+
+IF(NOT OSGBUILD_PACKAGE_TYPE OR OSGBUILD_PACKAGE_TYPE STREQUAL "")
+  IF(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "ZIP")
+  ELSE(WIN32)
+    SET(OSGBUILD_PACKAGE_TYPE "TBZ2")
+  ENDIF(WIN32)
+ENDIF()
+
+STRING(TOUPPER ${OSGBUILD_PACKAGE_TYPE} CPACK_GENERATOR)
+
+SET(CPACK_COMPONENTS_ALL libraries_release
+                         libraries_releasenoopt
+                         libraries_debug
+                         libraries_debugopt
+
+                         python_release
+                         python_releasenoopt
+                         python_debug
+                         python_debugopt
+
+                         runtime_release
+                         runtime_releasenoopt
+                         runtime_debug
+                         runtime_debugopt
+
+                         app_release
+                         app_releasenoopt
+                         app_debugopt
+                         app_debug
+
+                         headers
+                         development_tools
+                         development_config
+
+                         examples_release
+                         examples_releasenoopt
+                         examples_debugopt
+                         examples_debug
+                         
+                         app_data
+                         example_projects)
+
+SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION        "Suport Files needed to execute software with OpenSG.")
+SET(CPACK_COMPONENT_GROUP_EXAMPLES_DESCRIPTION       "Examples Files needed illustrate software using OpenSG.")
+SET(CPACK_COMPONENT_GROUP_DEVEL_DESCRIPTION          "Development support files needed to develop software with OpenSG.")
+
+###########
+# Libraries
+###########
+
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_DISPLAY_NAME        "Support Release Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_DESCRIPTION         "Support Release Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_GROUP               "devel")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASE_INSTALL_TYPES       Full Developer)
+
+SET(CPACK_COMPONENT_LIBRARIES_RELEASENOOPT_DISPLAY_NAME   "Support Release No Opt Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASENOOPT_DESCRIPTION    "Support Release No Opt Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASENOOPT_GROUP          "devel")
+SET(CPACK_COMPONENT_LIBRARIES_RELEASENOOPT_INSTALL_TYPES  Full Developer)
+
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DISPLAY_NAME          "Support Debug Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_DESCRIPTION           "Support Debug Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_GROUP                 "devel")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUG_INSTALL_TYPES         Full Developer)
+
+SET(CPACK_COMPONENT_LIBRARIES_DEBUGOPT_DISPLAY_NAME       "Support Debug Opt Libraries")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUGOPT_DESCRIPTION        "Support Debug Opt Libraries Description")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUGOPT_GROUP              "devel")
+SET(CPACK_COMPONENT_LIBRARIES_DEBUGOPT_INSTALL_TYPES      Full Developer)
+
+##################
+# Libraries python
+##################
+
+SET(CPACK_COMPONENT_PYTHON_RELEASE_DISPLAY_NAME       "Support Release Runtime")
+SET(CPACK_COMPONENT_PYTHON_RELEASE_DESCRIPTION        "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_PYTHON_RELEASE_GROUP              "runtime")
+SET(CPACK_COMPONENT_PYTHON_RELEASE_INSTALL_TYPES      Full Developer Runtime)
+
+SET(CPACK_COMPONENT_PYTHON_RELEASENOOPT_DISPLAY_NAME  "Support Release Runtime")
+SET(CPACK_COMPONENT_PYTHON_RELEASENOOPT_DESCRIPTION   "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_PYTHON_RELEASENOOPT_GROUP         "devel")
+SET(CPACK_COMPONENT_PYTHON_RELEASENOOPT_INSTALL_TYPES Full Developer)
+
+SET(CPACK_COMPONENT_PYTHON_DEBUG_DISPLAY_NAME         "Support Debug Runtime")
+SET(CPACK_COMPONENT_PYTHON_DEBUG_DESCRIPTION          "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_PYTHON_DEBUG_GROUP                "devel")
+SET(CPACK_COMPONENT_PYTHON_DEBUG_INSTALL_TYPES        Full Developer)
+
+SET(CPACK_COMPONENT_PYTHON_DEBUGOPT_DISPLAY_NAME      "Support Debug Runtime")
+SET(CPACK_COMPONENT_PYTHON_DEBUGOPT_DESCRIPTION       "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_PYTHON_DEBUGOPT_GROUP             "devel")
+SET(CPACK_COMPONENT_PYTHON_DEBUGOPT_INSTALL_TYPES     Full Developer)
+
+###########
+# Runtime
+###########
+
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_DISPLAY_NAME       "Support Release Runtime")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_DESCRIPTION        "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_GROUP              "runtime")
+SET(CPACK_COMPONENT_RUNTIME_RELEASE_INSTALL_TYPES      Full Developer Runtime)
+
+SET(CPACK_COMPONENT_RUNTIME_RELEASENOOPT_DISPLAY_NAME  "Support Release Runtime")
+SET(CPACK_COMPONENT_RUNTIME_RELEASENOOPT_DESCRIPTION   "Support Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_RELEASENOOPT_GROUP         "devel")
+SET(CPACK_COMPONENT_RUNTIME_RELEASENOOPT_INSTALL_TYPES Full Developer)
+
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_DISPLAY_NAME         "Support Debug Runtime")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_DESCRIPTION          "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_GROUP                "devel")
+SET(CPACK_COMPONENT_RUNTIME_DEBUG_INSTALL_TYPES        Full Developer)
+
+SET(CPACK_COMPONENT_RUNTIME_DEBUGOPT_DISPLAY_NAME      "Support Debug Runtime")
+SET(CPACK_COMPONENT_RUNTIME_DEBUGOPT_DESCRIPTION       "Support Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_RUNTIME_DEBUGOPT_GROUP             "devel")
+SET(CPACK_COMPONENT_RUNTIME_DEBUGOPT_INSTALL_TYPES     Full Developer)
+
+###########
+# App
+###########
+
+SET(CPACK_COMPONENT_APP_RELEASE_DISPLAY_NAME       "Support Apps Release Runtime")
+SET(CPACK_COMPONENT_APP_RELEASE_DESCRIPTION        "Support Apps Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_APP_RELEASE_GROUP              "runtime")
+SET(CPACK_COMPONENT_APP_RELEASE_INSTALL_TYPES      Full Developer Runtime)
+
+SET(CPACK_COMPONENT_APP_DATA_DISPLAY_NAME          "Support Apps Data")
+SET(CPACK_COMPONENT_APP_DATA_DESCRIPTION           "Support Apps Data Description")
+SET(CPACK_COMPONENT_APP_DATA_GROUP                  "runtime")
+SET(CPACK_COMPONENT_APP_DATA_INSTALL_TYPES          Full Developer Runtime)
+
+SET(CPACK_COMPONENT_APP_RELEASENOOPT_DISPLAY_NAME  "Support Apps Release Runtime")
+SET(CPACK_COMPONENT_APP_RELEASENOOPT_DESCRIPTION   "Support Apps Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_APP_RELEASENOOPT_GROUP         "devel")
+SET(CPACK_COMPONENT_APP_RELEASENOOPT_INSTALL_TYPES Full Developer)
+
+SET(CPACK_COMPONENT_APP_DEBUG_DISPLAY_NAME         "Support Apps Debug Runtime")
+SET(CPACK_COMPONENT_APP_DEBUG_DESCRIPTION          "Support Apps Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_APP_DEBUG_GROUP                "devel")
+SET(CPACK_COMPONENT_APP_DEBUG_INSTALL_TYPES        Full Developer)
+
+SET(CPACK_COMPONENT_APP_DEBUGOPT_DISPLAY_NAME      "Support Apps Debug Runtime")
+SET(CPACK_COMPONENT_APP_DEBUGOPT_DESCRIPTION       "Support Apps Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_APP_DEBUGOPT_GROUP             "devel")
+SET(CPACK_COMPONENT_APP_DEBUGOPT_INSTALL_TYPES     Full Developer)
+
+###########
+# Dev
+###########
+
+SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME              "Support Headers")
+SET(CPACK_COMPONENT_HEADERS_DESCRIPTION               "Support Headers Description")
+SET(CPACK_COMPONENT_HEADERS_GROUP                     "devel")
+SET(CPACK_COMPONENT_HEADERS_INSTALL_TYPES              Full Developer)
+
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DISPLAY_NAME    "Support Dev Tools")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DESCRIPTION     "Support Dev Tools Description")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_GROUP           "devel")
+SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_INSTALL_TYPES   Full Developer)
+
+SET(CPACK_COMPONENT_DEVELOPMENT_CONFIG_DISPLAY_NAME   "Support Dev Config")
+SET(CPACK_COMPONENT_DEVELOPMENT_CONFIG_DESCRIPTION    "Support Dev Config Description")
+SET(CPACK_COMPONENT_DEVELOPMENT_CONFIG_GROUP          "devel")
+SET(CPACK_COMPONENT_DEVELOPMENT_CONFIG_INSTALL_TYPES  Full Developer)
+
+SET(CPACK_COMPONENT_EXAMPLE_PROJECTS_DISPLAY_NAME     "Support Dev Config")
+SET(CPACK_COMPONENT_EXAMPLE_PROJECTS_DESCRIPTION      "Support Dev Config Description")
+SET(CPACK_COMPONENT_EXAMPLE_PROJECTS_GROUP            "devel")
+SET(CPACK_COMPONENT_EXAMPLE_PROJECTS_INSTALL_TYPES    Full Developer)
+
+###########
+# Examples
+###########
+
+SET(CPACK_COMPONENT_EXAMPLES_RELEASE_DISPLAY_NAME       "Support Examples Release Runtime")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASE_DESCRIPTION        "Support Examples Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASE_GROUP              "devel")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASE_INSTALL_TYPES      Full Developer Runtime)
+
+SET(CPACK_COMPONENT_EXAMPLES_RELEASENOOPT_DISPLAY_NAME  "Support Examples Release Runtime")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASENOOPT_DESCRIPTION   "Support Examples Release Runtime Libraries Description")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASENOOPT_GROUP         "devel")
+SET(CPACK_COMPONENT_EXAMPLES_RELEASENOOPT_INSTALL_TYPES Full Developer)
+
+SET(CPACK_COMPONENT_EXAMPLES_DEBUG_DISPLAY_NAME         "Support Examples Debug Runtime")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUG_DESCRIPTION          "Support Examples Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUG_GROUP                "devel")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUG_INSTALL_TYPES        Full Developer)
+
+SET(CPACK_COMPONENT_EXAMPLES_DEBUGOPT_DISPLAY_NAME      "Support Examples Debug Runtime")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUGOPT_DESCRIPTION       "Support Examples Debug Runtimes Libraries Description")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUGOPT_GROUP             "devel")
+SET(CPACK_COMPONENT_EXAMPLES_DEBUGOPT_INSTALL_TYPES     Full Developer)
+
+
+#NSIS specific configuration
+IF(WIN32)
+  INCLUDE(InstallRequiredSystemLibraries)
+  IF(OSGBUILD_PACKAGE_TYPE STREQUAL "NSIS")
+    IF(MSVC AND (${CMAKE_VERSION} VERSION_GREATER "2.8.0" OR
+                 ${CMAKE_VERSION} VERSION_EQUAL   "2.8.0"   ))
+      INCLUDE(CMakeDetermineVSServicePack)
+      DetermineVSServicePack( my_service_pack )
+
+      IF(my_service_pack)
+        SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
+      ENDIF()
+    ENDIF()
+
+    #Extra install commands
+    SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "")
+    SET(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "")
+
+
+    SET(CPACK_NSIS_MUI_ICON            "${CMAKE_SOURCE_DIR}/OpenSG2_Icon.ico")
+    SET(CPACK_NSIS_MUI_UNIICON         "${CMAKE_SOURCE_DIR}/OpenSG2_Icon.ico")
+    FILE(TO_NATIVE_PATH                "${CMAKE_SOURCE_DIR}\\InstallerHeader.bmp" WS_CPACK_PACKAGE_ICON)
+    STRING(REPLACE "\\" "\\\\\\\\" CPACK_PACKAGE_ICON ${WS_CPACK_PACKAGE_ICON})
+    SET(CPACK_NSIS_MODIFY_PATH         ON)
+    SET(CPACK_NSIS_INSTALLED_ICON_NAME "${CPACK_PACKAGE_NAME}")
+    SET(CPACK_NSIS_HELP_LINK           "http://www.opensg.org/wiki/Help")
+    SET(CPACK_NSIS_URL_INFO_ABOUT      "http://www.opensg.org")
+    SET(CPACK_NSIS_CONTACT             "${CPACK_PACKAGE_CONTACT}")
+    SET(CPACK_NSIS_CREATE_ICONS_EXTRA  "createShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk' '$INSTDIR'")
+    SET(CPACK_NSIS_DELETE_ICONS_EXTRA  "Delete '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk'")
+    SET(CPACK_NSIS_MENU_LINKS          "")
+
+    IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+      SET(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES64")
+    ELSE()
+      SET(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES32")
+    ENDIF()
+
+  ENDIF()
+ENDIF()
+
+INCLUDE(CPack)

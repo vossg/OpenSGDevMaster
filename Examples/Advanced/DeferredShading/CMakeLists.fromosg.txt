@@ -100,6 +100,19 @@ FOREACH(SRC ${SRCFILES})
     IF(OSG_INSTALL_EXAMPLES_EXE)
       IF(WIN32)
         INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/rel)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/debug)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS ReleaseNoOpt
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/relnoopt)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugOpt
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/DeferredShading/bin/debugopt)
+
+        INSTALL(TARGETS ${EXE}
                 DESTINATION share/OpenSG/Examples/Advanced/DeferredShading
                 COMPONENT examples_advanced)
       ELSE()
