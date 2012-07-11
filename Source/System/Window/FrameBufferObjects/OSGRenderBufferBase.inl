@@ -140,6 +140,81 @@ void RenderBufferBase::setImage(Image * const value)
 
     _sfImage.setValue(value);
 }
+//! Get the value of the RenderBuffer::_sfColorSamples field.
+
+inline
+UInt32 &RenderBufferBase::editColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return _sfColorSamples.getValue();
+}
+
+//! Get the value of the RenderBuffer::_sfColorSamples field.
+inline
+      UInt32  RenderBufferBase::getColorSamples(void) const
+{
+    return _sfColorSamples.getValue();
+}
+
+//! Set the value of the RenderBuffer::_sfColorSamples field.
+inline
+void RenderBufferBase::setColorSamples(const UInt32 value)
+{
+    editSField(ColorSamplesFieldMask);
+
+    _sfColorSamples.setValue(value);
+}
+//! Get the value of the RenderBuffer::_sfCoverageSamples field.
+
+inline
+UInt32 &RenderBufferBase::editCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return _sfCoverageSamples.getValue();
+}
+
+//! Get the value of the RenderBuffer::_sfCoverageSamples field.
+inline
+      UInt32  RenderBufferBase::getCoverageSamples(void) const
+{
+    return _sfCoverageSamples.getValue();
+}
+
+//! Set the value of the RenderBuffer::_sfCoverageSamples field.
+inline
+void RenderBufferBase::setCoverageSamples(const UInt32 value)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    _sfCoverageSamples.setValue(value);
+}
+//! Get the value of the RenderBuffer::_sfFixedSampleLocation field.
+
+inline
+bool &RenderBufferBase::editFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Get the value of the RenderBuffer::_sfFixedSampleLocation field.
+inline
+      bool  RenderBufferBase::getFixedSampleLocation(void) const
+{
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Set the value of the RenderBuffer::_sfFixedSampleLocation field.
+inline
+void RenderBufferBase::setFixedSampleLocation(const bool value)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    _sfFixedSampleLocation.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -160,6 +235,15 @@ void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
 
     if(FieldBits::NoField != (ImageFieldMask & whichField))
         _sfImage.syncWith(pFrom->_sfImage);
+
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+        _sfColorSamples.syncWith(pFrom->_sfColorSamples);
+
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+        _sfCoverageSamples.syncWith(pFrom->_sfCoverageSamples);
+
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+        _sfFixedSampleLocation.syncWith(pFrom->_sfFixedSampleLocation);
 }
 #endif
 

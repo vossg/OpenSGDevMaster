@@ -138,6 +138,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \{                                                                 */
 
     static UInt32 _uiFramebufferObjectExt;
+    static UInt32 _uiFramebufferBlitExt;
     static UInt32 _uiPackedDepthStencilExt;
 
     static UInt32 _uiFuncGenFramebuffers;
@@ -146,15 +147,30 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     static UInt32 _uiFuncDeleteFramebuffers;
     static UInt32 _uiFuncFramebufferRenderbuffer;
     static UInt32 _uiFuncDrawBuffers;
+    static UInt32 _uiFuncBlitFramebuffer;
 
-           UInt32 handleGL       (DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions) const;
-    static void   handleDestroyGL(DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode     );
+
+           UInt32 handleGL           (DrawEnv                 *pEnv, 
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode,
+                                      UInt32                   uiOptions) const;
+    static void   handleDestroyGL    (DrawEnv                 *pEnv, 
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode     );
+
+           UInt32 handleMultiSampleGL(DrawEnv                 *pEnv, 
+                                      UInt32                   id, 
+                                      Window::GLObjectStatusE  mode,
+                                      UInt32                   uiOptions) const;
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    FrameBufferAttachmentTransitPtr 
+        createMultiSampleBufferFrom(FrameBufferAttachment *pSrc);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */

@@ -94,6 +94,13 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+    virtual GLenum getBufferFormat(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
     virtual void bind    (DrawEnv *pEnv, UInt32 index = 0);
     virtual void validate(DrawEnv *pEnv                  );
 
@@ -131,13 +138,18 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _uiFramebuffer_object_extension;
+    static UInt32 _uiFramebufferObjectExt;
+    static UInt32 _uiFramebufferMultiSampleExt;
+    static UInt32 _uiFramebufferMultiSampleCoverageNV;
 
     static UInt32 _uiFuncFramebufferRenderbuffer;
     static UInt32 _uiFuncGenRenderbuffers;
     static UInt32 _uiFuncDeleteRenderbuffers;
     static UInt32 _uiFuncBindRenderbuffer;
     static UInt32 _uiFuncRenderbufferStorage;
+
+    static UInt32 _uiFuncRenderbufferStorageMultiSample;
+    static UInt32 _uiFuncRenderbufferStorageMultiSampleCoverage;
 
            UInt32 handleGL       (DrawEnv                 *pEnv, 
                                   UInt32                   id, 

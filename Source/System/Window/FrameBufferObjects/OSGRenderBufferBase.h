@@ -67,6 +67,7 @@
 
 #include "OSGBaseFields.h"              // GLId type
 #include "OSGImageFields.h"             // Image type
+#include "OSGSysFields.h"               // ColorSamples type
 
 #include "OSGRenderBufferFields.h"
 
@@ -98,7 +99,10 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
         GLIdFieldId = Inherited::NextFieldId,
         InternalFormatFieldId = GLIdFieldId + 1,
         ImageFieldId = InternalFormatFieldId + 1,
-        NextFieldId = ImageFieldId + 1
+        ColorSamplesFieldId = ImageFieldId + 1,
+        CoverageSamplesFieldId = ColorSamplesFieldId + 1,
+        FixedSampleLocationFieldId = CoverageSamplesFieldId + 1,
+        NextFieldId = FixedSampleLocationFieldId + 1
     };
 
     static const OSG::BitVector GLIdFieldMask =
@@ -107,12 +111,21 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
         (TypeTraits<BitVector>::One << InternalFormatFieldId);
     static const OSG::BitVector ImageFieldMask =
         (TypeTraits<BitVector>::One << ImageFieldId);
+    static const OSG::BitVector ColorSamplesFieldMask =
+        (TypeTraits<BitVector>::One << ColorSamplesFieldId);
+    static const OSG::BitVector CoverageSamplesFieldMask =
+        (TypeTraits<BitVector>::One << CoverageSamplesFieldId);
+    static const OSG::BitVector FixedSampleLocationFieldMask =
+        (TypeTraits<BitVector>::One << FixedSampleLocationFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFGLenum          SFGLIdType;
     typedef SFGLenum          SFInternalFormatType;
     typedef SFUnrecImagePtr   SFImageType;
+    typedef SFUInt32          SFColorSamplesType;
+    typedef SFUInt32          SFCoverageSamplesType;
+    typedef SFBool            SFFixedSampleLocationType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -146,6 +159,15 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
             const SFUnrecImagePtr     *getSFImage          (void) const;
                   SFUnrecImagePtr     *editSFImage          (void);
 
+                  SFUInt32            *editSFColorSamples   (void);
+            const SFUInt32            *getSFColorSamples    (void) const;
+
+                  SFUInt32            *editSFCoverageSamples(void);
+            const SFUInt32            *getSFCoverageSamples (void) const;
+
+                  SFBool              *editSFFixedSampleLocation(void);
+            const SFBool              *getSFFixedSampleLocation (void) const;
+
 
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
@@ -155,6 +177,15 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
                   Image * getImage          (void) const;
 
+                  UInt32              &editColorSamples   (void);
+                  UInt32               getColorSamples    (void) const;
+
+                  UInt32              &editCoverageSamples(void);
+                  UInt32               getCoverageSamples (void) const;
+
+                  bool                &editFixedSampleLocation(void);
+                  bool                 getFixedSampleLocation (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -163,6 +194,9 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
             void setGLId           (const GLenum &value);
             void setInternalFormat (const GLenum &value);
             void setImage          (Image * const value);
+            void setColorSamples   (const UInt32 value);
+            void setCoverageSamples(const UInt32 value);
+            void setFixedSampleLocation(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,6 +264,9 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     SFGLenum          _sfGLId;
     SFGLenum          _sfInternalFormat;
     SFUnrecImagePtr   _sfImage;
+    SFUInt32          _sfColorSamples;
+    SFUInt32          _sfCoverageSamples;
+    SFBool            _sfFixedSampleLocation;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -264,6 +301,12 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     EditFieldHandlePtr editHandleInternalFormat (void);
     GetFieldHandlePtr  getHandleImage           (void) const;
     EditFieldHandlePtr editHandleImage          (void);
+    GetFieldHandlePtr  getHandleColorSamples    (void) const;
+    EditFieldHandlePtr editHandleColorSamples   (void);
+    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+    EditFieldHandlePtr editHandleCoverageSamples(void);
+    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+    EditFieldHandlePtr editHandleFixedSampleLocation(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -97,6 +97,18 @@ OSG_BEGIN_NAMESPACE
     Image object used if readback is enabled.
 */
 
+/*! \var UInt32          RenderBufferBase::_sfColorSamples
+    
+*/
+
+/*! \var UInt32          RenderBufferBase::_sfCoverageSamples
+    
+*/
+
+/*! \var bool            RenderBufferBase::_sfFixedSampleLocation
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -164,6 +176,42 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleImage));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "colorSamples",
+        "",
+        ColorSamplesFieldId, ColorSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleColorSamples),
+        static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleColorSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "coverageSamples",
+        "",
+        CoverageSamplesFieldId, CoverageSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleCoverageSamples),
+        static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleCoverageSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "fixedSampleLocation",
+        "",
+        FixedSampleLocationFieldId, FixedSampleLocationFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderBuffer::editHandleFixedSampleLocation),
+        static_cast<FieldGetMethodSig >(&RenderBuffer::getHandleFixedSampleLocation));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -224,6 +272,37 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     "        >\n"
     "        Image object used if readback is enabled.\n"
     "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"colorSamples\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"coverageSamples\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"fixedSampleLocation\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"true\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
     "A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
@@ -290,6 +369,45 @@ SFUnrecImagePtr     *RenderBufferBase::editSFImage          (void)
     return &_sfImage;
 }
 
+SFUInt32 *RenderBufferBase::editSFColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return &_sfColorSamples;
+}
+
+const SFUInt32 *RenderBufferBase::getSFColorSamples(void) const
+{
+    return &_sfColorSamples;
+}
+
+
+SFUInt32 *RenderBufferBase::editSFCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return &_sfCoverageSamples;
+}
+
+const SFUInt32 *RenderBufferBase::getSFCoverageSamples(void) const
+{
+    return &_sfCoverageSamples;
+}
+
+
+SFBool *RenderBufferBase::editSFFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return &_sfFixedSampleLocation;
+}
+
+const SFBool *RenderBufferBase::getSFFixedSampleLocation(void) const
+{
+    return &_sfFixedSampleLocation;
+}
+
+
 
 
 
@@ -312,6 +430,18 @@ SizeT RenderBufferBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfImage.getBinSize();
     }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        returnValue += _sfColorSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        returnValue += _sfCoverageSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        returnValue += _sfFixedSampleLocation.getBinSize();
+    }
 
     return returnValue;
 }
@@ -332,6 +462,18 @@ void RenderBufferBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ImageFieldMask & whichField))
     {
         _sfImage.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        _sfColorSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        _sfCoverageSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        _sfFixedSampleLocation.copyToBin(pMem);
     }
 }
 
@@ -354,6 +496,21 @@ void RenderBufferBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ImageFieldMask);
         _sfImage.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        editSField(ColorSamplesFieldMask);
+        _sfColorSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        editSField(CoverageSamplesFieldMask);
+        _sfCoverageSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        editSField(FixedSampleLocationFieldMask);
+        _sfFixedSampleLocation.copyFromBin(pMem);
     }
 }
 
@@ -482,7 +639,10 @@ RenderBufferBase::RenderBufferBase(void) :
     Inherited(),
     _sfGLId                   (GLenum(0)),
     _sfInternalFormat         (GLenum(GL_NONE)),
-    _sfImage                  (NULL)
+    _sfImage                  (NULL),
+    _sfColorSamples           (UInt32(0)),
+    _sfCoverageSamples        (UInt32(0)),
+    _sfFixedSampleLocation    (bool(true))
 {
 }
 
@@ -490,7 +650,10 @@ RenderBufferBase::RenderBufferBase(const RenderBufferBase &source) :
     Inherited(source),
     _sfGLId                   (source._sfGLId                   ),
     _sfInternalFormat         (source._sfInternalFormat         ),
-    _sfImage                  (NULL)
+    _sfImage                  (NULL),
+    _sfColorSamples           (source._sfColorSamples           ),
+    _sfCoverageSamples        (source._sfCoverageSamples        ),
+    _sfFixedSampleLocation    (source._sfFixedSampleLocation    )
 {
 }
 
@@ -587,6 +750,81 @@ EditFieldHandlePtr RenderBufferBase::editHandleImage          (void)
                     static_cast<RenderBuffer *>(this), _1));
 
     editSField(ImageFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderBufferBase::getHandleColorSamples    (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             const_cast<RenderBufferBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderBufferBase::editHandleColorSamples   (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             this));
+
+
+    editSField(ColorSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderBufferBase::getHandleCoverageSamples (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             const_cast<RenderBufferBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderBufferBase::editHandleCoverageSamples(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             this));
+
+
+    editSField(CoverageSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderBufferBase::getHandleFixedSampleLocation (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             const_cast<RenderBufferBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderBufferBase::editHandleFixedSampleLocation(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             this));
+
+
+    editSField(FixedSampleLocationFieldMask);
 
     return returnValue;
 }

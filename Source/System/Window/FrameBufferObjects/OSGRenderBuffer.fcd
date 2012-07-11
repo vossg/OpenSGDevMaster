@@ -44,4 +44,35 @@
         >
         Image object used if readback is enabled.
     </Field>
+
+    <Field
+        name="colorSamples"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="0"
+        >
+    </Field>
+
+    <Field
+        name="coverageSamples"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="0"
+        >
+    </Field>
+
+    <Field
+        name="fixedSampleLocation"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+        >
+    </Field>
+
 </FieldContainer>

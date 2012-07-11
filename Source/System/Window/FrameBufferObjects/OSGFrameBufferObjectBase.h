@@ -97,18 +97,28 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     enum
     {
         GLIdFieldId = Inherited::NextFieldId,
-        ColorAttachmentsFieldId = GLIdFieldId + 1,
+        MultiSampleGLIdFieldId = GLIdFieldId + 1,
+        ColorAttachmentsFieldId = MultiSampleGLIdFieldId + 1,
         DrawBuffersFieldId = ColorAttachmentsFieldId + 1,
         DepthAttachmentFieldId = DrawBuffersFieldId + 1,
         StencilAttachmentFieldId = DepthAttachmentFieldId + 1,
         WidthFieldId = StencilAttachmentFieldId + 1,
         HeightFieldId = WidthFieldId + 1,
         PostProcessOnDeactivateFieldId = HeightFieldId + 1,
-        NextFieldId = PostProcessOnDeactivateFieldId + 1
+        EnableMultiSampleFieldId = PostProcessOnDeactivateFieldId + 1,
+        ColorSamplesFieldId = EnableMultiSampleFieldId + 1,
+        CoverageSamplesFieldId = ColorSamplesFieldId + 1,
+        FixedSampleLocationFieldId = CoverageSamplesFieldId + 1,
+        MsaaColorAttachmentsFieldId = FixedSampleLocationFieldId + 1,
+        MsaaDepthAttachmentFieldId = MsaaColorAttachmentsFieldId + 1,
+        MsaaStencilAttachmentFieldId = MsaaDepthAttachmentFieldId + 1,
+        NextFieldId = MsaaStencilAttachmentFieldId + 1
     };
 
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector MultiSampleGLIdFieldMask =
+        (TypeTraits<BitVector>::One << MultiSampleGLIdFieldId);
     static const OSG::BitVector ColorAttachmentsFieldMask =
         (TypeTraits<BitVector>::One << ColorAttachmentsFieldId);
     static const OSG::BitVector DrawBuffersFieldMask =
@@ -123,10 +133,25 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << HeightFieldId);
     static const OSG::BitVector PostProcessOnDeactivateFieldMask =
         (TypeTraits<BitVector>::One << PostProcessOnDeactivateFieldId);
+    static const OSG::BitVector EnableMultiSampleFieldMask =
+        (TypeTraits<BitVector>::One << EnableMultiSampleFieldId);
+    static const OSG::BitVector ColorSamplesFieldMask =
+        (TypeTraits<BitVector>::One << ColorSamplesFieldId);
+    static const OSG::BitVector CoverageSamplesFieldMask =
+        (TypeTraits<BitVector>::One << CoverageSamplesFieldId);
+    static const OSG::BitVector FixedSampleLocationFieldMask =
+        (TypeTraits<BitVector>::One << FixedSampleLocationFieldId);
+    static const OSG::BitVector MsaaColorAttachmentsFieldMask =
+        (TypeTraits<BitVector>::One << MsaaColorAttachmentsFieldId);
+    static const OSG::BitVector MsaaDepthAttachmentFieldMask =
+        (TypeTraits<BitVector>::One << MsaaDepthAttachmentFieldId);
+    static const OSG::BitVector MsaaStencilAttachmentFieldMask =
+        (TypeTraits<BitVector>::One << MsaaStencilAttachmentFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFGLenum          SFGLIdType;
+    typedef SFGLenum          SFMultiSampleGLIdType;
     typedef MFUnrecFrameBufferAttachmentPtr MFColorAttachmentsType;
     typedef MFGLenum          MFDrawBuffersType;
     typedef SFUnrecFrameBufferAttachmentPtr SFDepthAttachmentType;
@@ -134,6 +159,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     typedef SFUInt16          SFWidthType;
     typedef SFUInt16          SFHeightType;
     typedef SFBool            SFPostProcessOnDeactivateType;
+    typedef SFBool            SFEnableMultiSampleType;
+    typedef SFUInt32          SFColorSamplesType;
+    typedef SFUInt32          SFCoverageSamplesType;
+    typedef SFBool            SFFixedSampleLocationType;
+    typedef MFUnrecFrameBufferAttachmentPtr MFMsaaColorAttachmentsType;
+    typedef SFUnrecFrameBufferAttachmentPtr SFMsaaDepthAttachmentType;
+    typedef SFUnrecFrameBufferAttachmentPtr SFMsaaStencilAttachmentType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -161,6 +193,9 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
                   SFGLenum            *editSFGLId           (void);
             const SFGLenum            *getSFGLId            (void) const;
+
+                  SFGLenum            *editSFMultiSampleGLId(void);
+            const SFGLenum            *getSFMultiSampleGLId (void) const;
             const MFUnrecFrameBufferAttachmentPtr *getMFColorAttachments(void) const;
                   MFUnrecFrameBufferAttachmentPtr *editMFColorAttachments(void);
 
@@ -180,9 +215,24 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   SFBool              *editSFPostProcessOnDeactivate(void);
             const SFBool              *getSFPostProcessOnDeactivate (void) const;
 
+                  SFBool              *editSFEnableMultiSample(void);
+            const SFBool              *getSFEnableMultiSample (void) const;
+
+                  SFUInt32            *editSFColorSamples   (void);
+            const SFUInt32            *getSFColorSamples    (void) const;
+
+                  SFUInt32            *editSFCoverageSamples(void);
+            const SFUInt32            *getSFCoverageSamples (void) const;
+
+                  SFBool              *editSFFixedSampleLocation(void);
+            const SFBool              *getSFFixedSampleLocation (void) const;
+
 
                   GLenum              &editGLId           (void);
             const GLenum              &getGLId            (void) const;
+
+                  GLenum              &editMultiSampleGLId(void);
+            const GLenum              &getMultiSampleGLId (void) const;
 
                   FrameBufferAttachment * getColorAttachments(const UInt32 index) const;
 
@@ -202,17 +252,34 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
                   bool                &editPostProcessOnDeactivate(void);
                   bool                 getPostProcessOnDeactivate (void) const;
 
+                  bool                &editEnableMultiSample(void);
+                  bool                 getEnableMultiSample (void) const;
+
+                  UInt32              &editColorSamples   (void);
+                  UInt32               getColorSamples    (void) const;
+
+                  UInt32              &editCoverageSamples(void);
+                  UInt32               getCoverageSamples (void) const;
+
+                  bool                &editFixedSampleLocation(void);
+                  bool                 getFixedSampleLocation (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
             void setGLId           (const GLenum &value);
+            void setMultiSampleGLId(const GLenum &value);
             void setDepthAttachment(FrameBufferAttachment * const value);
             void setStencilAttachment(FrameBufferAttachment * const value);
             void setWidth          (const UInt16 value);
             void setHeight         (const UInt16 value);
             void setPostProcessOnDeactivate(const bool value);
+            void setEnableMultiSample(const bool value);
+            void setColorSamples   (const UInt32 value);
+            void setCoverageSamples(const UInt32 value);
+            void setFixedSampleLocation(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -284,6 +351,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
     SFGLenum          _sfGLId;
+    SFGLenum          _sfMultiSampleGLId;
     MFUnrecFrameBufferAttachmentPtr _mfColorAttachments;
     MFGLenum          _mfDrawBuffers;
     SFUnrecFrameBufferAttachmentPtr _sfDepthAttachment;
@@ -291,6 +359,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
     SFBool            _sfPostProcessOnDeactivate;
+    SFBool            _sfEnableMultiSample;
+    SFUInt32          _sfColorSamples;
+    SFUInt32          _sfCoverageSamples;
+    SFBool            _sfFixedSampleLocation;
+    MFUnrecFrameBufferAttachmentPtr _mfMsaaColorAttachments;
+    SFUnrecFrameBufferAttachmentPtr _sfMsaaDepthAttachment;
+    SFUnrecFrameBufferAttachmentPtr _sfMsaaStencilAttachment;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,6 +396,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
     GetFieldHandlePtr  getHandleGLId            (void) const;
     EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleMultiSampleGLId (void) const;
+    EditFieldHandlePtr editHandleMultiSampleGLId(void);
     GetFieldHandlePtr  getHandleColorAttachments (void) const;
     EditFieldHandlePtr editHandleColorAttachments(void);
     GetFieldHandlePtr  getHandleDrawBuffers     (void) const;
@@ -335,6 +412,58 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     EditFieldHandlePtr editHandleHeight         (void);
     GetFieldHandlePtr  getHandlePostProcessOnDeactivate (void) const;
     EditFieldHandlePtr editHandlePostProcessOnDeactivate(void);
+    GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
+    EditFieldHandlePtr editHandleEnableMultiSample(void);
+    GetFieldHandlePtr  getHandleColorSamples    (void) const;
+    EditFieldHandlePtr editHandleColorSamples   (void);
+    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+    EditFieldHandlePtr editHandleCoverageSamples(void);
+    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+    EditFieldHandlePtr editHandleFixedSampleLocation(void);
+    GetFieldHandlePtr  getHandleMsaaColorAttachments (void) const;
+    EditFieldHandlePtr editHandleMsaaColorAttachments(void);
+    GetFieldHandlePtr  getHandleMsaaDepthAttachment (void) const;
+    EditFieldHandlePtr editHandleMsaaDepthAttachment(void);
+    GetFieldHandlePtr  getHandleMsaaStencilAttachment (void) const;
+    EditFieldHandlePtr editHandleMsaaStencilAttachment(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const MFUnrecFrameBufferAttachmentPtr *getMFMsaaColorAttachments (void) const;
+                  MFUnrecFrameBufferAttachmentPtr *editMFMsaaColorAttachments(void);
+            const SFUnrecFrameBufferAttachmentPtr *getSFMsaaDepthAttachment (void) const;
+                  SFUnrecFrameBufferAttachmentPtr *editSFMsaaDepthAttachment(void);
+            const SFUnrecFrameBufferAttachmentPtr *getSFMsaaStencilAttachment (void) const;
+                  SFUnrecFrameBufferAttachmentPtr *editSFMsaaStencilAttachment(void);
+
+
+                  FrameBufferAttachment * getMsaaColorAttachments(const UInt32 index) const;
+
+                  FrameBufferAttachment * getMsaaDepthAttachment(void) const;
+
+                  FrameBufferAttachment * getMsaaStencilAttachment(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setMsaaDepthAttachment(FrameBufferAttachment * const value);
+            void setMsaaStencilAttachment(FrameBufferAttachment * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToMsaaColorAttachments           (FrameBufferAttachment * const value   );
+    void assignMsaaColorAttachments           (const MFUnrecFrameBufferAttachmentPtr &value);
+    void removeFromMsaaColorAttachments (UInt32                uiIndex );
+    void removeObjFromMsaaColorAttachments(FrameBufferAttachment * const value   );
+    void clearMsaaColorAttachments            (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

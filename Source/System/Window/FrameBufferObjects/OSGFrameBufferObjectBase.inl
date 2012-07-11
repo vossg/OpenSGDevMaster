@@ -99,6 +99,31 @@ void FrameBufferObjectBase::setGLId(const GLenum &value)
 
     _sfGLId.setValue(value);
 }
+//! Get the value of the FrameBufferObject::_sfMultiSampleGLId field.
+
+inline
+GLenum &FrameBufferObjectBase::editMultiSampleGLId(void)
+{
+    editSField(MultiSampleGLIdFieldMask);
+
+    return _sfMultiSampleGLId.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfMultiSampleGLId field.
+inline
+const GLenum &FrameBufferObjectBase::getMultiSampleGLId(void) const
+{
+    return _sfMultiSampleGLId.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfMultiSampleGLId field.
+inline
+void FrameBufferObjectBase::setMultiSampleGLId(const GLenum &value)
+{
+    editSField(MultiSampleGLIdFieldMask);
+
+    _sfMultiSampleGLId.setValue(value);
+}
 
 //! Get the value of the FrameBufferObject::_sfDepthAttachment field.
 inline
@@ -206,6 +231,138 @@ void FrameBufferObjectBase::setPostProcessOnDeactivate(const bool value)
 
     _sfPostProcessOnDeactivate.setValue(value);
 }
+//! Get the value of the FrameBufferObject::_sfEnableMultiSample field.
+
+inline
+bool &FrameBufferObjectBase::editEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfEnableMultiSample field.
+inline
+      bool  FrameBufferObjectBase::getEnableMultiSample(void) const
+{
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfEnableMultiSample field.
+inline
+void FrameBufferObjectBase::setEnableMultiSample(const bool value)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    _sfEnableMultiSample.setValue(value);
+}
+//! Get the value of the FrameBufferObject::_sfColorSamples field.
+
+inline
+UInt32 &FrameBufferObjectBase::editColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return _sfColorSamples.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfColorSamples field.
+inline
+      UInt32  FrameBufferObjectBase::getColorSamples(void) const
+{
+    return _sfColorSamples.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfColorSamples field.
+inline
+void FrameBufferObjectBase::setColorSamples(const UInt32 value)
+{
+    editSField(ColorSamplesFieldMask);
+
+    _sfColorSamples.setValue(value);
+}
+//! Get the value of the FrameBufferObject::_sfCoverageSamples field.
+
+inline
+UInt32 &FrameBufferObjectBase::editCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return _sfCoverageSamples.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfCoverageSamples field.
+inline
+      UInt32  FrameBufferObjectBase::getCoverageSamples(void) const
+{
+    return _sfCoverageSamples.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfCoverageSamples field.
+inline
+void FrameBufferObjectBase::setCoverageSamples(const UInt32 value)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    _sfCoverageSamples.setValue(value);
+}
+//! Get the value of the FrameBufferObject::_sfFixedSampleLocation field.
+
+inline
+bool &FrameBufferObjectBase::editFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Get the value of the FrameBufferObject::_sfFixedSampleLocation field.
+inline
+      bool  FrameBufferObjectBase::getFixedSampleLocation(void) const
+{
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfFixedSampleLocation field.
+inline
+void FrameBufferObjectBase::setFixedSampleLocation(const bool value)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    _sfFixedSampleLocation.setValue(value);
+}
+
+//! Get the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
+inline
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaDepthAttachment(void) const
+{
+    return _sfMsaaDepthAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
+inline
+void FrameBufferObjectBase::setMsaaDepthAttachment(FrameBufferAttachment * const value)
+{
+    editSField(MsaaDepthAttachmentFieldMask);
+
+    _sfMsaaDepthAttachment.setValue(value);
+}
+
+//! Get the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
+inline
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaStencilAttachment(void) const
+{
+    return _sfMsaaStencilAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
+inline
+void FrameBufferObjectBase::setMsaaStencilAttachment(FrameBufferAttachment * const value)
+{
+    editSField(MsaaStencilAttachmentFieldMask);
+
+    _sfMsaaStencilAttachment.setValue(value);
+}
 
 //! Get the value of the \a index element the FrameBufferObject::_mfColorAttachments field.
 inline
@@ -230,6 +387,13 @@ GLenum &FrameBufferObjectBase::editDrawBuffers(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the FrameBufferObject::_mfMsaaColorAttachments field.
+inline
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaColorAttachments(const UInt32 index) const
+{
+    return _mfMsaaColorAttachments[index];
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -243,6 +407,9 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (MultiSampleGLIdFieldMask & whichField))
+        _sfMultiSampleGLId.syncWith(pFrom->_sfMultiSampleGLId);
 
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
         _mfColorAttachments.syncWith(pFrom->_mfColorAttachments,
@@ -270,6 +437,30 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
 
     if(FieldBits::NoField != (PostProcessOnDeactivateFieldMask & whichField))
         _sfPostProcessOnDeactivate.syncWith(pFrom->_sfPostProcessOnDeactivate);
+
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+        _sfEnableMultiSample.syncWith(pFrom->_sfEnableMultiSample);
+
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+        _sfColorSamples.syncWith(pFrom->_sfColorSamples);
+
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+        _sfCoverageSamples.syncWith(pFrom->_sfCoverageSamples);
+
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+        _sfFixedSampleLocation.syncWith(pFrom->_sfFixedSampleLocation);
+
+    if(FieldBits::NoField != (MsaaColorAttachmentsFieldMask & whichField))
+        _mfMsaaColorAttachments.syncWith(pFrom->_mfMsaaColorAttachments,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (MsaaDepthAttachmentFieldMask & whichField))
+        _sfMsaaDepthAttachment.syncWith(pFrom->_sfMsaaDepthAttachment);
+
+    if(FieldBits::NoField != (MsaaStencilAttachmentFieldMask & whichField))
+        _sfMsaaStencilAttachment.syncWith(pFrom->_sfMsaaStencilAttachment);
 }
 #endif
 

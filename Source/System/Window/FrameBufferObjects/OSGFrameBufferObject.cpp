@@ -36,6 +36,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -77,6 +78,9 @@
 		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:                \
             FWARNING(("Incomplete Read Buffer\n"));                    \
             break;                                                     \
+		case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT:                \
+            FWARNING(("Incomplete Multisample\n"));                    \
+            break;                                                     \
 		default:                                                       \
 			FWARNING(("Unknown error %x\n", status));                  \
 			break;                                                     \
@@ -101,10 +105,14 @@
 #include "OSGFrameBufferAttachment.h"
 #include "OSGTextureBuffer.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGRenderBuffer.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 UInt32 FrameBufferObject::_uiFramebufferObjectExt  = 
+    Window::invalidExtensionID;
+
+UInt32 FrameBufferObject::_uiFramebufferBlitExt  = 
     Window::invalidExtensionID;
 
 UInt32 FrameBufferObject::_uiPackedDepthStencilExt =
@@ -126,6 +134,9 @@ UInt32 FrameBufferObject::_uiFuncFramebufferRenderbuffer  =
     Window::invalidFunctionID;
 
 UInt32 FrameBufferObject::_uiFuncDrawBuffers              =
+    Window::invalidFunctionID;
+
+UInt32 FrameBufferObject::_uiFuncBlitFramebuffer          =
     Window::invalidFunctionID;
 
 // Documentation for this class is emited in the
@@ -160,6 +171,8 @@ void FrameBufferObject::setSize(UInt32 uiWidth, UInt32 uiHeight)
 
 void FrameBufferObject::resizeAll(UInt32 uiWidth, UInt32 uiHeight)
 {
+    // main buffer
+
     MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
         _mfColorAttachments.begin();
     MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
@@ -183,9 +196,35 @@ void FrameBufferObject::resizeAll(UInt32 uiWidth, UInt32 uiHeight)
         _sfStencilAttachment.getValue()->resizeBuffers(uiWidth, uiHeight);
     }
 
+
+    // multi-sample buffer
+
+    attIt  = _mfMsaaColorAttachments.begin();
+    attEnd = _mfMsaaColorAttachments.end  ();
+    
+    for(; attIt != attEnd; ++attIt)
+    {
+        if(*attIt == NULL)
+            continue;
+        
+        (*attIt)->resizeBuffers(uiWidth, uiHeight);
+    }
+
+    if(_sfMsaaDepthAttachment.getValue() != NULL)
+    {
+        _sfMsaaDepthAttachment.getValue()->resizeBuffers(uiWidth, uiHeight);
+    }
+
+    if(_sfMsaaStencilAttachment.getValue() != NULL)
+    {
+        _sfMsaaStencilAttachment.getValue()->resizeBuffers(uiWidth, uiHeight);
+    }
+
+
     this->setSize(uiWidth, uiHeight);
 
     Window::refreshGLObject(getGLId());
+    Window::refreshGLObject(getMultiSampleGLId());
 }
 
 /*----------------------- constructors & destructors ----------------------*/
@@ -214,6 +253,8 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
     {
         _uiFramebufferObjectExt   = 
             Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiFramebufferBlitExt   = 
+            Window::registerExtension("GL_EXT_framebuffer_blit");
         _uiPackedDepthStencilExt  =
             Window::registerExtension("GL_EXT_packed_depth_stencil");
 
@@ -246,6 +287,11 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
                 _uiFramebufferObjectExt);
+
+        _uiFuncBlitFramebuffer  =
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glBlitFramebufferEXT", 
+                _uiFramebufferBlitExt);
     }
 
 }
@@ -261,12 +307,22 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
                         FrameBufferObjectMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &FrameBufferObject::handleDestroyGL));
+
+    setMultiSampleGLId(               
+        Window::registerGLObject(
+            boost::bind(&FrameBufferObject::handleMultiSampleGL, 
+                        FrameBufferObjectMTUncountedPtr(this), 
+                        _1, _2, _3, _4),
+            &FrameBufferObject::handleDestroyGL));
 }
 
 void FrameBufferObject::onDestroy(UInt32 uiContainerId)
 {
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);    
+
+    if(getMultiSampleGLId() > 0)
+        Window::destroyGLObject(getMultiSampleGLId(), 1);    
 
     Inherited::onDestroy(uiContainerId);
 }
@@ -279,6 +335,8 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & (WidthFieldMask | HeightFieldMask)))
     {
+        // main buffer
+
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
             _mfColorAttachments.begin();
         MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
@@ -305,36 +363,12 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
         }
 
         Window::refreshGLObject(getGLId());
-    }
 
-    if(0x0000 != (whichField & DepthAttachmentFieldMask))
-    {
-        if(_sfDepthAttachment.getValue() != NULL)
-        {
-            _sfDepthAttachment.getValue()->resize(getWidth (),
-                                                  getHeight());
-        }
 
-        Window::reinitializeGLObject(getGLId());
-    }
+        // multi-sample buffer
 
-    if(0x0000 != (whichField & StencilAttachmentFieldMask))
-    {
-        if(_sfStencilAttachment.getValue() != NULL)
-        {
-            _sfStencilAttachment.getValue()->resize(getWidth (),
-                                                    getHeight());
-        }
-
-        Window::reinitializeGLObject(getGLId());
-    }
-
-    if(0x0000 != (whichField & ColorAttachmentsFieldMask))
-    {
-        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
-            _mfColorAttachments.begin();
-        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
-            _mfColorAttachments.end  ();
+        attIt  = _mfMsaaColorAttachments.begin();
+        attEnd = _mfMsaaColorAttachments.end  ();
    
         for(; attIt != attEnd; ++attIt)
         {
@@ -344,7 +378,192 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
             (*attIt)->resize(getWidth(), getHeight());
         }
 
-        Window::reinitializeGLObject(getGLId());
+        if(_sfMsaaDepthAttachment.getValue() != NULL)
+        {
+            _sfMsaaDepthAttachment.getValue()->resize(getWidth (),
+                                                      getHeight());
+        }
+
+        if(_sfMsaaStencilAttachment.getValue() != NULL)
+        {
+            _sfMsaaStencilAttachment.getValue()->resize(getWidth (),
+                                                        getHeight());
+        }
+
+        Window::refreshGLObject(getMultiSampleGLId());
+    }
+
+    if(0x0000 != (whichField & DepthAttachmentFieldMask))
+    {
+        if(_sfDepthAttachment.getValue() != NULL)
+        {
+            _sfDepthAttachment.getValue()->resize(getWidth (),
+                                                  getHeight());
+
+            if(_sfMsaaDepthAttachment.getValue() != NULL)
+            {
+                _sfMsaaDepthAttachment.getValue()->resize(getWidth (),
+                                                          getHeight());
+            }
+            else if(_sfEnableMultiSample.getValue() == true)
+            {
+                FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                    this->createMultiSampleBufferFrom(
+                        _sfDepthAttachment.getValue());
+
+                this->setMsaaDepthAttachment(pMsaaBuffer);
+            }
+        }
+        else
+        {
+            this->setMsaaDepthAttachment(NULL);
+        }
+
+        Window::reinitializeGLObject(getGLId           ());
+        Window::reinitializeGLObject(getMultiSampleGLId());
+    }
+
+    if(0x0000 != (whichField & StencilAttachmentFieldMask))
+    {
+        if(_sfStencilAttachment.getValue() != NULL)
+        {
+            _sfStencilAttachment.getValue()->resize(getWidth (),
+                                                    getHeight());
+
+            if(_sfMsaaStencilAttachment.getValue() != NULL)
+            {
+                _sfMsaaStencilAttachment.getValue()->resize(getWidth (),
+                                                            getHeight());
+            }
+            else if(_sfEnableMultiSample.getValue() == true)
+            {
+                FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                    this->createMultiSampleBufferFrom(
+                        _sfStencilAttachment.getValue());
+
+                this->setMsaaStencilAttachment(pMsaaBuffer);
+            }
+        }
+        else
+        {
+            this->setMsaaStencilAttachment(NULL);
+        }
+
+        Window::reinitializeGLObject(getGLId           ());
+        Window::reinitializeGLObject(getMultiSampleGLId());
+    }
+
+    if(0x0000 != (whichField & ColorAttachmentsFieldMask))
+    {
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+            _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+            _mfColorAttachments.end  ();
+   
+        if(_mfMsaaColorAttachments.size() != _mfColorAttachments.size())
+        {
+            editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+            _mfMsaaColorAttachments.resize(_mfColorAttachments.size(),
+                                            NULL                     );
+        }
+
+        MFUnrecFrameBufferAttachmentPtr::iterator msaaAttIt  =
+            _mfMsaaColorAttachments.begin_nc();
+
+        for(; attIt != attEnd; ++attIt, ++msaaAttIt)
+        {
+            if(*attIt == NULL)
+            {
+                if(*msaaAttIt != NULL)
+                {
+                    editMField( MsaaColorAttachmentsFieldMask, 
+                               _mfMsaaColorAttachments);
+
+                    _mfMsaaColorAttachments.replace(msaaAttIt, NULL);
+                }
+
+                continue;
+            }
+
+            (*attIt)->resize(getWidth(), getHeight());
+
+            if(*msaaAttIt != NULL)
+            {
+                (*msaaAttIt)->resize(getWidth(), getHeight());
+            }
+            else if(_sfEnableMultiSample.getValue() == true)
+            {
+                FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                    this->createMultiSampleBufferFrom(*attIt);
+
+                editMField( MsaaColorAttachmentsFieldMask, 
+                           _mfMsaaColorAttachments);
+
+                _mfMsaaColorAttachments.replace(msaaAttIt, pMsaaBuffer);
+            }
+        }
+
+        Window::reinitializeGLObject(getGLId           ());
+        Window::reinitializeGLObject(getMultiSampleGLId());
+    }
+
+    if(0x0000 != (whichField & EnableMultiSampleFieldMask))
+    {
+        if(_sfDepthAttachment    .getValue() != NULL &&
+           _sfMsaaDepthAttachment.getValue() == NULL)
+        {
+            FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                this->createMultiSampleBufferFrom(
+                    _sfDepthAttachment.getValue());
+
+            this->setMsaaDepthAttachment(pMsaaBuffer);
+        }
+
+        if(_sfStencilAttachment    .getValue() != NULL &&
+           _sfMsaaStencilAttachment.getValue() == NULL)
+        {
+            FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                this->createMultiSampleBufferFrom(
+                    _sfStencilAttachment.getValue());
+
+            this->setMsaaStencilAttachment(pMsaaBuffer);
+        }
+
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+            _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+            _mfColorAttachments.end  ();
+   
+        if(_mfMsaaColorAttachments.size() != _mfColorAttachments.size())
+        {
+            editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+            _mfMsaaColorAttachments.resize(_mfColorAttachments.size(),
+                                            NULL                     );
+        }
+
+        MFUnrecFrameBufferAttachmentPtr::iterator msaaAttIt  =
+            _mfMsaaColorAttachments.begin_nc();
+
+        for(; attIt != attEnd; ++attIt, ++msaaAttIt)
+        {
+            if(*attIt == NULL)
+                continue;
+
+            if(*msaaAttIt == NULL)
+            {
+                FrameBufferAttachmentUnrecPtr pMsaaBuffer = 
+                    this->createMultiSampleBufferFrom(*attIt);
+
+                editMField( MsaaColorAttachmentsFieldMask, 
+                           _mfMsaaColorAttachments);
+
+                _mfMsaaColorAttachments.replace(msaaAttIt, pMsaaBuffer);
+            }
+        }
+
+        Window::reinitializeGLObject(getMultiSampleGLId());
     }
 }
 
@@ -367,7 +586,19 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
 
 //    FLOG(("FBO Activate %p\n", this));
 
-    win->validateGLObject(getGLId(), pEnv);
+    UInt32 glId = getGLId();
+
+    win->validateGLObject(getGLId(),            pEnv);
+
+    if(_sfEnableMultiSample.getValue()                      == true &&
+        win->hasExtOrVersion(_uiFramebufferBlitExt, 0x0300) == true   )
+    {
+        win->validateGLObject(getMultiSampleGLId(), pEnv);
+
+        glId = getMultiSampleGLId();
+
+        glEnable(GL_MULTISAMPLE);
+    }
 
     OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
                              osgGlBindFramebuffer,
@@ -375,10 +606,10 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
                              win);
 
     osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 
-                         win->getGLObjectId(getGLId()));
+                         win->getGLObjectId(glId));
 
     glErr("FrameBufferObject::activate::bind");
-
+    
     glErr("FrameBufferObject::activate");
 
 #ifndef OSG_OGL_ES2
@@ -390,7 +621,7 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
                                   osgGlDrawBuffers,
                                  _uiFuncDrawBuffers,
                                   win);
-
+            
             osgGlDrawBuffers(GLsizei(_mfDrawBuffers.size()), 
                              &(_mfDrawBuffers[0]) );
         }
@@ -429,7 +660,33 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
                              osgGlBindFramebuffer,
                             _uiFuncBindFramebuffer,
-                             win);
+                             win                  );
+
+    if(_sfEnableMultiSample.getValue()                      == true &&
+        win->hasExtOrVersion(_uiFramebufferBlitExt, 0x0300) == true   )
+    {
+        OSGGETGLFUNCBYID_GL3( glBlitFramebuffer,
+                              osgGlBlitFramebuffer,
+                             _uiFuncBlitFramebuffer,
+                              win                  );
+
+//        GLbitfield bufferMask = GL_COLOR_BUFFER_BIT;
+        glDisable(GL_MULTISAMPLE);
+
+        osgGlBindFramebuffer(GL_READ_FRAMEBUFFER, 
+                             win->getGLObjectId(getMultiSampleGLId()));
+        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER, 
+                             win->getGLObjectId(getGLId           ()));
+
+        osgGlBlitFramebuffer(0, 0, getWidth(), getHeight(),
+                              0, 0, getWidth(), getHeight(),
+                             (GL_COLOR_BUFFER_BIT  |
+                              GL_DEPTH_BUFFER_BIT  |
+                              GL_STENCIL_BUFFER_BIT), 
+                              GL_NEAREST);
+
+        osgGlBindFramebuffer(GL_FRAMEBUFFER, win->getGLObjectId(getGLId()));
+    }
 
     if(_sfPostProcessOnDeactivate.getValue() == true)
     {
@@ -670,3 +927,184 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
         }
     }
 }
+
+UInt32 FrameBufferObject::handleMultiSampleGL(
+    DrawEnv                 *pEnv, 
+    UInt32                   osgid, 
+    Window::GLObjectStatusE  mode,
+    UInt32                        ) const
+{
+    Window *win     = pEnv->getWindow();
+    GLuint  uiFBOId = 0;
+
+    if(mode == Window::initialize || mode == Window::reinitialize ||
+       mode == Window::needrefresh )
+    {
+        if(mode == Window::initialize)
+        {
+            OSGGETGLFUNCBYID_GL3_ES( glGenFramebuffers,
+                                     osgGlGenFramebuffers,
+                                    _uiFuncGenFramebuffers,
+                                     win);
+
+            osgGlGenFramebuffers(1, &uiFBOId);
+
+            win->setGLObjectId(osgid, uiFBOId);
+        }
+        else
+        {
+            // already has an GLid
+            uiFBOId = win->getGLObjectId(osgid);
+        }
+    }
+
+    
+    if(mode == Window::initialize || mode == Window::reinitialize)
+    {
+        OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
+                                 osgGlBindFramebuffer,
+                                _uiFuncBindFramebuffer,
+                                 win);
+
+        OSGGETGLFUNCBYID_GL3_ES( glFramebufferRenderbuffer,
+                                 osgGlFramebufferRenderbuffer,
+                                _uiFuncFramebufferRenderbuffer,
+                                 win);
+
+        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, uiFBOId);
+
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
+            _mfMsaaColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd = 
+            _mfMsaaColorAttachments.end  ();
+
+        GLint iMaxColorAttachments;
+
+        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &iMaxColorAttachments);
+
+        Int32 index = GL_COLOR_ATTACHMENT0_EXT;
+        
+        iMaxColorAttachments += GL_COLOR_ATTACHMENT0_EXT;
+
+        while(attIt != attEnd && index < iMaxColorAttachments)
+        {
+            if(*attIt != NULL)
+            {
+                (*attIt)->bind(pEnv, index);
+            }
+            else
+            {
+                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                             index,
+                                             GL_RENDERBUFFER_EXT,
+                                             0);
+            }
+
+            glErr("FrameBufferObject::color");
+
+            ++attIt;
+            ++index;
+        }
+
+        while(index < iMaxColorAttachments)
+        {
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         index,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
+            
+            glErr("FrameBufferObject::coloroff");
+
+            ++index;
+        }
+
+        if(_sfMsaaDepthAttachment.getValue() != NULL)
+        {
+            _sfMsaaDepthAttachment.getValue()->bind(pEnv, 
+                                                    GL_DEPTH_ATTACHMENT_EXT);
+        }
+        else
+        {
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         GL_DEPTH_ATTACHMENT_EXT,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
+        }
+
+        glErr("FrameBufferObject::depth");
+        
+        if(_sfMsaaStencilAttachment.getValue() != NULL)
+        {
+            _sfMsaaStencilAttachment.getValue()->bind(
+                pEnv, 
+                GL_STENCIL_ATTACHMENT_EXT);
+        }
+        else
+        {
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                                         GL_STENCIL_ATTACHMENT_EXT,
+                                         GL_RENDERBUFFER_EXT,
+                                         0);
+        }
+
+        glErr("FrameBufferObject::stencil");
+    }
+    else if(mode == Window::needrefresh)
+    {
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
+            _mfMsaaColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd = 
+            _mfMsaaColorAttachments.end  ();
+
+        while(attIt != attEnd)
+        {
+            if(*attIt != NULL)
+            {
+                (*attIt)->validate(pEnv);
+            }
+
+            glErr("FrameBufferObject::refresh");
+
+            ++attIt;
+        }
+
+        if(_sfMsaaDepthAttachment.getValue() != NULL)
+        {
+            _sfMsaaDepthAttachment.getValue()->validate(pEnv);
+        }
+
+        if(_sfMsaaStencilAttachment.getValue() != NULL)
+        {
+            _sfMsaaStencilAttachment.getValue()->validate(pEnv);
+        }
+    }
+
+    return 0;
+}
+
+
+FrameBufferAttachmentTransitPtr 
+    FrameBufferObject::createMultiSampleBufferFrom(FrameBufferAttachment *pSrc)
+{
+    RenderBufferUnrecPtr returnValue = NULL;
+
+    if(pSrc == NULL)
+        return FrameBufferAttachmentTransitPtr(returnValue);
+
+  
+    returnValue = RenderBuffer::create();
+
+    returnValue->setInternalFormat(pSrc->getBufferFormat());
+    
+    returnValue->setWidth (pSrc->getWidth ());
+    returnValue->setHeight(pSrc->getHeight());
+
+    returnValue->setColorSamples       (this->getColorSamples       ());
+    returnValue->setCoverageSamples    (this->getCoverageSamples    ());
+    returnValue->setFixedSampleLocation(this->getFixedSampleLocation());
+
+    return FrameBufferAttachmentTransitPtr(returnValue);
+}
+
+OSG_END_NAMESPACE
+

@@ -25,6 +25,17 @@
         The OpenGL texture id for this frame buffer object.
     </Field>
     <Field
+        name="multiSampleGLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+        >
+        The OpenGL texture id for this frame buffer object.
+    </Field>
+    <Field
         name="colorAttachments"
         type="FrameBufferAttachmentPtr"
         cardinality="multi"
@@ -94,4 +105,79 @@
         Enable to check and generate mipmap level or copy the texture buffer
         result back to the image
     </Field>
+
+
+    <Field
+        name="enableMultiSample"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+        >
+    </Field>
+
+    <Field
+        name="colorSamples"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="4"
+        >
+    </Field>
+
+    <Field
+        name="coverageSamples"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="4"
+        >
+    </Field>
+
+    <Field
+        name="fixedSampleLocation"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+        >
+    </Field>
+
+
+    <Field
+        name="msaaColorAttachments"
+        type="FrameBufferAttachmentPtr"
+        cardinality="multi"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FClusterLocal,FThreadLocal"
+        >
+        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+        This defines the target buffers for color attachments.
+    </Field>
+    <Field
+        name="msaaDepthAttachment"
+        type="FrameBufferAttachmentPtr"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FClusterLocal,FThreadLocal"
+        >
+        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+    </Field>
+    <Field
+        name="msaaStencilAttachment"
+        type="FrameBufferAttachmentPtr"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        fieldFlags="FClusterLocal,FThreadLocal"
+        >
+        GL_STENCIL_ATTACHMENT_EXT slot.
+    </Field>
+
 </FieldContainer>

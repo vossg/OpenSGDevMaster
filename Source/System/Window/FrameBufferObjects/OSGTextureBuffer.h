@@ -102,6 +102,13 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+    virtual GLenum getBufferFormat(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
     virtual void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
     virtual void processPostDeactivate(DrawEnv *pEnv);
 

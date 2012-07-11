@@ -87,6 +87,10 @@ OSG_BEGIN_NAMESPACE
     The OpenGL texture id for this frame buffer object.
 */
 
+/*! \var GLenum          FrameBufferObjectBase::_sfMultiSampleGLId
+    The OpenGL texture id for this frame buffer object.
+*/
+
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_mfColorAttachments
     GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
     This defines the target buffers for color attachments.
@@ -117,6 +121,35 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            FrameBufferObjectBase::_sfPostProcessOnDeactivate
     Enable to check and generate mipmap level or copy the texture buffer
     result back to the image
+*/
+
+/*! \var bool            FrameBufferObjectBase::_sfEnableMultiSample
+    
+*/
+
+/*! \var UInt32          FrameBufferObjectBase::_sfColorSamples
+    
+*/
+
+/*! \var UInt32          FrameBufferObjectBase::_sfCoverageSamples
+    
+*/
+
+/*! \var bool            FrameBufferObjectBase::_sfFixedSampleLocation
+    
+*/
+
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_mfMsaaColorAttachments
+    GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+    This defines the target buffers for color attachments.
+*/
+
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfMsaaDepthAttachment
+    GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+*/
+
+/*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfMsaaStencilAttachment
+    GL_STENCIL_ATTACHMENT_EXT slot.
 */
 
 
@@ -160,6 +193,18 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleGLId),
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "multiSampleGLId",
+        "The OpenGL texture id for this frame buffer object.\n",
+        MultiSampleGLIdFieldId, MultiSampleGLIdFieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleMultiSampleGLId),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleMultiSampleGLId));
 
     oType.addInitialDesc(pDesc);
 
@@ -250,6 +295,91 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandlePostProcessOnDeactivate));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableMultiSample",
+        "",
+        EnableMultiSampleFieldId, EnableMultiSampleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleEnableMultiSample),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleEnableMultiSample));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "colorSamples",
+        "",
+        ColorSamplesFieldId, ColorSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleColorSamples),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleColorSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "coverageSamples",
+        "",
+        CoverageSamplesFieldId, CoverageSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleCoverageSamples),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleCoverageSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "fixedSampleLocation",
+        "",
+        FixedSampleLocationFieldId, FixedSampleLocationFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleFixedSampleLocation),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleFixedSampleLocation));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecFrameBufferAttachmentPtr::Description(
+        MFUnrecFrameBufferAttachmentPtr::getClassType(),
+        "msaaColorAttachments",
+        "GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+        "This defines the target buffers for color attachments.\n",
+        MsaaColorAttachmentsFieldId, MsaaColorAttachmentsFieldMask,
+        true,
+        (Field::FClusterLocal | Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleMsaaColorAttachments),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleMsaaColorAttachments));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
+        SFUnrecFrameBufferAttachmentPtr::getClassType(),
+        "msaaDepthAttachment",
+        "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
+        MsaaDepthAttachmentFieldId, MsaaDepthAttachmentFieldMask,
+        true,
+        (Field::FClusterLocal | Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleMsaaDepthAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleMsaaDepthAttachment));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
+        SFUnrecFrameBufferAttachmentPtr::getClassType(),
+        "msaaStencilAttachment",
+        "GL_STENCIL_ATTACHMENT_EXT slot.\n",
+        MsaaStencilAttachmentFieldId, MsaaStencilAttachmentFieldMask,
+        true,
+        (Field::FClusterLocal | Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&FrameBufferObject::editHandleMsaaStencilAttachment),
+        static_cast<FieldGetMethodSig >(&FrameBufferObject::getHandleMsaaStencilAttachment));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -281,6 +411,17 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "    OpenGL extension.\n"
     "    <Field\n"
     "        name=\"GLId\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "        The OpenGL texture id for this frame buffer object.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"multiSampleGLId\"\n"
     "        type=\"GLenum\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
@@ -360,6 +501,81 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        Enable to check and generate mipmap level or copy the texture buffer\n"
     "        result back to the image\n"
     "    </Field>\n"
+    "\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"enableMultiSample\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"false\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"colorSamples\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"4\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"coverageSamples\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"4\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"fixedSampleLocation\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"true\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"msaaColorAttachments\"\n"
+    "        type=\"FrameBufferAttachmentPtr\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "        >\n"
+    "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+    "        This defines the target buffers for color attachments.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"msaaDepthAttachment\"\n"
+    "        type=\"FrameBufferAttachmentPtr\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "        >\n"
+    "        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"msaaStencilAttachment\"\n"
+    "        type=\"FrameBufferAttachmentPtr\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "        >\n"
+    "        GL_STENCIL_ATTACHMENT_EXT slot.\n"
+    "    </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     "Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object\n"
     "OpenGL extension.\n"
@@ -395,6 +611,19 @@ SFGLenum *FrameBufferObjectBase::editSFGLId(void)
 const SFGLenum *FrameBufferObjectBase::getSFGLId(void) const
 {
     return &_sfGLId;
+}
+
+
+SFGLenum *FrameBufferObjectBase::editSFMultiSampleGLId(void)
+{
+    editSField(MultiSampleGLIdFieldMask);
+
+    return &_sfMultiSampleGLId;
+}
+
+const SFGLenum *FrameBufferObjectBase::getSFMultiSampleGLId(void) const
+{
+    return &_sfMultiSampleGLId;
 }
 
 
@@ -489,6 +718,97 @@ const SFBool *FrameBufferObjectBase::getSFPostProcessOnDeactivate(void) const
 }
 
 
+SFBool *FrameBufferObjectBase::editSFEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return &_sfEnableMultiSample;
+}
+
+const SFBool *FrameBufferObjectBase::getSFEnableMultiSample(void) const
+{
+    return &_sfEnableMultiSample;
+}
+
+
+SFUInt32 *FrameBufferObjectBase::editSFColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return &_sfColorSamples;
+}
+
+const SFUInt32 *FrameBufferObjectBase::getSFColorSamples(void) const
+{
+    return &_sfColorSamples;
+}
+
+
+SFUInt32 *FrameBufferObjectBase::editSFCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return &_sfCoverageSamples;
+}
+
+const SFUInt32 *FrameBufferObjectBase::getSFCoverageSamples(void) const
+{
+    return &_sfCoverageSamples;
+}
+
+
+SFBool *FrameBufferObjectBase::editSFFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return &_sfFixedSampleLocation;
+}
+
+const SFBool *FrameBufferObjectBase::getSFFixedSampleLocation(void) const
+{
+    return &_sfFixedSampleLocation;
+}
+
+
+//! Get the FrameBufferObject::_mfMsaaColorAttachments field.
+const MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getMFMsaaColorAttachments(void) const
+{
+    return &_mfMsaaColorAttachments;
+}
+
+MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editMFMsaaColorAttachments(void)
+{
+    editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+    return &_mfMsaaColorAttachments;
+}
+
+//! Get the FrameBufferObject::_sfMsaaDepthAttachment field.
+const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFMsaaDepthAttachment(void) const
+{
+    return &_sfMsaaDepthAttachment;
+}
+
+SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFMsaaDepthAttachment(void)
+{
+    editSField(MsaaDepthAttachmentFieldMask);
+
+    return &_sfMsaaDepthAttachment;
+}
+
+//! Get the FrameBufferObject::_sfMsaaStencilAttachment field.
+const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFMsaaStencilAttachment(void) const
+{
+    return &_sfMsaaStencilAttachment;
+}
+
+SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFMsaaStencilAttachment(void)
+{
+    editSField(MsaaStencilAttachmentFieldMask);
+
+    return &_sfMsaaStencilAttachment;
+}
+
 
 
 void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachment * const value)
@@ -544,6 +864,59 @@ void FrameBufferObjectBase::clearColorAttachments(void)
     _mfColorAttachments.clear();
 }
 
+void FrameBufferObjectBase::pushToMsaaColorAttachments(FrameBufferAttachment * const value)
+{
+    editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+    _mfMsaaColorAttachments.push_back(value);
+}
+
+void FrameBufferObjectBase::assignMsaaColorAttachments(const MFUnrecFrameBufferAttachmentPtr &value)
+{
+    MFUnrecFrameBufferAttachmentPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecFrameBufferAttachmentPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<FrameBufferObject *>(this)->clearMsaaColorAttachments();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToMsaaColorAttachments(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+void FrameBufferObjectBase::removeFromMsaaColorAttachments(UInt32 uiIndex)
+{
+    if(uiIndex < _mfMsaaColorAttachments.size())
+    {
+        editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+        _mfMsaaColorAttachments.erase(uiIndex);
+    }
+}
+
+void FrameBufferObjectBase::removeObjFromMsaaColorAttachments(FrameBufferAttachment * const value)
+{
+    Int32 iElemIdx = _mfMsaaColorAttachments.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+        _mfMsaaColorAttachments.erase(iElemIdx);
+    }
+}
+void FrameBufferObjectBase::clearMsaaColorAttachments(void)
+{
+    editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+
+    _mfMsaaColorAttachments.clear();
+}
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -555,6 +928,10 @@ SizeT FrameBufferObjectBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         returnValue += _sfGLId.getBinSize();
+    }
+    if(FieldBits::NoField != (MultiSampleGLIdFieldMask & whichField))
+    {
+        returnValue += _sfMultiSampleGLId.getBinSize();
     }
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
     {
@@ -584,6 +961,34 @@ SizeT FrameBufferObjectBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPostProcessOnDeactivate.getBinSize();
     }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        returnValue += _sfEnableMultiSample.getBinSize();
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        returnValue += _sfColorSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        returnValue += _sfCoverageSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        returnValue += _sfFixedSampleLocation.getBinSize();
+    }
+    if(FieldBits::NoField != (MsaaColorAttachmentsFieldMask & whichField))
+    {
+        returnValue += _mfMsaaColorAttachments.getBinSize();
+    }
+    if(FieldBits::NoField != (MsaaDepthAttachmentFieldMask & whichField))
+    {
+        returnValue += _sfMsaaDepthAttachment.getBinSize();
+    }
+    if(FieldBits::NoField != (MsaaStencilAttachmentFieldMask & whichField))
+    {
+        returnValue += _sfMsaaStencilAttachment.getBinSize();
+    }
 
     return returnValue;
 }
@@ -596,6 +1001,10 @@ void FrameBufferObjectBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MultiSampleGLIdFieldMask & whichField))
+    {
+        _sfMultiSampleGLId.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
     {
@@ -625,6 +1034,34 @@ void FrameBufferObjectBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfPostProcessOnDeactivate.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        _sfEnableMultiSample.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        _sfColorSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        _sfCoverageSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        _sfFixedSampleLocation.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaColorAttachmentsFieldMask & whichField))
+    {
+        _mfMsaaColorAttachments.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaDepthAttachmentFieldMask & whichField))
+    {
+        _sfMsaaDepthAttachment.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaStencilAttachmentFieldMask & whichField))
+    {
+        _sfMsaaStencilAttachment.copyToBin(pMem);
+    }
 }
 
 void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
@@ -636,6 +1073,11 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(GLIdFieldMask);
         _sfGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MultiSampleGLIdFieldMask & whichField))
+    {
+        editSField(MultiSampleGLIdFieldMask);
+        _sfMultiSampleGLId.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
     {
@@ -671,6 +1113,41 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(PostProcessOnDeactivateFieldMask);
         _sfPostProcessOnDeactivate.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        editSField(EnableMultiSampleFieldMask);
+        _sfEnableMultiSample.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        editSField(ColorSamplesFieldMask);
+        _sfColorSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        editSField(CoverageSamplesFieldMask);
+        _sfCoverageSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        editSField(FixedSampleLocationFieldMask);
+        _sfFixedSampleLocation.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaColorAttachmentsFieldMask & whichField))
+    {
+        editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+        _mfMsaaColorAttachments.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaDepthAttachmentFieldMask & whichField))
+    {
+        editSField(MsaaDepthAttachmentFieldMask);
+        _sfMsaaDepthAttachment.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MsaaStencilAttachmentFieldMask & whichField))
+    {
+        editSField(MsaaStencilAttachmentFieldMask);
+        _sfMsaaStencilAttachment.copyFromBin(pMem);
     }
 }
 
@@ -798,26 +1275,42 @@ FieldContainerTransitPtr FrameBufferObjectBase::shallowCopy(void) const
 FrameBufferObjectBase::FrameBufferObjectBase(void) :
     Inherited(),
     _sfGLId                   (GLenum(0)),
+    _sfMultiSampleGLId        (GLenum(0)),
     _mfColorAttachments       (),
     _mfDrawBuffers            (GLenum(0)),
     _sfDepthAttachment        (NULL),
     _sfStencilAttachment      (NULL),
     _sfWidth                  (UInt16(0)),
     _sfHeight                 (UInt16(0)),
-    _sfPostProcessOnDeactivate(bool(false))
+    _sfPostProcessOnDeactivate(bool(false)),
+    _sfEnableMultiSample      (bool(false)),
+    _sfColorSamples           (UInt32(4)),
+    _sfCoverageSamples        (UInt32(4)),
+    _sfFixedSampleLocation    (bool(true)),
+    _mfMsaaColorAttachments   (),
+    _sfMsaaDepthAttachment    (NULL),
+    _sfMsaaStencilAttachment  (NULL)
 {
 }
 
 FrameBufferObjectBase::FrameBufferObjectBase(const FrameBufferObjectBase &source) :
     Inherited(source),
     _sfGLId                   (source._sfGLId                   ),
+    _sfMultiSampleGLId        (source._sfMultiSampleGLId        ),
     _mfColorAttachments       (),
     _mfDrawBuffers            (source._mfDrawBuffers            ),
     _sfDepthAttachment        (NULL),
     _sfStencilAttachment      (NULL),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
-    _sfPostProcessOnDeactivate(source._sfPostProcessOnDeactivate)
+    _sfPostProcessOnDeactivate(source._sfPostProcessOnDeactivate),
+    _sfEnableMultiSample      (source._sfEnableMultiSample      ),
+    _sfColorSamples           (source._sfColorSamples           ),
+    _sfCoverageSamples        (source._sfCoverageSamples        ),
+    _sfFixedSampleLocation    (source._sfFixedSampleLocation    ),
+    _mfMsaaColorAttachments   (),
+    _sfMsaaDepthAttachment    (NULL),
+    _sfMsaaStencilAttachment  (NULL)
 {
 }
 
@@ -851,6 +1344,22 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
         pThis->setDepthAttachment(source->getDepthAttachment());
 
         pThis->setStencilAttachment(source->getStencilAttachment());
+
+        MFUnrecFrameBufferAttachmentPtr::const_iterator MsaaColorAttachmentsIt  =
+            source->_mfMsaaColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator MsaaColorAttachmentsEnd =
+            source->_mfMsaaColorAttachments.end  ();
+
+        while(MsaaColorAttachmentsIt != MsaaColorAttachmentsEnd)
+        {
+            pThis->pushToMsaaColorAttachments(*MsaaColorAttachmentsIt);
+
+            ++MsaaColorAttachmentsIt;
+        }
+
+        pThis->setMsaaDepthAttachment(source->getMsaaDepthAttachment());
+
+        pThis->setMsaaStencilAttachment(source->getMsaaStencilAttachment());
     }
 }
 
@@ -875,6 +1384,31 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandleGLId           (void)
 
 
     editSField(GLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleMultiSampleGLId (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfMultiSampleGLId,
+             this->getType().getFieldDesc(MultiSampleGLIdFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleMultiSampleGLId(void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfMultiSampleGLId,
+             this->getType().getFieldDesc(MultiSampleGLIdFieldId),
+             this));
+
+
+    editSField(MultiSampleGLIdFieldMask);
 
     return returnValue;
 }
@@ -1072,6 +1606,199 @@ EditFieldHandlePtr FrameBufferObjectBase::editHandlePostProcessOnDeactivate(void
     return returnValue;
 }
 
+GetFieldHandlePtr FrameBufferObjectBase::getHandleEnableMultiSample (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleEnableMultiSample(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             this));
+
+
+    editSField(EnableMultiSampleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleColorSamples    (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleColorSamples   (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             this));
+
+
+    editSField(ColorSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleCoverageSamples (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleCoverageSamples(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             this));
+
+
+    editSField(CoverageSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleFixedSampleLocation (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleFixedSampleLocation(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             this));
+
+
+    editSField(FixedSampleLocationFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleMsaaColorAttachments (void) const
+{
+    MFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  MFUnrecFrameBufferAttachmentPtr::GetHandle(
+             &_mfMsaaColorAttachments,
+             this->getType().getFieldDesc(MsaaColorAttachmentsFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleMsaaColorAttachments(void)
+{
+    MFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  MFUnrecFrameBufferAttachmentPtr::EditHandle(
+             &_mfMsaaColorAttachments,
+             this->getType().getFieldDesc(MsaaColorAttachmentsFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&FrameBufferObject::pushToMsaaColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&FrameBufferObject::removeFromMsaaColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&FrameBufferObject::removeObjFromMsaaColorAttachments,
+                    static_cast<FrameBufferObject *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&FrameBufferObject::clearMsaaColorAttachments,
+                    static_cast<FrameBufferObject *>(this)));
+
+    editMField(MsaaColorAttachmentsFieldMask, _mfMsaaColorAttachments);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleMsaaDepthAttachment (void) const
+{
+    SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
+             &_sfMsaaDepthAttachment,
+             this->getType().getFieldDesc(MsaaDepthAttachmentFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleMsaaDepthAttachment(void)
+{
+    SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
+             &_sfMsaaDepthAttachment,
+             this->getType().getFieldDesc(MsaaDepthAttachmentFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&FrameBufferObject::setMsaaDepthAttachment,
+                    static_cast<FrameBufferObject *>(this), _1));
+
+    editSField(MsaaDepthAttachmentFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferObjectBase::getHandleMsaaStencilAttachment (void) const
+{
+    SFUnrecFrameBufferAttachmentPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::GetHandle(
+             &_sfMsaaStencilAttachment,
+             this->getType().getFieldDesc(MsaaStencilAttachmentFieldId),
+             const_cast<FrameBufferObjectBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferObjectBase::editHandleMsaaStencilAttachment(void)
+{
+    SFUnrecFrameBufferAttachmentPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferAttachmentPtr::EditHandle(
+             &_sfMsaaStencilAttachment,
+             this->getType().getFieldDesc(MsaaStencilAttachmentFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&FrameBufferObject::setMsaaStencilAttachment,
+                    static_cast<FrameBufferObject *>(this), _1));
+
+    editSField(MsaaStencilAttachmentFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
@@ -1114,6 +1841,12 @@ void FrameBufferObjectBase::resolveLinks(void)
     static_cast<FrameBufferObject *>(this)->setDepthAttachment(NULL);
 
     static_cast<FrameBufferObject *>(this)->setStencilAttachment(NULL);
+
+    static_cast<FrameBufferObject *>(this)->clearMsaaColorAttachments();
+
+    static_cast<FrameBufferObject *>(this)->setMsaaDepthAttachment(NULL);
+
+    static_cast<FrameBufferObject *>(this)->setMsaaStencilAttachment(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

@@ -54,25 +54,37 @@
 #include "OSGDrawEnv.h"
 #include "OSGGLU.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-UInt32 RenderBuffer::_uiFramebuffer_object_extension =     
+UInt32 RenderBuffer::_uiFramebufferObjectExt             =     
+    Window::invalidExtensionID;
+
+UInt32 RenderBuffer::_uiFramebufferMultiSampleExt        =
+    Window::invalidExtensionID;
+
+UInt32 RenderBuffer::_uiFramebufferMultiSampleCoverageNV =
     Window::invalidExtensionID;
 
 
-UInt32 RenderBuffer::_uiFuncFramebufferRenderbuffer  = 
+UInt32 RenderBuffer::_uiFuncFramebufferRenderbuffer                = 
     Window::invalidFunctionID;
 
-UInt32  RenderBuffer::_uiFuncGenRenderbuffers        =
+UInt32  RenderBuffer::_uiFuncGenRenderbuffers                      =
     Window::invalidFunctionID;
 
-UInt32 RenderBuffer::_uiFuncDeleteRenderbuffers      =
+UInt32 RenderBuffer::_uiFuncDeleteRenderbuffers                    =
     Window::invalidFunctionID;
 
-UInt32 RenderBuffer::_uiFuncBindRenderbuffer         =
+UInt32 RenderBuffer::_uiFuncBindRenderbuffer                       =
     Window::invalidFunctionID;
 
-UInt32 RenderBuffer::_uiFuncRenderbufferStorage      =
+UInt32 RenderBuffer::_uiFuncRenderbufferStorage                    =
+    Window::invalidFunctionID;
+
+UInt32 RenderBuffer::_uiFuncRenderbufferStorageMultiSample         =
+    Window::invalidFunctionID;
+
+UInt32 RenderBuffer::_uiFuncRenderbufferStorageMultiSampleCoverage =
     Window::invalidFunctionID;
 
 // Documentation for this class is emited in the
@@ -131,34 +143,51 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
    if(ePhase == TypeObject::SystemPost)
     {
-        _uiFramebuffer_object_extension = 
+        _uiFramebufferObjectExt         = 
             Window::registerExtension("GL_EXT_framebuffer_object");
+
+        _uiFramebufferMultiSampleExt    =
+            Window::registerExtension("GL_EXT_framebuffer_multisample");
+
+        _uiFramebufferMultiSampleCoverageNV =
+            Window::registerExtension("GL_NV_framebuffer_multisample_coverage");
 
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
 
-        _uiFuncGenRenderbuffers      =
+        _uiFuncGenRenderbuffers         =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glGenRenderbuffersEXT", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
 
         _uiFuncDeleteRenderbuffers      =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glDeleteRenderbuffersEXT", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
 
         _uiFuncRenderbufferStorage      =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glRenderbufferStorageEXT", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
 
 
         _uiFuncBindRenderbuffer         =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glBindRenderbufferEXT", 
-                _uiFramebuffer_object_extension);
+                _uiFramebufferObjectExt);
+
+
+        _uiFuncRenderbufferStorageMultiSample          =
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glRenderbufferStorageMultisampleEXT", 
+                _uiFramebufferMultiSampleExt);
+
+        _uiFuncRenderbufferStorageMultiSampleCoverage  =
+            Window::registerFunction (
+              OSG_DLSYM_UNDERSCORE"glRenderbufferStorageMultisampleCoverageNV", 
+             _uiFramebufferMultiSampleCoverageNV);
     }
 }
 
@@ -198,6 +227,11 @@ void RenderBuffer::resizeBuffers(UInt32 uiWidth, UInt32 uiHeight)
     Inherited::resize(uiWidth, uiHeight);
 
     Window::reinitializeGLObject(getGLId());
+}
+
+GLenum RenderBuffer::getBufferFormat(void) const
+{
+    return _sfInternalFormat.getValue();
 }
 
 UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv, 
@@ -247,10 +281,53 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
             internalFormat = getImage()->getPixelFormat();
         }
 
-        osgGlRenderbufferStorage(GL_RENDERBUFFER_EXT,
-                                 internalFormat,
-                                 getWidth(), 
-                                 getHeight());
+        
+        if(pWindow->hasExtOrVersion(
+               _uiFramebufferMultiSampleCoverageNV, 
+               0x0300                             ) == true &&
+
+           (_sfColorSamples   .getValue() != 0 ||
+            _sfCoverageSamples.getValue() != 0  )             )
+        {
+            OSGGETGLFUNCBYID_EXT(
+                 glRenderbufferStorageMultisampleCoverage,
+                 osgGlRenderbufferStorageMultisampleCoverage,
+                _uiFuncRenderbufferStorageMultiSampleCoverage,
+                 pWindow);
+
+            osgGlRenderbufferStorageMultisampleCoverage(
+                GL_RENDERBUFFER_EXT,
+                _sfCoverageSamples.getValue(),
+                _sfColorSamples   .getValue(),
+                internalFormat,
+                getWidth(), 
+                getHeight());
+        }
+        else if(pWindow->hasExtOrVersion(
+                    _uiFramebufferMultiSampleExt, 
+                     0x0300                     ) == true &&
+
+           (_sfColorSamples   .getValue() != 0)            )
+        {
+            OSGGETGLFUNCBYID_GL3( glRenderbufferStorageMultisample,
+                                  osgGlRenderbufferStorageMultisample,
+                                 _uiFuncRenderbufferStorageMultiSample,
+                                  pWindow                             );
+
+            osgGlRenderbufferStorageMultisample(
+                 GL_RENDERBUFFER_EXT,
+                _sfColorSamples.getValue(),
+                 internalFormat,
+                 getWidth(), 
+                 getHeight()              );
+        }
+        else
+        {
+            osgGlRenderbufferStorage(GL_RENDERBUFFER_EXT,
+                                     internalFormat,
+                                     getWidth(), 
+                                     getHeight());
+        }
     }
 
     return 0;
@@ -332,3 +409,5 @@ void RenderBuffer::processPreDeactivate (DrawEnv *pEnv, UInt32 index)
 void RenderBuffer::processPostDeactivate(DrawEnv *pEnv)
 {
 }
+
+OSG_END_NAMESPACE

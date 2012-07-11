@@ -500,6 +500,50 @@ typedef GLenum (OSG_APIENTRY *osgGlCheckFramebufferStatusProc)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name FrameBufferBlit                                                    */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlBlitFramebufferProc)(GLint      srcX0, 
+                                                      GLint      srcY0, 
+                                                      GLint      srcX1, 
+                                                      GLint      srcY1, 
+                                                      GLint      dstX0, 
+                                                      GLint      dstY0, 
+                                                      GLint      dstX1, 
+                                                      GLint      dstY1, 
+                                                      GLbitfield mask, 
+                                                      GLenum     filter);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name FrameBufferMultiSample                                             */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlRenderbufferStorageMultisampleProc)(
+    GLenum  target, 
+    GLsizei samples, 
+    GLenum  internalformat, 
+    GLsizei width, 
+    GLsizei height        );
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name FrameBufferMultiSampleCoverage                                     */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlRenderbufferStorageMultisampleCoverageProc)(
+    GLenum  target, 
+    GLsizei coverageSamples, 
+    GLsizei colorSamples, 
+    GLenum  internalformat, 
+    GLsizei width, 
+    GLsizei height         );
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name Point Sprites                                                      */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

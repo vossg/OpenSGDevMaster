@@ -1961,6 +1961,8 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_MAX_RENDERBUFFER_SIZE_EXT                        0x84E8
 #define GL_FRAMEBUFFER_BINDING_EXT                          0x8CA6
 #define GL_RENDERBUFFER_BINDING_EXT                         0x8CA7
+#define GL_READ_FRAMEBUFFER                                 0x8CA8
+#define GL_DRAW_FRAMEBUFFER                                 0x8CA9
 #define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE_EXT           0x8CD0
 #define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME_EXT           0x8CD1
 #define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL_EXT         0x8CD2
@@ -2010,12 +2012,34 @@ typedef ptrdiff_t GLsizeiptrARB;
 #define GL_RENDERBUFFER_ALPHA_SIZE_EXT                      0x8D53
 #define GL_RENDERBUFFER_DEPTH_SIZE_EXT                      0x8D54
 #define GL_RENDERBUFFER_STENCIL_SIZE_EXT                    0x8D55
+#define GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE               0x8D56
 #endif
 
 // Hack for SGI Prisms...
  
 #ifdef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
 #define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_framebuffer_blit                                      */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_EXT_framebuffer_blit
+#define GL_READ_FRAMEBUFFER_EXT                0x8CA8
+#define GL_DRAW_FRAMEBUFFER_EXT                0x8CA9
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_framebuffer_multisample                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
+#ifndef GL_EXT_framebuffer_multisample
+#define GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT 0x8D56
 #endif
 
 /*! \}                                                                 */

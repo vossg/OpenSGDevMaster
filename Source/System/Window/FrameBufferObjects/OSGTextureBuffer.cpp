@@ -186,6 +186,25 @@ void TextureBuffer::resizeBuffers(UInt32 uiWidth, UInt32 uiHeight)
               pImg->getSideCount  ());
 }
 
+GLenum TextureBuffer::getBufferFormat(void) const
+{
+    TextureObjChunk *pTex = this->getTexture();
+
+    if(pTex == NULL)
+        return GL_NONE;
+
+    if(pTex->getInternalFormat() != GL_NONE)
+        return pTex->getInternalFormat();
+
+    Image *pImg = pTex->getImage();
+
+    if(pImg == NULL)
+        return GL_NONE;
+
+    return pImg->getPixelFormat();
+}
+
+
 void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
 {
     if(_sfReadBack.getValue() == true)
