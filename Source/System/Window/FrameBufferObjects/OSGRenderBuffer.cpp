@@ -282,12 +282,10 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
         }
 
         
-        if(pWindow->hasExtOrVersion(
-               _uiFramebufferMultiSampleCoverageNV, 
-               0x0300                             ) == true &&
+        if(pWindow->hasExtension(_uiFramebufferMultiSampleCoverageNV) == true &&
 
            (_sfColorSamples   .getValue() != 0 ||
-            _sfCoverageSamples.getValue() != 0  )             )
+            _sfCoverageSamples.getValue() != 0  )                         )
         {
             OSGGETGLFUNCBYID_EXT(
                  glRenderbufferStorageMultisampleCoverage,
