@@ -125,8 +125,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 
     static void initMethod(InitPhase ePhase);
 
-           void onCreateAspect(const FieldContainer *createAspect,
-                               const FieldContainer *source      = NULL);
+           void onCreateAspect(const MaterialDrawable *createAspect,
+                               const MaterialDrawable *source      = NULL);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

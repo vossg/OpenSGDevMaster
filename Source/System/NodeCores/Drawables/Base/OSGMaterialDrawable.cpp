@@ -166,8 +166,8 @@ void MaterialDrawable::initMethod(InitPhase ePhase)
 }
 
 void
-MaterialDrawable::onCreateAspect(const FieldContainer *createAspect,
-                                 const FieldContainer *source       )
+MaterialDrawable::onCreateAspect(const MaterialDrawable *createAspect,
+                                 const MaterialDrawable *source       )
 {
     Inherited::onCreateAspect(createAspect, source);
 

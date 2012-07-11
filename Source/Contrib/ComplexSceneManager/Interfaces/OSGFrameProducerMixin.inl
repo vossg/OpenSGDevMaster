@@ -78,7 +78,7 @@ void FrameProducerMixin<ParentT>::dump(      UInt32    uiIndent,
 
 template <class ParentT> inline
 void FrameProducerMixin<ParentT>::onCreateAspect(
-    const FieldContainer     *createAspect,
+    const FrameProducerMixin *createAspect,
     const FrameProducerMixin *source       )
 {
     Inherited::onCreateAspect(createAspect, source);

@@ -79,7 +79,7 @@ void FrameTaskMixin<ParentT>::dump(      UInt32    uiIndent,
 
 template <class ParentT> inline
 void FrameTaskMixin<ParentT>::onCreateAspect(
-    const FieldContainer *createAspect,
+    const FrameTaskMixin *createAspect,
     const FrameTaskMixin *source          )
 {
     Inherited::onCreateAspect(createAspect, source);
