@@ -1,6 +1,4 @@
 
-#define BOOST_FILESYSTEM_VERSION 2
-
 // Headers
 #include "OSGGLUT.h"
 #include "OSGConfig.h"
@@ -54,7 +52,11 @@ void findModels(std::string dirname)
          if (fs::extension(*itr) == std::string(".osb") ||
              fs::extension(*itr) == std::string(".wrl"))
          {
-            fs::path  complete_file = fs::complete(*itr);
+#if BOOST_FILESYSTEM_VERSION == 3
+            fs::path complete_file = fs::absolute(*itr);
+#else
+            fs::path complete_file = fs::complete(*itr);
+#endif
             std::string filename(complete_file.string());
             std::cout << "Found file: " << filename << std::endl;
             OSG::ModelRequestPtr req = OSG::ModelRequest::create()->init(OSG::NodeRefPtr(gScene.node()), filename);
