@@ -685,7 +685,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
                               GL_STENCIL_BUFFER_BIT), 
                               GL_NEAREST);
 
-        osgGlBindFramebuffer(GL_FRAMEBUFFER, win->getGLObjectId(getGLId()));
+        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, win->getGLObjectId(getGLId()));
     }
 
     if(_sfPostProcessOnDeactivate.getValue() == true)
