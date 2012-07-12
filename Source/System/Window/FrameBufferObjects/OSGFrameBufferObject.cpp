@@ -673,9 +673,9 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 //        GLbitfield bufferMask = GL_COLOR_BUFFER_BIT;
         glDisable(GL_MULTISAMPLE);
 
-        osgGlBindFramebuffer(GL_READ_FRAMEBUFFER, 
+        osgGlBindFramebuffer(GL_READ_FRAMEBUFFER_EXT, 
                              win->getGLObjectId(getMultiSampleGLId()));
-        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER, 
+        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
                              win->getGLObjectId(getGLId           ()));
 
         osgGlBlitFramebuffer(0, 0, getWidth(), getHeight(),

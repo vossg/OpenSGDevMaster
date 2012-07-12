@@ -160,7 +160,7 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
         {
             boost::filesystem::path urlPath(_mfUrl[i]);
 
-            urlExt = urlPath.extension().c_str();
+            urlExt = urlPath.extension().string();
 
             if(urlExt.empty() == false)
             {

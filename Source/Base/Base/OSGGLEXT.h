@@ -2017,7 +2017,7 @@ typedef ptrdiff_t GLsizeiptrARB;
 
 // Hack for SGI Prisms...
  
-#ifdef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
+#ifndef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
 #define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
 #endif
 
@@ -2038,7 +2038,8 @@ typedef ptrdiff_t GLsizeiptrARB;
 /*! \ingroup GrpBaseBaseGLConstants                                    */
 /*! \{                                                                 */
 
-#ifndef GL_EXT_framebuffer_multisample
+#if !defined(GL_EXT_framebuffer_multisample) || \
+    !defined(GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT)
 #define GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT 0x8D56
 #endif
 
