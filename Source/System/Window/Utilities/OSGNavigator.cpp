@@ -698,6 +698,7 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
     toX   = (2.0f * (x - _vp->calcPixelLeft()) - width) / width;
     toY   = (2.0f * (winHeight - y - _vp->calcPixelBottom()) - height) / height;
 
+#if 0
     fprintf(stderr, "%d %d | %f %f | %f %f | %f %f | %f %f\n",
             UInt32(x),
             UInt32(y),
@@ -709,6 +710,7 @@ bool Navigator::calcFromTo(Int16   x,     Int16   y,
             fromY,
             toX,
             toY      );
+#endif
 
     return true;
 }

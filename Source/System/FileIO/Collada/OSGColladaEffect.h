@@ -351,6 +351,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     ParamSampler2DMap _sampler2DParams;
     ParamSurfaceMap   _surfaceParams;
     ParamTextureList  _textures;
+
+    ExtraHandlerStore _extraHandlers;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaEffect);

@@ -87,8 +87,19 @@ class OSG_FILEIO_DLLMAPPING ColladaMayaExtraHandler : public ColladaExtraHandler
     virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
                                             const domExtra        *extra   );
 
+    virtual void readProfileExtraElements  (      ColladaEffect   *effect,
+                                            const domExtra        *extra   );
+
     virtual void readGeometryExtraElements (      ColladaGeometry *geometry,
                                             const domExtra        *extra   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual void instProfileExtraElements  (      ColladaEffect   *effect,
+                                                  Material        *pMat  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

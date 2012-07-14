@@ -48,7 +48,6 @@
 #include "OSGColladaInstanceMaterial.h"
 #include "OSGColladaInstInfo.h"
 #include "OSGColladaSource.h"
-#include "OSGColladaExtraHandler.h"
 #include "OSGNode.h"
 #include "OSGGeometry.h"
 #include "OSGGeoVectorProperty.h"
@@ -247,10 +246,6 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef std::vector<GeoInfo                    > GeoStore;
     typedef GeoStore::iterator                       GeoStoreIt;
     typedef GeoStore::const_iterator                 GeoStoreConstIt;
-
-    typedef std::vector<ColladaExtraHandlerRefPtr >  ExtraHandlerStore;
-    typedef ExtraHandlerStore::iterator              ExtraHandlerStoreIt;
-    typedef ExtraHandlerStore::const_iterator        ExtraHandlerStoreConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

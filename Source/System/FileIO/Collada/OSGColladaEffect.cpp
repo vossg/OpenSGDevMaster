@@ -185,9 +185,19 @@ void ColladaEffect::read(ColladaElement *colElemParent)
 
     for(UInt32 i = 0; i < profiles.getCount(); ++i)
     {
+        const domExtra_Array *pProfileExtras = NULL;
+
         if(domProfile_COMMON::ID() == profiles[i]->typeID())
         {
-            readProfileCommon(daeSafeCast<domProfile_COMMON>(profiles[i]));
+            domProfile_COMMON *pProfile = 
+                daeSafeCast<domProfile_COMMON>(profiles[i]);
+
+            if(pProfile != NULL)
+            {
+                readProfileCommon(pProfile);
+
+                pProfileExtras = &(pProfile->getExtra_array());
+            }
         }
         else if(domProfile_GLSL::ID() == profiles[i]->typeID())
         {
@@ -195,13 +205,21 @@ void ColladaEffect::read(ColladaElement *colElemParent)
                 ColladaHandlerFactory::the()->createDomProfileHandler(
                     domProfile_GLSL::ID());
 
-            if(pDomProfHandler != NULL)
+            domProfile_GLSL *pProfile = 
+                daeSafeCast<domProfile_GLSL>(profiles[i]);
+
+            if(pProfile != NULL)
             {
-                pDomProfHandler->readProfile(profiles[i]);
-            }
-            else
-            {
-                readProfileGLSL(daeSafeCast<domProfile_GLSL>(profiles[i]));
+                if(pDomProfHandler != NULL)
+                {
+                    pDomProfHandler->readProfile(pProfile);
+                }
+                else
+                {
+                    readProfileGLSL(pProfile);
+                }
+
+                pProfileExtras = &(pProfile->getExtra_array());
             }
         }
         else if(domProfile_CG::ID() == profiles[i]->typeID())
@@ -210,13 +228,34 @@ void ColladaEffect::read(ColladaElement *colElemParent)
                 ColladaHandlerFactory::the()->createDomProfileHandler(
                     domProfile_CG::ID());
 
-            if(pDomProfHandler != NULL)
+            domProfile_CG *pProfile = daeSafeCast<domProfile_CG>(profiles[i]);
+    
+            if(pProfile != NULL)
             {
-                pDomProfHandler->readProfile(profiles[i]);
+                if(pDomProfHandler != NULL)
+                {
+                    pDomProfHandler->readProfile(pProfile);
+                }
+                else
+                {
+                    readProfileCG(pProfile);
+                }
+
+                pProfileExtras = &(pProfile->getExtra_array());
             }
-            else
+        }
+
+        if(_extraHandlers.size() == 0)
+            continue;
+
+        for(UInt32 i = 0; i < pProfileExtras->getCount(); ++i)
+        {
+            ExtraHandlerStoreIt      ehIt  = _extraHandlers.begin();
+            ExtraHandlerStoreConstIt ehEnd = _extraHandlers.end  ();
+    
+            for(; ehIt != ehEnd; ++ehIt)
             {
-                readProfileCG(daeSafeCast<domProfile_CG>(profiles[i]));
+                (*ehIt)->readProfileExtraElements(this, (*pProfileExtras)[i]);
             }
         }
     }
@@ -242,11 +281,21 @@ Material *ColladaEffect::createInstance(ColladaInstInfo *colInstInfo)
 
     for(UInt32 i = 0; i < profiles.getCount(); ++i)
     {
+        const domExtra_Array *pProfileExtras = NULL;
+
         if(domProfile_COMMON::ID() == profiles[i]->typeID())
         {
-            retVal = createInstanceProfileCommon(
-                daeSafeCast<domProfile_COMMON>(profiles[i]),
-                effect, instEffect);
+            domProfile_COMMON *pProfile = 
+                daeSafeCast<domProfile_COMMON>(profiles[i]);
+
+            if(pProfile != NULL)
+            {
+                retVal = createInstanceProfileCommon(pProfile,
+                                                     effect, 
+                                                     instEffect);
+
+                pProfileExtras = &(pProfile->getExtra_array());
+            }
         }
         else if(domProfile_GLSL::ID() == profiles[i]->typeID())
         {
@@ -254,17 +303,25 @@ Material *ColladaEffect::createInstance(ColladaInstInfo *colInstInfo)
                 ColladaHandlerFactory::the()->createDomProfileHandler(
                     domProfile_GLSL::ID());
 
-            if(pDomProfHandler != NULL)
+            domProfile_GLSL *pProfile = 
+                daeSafeCast<domProfile_GLSL>(profiles[i]);
+
+            if(pProfile != NULL)
             {
-                pDomProfHandler->createInstProfile(profiles[i],
-                                                   effect,
-                                                   instEffect );
-            }
-            else
-            {
-                retVal = createInstanceProfileGLSL(
-                    daeSafeCast<domProfile_GLSL>(profiles[i]),
-                    effect, instEffect);
+                if(pDomProfHandler != NULL)
+                {
+                    pDomProfHandler->createInstProfile(pProfile,
+                                                       effect,
+                                                       instEffect );
+                }
+                else
+                {
+                    retVal = createInstanceProfileGLSL(pProfile,
+                                                       effect, 
+                                                       instEffect);
+                }
+
+                pProfileExtras = &(pProfile->getExtra_array());
             }
         }
         else if(domProfile_CG::ID() == profiles[i]->typeID())
@@ -273,18 +330,37 @@ Material *ColladaEffect::createInstance(ColladaInstInfo *colInstInfo)
                 ColladaHandlerFactory::the()->createDomProfileHandler(
                     domProfile_CG::ID());
 
-            if(pDomProfHandler != NULL)
+            domProfile_CG *pProfile = daeSafeCast<domProfile_CG>(profiles[i]);
+
+            if(pProfile != NULL)
             {
-                pDomProfHandler->createInstProfile(profiles[i],
-                                                   effect,
-                                                   instEffect );
+                if(pDomProfHandler != NULL)
+                {
+                    pDomProfHandler->createInstProfile(pProfile,
+                                                       effect,
+                                                       instEffect );
+                }
+                else
+                {
+                    retVal = createInstanceProfileCG(pProfile,
+                                                     effect, 
+                                                     instEffect);
+                }
+
+                pProfileExtras = &(pProfile->getExtra_array());
             }
-            else
-            {
-                retVal = createInstanceProfileCG(
-                    daeSafeCast<domProfile_CG>(profiles[i]),
-                    effect, instEffect);
-            }
+        }
+
+        if(_extraHandlers.size() == 0 || pProfileExtras->getCount() == 0)
+            continue;
+
+        ExtraHandlerStoreIt      ehIt  = _extraHandlers.begin();
+        ExtraHandlerStoreConstIt ehEnd = _extraHandlers.end  ();
+    
+        for(; ehIt != ehEnd; ++ehIt)
+        {
+            (*ehIt)->instProfileExtraElements(this, 
+                                              retVal);
         }
     }
 
@@ -359,9 +435,12 @@ ColladaEffect::ColladaEffect(daeElement    *elem,
                      global),
     _sampler2DParams(      ),
     _surfaceParams  (      ),
-    _textures       (      )
+    _textures       (      ),
+    _extraHandlers  (      )
 {
     _textures.resize(ColladaEffect::LastTexture);
+
+    ColladaHandlerFactory::the()->createExtraHandlers(_extraHandlers);
 }
 
 ColladaEffect::~ColladaEffect(void)
@@ -557,6 +636,21 @@ void ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
                           TransparentTexture);
     }
 
+    const domExtra_Array &techniqueExtras = tech->getExtra_array();
+
+    if(_extraHandlers.size() == 0)
+        return;
+
+    for(UInt32 i = 0; i < techniqueExtras.getCount(); ++i)
+    {
+        ExtraHandlerStoreIt      ehIt  = _extraHandlers.begin();
+        ExtraHandlerStoreConstIt ehEnd = _extraHandlers.end  ();
+    
+        for(; ehIt != ehEnd; ++ehIt)
+        {
+            (*ehIt)->readTechniqueExtraElements(this, techniqueExtras[i]);
+        }
+    }
 }
 
 void ColladaEffect::readTextureParams(

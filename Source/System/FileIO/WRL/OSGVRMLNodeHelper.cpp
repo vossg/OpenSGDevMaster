@@ -81,7 +81,7 @@
 #define OSG_LOG_MODULE "VRMLLoader"
 #endif
 
-#define OSG_DEBUG_VRML
+//#define OSG_DEBUG_VRML
 
 #ifndef OSG_DO_DOC
 #    ifdef OSG_DEBUG_VRML

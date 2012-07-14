@@ -192,17 +192,20 @@ void GraphOpSeq::setGraphOps(const std::string &params)
         }
         else
         {
-            std::string goparams;
-            extractStr(command, pos, ")", goparams);            
-            FDEBUG(("GraphOpSeq::setGraphOps: goparams: %s\n", goparams.c_str()));
-            go->setParams(goparams);
-            std::list<std::string>::iterator it=_excludeNames.begin();
-            for (; it!=_excludeNames.end(); ++it)
+            if(pos < command.length())
             {
-                go->addToExcludeList(*it);
-                FDEBUG(("GraphOpSeq::setGraphOps: Added to op: %s\n",(*it).c_str()));
+                std::string goparams;
+                extractStr(command, pos, ")", goparams);            
+                FDEBUG(("GraphOpSeq::setGraphOps: goparams: %s\n", goparams.c_str()));
+                go->setParams(goparams);
+                std::list<std::string>::iterator it=_excludeNames.begin();
+                for (; it!=_excludeNames.end(); ++it)
+                {
+                    go->addToExcludeList(*it);
+                    FDEBUG(("GraphOpSeq::setGraphOps: Added to op: %s\n",(*it).c_str()));
+                }
             }
-            
+
             _graphOperators.push_back(go);
         }
     }

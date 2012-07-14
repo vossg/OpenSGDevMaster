@@ -45,7 +45,6 @@
 
 #include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
-#include "OSGColladaExtraHandler.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGTextureTransformChunk.h"
@@ -122,10 +121,6 @@ class OSG_FILEIO_DLLMAPPING ColladaTexture : public ColladaElement
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    typedef std::vector<ColladaExtraHandlerRefPtr> ExtraHandlerStore;
-    typedef ExtraHandlerStore::iterator            ExtraHandlerStoreIt;
-    typedef ExtraHandlerStore::const_iterator      ExtraHandlerStoreConstIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */

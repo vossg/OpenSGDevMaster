@@ -51,6 +51,7 @@
 #include "OSGContainerForwards.h"
 #include "OSGRefCountPtr.h"
 #include "OSGTransitPtr.h"
+#include "OSGColladaExtraHandler.h"
 
 // collada dom includes
 #include <dae.h>
@@ -106,6 +107,11 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
+
+    typedef std::vector<ColladaExtraHandlerRefPtr> ExtraHandlerStore;
+    typedef ExtraHandlerStore::iterator            ExtraHandlerStoreIt;
+    typedef ExtraHandlerStore::const_iterator      ExtraHandlerStoreConstIt;
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */

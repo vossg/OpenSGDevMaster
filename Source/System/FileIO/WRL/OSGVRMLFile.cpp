@@ -69,7 +69,7 @@
 
 #include "OSGSceneFileHandler.h"
 
-#define OSG_DEBUG_VRML
+//#define OSG_DEBUG_VRML
 
 OSG_BEGIN_NAMESPACE
 

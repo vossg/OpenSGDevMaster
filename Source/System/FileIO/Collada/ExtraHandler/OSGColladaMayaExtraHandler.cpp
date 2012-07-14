@@ -336,6 +336,12 @@ void ColladaMayaExtraHandler::readTechniqueExtraElements(
 {
 }
 
+void ColladaMayaExtraHandler::readProfileExtraElements(
+          ColladaEffect *effect,
+    const domExtra      *extra )
+{
+}
+
 void ColladaMayaExtraHandler::readGeometryExtraElements(
           ColladaGeometry *geometry,
     const domExtra        *extra   )
@@ -381,6 +387,12 @@ void ColladaMayaExtraHandler::readGeometryExtraElements(
         }
     }
 }
+
+void ColladaMayaExtraHandler::instProfileExtraElements(ColladaEffect *effect,
+                                                       Material      *pMat  )
+{
+}
+
 
 ColladaMayaExtraHandler::ColladaMayaExtraHandler(void) :
     Inherited()

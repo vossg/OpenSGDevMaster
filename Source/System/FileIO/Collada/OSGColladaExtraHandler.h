@@ -58,6 +58,7 @@ OSG_BEGIN_NAMESPACE
 class ColladaGeometry;
 class ColladaTexture;
 class ColladaEffect;
+class Material;
 
 // forward declarations
 //class ColladaGlobal;
@@ -92,12 +93,23 @@ class OSG_FILEIO_DLLMAPPING ColladaExtraHandler : public MemoryObject
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
+    virtual void readProfileExtraElements  (      ColladaEffect   *effect,
+                                            const domExtra        *extra ) = 0;
+
     virtual void readTechniqueExtraElements(      ColladaEffect   *effect,
                                             const domExtra        *extra ) = 0;
 
 
-    virtual void readGeometryExtraElements (      ColladaGeometry *effect,
+    virtual void readGeometryExtraElements (      ColladaGeometry *geo,
                                             const domExtra        *extra ) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual void instProfileExtraElements  (      ColladaEffect   *effect,
+                                                  Material        *pMat  ) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
