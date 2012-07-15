@@ -159,8 +159,7 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
         if(_mfOptions.size() != 0)
         {
             boost::filesystem::path urlPath(_mfUrl[i]);
-
-            urlExt = urlPath.extension().string();
+            urlExt = OSGBP2STR(urlPath.extension());
 
             if(urlExt.empty() == false)
             {
