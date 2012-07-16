@@ -338,8 +338,10 @@ NodeTransitPtr OFFSceneFileType::read(      std::istream &is,
 
             if(fN == i)
             {
-                n += vN = UInt32(faceVec[j].size());
-                for(k = vN - 1; k >= 0; k--)
+                vN  = UInt32(faceVec[j].size());
+                n  += vN;
+
+                for(k = 0; k < vN; ++k)
                 {
                     index->editFieldPtr()->push_back(faceVec[j][k]);
                 }
@@ -366,7 +368,7 @@ NodeTransitPtr OFFSceneFileType::read(      std::istream &is,
                     pType = 0;
                     break;
             }
-            
+
             if(pType)
             {
                 lens->push_back(n);
