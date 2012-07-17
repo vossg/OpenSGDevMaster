@@ -1367,6 +1367,8 @@ IF(OSGBUILD_PYTHON_BINDINGS)
     OSG_SYMLINK_CHECKED(${_OSG_SRC_PYPATH_HELPERS}/__init__.py
                         ${_OSG_DST_PYPATH_HELPERS}/__init__.py)
 
+    SET(OSG_PYTHON_COMMON_INCDIR "${CMAKE_SOURCE_DIR}/Bindings/Python/Common" CACHE PATH "" FORCE)
+
     ADD_CUSTOM_TARGET(OSGPy)
     IF(OSG_CAN_REGEN_PYTHON_BINDINGS)
       ADD_CUSTOM_TARGET(OSGPyGen)
@@ -1374,6 +1376,14 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 #    ADD_CUSTOM_TARGET(OSGPyBuild)
 
 ENDIF(OSGBUILD_PYTHON_BINDINGS)
+
+# Neverthless install bindings common headers
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/PreBoostPython.h"
+              "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/OsgPtrHelpers.h"
+              "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/pypp_aliases.h"
+        DESTINATION include/OpenSG/Bindings/Python/Common                 )
+
+
 
 #################
 # Documentation I
@@ -1825,18 +1835,23 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
                   OUTPUT_VARIABLE _OSG_LIBORDER)
 
+
+                 
+  SET(_OSG_PY_MODNAME_LIST "osg2ModuleNameList = [\n")
   SET(_OSG_PY_MOD_LIST "osg2ModuleList = [\n")
 
   FOREACH(_OSG_LIB ${_OSG_LIBORDER})
     STRING(REPLACE "\n" "" _OSG_LIB ${_OSG_LIB})
     SET(OSG_PYTHON_ALL_IMPORTS "${OSG_PYTHON_ALL_IMPORTS}from ..${_OSG_LIB} import *\n")
     SET(_OSG_PY_MOD_LIST "${_OSG_PY_MOD_LIST}  ${_OSG_LIB}Py,\n")
+    SET(_OSG_PY_MODNAME_LIST "${_OSG_PY_MODNAME_LIST}  \"${_OSG_LIB}\",\n")
   ENDFOREACH()
 
-  SET(OSG_PYTHON_ALL_IMPORTS "${OSG_PYTHON_ALL_IMPORTS}\n\n${_OSG_PY_MOD_LIST}  ]\n\n")
+  SET(OSG_PYTHON_ALL_IMPORTS "${_OSG_PY_MODNAME_LIST}  ]\n\n${OSG_PYTHON_ALL_IMPORTS}\n\n${_OSG_PY_MOD_LIST}  ]\n\n")
 
   SET(_OSG_GEN_INIT_FILE_IN  "${CMAKE_SOURCE_DIR}/Bindings/Python/osg.__init__.py.in")
   SET(_OSG_GEN_INIT_FILE_OUT "${CMAKE_SOURCE_DIR}/Bindings/Python/module/__init__.py")
+
 
   CONFIGURE_FILE("${_OSG_GEN_INIT_FILE_IN}"
                  "${_OSG_GEN_INIT_FILE_OUT}")
@@ -1855,16 +1870,16 @@ IF(OSGBUILD_PYTHON_BINDINGS)
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}/osg
             CONFIGURATIONS Release)
 
-    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_D}/osg
-              CONFIGURATIONS Debug)
+    INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/osg
+            CONFIGURATIONS Debug)
 
-    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_DO}/osg
+    INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/osg
             CONFIGURATIONS DebugOpt)
 
-    INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-            DESTINATION ${_OSG_TARGET_PYLIBDIR_RN}/osg
+    INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
+            DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/osg
             CONFIGURATIONS ReleaseNoOpt)
 
 

@@ -31,8 +31,23 @@ try:
 except:
    pass
 
+import glob, os
+
+osgPythonModules = glob.glob(os.path.dirname(__file__) + "/../OSG*")
+
 # Import everything from the opensg module
 ${OSG_PYTHON_ALL_IMPORTS}
+
+for osg2ModuleFP in osgPythonModules:
+  
+  osg2Module = os.path.basename(osg2ModuleFP)
+  
+  if osg2ModuleNameList.count(osg2Module) == 0:
+
+    exec("from .. " + osg2Module + " import *")
+
+    osg2ModuleList.append(sys.modules["osg2." + osg2Module + "." + osg2Module + "Py"])
+    osg2ModuleNameList.append(osg2Module)
 
 if original_dlopen_flags:
    sys.setdlopenflags(original_dlopen_flags)
