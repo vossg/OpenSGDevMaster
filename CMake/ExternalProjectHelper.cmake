@@ -50,6 +50,10 @@ MACRO(OSG_INIT)
         FORCE)
   ENDIF(NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
 
+  # Disable boost cmake config, as it screws up OpenSG's boost config
+
+  SET(Boost_NO_BOOST_CMAKE TRUE CACHE INTERNAL "" FORCE)
+
   INCLUDE(OpenSGExtDep)
 
   #############

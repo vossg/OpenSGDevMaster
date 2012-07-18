@@ -8,7 +8,7 @@ IF(APPLE AND IOS)
 ENDIF()
 INCLUDE(OpenSGVersion)
 
-# Diable boost cmake config, as it screws up OpenSG's boost config
+# Disable boost cmake config, as it screws up OpenSG's boost config
 
 SET(Boost_NO_BOOST_CMAKE TRUE CACHE INTERNAL "" FORCE)
 
