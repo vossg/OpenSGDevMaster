@@ -507,9 +507,55 @@ CSMViewport::ViewportStoreConstIt CSMViewport::endViewports(void) const
     return _vViewports.end();
 }
 
+Viewport *CSMViewport::getViewport(UInt32 uiIndex) const
+{
+    if(uiIndex < _vViewports.size())
+        return _vViewports[uiIndex];
+
+    return NULL;
+}
+
 bool CSMViewport::needsStereoVisual(void)
 {
     return _sfStereoMode.getValue() == "quadBuffer";
+}
+
+bool CSMViewport::pointInside(Real32 x, Real32 y) const
+{
+    if(_vViewports.size() == 0)
+        return false;
+
+    Viewport *pPort = _vViewports[0];
+
+    if(pPort == NULL)
+        return false;
+
+    if(x >= pPort->calcPixelLeft  () &&
+       x <= pPort->calcPixelRight () &&
+       y >= pPort->calcPixelBottom() &&
+       y <= pPort->calcPixelTop   ()  )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+Vec2f CSMViewport::translateWindowViewportAbs(Real32 rX,
+                                              Real32 rY) const
+{
+    Viewport *pViewport = this->getViewport(0);
+
+    if(pViewport != NULL)
+    {
+        return Vec2f(rX - pViewport->calcPixelLeft  (),
+                     rY - pViewport->calcPixelBottom());
+    }
+    else
+    {
+        return Vec2f(rX, rY);
+    }
+
 }
 
 OSG_END_NAMESPACE

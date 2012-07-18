@@ -49,6 +49,15 @@
       >
   </Field>
   <Field
+      name="MTouchDataWC"
+      type="MTouchData"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      >
+    MTouchData in local window coordinates
+  </Field>
+  <Field
       name="GestureData"
       type="GestureData"
       cardinality="single"

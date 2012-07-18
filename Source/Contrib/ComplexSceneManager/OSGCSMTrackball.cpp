@@ -237,8 +237,22 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                     }
                     else
                     {
-                        Real32 w = mData.getWindow()->getWidth ();
-                        Real32 h = mData.getWindow()->getHeight();
+//                        Real32 w = mData.getWindow()->getWidth ();
+//                        Real32 h = mData.getWindow()->getHeight();
+
+                        Real32 w = 0.f;
+                        Real32 h = 0.f; 
+
+                        if(mData.getViewport() != NULL)
+                        {
+                            w = mData.getViewport()->calcPixelWidth ();
+                            h = mData.getViewport()->calcPixelHeight();
+                        }
+                        else
+                        {
+                            w = mData.getWindow()->getWidth ();
+                            h = mData.getWindow()->getHeight();
+                        }
 
                         Real32 x = mData.getX();
                         Real32 y = mData.getY();

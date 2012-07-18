@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGNodeFields.h"              // Root type
 #include "OSGCameraFields.h"            // Camera type
@@ -73,6 +73,8 @@
 #include "OSGSysFields.h"               // TravMask type
 #include "OSGRenderOptionsFields.h"     // RenderOptions type
 #include "OSGBaseFields.h"              // StereoMode type
+#include "OSGMouseDataFields.h"         // MouseDataVC type
+#include "OSGMTouchDataFields.h"        // MTouchDataVC type
 
 #include "OSGCSMViewportFields.h"
 
@@ -83,12 +85,12 @@ class CSMViewport;
 
 //! \brief CSMViewport Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public AttachmentContainer
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -112,7 +114,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         StereoModeFieldId = RenderOptionsFieldId + 1,
         PassiveFieldId = StereoModeFieldId + 1,
         ServerIdFieldId = PassiveFieldId + 1,
-        NextFieldId = ServerIdFieldId + 1
+        MouseDataVCFieldId = ServerIdFieldId + 1,
+        MTouchDataVCFieldId = MouseDataVCFieldId + 1,
+        NextFieldId = MTouchDataVCFieldId + 1
     };
 
     static const OSG::BitVector RootFieldMask =
@@ -137,6 +141,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
         (TypeTraits<BitVector>::One << PassiveFieldId);
     static const OSG::BitVector ServerIdFieldMask =
         (TypeTraits<BitVector>::One << ServerIdFieldId);
+    static const OSG::BitVector MouseDataVCFieldMask =
+        (TypeTraits<BitVector>::One << MouseDataVCFieldId);
+    static const OSG::BitVector MTouchDataVCFieldMask =
+        (TypeTraits<BitVector>::One << MTouchDataVCFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -151,6 +159,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     typedef SFString          SFStereoModeType;
     typedef SFBool            SFPassiveType;
     typedef SFInt32           SFServerIdType;
+    typedef SFMouseData       SFMouseDataVCType;
+    typedef SFMTouchData      SFMTouchDataVCType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -204,6 +214,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                   SFInt32             *editSFServerId       (void);
             const SFInt32             *getSFServerId        (void) const;
 
+                  SFMouseData         *editSFMouseDataVC    (void);
+            const SFMouseData         *getSFMouseDataVC     (void) const;
+
+                  SFMTouchData        *editSFMTouchDataVC   (void);
+            const SFMTouchData        *getSFMTouchDataVC    (void) const;
+
 
                   Node * getRoot           (void) const;
 
@@ -233,6 +249,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                   Int32               &editServerId       (void);
                   Int32                getServerId        (void) const;
 
+                  MouseData           &editMouseDataVC    (void);
+            const MouseData           &getMouseDataVC     (void) const;
+
+                  MTouchData          &editMTouchDataVC   (void);
+            const MTouchData          &getMTouchDataVC    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -248,6 +270,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
             void setStereoMode     (const std::string &value);
             void setPassive        (const bool value);
             void setServerId       (const Int32 value);
+            void setMouseDataVC    (const MouseData &value);
+            void setMTouchDataVC   (const MTouchData &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -329,6 +353,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     SFString          _sfStereoMode;
     SFBool            _sfPassive;
     SFInt32           _sfServerId;
+    SFMouseData       _sfMouseDataVC;
+    SFMTouchData      _sfMTouchDataVC;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -379,6 +405,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     EditFieldHandlePtr editHandlePassive        (void);
     GetFieldHandlePtr  getHandleServerId        (void) const;
     EditFieldHandlePtr editHandleServerId       (void);
+    GetFieldHandlePtr  getHandleMouseDataVC     (void) const;
+    EditFieldHandlePtr editHandleMouseDataVC    (void);
+    GetFieldHandlePtr  getHandleMTouchDataVC    (void) const;
+    EditFieldHandlePtr editHandleMTouchDataVC   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

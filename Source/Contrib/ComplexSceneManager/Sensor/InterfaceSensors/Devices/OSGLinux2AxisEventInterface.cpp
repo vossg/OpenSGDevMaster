@@ -278,10 +278,10 @@ void Linux2AxisEventInterface::getRawData(void)
                 }
                 else
                 {
-                    tmpElem.setData(rX, 
-                                    rY,
-                                    NULL,
-                                    MouseData::RelValues);
+                    tmpElem.updateData(rX, 
+                                       rY,
+                                       NULL,
+                                       MouseData::RelValues);
                 }
                 
                 _cbMouseData.push_back(tmpElem);

@@ -92,8 +92,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    ViewportStoreConstIt beginViewports(void) const;
-    ViewportStoreConstIt endViewports  (void) const;
+    ViewportStoreConstIt  beginViewports(void          ) const;
+    ViewportStoreConstIt  endViewports  (void          ) const;
+    Viewport             *getViewport   (UInt32 uiIndex) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,6 +102,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
     /*! \{                                                                 */
 
     bool needsStereoVisual(void);
+    bool pointInside      (Real32 x, Real32 y) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    Vec2f translateWindowViewportAbs(Real32 rX,
+                                     Real32 rY) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

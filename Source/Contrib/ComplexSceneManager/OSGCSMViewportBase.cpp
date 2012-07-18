@@ -131,6 +131,14 @@ OSG_BEGIN_NAMESPACE
     viewport
 */
 
+/*! \var MouseData       CSMViewportBase::_sfMouseDataVC
+    MTouchData in local viewport coordinates
+*/
+
+/*! \var MTouchData      CSMViewportBase::_sfMTouchDataVC
+    MTouchData in local viewport coordinates
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -139,7 +147,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<CSMViewport *, nsOSG>::_type(
     "CSMViewportPtr", 
-    "FieldContainerPtr", 
+    "AttachmentContainerPtr", 
     CSMViewport::getClassType(),
     nsOSG);
 #endif
@@ -295,6 +303,30 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleServerId));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFMouseData::Description(
+        SFMouseData::getClassType(),
+        "mouseDataVC",
+        "MTouchData in local viewport coordinates\n",
+        MouseDataVCFieldId, MouseDataVCFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleMouseDataVC),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleMouseDataVC));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFMTouchData::Description(
+        SFMTouchData::getClassType(),
+        "MTouchDataVC",
+        "MTouchData in local viewport coordinates\n",
+        MTouchDataVCFieldId, MTouchDataVCFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleMTouchDataVC),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleMTouchDataVC));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -313,7 +345,7 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"CSMViewport\"\n"
-    "   parent=\"FieldContainer\"\n"
+    "   parent=\"AttachmentContainer\"\n"
     "   library=\"ContribCSM\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
@@ -426,6 +458,25 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "     >\n"
     "    If not -1 used by the cluster multi window to compute the corresponding\n"
     "    viewport\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"mouseDataVC\"\n"
+    "      type=\"MouseData\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    MTouchData in local viewport coordinates\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"MTouchDataVC\"\n"
+    "      type=\"MTouchData\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    MTouchData in local viewport coordinates\n"
     "  </Field>\n"
     "\n"
     "</FieldContainer>\n",
@@ -595,6 +646,32 @@ const SFInt32 *CSMViewportBase::getSFServerId(void) const
 }
 
 
+SFMouseData *CSMViewportBase::editSFMouseDataVC(void)
+{
+    editSField(MouseDataVCFieldMask);
+
+    return &_sfMouseDataVC;
+}
+
+const SFMouseData *CSMViewportBase::getSFMouseDataVC(void) const
+{
+    return &_sfMouseDataVC;
+}
+
+
+SFMTouchData *CSMViewportBase::editSFMTouchDataVC(void)
+{
+    editSField(MTouchDataVCFieldMask);
+
+    return &_sfMTouchDataVC;
+}
+
+const SFMTouchData *CSMViewportBase::getSFMTouchDataVC(void) const
+{
+    return &_sfMTouchDataVC;
+}
+
+
 
 
 void CSMViewportBase::pushToForegrounds(Foreground * const value)
@@ -702,6 +779,14 @@ SizeT CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfServerId.getBinSize();
     }
+    if(FieldBits::NoField != (MouseDataVCFieldMask & whichField))
+    {
+        returnValue += _sfMouseDataVC.getBinSize();
+    }
+    if(FieldBits::NoField != (MTouchDataVCFieldMask & whichField))
+    {
+        returnValue += _sfMTouchDataVC.getBinSize();
+    }
 
     return returnValue;
 }
@@ -754,6 +839,14 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ServerIdFieldMask & whichField))
     {
         _sfServerId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MouseDataVCFieldMask & whichField))
+    {
+        _sfMouseDataVC.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MTouchDataVCFieldMask & whichField))
+    {
+        _sfMTouchDataVC.copyToBin(pMem);
     }
 }
 
@@ -816,6 +909,16 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ServerIdFieldMask);
         _sfServerId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MouseDataVCFieldMask & whichField))
+    {
+        editSField(MouseDataVCFieldMask);
+        _sfMouseDataVC.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MTouchDataVCFieldMask & whichField))
+    {
+        editSField(MTouchDataVCFieldMask);
+        _sfMTouchDataVC.copyFromBin(pMem);
     }
 }
 
@@ -925,7 +1028,9 @@ CSMViewportBase::CSMViewportBase(void) :
     _sfRenderOptions          (NULL),
     _sfStereoMode             (std::string("none")),
     _sfPassive                (bool(false)),
-    _sfServerId               (Int32(-1))
+    _sfServerId               (Int32(-1)),
+    _sfMouseDataVC            (),
+    _sfMTouchDataVC           ()
 {
 }
 
@@ -941,7 +1046,9 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _sfRenderOptions          (NULL),
     _sfStereoMode             (source._sfStereoMode             ),
     _sfPassive                (source._sfPassive                ),
-    _sfServerId               (source._sfServerId               )
+    _sfServerId               (source._sfServerId               ),
+    _sfMouseDataVC            (source._sfMouseDataVC            ),
+    _sfMTouchDataVC           (source._sfMTouchDataVC           )
 {
 }
 
@@ -1277,6 +1384,56 @@ EditFieldHandlePtr CSMViewportBase::editHandleServerId       (void)
 
 
     editSField(ServerIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleMouseDataVC     (void) const
+{
+    SFMouseData::GetHandlePtr returnValue(
+        new  SFMouseData::GetHandle(
+             &_sfMouseDataVC,
+             this->getType().getFieldDesc(MouseDataVCFieldId),
+             const_cast<CSMViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleMouseDataVC    (void)
+{
+    SFMouseData::EditHandlePtr returnValue(
+        new  SFMouseData::EditHandle(
+             &_sfMouseDataVC,
+             this->getType().getFieldDesc(MouseDataVCFieldId),
+             this));
+
+
+    editSField(MouseDataVCFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleMTouchDataVC    (void) const
+{
+    SFMTouchData::GetHandlePtr returnValue(
+        new  SFMTouchData::GetHandle(
+             &_sfMTouchDataVC,
+             this->getType().getFieldDesc(MTouchDataVCFieldId),
+             const_cast<CSMViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleMTouchDataVC   (void)
+{
+    SFMTouchData::EditHandlePtr returnValue(
+        new  SFMTouchData::EditHandle(
+             &_sfMTouchDataVC,
+             this->getType().getFieldDesc(MTouchDataVCFieldId),
+             this));
+
+
+    editSField(MTouchDataVCFieldMask);
 
     return returnValue;
 }

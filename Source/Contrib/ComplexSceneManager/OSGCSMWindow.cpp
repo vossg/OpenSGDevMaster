@@ -243,8 +243,9 @@ void CSMWindow::motion(Int32 x,
     }
     else
     {
-        editMouseData().setData(x, y, _pWindow);
+        editMouseData().updateData(x, y, _pWindow);
     }
+
 }
 
 void CSMWindow::addMTouchCursor(Int32  iCursorId,
@@ -313,7 +314,113 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
         _sfGestureData.getValue().setCSMWindow(this);
     }
 
+    if (0x0000 != (whichField & MouseDataFieldMask))
+    {
+        MouseData &oMouseData = _sfMouseData.getValue();
+
+        if(oMouseData.getState() != -1)
+        {
+            if(oMouseData.getState() == MouseData::ButtonDown)
+            {
+                CSMViewport *pViewport = this->findViewport(
+                    oMouseData.getX(),
+                    oMouseData.getY());
+
+                oMouseData._pActivePort = pViewport;
+
+                if(oMouseData._pActivePort != NULL)
+                {
+                    Vec2f vVPCoord = 
+                        oMouseData._pActivePort->translateWindowViewportAbs(
+                        oMouseData.getX(),
+                        oMouseData.getY());
+
+                    MouseData &oVPMouseData = 
+                        oMouseData._pActivePort->editMouseDataVC();
+
+                    oVPMouseData.setData(oMouseData.getButton  (),
+                                         oMouseData.getState   (),
+                                         oMouseData.getModifier(),
+                                         vVPCoord[0],
+                                         vVPCoord[1],
+                                         oMouseData.getWindow  (),
+                                         oMouseData.getMode    ());
+                    
+                    
+                    oVPMouseData.setViewport(
+                        oMouseData._pActivePort->getViewport(0));
+                }
+            }
+            else
+            {
+                if(oMouseData._pActivePort != NULL)
+                {
+                    Vec2f vVPCoord = 
+                        oMouseData._pActivePort->translateWindowViewportAbs(
+                            oMouseData.getX(),
+                            oMouseData.getY());
+                    
+                    MouseData &oVPMouseData = 
+                        oMouseData._pActivePort->editMouseDataVC();
+                    
+                    oVPMouseData.setData(oMouseData.getButton  (),
+                                         oMouseData.getState   (),
+                                         oMouseData.getModifier(),
+                                         vVPCoord[0],
+                                         vVPCoord[1],
+                                         oMouseData.getWindow  (),
+                                         oMouseData.getMode    ());
+                    
+                    
+                    oVPMouseData.setViewport(
+                        oMouseData._pActivePort->getViewport(0));
+                }
+                
+                oMouseData._pActivePort = NULL;
+            }
+        }
+        else
+        {
+            if(oMouseData._pActivePort != NULL)
+            {
+                Vec2f vVPCoord = 
+                    oMouseData._pActivePort->translateWindowViewportAbs(
+                        oMouseData.getX(),
+                        oMouseData.getY());
+
+                MouseData &oVPMouseData = 
+                    oMouseData._pActivePort->editMouseDataVC();
+
+                oVPMouseData.setData(oMouseData.getButton  (),
+                                     oMouseData.getState   (),
+                                     oMouseData.getModifier(),
+                                     vVPCoord[0],
+                                     vVPCoord[1],
+                                     oMouseData.getWindow  (),
+                                     oMouseData.getMode    ());
+                
+
+                oVPMouseData.setViewport(
+                    oMouseData._pActivePort->getViewport(0));
+            }
+        }
+    }
+
     Inherited::changed(whichField, origin, details);
+}
+
+CSMViewport *CSMWindow::findViewport(Real32 x, Real32 y) const
+{
+    MFViewportsType::const_iterator vpIt  = _mfViewports.begin();
+    MFViewportsType::const_iterator vpEnd = _mfViewports.end  ();
+
+    for(; vpIt != vpEnd; ++vpIt)
+    {
+        if((*vpIt)->pointInside(x, y) == true)
+            return *vpIt;
+    }
+
+    return NULL;
 }
 
 void CSMWindow::dump(      UInt32    ,
@@ -389,10 +496,12 @@ bool CSMWindow::init(void)
             }
         }
 
+#if 0
         fprintf(stderr, "foo %p %d\n",
                 ComplexSceneManager::the()->getDrawManager(),
                 UInt32(ComplexSceneManager::the()->
                            getDrawManager()->getParallel()));
+#endif
 
 #ifndef __APPLE__
         UInt32 uiDrawMode = this->getPartitionDrawMode();

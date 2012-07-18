@@ -106,7 +106,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         ViewportsFieldId = ParentFieldId + 1,
         MouseDataFieldId = ViewportsFieldId + 1,
         MTouchDataFieldId = MouseDataFieldId + 1,
-        GestureDataFieldId = MTouchDataFieldId + 1,
+        MTouchDataWCFieldId = MTouchDataFieldId + 1,
+        GestureDataFieldId = MTouchDataWCFieldId + 1,
         MouseAsMTouchFieldId = GestureDataFieldId + 1,
         SizeFieldId = MouseAsMTouchFieldId + 1,
         PositionFieldId = SizeFieldId + 1,
@@ -134,6 +135,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << MouseDataFieldId);
     static const OSG::BitVector MTouchDataFieldMask =
         (TypeTraits<BitVector>::One << MTouchDataFieldId);
+    static const OSG::BitVector MTouchDataWCFieldMask =
+        (TypeTraits<BitVector>::One << MTouchDataWCFieldId);
     static const OSG::BitVector GestureDataFieldMask =
         (TypeTraits<BitVector>::One << GestureDataFieldId);
     static const OSG::BitVector MouseAsMTouchFieldMask =
@@ -175,6 +178,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef MFUnrecCSMViewportPtr MFViewportsType;
     typedef SFMouseData       SFMouseDataType;
     typedef SFMTouchData      SFMTouchDataType;
+    typedef SFMTouchData      SFMTouchDataWCType;
     typedef SFGestureData     SFGestureDataType;
     typedef SFBool            SFMouseAsMTouchType;
     typedef SFVec2f           SFSizeType;
@@ -224,6 +228,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
                   SFMTouchData        *editSFMTouchData     (void);
             const SFMTouchData        *getSFMTouchData      (void) const;
+
+                  SFMTouchData        *editSFMTouchDataWC   (void);
+            const SFMTouchData        *getSFMTouchDataWC    (void) const;
 
                   SFGestureData       *editSFGestureData    (void);
             const SFGestureData       *getSFGestureData     (void) const;
@@ -284,6 +291,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   MTouchData          &editMTouchData     (void);
             const MTouchData          &getMTouchData      (void) const;
 
+                  MTouchData          &editMTouchDataWC   (void);
+            const MTouchData          &getMTouchDataWC    (void) const;
+
                   GestureData         &editGestureData    (void);
             const GestureData         &getGestureData     (void) const;
 
@@ -341,6 +351,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
             void setMouseData      (const MouseData &value);
             void setMTouchData     (const MTouchData &value);
+            void setMTouchDataWC   (const MTouchData &value);
             void setGestureData    (const GestureData &value);
             void setMouseAsMTouch  (const bool value);
             void setSize           (const Vec2f &value);
@@ -404,6 +415,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     MFUnrecCSMViewportPtr _mfViewports;
     SFMouseData       _sfMouseData;
     SFMTouchData      _sfMTouchData;
+    SFMTouchData      _sfMTouchDataWC;
     SFGestureData     _sfGestureData;
     SFBool            _sfMouseAsMTouch;
     SFVec2f           _sfSize;
@@ -468,6 +480,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleMouseData      (void);
     GetFieldHandlePtr  getHandleMTouchData      (void) const;
     EditFieldHandlePtr editHandleMTouchData     (void);
+    GetFieldHandlePtr  getHandleMTouchDataWC    (void) const;
+    EditFieldHandlePtr editHandleMTouchDataWC   (void);
     GetFieldHandlePtr  getHandleGestureData     (void) const;
     EditFieldHandlePtr editHandleGestureData    (void);
     GetFieldHandlePtr  getHandleMouseAsMTouch   (void) const;

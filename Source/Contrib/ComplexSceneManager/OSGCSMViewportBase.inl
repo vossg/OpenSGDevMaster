@@ -288,6 +288,56 @@ void CSMViewportBase::setServerId(const Int32 value)
 
     _sfServerId.setValue(value);
 }
+//! Get the value of the CSMViewport::_sfMouseDataVC field.
+
+inline
+MouseData &CSMViewportBase::editMouseDataVC(void)
+{
+    editSField(MouseDataVCFieldMask);
+
+    return _sfMouseDataVC.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfMouseDataVC field.
+inline
+const MouseData &CSMViewportBase::getMouseDataVC(void) const
+{
+    return _sfMouseDataVC.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfMouseDataVC field.
+inline
+void CSMViewportBase::setMouseDataVC(const MouseData &value)
+{
+    editSField(MouseDataVCFieldMask);
+
+    _sfMouseDataVC.setValue(value);
+}
+//! Get the value of the CSMViewport::_sfMTouchDataVC field.
+
+inline
+MTouchData &CSMViewportBase::editMTouchDataVC(void)
+{
+    editSField(MTouchDataVCFieldMask);
+
+    return _sfMTouchDataVC.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfMTouchDataVC field.
+inline
+const MTouchData &CSMViewportBase::getMTouchDataVC(void) const
+{
+    return _sfMTouchDataVC.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfMTouchDataVC field.
+inline
+void CSMViewportBase::setMTouchDataVC(const MTouchData &value)
+{
+    editSField(MTouchDataVCFieldMask);
+
+    _sfMTouchDataVC.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
 inline
@@ -342,6 +392,12 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (ServerIdFieldMask & whichField))
         _sfServerId.syncWith(pFrom->_sfServerId);
+
+    if(FieldBits::NoField != (MouseDataVCFieldMask & whichField))
+        _sfMouseDataVC.syncWith(pFrom->_sfMouseDataVC);
+
+    if(FieldBits::NoField != (MTouchDataVCFieldMask & whichField))
+        _sfMTouchDataVC.syncWith(pFrom->_sfMTouchDataVC);
 }
 #endif
 

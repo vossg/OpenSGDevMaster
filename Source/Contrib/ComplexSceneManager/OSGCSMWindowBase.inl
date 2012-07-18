@@ -124,6 +124,31 @@ void CSMWindowBase::setMTouchData(const MTouchData &value)
 
     _sfMTouchData.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfMTouchDataWC field.
+
+inline
+MTouchData &CSMWindowBase::editMTouchDataWC(void)
+{
+    editSField(MTouchDataWCFieldMask);
+
+    return _sfMTouchDataWC.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfMTouchDataWC field.
+inline
+const MTouchData &CSMWindowBase::getMTouchDataWC(void) const
+{
+    return _sfMTouchDataWC.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfMTouchDataWC field.
+inline
+void CSMWindowBase::setMTouchDataWC(const MTouchData &value)
+{
+    editSField(MTouchDataWCFieldMask);
+
+    _sfMTouchDataWC.setValue(value);
+}
 //! Get the value of the CSMWindow::_sfGestureData field.
 
 inline
@@ -564,6 +589,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (MTouchDataFieldMask & whichField))
         _sfMTouchData.syncWith(pFrom->_sfMTouchData);
+
+    if(FieldBits::NoField != (MTouchDataWCFieldMask & whichField))
+        _sfMTouchDataWC.syncWith(pFrom->_sfMTouchDataWC);
 
     if(FieldBits::NoField != (GestureDataFieldMask & whichField))
         _sfGestureData.syncWith(pFrom->_sfGestureData);

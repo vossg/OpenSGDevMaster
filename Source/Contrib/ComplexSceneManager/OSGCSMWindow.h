@@ -125,6 +125,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    CSMViewport *findViewport(Real32 x, Real32 y) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

@@ -76,9 +76,21 @@ Window *MouseData::getWindow(void) const
 }
 
 inline
+Viewport *MouseData::getViewport(void) const
+{
+    return _pViewport;
+}
+
+inline
 UInt32 MouseData::getMode(void) const
 {
     return _uiMode;
+}
+
+inline
+void MouseData::setViewport(Viewport *pViewport)
+{
+    _pViewport = pViewport;
 }
 
 OSG_END_NAMESPACE

@@ -80,21 +80,29 @@ class OSGBaseBuilder:
     if subDir != "":
       extraUp = ".."
 
-    self.startup_path     = startup_path
-    self.download_path    = os.path.join(self.startup_path, "Downloads")
-    self.unpack_path      = os.path.join(self.startup_path, "Unpack")
-    self.build_path       = os.path.join(self.startup_path, subDir)
-    self.suppBuild_path   = os.path.join(self.startup_path, subDir, "OpenSG.Support.build")
-    self.suppInst_path    = os.path.join(self.startup_path, subDir, "OpenSG.Support.install").replace('\\', '/')
+    self.startup_path        = startup_path
+    self.download_path       = os.path.join(self.startup_path, "Downloads")
+    self.unpack_path         = os.path.join(self.startup_path, "Unpack")
+    self.build_path          = os.path.join(self.startup_path, subDir)
+    self.suppBuild_path      = os.path.join(self.startup_path, subDir, "OpenSG.Support.build")
+    self.suppInst_path       = os.path.join(self.startup_path, subDir, "OpenSG.Support.install").replace('\\', '/')
 
-    self.osg_path         = os.path.join(self.startup_path, "OpenSG")
-    self.dbgBuild_path    = os.path.join(self.startup_path, subDir, "OpenSG.build")
-    self.optBuild_path    = os.path.join(self.startup_path, subDir, "OpenSG.build.opt")
-    self.osgInst_path     = os.path.join(self.startup_path, subDir, "OpenSG.install").replace('\\', '/')
+    self.osg_path            = os.path.join(self.startup_path, "OpenSG")
+    self.dbgBuild_path       = os.path.join(self.startup_path, subDir, "OpenSG.build")
+    self.optBuild_path       = os.path.join(self.startup_path, subDir, "OpenSG.build.opt")
+    self.osgInst_path        = os.path.join(self.startup_path, subDir, "OpenSG.install").replace('\\', '/')
 
-    self.osgRel_path      = os.path.join("..", extraUp, "OpenSG")
-    self.osgBuildRel_path = os.path.join("..",          "OpenSG.build")
-    self.suppRel_path     = os.path.join("..", extraUp, "OpenSG", "Support")
+    self.osgaddons_path      = os.path.join(self.startup_path, "OSGAddOns")
+    self.dbgBuildAddOns_path = os.path.join(self.startup_path, subDir, "OSGAddOns.build")
+    self.optBuildAddOns_path = os.path.join(self.startup_path, subDir, "OSGAddOns.build.opt")
+    self.osgAddonsInst_path  = os.path.join(self.startup_path, subDir, "OSGAddOns.install").replace('\\', '/')
+
+    self.osgRel_path         = os.path.join("..", extraUp, "OpenSG")
+    self.osgBuildRel_path    = os.path.join("..",          "OpenSG.build")
+    self.suppRel_path        = os.path.join("..", extraUp, "OpenSG", "Support")
+
+    self.osgAddOnsRel_path      = os.path.join("..", extraUp, "OSGAddOns")
+    self.osgAddOnsBuildRel_path = os.path.join("..",          "OSGAddOns.build")
 
     self.buildSubDir      = subDir
 
@@ -107,9 +115,10 @@ class OSGBaseBuilder:
     self.qtroot_path      = None
     self.qtsrc_path       = None
 
-    self.cmSuppArchFile   = os.path.join(self.unpack_path, "CMakeSupportArchs.txt")
-    self.cmSupportFile    = os.path.join(self.osg_path,    "CMakeSupport.txt")
-    self.cmOSGFile        = os.path.join(self.osg_path,    "CMakeOSG.txt")
+    self.cmSuppArchFile   = os.path.join(self.unpack_path,    "CMakeSupportArchs.txt")
+    self.cmSupportFile    = os.path.join(self.osg_path,       "CMakeSupport.txt")
+    self.cmOSGFile        = os.path.join(self.osg_path,       "CMakeOSG.txt")
+    self.cmOSGAddOnsFile  = os.path.join(self.osgaddons_path, "CMakeOSGAddOns.txt")
 
     self.nodownload     = oOptions.nodownload     # optNoDownload
     self.sgdownload     = oOptions.sgdownload     # optSGDownload
@@ -124,6 +133,13 @@ class OSGBaseBuilder:
     self.bqonly         = oOptions.bqonly
     self.noosgbuild     = oOptions.noosgbuild     # optNoOSGBuild
     self.nomssecure     = oOptions.nomssecure     # optNoMSSecure
+
+    self.nopython       = oOptions.nopython 
+    self.debugonly      = oOptions.debugonly
+    self.releaseonly    = oOptions.releaseonly
+
+    self.nobuildaddons  = oOptions.noaddonsbuild    
+    self.addonswithosg  = oOptions.instaddonswithosg
 
     self.noSuppDirInit  = oOptions.nosuppdirinit
     self.useVS2008      = oOptions.useVS2008
@@ -183,35 +199,41 @@ class OSGBaseBuilder:
 
   def dumpOptions(self):
 
-    print "download        : ", not self.nodownload
-    print "sgdownload      : ", self.sgdownload
+    print "download             : ", not self.nodownload
+    print "sgdownload           : ", self.sgdownload
 
-    print "unpack          : ", not self.nounpack
+    print "unpack               : ", not self.nounpack
 
-    print "gitclone        : ", not self.nogitclone
-    print "localgitclone   : ", self.localgitclone
-    print "updatelocalgit  : ", self.updatelocalgit
-    print "support build   : ", not self.nosupportbuild
+    print "gitclone             : ", not self.nogitclone
+    print "localgitclone        : ", self.localgitclone
+    print "updatelocalgit       : ", self.updatelocalgit
+    print "support build        : ", not self.nosupportbuild
 
-    print "boost build     : ", not self.noboostbuild
-    print "qt build        : ", not self.noqtbuild
-    print "bq build        : ", self.bqonly
+    print "boost build          : ", not self.noboostbuild
+    print "qt build             : ", not self.noqtbuild
+    print "bq build             : ", self.bqonly
 
-    print "osg build       : ", not self.noosgbuild
+    print "osg build            : ", not self.noosgbuild
+    print "osg addons build     : ", not self.nobuildaddons
+    print "inst addons with osg : ", self.addonswithosg
+    print "ms secure            : ", self.nomssecure
+    print "vs2008               : ", self.useVS2008
 
-    print "ms secure       : ", self.nomssecure
-    print "vs2008          : ", self.useVS2008
+    print "python               : ", not self.nopython
+    print "debug only           : ", self.debugonly
+    print "release only         : ", self.releaseonly
 
-    print "build subdir    : ", self.buildSubDir
-    print "No SuppDir init : ", self.noSuppDirInit
+    print "build subdir         : ", self.buildSubDir
+    print "No SuppDir init      : ", self.noSuppDirInit
 
-    print "build           : ", self.build_path
-    print "supp.build      : ", self.suppBuild_path
-    print "supp.inst       : ", self.suppInst_path
+    print "build                : ", self.build_path
+    print "supp.build           : ", self.suppBuild_path
+    print "supp.inst            : ", self.suppInst_path
     
-    print "osg.dbg.build   : ", self.dbgBuild_path
-    print "osg.opt.build   : ", self.optBuild_path
-    print "osg.install     : ", self.osgInst_path
+    print "osg.dbg.build        : ", self.dbgBuild_path
+    print "osg.opt.build        : ", self.optBuild_path
+    print "osg.install          : ", self.osgInst_path
+
 
   def which(self, program):
 
@@ -473,40 +495,82 @@ class OSGBaseBuilder:
 
   def cloneGit(self):
 
-    if self.nogitclone == False:
-      self.initDir("OpenSG", False)
-      if self.localgitclone == False:
-        gitCloneCmd = [self.gitCmd, "clone", "git://opensg.git.sourceforge.net/gitroot/opensg/opensg", "OpenSG"]
-      else:
-
-        if self.updatelocalgit == True:
-
-          os.chdir("OpenSG.repo")
+    if self.nogitclone == True:
+      return
 
 
-          gitCmd = [self.gitCmd, "fetch"]
+    ## OpenSG
 
-          retcode = subprocess.call(gitCmd)
+    self.initDir("OpenSG", False)
 
-          self.handleRetCode(retcode, "update local fetch")
+    if self.localgitclone == False:
+      gitCloneCmd = [self.gitCmd, "clone", "git://opensg.git.sourceforge.net/gitroot/opensg/opensg", "OpenSG"]
+    else:
+
+      if self.updatelocalgit == True:
+
+        os.chdir("OpenSG.repo")
 
 
-          gitCmd = [self.gitCmd, "pull", ".", "remotes/origin/master"]
+        gitCmd = [self.gitCmd, "fetch"]
 
-          retcode = subprocess.call(gitCmd)
+        retcode = subprocess.call(gitCmd)
 
-          self.handleRetCode(retcode, "update local pull")
+        self.handleRetCode(retcode, "update local fetch")
+
+
+        gitCmd = [self.gitCmd, "pull", ".", "remotes/origin/master"]
+
+        retcode = subprocess.call(gitCmd)
+
+        self.handleRetCode(retcode, "update local pull")
 
       
-          os.chdir(self.startup_path)
+        os.chdir(self.startup_path)
 
 
-        gitCloneCmd = [self.gitCmd, "clone", "OpenSG.repo", "OpenSG"]
+      gitCloneCmd = [self.gitCmd, "clone", "OpenSG.repo", "OpenSG"]
 
 
-      retcode = subprocess.call(gitCloneCmd)
+    retcode = subprocess.call(gitCloneCmd)
 
-      self.handleRetCode(retcode, "Cloning git")
+    self.handleRetCode(retcode, "Cloning git")
+
+    ## OSGAddOne
+
+    self.initDir("OSGAddOns", False)
+
+    if self.localgitclone == False:
+      gitCloneCmd = [self.gitCmd, "clone", "git@github.com:vossg/OSGAddOnsGV.git", "OSGAddOns"]
+    else:
+
+      if self.updatelocalgit == True:
+
+        os.chdir("OSGAddOns.repo")
+
+
+        gitCmd = [self.gitCmd, "fetch"]
+
+        retcode = subprocess.call(gitCmd)
+
+        self.handleRetCode(retcode, "update local fetch")
+
+
+        gitCmd = [self.gitCmd, "pull", ".", "remotes/origin/master"]
+
+        retcode = subprocess.call(gitCmd)
+
+        self.handleRetCode(retcode, "update local pull")
+
+      
+        os.chdir(self.startup_path)
+
+
+      gitCloneCmd = [self.gitCmd, "clone", "OSGAddOns.repo", "OSGAddOns"]
+
+    retcode = subprocess.call(gitCloneCmd)
+
+    self.handleRetCode(retcode, "Cloning OSGAddOns git")
 
   def buildBoost(self):
 
@@ -589,6 +653,12 @@ class OSGBaseBuilder:
     cmOSGOut.write('SET(OSGEXCLUDE_TESTS_FROM_ALL             ON CACHE BOOL "")\n')
     cmOSGOut.write('SET(OSGEXCLUDE_UNITTESTS_FROM_ALL         ON CACHE BOOL "")\n\n')
 
+    if self.nopython == False:
+      cmOSGOut.write('# OpenSG Python\n\n')
+
+      cmOSGOut.write('SET(OSG_PYTHON_MODULE_BASE_DIR "%s/Bindings/Python" CACHE PATH "" FORCE)\n\n' % self.osgaddons_path)
+      cmOSGOut.write('SET(OSGBUILD_PYTHON_BINDINGS ON CACHE BOOL "" FORCE)\n\n')
+
     cmOSGOut.write('IF(WIN32)\n')
     cmOSGOut.write('  IF(CMAKE_SIZEOF_VOID_P EQUAL 8)\n')
     cmOSGOut.write('    SET(CG_ROOT "C:/Program Files (x86)/NVIDIA Corporation/Cg" CACHE PATH "" FORCE)\n')
@@ -642,6 +712,83 @@ class OSGBaseBuilder:
     if changeDir == True:
       os.chdir(self.startup_path)
 
+  def configureOSGAddOns(self, Variant = "Debug"):
+
+    if Variant == "Debug":
+      workDir = self.dbgBuildAddOns_path
+    elif Variant == "Release":
+      workDir = self.optBuildAddOns_path
+    else:
+      sys.exit(1);
+
+    self.initDir(workDir)
+
+    os.chdir(workDir)
+
+    cmCfgCmd = [self.cmakeCmd,
+                "-G",
+                self.cmakeGen,
+                "-C", 
+                self.cmOSGAddOnsFile, 
+                ("-DCMAKE_BUILD_TYPE:STRING=%s" % Variant), 
+                self.osgAddOnsRel_path]
+
+    print "runnuing ", cmCfgCmd
+
+    retcode = subprocess.call(cmCfgCmd)
+
+    self.handleRetCode(retcode, "OSG Initial CMake")
+
+    os.chdir(self.startup_path)
+
+  def prepOSGAddOns(self):
+
+    if self.nobuildaddons == False or self.addonswithosg == False:
+      self.initDir(self.osgAddonsInst_path)
+
+    cmOSGAddOnsOut = file(self.cmOSGAddOnsFile, "w")
+    cmOSGAddOnsOut.write("# OSG AddOns libs defines\n\n")
+
+    cmOSGAddOnsOut.write('SET(OpenSG_DIR "%s" CACHE PATH "" FORCE)\n\n' % self.osgInst_path)
+    cmOSGAddOnsOut.write('SET(OSG_BUILD_ACTIVE TRUE CACHE BOOL "" FORCE)\n\n')
+
+    cmOSGAddOnsOut.write('# OpenSG Support\n\n')
+
+    cmOSGAddOnsOut.write('# Initialized from OpenSG install, change only if really needed\n')
+    cmOSGAddOnsOut.write('#SET(OSG_SUPPORT_ROOT "" CACHE PATH "" FORCE)\n\n')
+
+    cmOSGAddOnsOut.write('#SET(OSG_USE_OSGSUPPORT_LIBS TRUE CACHE BOOL "" FORCE)\n\n')
+
+    if self.nopython == False:
+      cmOSGAddOnsOut.write('# OpenSG Python\n\n')
+
+      cmOSGAddOnsOut.write('SET(OSG_PYTHON_MODULE_BASE_DIR "%s/Bindings/Python" CACHE PATH "" FORCE)\n\n' % self.osgaddons_path)
+      cmOSGAddOnsOut.write('SET(OSGBUILD_PYTHON_BINDINGS ON CACHE BOOL "" FORCE)\n\n')
+
+    cmOSGAddOnsOut.write('# If OpenSG was build with CUDA enabled\n\n')
+
+    cmOSGAddOnsOut.write('#SET(CUDA_TOOLKIT_ROOT_DIR "" CACHE PATH "" FORCE)\n\n')
+
+    cmOSGAddOnsOut.write('#SET(OSG_ENABLE_CUDA ON CACHE BOOL "Build OpenSG with CUDA support"  FORCE)\n\n')
+
+    cmOSGAddOnsOut.write('# cmake\n\n')
+
+    cmOSGAddOnsOut.write('SET(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "" FORCE)\n')
+
+    if self.addonswithosg == False:
+      cmOSGAddOnsOut.write('SET(CMAKE_INSTALL_PREFIX "%s" CACHE PATH "" FORCE)\n\n' % self.osgAddonsInst_path)
+    else:
+      cmOSGAddOnsOut.write('SET(CMAKE_INSTALL_PREFIX "%s" CACHE PATH "")\n' % self.osgInst_path)
+
+    cmOSGAddOnsOut.write('IF(WIN32)\n')
+    cmOSGAddOnsOut.write('  SET(OSG_ENABLE_FCD2CODE OFF CACHE BOOL "" FORCE)\n')
+    cmOSGAddOnsOut.write('ENDIF()\n\n')
+
+    cmOSGAddOnsOut.write('# Sofa\n\n')
+
+    cmOSGAddOnsOut.write('#SET(SOFA_ROOT "" CACHE PATH "" FORCE)\n\n')
+
+    cmOSGAddOnsOut.close()
 
 ##############################################
 # Windows Base Builder
@@ -1254,6 +1401,14 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
 
     self.handleRetCode(retcode, "Build OSG Debug")
 
+    if self.nopython == False:
+      mkBldCmd = [self.makeCmd, "OSGPy"]
+      print "run : ", mkBldCmd
+
+      retcode = subprocess.call(mkBldCmd)
+
+      self.handleRetCode(retcode, "Build OSG Py Debug")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
@@ -1286,6 +1441,14 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
 
     self.handleRetCode(retcode, "Build OSG Release")
 
+    if self.nopython == False:
+      mkBldCmd = [self.makeCmd, "OSGPy"]
+      print "run : ", mkBldCmd
+
+      retcode = subprocess.call(mkBldCmd)
+
+      self.handleRetCode(retcode, "Build OSG Py Relase")
+
     mkInstCmd = [self.makeCmd, "install"]
     retcode = subprocess.call(mkInstCmd)
 
@@ -1298,8 +1461,87 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     if self.noosgbuild == True:
       return
 
-    self.buildOSGDbg()
-    self.buildOSGOpt()
+    if self.releaseonly == False:
+      self.buildOSGDbg()
+
+    if self.debugonly == False:
+      self.buildOSGOpt()
+
+  def buildOSGAddOnsDbg(self):
+
+    if self.nobuildaddons == True:
+      return
+
+    OSGBaseBuilder.configureOSGAddOns(self)
+
+    os.chdir(self.dbgBuildAddOns_path)
+
+    mkBldCmd = [self.makeCmd, "OSGAll"]
+    print "run : ", mkBldCmd
+
+    retcode = subprocess.call(mkBldCmd)
+
+    self.handleRetCode(retcode, "Build OSGAddOns Debug")
+
+    if self.nopython == False:
+      mkBldCmd = [self.makeCmd, "OSGPy"]
+      print "run : ", mkBldCmd
+
+      retcode = subprocess.call(mkBldCmd)
+
+      self.handleRetCode(retcode, "Build OSGAddOns Py Debug")
+
+    mkInstCmd = [self.makeCmd, "install"]
+    print "run : ", mkInstCmd
+
+    retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSGAddOns Debug")
+
+    os.chdir(self.startup_path)
+
+  def buildOSGAddOnsOpt(self):
+
+    if self.nobuildaddons == True:
+      return
+
+    OSGBaseBuilder.configureOSGAddOns(self, "Release")
+
+    os.chdir(self.optBuildAddOns_path)
+
+    mkBldCmd = [self.makeCmd, "OSGAll"]
+    print "run : ", mkBldCmd
+    retcode = subprocess.call(mkBldCmd)
+
+    self.handleRetCode(retcode, "Build OSGAddOns Release")
+
+    if self.nopython == False:
+      mkBldCmd = [self.makeCmd, "OSGPy"]
+      print "run : ", mkBldCmd
+      retcode = subprocess.call(mkBldCmd)
+
+      self.handleRetCode(retcode, "Build OSGAddOns Py Release")
+
+    mkInstCmd = [self.makeCmd, "install"]
+    print "run : ", mkInstCmd
+    retcode = subprocess.call(mkInstCmd)
+
+    self.handleRetCode(retcode, "Install OSG Release")
+
+    os.chdir(self.startup_path)
+
+
+
+  def buildOSGAddOns(self):
+
+    if self.nobuildaddons == True:
+      return
+
+    if self.releaseonly == False:
+      self.buildOSGAddOnsDbg()
+
+    if self.debugonly == False:
+      self.buildOSGAddOnsOpt()
 
 ##############################################
 # Linux Builder
@@ -1424,6 +1666,43 @@ m_parser.add_option("-o",
                     help="no osg build (reuse existing)",
                     metavar="OpenSG");
 
+m_parser.add_option("-a", 
+                    "--no-addonsbuild",
+                    action="store_true",
+                    default=False,
+                    dest="noaddonsbuild",
+                    help="no osg addons build",
+                    metavar="OpenSG");
+
+m_parser.add_option("--addonWithOpenSGInst",
+                    action="store_true",
+                    default=False,
+                    dest="instaddonswithosg",
+                    help="install AddOns with OpenSG",
+                    metavar="OpenSG");
+
+m_parser.add_option("-p", 
+                    "--no-python",
+                    action="store_true",
+                    default=False,
+                    dest="nopython",
+                    help="no osg python bindings build",
+                    metavar="OpenSG");
+
+m_parser.add_option("--debug",
+                    action="store_true",
+                    default=False,
+                    dest="debugonly",
+                    help="build only debug",
+                    metavar="OpenSG");
+
+m_parser.add_option("--release",
+                    action="store_true",
+                    default=False,
+                    dest="releaseonly",
+                    help="build only release",
+                    metavar="OpenSG");
+
 m_parser.add_option("--no-mssecure",
                     action="store_true",
                     default=False,
@@ -1514,5 +1793,9 @@ builder.buildOSGSupport()
 builder.prepOSG()
 
 builder.buildOpenSG()
+
+builder.prepOSGAddOns()
+
+builder.buildOSGAddOns()
 
 builder.closeLog()

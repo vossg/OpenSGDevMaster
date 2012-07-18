@@ -44,25 +44,29 @@
 OSG_BEGIN_NAMESPACE
 
 MouseData::MouseData(void) :
-    _iButton  (-1       ),
-    _iState   (-1       ),
-    _iModifier(-1       ),
-    _rX       (-1.f     ),
-    _rY       (-1.f     ),
-    _pWindow  (NULL     ),
-    _uiMode   (AbsValues)
+    _iButton    (-1       ),
+    _iState     (-1       ),
+    _iModifier  (-1       ),
+    _rX         (-1.f     ),
+    _rY         (-1.f     ),
+    _pWindow    (NULL     ),
+    _pViewport  (NULL     ),
+    _uiMode     (AbsValues),
+    _pActivePort(NULL     )
 {
 }
 
 
 MouseData::MouseData(const MouseData &source) :
-    _iButton  (source._iButton  ),
-    _iState   (source._iState   ),
-    _iModifier(source._iModifier),
-    _rX       (source._rX       ),
-    _rY       (source._rY       ),
-    _pWindow  (NULL             ),
-    _uiMode   (source._uiMode   )
+    _iButton    (source._iButton  ),
+    _iState     (source._iState   ),
+    _iModifier  (source._iModifier),
+    _rX         (source._rX       ),
+    _rY         (source._rY       ),
+    _pWindow    (NULL             ),
+    _pViewport  (NULL             ),
+    _uiMode     (source._uiMode   ),
+    _pActivePort(NULL             )
 {
 }
 
@@ -86,13 +90,15 @@ void MouseData::setData(Int32      iButton,
     _rX        = x;
     _rY        = y;
     _pWindow   = pWindow;
+    _pViewport = NULL;
+
     _uiMode    = uiMode;
 }
 
-void MouseData::setData(Real32  x,       
-                        Real32  y,
-                        Window *pWindow,
-                        UInt32  uiMode)
+void MouseData::updateData(Real32  x,       
+                           Real32  y,
+                           Window *pWindow,
+                           UInt32  uiMode)
 {
     _iButton   = -1;
     _iState    = -1;
@@ -114,6 +120,7 @@ void MouseData::operator = (const MouseData &rhs)
     _rX        = rhs._rX;
     _rY        = rhs._rY;
     _pWindow   = rhs._pWindow;
+    _pViewport = rhs._pViewport;
     _uiMode    = rhs._uiMode;
 }
 
@@ -125,18 +132,20 @@ bool MouseData::operator ==(const MouseData &rhs) const
             _rX        == rhs._rX        &&
             _rY        == rhs._rY        &&
             _pWindow   == rhs._pWindow   &&
+            _pViewport == rhs._pViewport &&
             _uiMode    == rhs._uiMode      );
 }
 
 void MouseData::dump(void) const
 {
-    fprintf(stderr, "MouseData : %d %d %d | %f %f | %p | %d\n",
+    fprintf(stderr, "MouseData : %d %d %d | %f %f | %p | %p | %d\n",
             _iButton,
             _iState,
             _iModifier,
             _rX,
             _rY,
             _pWindow,
+            _pViewport,
             _uiMode   );
 }
     

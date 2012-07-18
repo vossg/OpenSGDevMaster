@@ -2,7 +2,7 @@
 
 <FieldContainer
    name="CSMViewport"
-   parent="FieldContainer"
+   parent="AttachmentContainer"
    library="ContribCSM"
    pointerfieldtypes="both"
    structure="concrete"
@@ -115,6 +115,25 @@
      >
     If not -1 used by the cluster multi window to compute the corresponding
     viewport
+  </Field>
+
+  <Field
+      name="mouseDataVC"
+      type="MouseData"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      >
+    MTouchData in local viewport coordinates
+  </Field>
+  <Field
+      name="MTouchDataVC"
+      type="MTouchData"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      >
+    MTouchData in local viewport coordinates
   </Field>
 
 </FieldContainer>

@@ -46,6 +46,9 @@
 OSG_BEGIN_NAMESPACE
 
 class Window;
+class Viewport;
+class CSMViewport;
+class CSMWindow;
 
 class OSG_CONTRIBCSM_DLLMAPPING MouseData
 {
@@ -100,6 +103,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   friend classes                                                      
     //-----------------------------------------------------------------------
 
+    friend class CSMWindow;
+
     //-----------------------------------------------------------------------
     //   friend functions                                                    
     //-----------------------------------------------------------------------
@@ -144,13 +149,16 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    Int32      _iButton;
-    Int32      _iState;
-    Int32      _iModifier;
-    Real32     _rX;
-    Real32     _rY;
-    Window    *_pWindow;
-    UInt32     _uiMode;
+    Int32        _iButton;
+    Int32        _iState;
+    Int32        _iModifier;
+    Real32       _rX;
+    Real32       _rY;
+    Window      *_pWindow;
+    Viewport    *_pViewport;
+    UInt32       _uiMode;
+
+    CSMViewport *_pActivePort;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -173,18 +181,18 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
 
     /*------------------------- your_category -------------------------------*/
 
-    void setData(Int32      iButton, 
-                 Int32      iState,
-                 Int32      iModifier,
-                 Real32     x,       
-                 Real32     y,
-                 Window    *pWindow,
-                 UInt32     uiMode = AbsValues);
+    void setData    (Int32      iButton, 
+                     Int32      iState,
+                     Int32      iModifier,
+                     Real32     x,       
+                     Real32     y,
+                     Window    *pWindow,
+                     UInt32     uiMode = AbsValues);
 
-    void setData(Real32  x,       
-                 Real32  y,
-                 Window *pWindow,
-                 UInt32  uiMode = AbsValues);
+    void updateData (Real32  x,       
+                     Real32  y,
+                     Window *pWindow,
+                     UInt32  uiMode = AbsValues);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -194,7 +202,12 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     Real32     getX       (void) const;
     Real32     getY       (void) const;
     Window    *getWindow  (void) const;
+    Viewport  *getViewport(void) const;
     UInt32     getMode    (void) const;
+
+    /*------------------------- assignment ----------------------------------*/
+
+    void setViewport(Viewport *pViewport);
 
     /*------------------------- assignment ----------------------------------*/
 
