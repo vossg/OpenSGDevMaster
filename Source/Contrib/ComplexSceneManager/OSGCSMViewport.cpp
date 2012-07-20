@@ -126,6 +126,14 @@ void CSMViewport::changed(ConstFieldMaskArg whichField,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+
+#if 0
+    if(0x0000 != (whichField & MTouchDataVCFieldMask))
+    {
+        fprintf(stderr, "vp touch %p : \n", this);
+        _sfMTouchDataVC.getValue().dump();
+    }
+#endif
 }
 
 void CSMViewport::dump(      UInt32    ,

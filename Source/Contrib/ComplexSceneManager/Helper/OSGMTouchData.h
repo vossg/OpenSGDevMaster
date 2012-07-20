@@ -47,7 +47,9 @@
 OSG_BEGIN_NAMESPACE
 
 class Window;
+class Viewport;
 class CSMWindow;
+class CSMViewport;
 
 class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 {
@@ -65,14 +67,19 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 
     struct OSG_CONTRIBCSM_DLLMAPPING MTouchBlob
     {
-        UInt32  _uiEvent;
+        UInt32       _uiEvent;
 
-        Int32   _iCursorId;
-        Vec3f   _vPosition;
+        Int32        _iCursorId;
+        Vec3f        _vPosition;
 
-        UInt32  _uiCoordSys;
+        UInt32       _uiCoordSys;
 
-        MTouchBlob(){};
+        Window      *_pWindow;
+        Viewport    *_pViewport;
+
+        CSMViewport *_pActiveViewport;
+
+        MTouchBlob(void);
 
         MTouchBlob(UInt32 uiEvent,
                    Int32  iCursorId,
@@ -107,6 +114,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     static const UInt32 GlobalAbs    = 0x0002;
     static const UInt32 WindowRel    = 0x0010;
     static const UInt32 WindowAbs    = 0x0020;
+    static const UInt32 ViewportRel  = 0x0100;
+    static const UInt32 ViewportAbs  = 0x0200;
 
     //-----------------------------------------------------------------------
     //   enums                                                               
@@ -173,12 +182,12 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     MTouchBlobStore   _vBlobs;
     ActiveBlobsStore  _vActiveBlobs;
 
-    Window           *_pWindow;
-    CSMWindow        *_pCSMWindow;
-
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
+
+    void       setWindow   (Window    *pWindow   );
+    Window    *getWindow   (void                 ) const;
 
   public :
 
@@ -197,11 +206,6 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 
     /*------------------------- your_category -------------------------------*/
 
-    void       setWindow   (Window    *pWindow   );
-    Window    *getWindow   (void                 ) const;
-
-    void       setCSMWindow(CSMWindow *pCSMWindow);
-    CSMWindow *getCSMWindow(void                 ) const;
 
     /*------------------------- your_category -------------------------------*/
 

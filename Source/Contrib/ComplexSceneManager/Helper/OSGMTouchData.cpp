@@ -44,18 +44,35 @@
 
 OSG_BEGIN_NAMESPACE
 
+MTouchData::MTouchBlob::MTouchBlob(void) :
+
+    _uiEvent        (0x000        ),
+
+    _iCursorId      (-1           ),
+    _vPosition      (0.f, 0.f, 0.f),
+   
+    _uiCoordSys     (0x0000       ),
+    _pWindow        (NULL         ),
+    _pViewport      (NULL         ),
+    _pActiveViewport(NULL         )
+{
+}
+
 MTouchData::MTouchBlob::MTouchBlob(UInt32 uiEvent,
                                    Int32  iCursorId,
                                    Real32 rX,
                                    Real32 rY,
                                    UInt32 uiCoordSys) :
 
-    _uiEvent   (uiEvent    ),
+    _uiEvent        (uiEvent    ),
 
-    _iCursorId (iCursorId  ),
-    _vPosition (rX, rY, 0.f),
+    _iCursorId      (iCursorId  ),
+    _vPosition      (rX, rY, 0.f),
    
-    _uiCoordSys(uiCoordSys )
+    _uiCoordSys     (uiCoordSys ),
+    _pWindow        (NULL       ),
+    _pViewport      (NULL       ),
+    _pActiveViewport(NULL       )
 {
 }
 
@@ -83,18 +100,14 @@ bool MTouchData::MTouchBlob::operator < (const MTouchBlob &rhs) const
 
 MTouchData::MTouchData(void) :
     _vBlobs      (     ),
-    _vActiveBlobs(     ),
-    _pWindow     (NULL ),
-    _pCSMWindow  (NULL )
+    _vActiveBlobs(     )
 {
 }
 
 
 MTouchData::MTouchData(const MTouchData &source) :
     _vBlobs      (source._vBlobs      ),
-    _vActiveBlobs(source._vActiveBlobs),
-    _pWindow     (NULL                ),
-    _pCSMWindow  (NULL                )
+    _vActiveBlobs(source._vActiveBlobs)
 {
 }
 
@@ -107,9 +120,6 @@ MTouchData::~MTouchData(void)
 void MTouchData::operator = (const MTouchData &rhs)
 {
     _vBlobs = rhs._vBlobs;
-
-    _pWindow = rhs._pWindow;
-    _pCSMWindow = rhs._pCSMWindow;
 }
 
 bool MTouchData::operator ==(const MTouchData &rhs) const
@@ -118,7 +128,7 @@ bool MTouchData::operator ==(const MTouchData &rhs) const
     //        _pWindow   == rhs._pWindow  );
     //        _pCSMWindow   == rhs._pCSMWindow  );
 
-    return (_vBlobs == rhs._vBlobs  );
+    return (_vBlobs == rhs._vBlobs);
 }
 
 void MTouchData::addCursor(UInt32 uiId, 
@@ -251,13 +261,49 @@ void MTouchData::dump(void) const
     fprintf(stderr, "Blobs (%"PRISize") :\n", _vBlobs.size());
     for(UInt32 i = 0; i < _vBlobs.size(); ++i)
     {
-        fprintf(stderr, "  [%d] : %d %d %d | %f %f\n",
+        const Char8 *szCSys = "";
+
+        switch(_vBlobs[i]._uiCoordSys)
+        {
+            case MTouchData::GlobalRel:
+                szCSys = "GlobalRel";
+                break;
+
+            case MTouchData::GlobalAbs:
+                szCSys = "GlobalAbs";
+                break;
+
+            case MTouchData::WindowRel:
+                szCSys = "WindowRel";
+                break;
+
+            case MTouchData::WindowAbs:
+                szCSys = "WindowAbs";
+                break;
+
+            case MTouchData::ViewportRel:
+                szCSys = "ViewportRel";
+                break;
+
+            case MTouchData::ViewportAbs:
+                szCSys = "ViewportAbs";
+                break;
+
+            default:
+                szCSys = "unknown";
+                break;
+        }
+
+        fprintf(stderr, "  [%d] : %d %d | %s | %f %f | %p/%p/%p\n",
                 i,
                 _vBlobs[i]._uiEvent,
                 _vBlobs[i]._iCursorId,
-                _vBlobs[i]._uiCoordSys,
+                szCSys,
                 _vBlobs[i]._vPosition[0],
-                _vBlobs[i]._vPosition[1]);
+                _vBlobs[i]._vPosition[1],
+                _vBlobs[i]._pWindow,
+                _vBlobs[i]._pViewport,
+                _vBlobs[i]._pActiveViewport);
     }
 
     fprintf(stderr, "Active Blobs (%"PRISize") :\n", _vActiveBlobs.size());

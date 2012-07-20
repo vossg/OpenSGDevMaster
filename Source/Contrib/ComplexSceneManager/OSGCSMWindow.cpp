@@ -304,8 +304,224 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
 {
     if (0x0000 != (whichField & MTouchDataFieldMask))
     {
-        _sfMTouchData.getValue().setWindow(_pWindow);
-        _sfMTouchData.getValue().setCSMWindow(this);
+        MFViewportsType::const_iterator vpIt  = _mfViewports.begin();
+        MFViewportsType::const_iterator vpEnd = _mfViewports.end  ();
+
+        for(; vpIt != vpEnd; ++vpIt)
+        {
+            if(*vpIt == NULL)
+                continue;
+
+            (*vpIt)->editMTouchDataVC().clear();
+        }
+
+        MTouchData::MTouchBlobStore &vBlobs = 
+            _sfMTouchData.getValue().getBlobStore();
+
+        MTouchData::MTouchBlobStoreIt bIt  = vBlobs.begin();
+        MTouchData::MTouchBlobStoreIt bEnd = vBlobs.end  ();
+
+        MTouchData::MTouchBlobStore &vBlobsWC = 
+            editMTouchDataWC().getBlobStore();
+
+        MTouchData::MTouchBlobStoreIt bWCIt  = vBlobsWC.begin();
+
+#if 0
+        fprintf(stderr, "process\n=====================================\n");
+        fprintf(stderr, "input mtouch\n");
+        _sfMTouchData.getValue().dump();
+
+        fprintf(stderr, "wc mtouch\n");
+        _sfMTouchDataWC.getValue().dump();
+#endif
+
+        if(bIt == bEnd)
+        {
+            vBlobsWC.clear();
+        }
+
+        for(; bIt != bEnd; ++bIt)
+        {
+            Vec2i vScreenC;
+
+            switch(bIt->_uiCoordSys)
+            {
+                case MTouchData::GlobalRel:
+                {
+                    vScreenC = this->translateGlobalCoordinatesRel(
+                        bIt->_vPosition[0],
+                        bIt->_vPosition[1]);
+
+                }
+                break;
+
+                case MTouchData::GlobalAbs:
+                    break;
+
+                case MTouchData::WindowRel:
+                    break;
+
+                case MTouchData::WindowAbs:
+                    break;
+
+                default:
+                    break;
+            }
+
+            do
+            {
+#if 0
+                fprintf(stderr, "process %d %d\n",
+                        bIt->_iCursorId,
+                        (bWCIt != vBlobsWC.end()) ? bWCIt->_iCursorId : -1);
+#endif
+
+                while(bWCIt != vBlobsWC.end())
+                {
+                    if(bWCIt->_uiEvent != MTouchData::RemoveCursor)
+                        break;
+                        
+                    bWCIt = vBlobsWC.erase(bWCIt);
+                }
+
+                if(bWCIt           != vBlobsWC.end()     && 
+                   bIt->_iCursorId == bWCIt->_iCursorId  )
+                {
+                    bWCIt->_uiEvent      = bIt->_uiEvent;
+                    bWCIt->_vPosition[0] = vScreenC[0];
+                    bWCIt->_vPosition[1] = vScreenC[1];
+                    bWCIt->_uiCoordSys   = MTouchData::WindowAbs;
+
+#if 0
+                    fprintf(stderr, "update %d (%d) | %p\n",
+                            bIt->_iCursorId,
+                            bIt->_uiEvent,
+                            bIt->_pActiveViewport);
+#endif
+                    
+                    if(bWCIt->_pActiveViewport != NULL)
+                    {
+                        Vec2f vVPCoord = 
+                            bWCIt->_pActiveViewport->translateWindowViewportAbs(
+                                vScreenC[0],
+                                vScreenC[1]);
+
+                        MTouchData::MTouchBlob tmpBlobVC(
+                            bIt->_uiEvent,
+                            bIt->_iCursorId,
+                            vVPCoord[0],
+                            vVPCoord[1],
+                            MTouchData::ViewportAbs);
+
+                        tmpBlobVC._pWindow   = this->_pWindow;
+                        tmpBlobVC._pViewport = 
+                            bWCIt->_pActiveViewport->getViewport(0);
+
+                        bWCIt->_pActiveViewport->editMTouchDataVC().
+                            getBlobStore().push_back(tmpBlobVC);
+                    }
+
+                    ++bWCIt;
+                    break;
+                }
+                else
+                {
+                    if(bWCIt == vBlobsWC.end()             || 
+                       bWCIt->_iCursorId > bIt->_iCursorId  )
+                    {
+                        if(bIt->_uiEvent == MTouchData::AddCursor)
+                        {
+                            MTouchData::MTouchBlob tmpBlobWC(
+                                bIt->_uiEvent,
+                                bIt->_iCursorId,
+                                vScreenC[0],
+                                vScreenC[1],
+                                MTouchData::WindowAbs);
+
+                            tmpBlobWC._pWindow = this->_pWindow;
+
+                            CSMViewport *pViewport = this->findViewport(
+                                vScreenC[0],
+                                vScreenC[1]);
+
+                            if(pViewport != NULL)
+                            {
+                                Vec2f vVPCoord = 
+                                    pViewport->translateWindowViewportAbs(
+                                        vScreenC[0],
+                                        vScreenC[1]);
+
+                                MTouchData::MTouchBlob tmpBlobVC(
+                                    bIt->_uiEvent,
+                                    bIt->_iCursorId,
+                                    vVPCoord[0],
+                                    vVPCoord[1],
+                                    MTouchData::ViewportAbs);
+
+                                tmpBlobVC._pWindow   = this->_pWindow;
+                                tmpBlobVC._pViewport = 
+                                    pViewport->getViewport(0);
+
+                                tmpBlobWC._pActiveViewport = pViewport;
+
+                                pViewport->editMTouchDataVC().getBlobStore().
+                                    push_back(tmpBlobVC);
+                            }
+
+                            bWCIt = vBlobsWC.insert(bWCIt, tmpBlobWC);
+                            ++bWCIt;
+
+#if 0
+                            fprintf(stderr, "insert %d (%d)\n",
+                                    tmpBlobWC._iCursorId,
+                                    tmpBlobWC._uiEvent);
+#endif
+
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else if(bWCIt->_iCursorId < bIt->_iCursorId)
+                    {
+#if 0
+                        fprintf(stderr, "remove %d (%d)\n",
+                                bWCIt->_iCursorId,
+                                bWCIt->_uiEvent);
+#endif
+
+                        bWCIt  = vBlobsWC.erase(bWCIt);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            } while(bWCIt != vBlobsWC.end());
+        }
+
+        if(bWCIt != vBlobsWC.end())
+        {
+            vBlobsWC.erase(bWCIt, vBlobsWC.end());
+        }
+
+#if 0
+        fprintf(stderr, "process end\n=====================================\n");
+        fprintf(stderr, "input mtouch\n");
+        _sfMTouchData.getValue().dump();
+
+        fprintf(stderr, "wc mtouch\n");
+        _sfMTouchDataWC.getValue().dump();
+#endif
+    }
+
+    if (0x0000 != (whichField & MTouchDataWCFieldMask))
+    {
+#if 0
+        fprintf(stderr, "\n=============\nplop\n=====================\n");
+#endif
     }
 
     if (0x0000 != (whichField & GestureDataFieldMask))
