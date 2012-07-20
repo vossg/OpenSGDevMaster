@@ -356,12 +356,24 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
                 break;
 
                 case MTouchData::GlobalAbs:
+                    vScreenC = this->translateGlobalCoordinatesAbs(
+                        bIt->_vPosition[0],
+                        bIt->_vPosition[1]);
+
                     break;
 
                 case MTouchData::WindowRel:
+                    vScreenC[0] = 
+                        bIt->_vPosition[0] * Real32(this->getSize()[0]) + 0.5f;
+
+                    vScreenC[1] = 
+                        bIt->_vPosition[1] * Real32(this->getSize()[1]) + 0.5f;
+
                     break;
 
                 case MTouchData::WindowAbs:
+                    vScreenC[0] = bIt->_vPosition[0];
+                    vScreenC[1] = bIt->_vPosition[1];
                     break;
 
                 default:
