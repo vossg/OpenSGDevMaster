@@ -1978,10 +1978,10 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
               COMPONENT release_libraries
+              OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
               COMPONENT release_libraries
-
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
@@ -1995,10 +1995,10 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
               COMPONENT debug_libraries
+              OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
               COMPONENT debug_libraries
-
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
@@ -2012,10 +2012,10 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
               COMPONENT release_no_opt_libraries
+              OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
               COMPONENT release_no_opt_libraries
-
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
@@ -2029,10 +2029,10 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
               COMPONENT debug_opt_libraries
+              OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
               COMPONENT debug_opt_libraries
-
               OPTIONAL)
 
 
@@ -2126,9 +2126,11 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
 
               RUNTIME DESTINATION ${_OSG_PY_INST_BASE}
               COMPONENT libraries
+              OPTIONAL
 
               LIBRARY DESTINATION ${_OSG_PY_INST_BASE}
               COMPONENT libraries
+              OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_PY_INST_BASE}
               COMPONENT libraries
