@@ -74,20 +74,21 @@ IF(OSGNVidiaSDKSrcDir)
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
                   CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
+                  RUNTIME DESTINATION bin COMPONENT libraries 
+                  LIBRARY DESTINATION lib COMPONENT libraries 
+                  ARCHIVE DESTINATION lib COMPONENT libraries )
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
     ENDIF(WIN32)
 
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_CUDACOMMON_HDR} 
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
@@ -95,6 +96,7 @@ IF(OSGNVidiaSDKSrcDir)
   IF(NOT WIN32)
     INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
             DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda/GL
+            COMPONENT code_headers
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
                         WORLD_READ)

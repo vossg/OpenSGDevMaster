@@ -44,15 +44,15 @@
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
+                  RUNTIME DESTINATION bin COMPONENT runtimes
+                  LIBRARY DESTINATION lib COMPONENT libraries
+                  ARCHIVE DESTINATION lib COMPONENT libraries)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries)
     ENDIF(WIN32)
 
   ENDIF(BUILD_SHARED_LIBS)
@@ -79,15 +79,15 @@
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
+                  RUNTIME DESTINATION bin COMPONENT libraries
+                  LIBRARY DESTINATION lib COMPONENT libraries
+                  ARCHIVE DESTINATION lib COMPONENT libraries)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
     ENDIF(WIN32)
 
   ENDIF(BUILD_STATIC_LIBS)

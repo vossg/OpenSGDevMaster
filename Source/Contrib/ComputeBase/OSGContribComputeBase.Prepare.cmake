@@ -40,22 +40,29 @@ LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_CUDAUTIL 1")
 LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_CUDPP 1")
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/FindOpenCL.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/ConfigurePackages.OSGContribComputeBase.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/OSGContribComputeBase.SetupHelper.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/cuda/FindCUDA.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/cuda/FindCUDA/make2cmake.cmake"
-        DESTINATION share/OpenSG/cmake/FindCUDA)
+        DESTINATION share/OpenSG/cmake/FindCUDA
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/cuda/FindCUDA/parse_cubin.cmake"
-        DESTINATION share/OpenSG/cmake/FindCUDA)
+        DESTINATION share/OpenSG/cmake/FindCUDA
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/cuda/FindCUDA/run_nvcc.cmake"
-        DESTINATION share/OpenSG/cmake/FindCUDA)
+        DESTINATION share/OpenSG/cmake/FindCUDA
+        COMPONENT development_configuration)

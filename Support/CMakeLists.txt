@@ -153,6 +153,7 @@ FILE(APPEND  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake"
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
         DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
+        COMPONENT development_configuration
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ)
@@ -168,12 +169,14 @@ ELSE()
 
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/../CMake/Packaging/Windows/OpenSG2_Icon.ico"
           DESTINATION share/OpenSG/Packaging
+          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
 
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/../CMake/Packaging/Windows/InstallerHeader.bmp"
           DESTINATION share/OpenSG/Packaging
+          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
@@ -182,10 +185,41 @@ ENDIF()
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
         DESTINATION share/OpenSG/Packaging
+        COMPONENT packaging
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ
         RENAME CMakeLists.txt)
+
+###########################
+# Component install Setting
+###########################
+
+GET_CMAKE_PROPERTY(OSG_COMPONENT_LIST COMPONENTS)
+
+ADD_CUSTOM_TARGET(OSG_preinstall
+                  make preinstall
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+FOREACH(_OSG_CMP ${OSG_COMPONENT_LIST})
+  ADD_CUSTOM_TARGET(INSTALL_${_OSG_CMP}
+                    COMMAND cmake -DCOMPONENT=${_OSG_CMP} -P cmake_install.cmake
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+  ADD_DEPENDENCIES(INSTALL_${_OSG_CMP} OSG_preinstall)
+ENDFOREACH()
+
+
+IF(WIN32)
+
+ELSE()
+
+  ADD_CUSTOM_TARGET(INSTALL_runtime)
+
+  ADD_DEPENDENCIES(INSTALL_runtime INSTALL_libraries)
+ENDIF()
+
+
 
 IF(CUDA_FOUND)
   CUDA_BUILD_CLEAN_TARGET()

@@ -27,8 +27,10 @@ IF(WIN32 AND OSG_WITH_CG)
 ENDIF(WIN32 AND OSG_WITH_CG)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/FindCg.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/ConfigurePackages.OSGContribCgFX.cmake"
-        DESTINATION share/OpenSG/cmake)
+        DESTINATION share/OpenSG/cmake
+        COMPONENT development_configuration)
 

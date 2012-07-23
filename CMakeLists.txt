@@ -1381,7 +1381,8 @@ ENDIF(OSGBUILD_PYTHON_BINDINGS)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/PreBoostPython.h"
               "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/OsgPtrHelpers.h"
               "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/pypp_aliases.h"
-        DESTINATION include/OpenSG/Bindings/Python/Common                 )
+        DESTINATION include/OpenSG/Bindings/Python/Common
+        COMPONENT code_headers)
 
 
 
@@ -1868,67 +1869,79 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}/osg
-            CONFIGURATIONS Release)
+            CONFIGURATIONS Release
+            COMPONENT      release_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/osg
-            CONFIGURATIONS Debug)
+            CONFIGURATIONS Debug
+            COMPONENT      debug_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/osg
-            CONFIGURATIONS DebugOpt)
+            CONFIGURATIONS DebugOpt
+            COMPONENT      debug_opt_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/osg
-            CONFIGURATIONS ReleaseNoOpt)
+            CONFIGURATIONS ReleaseNoOpt
+            COMPONENT      release_no_opt_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}
-            CONFIGURATIONS Release)
+            CONFIGURATIONS Release
+            COMPONENT      release_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}/helpers
-            CONFIGURATIONS Release)
+            CONFIGURATIONS Release
+            COMPONENT      release_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}
-            CONFIGURATIONS Debug)
+            CONFIGURATIONS Debug
+            COMPONENT      debug_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/helpers
-            CONFIGURATIONS Debug)
+            CONFIGURATIONS Debug
+            COMPONENT      debug_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}
-            CONFIGURATIONS DebugOpt)
+            CONFIGURATIONS DebugOpt
+            COMPONENT      debug_opt_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/helpers
-            CONFIGURATIONS DebugOpt)
+            CONFIGURATIONS DebugOpt
+            COMPONENT      debug_opt_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}
-            CONFIGURATIONS ReleaseNoOpt)
+            CONFIGURATIONS ReleaseNoOpt
+            COMPONENT      release_no_opt_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/helpers
-            CONFIGURATIONS ReleaseNoOpt)
+            CONFIGURATIONS ReleaseNoOpt
+            COMPONENT      release_no_opt_runtimes)
 
   ELSE(WIN32)   
 
@@ -1937,16 +1950,19 @@ IF(OSGBUILD_PYTHON_BINDINGS)
         "lib${OSG_LIBDIR_BASE_SUFFIX}/${_PY_VERSION_DIR}/site-packages/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}/osg2")
 
     INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-            DESTINATION ${_OSG_PY_INST_BASE}/osg)
+            DESTINATION ${_OSG_PY_INST_BASE}/osg
+            COMPONENT   libraries)
 
     INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
-            DESTINATION ${_OSG_PY_INST_BASE})
+            DESTINATION ${_OSG_PY_INST_BASE}
+            COMPONENT   libraries)
 
     INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
-            DESTINATION ${_OSG_PY_INST_BASE}/helpers)
+            DESTINATION ${_OSG_PY_INST_BASE}/helpers
+            COMPONENT   libraries)
 
   ENDIF(WIN32)
 
@@ -1955,6 +1971,7 @@ ENDIF()
 ##################
 # Documentation
 ##################
+
 IF(DOXYGEN_EXECUTABLE)
     IF(OSG_INSTALL_DOXYDOC)
         INSTALL(DIRECTORY "${OSG_DOXY_HTML_DIR}"
@@ -2206,12 +2223,14 @@ ELSE()
                  @ONLY                                      )
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico"
           DESTINATION share/OpenSG/Packaging
+          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
 
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallerHeader.bmp"
           DESTINATION share/OpenSG/Packaging
+          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
@@ -2219,6 +2238,7 @@ ENDIF()
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
         DESTINATION share/OpenSG/Packaging
+        COMPONENT packaging
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ
@@ -2251,6 +2271,36 @@ FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
 
 FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
      "SET(OSG_USE_OSGSUPPORT_LIBS ${OSG_USE_OSGSUPPORT_LIBS} CACHE BOOL \"\")\n\n")
+
+###########################
+# Component install Setting
+###########################
+
+GET_CMAKE_PROPERTY(OSG_COMPONENT_LIST COMPONENTS)
+
+ADD_CUSTOM_TARGET(OSG_preinstall
+                  make preinstall
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+FOREACH(_OSG_CMP ${OSG_COMPONENT_LIST})
+  ADD_CUSTOM_TARGET(INSTALL_${_OSG_CMP}
+                    COMMAND cmake -DCOMPONENT=${_OSG_CMP} -P cmake_install.cmake
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+  ADD_DEPENDENCIES(INSTALL_${_OSG_CMP} OSG_preinstall)
+ENDFOREACH()
+
+
+IF(WIN32)
+
+ELSE()
+
+  ADD_CUSTOM_TARGET(INSTALL_runtime)
+
+  ADD_DEPENDENCIES(INSTALL_runtime INSTALL_libraries)
+  ADD_DEPENDENCIES(INSTALL_runtime INSTALL_binaries)
+ENDIF()
+
 
 ################
 # Build Setting

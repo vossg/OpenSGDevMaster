@@ -989,22 +989,26 @@ IF(_OSG_COLLADA_PRECOND)
 
   INSTALL(FILES ${OSG_COLLADA_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
   INSTALL(FILES ${OSG_COLLADADAE_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/dae
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
   INSTALL(FILES ${OSG_COLLADAMOD_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/modules
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_COLLADA14_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/1.4/dom
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
@@ -1012,6 +1016,7 @@ IF(_OSG_COLLADA_PRECOND)
   IF(OSG_BUILD_COLLADADOM_15)
     INSTALL(FILES ${OSG_COLLADA15_HDR}
             DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/1.5/dom
+            COMPONENT code_headers
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
                         WORLD_READ)

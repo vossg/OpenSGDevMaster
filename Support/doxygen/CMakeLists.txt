@@ -487,6 +487,7 @@ IF(OSGDoxygenSrcDir)
 
   INSTALL(FILES "${CMAKE_BINARY_DIR}/External/doxygen/bin/doxygen"
           DESTINATION bin
+          COMPONENT development_tools
           PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
                       GROUP_READ GROUP_EXECUTE
                       WORLD_READ WORLD_EXECUTE)

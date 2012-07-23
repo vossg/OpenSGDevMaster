@@ -107,20 +107,21 @@ IF(OSGNVidiaSDKSrcDir)
   IF(WIN32)
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                     CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
-                    RUNTIME DESTINATION bin
-                    LIBRARY DESTINATION lib
-                    ARCHIVE DESTINATION lib)
+                    RUNTIME DESTINATION bin COMPONENT runtimes
+                    LIBRARY DESTINATION lib COMPONENT libraries
+                    ARCHIVE DESTINATION lib COMPONENT libraries)
 
   ELSE(WIN32)
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
-                    RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                    LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                    ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                    RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                    LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                    ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries)
   ENDIF(WIN32)
 
 
   INSTALL(FILES ${OSG_CUDAUTIL_HDR} 
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/cuda
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

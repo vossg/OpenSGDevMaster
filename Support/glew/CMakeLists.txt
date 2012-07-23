@@ -37,21 +37,22 @@ IF(OSGGLEWSrcDir)
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib
-                  ARCHIVE DESTINATION lib)
+                  RUNTIME DESTINATION bin COMPONENT runtimes
+                  LIBRARY DESTINATION lib COMPONENT libraries
+                  ARCHIVE DESTINATION lib COMPONENT libraries)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                   CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT libraries)
     ENDIF(WIN32)
 
   ENDIF(BUILD_SHARED_LIBS)
 
   INSTALL(FILES ${OSG_GLEW_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/GL
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
