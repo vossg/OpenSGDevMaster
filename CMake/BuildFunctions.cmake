@@ -1239,30 +1239,31 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
         ENDIF(OSG_INSTALL_PDB_FILES)
 
+        IF(FALSE)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS MinSizeRel
+                  RUNTIME DESTINATION lib/minsizerel
+                  COMPONENT release_minsize_runtimes)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS MinSizeRel
-                RUNTIME DESTINATION lib/minsizerel
-                COMPONENT release_minsize_runtimes)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS MinSizeRel
+                  LIBRARY DESTINATION lib/minsizerel
+                  COMPONENT release_minsize_libraries
+                  ARCHIVE DESTINATION lib/minsizerel
+                  COMPONENT release_minsize_libraries)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS MinSizeRel
-                LIBRARY DESTINATION lib/minsizerel
-                COMPONENT release_minsize_libraries
-                ARCHIVE DESTINATION lib/minsizerel
-                COMPONENT release_minsize_libraries)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS RelWithDebInfo
+                  RUNTIME DESTINATION lib/relwithdbg
+                  COMPONENT release_with_debinfo_runtimes)
 
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS RelWithDebInfo
-                RUNTIME DESTINATION lib/relwithdbg
-                COMPONENT release_with_debinfo_runtimes)
-
-        INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS RelWithDebInfo
-                LIBRARY DESTINATION lib/relwithdbg
-                COMPONENT release_with_debinfo_libraries
-                ARCHIVE DESTINATION lib/relwithdbg
-                COMPONENT release_with_debinfo_libraries)
+          INSTALL(TARGETS ${PROJECT_NAME}
+                  CONFIGURATIONS RelWithDebInfo
+                  LIBRARY DESTINATION lib/relwithdbg
+                  COMPONENT release_with_debinfo_libraries
+                  ARCHIVE DESTINATION lib/relwithdbg
+                  COMPONENT release_with_debinfo_libraries)
+        ENDIF()
     ELSEIF(APPLE AND IOS)
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release-iphoneos
@@ -1485,6 +1486,10 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
             SET_PROPERTY(TARGET ${EXE} APPEND
                 PROPERTY COMPILE_DEFINITIONS ${${PROJECT_NAME}_DEP_TEST_DEFS})
         ENDIF(${PROJECT_NAME}_DEP_TEST_DEFS)
+
+        IF(WIN32)
+          SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Tests")
+        ENDIF()
     ENDFOREACH(EXE_SRC)
 
     FOREACH(EXE_SRC ${${PROJECT_NAME}_APP_SRC})
@@ -2088,7 +2093,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION    ${_OSG_TARGET_PYLIBDIR_REL}
               CONFIGURATIONS Release
-              COMPONENTS     release_runtimes
+              COMPONENT      release_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2096,7 +2101,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
               CONFIGURATIONS Debug
-              COMPONENTS     debug_runtimes
+              COMPONENT      debug_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2104,7 +2109,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
               CONFIGURATIONS DebugOpt
-              COMPONENTS     debug_opt_runtimes
+              COMPONENT      debug_opt_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2112,7 +2117,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
               CONFIGURATIONS ReleaseNoOpt
-              COMPONENTS     release_no_opt_runtimes
+              COMPONENT      release_no_opt_runtimes
               OPTIONAL)
 
 

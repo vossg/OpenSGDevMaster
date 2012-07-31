@@ -82,14 +82,21 @@ IF(OSGJpegLibSrcDir)
                           DEBUG_POSTFIX "D")
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_LIBJPG_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

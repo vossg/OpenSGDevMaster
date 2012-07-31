@@ -43,10 +43,16 @@
 
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
-                  CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin COMPONENT runtimes
-                  LIBRARY DESTINATION lib COMPONENT libraries
-                  ARCHIVE DESTINATION lib COMPONENT libraries)
+                  CONFIGURATIONS Release
+                  RUNTIME DESTINATION bin COMPONENT release_runtimes
+                  LIBRARY DESTINATION lib COMPONENT release_libraries
+                  ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION bin COMPONENT debug_runtimes
+                  LIBRARY DESTINATION lib COMPONENT debug_libraries
+                  ARCHIVE DESTINATION lib COMPONENT debug_libraries)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget_14}
                   CONFIGURATIONS Release Debug
@@ -78,10 +84,16 @@
 
     IF(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
-                  CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin COMPONENT libraries
-                  LIBRARY DESTINATION lib COMPONENT libraries
-                  ARCHIVE DESTINATION lib COMPONENT libraries)
+                  CONFIGURATIONS Release
+                  RUNTIME DESTINATION lib COMPONENT debug_libraries
+                  LIBRARY DESTINATION lib COMPONENT debug_libraries
+                  ARCHIVE DESTINATION lib COMPONENT debug_libraries)
+
+      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION lib COMPONENT debug_libraries
+                  LIBRARY DESTINATION lib COMPONENT debug_libraries
+                  ARCHIVE DESTINATION lib COMPONENT debug_libraries)
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget_14}
                   CONFIGURATIONS Release Debug

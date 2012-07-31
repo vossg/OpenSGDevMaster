@@ -10,7 +10,13 @@
     INCLUDE_DIRECTORIES(${OSGOpenExrSrcDir}/IlmBase/Iex)
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIlmThread}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release 
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIlmThread}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)

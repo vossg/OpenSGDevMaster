@@ -197,16 +197,40 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
 
 GET_CMAKE_PROPERTY(OSG_COMPONENT_LIST COMPONENTS)
 
-ADD_CUSTOM_TARGET(OSG_preinstall
-                  make preinstall
-                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+IF(NOT WIN32)
+  ADD_CUSTOM_TARGET(OSG_preinstall
+                    make preinstall
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+ELSE()
+ENDIF()
 
 FOREACH(_OSG_CMP ${OSG_COMPONENT_LIST})
-  ADD_CUSTOM_TARGET(INSTALL_${_OSG_CMP}
-                    COMMAND cmake -DCOMPONENT=${_OSG_CMP} -P cmake_install.cmake
-                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
-  ADD_DEPENDENCIES(INSTALL_${_OSG_CMP} OSG_preinstall)
+  IF(NOT WIN32)
+
+    ADD_CUSTOM_TARGET(INSTALL_${_OSG_CMP}
+                      COMMAND ${CMAKE_COMMAND} -DCOMPONENT=${_OSG_CMP} -P cmake_install.cmake
+                      WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+  ELSE()
+
+    SET(_OSG_CMP_CONF Release)
+
+    IF(${_OSG_CMP} MATCHES ^debug_)
+      SET(_OSG_CMP_CONF Debug)
+    ENDIF()
+
+    ADD_CUSTOM_TARGET(INSTALL_${_OSG_CMP}
+                      COMMAND ${CMAKE_COMMAND} -DCOMPONENT=${_OSG_CMP} -DCMAKE_INSTALL_CONFIG_NAME=${_OSG_CMP_CONF} -P cmake_install.cmake
+                      WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+  ENDIF()
+
+  IF(NOT WIN32)
+    ADD_DEPENDENCIES(INSTALL_${_OSG_CMP} OSG_preinstall)
+  ELSE()
+  ENDIF()
+
 ENDFOREACH()
 
 

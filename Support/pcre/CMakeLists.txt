@@ -76,10 +76,16 @@ IF(OSGPcreSrcDir)
                           DEBUG_POSTFIX "D")
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTargetPcre}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION bin COMPONENT release_runtimes
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}SharedTargetPcre}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION bin COMPONENT debug_runtimes
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
 
     ADD_LIBRARY(${${PROJECT_NAME}SharedTargetPcrecpp} SHARED 
                                                       ${OSG_PCRECPP_SRCS})
@@ -92,10 +98,16 @@ IF(OSGPcreSrcDir)
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTargetPcrecpp} ${${PROJECT_NAME}SharedTargetPcre})
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTargetPcrecpp}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION bin COMPONENT release_runtimes
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}SharedTargetPcrecpp}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION bin COMPONENT debug_runtimes
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
   ENDIF(BUILD_SHARED_LIBS)
 
   IF(BUILD_STATIC_LIBS)
@@ -109,10 +121,16 @@ IF(OSGPcreSrcDir)
                           COMPILE_DEFINITIONS PCRE_STATIC)
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetPcre}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetPcre}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
 
     ADD_LIBRARY(${${PROJECT_NAME}StaticTargetPcrecpp} STATIC 
                                                       ${OSG_PCRECPP_SRCS})
@@ -124,10 +142,16 @@ IF(OSGPcreSrcDir)
                           COMPILE_DEFINITIONS PCRE_STATIC)
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetPcrecpp}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetPcrecpp}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
   ENDIF(BUILD_STATIC_LIBS)
 
   SET(OSG_PCRE_INCLUDE_DIR ${OSGPcreSrcDir};${CMAKE_BINARY_DIR}/pcre CACHE PATH "")

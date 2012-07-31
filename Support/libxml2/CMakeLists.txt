@@ -179,10 +179,16 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} osgzlib)
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION bin COMPONENT release_runtimes
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION bin COMPONENT debug_runtimes
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
 
   ENDIF(BUILD_SHARED_LIBS)
 
@@ -199,14 +205,21 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
 
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
   ENDIF(BUILD_STATIC_LIBS)
 
   INSTALL(FILES ${OSG_LIBXML2_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/libxml
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

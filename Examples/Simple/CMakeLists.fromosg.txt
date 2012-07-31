@@ -114,6 +114,9 @@ FOREACH(SRC ${SRCFILES})
                      APPEND PROPERTY COMPILE_FLAGS ${OSG_ADD_CXX_FLAGS_GV})
     ENDIF()
     
+    IF(WIN32)
+      SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Examples/Simple")
+    ENDIF()
     
     #Install
     IF(OSG_INSTALL_EXAMPLES_EXE)

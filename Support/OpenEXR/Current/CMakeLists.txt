@@ -246,10 +246,16 @@ IF(OSGIlmBaseSrcDir)
                           DEBUG_POSTFIX "D")
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetHalf}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetHalf}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
 
 
     # Iex
@@ -263,10 +269,16 @@ IF(OSGIlmBaseSrcDir)
                           DEBUG_POSTFIX "D")
 
     INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIex}
-                CONFIGURATIONS Release Debug
-                RUNTIME DESTINATION bin
-                LIBRARY DESTINATION lib
-                ARCHIVE DESTINATION lib)
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib COMPONENT release_libraries
+                LIBRARY DESTINATION lib COMPONENT release_libraries
+                ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTargetIex}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION lib COMPONENT debug_libraries
+                LIBRARY DESTINATION lib COMPONENT debug_libraries
+                ARCHIVE DESTINATION lib COMPONENT debug_libraries)
 
 
     # IlmThread
@@ -281,30 +293,35 @@ IF(OSGIlmBaseSrcDir)
 
   INSTALL(FILES ${OSG_OEXR_HALF_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_IEX_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_ITR_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_IMF_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
 
   INSTALL(FILES ${OSG_OEXR_MATH_HDR}
           DESTINATION include${OSG_SUPPORT_INC_SUBDIR}/OpenEXR
+          COMPONENT code_headers
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)

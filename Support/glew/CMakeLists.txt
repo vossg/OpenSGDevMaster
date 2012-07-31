@@ -35,11 +35,19 @@ IF(OSGGLEWSrcDir)
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} ${OPENGL_gl_LIBRARY})
 
     IF(WIN32)
+
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
-                  CONFIGURATIONS Release Debug
-                  RUNTIME DESTINATION bin COMPONENT runtimes
-                  LIBRARY DESTINATION lib COMPONENT libraries
-                  ARCHIVE DESTINATION lib COMPONENT libraries)
+                  CONFIGURATIONS Release
+                  RUNTIME DESTINATION bin COMPONENT release_runtimes
+                  LIBRARY DESTINATION lib COMPONENT release_libraries
+                  ARCHIVE DESTINATION lib COMPONENT release_libraries)
+
+      INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
+                  CONFIGURATIONS Debug
+                  RUNTIME DESTINATION bin COMPONENT debug_runtimes
+                  LIBRARY DESTINATION lib COMPONENT debug_libraries
+                  ARCHIVE DESTINATION lib COMPONENT debug_libraries)
+
     ELSE(WIN32)
       INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                   CONFIGURATIONS Release Debug
