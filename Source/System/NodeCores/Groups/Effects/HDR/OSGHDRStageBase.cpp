@@ -228,7 +228,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
     "   isNodeCore=\"true\"\n"
-    "   isBundle=\"true\"\n"
+    "   isBundle=\"false\"\n"
     "   docGroupBase=\"GrpEffectsGroupsHDR\"\n"
     "   >\n"
     "  <Field\n"
@@ -529,7 +529,17 @@ HDRStageTransitPtr HDRStageBase::createDependent(BitVector bFlags)
 //! create a new instance of the class
 HDRStageTransitPtr HDRStageBase::create(void)
 {
-    return createLocal();
+    HDRStageTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<HDRStage>(tmpPtr);
+    }
+
+    return fc;
 }
 
 HDRStage *HDRStageBase::createEmptyLocal(BitVector bFlags)
@@ -546,7 +556,14 @@ HDRStage *HDRStageBase::createEmptyLocal(BitVector bFlags)
 //! create an empty new instance of the class, do not copy the prototype
 HDRStage *HDRStageBase::createEmpty(void)
 {
-    return createEmptyLocal();
+    HDRStage *returnValue;
+
+    newPtr<HDRStage>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
+
+    return returnValue;
 }
 
 
@@ -580,7 +597,17 @@ FieldContainerTransitPtr HDRStageBase::shallowCopyDependent(
 
 FieldContainerTransitPtr HDRStageBase::shallowCopy(void) const
 {
-    return shallowCopyLocal();
+    HDRStage *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const HDRStage *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
 }
 
 
