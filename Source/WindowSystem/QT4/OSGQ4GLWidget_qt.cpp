@@ -44,7 +44,20 @@
 
 #ifdef OSG_WITH_QT
 
-OSG_USING_NAMESPACE
+#include <Qt/qevent.h>
+
+OSG_BEGIN_NAMESPACE
+
+OSGQGLWidget::GLContext::GLContext(const QGLFormat & format) :
+    QGLContext(format)
+{
+}
+ 
+ // on makeCurrent() just do pretty nothing
+void OSGQGLWidget::GLContext::makeCurrent(void)
+{
+    OSG_ASSERT(false);
+}
 
 /*! \class OSG::QTWindow
 
@@ -70,11 +83,14 @@ OSGQGLWidget::OSGQGLWidget(      QWidget    *parent,
                            const char       *name,
                            const QGLWidget  *shareWidget,
                                  Qt::WFlags  f           ) :
-    QGLWidget( parent, shareWidget, f ) 
+    QGLWidget(new GLContext(QGLFormat::defaultFormat()),
+              parent, 
+              shareWidget, 
+              f                                        ) 
 {
 }
 
-OSGQGLWidget::OSGQGLWidget(      QGLContext      *context,
+OSGQGLWidget::OSGQGLWidget(      GLContext       *context,
                                  QWidget         *parent ,
                            const QGLWidget       *shareWidget,
                                  Qt::WindowFlags  f           ) :
@@ -87,7 +103,7 @@ OSGQGLWidget::OSGQGLWidget(const QGLFormat  &format,
                            const char       *name,
                            const QGLWidget  *shareWidget,
                                  Qt::WFlags  f           ) :
-    QGLWidget(format, parent, shareWidget, f)
+    QGLWidget(new GLContext(format), parent, shareWidget, f)
 {
 }
 
@@ -121,5 +137,32 @@ void OSGQGLWidget::makeCurrent(void)
 void OSGQGLWidget::swapBuffers(void)
 {
 }
+
+bool OSGQGLWidget::event(QEvent *pEvent)
+{
+#if defined(Q_WS_X11)
+    if(pEvent->type() != QEvent::Hide &&
+       pEvent->type() != QEvent::ParentChange) 
+    {
+        return Inherited::event(pEvent);
+    }
+
+    return true;
+#else
+    return Inherited::event(pEvent);
+#endif
+}
+
+void OSGQGLWidget::resizeEvent(QResizeEvent *) 
+{
+    resizeGL(width(), height()); 
+}
+
+void OSGQGLWidget::paintEvent(QPaintEvent *) 
+{ 
+    paintGL(); 
+};
+
+OSG_END_NAMESPACE
 
 #endif /* OSG_WITH_QT */

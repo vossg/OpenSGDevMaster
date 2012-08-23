@@ -873,7 +873,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     # Qt4
     ############
 
-    IF(${PROJECT_NAME} STREQUAL "OSGWindowQT4")
+    IF(${PROJECT_NAME}_MOC)
         # Here only the OSG_WITH_QT define is passes to qt moc.
         SET(moc_flags -DOSG_WITH_QT)
 
@@ -890,7 +890,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 DEPENDS ${MOCFile})
             LIST(APPEND ${PROJECT_NAME}_SRC ${MOCOutFile})
         ENDFOREACH(MOCFile)
-    ENDIF(${PROJECT_NAME} STREQUAL "OSGWindowQT4")
+    ENDIF(${PROJECT_NAME}_MOC)
 
     ############
     # Flex/Bison

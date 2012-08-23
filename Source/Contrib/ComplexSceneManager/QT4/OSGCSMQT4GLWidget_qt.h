@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGQ4GLWIDGET_H_
-#define _OSGQ4GLWIDGET_H_
+#ifndef _OSGCSMQT4GLWIDGET_H_
+#define _OSGCSMQT4GLWIDGET_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -50,10 +50,14 @@
 
 #ifdef OSG_WITH_QT
 
-#include "OSGWindowQT4Def.h"
+#include "OSGContribCSMDef.h"
 #include "OSGBaseTypes.h"
 
+#include "OSGQ4GLWidget_qt.h"
+
 namespace OSG {
+
+class CSMQT4Window;
 
 /*! \brief OSGQGL widget class. See \ref PageWindowQT for a description. 
     \ingroup GrpWindowQt4Obj
@@ -61,7 +65,7 @@ namespace OSG {
     \includebasedoc
  */
 
-class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
+class OSG_CONTRIBCSM_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
 {
     Q_OBJECT
 
@@ -69,67 +73,64 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
 
   public:
 
-    class GLContext : public QGLContext
-    {
-      public:
-
-        GLContext(const QGLFormat &format);
-
-        virtual void makeCurrent(void);
-    };
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSGQGLWidget(      QWidget        *parent,
-                 const Char8          *name         = 0,
-                 const QGLWidget      *shareWidget  = 0,
-                       Qt::WFlags      f            = 0 );
-    OSGQGLWidget(      GLContext       *context,
-                       QWidget         *parent      = 0,
-                 const QGLWidget       *shareWidget = 0,
-                       Qt::WindowFlags  f           = 0 );
+    CSMQT4GLWidget(      QWidget         *parent,
+                   const Char8           *name         = 0,
+                   const QGLWidget       *shareWidget  = 0,
+                         Qt::WFlags       f            = 0                   );
+    CSMQT4GLWidget(      GLContext       *context,
+                         QWidget         *parent      = 0,
+                   const QGLWidget       *shareWidget = 0,
+                         Qt::WindowFlags  f           = 0                    );
 
-    OSGQGLWidget(const QGLFormat  &format      = QGLFormat::defaultFormat(),
-                       QWidget    *parent      = 0,
-                 const Char8      *name        = 0,
-                 const QGLWidget  *shareWidget = 0,
-                       Qt::WFlags  f           = 0 );
+    CSMQT4GLWidget(const QGLFormat       &format = QGLFormat::defaultFormat(),
+                         QWidget         *parent      = 0,
+                   const Char8           *name        = 0,
+                   const QGLWidget       *shareWidget = 0,
+                         Qt::WFlags       f           = 0                   );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Desstructor                                */
     /*! \{                                                                 */
 
-    virtual ~OSGQGLWidget();
+    virtual ~CSMQT4GLWidget(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Desstructor                                */
+    /*! \{                                                                 */
+
+    void setQT4Window(CSMQT4Window *pWindow);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 OpenGL handling                              */
     /*! \{                                                                 */
     
-    virtual void makeCurrent(void);
-    virtual void swapBuffers(void);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef QGLWidget Inherited;
+    typedef OSGQGLWidget Inherited;
+
+    CSMQT4Window *_pOSGWindow;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 OpenGL handling                              */
     /*! \{                                                                 */
 
-    virtual void initializeGL(void);
-    virtual void paintGL     (void);
-    virtual void resizeGL    (int w, int h);
-    virtual void glDraw      (void) {};
-
-    virtual bool event       (QEvent       *pEvent);
-    virtual void resizeEvent (QResizeEvent *pEvent);
-    virtual void paintEvent  (QPaintEvent  *pEvent);
+    virtual void resizeEvent      (QResizeEvent *pEvent);
+    virtual void mousePressEvent  (QMouseEvent  *pEvent);
+    virtual void mouseReleaseEvent(QMouseEvent  *pEvent);
+    virtual void mouseMoveEvent   (QMouseEvent  *pEvent);
+    virtual void wheelEvent       (QWheelEvent  *pEvent);
+    virtual void keyPressEvent    (QKeyEvent    *pEvent);
+    virtual void keyReleaseEvent  (QKeyEvent    *pEvent);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -137,17 +138,17 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
   private:
 
     /* prohibit default function (move to 'public' if needed) */
-    OSGQGLWidget(const OSGQGLWidget &source);
+    CSMQT4GLWidget(const CSMQT4GLWidget &source);
     /* prohibit default function (move to 'public' if needed) */
-    void operator =(const OSGQGLWidget &source);
+    void operator =(const CSMQT4GLWidget &source);
 };
 
-typedef OSGQGLWidget * OSGQGLWidgetP;                      
+typedef CSMQT4GLWidget * CSMQT4GLWidgetP;                      
 
 }
 
-#include "OSGQ4GLWidget_qt.inl"
+//#include "OSGQ4GLWidget_qt.inl"
 
 #endif // OSG_WITH_QT
 
-#endif // _OSGQGL4WIDGET_H_
+#endif // _OSGCSMQT4GLWIDGET_H_

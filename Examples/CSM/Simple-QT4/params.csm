@@ -1,0 +1,4 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-qt4.osg
+--data   ../Models/tie.wrl
+--global ../Common/simple_mouse.osg

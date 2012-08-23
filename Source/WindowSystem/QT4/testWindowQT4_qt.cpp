@@ -48,69 +48,67 @@
 
 #include "OSGTrackball.h"
 
-// We need our own context to prevent Qt to set its own context current
-class MyQGLContext : public QGLContext
-{
-public:
-    MyQGLContext (const QGLFormat & format) :
-        QGLContext(format)
-        {};
-    virtual void makeCurrent (){}; // on makeCurrent() just do pretty nothing
-};
-
 class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
-    public:
-        MyOSGQGLWidget( QWidget *parent=0, const char *name=0 );
-        MyOSGQGLWidget( MyQGLContext * context,
-            QWidget * parent = 0,
-            const QGLWidget * shareWidget = 0,
-            Qt::WindowFlags f = 0);
+  public:
 
-        OSG::Trackball   tball;
-        OSG::QT4WindowRecPtr osgWin;
+    MyOSGQGLWidget(      QWidget *parent = 0, 
+                   const char    *name   = 0);
 
-    protected:      
-        virtual void initializeGL (void);
-        virtual void paintGL (void);
-        virtual void resizeGL (int w, int h);
-        virtual void mousePressEvent ( QMouseEvent* );
-        virtual void mouseReleaseEvent ( QMouseEvent* );
-        virtual void mouseMoveEvent ( QMouseEvent* );
-        virtual void keyPressEvent ( QKeyEvent* );
-        
+    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *context,
+                         QWidget                      *parent      = 0,
+                   const QGLWidget                    *shareWidget = 0,
+                         Qt::WindowFlags               f           = 0);
+
     static void initOpenGL(void);
 
-        OSG::UInt32      mouseb;
-        OSG::Int32       lastx;
-        OSG::Int32       lasty;
+    OSG::Trackball       tball;
+    OSG::QT4WindowRecPtr osgWin;
+    
+  protected:      
+
+    virtual void paintGL          (void          );
+    virtual void resizeGL         (int          w, 
+                                   int          h);
+    virtual void mousePressEvent  (QMouseEvent * );
+    virtual void mouseReleaseEvent(QMouseEvent * );
+    virtual void mouseMoveEvent   (QMouseEvent * );
+    virtual void keyPressEvent    (QKeyEvent   * );
+    
+
+    OSG::UInt32      mouseb;
+    OSG::Int32       lastx;
+    OSG::Int32       lasty;
 };
 
-MyOSGQGLWidget  *glWidget;
-QApplication    *a;
+MyOSGQGLWidget               *glWidget = NULL;
+QApplication                 *a        = NULL;
 
-OSG::RenderActionRefPtr ract;
-OSG::NodeRecPtr         root;
-OSG::NodeRecPtr         file;
-OSG::ViewportRecPtr     vp;
-OSG::TransformRecPtr    cam_trans;
-OSG::PerspectiveCameraRecPtr cam;
+OSG::RenderActionRefPtr       ract;
+OSG::NodeRecPtr               root;
+OSG::NodeRecPtr               file;
+OSG::ViewportRecPtr           vp;
+OSG::TransformRecPtr          cam_trans;
+OSG::PerspectiveCameraRecPtr  cam;
 
 OSG::QT4WindowRecPtr osgTWin;
+bool bRun = true;
 
-MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
-    OSG::OSGQGLWidget( parent, name )
+MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *parent, 
+                               const char    *name  ) :
+    OSG::OSGQGLWidget(parent, name)
 {
 }
 
-MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
-    QWidget * parent,
-    const QGLWidget * shareWidget,
-    Qt::WindowFlags f) :
-OSG::OSGQGLWidget(context, parent, shareWidget, f)
-{}
+MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *context,
+                                     QWidget                 *parent,
+                               const QGLWidget               *shareWidget,
+                                     Qt::WindowFlags          f          ) :
+    OSG::OSGQGLWidget(context, parent, shareWidget, f)
+{
+}
 
-void MyOSGQGLWidget::initOpenGL ( void )
+void MyOSGQGLWidget::initOpenGL(void)
 {
     // some manual init
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -122,51 +120,16 @@ void MyOSGQGLWidget::initOpenGL ( void )
     glEnable   (GL_NORMALIZE );
 
     // switch off default light
-    OSG::Real32 nul[4]={0.f,0.f,0.f,0.f};
+    OSG::Real32 nul[4]={0.f, 0.f, 0.f, 0.f};
 
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
     glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
 }
 
-void MyOSGQGLWidget::initializeGL ( void )
-{
-    osgWin->init(&MyOSGQGLWidget::initOpenGL);     // create the context
-
-#if 0
-    osgWin->activate(); // and activate it
-
-    // some manual init
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glPixelStorei(GL_PACK_ALIGNMENT,   1);
-
-    glDepthFunc(GL_LEQUAL    );
-    glEnable   (GL_DEPTH_TEST);
-
-    glEnable   (GL_NORMALIZE );
-
-    // switch off default light
-    Real32 nul[4]={0.f,0.f,0.f,0.f};
-
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
-#endif
-
-    OSG::commitChanges();
-
-#if 0
-    osgWin->frameInit();    // call it to setup extensions
-    osgWin->frameExit();    // for symmetry
-#endif
-}
-
-void MyOSGQGLWidget::paintGL ( void )
+void MyOSGQGLWidget::paintGL(void)
 {
     OSG::Matrix m1, m2, m3;
     OSG::Quaternion q1;
-
-#if 0
-    osgWin->frameInit();    // frame-init
-#endif
 
     tball.getRotation().getValue(m3);
     q1.setValue(m3);
@@ -178,23 +141,16 @@ void MyOSGQGLWidget::paintGL ( void )
     OSG::commitChanges();
 
     osgWin->render(ract);   // draw the viewports     
-
-#if 0
-    osgWin->renderAllViewports( ract );   // draw the viewports     
-    osgWin->swap(); 
-
-    osgWin->frameExit();    // frame-cleanup
-#endif
 }
 
-void MyOSGQGLWidget::resizeGL ( int w, int h )
+void MyOSGQGLWidget::resizeGL(int w, int h)
 {   
-    osgWin->resize( w, h );
+    osgWin->resize(w, h);
 }
 
-void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mousePressEvent(QMouseEvent *me)
 {
-    switch ( me->button() ) 
+    switch(me->button()) 
     {
         case Qt::MidButton:
             tball.setAutoPosition(true);
@@ -205,51 +161,55 @@ void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
         default:
             break;
     }
+
     mouseb |= me->button();     
     lastx = me->x();
     lasty = me->y();
 }
 
-void MyOSGQGLWidget::mouseReleaseEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mouseReleaseEvent(QMouseEvent *me)
 {
-    switch ( me->button() )
+    switch(me->button())
     {
         case Qt::MidButton:
             tball.setAutoPosition(false);
             break;
+
         case Qt::RightButton:
             tball.setAutoPositionNeg(false);
             break;
+
         default:
             break;
     }
+
     mouseb &= ~me->button();
 
     lastx = me->x();
     lasty = me->y();    
 }
 
-void MyOSGQGLWidget::mouseMoveEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mouseMoveEvent(QMouseEvent *me)
 {
     OSG::Real32 w = osgWin->getWidth();  // force the calc to Real32
     OSG::Real32 h = osgWin->getHeight();
 
-    OSG::Real32 a = -2. * ( lastx / w - .5 );
-    OSG::Real32 b = -2. * ( .5 - lasty / h );
-    OSG::Real32 c = -2. * ( me->pos().x() / w - .5 );
-    OSG::Real32 d = -2. * ( .5 - me->pos().y() / h );
+    OSG::Real32 a = -2. * (lastx / w - .5 );
+    OSG::Real32 b = -2. * (.5 - lasty / h );
+    OSG::Real32 c = -2. * (me->pos().x() / w - .5);
+    OSG::Real32 d = -2. * (.5 - me->pos().y() / h);
 
-    if ( mouseb & Qt::LeftButton )
+    if(mouseb & Qt::LeftButton)
     {
-        tball.updateRotation( a, b, c, d );
+        tball.updateRotation(a, b, c, d);
     }
-    else if ( mouseb & Qt::MidButton )
+    else if(mouseb & Qt::MidButton)
     {
-        tball.updatePosition( a, b, c, d );
+        tball.updatePosition(a, b, c, d);
     }
-    else if ( mouseb & Qt::RightButton )
+    else if(mouseb & Qt::RightButton)
     {
-        tball.updatePositionNeg( a, b, c, d );
+        tball.updatePositionNeg(a, b, c, d);
     }
 
     lastx = me->pos().x();
@@ -259,11 +219,12 @@ void MyOSGQGLWidget::mouseMoveEvent ( QMouseEvent *me )
 }
 
 
-void MyOSGQGLWidget::keyPressEvent ( QKeyEvent *ke )
+void MyOSGQGLWidget::keyPressEvent(QKeyEvent *ke)
 {
-    if ( ke->key() == Qt::Key_Escape )
+    if(ke->key() == Qt::Key_Escape)
     {
         a->quit();
+        bRun = false;
     }
 }
 
@@ -369,7 +330,8 @@ int main( int argc, char **argv )
     OSG::Vec3f pos( 0, 0, max[2] + ( max[2] - min[2] ) * 1.5 );
 
     // Create Window
-    glWidget = new MyOSGQGLWidget(new MyQGLContext(QGLFormat::defaultFormat()), 0, 0, 0);
+    glWidget = new MyOSGQGLWidget(
+        new OSG::OSGQGLWidget::GLContext(QGLFormat::defaultFormat()), 0, 0, 0);
 
     glWidget->tball.setMode( OSG::Trackball::OSGObject );
     glWidget->tball.setStartPosition( pos, true );
@@ -379,6 +341,7 @@ int main( int argc, char **argv )
     glWidget->osgWin = OSG::QT4Window::create();
     glWidget->osgWin->setGlWidget( glWidget );
     glWidget->osgWin->addPort( vp );
+    glWidget->osgWin->init(&MyOSGQGLWidget::initOpenGL);
 
     a->processEvents();
 
@@ -394,6 +357,7 @@ int main( int argc, char **argv )
     osgTWin   = NULL;
 
     delete glWidget;
+
     glWidget = NULL;
 
     return 0;

@@ -29,29 +29,35 @@
 
 class OpenSGWidget : public QGLWidget
 {
-public:
+  public:
+
     OpenSGWidget(const QGLFormat &f, QWidget *parent=0);
 
     OSG::SimpleSceneManager *getManager(void);
-protected:
-    void initializeGL();
-    void resizeGL( int, int );
-    void paintGL();
-    void mousePressEvent( QMouseEvent *ev );
-    void mouseMoveEvent( QMouseEvent *ev );
-    void mouseReleaseEvent( QMouseEvent *ev );
-    void wheelEvent( QWheelEvent *ev );
+
+  protected:
+
+    void resizeGL         (int, 
+                           int            );
+    void paintGL          (void           );
+
+    void mousePressEvent  (QMouseEvent *ev);
+    void mouseMoveEvent   (QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
+    void wheelEvent       (QWheelEvent *ev);
 
     OSG::SimpleSceneManagerRefPtr mgr;
     OSG::PassiveWindowRecPtr      pwin;
 };
 
-OpenSGWidget::OpenSGWidget(const QGLFormat &f, QWidget *parent)
-     : QGLWidget(f, parent)
+OpenSGWidget::OpenSGWidget(const QGLFormat &f, QWidget *parent) : 
+    QGLWidget(f, parent)
 {
     setAutoBufferSwap(false);
+
     mgr  = OSG::SimpleSceneManager::create();
     pwin = OSG::PassiveWindow::create();
+
     mgr->setWindow(pwin);
 }
 
@@ -61,27 +67,22 @@ OSG::SimpleSceneManager *OpenSGWidget::getManager(void)
 }
 
 
-void OpenSGWidget::initializeGL()
-{
-    pwin->init();   
-}
-
 void OpenSGWidget::resizeGL( int width, int height )
 {
     mgr->resize(width,height);
 }
 
-void OpenSGWidget::paintGL()
+void OpenSGWidget::paintGL(void)
 {
     mgr->redraw();
     swapBuffers();
 }
 
-void OpenSGWidget::mousePressEvent( QMouseEvent *ev )
+void OpenSGWidget::mousePressEvent(QMouseEvent *ev)
 {
     OSG::UInt32 button;
     
-    switch ( ev->button() ) 
+    switch(ev->button()) 
     {
         case Qt::LeftButton:  
             button = OSG::SimpleSceneManager::MouseLeft;   
@@ -92,17 +93,20 @@ void OpenSGWidget::mousePressEvent( QMouseEvent *ev )
         case Qt::RightButton: 
             button = OSG::SimpleSceneManager::MouseRight;  
             break;
-        default:          return;
+        default:  
+            return;
     }
+
     mgr->mouseButtonPress(button, ev->x(), ev->y());
+
     update();
 }
 
-void OpenSGWidget::mouseReleaseEvent( QMouseEvent *ev )
+void OpenSGWidget::mouseReleaseEvent(QMouseEvent *ev)
 {
     OSG::UInt32 button;
     
-    switch ( ev->button() ) 
+    switch(ev->button()) 
     {
         case Qt::LeftButton:  
             button = OSG::SimpleSceneManager::MouseLeft;   
@@ -113,25 +117,30 @@ void OpenSGWidget::mouseReleaseEvent( QMouseEvent *ev )
         case Qt::RightButton: 
             button = OSG::SimpleSceneManager::MouseRight;  
             break;
-        default:          return;
+        default:
+            return;
     }
+
     mgr->mouseButtonRelease(button, ev->x(), ev->y());
+
     update();
 }
 
-void OpenSGWidget::mouseMoveEvent( QMouseEvent *ev )
+void OpenSGWidget::mouseMoveEvent(QMouseEvent *ev)
 {
     mgr->mouseMove(ev->x(), ev->y());
+
     update();
 }
 
-void OpenSGWidget::wheelEvent( QWheelEvent *ev )
+void OpenSGWidget::wheelEvent(QWheelEvent *ev)
 {
     mgr->mouseButtonPress(ev->delta() > 0 ? OSG::SimpleSceneManager::MouseUp
                                           : OSG::SimpleSceneManager::MouseDown, 
                           ev->x(), ev->y());
     
     ev->accept();
+
     update();
 }
 
@@ -140,12 +149,14 @@ int main( int argc, char **argv )
 {
     OSG::osgInit(argc,argv);
     
-    QApplication::setColorSpec( QApplication::CustomColor );
-    QApplication a( argc, argv );
+    QApplication::setColorSpec(QApplication::CustomColor);
 
-    if ( !QGLFormat::hasOpenGL() ) {
-    qWarning( "This system has no OpenGL support. Exiting." );
-    return -1;
+    QApplication a(argc, argv);
+
+    if(!QGLFormat::hasOpenGL()) 
+    {
+        qWarning( "This system has no OpenGL support. Exiting." );
+        return -1;
     }
     
     OpenSGWidget w(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer | QGL::Rgba |
@@ -173,5 +184,6 @@ int main( int argc, char **argv )
     w.getManager()->showAll();
 
     w.show();
+
     return a.exec();
 }

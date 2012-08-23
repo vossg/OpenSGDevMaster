@@ -15,57 +15,50 @@
 
 const int nwindows = 2;
 
-// We need our own context to prevent Qt to set its own context current
-class MyQGLContext : public QGLContext
-{
-public:
-    MyQGLContext (const QGLFormat & format) :
-        QGLContext(format)
-        {};
-    virtual void makeCurrent (){}; // on makeCurrent() just do pretty nothing
-};
-
 class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
-    //Q_OBJECT
+  public:
 
-    public:
-        MyOSGQGLWidget(      QWidget         *parent = 0,
-                       const char            *name   = 0 );
-        MyOSGQGLWidget(      MyQGLContext    *context,
-                             QWidget         *parent      = 0,
-                       const QGLWidget       *shareWidget = 0,
-                             Qt::WindowFlags  f           = 0 );
+    MyOSGQGLWidget(      QWidget                      *parent      = 0,
+                   const char                         *name        = 0);
+    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *context,
+                         QWidget                      *parent      = 0,
+                   const QGLWidget                    *shareWidget = 0,
+                         Qt::WindowFlags               f           = 0);
+    
+    virtual ~MyOSGQGLWidget(void);
+    
+    OSG::SimpleSceneManagerRefPtr m_manager;
+    
+  protected:
 
-        virtual ~MyOSGQGLWidget(void);
+    virtual void paintGL          (void          );
+    virtual void resizeGL         (int w, 
+                                   int          h);
 
-        OSG::SimpleSceneManagerRefPtr m_manager;
-
-    protected:
-        virtual void initializeGL (void);
-        virtual void paintGL (void);
-        virtual void resizeGL (int w, int h);
-        virtual void mousePressEvent ( QMouseEvent* );
-        virtual void mouseReleaseEvent ( QMouseEvent* );
-        virtual void mouseMoveEvent ( QMouseEvent* );
-        virtual void keyPressEvent ( QKeyEvent* );
+    virtual void mousePressEvent  (QMouseEvent * );
+    virtual void mouseReleaseEvent(QMouseEvent * );
+    virtual void mouseMoveEvent   (QMouseEvent * );
+    virtual void keyPressEvent    (QKeyEvent   * );
 };
 
 MyOSGQGLWidget    *glWidgets[nwindows];
 QApplication      *a;
 
-MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
-    OSGQGLWidget( parent, name )
+MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *parent, 
+                               const char    *name  ) :
+    OSGQGLWidget(parent, name)
 {
     m_manager = OSG::SimpleSceneManager::create();
+
     m_manager->setUseTraversalAction(true);
 }
 
-MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
-    QWidget * parent,
-    const QGLWidget * shareWidget,
-    Qt::WindowFlags f) :
-OSGQGLWidget(context, parent, shareWidget, f)
+MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *context,
+                                     QWidget                 *parent,
+                               const QGLWidget               *shareWidget,
+                                     Qt::WindowFlags          f          ) :
+    OSGQGLWidget(context, parent, shareWidget, f)
 {
     m_manager = OSG::SimpleSceneManager::create();
     m_manager->setUseTraversalAction(true);
@@ -76,65 +69,92 @@ MyOSGQGLWidget::~MyOSGQGLWidget(void)
     m_manager = NULL;
 }
 
+#if 0
 void MyOSGQGLWidget::initializeGL ( void )
 {
     m_manager->getWindow()->init();       // create the context
 //    m_manager->getWindow()->activate();   // and activate it
 }
+#endif
 
-void MyOSGQGLWidget::paintGL ( void )
+void MyOSGQGLWidget::paintGL(void)
 {
-    m_manager->idle();
+    m_manager->idle  ();
     m_manager->redraw();
+
     OSG::Thread::getCurrentChangeList()->clear();
 }
 
-void MyOSGQGLWidget::resizeGL ( int w, int h )
+void MyOSGQGLWidget::resizeGL(int w, int h)
 {
     m_manager->resize(w, h);
     repaint();
 }
 
-void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mousePressEvent(QMouseEvent *me)
 {
     OSG::UInt16 but;
-    switch ( me->button() ) 
+
+    switch(me->button()) 
     {
-    case Qt::LeftButton:    but=OSG::SimpleSceneManager::MouseLeft;   break;
-    case Qt::MidButton:     but=OSG::SimpleSceneManager::MouseMiddle; break;
-    case Qt::RightButton:   but=OSG::SimpleSceneManager::MouseRight;  break;
-        default: break;
+        case Qt::LeftButton:    
+            but = OSG::SimpleSceneManager::MouseLeft;   
+            break;
+
+        case Qt::MidButton:     
+            but = OSG::SimpleSceneManager::MouseMiddle; 
+            break;
+
+        case Qt::RightButton:   
+            but = OSG::SimpleSceneManager::MouseRight;  
+            break;
+
+        default: 
+            break;
     }
 
-    m_manager->mouseButtonPress( but, me->pos().x(), me->pos().y() );
+    m_manager->mouseButtonPress(but, me->pos().x(), me->pos().y());
+
     repaint();
 }
 
-void MyOSGQGLWidget::mouseReleaseEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mouseReleaseEvent(QMouseEvent *me)
 {
     OSG::UInt16 but = OSG::SimpleSceneManager::NoButton;
-    switch ( me->button() ) 
+
+    switch(me->button()) 
     {
-    case Qt::LeftButton:    but=OSG::SimpleSceneManager::MouseLeft;   break;
-    case Qt::MidButton:     but=OSG::SimpleSceneManager::MouseMiddle; break;
-    case Qt::RightButton:   but=OSG::SimpleSceneManager::MouseRight;  break;
-    default:                                                 break;
+        case Qt::LeftButton:    
+            but = OSG::SimpleSceneManager::MouseLeft;   
+            break;
+
+        case Qt::MidButton:     
+            but = OSG::SimpleSceneManager::MouseMiddle; 
+            break;
+
+        case Qt::RightButton:   
+            but = OSG::SimpleSceneManager::MouseRight;  
+            break;
+
+        default:                                                 
+            break;
     }
 
-    m_manager->mouseButtonRelease( but, me->pos().x(), me->pos().y() );
+    m_manager->mouseButtonRelease(but, me->pos().x(), me->pos().y());
     repaint();
 }
 
-void MyOSGQGLWidget::mouseMoveEvent ( QMouseEvent *me )
+void MyOSGQGLWidget::mouseMoveEvent(QMouseEvent *me)
 {
-    m_manager->mouseMove( me->pos().x(), me->pos().y() );
+    m_manager->mouseMove(me->pos().x(), me->pos().y());
+
     repaint();
 }
 
 
-void MyOSGQGLWidget::keyPressEvent ( QKeyEvent *ke )
+void MyOSGQGLWidget::keyPressEvent(QKeyEvent *ke)
 {
-    if ( ke->key() == Qt::Key_Escape )
+    if(ke->key() == Qt::Key_Escape)
     {
         a->quit();
     }
@@ -145,7 +165,7 @@ void MyOSGQGLWidget::keyPressEvent ( QKeyEvent *ke )
 }
 
 
-int main( int argc, char **argv )
+int main(int argc, char **argv)
 {
     // OSG init
 
@@ -153,10 +173,11 @@ int main( int argc, char **argv )
     
     // QT init
 
-    QApplication::setColorSpec( QApplication::CustomColor );
+    QApplication::setColorSpec(QApplication::CustomColor);
+
     a = new QApplication( argc, argv );
 
-    if ( !QGLFormat::hasOpenGL() )
+    if(!QGLFormat::hasOpenGL())
     {
         qWarning( "This system has no OpenGL support. Exiting." );
         return -1;
@@ -172,10 +193,16 @@ int main( int argc, char **argv )
     
     for(int i = 0; i < nwindows; ++i)
     {
-        glWidgets[i] = new MyOSGQGLWidget(new MyQGLContext(QGLFormat::defaultFormat()), 0, 0, 0);;
+        glWidgets[i] = new MyOSGQGLWidget(
+            new OSG::OSGQGLWidget::GLContext(QGLFormat::defaultFormat()), 
+            0, 
+            0, 
+            0);;
 
         OSG::QT4WindowRecPtr win = OSG::QT4Window::create();
-        win->setGlWidget( glWidgets[i] );
+
+        win->setGlWidget(glWidgets[i]);
+        win->init();
 
         // note: you can't share the scene between the windows, as the SSM
         // adds it to his lightsource, and that can only be done for one

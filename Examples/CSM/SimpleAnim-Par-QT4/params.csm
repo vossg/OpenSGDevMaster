@@ -1,0 +1,5 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-qt4-par.osg
+--data   ../Models/anim.wrl
+--global ../Common/simple_mouse.osg
+--global ../SimpleAnim/global.osg
