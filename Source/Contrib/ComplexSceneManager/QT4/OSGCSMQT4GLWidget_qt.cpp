@@ -82,10 +82,17 @@ namespace
         {
             return MouseData::RightButton;
         }
+#if QT_VERSION <= 0x040700
+        else if(0x0000 != (button & Qt::MidButton))
+        {
+            return MouseData::MiddleButton;
+        }
+#else
         else if(0x0000 != (button & Qt::MiddleButton))
         {
             return MouseData::MiddleButton;
         }
+#endif
         
         return 0x0001;
     }

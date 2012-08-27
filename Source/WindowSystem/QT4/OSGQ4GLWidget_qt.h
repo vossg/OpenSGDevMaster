@@ -69,7 +69,7 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
 
   public:
 
-    class GLContext : public QGLContext
+    class OSG_WINDOWQT4_DLLMAPPING GLContext : public QGLContext
     {
       public:
 

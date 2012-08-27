@@ -153,21 +153,21 @@
                 case 0: // left button
                     _pWin->mouse(OSG::MouseData::LeftButton,
                                  OSG::MouseData::ButtonDown,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
                 case 1: // right button
                     _pWin->mouse(OSG::MouseData::RightButton,
                                  OSG::MouseData::ButtonDown,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
                 case 2: // middle button
                     _pWin->mouse(OSG::MouseData::MiddleButton,
                                  OSG::MouseData::ButtonDown,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
@@ -184,21 +184,21 @@
                 case 0: // left button
                     _pWin->mouse(OSG::MouseData::LeftButton,
                                  OSG::MouseData::ButtonUp,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
                 case 1: // right button
                     _pWin->mouse(OSG::MouseData::RightButton,
                                  OSG::MouseData::ButtonUp,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
                 case 2: // middle button
                     _pWin->mouse(OSG::MouseData::MiddleButton,
                                  OSG::MouseData::ButtonUp,
-                                 0,
+                                 OSG::MouseData::NoModifier,
                                  location.x,
                                  uiHeight - location.y);
                     break;
