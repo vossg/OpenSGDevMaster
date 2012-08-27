@@ -4,22 +4,29 @@ MESSAGE(STATUS "Update Compiler Settings")
 IF(CMAKE_COMPILER_IS_GNUCC)
 
     IF(LINUX OR APPLE)
+
+        IF(NOT APPLE)
+          SET(OSG_GCC_FPMATHOPT "-mfpmath=sse")
+        ELSE()
+          SET(OSG_GCC_FPMATHOPT "")
+        ENDIF(NOT APPLE)
+
         IF(OSG_ENABLE_SSE2)
 
             MESSAGE(STATUS "Apply sse2 settings")
 
             IF(CMAKE_CXX_FLAGS)
-                STRING(REGEX MATCH "-msse2 -mfpmath=sse" 
+                STRING(REGEX MATCH "-msse2 ${OSG_GCC_FPMATHOPT}" 
                                    SSE2_CXX_RES ${CMAKE_CXX_FLAGS})
             ENDIF(CMAKE_CXX_FLAGS)
 
             IF(CMAKE_C_FLAGS)
-                STRING(REGEX MATCH "-msse2 -mfpmath=sse" 
+                STRING(REGEX MATCH "-msse2 ${OSG_GCC_FPMATHOPT}" 
                                    SSE2_C_RES ${CMAKE_C_FLAGS})
             ENDIF(CMAKE_C_FLAGS)
 
             IF(NOT SSE2_CXX_RES)
-                SET(TMP_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -mfpmath=sse")
+                SET(TMP_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 ${OSG_GCC_FPMATHOPT}")
 
 
                 SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
@@ -27,7 +34,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             ENDIF(NOT SSE2_CXX_RES)
 
             IF(NOT SSE2_C_RES)
-                SET(TMP_C_FLAGS "${CMAKE_C_FLAGS} -msse2 -mfpmath=sse")
+                SET(TMP_C_FLAGS "${CMAKE_C_FLAGS} -msse2 ${OSG_GCC_FPMATHOPT}")
 
 
                 SET(CMAKE_C_FLAGS ${TMP_C_FLAGS} 
@@ -40,12 +47,12 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             MESSAGE(STATUS "Remove sse2 settings")
 
             IF(CMAKE_CXX_FLAGS)
-                STRING(REPLACE " -msse2 -mfpmath=sse" "" 
+                STRING(REPLACE " -msse2 ${OSG_GCC_FPMATHOPT}" "" 
                        TMP_CXX_FLAGS ${CMAKE_CXX_FLAGS})
             ENDIF(CMAKE_CXX_FLAGS)
 
             IF(CMAKE_C_FLAGS)
-                STRING(REPLACE " -msse2 -mfpmath=sse" "" 
+                STRING(REPLACE " -msse2 ${OSG_GCC_FPMATHOPT}" "" 
                        TMP_C_FLAGS ${CMAKE_C_FLAGS})
             ENDIF(CMAKE_C_FLAGS)
 

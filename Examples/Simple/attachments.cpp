@@ -147,6 +147,8 @@ struct MyAttachmentDesc
 */
 OSG_BEGIN_NAMESPACE
 
+OSG_SIMPLEATTACHMENT_INST(MyAttachmentDesc);
+
 template <>
 SimpleAttachment<MyAttachmentDesc>::TypeObject &
     SimpleAttachment<MyAttachmentDesc>::getType(void)
@@ -168,7 +170,6 @@ SimpleAttachment<MyAttachmentDesc>::TypeObject &
     return _type;
 }
 
-OSG_SIMPLEATTACHMENT_INST(MyAttachmentDesc);
 
 
 /*
