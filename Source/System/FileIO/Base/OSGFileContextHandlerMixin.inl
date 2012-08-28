@@ -72,9 +72,11 @@ void FileContextHandlerMixin<ParentT, ContainerT>::postOSGLoading(
 {
     if(pContext != NULL)
     {
+#if 0
         fprintf(stderr, "file context: %p : %s\n",
                 pContext,
                 pContext->getResolvedName().c_str());
+#endif
 
         this->addAttachment(pContext);
     }
