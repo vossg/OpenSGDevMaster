@@ -1,0 +1,35 @@
+--- opennurbs_array_defs.h	2012-08-30 14:08:17.000000000 +0800
++++ patched/opennurbs_array_defs.h	2012-08-30 14:08:33.000000000 +0800
+@@ -53,6 +53,14 @@
+ //  Class ON_SimpleArray<>
+ /////////////////////////////////////////////////////////////////////////////////////
+ 
++ON_DECL
++void ON_qsort( 
++        void* base,
++        size_t count,
++        size_t sizeof_element,
++        int (*compare)(const void*,const void*)
++        );
++
+ // construction ////////////////////////////////////////////////////////
+ 
+ template <class T>
+@@ -1459,7 +1467,7 @@
+ #else
+   // for lamer 64 bit compilers
+   return found ? ((int)((((ON__UINT64)found) - ((ON__UINT64)m_a))/sizeof(T))) : -1;
+-#endif#endif
++#endif
+ }
+ 
+ template <class T>
+@@ -1476,7 +1484,7 @@
+ #else
+   // for lamer 64 bit compilers
+   return found ? ((int)((((ON__UINT64)found) - ((ON__UINT64)m_a))/sizeof(T))) : -1;
+-#endif#endif
++#endif
+ }
+ 
+ template <class T>

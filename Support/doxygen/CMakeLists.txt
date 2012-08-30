@@ -28,6 +28,9 @@ IF(OSGDoxygenSrcDir)
                                   Makefile.in
                                   PLATFORMS)
 
+  SET(OSG_DOXYGEN_QTOOLS_PATCH qvaluestack.h)
+
+
   SET(OSG_DOXYGEN_QTOOLS_FILES Makefile.in
                                qtools.pro.in
                                qarray.h
@@ -114,7 +117,6 @@ IF(OSGDoxygenSrcDir)
                                qutfcodec.cpp
                                qutfcodec.h
                                qvaluelist.h
-                               qvaluestack.h
                                qvector.h
                                qwaitcondition.h
                                qwaitcondition_unix.cpp
@@ -412,6 +414,7 @@ IF(OSGDoxygenSrcDir)
 
 
   SET(OSG_DOXYGEN_DIRS "${OSGDoxygenSrcDir}/src/patched/"
+                       "${OSGDoxygenSrcDir}/qtools/patched/"
                        "${CMAKE_BINARY_DIR}/External/doxygen"
                        "${CMAKE_BINARY_DIR}/External/doxygen/src"
                        "${CMAKE_BINARY_DIR}/External/doxygen/examples"
@@ -427,6 +430,8 @@ IF(OSGDoxygenSrcDir)
   SET(OSG_DOXYGEN_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/01_custom_commands.patch
                           ${CMAKE_CURRENT_SOURCE_DIR}/02_infinite_recursion_fix.patch
                           ${CMAKE_CURRENT_SOURCE_DIR}/03_perf.patch)
+
+  SET(OSG_DOXYGEN_QT_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/04_qvaluestack.patch)
 
   FOREACH(_DX_DIR ${OSG_DOXYGEN_DIRS})
     EXECUTE_PROCESS(
@@ -446,6 +451,16 @@ IF(OSGDoxygenSrcDir)
                     WORKING_DIRECTORY "${OSGDoxygenSrcDir}/src/patched")
   ENDFOREACH()
 
+  FOREACH(_DX_QT_PATCHED_SRC ${OSG_DOXYGEN_QTOOLS_PATCH})
+    EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy "${OSGDoxygenSrcDir}/qtools/${_DX_QT_PATCHED_SRC}" "${OSGDoxygenSrcDir}/qtools/patched/")
+  ENDFOREACH()
+
+  FOREACH(_DX_QT_PATCH ${OSG_DOXYGEN_QT_PATCHES})
+    EXECUTE_PROCESS(COMMAND "patch" "-p1" 
+                    INPUT_FILE "${_DX_QT_PATCH}"
+                    WORKING_DIRECTORY "${OSGDoxygenSrcDir}/qtools/patched")
+  ENDFOREACH()
 
   PROCESS_FILES(. OSG_DOXYGEN_CONFIGURE_FILES)
   PROCESS_FILES(qtools OSG_DOXYGEN_QTOOLS_FILES)
@@ -466,6 +481,12 @@ IF(OSGDoxygenSrcDir)
     EXECUTE_PROCESS(
         COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGDoxygenSrcDir}/src/patched/${_DX_PATCHED_SRC}"
                                    "${CMAKE_BINARY_DIR}/External/doxygen/src/")
+  ENDFOREACH()
+
+  FOREACH(_DX_QT_PATCHED_SRC ${OSG_DOXYGEN_QTOOLS_PATCH})
+    EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGDoxygenSrcDir}/qtools/patched/${_DX_QT_PATCHED_SRC}"
+                                   "${CMAKE_BINARY_DIR}/External/doxygen/qtools/")
   ENDFOREACH()
 
   EXECUTE_PROCESS(
