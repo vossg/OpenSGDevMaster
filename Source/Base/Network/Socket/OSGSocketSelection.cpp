@@ -148,15 +148,32 @@ SocketSelection::~SocketSelection()
  */
 
 #ifdef OSG_DEBUG_OLD_C_CASTS
+
 // For my debugging, should not be active for any other case (GV)
 #ifdef __FDMASK
-#undef __FDMASK
-#define	__FDMASK(d)	(__fd_mask(1) << ((d) % __NFDBITS))
+# undef __FDMASK
+# define	__FDMASK(d)	(__fd_mask(1) << ((d) % __NFDBITS))
+#endif
+#ifdef __FD_MASK
+# undef __FD_MASK
+# define	__FD_MASK(d) (__fd_mask(1) << ((d) % __NFDBITS))
 #endif
 #ifdef  __NFDBITS
-#undef  __NFDBITS
-#define __NFDBITS	(8 * int(sizeof (__fd_mask)))
+# undef  __NFDBITS
+# define __NFDBITS	(8 * int(sizeof (__fd_mask)))
 #endif
+
+#ifdef __FD_SET
+# undef __FD_SET
+# define __FD_SET(d, set) \
+    (void ((__FDS_BITS (set)[__FD_ELT (d)] |= __FD_MASK (d))))
+#endif
+#ifdef __FD_CLR
+#  undef __FD_CLR
+#  define __FD_CLR(d, set) \
+    (void ((__FDS_BITS (set)[__FD_ELT (d)] &= ~__FD_MASK (d))))
+#endif
+
 #endif
 
 void SocketSelection::clear()

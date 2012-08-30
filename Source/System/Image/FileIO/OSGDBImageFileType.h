@@ -65,7 +65,7 @@ class DBHeaderParameter
   public:
 
     DBHeaderParameter(void);
-    ~DBHeaderParameter(void);
+    virtual ~DBHeaderParameter(void);
 
     void setLastParam(void);
     bool isLastParam (void);
@@ -88,7 +88,7 @@ class DBHeaderIntParameter : public DBHeaderParameter
   public:
     
     DBHeaderIntParameter(UInt32 &uiParam);
-    ~DBHeaderIntParameter(void);
+    virtual ~DBHeaderIntParameter(void);
 
     virtual void convert(const Char8 *str);
 };
@@ -108,7 +108,7 @@ class DBHeaderFloatParameter : public DBHeaderParameter
   public:
     
     DBHeaderFloatParameter(Real32 &rParam);
-    ~DBHeaderFloatParameter(void);
+    virtual ~DBHeaderFloatParameter(void);
 
     virtual void convert(const Char8 *str);
 };

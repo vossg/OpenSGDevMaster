@@ -115,7 +115,7 @@ authorization from the Gnome Foundation or Bitstream Inc., respectively. For
 further information, contact: fonts at gnome dot org. 
 */
 
-static char statisticsDefaultFontData[9364] = {
+static unsigned char statisticsDefaultFontData[9364] = {
 #ifndef OSG_DO_DOC
     255, 116, 120, 102, 18, 52, 86, 120, 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 0, 64,
     0, 0, 0, 12, 255, 255, 255, 253, 0, 0, 0, 95, 0, 32, 1, 1, 0, 255, 8, 0,
@@ -598,17 +598,21 @@ template class SingletonHolder<DefaultFontBase>;
 //----------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------
+
 DefaultFontBase::DefaultFontBase():
     _face(0),
     _texObjChunk(NULL)
 {
     UInt32 dataSize = sizeof(statisticsDefaultFontData);
 #ifdef OSG_HAS_SSTREAM
-    std::istringstream is(std::string(statisticsDefaultFontData, dataSize));
+    std::istringstream is(std::string(reinterpret_cast<char *>(statisticsDefaultFontData), 
+                                      dataSize));
 #else
-    std::istrstream is(statisticsDefaultFontData, dataSize);
+    std::istrstream is(reinterpret_cast<char *>(statisticsDefaultFontData), dataSize);
 #endif
-    _face = TextTXFFace::createFromStream(is, "Bitstream Vera Sans Mono", TextFace::STYLE_PLAIN);
+    _face = TextTXFFace::createFromStream(is, 
+                                          "Bitstream Vera Sans Mono", 
+                                          TextFace::STYLE_PLAIN);
 
     _texObjChunk = TextureObjChunk::create();
     ImageUnrecPtr texture = _face->getTexture();
