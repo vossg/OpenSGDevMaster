@@ -44,7 +44,7 @@
 
 #ifdef OSG_WITH_QT
 
-#include <Qt/qevent.h>
+#include <QtGui/qevent.h>
 
 OSG_BEGIN_NAMESPACE
 

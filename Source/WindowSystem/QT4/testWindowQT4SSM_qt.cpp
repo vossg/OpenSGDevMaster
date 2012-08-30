@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include <Qt/qapplication.h>
+#include <QtGui/qapplication.h>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QKeyEvent>
 #include <QtOpenGL/QGLContext>

@@ -153,11 +153,11 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual SizeT getBinSize (ConstFieldMaskArg  whichField);
-    virtual void  copyToBin  (BinaryDataHandler &pMem,
-                              ConstFieldMaskArg  whichField);
-    virtual void  copyFromBin(BinaryDataHandler &pMem,
-                              ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
 
 
     /*! \}                                                                 */

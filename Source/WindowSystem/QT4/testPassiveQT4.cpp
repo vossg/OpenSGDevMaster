@@ -13,7 +13,7 @@
 
 #include <math.h>
 
-#include <Qt/qapplication.h>
+#include <QtGui/qapplication.h>
 #include <QtOpenGL/QGLWidget>
 #include <QtGui/QMouseEvent>
 

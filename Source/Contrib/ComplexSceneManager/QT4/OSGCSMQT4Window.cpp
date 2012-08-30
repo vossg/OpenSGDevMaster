@@ -43,7 +43,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <Qt/qapplication.h>
+#include <QtGui/qapplication.h>
 #include <QtGui/QDesktopWidget>
 
 #include "OSGConfig.h"
