@@ -171,7 +171,7 @@ http://sourceforge.net/projects/glew/files/glew/1.7.0/glew-1.7.0.zip/download
 #http://sourceforge.net/projects/glew/files/glew/1.6.0/glew-1.6.0.tgz/download
 http://cudpp.googlecode.com/files/cudpp_src_1.1.zip
 http://stereofx.org/download/mini/MINI-9.8.zip
-http://files.na.mcneel.com/opennurbs/5.0/2011-02-02/opennurbs_20110202.zip
+http://files.na.mcneel.com/opennurbs/5.0/2011-11-22/opennurbs_20111122.zip
 
 2) Unpack to disk
 

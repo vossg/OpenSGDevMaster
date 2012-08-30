@@ -8,7 +8,7 @@ import fnmatch
 common_deps_src = [\
     ("OSGColladaSrcDir", "http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download", "Collada DOM 2.2.zip", "collada-dom"),\
     ("OSGLibMiniSrcDir", "http://stereofx.org/download/mini/MINI-9.8.zip", None, "mini"),\
-    ("OSGOpenNurbsSrcDir", "http://files.na.mcneel.com/opennurbs/5.0/2011-02-02/opennurbs_20110202.zip", None, None),\
+    ("OSGOpenNurbsSrcDir", "http://files.na.mcneel.com/opennurbs/5.0/2011-11-22/opennurbs_20111122.zip", None, None),\
     ("OSGGLEWSrcDir", "http://sourceforge.net/projects/glew/files/glew/1.7.0/glew-1.7.0.zip/download", None, None)\
   ]
 
@@ -35,7 +35,7 @@ linux_deps_src = [("OSGDoxygenSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/
 common_deps_fhg = [\
     ("OSGColladaSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/Collada%20DOM%202.2.zip", "Collada DOM 2.2.zip", "collada-dom"),\
     ("OSGLibMiniSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/MINI-9.8.zip", None, "mini"),\
-    ("OSGOpenNurbsSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/opennurbs_20110202.zip", None, None),\
+    ("OSGOpenNurbsSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/opennurbs_20111122.zip", None, None),\
     ("OSGGLEWSrcDir", "http://opensg.fraunhofer.sg/user/gerrit/OpenSG.Support/glew-1.7.0.zip", None, None)\
   ]
 
@@ -92,7 +92,7 @@ class OSGBaseBuilder:
     self.optBuild_path       = os.path.join(self.startup_path, subDir, "OpenSG.build.opt")
     self.osgInst_path        = os.path.join(self.startup_path, subDir, "OpenSG.install").replace('\\', '/')
 
-    self.osgaddons_path      = os.path.join(self.startup_path, "OSGAddOns")
+    self.osgaddons_path      = os.path.join(self.startup_path, "OSGAddOns").replace('\\', '/')
     self.dbgBuildAddOns_path = os.path.join(self.startup_path, subDir, "OSGAddOns.build")
     self.optBuildAddOns_path = os.path.join(self.startup_path, subDir, "OSGAddOns.build.opt")
     self.osgAddonsInst_path  = os.path.join(self.startup_path, subDir, "OSGAddOns.install").replace('\\', '/')
@@ -134,23 +134,31 @@ class OSGBaseBuilder:
     self.noosgbuild     = oOptions.noosgbuild     # optNoOSGBuild
     self.nomssecure     = oOptions.nomssecure     # optNoMSSecure
 
-    self.nopython       = oOptions.nopython 
-    self.debugonly      = oOptions.debugonly
-    self.releaseonly    = oOptions.releaseonly
+    self.nopython          = oOptions.nopython 
+    self.builddebug        = oOptions.builddebug
+    self.buildrelease      = oOptions.buildrelease
+    self.builddebugopt     = oOptions.builddebugopt
+    self.buildreleasenoopt = oOptions.buildreleasenoopt
+    self.buildall          = False
 
-    self.nobuildaddons  = oOptions.noaddonsbuild    
-    self.addonswithosg  = oOptions.instaddonswithosg
+    if self.builddebug    == False and self.buildrelease      == False and \
+       self.builddebugopt == False and self.buildreleasenoopt == False:
 
-    self.noSuppDirInit  = oOptions.nosuppdirinit
-    self.useVS2008      = oOptions.useVS2008
+       self.buildall = True
+
+    self.nobuildaddons     = oOptions.noaddonsbuild    
+    self.addonswithosg     = oOptions.instaddonswithosg
+
+    self.noSuppDirInit     = oOptions.nosuppdirinit
+    self.useVS2008         = oOptions.useVS2008
 
 
-    self.cmakeCmd       = None
-    self.makeCmd        = None
+    self.cmakeCmd          = None
+    self.makeCmd           = None
 
-    self.vcvars         = None
+    self.vcvars            = None
 
-    self.gitCmd         = None
+    self.gitCmd            = None
 
     if self.sgdownload == True:
       self.common_deps = common_deps_fhg
@@ -220,8 +228,11 @@ class OSGBaseBuilder:
     print "vs2008               : ", self.useVS2008
 
     print "python               : ", not self.nopython
-    print "debug only           : ", self.debugonly
-    print "release only         : ", self.releaseonly
+    print "debug                : ", self.builddebug
+    print "release              : ", self.buildrelease
+    print "debugopt             : ", self.builddebugopt
+    print "releasenoopt         : ", self.buildreleasenoopt
+    print "all                  : ", self.buildall
 
     print "build subdir         : ", self.buildSubDir
     print "No SuppDir init      : ", self.noSuppDirInit
@@ -541,7 +552,7 @@ class OSGBaseBuilder:
     self.initDir("OSGAddOns", False)
 
     if self.localgitclone == False:
-      gitCloneCmd = [self.gitCmd, "clone", "git@github.com:vossg/OSGAddOnsGV.git", "OSGAddOns"]
+      gitCloneCmd = [self.gitCmd, "clone", "git://github.com/vossg/OSGAddOnsGV.git", "OSGAddOns"]
     else:
 
       if self.updatelocalgit == True:
@@ -712,6 +723,22 @@ class OSGBaseBuilder:
     if changeDir == True:
       os.chdir(self.startup_path)
 
+  def reconfigureOSGAddOns(self, changeDir = False):
+
+    if changeDir == True:
+      os.chdir(self.dbgBuildAddOns_path)
+
+    cmCfgCmd = [self.cmakeCmd, "."]
+
+    print "runnuing ", cmCfgCmd
+
+    retcode = subprocess.call(cmCfgCmd)
+
+    self.handleRetCode(retcode, "OSGAddOns cmake . Run")
+
+    if changeDir == True:
+      os.chdir(self.startup_path)
+
   def configureOSGAddOns(self, Variant = "Debug"):
 
     if Variant == "Debug":
@@ -742,6 +769,9 @@ class OSGBaseBuilder:
     os.chdir(self.startup_path)
 
   def prepOSGAddOns(self):
+
+    if self.nobuildaddons == True:
+      return
 
     if self.nobuildaddons == False or self.addonswithosg == False:
       self.initDir(self.osgAddonsInst_path)
@@ -1237,6 +1267,25 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     self.reconfigureOSG(False)
 
+    if self.nopython == False:
+      buildCmd = [self.vcvars, 
+                  self.vcvarsarch, 
+                  "&",
+                  "devenv",
+                  "/build",
+                  variant,
+                  "/project",
+                  "OSGPy",
+                  "OpenSG.sln"]
+
+      print "build py cmd : ", buildCmd
+      retcode = subprocess.call(buildCmd)
+
+      self.handleRetCode(retcode, "Build OSGPy ")
+
+      self.reconfigureOSG(False)
+
+
     buildCmd = [self.vcvars, 
                 self.vcvarsarch, 
                 "&",
@@ -1256,6 +1305,67 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     os.chdir(self.startup_path)
 
+  def buildOSGAddOnsVariant(self, variant):
+
+    print "building osgaddons variant : ", variant
+
+    os.chdir(self.dbgBuildAddOns_path)
+
+    buildCmd = [self.vcvars, 
+                self.vcvarsarch, 
+                "&",
+                "devenv",
+                "/build",
+                variant,
+                "/project",
+                "OSGAll",
+                "OpenSGAddOns.sln"]
+
+    print "build cmd : ", buildCmd
+    retcode = subprocess.call(buildCmd)
+
+    self.handleRetCode(retcode, "Build OSGAddOns All")
+
+    self.reconfigureOSGAddOns(False)
+
+    if self.nopython == False:
+      buildCmd = [self.vcvars, 
+                  self.vcvarsarch, 
+                  "&",
+                  "devenv",
+                  "/build",
+                  variant,
+                  "/project",
+                  "OSGPy",
+                  "OpenSGAddOns.sln"]
+
+      print "build cmd : ", buildCmd
+      retcode = subprocess.call(buildCmd)
+
+      self.handleRetCode(retcode, "Build OSGAddOns Py")
+
+      self.reconfigureOSGAddOns(False)
+
+
+    buildCmd = [self.vcvars, 
+                self.vcvarsarch, 
+                "&",
+                "devenv",
+                "/build",
+                variant,
+                "/project",
+                "INSTALL",
+                "OpenSGAddOns.sln"]
+
+    print "install cmd : ", buildCmd
+    retcode = subprocess.call(buildCmd)
+
+    self.handleRetCode(retcode, "Install OSGAddOns All")
+
+    self.reconfigureOSGAddOns(False)
+
+    os.chdir(self.startup_path)
+
   def buildOpenSG(self):
 
     if self.noosgbuild == True:
@@ -1263,11 +1373,37 @@ class OSGWinBaseBuilder(OSGBaseBuilder):
 
     OSGBaseBuilder.configureOSG(self)
 
-    self.buildOpenSGVariant("Debug")
-    self.buildOpenSGVariant("DebugOpt")
-    self.buildOpenSGVariant("ReleaseNoOpt")
-    self.buildOpenSGVariant("Release")
+    if self.builddebug == True or self.buildall == True:
+      self.buildOpenSGVariant("Debug")
 
+    if self.builddebugopt == True or self.buildall == True:
+      self.buildOpenSGVariant("DebugOpt")
+
+    if self.buildreleasenoopt == True or self.buildall == True:
+      self.buildOpenSGVariant("ReleaseNoOpt")
+
+    if self.buildrelease == True or self.buildall == True:
+      self.buildOpenSGVariant("Release")
+
+  def buildOSGAddOns(self):
+
+    if self.nobuildaddons == True:
+      return
+
+    OSGBaseBuilder.configureOSGAddOns(self)
+
+    if self.builddebug == True or self.buildall == True:
+      self.buildOSGAddOnsVariant("Debug")
+
+    if self.builddebugopt == True or self.buildall == True:
+      self.buildOSGAddOnsVariant("DebugOpt")
+
+    if self.buildreleasenoopt == True or self.buildall == True:
+      self.buildOSGAddOnsVariant("ReleaseNoOpt")
+
+    if self.buildrelease == True or self.buildall == True:
+      self.buildOSGAddOnsVariant("Release")
+    
 ##############################################
 # Win32 Builder
 ##############################################
@@ -1461,10 +1597,10 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     if self.noosgbuild == True:
       return
 
-    if self.releaseonly == False:
+    if self.builddebug == True or self.buildall == True:
       self.buildOSGDbg()
 
-    if self.debugonly == False:
+    if self.buildrelease == True or self.buildall == True:
       self.buildOSGOpt()
 
   def buildOSGAddOnsDbg(self):
@@ -1537,10 +1673,10 @@ class OSGUnixBaseBuilder(OSGBaseBuilder):
     if self.nobuildaddons == True:
       return
 
-    if self.releaseonly == False:
+    if self.builddebug == True or self.buildall == True:
       self.buildOSGAddOnsDbg()
 
-    if self.debugonly == False:
+    if self.buildrelease == True or self.buildall == True:
       self.buildOSGAddOnsOpt()
 
 ##############################################
@@ -1692,16 +1828,31 @@ m_parser.add_option("-p",
 m_parser.add_option("--debug",
                     action="store_true",
                     default=False,
-                    dest="debugonly",
-                    help="build only debug",
+                    dest="builddebug",
+                    help="build debug",
                     metavar="OpenSG");
 
 m_parser.add_option("--release",
                     action="store_true",
                     default=False,
-                    dest="releaseonly",
-                    help="build only release",
+                    dest="buildrelease",
+                    help="build release",
                     metavar="OpenSG");
+
+m_parser.add_option("--debugopt",
+                    action="store_true",
+                    default=False,
+                    dest="builddebugopt",
+                    help="build debugopt (win32)",
+                    metavar="OpenSG");
+
+m_parser.add_option("--releasenoopt",
+                    action="store_true",
+                    default=False,
+                    dest="buildreleasenoopt",
+                    help="build releasenoopt (win32)",
+                    metavar="OpenSG");
+
 
 m_parser.add_option("--no-mssecure",
                     action="store_true",

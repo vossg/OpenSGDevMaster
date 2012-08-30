@@ -163,12 +163,12 @@ SocketSelection::~SocketSelection()
 # define __NFDBITS	(8 * int(sizeof (__fd_mask)))
 #endif
 
-#ifdef __FD_SET
+#if defined(__FD_SET) && defined(__FD_ELT) && defined(__FD_MASK)
 # undef __FD_SET
 # define __FD_SET(d, set) \
     (void ((__FDS_BITS (set)[__FD_ELT (d)] |= __FD_MASK (d))))
 #endif
-#ifdef __FD_CLR
+#if defined(__FD_CLR) && defined(__FD_ELT) && defined(__FD_MASK)
 #  undef __FD_CLR
 #  define __FD_CLR(d, set) \
     (void ((__FDS_BITS (set)[__FD_ELT (d)] &= ~__FD_MASK (d))))
