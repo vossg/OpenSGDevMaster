@@ -1,0 +1,8 @@
+--- opennurbs_version.h	2011-11-29 09:41:32.000000000 +0800
++++ patched/opennurbs_version.h	2012-08-31 10:16:03.636753776 +0800
+@@ -1,4 +1,4 @@
+-﻿/* $NoKeywords: $ */
++/* $NoKeywords: $ */
+ /*
+ //
+ // Copyright (c) 1993-2011 Robert McNeel & Associates. All rights reserved.

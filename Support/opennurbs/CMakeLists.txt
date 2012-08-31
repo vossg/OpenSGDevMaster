@@ -233,13 +233,13 @@ IF(OSGOpenNurbsSrcDir)
                          opennurbs_unicode.h
                          opennurbs_userdata.h  
                          opennurbs_uuid.h  
-                         opennurbs_version.h  
                          opennurbs_viewport.h  
                          opennurbs_workspace.h  
                          opennurbs_xform.h  
                          opennurbs_zlib.h)
 
-  SET(OSG_OPENNURBS_HDR_PATCH opennurbs_array_defs.h)
+  SET(OSG_OPENNURBS_HDR_PATCH opennurbs_array_defs.h
+                              opennurbs_version.h   )
 
   SET(OSG_OPENNURBS_ZLIB_LSRCS adler32.c 
 		                       compress.c 
@@ -264,7 +264,8 @@ IF(OSGOpenNurbsSrcDir)
 		                      zlib.h 
 		                      zutil.h)
 
-  SET(OSG_OPENNURBS_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/01_array_defs.patch)
+  SET(OSG_OPENNURBS_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/01_array_defs.patch
+                            ${CMAKE_CURRENT_SOURCE_DIR}/02_version.patch  )
 
   SET(OSGOPENNURBS_DEF  _GNU_SOURCE;MY_ZCALLOC;Z_PREFIX)
 
@@ -295,6 +296,7 @@ IF(OSGOpenNurbsSrcDir)
   PROCESS_FILES(. "OSG_OPENNURBS_HDR"  OSG_OPENNURBS_LHDR)
 
   LIST(APPEND OSG_OPENNURBS_HDR "${CMAKE_BINARY_DIR}/External/opennurbs/opennurbs_array_defs.h")
+  LIST(APPEND OSG_OPENNURBS_HDR "${CMAKE_BINARY_DIR}/External/opennurbs/opennurbs_version.h")
 
   PROCESS_FILES(zlib "OSG_OPENNURBS_ZLIB_SRCS" OSG_OPENNURBS_ZLIB_LSRCS)
   PROCESS_FILES(zlib "OSG_OPENNURBS_ZLIB_HDR"  OSG_OPENNURBS_ZLIB_LHDR)
