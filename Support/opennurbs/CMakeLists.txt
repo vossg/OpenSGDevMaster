@@ -145,7 +145,6 @@ IF(OSGOpenNurbsSrcDir)
                          opennurbs_arc.h  
                          opennurbs_arccurve.h  
                          opennurbs_archive.h  
-                         opennurbs_array.h  
                          opennurbs_base32.h  
                          opennurbs_base64.h  
                          opennurbs_beam.h  
@@ -239,6 +238,8 @@ IF(OSGOpenNurbsSrcDir)
                          opennurbs_zlib.h)
 
   SET(OSG_OPENNURBS_HDR_PATCH opennurbs_array_defs.h
+                              opennurbs_array.h  
+                              opennurbs_system.h  
                               opennurbs_version.h   )
 
   SET(OSG_OPENNURBS_ZLIB_LSRCS adler32.c 
@@ -264,8 +265,10 @@ IF(OSGOpenNurbsSrcDir)
 		                      zlib.h 
 		                      zutil.h)
 
-  SET(OSG_OPENNURBS_PATCHES ${CMAKE_CURRENT_SOURCE_DIR}/01_array_defs.patch
-                            ${CMAKE_CURRENT_SOURCE_DIR}/02_version.patch  )
+  SET(OSG_OPENNURBS_PATCHES 01_array_defs.patch
+                            02_version.patch 
+                            03_system.patch
+                            04_array.patch    )
 
   SET(OSGOPENNURBS_DEF  MY_ZCALLOC;Z_PREFIX)
 
@@ -290,23 +293,21 @@ IF(OSGOpenNurbsSrcDir)
 
   FOREACH(_ON_PATCH ${OSG_OPENNURBS_PATCHES})
     EXECUTE_PROCESS(COMMAND "patch" "-p1" 
-                    INPUT_FILE "${_ON_PATCH}"
+                    INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_ON_PATCH}"
                     WORKING_DIRECTORY "${OSGOpenNurbsSrcDir}/patched")
   ENDFOREACH()
 
   PROCESS_FILES(. "OSG_OPENNURBS_SRCS" OSG_OPENNURBS_LSRCS)
   PROCESS_FILES(. "OSG_OPENNURBS_HDR"  OSG_OPENNURBS_LHDR)
 
-  LIST(APPEND OSG_OPENNURBS_HDR "${CMAKE_BINARY_DIR}/External/opennurbs/opennurbs_array_defs.h")
-  LIST(APPEND OSG_OPENNURBS_HDR "${CMAKE_BINARY_DIR}/External/opennurbs/opennurbs_version.h")
-
   PROCESS_FILES(zlib "OSG_OPENNURBS_ZLIB_SRCS" OSG_OPENNURBS_ZLIB_LSRCS)
   PROCESS_FILES(zlib "OSG_OPENNURBS_ZLIB_HDR"  OSG_OPENNURBS_ZLIB_LHDR)
 
-  FOREACH(_ON_PATCHED_SRC ${OSG_OPENNURBS_HDR_PATCH})
+  FOREACH(_ON_PATCHED_HDR ${OSG_OPENNURBS_HDR_PATCH})
     EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGOpenNurbsSrcDir}/patched/${_ON_PATCHED_SRC}"
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${OSGOpenNurbsSrcDir}/patched/${_ON_PATCHED_HDR}"
                                    "${CMAKE_BINARY_DIR}/External/opennurbs/")
+    LIST(APPEND OSG_OPENNURBS_HDR "${CMAKE_BINARY_DIR}/External/opennurbs/${_ON_PATCHED_HDR}")
   ENDFOREACH()
 
   IF(WIN32)
