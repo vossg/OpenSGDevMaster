@@ -107,6 +107,17 @@ class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void doActivate  (void);
+    virtual void doDeactivate(void);
+    virtual bool doSwap      (void);
+
+//    virtual bool hasContext  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 

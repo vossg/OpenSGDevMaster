@@ -59,6 +59,21 @@ void OSGQGLWidget::GLContext::makeCurrent(void)
     OSG_ASSERT(false);
 }
 
+void OSGQGLWidget::GLContext::doMakeCurrent(void)
+{
+    QGLContext::makeCurrent();
+}
+
+void OSGQGLWidget::GLContext::doDoneCurrent(void)
+{
+    QGLContext::doneCurrent();
+}
+
+void OSGQGLWidget::GLContext::doSwapBuffers(void)
+{
+    QGLContext::swapBuffers();
+}
+
 /*! \class OSG::QTWindow
 
 The class for QT-based windows. See \ref PageWindowQT for a description.
@@ -134,6 +149,10 @@ void OSGQGLWidget::makeCurrent(void)
 {
 }
 
+void OSGQGLWidget::doneCurrent(void)
+{
+}
+
 void OSGQGLWidget::swapBuffers(void)
 {
 }
@@ -162,6 +181,55 @@ void OSGQGLWidget::paintEvent(QPaintEvent *)
 { 
     paintGL(); 
 };
+
+void OSGQGLWidget::doMakeCurrent(void)
+{
+    GLContext *pContext = 
+        const_cast<GLContext *>(
+            dynamic_cast<const GLContext *>(this->context()));
+
+    if(pContext != NULL)
+    {
+        pContext->doMakeCurrent();
+    }
+    else
+    {
+        fprintf(stderr, "qglw::mc no context\n");
+    }
+}
+
+void OSGQGLWidget::doDoneCurrent(void)
+{
+    GLContext *pContext = 
+        const_cast<GLContext *>(
+            dynamic_cast<const GLContext *>(this->context()));
+
+    if(pContext != NULL)
+    {
+        pContext->doDoneCurrent();
+    }
+    else
+    {
+        fprintf(stderr, "qglw::dc no context\n");
+    }
+}
+
+void OSGQGLWidget::doSwapBuffers(void)
+{
+    GLContext *pContext = 
+        const_cast<GLContext *>(
+            dynamic_cast<const GLContext *>(this->context()));
+
+    if(pContext != NULL)
+    {
+        pContext->doSwapBuffers();
+    }
+    else
+    {
+        fprintf(stderr, "qglw::sb no context\n");
+    }
+}
+
 
 OSG_END_NAMESPACE
 

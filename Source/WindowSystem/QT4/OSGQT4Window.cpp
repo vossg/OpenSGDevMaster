@@ -130,6 +130,8 @@ void QT4Window::dump(      UInt32    ,
 //! init the window: create the context
 void QT4Window::init(GLInitFunctor oFunc)
 {
+
+#if 0
 #ifdef WIN32
     if(getGlWidget() != NULL)
     {
@@ -166,8 +168,37 @@ void QT4Window::init(GLInitFunctor oFunc)
     // create the new context
     setContext(glXCreateContext(getDisplay(), vi, None, GL_TRUE));
 #endif
+#endif
 
     Window::init(oFunc);
+}
+
+void QT4Window::doActivate(void)
+{
+    if(getGlWidget() != NULL)
+    {
+        getGlWidget()->doMakeCurrent();
+    }
+}
+
+void QT4Window::doDeactivate(void)
+{
+    if(getGlWidget() != NULL)
+    {
+        getGlWidget()->doDoneCurrent();
+    }
+}
+
+bool QT4Window::doSwap(void)
+{
+    if(getGlWidget() != NULL)
+    {
+        getGlWidget()->doSwapBuffers();
+
+        return true;
+    }
+
+    return false;
 }
 
 OSG_END_NAMESPACE

@@ -55,6 +55,8 @@
 
 namespace OSG {
 
+class QT4Window;
+
 /*! \brief OSGQGL widget class. See \ref PageWindowQT for a description. 
     \ingroup GrpWindowQt4Obj
     \ingroup GrpLibOSGWindowQt4
@@ -76,6 +78,16 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
         GLContext(const QGLFormat &format);
 
         virtual void makeCurrent(void);
+
+      protected:
+
+        void doMakeCurrent(void);
+        void doDoneCurrent(void);
+        void doSwapBuffers(void);
+
+      private:
+
+        friend class OSGQGLWidget;
     };
 
     /*---------------------------------------------------------------------*/
@@ -108,8 +120,9 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
     /*! \name                 OpenGL handling                              */
     /*! \{                                                                 */
     
-    virtual void makeCurrent(void);
-    virtual void swapBuffers(void);
+    void makeCurrent(void);
+    void doneCurrent(void);
+    void swapBuffers(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -132,9 +145,20 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
     virtual void paintEvent  (QPaintEvent  *pEvent);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 OpenGL handling                              */
+    /*! \{                                                                 */
+
+    void doMakeCurrent(void);
+    void doDoneCurrent(void);
+    void doSwapBuffers(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    friend class QT4Window;
 
     /* prohibit default function (move to 'public' if needed) */
     OSGQGLWidget(const OSGQGLWidget &source);
