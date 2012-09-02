@@ -49,9 +49,11 @@
 
 #include "OSGQT4Window.h"
 
+#if 0
 #ifndef WIN32
 #include <QtGui/qx11info_x11.h>
 #include <GL/glx.h>
+#endif
 #endif
 
 

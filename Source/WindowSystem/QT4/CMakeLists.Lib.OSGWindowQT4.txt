@@ -1,10 +1,10 @@
 
 OSG_ADD_PROJECT("OSGWindowQT4")
 
-IF(APPLE)
-    MESSAGE(STATUS "Qt4 is not supported on Apple systems.")
-    SET(OSGBUILD_${PROJECT_NAME} OFF CACHE BOOL "" FORCE)
-ENDIF(APPLE)
+#IF(APPLE)
+#    MESSAGE(STATUS "Qt4 is not supported on Apple systems.")
+#    SET(OSGBUILD_${PROJECT_NAME} OFF CACHE BOOL "" FORCE)
+#ENDIF(APPLE)
 
 IF(NOT QT4_FOUND)
     MESSAGE(STATUS "Dependency (Qt4) not found, can not build (${PROJECT_NAME}).\n")
