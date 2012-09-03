@@ -1,5 +1,5 @@
 --- opennurbs_array.h	2011-11-22 09:51:36.000000000 +0800
-+++ patched/opennurbs_array.h	2012-08-31 11:36:48.000000000 +0800
++++ patched/opennurbs_array.h	2012-09-03 18:55:30.000000000 +0800
 @@ -1719,7 +1719,7 @@
  See Also:
    ON_CompareDecreasing

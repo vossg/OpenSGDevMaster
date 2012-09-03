@@ -1,11 +1,11 @@
 --- opennurbs_system.h	2011-11-28 10:58:56.000000000 +0800
-+++ patched/opennurbs_system.h	2012-08-31 11:36:42.000000000 +0800
-@@ -298,7 +298,7 @@
- 
- /* 16-bit wide character ("UNICODE") */
- 
--#if !defined(_WCHAR_T)
-+#if !defined(_WCHAR_T) && !defined(__WCHAR_TYPE__)
- typedef unsigned short wchar_t;
++++ patched/opennurbs_system.h	2012-09-03 18:57:57.000000000 +0800
+@@ -290,7 +290,7 @@
+ #define NULL 0
  #endif
  
+-#if !defined(_WCHAR_T_DEFINED)
++#if !defined(_WCHAR_T_DEFINED) && !defined(__WCHAR_TYPE__)
+ // If you are using VC7/.NET and are having trouble linking 
+ // to functions that have whcar_t types in arguments, then
+ // read the documentation about the wchar_t type and
