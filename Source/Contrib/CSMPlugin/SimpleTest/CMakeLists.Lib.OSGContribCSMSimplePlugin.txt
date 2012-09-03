@@ -14,6 +14,10 @@ IF(${OSGBUILD_OSGContribCSMSimplePlugin})
       TARGET_LINK_LIBRARIES(simplePluginApp ${OSG_DL_LIB} ${OPENGL_gl_LIBRARY})
     ENDIF()
 
+    IF(WIN32)
+      SET_PROPERTY(TARGET simplePluginApp PROPERTY FOLDER "Tests")
+    ENDIF()
+
   ENDIF()
 ENDIF()
 

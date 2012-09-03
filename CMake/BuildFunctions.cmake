@@ -1488,7 +1488,11 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         ENDIF(${PROJECT_NAME}_DEP_TEST_DEFS)
 
         IF(WIN32)
-          SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Tests")
+          IF(EXE_SRC MATCHES ^.*/app.*.cpp$)
+            SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Apps")
+          ELSE()
+            SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Tests")
+          ENDIF()
         ENDIF()
     ENDFOREACH(EXE_SRC)
 
