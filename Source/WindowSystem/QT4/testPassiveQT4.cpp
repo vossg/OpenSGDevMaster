@@ -27,6 +27,8 @@
 #include "OSGPassiveWindow.h"
 #include "OSGSimpleSceneManager.h"
 
+QApplication *a = NULL;
+
 class OpenSGWidget : public QGLWidget
 {
   public:
@@ -40,11 +42,13 @@ class OpenSGWidget : public QGLWidget
     void resizeGL         (int, 
                            int            );
     void paintGL          (void           );
+    void initializeGL     (void           );
 
-    void mousePressEvent  (QMouseEvent *ev);
-    void mouseMoveEvent   (QMouseEvent *ev);
-    void mouseReleaseEvent(QMouseEvent *ev);
-    void wheelEvent       (QWheelEvent *ev);
+    virtual void mousePressEvent  (QMouseEvent *ev);
+    virtual void mouseMoveEvent   (QMouseEvent *ev);
+    virtual void mouseReleaseEvent(QMouseEvent *ev);
+    virtual void wheelEvent       (QWheelEvent *ev);
+    virtual void keyPressEvent    (QKeyEvent   *ev);
 
     OSG::SimpleSceneManagerRefPtr mgr;
     OSG::PassiveWindowRecPtr      pwin;
@@ -76,6 +80,14 @@ void OpenSGWidget::paintGL(void)
 {
     mgr->redraw();
     swapBuffers();
+}
+
+void OpenSGWidget::initializeGL(void)
+{
+    if(pwin != NULL)
+    {
+        pwin->init();
+    }
 }
 
 void OpenSGWidget::mousePressEvent(QMouseEvent *ev)
@@ -144,6 +156,13 @@ void OpenSGWidget::wheelEvent(QWheelEvent *ev)
     update();
 }
 
+void OpenSGWidget::keyPressEvent(QKeyEvent *ke)
+{
+    if(ke->key() == Qt::Key_Escape)
+    {
+        a->quit();
+    }
+}
 
 int main( int argc, char **argv )
 {
@@ -151,7 +170,7 @@ int main( int argc, char **argv )
     
     QApplication::setColorSpec(QApplication::CustomColor);
 
-    QApplication a(argc, argv);
+    QApplication *a = new QApplication(argc, argv);
 
     if(!QGLFormat::hasOpenGL()) 
     {
@@ -159,8 +178,11 @@ int main( int argc, char **argv )
         return -1;
     }
     
-    OpenSGWidget w(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer | QGL::Rgba |
-                             QGL::DirectRendering));
+    OpenSGWidget *w = new OpenSGWidget(
+        QGLFormat(QGL::DoubleBuffer   | 
+                  QGL::DepthBuffer    | 
+                  QGL::Rgba           |
+                  QGL::DirectRendering));
 
     // create the scene
     OSG::NodeRecPtr scene;
@@ -168,6 +190,7 @@ int main( int argc, char **argv )
     if(argc > 1)
     {
         scene = OSG::Node::create();
+
         OSG::GroupRecPtr g = OSG::Group::create();
 
         scene->setCore(g);
@@ -180,10 +203,13 @@ int main( int argc, char **argv )
         scene = OSG::makeTorus(.5, 3, 16, 16);
     }
 
-    w.getManager()->setRoot(scene);
-    w.getManager()->showAll();
+    w->getManager()->setRoot(scene);
+    w->getManager()->showAll();
 
-    w.show();
+    w->show();
 
-    return a.exec();
+    a->exec();
+
+    delete w;
+    delete a;
 }

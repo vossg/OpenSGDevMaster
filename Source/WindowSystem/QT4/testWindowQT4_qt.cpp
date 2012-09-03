@@ -360,5 +360,7 @@ int main( int argc, char **argv )
 
     glWidget = NULL;
 
+    delete a;
+
     return 0;
 }

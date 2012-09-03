@@ -202,7 +202,6 @@ int main(int argc, char **argv)
         OSG::QT4WindowRecPtr win = OSG::QT4Window::create();
 
         win->setGlWidget(glWidgets[i]);
-        win->init();
 
         // note: you can't share the scene between the windows, as the SSM
         // adds it to his lightsource, and that can only be done for one
@@ -217,9 +216,13 @@ int main(int argc, char **argv)
         glWidgets[i]->m_manager->setRoot( scene );
         glWidgets[i]->m_manager->showAll();
 
+        win->init();
+
         a->processEvents();
 
         glWidgets[i]->show();
+
+        a->processEvents();
     }
 
     a->exec(); // execute QT main loop
