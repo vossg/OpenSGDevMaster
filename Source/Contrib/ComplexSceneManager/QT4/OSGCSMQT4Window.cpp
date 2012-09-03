@@ -147,8 +147,8 @@ bool CSMQT4Window::init(void)
     {
         QApplication::setColorSpec(QApplication::CustomColor);
 
-              Int32  argc   = 1;
-        const Char8 *argv[] = { "testCSM" };
+        static       Int32  argc   = 1;
+        static const Char8 *argv[] = { "testCSM" };
 
         _pApp = new QApplication(argc, const_cast<Char8 **>(argv));
     }
@@ -209,10 +209,12 @@ bool CSMQT4Window::init(void)
     _pQTWidget->setQT4Window(this);
 
     _pQTWidget->show();
-
     _pQTWidget->setGeometry(iXPos, iYPos, uiWidth, uiHeight);
 
     pQT4Window->setGlWidget(_pQTWidget);
+
+    _pApp->processEvents();
+
     pQT4Window->init();
     pQT4Window->resize(uiWidth,
                        uiHeight);
@@ -223,6 +225,8 @@ bool CSMQT4Window::init(void)
     _pWindow = pQT4Window;
 
     _bRun = true;
+
+    _pApp->processEvents();
 
     Inherited::init();
 
