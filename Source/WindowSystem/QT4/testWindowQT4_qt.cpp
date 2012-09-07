@@ -215,7 +215,7 @@ void MyOSGQGLWidget::mouseMoveEvent(QMouseEvent *me)
     lastx = me->pos().x();
     lasty = me->pos().y();
     
-    paintGL();
+    updateGL();
 }
 
 

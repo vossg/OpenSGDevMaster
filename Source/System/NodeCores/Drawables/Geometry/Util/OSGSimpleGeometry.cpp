@@ -1564,7 +1564,8 @@ NodeTransitPtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
     \ingroup GrpDrawablesGeometryUtils
  */
 GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
-                              UInt16 hor  , UInt16 vert , UInt16 depth)
+                              UInt16 hor  , UInt16 vert , UInt16 depth,
+                              bool   bInv                             )
 {
     if(! hor || ! vert || ! depth)
     {
@@ -1613,6 +1614,12 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
 
                 Vec3f norm(0, 0, 0);
                 norm[ axis ] = Real32(asigns[ pl ]);
+
+                if(bInv == true)
+                {
+                    norm *= -1;
+                }
+
                 n->push_back(norm);
                 tx->push_back(Vec2f(x / Real32(res[inds[pl][0]]),
                                     y / Real32(res[inds[pl][1]])));
@@ -1637,10 +1644,30 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
             t->push_back(GL_TRIANGLE_STRIP);
             l->push_back(2 * (h + 1));
 
+            fprintf(stderr, "bp : %d\n", basepoint);
+
             for(x = 0; x <= h; x++)
             {
-                i->push_back(basepoint + (y + 1) * (h + 1) + x);
-                i->push_back(basepoint +  y      * (h + 1) + x);
+                if(bInv == true)
+                {
+                    i->push_back(basepoint +  y      * (h + 1) + x);
+                    i->push_back(basepoint + (y + 1) * (h + 1) + x);
+
+                    fprintf(stderr, "i %d\n",
+                            basepoint +  y      * (h + 1) + x);
+                    fprintf(stderr, "  %d\n",
+                            basepoint + (y + 1) * (h + 1) + x);
+                }
+                else
+                {
+                    i->push_back(basepoint + (y + 1) * (h + 1) + x);
+                    i->push_back(basepoint +  y      * (h + 1) + x);
+
+                    fprintf(stderr, "  %d\n",
+                            basepoint + (y + 1) * (h + 1) + x);
+                    fprintf(stderr, "  %d\n",
+                            basepoint +  y      * (h + 1) + x);
+                }
             }
         }
         basepoint += UInt32((res[inds[pl][0]] + 1.f) *

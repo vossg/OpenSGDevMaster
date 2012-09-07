@@ -3190,11 +3190,24 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
                                    pField,
                                    pDesc);
 
+        EditFieldHandlePtr  pFieldInv;
+        
+        Inherited::getFieldAndDesc(pFC,
+                                   "invert",
+                                   pDummyFC,
+                                   pFieldInv,
+                                   pDesc);
+
         if(pField != NULL)
         {
             SFVec3f::EditHandlePtr pValField = 
                 boost::dynamic_pointer_cast<SFVec3f::EditHandle>(pField);
 
+            SFBool::EditHandlePtr pValFieldInv =
+                boost::dynamic_pointer_cast<SFBool::EditHandle>(pFieldInv);
+
+            bool bInv = pValFieldInv != NULL ? 
+                pValFieldInv->getField()->getValue() : false;
 
             if(pValField != NULL && pValField->isValid())
             {
@@ -3205,7 +3218,8 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
                                                    pVec->getValue()[2],
                                                    1,
                                                    1,
-                                                   1);
+                                                   1,
+                                                   bInv               );
                 
                 pNode->setCore(pGeo);
             }

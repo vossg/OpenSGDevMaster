@@ -138,7 +138,7 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
     virtual void initializeGL(void);
     virtual void paintGL     (void);
     virtual void resizeGL    (int w, int h);
-    virtual void glDraw      (void) {};
+    virtual void glDraw      (void);
 
     virtual bool event       (QEvent       *pEvent);
     virtual void resizeEvent (QResizeEvent *pEvent);

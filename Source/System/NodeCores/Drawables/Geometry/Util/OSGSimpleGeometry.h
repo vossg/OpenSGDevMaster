@@ -71,7 +71,8 @@ GeometryTransitPtr        makeBoxGeo            (Real32 xsize,
                                                  Real32 zsize,
                                                  UInt16 hor,
                                                  UInt16 vert,
-                                                 UInt16 depth);
+                                                 UInt16 depth,
+                                                 bool   bInv = false);
 
 OSG_DRAWABLE_DLLMAPPING
 NodeTransitPtr            makeBox               (Real32 xsize,

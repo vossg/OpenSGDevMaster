@@ -235,6 +235,10 @@ PROTO Box [
      beginFieldDecl("SFVec3f", Self::OSGsfVec3f, "size");
      addFieldValue ("2 2 2");
      endFieldDecl  ();
+
+     beginFieldDecl("SFBool", Self::OSGsfBool, "invert");
+     addFieldValue ("FALSE");
+     endFieldDecl  ();
  }
  endProtoInterface();
  endProto  ();

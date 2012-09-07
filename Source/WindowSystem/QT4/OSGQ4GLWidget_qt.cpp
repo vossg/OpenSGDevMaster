@@ -177,6 +177,11 @@ void OSGQGLWidget::resizeEvent(QResizeEvent *)
     resizeGL(width(), height()); 
 }
 
+void OSGQGLWidget::glDraw(void) 
+{
+    paintGL();
+}
+
 void OSGQGLWidget::paintEvent(QPaintEvent *) 
 { 
     paintGL(); 

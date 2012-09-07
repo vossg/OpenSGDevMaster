@@ -498,7 +498,8 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
         {
             Node *exnode = getExcludeNodes(i);
 
-            vExclTravMask[i] = exnode->getTravMask();
+            if(exnode != NULL)
+                vExclTravMask[i] = exnode->getTravMask();
         }
 
         //check if all sides of a pointlight are needed
