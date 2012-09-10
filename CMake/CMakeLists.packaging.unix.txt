@@ -211,7 +211,24 @@ IF(NOT OSG_SINGLE_PACKAGE)
   SET(CPACK_RPM_COMPONENT_INSTALL     ON)
 ENDIF()
 
-SET(CPACK_PACKAGE_FILE_NAME           "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}")
+# Date macro by Benoit RAT (www.neub.co.nr)
+MACRO (TODAY RESULT)
+  IF (WIN32)
+    EXECUTE_PROCESS(COMMAND "date /T" OUTPUT_VARIABLE ${RESULT})
+    string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
+  ELSEIF(UNIX)
+    EXECUTE_PROCESS(COMMAND "date" "+%d_%m_%Y" OUTPUT_VARIABLE ${RESULT})
+#    string(REGEX REPLACE "(..)_(..)_..(..).*" "\\1_\\2_\\3" "${RESULT}" "${${RESULT}}")
+    string(REGEX REPLACE "\n" "" "${RESULT}" "${${RESULT}}")
+  ELSE (WIN32)
+    MESSAGE(SEND_ERROR "date not implemented")
+    SET(${RESULT} 000000)
+  ENDIF (WIN32)
+ENDMACRO (TODAY)
+
+TODAY(DATE)
+
+SET(CPACK_PACKAGE_FILE_NAME           "OpenSG.@OSG_VERSION@.${DATE}.${SYSTEM_SPEC}")
 
 #MESSAGE("CPFN : ${CPACK_PACKAGE_FILE_NAME}")
 
