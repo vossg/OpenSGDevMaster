@@ -78,6 +78,35 @@ FOREACH(_LIB_ELEM ${_${PROJECT_NAME}_LIBS})
 
 ENDFOREACH()
 
+################
+# share
+################
+
+FILE(GLOB_RECURSE _${PROJECT_NAME}_SHARE
+                  RELATIVE ${_BASE_INSTALL_DIR}
+                  ${_BASE_INSTALL_DIR}/share/*)
+
+#MESSAGE("SHARE IN : ${_${PROJECT_NAME}_SHARE}")
+
+FOREACH(_SHARE_ELEM ${_${PROJECT_NAME}_SHARE})
+
+  STRING(REGEX REPLACE /[^/]*$ "" _INST_PATH ${_SHARE_ELEM})
+
+  SET(_ELEM_COMPONENT libraries_release)
+
+  IF(NOT ${_INST_PATH} MATCHES /Packaging)
+
+#    MESSAGE("SHARE : ${_SHARE_ELEM} ${_ELEM_COMPONENT} ${_INST_PATH}")
+
+    INSTALL(FILES ${_BASE_INSTALL_DIR}/${_SHARE_ELEM}
+                  DESTINATION ${_INST_PATH}
+                  PERMISSIONS OWNER_WRITE OWNER_READ
+                              GROUP_READ
+                              WORLD_READ
+                  COMPONENT ${_ELEM_COMPONENT})
+  ENDIF()
+
+ENDFOREACH()
 
 ################
 # bin

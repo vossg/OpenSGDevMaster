@@ -1,0 +1,20 @@
+
+Each third party package comes with its individual license as listed
+below. Please check the individual third party package license details. 
+
+
+zlib        : individual
+libpng      : libpng license
+libjpeg     : individual
+freeglut    : individual, based on MIT license
+libtiff     : individual
+pcre        : BSD license
+libxml2     : individual
+OpenEXR     : individual
+expat       : individual, based on MIT license
+gdal        : individual, based on MIT license
+doxygen     : GPL v2
+collada-dom : The MIT License
+glew        : individual
+opennurbs   : individual
+libMini     : LGPL v2.1

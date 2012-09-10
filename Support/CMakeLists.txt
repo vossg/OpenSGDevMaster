@@ -192,6 +192,14 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
                     WORLD_READ
         RENAME CMakeLists.txt)
 
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING
+        DESTINATION share/doc/OpenSG
+        COMPONENT doc
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ
+        RENAME COPYING.support)
+
 ###########################
 # Component install Setting
 ###########################

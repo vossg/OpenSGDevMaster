@@ -2247,6 +2247,37 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
                     WORLD_READ
         RENAME CMakeLists.txt)
 
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING
+        DESTINATION share/doc/OpenSG/
+        COMPONENT doc
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ)
+
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/README
+        DESTINATION share/doc/OpenSG/
+        COMPONENT doc
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ
+        RENAME README.ply)
+
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/README
+        DESTINATION share/doc/OpenSG/
+        COMPONENT doc
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ
+        RENAME README.tsm)
+
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/Rhino3DLoader/README
+        DESTINATION share/doc/OpenSG/
+        COMPONENT doc
+        PERMISSIONS OWNER_WRITE OWNER_READ
+                    GROUP_READ
+                    WORLD_READ
+        RENAME README.rhine)
+
 
 IF(WIN32)
   SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt"

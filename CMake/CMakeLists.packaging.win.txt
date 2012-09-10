@@ -156,6 +156,10 @@ FOREACH(_SHARE_ELEM ${_${PROJECT_NAME}_SHARE})
       SET(_ELEM_COMPONENT development_config)
     ENDIF()
 
+    IF(${_INST_PATH} MATCHES /share/doc)
+      SET(_ELEM_COMPONENT runtime_release)
+    ENDIF()
+
     IF(${_INST_PATH} MATCHES /Doc)
       SET(_ELEM_COMPONENT doc)
     ENDIF()
@@ -218,7 +222,8 @@ SET(CPACK_PACKAGE_VERSION_MINOR       @OSG_VERSION_MINOR@)
 SET(CPACK_PACKAGE_VERSION_PATCH       @OSG_VERSION_PATCH@)
 SET(CPACK_PACKAGE_VENDOR              "OpenSG")
 SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSG provides the third party libraries OpenSG uses")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSG provides the OpenSG scene graph system")
+SET(CPACK_RESOURCE_FILE_LICENSE       "${_BASE_INSTALL_DIR}/share/doc/OpenSG/COPYING")
 
 SET(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 

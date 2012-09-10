@@ -224,7 +224,6 @@ IF(OSGOpenNurbsSrcDir)
                          opennurbs_sumsurface.h  
                          opennurbs_surface.h  
                          opennurbs_surfaceproxy.h  
-                         opennurbs_system.h  
                          opennurbs_textlog.h  
                          opennurbs_texture.h  
                          opennurbs_texture_mapping.h  
