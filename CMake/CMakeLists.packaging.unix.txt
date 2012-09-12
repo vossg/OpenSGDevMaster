@@ -264,6 +264,7 @@ SET(CPACK_COMPONENTS_ALL libraries
 
 SET(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION        "Suport Files needed to execute software with OpenSG.")
 SET(CPACK_COMPONENT_GROUP_DEVEL_DESCRIPTION          "Development files needed to develop software with OpenSG.")
+SET(CPACK_COMPONENT_GROUP_PYTHONDEBUG_DESCRIPTION    "Development files needed to debug OpenSG bindings.")
 SET(CPACK_COMPONENT_GROUP_EXAMPLES_DESCRIPTION       "Development Examples files needed to develop software with OpenSG.")
 
 SET(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME           "Release Runtime Libs")
@@ -298,7 +299,7 @@ SET(CPACK_COMPONENT_APPS_DEBUG_INSTALL_TYPES         Full Developer Runtime)
 
 SET(CPACK_COMPONENT_PYTHON_DEBUG_DISPLAY_NAME        "Debug Runtime Python")
 SET(CPACK_COMPONENT_PYTHON_DEBUG_DESCRIPTION         "Debug Runtimes Python Description")
-SET(CPACK_COMPONENT_PYTHON_DEBUG_GROUP               "devel")
+SET(CPACK_COMPONENT_PYTHON_DEBUG_GROUP               "pythondebug")
 SET(CPACK_COMPONENT_PYTHON_DEBUG_INSTALL_TYPES       Full Developer Runtime)
 
 SET(CPACK_COMPONENT_HEADERS_DISPLAY_NAME             "Headers")
