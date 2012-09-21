@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="DepthPeelingStage"
+    parent="Stage"
+    library="EffectGroups"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="true"
+    authors="Alexander Lang"
+    >
+    The DepthPeelingStage core provides Order-Independent Transparency via the Depth-Peeling algorithm. 
+    It is based on the paper "Order Independent Transparency with Dual Depth Peeling" and the provided code 
+    by Louis Bavoil.
+    <Field
+        name="NumPasses"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="4"
+        access="public"
+    >
+    The number of the geometry render passes
+    </Field>
+    <Field
+        name="DepthTexUnit"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+    >
+    The texture unit that can be used by the stage for binding the depth texture
+    </Field>
+</FieldContainer>

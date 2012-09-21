@@ -50,6 +50,7 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Projectors")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/ShadowStage")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Misc")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/HDR")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/OIT")
 
 ##############################################################################
 # setup python bindings

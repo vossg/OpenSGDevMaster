@@ -520,10 +520,10 @@ int doMain(int argc, char **argv)
     //ShadowSmoothness also used to define the light size for PCSS_SHADOW_MAP
     svp->setShadowSmoothness(0.5);
     // add light sources here
-    svp->editMFLightNodes  ()->push_back(light1);
-    svp->editMFLightNodes  ()->push_back(light2);
+    //svp->editMFLightNodes  ()->push_back(light1);
+    //svp->editMFLightNodes  ()->push_back(light2);
     svp->editMFExcludeNodes()->push_back(obj1_trans_node);
-    //svp->setAutoSearchForLights(true);
+    svp->setAutoSearchForLights(true);
 
     //one active light at startup
     _light2_core->setOn(true);
