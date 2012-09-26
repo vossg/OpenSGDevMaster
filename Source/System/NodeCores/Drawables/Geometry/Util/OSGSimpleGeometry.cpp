@@ -1644,29 +1644,17 @@ GeometryTransitPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
             t->push_back(GL_TRIANGLE_STRIP);
             l->push_back(2 * (h + 1));
 
-            fprintf(stderr, "bp : %d\n", basepoint);
-
             for(x = 0; x <= h; x++)
             {
                 if(bInv == true)
                 {
                     i->push_back(basepoint +  y      * (h + 1) + x);
                     i->push_back(basepoint + (y + 1) * (h + 1) + x);
-
-                    fprintf(stderr, "i %d\n",
-                            basepoint +  y      * (h + 1) + x);
-                    fprintf(stderr, "  %d\n",
-                            basepoint + (y + 1) * (h + 1) + x);
                 }
                 else
                 {
                     i->push_back(basepoint + (y + 1) * (h + 1) + x);
                     i->push_back(basepoint +  y      * (h + 1) + x);
-
-                    fprintf(stderr, "  %d\n",
-                            basepoint + (y + 1) * (h + 1) + x);
-                    fprintf(stderr, "  %d\n",
-                            basepoint +  y      * (h + 1) + x);
                 }
             }
         }
