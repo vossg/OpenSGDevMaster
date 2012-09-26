@@ -155,8 +155,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DepthPeelingStage : public DepthPeelingStageBa
     void postProcess     (DrawEnv*      drawEnv,
                           bool          isPing  );
     void postProcessFinal(DrawEnv*      pEnv    );
-
-    void drawQuad        (bool          isFinal );
+    void drawQuad        (void                  );
 
     DepthPeelingStageDataTransitPtr
          setupStageData (Int32                  iPixelWidth,

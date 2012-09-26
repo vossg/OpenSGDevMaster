@@ -457,12 +457,6 @@ void DepthPeelingStage::postProcess(DrawEnv *pEnv, bool isPing)
         return;
     }
 
-    OSGGETGLFUNCBYID_GL3( glDrawBuffers,
-                          osgGlDrawBuffers,
-                         _uiFuncDrawBuffers,
-                          win);
-
-
     DepthPeelingStageData *pData =
         pEnv->getData<DepthPeelingStageData *>(_iDataSlotId);
 
@@ -470,9 +464,6 @@ void DepthPeelingStage::postProcess(DrawEnv *pEnv, bool isPing)
         return;
 
     FrameBufferObject *pBlendFBO  = pData->getBlendFBO();
-    //pBlurTarget->editMFDrawBuffers()->clear();
-    //pBlurTarget->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
-
     pBlendFBO->activate(pEnv);
 
     ChunkMaterial *pMaterial;
@@ -483,7 +474,7 @@ void DepthPeelingStage::postProcess(DrawEnv *pEnv, bool isPing)
 
     pEnv->activateState(pMaterial->getState(), NULL);
 
-    drawQuad(false);
+    drawQuad();
 
     pEnv->deactivateState();
 
@@ -503,22 +494,13 @@ DepthPeelingStage::postProcessFinal(DrawEnv *pEnv)
 
     pEnv->activateState(pBlendFinalState, NULL);
 
-    //glViewport(pEnv->getPixelLeft  (),
-    //           pEnv->getPixelBottom(),
-    //           pEnv->getPixelWidth (),
-    //           pEnv->getPixelHeight());
-
-    drawQuad(true);
+    drawQuad();
 
     pEnv->deactivateState();
 }
 
-void DepthPeelingStage::drawQuad(bool isFinal)
+void DepthPeelingStage::drawQuad(void)
 {
-    //glDisable(GL_DEPTH_TEST);
-
-    glColor3f(1.f, 1.f, 1.f);
-
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
@@ -555,11 +537,6 @@ DepthPeelingStageDataTransitPtr
 
     OSG::Thread::setCurrentLocalFlags();
 
-    // general mat chunk
-
-    MaterialChunkUnrecPtr pMatChunk = MaterialChunk::createLocal();
-    pMatChunk->setLit(false);
-
     //Depth, Blend chunks and Background in Data?
     DepthChunkUnrecPtr pDepthOffChunk = DepthChunk::createLocal();
     pDepthOffChunk->setEnable(false);
@@ -570,13 +547,13 @@ DepthPeelingStageDataTransitPtr
     returnValue->setDepthChunk(pDepthOnChunk);
 
     ShaderProgramVariableChunkUnrecPtr pSPVChunk1 =
-        ShaderProgramVariableChunk::create();
+        ShaderProgramVariableChunk::createLocal();
     pSPVChunk1->addUniformVariable("uIsPeelPass", true);
 
     returnValue->setSpvIsPeelChunk(pSPVChunk1);
 
     ShaderProgramVariableChunkUnrecPtr pSPVChunk2 =
-        ShaderProgramVariableChunk::create();
+        ShaderProgramVariableChunk::createLocal();
     pSPVChunk2->addUniformVariable("uIsPeelPass", false);
 
     returnValue->setSpvIsInitialChunk(pSPVChunk2);
@@ -588,7 +565,7 @@ DepthPeelingStageDataTransitPtr
     pBlendChunk->setAlphaDestFactor(GL_ONE_MINUS_SRC_ALPHA);
     pBlendChunk->setEquation(GL_FUNC_ADD);
 
-    SolidBackgroundUnrecPtr pSolidBackground = SolidBackground::create();
+    SolidBackgroundUnrecPtr pSolidBackground = SolidBackground::createLocal();
     pSolidBackground->setColor(Color3f(0.f, 0.f, 0.f));
     pSolidBackground->setAlpha(0.f);
     returnValue->setBackground(pSolidBackground);
@@ -670,7 +647,6 @@ DepthPeelingStageDataTransitPtr
 
         //Peel material for Quad (!)
         ChunkMaterialUnrecPtr pPeelMat  = ChunkMaterial  ::createLocal();
-        pPeelMat->addChunk(pMatChunk         );
         pPeelMat->addChunk(pQuadShader, 0);
         pPeelMat->addChunk(pColorTexs[i],     0);
         pPeelMat->addChunk(pDepthOffChunk);
@@ -689,12 +665,11 @@ DepthPeelingStageDataTransitPtr
     }
 
     // The final color blend target
-
-    FrameBufferObjectUnrecPtr pBlendFBO    = FrameBufferObject::createLocal();
+    FrameBufferObjectUnrecPtr pBlendFBO      = FrameBufferObject::createLocal();
 
     //Color texture
-    TextureObjChunkUnrecPtr pBlendColorTex     = TextureObjChunk::createLocal();
-    ImageUnrecPtr           pBlendColorImg     = Image          ::createLocal();
+    TextureObjChunkUnrecPtr   pBlendColorTex = TextureObjChunk::createLocal();
+    ImageUnrecPtr             pBlendColorImg = Image          ::createLocal();
 
     pBlendColorImg->set(Image::OSG_RGBA_PF,
               iPixelWidth,
@@ -707,12 +682,12 @@ DepthPeelingStageDataTransitPtr
               Image::OSG_FLOAT32_IMAGEDATA,
               false);
 
-    pBlendColorTex   ->setImage         (pBlendColorImg   );
-    pBlendColorTex   ->setMinFilter     (GL_NEAREST       );
-    pBlendColorTex   ->setMagFilter     (GL_NEAREST       );
-    pBlendColorTex   ->setWrapS         (GL_CLAMP_TO_EDGE );
-    pBlendColorTex   ->setWrapT         (GL_CLAMP_TO_EDGE );
-    pBlendColorTex   ->setInternalFormat(GL_RGBA8);
+    pBlendColorTex->setImage         (pBlendColorImg   );
+    pBlendColorTex->setMinFilter     (GL_NEAREST       );
+    pBlendColorTex->setMagFilter     (GL_NEAREST       );
+    pBlendColorTex->setWrapS         (GL_CLAMP_TO_EDGE );
+    pBlendColorTex->setWrapT         (GL_CLAMP_TO_EDGE );
+    pBlendColorTex->setInternalFormat(GL_RGBA8);
 
     TextureBufferUnrecPtr pBlendColorTexBuffer   = TextureBuffer::createLocal();
     pBlendColorTexBuffer->setTexture(pBlendColorTex);
@@ -729,10 +704,8 @@ DepthPeelingStageDataTransitPtr
     returnValue->setBlendFBO(pBlendFBO);
 
     // Blend Final Material
-
     ChunkMaterialUnrecPtr pBlendFinalMat = ChunkMaterial::createLocal();
 
-    pBlendFinalMat->addChunk(pMatChunk   );
     pBlendFinalMat->addChunk(pDepthOffChunk);
     pBlendFinalMat->addChunk(pBlendColorTex,     0);
 
