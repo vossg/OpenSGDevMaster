@@ -466,7 +466,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
             {
                 fc = NULL;
             }
-            
+
             if(pSFHandle != NULL && pSFHandle->isValid())
             {
                 pSFHandle->set(fc);
@@ -478,8 +478,15 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
             else
             {
                 FWARNING(("OSBRootElement::mapPtrField: FieldHandles invalid, "
-                          "can not set pointer - target fc [%u] fieldId [%u] file id [%u] system id [%u]\n",
-                          (fc != NULL ? fc->getId() : 0), fieldId, *idIt, (idMapIt != idMapEnd ? idMapIt->second : 0)));
+                          "can not set pointer - target fc [%u][%s] "
+                          "fieldId [%u][%s] file id [%u] system id [%u]\n",
+                          (fc != NULL ? fc->getId() : 0),
+                          (fc != NULL ? fc->getType().getCName() : ""),
+                          fieldId,
+                          (fc != NULL ?
+                          fc->getType().getFieldDesc(fieldId)->getCName() : ""),
+                          *idIt,
+                          (idMapIt != idMapEnd ? idMapIt->second : 0) ));
             }
         }
     }
