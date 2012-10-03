@@ -163,12 +163,119 @@ void DisplayFilterStageBase::setActiveGroup(const Int32 value)
 
     _sfActiveGroup.setValue(value);
 }
+//! Get the value of the DisplayFilterStage::_sfEnableMultiSample field.
+
+inline
+bool &DisplayFilterStageBase::editEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Get the value of the DisplayFilterStage::_sfEnableMultiSample field.
+inline
+      bool  DisplayFilterStageBase::getEnableMultiSample(void) const
+{
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfEnableMultiSample field.
+inline
+void DisplayFilterStageBase::setEnableMultiSample(const bool value)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    _sfEnableMultiSample.setValue(value);
+}
+//! Get the value of the DisplayFilterStage::_sfColorSamples field.
+
+inline
+UInt32 &DisplayFilterStageBase::editColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return _sfColorSamples.getValue();
+}
+
+//! Get the value of the DisplayFilterStage::_sfColorSamples field.
+inline
+      UInt32  DisplayFilterStageBase::getColorSamples(void) const
+{
+    return _sfColorSamples.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfColorSamples field.
+inline
+void DisplayFilterStageBase::setColorSamples(const UInt32 value)
+{
+    editSField(ColorSamplesFieldMask);
+
+    _sfColorSamples.setValue(value);
+}
+//! Get the value of the DisplayFilterStage::_sfCoverageSamples field.
+
+inline
+UInt32 &DisplayFilterStageBase::editCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return _sfCoverageSamples.getValue();
+}
+
+//! Get the value of the DisplayFilterStage::_sfCoverageSamples field.
+inline
+      UInt32  DisplayFilterStageBase::getCoverageSamples(void) const
+{
+    return _sfCoverageSamples.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfCoverageSamples field.
+inline
+void DisplayFilterStageBase::setCoverageSamples(const UInt32 value)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    _sfCoverageSamples.setValue(value);
+}
+//! Get the value of the DisplayFilterStage::_sfFixedSampleLocation field.
+
+inline
+bool &DisplayFilterStageBase::editFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Get the value of the DisplayFilterStage::_sfFixedSampleLocation field.
+inline
+      bool  DisplayFilterStageBase::getFixedSampleLocation(void) const
+{
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfFixedSampleLocation field.
+inline
+void DisplayFilterStageBase::setFixedSampleLocation(const bool value)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    _sfFixedSampleLocation.setValue(value);
+}
 
 //! Get the value of the \a index element the DisplayFilterStage::_mfFilterGroups field.
 inline
 DisplayFilterGroup * DisplayFilterStageBase::getFilterGroups(const UInt32 index) const
 {
     return _mfFilterGroups[index];
+}
+
+//! Get the value of the \a index element the DisplayFilterStage::_mfForegrounds field.
+inline
+Foreground * DisplayFilterStageBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
 }
 
 
@@ -202,6 +309,24 @@ void DisplayFilterStageBase::execSync (      DisplayFilterStageBase *pFrom,
 
     if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
         _sfActiveGroup.syncWith(pFrom->_sfActiveGroup);
+
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+        _sfEnableMultiSample.syncWith(pFrom->_sfEnableMultiSample);
+
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+        _sfColorSamples.syncWith(pFrom->_sfColorSamples);
+
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+        _sfCoverageSamples.syncWith(pFrom->_sfCoverageSamples);
+
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+        _sfFixedSampleLocation.syncWith(pFrom->_sfFixedSampleLocation);
+
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

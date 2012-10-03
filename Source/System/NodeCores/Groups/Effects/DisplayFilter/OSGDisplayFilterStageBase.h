@@ -71,6 +71,7 @@
 #include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
 #include "OSGDisplayFilterGroupFields.h" // FilterGroups type
 #include "OSGSysFields.h"               // ActiveGroup type
+#include "OSGForegroundFields.h"        // Foregrounds type
 
 #include "OSGDisplayFilterStageFields.h"
 
@@ -105,7 +106,12 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
         DistortionFilterFieldId = ColorFilterFieldId + 1,
         FilterGroupsFieldId = DistortionFilterFieldId + 1,
         ActiveGroupFieldId = FilterGroupsFieldId + 1,
-        NextFieldId = ActiveGroupFieldId + 1
+        EnableMultiSampleFieldId = ActiveGroupFieldId + 1,
+        ColorSamplesFieldId = EnableMultiSampleFieldId + 1,
+        CoverageSamplesFieldId = ColorSamplesFieldId + 1,
+        FixedSampleLocationFieldId = CoverageSamplesFieldId + 1,
+        ForegroundsFieldId = FixedSampleLocationFieldId + 1,
+        NextFieldId = ForegroundsFieldId + 1
     };
 
     static const OSG::BitVector CalibrationPatternFilterFieldMask =
@@ -120,6 +126,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
         (TypeTraits<BitVector>::One << FilterGroupsFieldId);
     static const OSG::BitVector ActiveGroupFieldMask =
         (TypeTraits<BitVector>::One << ActiveGroupFieldId);
+    static const OSG::BitVector EnableMultiSampleFieldMask =
+        (TypeTraits<BitVector>::One << EnableMultiSampleFieldId);
+    static const OSG::BitVector ColorSamplesFieldMask =
+        (TypeTraits<BitVector>::One << ColorSamplesFieldId);
+    static const OSG::BitVector CoverageSamplesFieldMask =
+        (TypeTraits<BitVector>::One << CoverageSamplesFieldId);
+    static const OSG::BitVector FixedSampleLocationFieldMask =
+        (TypeTraits<BitVector>::One << FixedSampleLocationFieldId);
+    static const OSG::BitVector ForegroundsFieldMask =
+        (TypeTraits<BitVector>::One << ForegroundsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -129,6 +145,11 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     typedef SFUnrecDistortionDisplayFilterPtr SFDistortionFilterType;
     typedef MFUnrecDisplayFilterGroupPtr MFFilterGroupsType;
     typedef SFInt32           SFActiveGroupType;
+    typedef SFBool            SFEnableMultiSampleType;
+    typedef SFUInt32          SFColorSamplesType;
+    typedef SFUInt32          SFCoverageSamplesType;
+    typedef SFBool            SFFixedSampleLocationType;
+    typedef MFUnrecForegroundPtr MFForegroundsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -167,6 +188,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
                   SFInt32             *editSFActiveGroup    (void);
             const SFInt32             *getSFActiveGroup     (void) const;
 
+                  SFBool              *editSFEnableMultiSample(void);
+            const SFBool              *getSFEnableMultiSample (void) const;
+
+                  SFUInt32            *editSFColorSamples   (void);
+            const SFUInt32            *getSFColorSamples    (void) const;
+
+                  SFUInt32            *editSFCoverageSamples(void);
+            const SFUInt32            *getSFCoverageSamples (void) const;
+
+                  SFBool              *editSFFixedSampleLocation(void);
+            const SFBool              *getSFFixedSampleLocation (void) const;
+            const MFUnrecForegroundPtr *getMFForegrounds    (void) const;
+                  MFUnrecForegroundPtr *editMFForegrounds    (void);
+
 
                   CalibrationPatternFilter * getCalibrationPatternFilter(void) const;
 
@@ -181,6 +216,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
                   Int32               &editActiveGroup    (void);
                   Int32                getActiveGroup     (void) const;
 
+                  bool                &editEnableMultiSample(void);
+                  bool                 getEnableMultiSample (void) const;
+
+                  UInt32              &editColorSamples   (void);
+                  UInt32               getColorSamples    (void) const;
+
+                  UInt32              &editCoverageSamples(void);
+                  UInt32               getCoverageSamples (void) const;
+
+                  bool                &editFixedSampleLocation(void);
+                  bool                 getFixedSampleLocation (void) const;
+
+                  Foreground * getForegrounds    (const UInt32 index) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -191,6 +240,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
             void setColorFilter    (ColorDisplayFilter * const value);
             void setDistortionFilter(DistortionDisplayFilter * const value);
             void setActiveGroup    (const Int32 value);
+            void setEnableMultiSample(const bool value);
+            void setColorSamples   (const UInt32 value);
+            void setCoverageSamples(const UInt32 value);
+            void setFixedSampleLocation(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,6 +260,12 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     void removeFromFilterGroups (UInt32               uiIndex );
     void removeObjFromFilterGroups(DisplayFilterGroup * const value   );
     void clearFilterGroups            (void                         );
+
+    void addForeground             (Foreground * const value   );
+    void assignForegrounds          (const MFUnrecForegroundPtr &value);
+    void removeFromForegrounds (UInt32               uiIndex );
+    void removeObjFromForegrounds(Foreground * const value   );
+    void clearForegrounds            (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,6 +326,11 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     SFUnrecDistortionDisplayFilterPtr _sfDistortionFilter;
     MFUnrecDisplayFilterGroupPtr _mfFilterGroups;
     SFInt32           _sfActiveGroup;
+    SFBool            _sfEnableMultiSample;
+    SFUInt32          _sfColorSamples;
+    SFUInt32          _sfCoverageSamples;
+    SFBool            _sfFixedSampleLocation;
+    MFUnrecForegroundPtr _mfForegrounds;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -307,6 +371,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     EditFieldHandlePtr editHandleFilterGroups   (void);
     GetFieldHandlePtr  getHandleActiveGroup     (void) const;
     EditFieldHandlePtr editHandleActiveGroup    (void);
+    GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
+    EditFieldHandlePtr editHandleEnableMultiSample(void);
+    GetFieldHandlePtr  getHandleColorSamples    (void) const;
+    EditFieldHandlePtr editHandleColorSamples   (void);
+    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+    EditFieldHandlePtr editHandleCoverageSamples(void);
+    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+    EditFieldHandlePtr editHandleFixedSampleLocation(void);
+    GetFieldHandlePtr  getHandleForegrounds     (void) const;
+    EditFieldHandlePtr editHandleForegrounds    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGDisplayFilterStageData.h"
+#include "OSGDisplayFilterStage.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -116,9 +117,60 @@ void DisplayFilterStageData::changed(ConstFieldMaskArg whichField,
 }
 
 void DisplayFilterStageData::dump(      UInt32    ,
-                         const BitVector ) const
+                                  const BitVector ) const
 {
     SLOG << "Dump DisplayFilterStageData NI" << std::endl;
+}
+
+void DisplayFilterStageData::updateData(FieldContainer *pStageCore,
+                                        BitVector       whichField,
+                                        UInt32          origin    )
+{
+    DisplayFilterStage *pCore = dynamic_cast<DisplayFilterStage *>(pStageCore);
+
+    if(pCore == NULL)
+        return;
+
+    fprintf(stderr, "dfs data updateData %d | 0x%016"PRIx64"\n", 
+            origin,
+            whichField);
+    
+    if(0x0000 != (whichField & DisplayFilterStage::EnableMultiSampleFieldMask))
+    {
+        if(this->getTarget() != NULL)
+        {
+            this->getTarget()->setEnableMultiSample(
+                pCore->getEnableMultiSample());
+        }
+    }
+
+    if(0x0000 != (whichField & DisplayFilterStage::ColorSamplesFieldMask))
+    {
+        if(this->getTarget() != NULL)
+        {
+            this->getTarget()->setColorSamples(
+                pCore->getColorSamples());
+        }
+    }
+
+    if(0x0000 != (whichField & DisplayFilterStage::CoverageSamplesFieldMask))
+    {
+        if(this->getTarget() != NULL)
+        {
+            this->getTarget()->setCoverageSamples(
+                pCore->getCoverageSamples());
+        }
+    }
+
+    if(0x0000 != (whichField & 
+                  DisplayFilterStage::FixedSampleLocationFieldMask))
+    {
+        if(this->getTarget() != NULL)
+        {
+            this->getTarget()->setFixedSampleLocation(
+                pCore->getFixedSampleLocation());
+        }
+    }
 }
 
 OSG_END_NAMESPACE

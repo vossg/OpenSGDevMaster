@@ -183,6 +183,12 @@ DisplayFilterStageDataTransitPtr
 
     pFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
 
+
+    pFBO->setEnableMultiSample  (this->getEnableMultiSample  ());
+    pFBO->setColorSamples       (this->getColorSamples       ());
+    pFBO->setCoverageSamples    (this->getCoverageSamples    ());
+    pFBO->setFixedSampleLocation(this->getFixedSampleLocation());
+
     returnValue->setTarget(pFBO);
 
 
@@ -495,6 +501,16 @@ Action::ResultE DisplayFilterStage::renderEnter(Action *action)
             }
             else
             {
+                MFForegroundsType::const_iterator fIt = 
+                    this->getMFForegrounds()->begin();
+                MFForegroundsType::const_iterator fEnd = 
+                    this->getMFForegrounds()->end  ();
+
+                for(; fIt != fEnd; ++fIt)
+                {
+                    pPart->pushToForegrounds(*fIt);
+                }
+
                 this->recurseFromThis(ract);
             }
         }
@@ -583,6 +599,9 @@ void DisplayFilterStage::postProcess(DrawEnv *pEnv)
 
     ChunkMaterial           *pSourceMat   = pData->getBaseMaterial();
     State                   *pSourceState = pSourceMat->getState();
+
+    glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glColor3f(1.f, 0.f, 0.f);
     

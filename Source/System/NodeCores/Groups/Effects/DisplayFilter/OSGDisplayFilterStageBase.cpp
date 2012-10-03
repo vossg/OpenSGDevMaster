@@ -62,6 +62,7 @@
 #include "OSGColorDisplayFilter.h"      // ColorFilter Class
 #include "OSGDistortionDisplayFilter.h" // DistortionFilter Class
 #include "OSGDisplayFilterGroup.h"      // FilterGroups Class
+#include "OSGForeground.h"              // Foregrounds Class
 
 #include "OSGDisplayFilterStageBase.h"
 #include "OSGDisplayFilterStage.h"
@@ -108,6 +109,26 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Int32           DisplayFilterStageBase::_sfActiveGroup
     
+*/
+
+/*! \var bool            DisplayFilterStageBase::_sfEnableMultiSample
+    
+*/
+
+/*! \var UInt32          DisplayFilterStageBase::_sfColorSamples
+    
+*/
+
+/*! \var UInt32          DisplayFilterStageBase::_sfCoverageSamples
+    
+*/
+
+/*! \var bool            DisplayFilterStageBase::_sfFixedSampleLocation
+    
+*/
+
+/*! \var Foreground *    DisplayFilterStageBase::_mfForegrounds
+    The foreground additions to the rendered image.
 */
 
 
@@ -213,6 +234,66 @@ void DisplayFilterStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleActiveGroup));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableMultiSample",
+        "",
+        EnableMultiSampleFieldId, EnableMultiSampleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleEnableMultiSample),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleEnableMultiSample));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "colorSamples",
+        "",
+        ColorSamplesFieldId, ColorSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleColorSamples),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleColorSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "coverageSamples",
+        "",
+        CoverageSamplesFieldId, CoverageSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleCoverageSamples),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleCoverageSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "fixedSampleLocation",
+        "",
+        FixedSampleLocationFieldId, FixedSampleLocationFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleFixedSampleLocation),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleFixedSampleLocation));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecForegroundPtr::Description(
+        MFUnrecForegroundPtr::getClassType(),
+        "foregrounds",
+        "The foreground additions to the rendered image.\n",
+        ForegroundsFieldId, ForegroundsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DisplayFilterStage::editHandleForegrounds),
+        static_cast<FieldGetMethodSig >(&DisplayFilterStage::getHandleForegrounds));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -301,6 +382,55 @@ DisplayFilterStageBase::TypeObject DisplayFilterStageBase::_type(
     "\t >\n"
     "  </Field>\n"
     "\n"
+    "  <Field\n"
+    "      name=\"enableMultiSample\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"false\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "  \n"
+    "  <Field\n"
+    "      name=\"colorSamples\"\n"
+    "      type=\"UInt32\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"4\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"coverageSamples\"\n"
+    "      type=\"UInt32\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"4\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"fixedSampleLocation\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"true\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"foregrounds\"\n"
+    "      type=\"ForegroundPtr\"\n"
+    "      cardinality=\"multi\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      pushToFieldAs=\"addForeground\"\n"
+    "      >\n"
+    "    The foreground additions to the rendered image.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -403,6 +533,71 @@ const SFInt32 *DisplayFilterStageBase::getSFActiveGroup(void) const
 }
 
 
+SFBool *DisplayFilterStageBase::editSFEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return &_sfEnableMultiSample;
+}
+
+const SFBool *DisplayFilterStageBase::getSFEnableMultiSample(void) const
+{
+    return &_sfEnableMultiSample;
+}
+
+
+SFUInt32 *DisplayFilterStageBase::editSFColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return &_sfColorSamples;
+}
+
+const SFUInt32 *DisplayFilterStageBase::getSFColorSamples(void) const
+{
+    return &_sfColorSamples;
+}
+
+
+SFUInt32 *DisplayFilterStageBase::editSFCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return &_sfCoverageSamples;
+}
+
+const SFUInt32 *DisplayFilterStageBase::getSFCoverageSamples(void) const
+{
+    return &_sfCoverageSamples;
+}
+
+
+SFBool *DisplayFilterStageBase::editSFFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return &_sfFixedSampleLocation;
+}
+
+const SFBool *DisplayFilterStageBase::getSFFixedSampleLocation(void) const
+{
+    return &_sfFixedSampleLocation;
+}
+
+
+//! Get the DisplayFilterStage::_mfForegrounds field.
+const MFUnrecForegroundPtr *DisplayFilterStageBase::getMFForegrounds(void) const
+{
+    return &_mfForegrounds;
+}
+
+MFUnrecForegroundPtr *DisplayFilterStageBase::editMFForegrounds    (void)
+{
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    return &_mfForegrounds;
+}
+
 
 
 void DisplayFilterStageBase::pushToFilterGroups(DisplayFilterGroup * const value)
@@ -458,6 +653,59 @@ void DisplayFilterStageBase::clearFilterGroups(void)
     _mfFilterGroups.clear();
 }
 
+void DisplayFilterStageBase::addForeground(Foreground * const value)
+{
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    _mfForegrounds.push_back(value);
+}
+
+void DisplayFilterStageBase::assignForegrounds(const MFUnrecForegroundPtr &value)
+{
+    MFUnrecForegroundPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecForegroundPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<DisplayFilterStage *>(this)->clearForegrounds();
+
+    while(elemIt != elemEnd)
+    {
+        this->addForeground(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+void DisplayFilterStageBase::removeFromForegrounds(UInt32 uiIndex)
+{
+    if(uiIndex < _mfForegrounds.size())
+    {
+        editMField(ForegroundsFieldMask, _mfForegrounds);
+
+        _mfForegrounds.erase(uiIndex);
+    }
+}
+
+void DisplayFilterStageBase::removeObjFromForegrounds(Foreground * const value)
+{
+    Int32 iElemIdx = _mfForegrounds.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ForegroundsFieldMask, _mfForegrounds);
+
+        _mfForegrounds.erase(iElemIdx);
+    }
+}
+void DisplayFilterStageBase::clearForegrounds(void)
+{
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+
+    _mfForegrounds.clear();
+}
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -489,6 +737,26 @@ SizeT DisplayFilterStageBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
     {
         returnValue += _sfActiveGroup.getBinSize();
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        returnValue += _sfEnableMultiSample.getBinSize();
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        returnValue += _sfColorSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        returnValue += _sfCoverageSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        returnValue += _sfFixedSampleLocation.getBinSize();
+    }
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    {
+        returnValue += _mfForegrounds.getBinSize();
     }
 
     return returnValue;
@@ -522,6 +790,26 @@ void DisplayFilterStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ActiveGroupFieldMask & whichField))
     {
         _sfActiveGroup.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        _sfEnableMultiSample.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        _sfColorSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        _sfCoverageSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        _sfFixedSampleLocation.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    {
+        _mfForegrounds.copyToBin(pMem);
     }
 }
 
@@ -559,6 +847,31 @@ void DisplayFilterStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ActiveGroupFieldMask);
         _sfActiveGroup.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        editSField(EnableMultiSampleFieldMask);
+        _sfEnableMultiSample.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        editSField(ColorSamplesFieldMask);
+        _sfColorSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        editSField(CoverageSamplesFieldMask);
+        _sfCoverageSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        editSField(FixedSampleLocationFieldMask);
+        _sfFixedSampleLocation.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+    {
+        editMField(ForegroundsFieldMask, _mfForegrounds);
+        _mfForegrounds.copyFromBin(pMem);
     }
 }
 
@@ -690,7 +1003,12 @@ DisplayFilterStageBase::DisplayFilterStageBase(void) :
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
     _mfFilterGroups           (),
-    _sfActiveGroup            (Int32(-1))
+    _sfActiveGroup            (Int32(-1)),
+    _sfEnableMultiSample      (bool(false)),
+    _sfColorSamples           (UInt32(4)),
+    _sfCoverageSamples        (UInt32(4)),
+    _sfFixedSampleLocation    (bool(true)),
+    _mfForegrounds            ()
 {
 }
 
@@ -701,7 +1019,12 @@ DisplayFilterStageBase::DisplayFilterStageBase(const DisplayFilterStageBase &sou
     _sfColorFilter            (NULL),
     _sfDistortionFilter       (NULL),
     _mfFilterGroups           (),
-    _sfActiveGroup            (source._sfActiveGroup            )
+    _sfActiveGroup            (source._sfActiveGroup            ),
+    _sfEnableMultiSample      (source._sfEnableMultiSample      ),
+    _sfColorSamples           (source._sfColorSamples           ),
+    _sfCoverageSamples        (source._sfCoverageSamples        ),
+    _sfFixedSampleLocation    (source._sfFixedSampleLocation    ),
+    _mfForegrounds            ()
 {
 }
 
@@ -738,6 +1061,18 @@ void DisplayFilterStageBase::onCreate(const DisplayFilterStage *source)
             pThis->pushToFilterGroups(*FilterGroupsIt);
 
             ++FilterGroupsIt;
+        }
+
+        MFUnrecForegroundPtr::const_iterator ForegroundsIt  =
+            source->_mfForegrounds.begin();
+        MFUnrecForegroundPtr::const_iterator ForegroundsEnd =
+            source->_mfForegrounds.end  ();
+
+        while(ForegroundsIt != ForegroundsEnd)
+        {
+            pThis->addForeground(*ForegroundsIt);
+
+            ++ForegroundsIt;
         }
     }
 }
@@ -916,6 +1251,143 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleActiveGroup    (void)
     return returnValue;
 }
 
+GetFieldHandlePtr DisplayFilterStageBase::getHandleEnableMultiSample (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleEnableMultiSample(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             this));
+
+
+    editSField(EnableMultiSampleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DisplayFilterStageBase::getHandleColorSamples    (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleColorSamples   (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             this));
+
+
+    editSField(ColorSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DisplayFilterStageBase::getHandleCoverageSamples (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleCoverageSamples(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             this));
+
+
+    editSField(CoverageSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DisplayFilterStageBase::getHandleFixedSampleLocation (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleFixedSampleLocation(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             this));
+
+
+    editSField(FixedSampleLocationFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DisplayFilterStageBase::getHandleForegrounds     (void) const
+{
+    MFUnrecForegroundPtr::GetHandlePtr returnValue(
+        new  MFUnrecForegroundPtr::GetHandle(
+             &_mfForegrounds,
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DisplayFilterStageBase::editHandleForegrounds    (void)
+{
+    MFUnrecForegroundPtr::EditHandlePtr returnValue(
+        new  MFUnrecForegroundPtr::EditHandle(
+             &_mfForegrounds,
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&DisplayFilterStage::addForeground,
+                    static_cast<DisplayFilterStage *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&DisplayFilterStage::removeFromForegrounds,
+                    static_cast<DisplayFilterStage *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&DisplayFilterStage::removeObjFromForegrounds,
+                    static_cast<DisplayFilterStage *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&DisplayFilterStage::clearForegrounds,
+                    static_cast<DisplayFilterStage *>(this)));
+
+    editMField(ForegroundsFieldMask, _mfForegrounds);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void DisplayFilterStageBase::execSyncV(      FieldContainer    &oFrom,
@@ -962,6 +1434,8 @@ void DisplayFilterStageBase::resolveLinks(void)
     static_cast<DisplayFilterStage *>(this)->setDistortionFilter(NULL);
 
     static_cast<DisplayFilterStage *>(this)->clearFilterGroups();
+
+    static_cast<DisplayFilterStage *>(this)->clearForegrounds();
 
 
 }

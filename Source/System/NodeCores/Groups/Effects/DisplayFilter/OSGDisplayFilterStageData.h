@@ -144,6 +144,15 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageData :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    virtual void updateData(FieldContainer *pStageCore,
+                            BitVector       whichField,
+                            UInt32          origin    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

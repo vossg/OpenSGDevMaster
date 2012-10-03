@@ -72,4 +72,53 @@
 	 >
   </Field>
 
+  <Field
+      name="enableMultiSample"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="false"
+      >
+  </Field>
+  
+  <Field
+      name="colorSamples"
+      type="UInt32"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="4"
+      >
+  </Field>
+
+  <Field
+      name="coverageSamples"
+      type="UInt32"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="4"
+      >
+  </Field>
+
+  <Field
+      name="fixedSampleLocation"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="true"
+      >
+  </Field>
+  <Field
+      name="foregrounds"
+      type="ForegroundPtr"
+      cardinality="multi"
+      visibility="external"
+      access="public"
+      pushToFieldAs="addForeground"
+      >
+    The foreground additions to the rendered image.
+  </Field>
 </FieldContainer>
