@@ -127,7 +127,7 @@ OBJSceneFileType  OBJSceneFileType::_the(_suffixA,
 //s:
 //
 //------------------------------
-NodeTransitPtr OBJSceneFileType::read(      std::istream &is, 
+NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                                       const Char8        *,
                                             Resolver        ) const
 {
@@ -179,7 +179,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
             }
             else
             {
-				SceneFileHandler::the()->updateReadProgress();
+                SceneFileHandler::the()->updateReadProgress();
 
                 elemI = _dataElemMap.find(elem);
                 dataElem = ((elemI == _dataElemMap.end()) ?
@@ -334,7 +334,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                        // the vertex index
                        // I've seen the change in the maskIndex only after a smooth group,
                        // so it's perhaps smarter to not ignore the smooth group further up in this code
-                       if( !(indexMask & 1) )  
+                       if( !(indexMask & 1) )
                        {
                          // if there are vertex indices there's no reason to get in here
                           FFATAL (( "IndexMask unmatch, can not create geo\n"));
@@ -401,13 +401,13 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                       faceI != meshI->faceList.end(); faceI++)
                 {
                     n = UInt32(faceI->tieVec.size());
-    
+
                     // add the lens entry
                     lensPtr->push_back(n);
-    
+
                     // add the type entry
                     typePtr->push_back(GL_POLYGON);
-    
+
                     // create the index values
                     for (i = 0; i < n; i++)
                     {
@@ -425,27 +425,27 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                         }
                     }
                 }
-    
+
                 if(isSingleIndex)
-				{
+                {
                     geoPtr->setIndex(posIndexPtr, Geometry::PositionsIndex);
                     geoPtr->setIndex(posIndexPtr, Geometry::NormalsIndex  );
                     geoPtr->setIndex(posIndexPtr, Geometry::TexCoordsIndex);
-				}
+                }
 
                 // need to port the geometry functions ...
                 createSharedIndex( geoPtr );
-    
+
                 // check if we have normals
                 // need to port the geometry functions ...
 
-				if(geoPtr->getNormals() == NULL)
+                if(geoPtr->getNormals() == NULL)
                     calcVertexNormals(geoPtr);
 
                 // create and link the node
                 nodePtr = Node::create();
                 nodePtr->setCore( geoPtr );
-    
+
                 if (meshList.size() > 1)
                 {
                     if (rootPtr == NULL)
@@ -483,7 +483,7 @@ void OBJSceneFileType::write(Node * const  node,
                              UInt32 &nIndex,
                              UInt32 &tIndex) const
 {
-	UInt32 i,pCount=0,nCount=0,tCount=0;
+    UInt32 i,pCount=0,nCount=0,tCount=0;
     Geometry *g = dynamic_cast<Geometry *>(node->getCore());
     if(g != NULL)
     {
@@ -563,7 +563,7 @@ bool OBJSceneFileType::write(Node * const node, std::ostream &os,
     UInt32 pIndex=1;
     UInt32 tIndex=1;
     UInt32 nIndex=1;
-    
+
     write(node,os,pIndex,tIndex,nIndex);
 
     return true;
@@ -718,7 +718,7 @@ void OBJSceneFileType::initElemMap(void)
     if (_dataElemMap.empty())
     {
         _dataElemMap[""]        = UNKNOWN_DE;
-        
+
         _dataElemMap["v"]       = VERTEX_DE;
         _dataElemMap["vt"]      = VERTEX_TEXTURECOORD_DE;
         _dataElemMap["vn"]      = VERTEX_NORMAL_DE;
@@ -734,7 +734,7 @@ void OBJSceneFileType::initElemMap(void)
     if (_mtlElemMap.empty())
     {
         _mtlElemMap[""]        = UNKNOWN_ME;
-        
+
         _mtlElemMap["newmtl"]  = NEW_MTL_ME;
         _mtlElemMap["Kd"]      = MTL_DIFFUSE_ME;
         _mtlElemMap["Ka"]      = MTL_AMBIENT_ME;
@@ -751,7 +751,7 @@ void OBJSceneFileType::initElemMap(void)
 }
 
 Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
-                                  std::map<std::string, 
+                                  std::map<std::string,
                                   SimpleTexturedMaterialUnrecPtr> & mtlMap )
   const
 {
@@ -760,10 +760,10 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
 
     Int32 mtlCount = 0;
 
-	PathHandler *pathHandler = SceneFileHandler::the()->getPathHandler();
-	std::string fullFilePath;
+    PathHandler *pathHandler = SceneFileHandler::the()->getPathHandler();
+    std::string fullFilePath;
 
-	if(pathHandler != NULL)
+    if(pathHandler != NULL)
         fullFilePath = pathHandler->findFile(fileName);
     else
         fullFilePath = fileName;
@@ -865,7 +865,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                 iI = imageMap.find(elem);
                                 if (iI == imageMap.end())
                                 {
-									std::string fullElemPath;
+                                    std::string fullElemPath;
                                     if(pathHandler != NULL)
                                         fullElemPath = pathHandler->findFile(elem.c_str());
                                     else
@@ -879,7 +879,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
 
                                         imageMap[elem] = image;
                                     }
-								}
+                                }
                                 else
                                 {
                                     image = iI->second;
