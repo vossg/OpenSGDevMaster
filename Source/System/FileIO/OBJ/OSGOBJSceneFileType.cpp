@@ -239,6 +239,17 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                         indexType = 0;
                         while(token && *token)
                         {
+                            // some tools use line continuation for long
+                            // face definitions - these use a \ at the line
+                            // end
+                            if(*token == '\\')
+                            {
+                                is.ignore(1, '\n');
+                                is.get(strBuf,strBufSize);
+                                token = strBuf;
+                                indexType = 0;
+                                continue;
+                            }
                             for (; *token == '/'; token++)
                                 indexType++;
                             for (; isspace(*token); token++)
