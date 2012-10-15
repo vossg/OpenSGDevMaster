@@ -284,7 +284,19 @@ void CSMWindow::commitMTouchCursors(void)
 
 CSMDrawer *CSMWindow::getParent(void) const
 {
-    return dynamic_cast<CSMDrawer *>(_sfParent.getValue());
+    CSMDrawer *returnValue = dynamic_cast<CSMDrawer *>(_sfParent.getValue());
+
+    if(returnValue == NULL)
+    {
+        CSMWindow *pWin = dynamic_cast<CSMWindow *>(_sfParent.getValue());
+
+        if(pWin != NULL)
+        {
+            returnValue = pWin->getParent();
+        }
+    }
+
+    return returnValue;
 }
 
 void CSMWindow::queueTask(DrawTask *pTask)

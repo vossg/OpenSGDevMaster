@@ -323,6 +323,21 @@ struct Int32EmitterDesc
     }
 };
 
+struct UInt32EmitterDesc
+{
+    typedef SFUInt32 SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "UInt32Emitter";
+    }
+
+    static UInt32 getDefault(void)
+    {
+        return 0;
+    }
+};
+
 struct Real32EmitterDesc
 {
     typedef SFReal32 SFValueType;
@@ -374,6 +389,7 @@ struct MatrixEmitterDesc
 
 typedef SValueEmitter<BoolEmitterDesc  > BoolEmitter;
 typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
+typedef SValueEmitter<UInt32EmitterDesc> UInt32Emitter;
 typedef SValueEmitter<Real32EmitterDesc> Real32Emitter;
 typedef SValueEmitter<StringEmitterDesc> StringEmitter;
 typedef SValueEmitter<MatrixEmitterDesc> MatrixEmitter;

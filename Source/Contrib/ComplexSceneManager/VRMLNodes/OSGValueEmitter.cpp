@@ -142,6 +142,7 @@ const FieldContainerType &SValueEmitter<DESC>::getType(void) const      \
 
 OSGSVALUEEMITTER_IMPL(BoolEmitterDesc  )
 OSGSVALUEEMITTER_IMPL(Int32EmitterDesc )
+OSGSVALUEEMITTER_IMPL(UInt32EmitterDesc)
 OSGSVALUEEMITTER_IMPL(Real32EmitterDesc)
 OSGSVALUEEMITTER_IMPL(StringEmitterDesc)
 OSGSVALUEEMITTER_IMPL(MatrixEmitterDesc)
