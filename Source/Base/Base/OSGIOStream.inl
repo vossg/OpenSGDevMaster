@@ -267,6 +267,20 @@ FileStreamMixin<ParentT>::operator bool (void)
     return _oFileStream; 
 }
 
+//---------------------------------------------------------------------------
+//  CErrStreamMixin
+//---------------------------------------------------------------------------
+
+template<class ParentT> inline
+CErrStreamMixin<ParentT>::CErrStreamMixin(void) : 
+    Inherited(std::cerr)
+{
+}
+
+template<class ParentT> inline
+CErrStreamMixin<ParentT>::~CErrStreamMixin(void)
+{
+}
 
 //---------------------------------------------------------------------------
 //  IndentOutStreamMixin

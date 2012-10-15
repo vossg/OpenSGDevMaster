@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMLogger"
+    parent="AttachmentContainer"
+    library="ContribCSM"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+    parentFields="none"
+    >
+  <Field
+      name="containers"
+      type="FieldContainer"
+      cardinality="multi"
+      visibility="external"
+      access="public"
+      category="pointer"
+      >
+  </Field>
+  <Field
+      name="fields"
+      type="std::string"
+      cardinality="multi"
+      visibility="external"
+      access="public"
+      >
+  </Field>
+</FieldContainer>

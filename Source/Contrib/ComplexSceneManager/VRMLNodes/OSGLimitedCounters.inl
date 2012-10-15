@@ -179,7 +179,7 @@ void LimitedCounterImpl<Desc>::changed(ConstFieldMaskArg whichField,
                                        UInt32            origin,
                                        BitVector         details)
 {
-    Inherited::changed(whichField, origin, details);
+    Inherited::Inherited::changed(whichField, origin, details);
 
     if((Self::IncTriggerFieldMask | Self::DecTriggerFieldMask) !=
        (whichField & (Self::IncTriggerFieldMask | Self::DecTriggerFieldMask)))
@@ -187,7 +187,7 @@ void LimitedCounterImpl<Desc>::changed(ConstFieldMaskArg whichField,
 
         if(0x0000 != (whichField & Self::IncTriggerFieldMask))
         {
-            if(Self::getValue() > getUpperLimit())
+            if(Self::getValue() >= getUpperLimit())
             {
                 if(Self::getLoop() == true)
                 {
@@ -197,13 +197,16 @@ void LimitedCounterImpl<Desc>::changed(ConstFieldMaskArg whichField,
                 {
                     Self::setValue(getUpperLimit());
                 }
-
+            }
+            else
+            {
+                Self::setValue(Self::getValue() + Self::getStep());
             }
         }
         
         if(0x0000 != (whichField & Self::DecTriggerFieldMask))
         {
-            if(Self::getValue() < getLowerLimit())
+            if(Self::getValue() <= getLowerLimit())
             {
                 if(Self::getLoop() == true)
                 {
@@ -213,6 +216,10 @@ void LimitedCounterImpl<Desc>::changed(ConstFieldMaskArg whichField,
                 {
                     Self::setValue(getLowerLimit());
                 }
+            }
+            else
+            {
+                Self::setValue(Self::getValue() - Self::getStep());
             }
         }
     }

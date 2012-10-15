@@ -301,6 +301,50 @@ class IndentOutStreamMixin : public ParentT
   private:
 };
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseStreamIO
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+
+template<class ParentT>
+class CErrStreamMixin : public ParentT
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef ParentT Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Constructor                               */
+    /*! \{                                                                 */
+
+    CErrStreamMixin(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~CErrStreamMixin(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   formated output                            */
+    /*! \{                                                                 */
+
+    operator bool (void);
+
+    /*! \}                                                                 */
+    /*==========================  PROTECTRED  =============================*/
+
+  protected:
+
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseStreamIO
@@ -348,6 +392,8 @@ class OSG_BASE_DLLMAPPING InStream
 
 /*! \ingroup GrpBaseBaseStreamIO */
 typedef FileStreamMixin                     <OutStream>   FileOutStream;
+/*! \ingroup GrpBaseBaseStreamIO */
+typedef CErrStreamMixin                     <OutStream>   CErrOutStream;
 /*! \ingroup GrpBaseBaseStreamIO */
 typedef FileStreamMixin<IndentOutStreamMixin<OutStream> > IndentFileOutStream;
 
