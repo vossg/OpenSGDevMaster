@@ -426,6 +426,7 @@ SET(CPACK_PACKAGE_VERSION_PATCH       @OSG_VERSION_PATCH@)
 SET(CPACK_PACKAGE_VENDOR              "OpenSG")
 SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSGSupport provides the third party libraries OpenSG uses")
+SET(CPACK_RESOURCE_FILE_LICENSE       "${_BASE_INSTALL_DIR}/share/doc/OpenSG/COPYING.support")
 
 SET(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 
@@ -434,7 +435,7 @@ IF(NOT OSG_SINGLE_PACKAGE)
   SET(CPACK_RPM_COMPONENT_INSTALL     ON)
 ENDIF()
 
-SET(CPACK_PACKAGE_FILE_NAME           "OpenSGSupport.@OSG_VERSION@.${SYSTEM_SPEC}")
+SET(CPACK_PACKAGE_FILE_NAME       "OpenSGSupport.@OSG_VERSION@.${SYSTEM_SPEC}.@OSG_WIN_SEC@")
 
 MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
 
@@ -502,7 +503,7 @@ IF(WIN32)
       DetermineVSServicePack( my_service_pack )
 
       IF(my_service_pack)
-        SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
+        SET(CPACK_PACKAGE_FILE_NAME       "OpenSGSupport.@OSG_VERSION@.${SYSTEM_SPEC}.${my_service_pack}.@OSG_WIN_SEC@")
       ENDIF()
     ENDIF()
 

@@ -232,7 +232,7 @@ IF(NOT OSG_SINGLE_PACKAGE)
   SET(CPACK_RPM_COMPONENT_INSTALL     ON)
 ENDIF()
 
-SET(CPACK_PACKAGE_FILE_NAME           "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}")
+SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}.@OSG_WIN_SEC@")
 
 MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
 
@@ -444,7 +444,7 @@ IF(WIN32)
       DetermineVSServicePack( my_service_pack )
 
       IF(my_service_pack)
-        SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
+        SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}.${my_service_pack}.@OSG_WIN_SEC@")
       ENDIF()
     ENDIF()
 

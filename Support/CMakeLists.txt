@@ -164,6 +164,12 @@ IF(NOT WIN32)
                  ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
                  @ONLY                                      )
 ELSE()
+  IF(OSG_DISABLE_MICROSOFT_SECURE_CXXX)
+    SET(OSG_WIN_SEC "nosec")
+  ELSE()
+    SET(OSG_WIN_SEC "msdefault")
+  ENDIF()
+
   CONFIGURE_FILE(CMakeLists.packaging.win.txt 
                  ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
                  @ONLY                                      )
