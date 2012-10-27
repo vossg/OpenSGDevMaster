@@ -29,7 +29,8 @@ IF(OSGFreeGlutSrcDir)
                         ${OSGFreeGlutSrcDir}/src/freeglut_structure.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_teapot.c
                         ${OSGFreeGlutSrcDir}/src/freeglut_videoresize.c
-                        ${OSGFreeGlutSrcDir}/src/freeglut_window.c)
+                        ${OSGFreeGlutSrcDir}/src/freeglut_window.c
+                        ${OSGFreeGlutSrcDir}/src/freeglut_xinput.c)
 
   SET(OSG_FREEGLUT_HDR ${OSGFreeGlutSrcDir}/include/GL/glut.h
                        ${OSGFreeGlutSrcDir}/include/GL/freeglut.h

@@ -151,7 +151,7 @@ http://sourceforge.net/projects/libjpeg/files/libjpeg/6b/jpegsr6.zip/download
 http://download.osgeo.org/libtiff/tiff-3.8.2.zip
 #ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
 
- http://sourceforge.net/projects/freeglut/files/freeglut/freeglut-2.6.0.tar.gz/download
+ http://prdownloads.sourceforge.net/freeglut/freeglut-2.8.0.tar.gz?download
 
  or
 
