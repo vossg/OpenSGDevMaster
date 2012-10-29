@@ -65,6 +65,7 @@
 
 #include "OSGFieldContainer.h" // Parent
 
+#include "OSGSysFields.h"               // TransparencyMode type
 #include "OSGStateChunkFields.h"        // Chunks type
 
 #include "OSGStateFields.h"
@@ -94,15 +95,19 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
 
     enum
     {
-        ChunksFieldId = Inherited::NextFieldId,
+        TransparencyModeFieldId = Inherited::NextFieldId,
+        ChunksFieldId = TransparencyModeFieldId + 1,
         NextFieldId = ChunksFieldId + 1
     };
 
+    static const OSG::BitVector TransparencyModeFieldMask =
+        (TypeTraits<BitVector>::One << TransparencyModeFieldId);
     static const OSG::BitVector ChunksFieldMask =
         (TypeTraits<BitVector>::One << ChunksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFInt32           SFTransparencyModeType;
     typedef MFUnrecStateChunkPtr MFChunksType;
 
     /*---------------------------------------------------------------------*/
@@ -122,6 +127,31 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFInt32             *editSFTransparencyMode(void);
+            const SFInt32             *getSFTransparencyMode (void) const;
+
+
+                  Int32               &editTransparencyMode(void);
+                  Int32                getTransparencyMode (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setTransparencyMode(const Int32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -176,6 +206,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFInt32           _sfTransparencyMode;
     MFUnrecStateChunkPtr _mfChunks;
 
     /*! \}                                                                 */
@@ -204,6 +235,8 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleTransparencyMode (void) const;
+    EditFieldHandlePtr editHandleTransparencyMode(void);
     GetFieldHandlePtr  getHandleChunks          (void) const;
     EditFieldHandlePtr editHandleChunks         (void);
 

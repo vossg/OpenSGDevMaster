@@ -60,6 +60,7 @@
 #include "OSGSimpleSHLChunk.h"
 #endif
 #include "OSGLightChunk.h"
+#include "OSGMaterial.h"
 
 OSG_USING_NAMESPACE
 
@@ -561,6 +562,13 @@ void State::clearChunks(void)
 
 bool State::isTransparent(void) const
 {
+    Int32 tm = getTransparencyMode();
+
+    if(tm != Material::TransparencyAutoDetection)
+    {
+        return (tm == Material::TransparencyForceTransparent);
+    }
+
     bool returnValue = false;
 
     MFChunksType::const_iterator chunksIt  = _mfChunks.begin();

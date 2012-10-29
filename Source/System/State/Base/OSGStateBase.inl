@@ -74,6 +74,31 @@ OSG::UInt16 StateBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the State::_sfTransparencyMode field.
+
+inline
+Int32 &StateBase::editTransparencyMode(void)
+{
+    editSField(TransparencyModeFieldMask);
+
+    return _sfTransparencyMode.getValue();
+}
+
+//! Get the value of the State::_sfTransparencyMode field.
+inline
+      Int32  StateBase::getTransparencyMode(void) const
+{
+    return _sfTransparencyMode.getValue();
+}
+
+//! Set the value of the State::_sfTransparencyMode field.
+inline
+void StateBase::setTransparencyMode(const Int32 value)
+{
+    editSField(TransparencyModeFieldMask);
+
+    _sfTransparencyMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -85,6 +110,9 @@ void StateBase::execSync (      StateBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+        _sfTransparencyMode.syncWith(pFrom->_sfTransparencyMode);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
         _mfChunks.syncWith(pFrom->_mfChunks,

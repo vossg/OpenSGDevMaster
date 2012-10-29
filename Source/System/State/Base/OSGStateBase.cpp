@@ -82,6 +82,11 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var Int32           StateBase::_sfTransparencyMode
+    Set the transparency mode, possible values are TransparencyAutoDetection,
+    TransparencyForceTransparent and TransparencyForceOpaque 
+*/
+
 /*! \var StateChunk *    StateBase::_mfChunks
     
 */
@@ -118,6 +123,19 @@ void StateBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "transparencyMode",
+        "Set the transparency mode, possible values are TransparencyAutoDetection,\n"
+        "TransparencyForceTransparent and TransparencyForceOpaque \n",
+        TransparencyModeFieldId, TransparencyModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&State::editHandleTransparencyMode),
+        static_cast<FieldGetMethodSig >(&State::getHandleTransparencyMode));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new MFUnrecStateChunkPtr::Description(
         MFUnrecStateChunkPtr::getClassType(),
         "chunks",
@@ -146,27 +164,38 @@ StateBase::TypeObject StateBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"State\"\n"
-    "   parent=\"FieldContainer\"\n"
-    "   library=\"System\"\n"
-    "   structure=\"concrete\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   docGroupBase=\"GrpSystemState\"\n"
-    ">\n"
-    "\n"
-    "The state base class. See \\ref PageSystemState for the conceptual background.\n"
-    "\t<Field\n"
-    "\t\tname=\"chunks\"\n"
-    "\t\ttype=\"StateChunkPtr\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "        removeTo=\"NULL\"\n"
-    "        clearMField=\"true\"\n"
-    "        access=\"none\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "    name=\"State\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"System\"\n"
+    "    structure=\"concrete\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    docGroupBase=\"GrpSystemState\"\n"
+    "    >\n"
+    "  \n"
+    "  The state base class. See \\ref PageSystemState for the conceptual background.\n"
+    "  <Field\n"
+    "      name=\"transparencyMode\"\n"
+    "      type=\"Int32\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      defaultValue=\"0\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "\tSet the transparency mode, possible values are TransparencyAutoDetection,\n"
+    "\tTransparencyForceTransparent and TransparencyForceOpaque \n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"chunks\"\n"
+    "      type=\"StateChunkPtr\"\n"
+    "      cardinality=\"multi\"\n"
+    "      visibility=\"external\"\n"
+    "      removeTo=\"NULL\"\n"
+    "      clearMField=\"true\"\n"
+    "      access=\"none\"\n"
+    "      >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "The state base class. See \\ref PageSystemState for the conceptual background.\n"
     );
@@ -191,6 +220,19 @@ UInt32 StateBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFInt32 *StateBase::editSFTransparencyMode(void)
+{
+    editSField(TransparencyModeFieldMask);
+
+    return &_sfTransparencyMode;
+}
+
+const SFInt32 *StateBase::getSFTransparencyMode(void) const
+{
+    return &_sfTransparencyMode;
+}
+
+
 
 
 
@@ -202,6 +244,10 @@ SizeT StateBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        returnValue += _sfTransparencyMode.getBinSize();
+    }
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
         returnValue += _mfChunks.getBinSize();
@@ -215,6 +261,10 @@ void StateBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        _sfTransparencyMode.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
         _mfChunks.copyToBin(pMem);
@@ -226,6 +276,11 @@ void StateBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        editSField(TransparencyModeFieldMask);
+        _sfTransparencyMode.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
         editMField(ChunksFieldMask, _mfChunks);
@@ -356,12 +411,14 @@ FieldContainerTransitPtr StateBase::shallowCopy(void) const
 
 StateBase::StateBase(void) :
     Inherited(),
+    _sfTransparencyMode       (Int32(0)),
     _mfChunks                 ()
 {
 }
 
 StateBase::StateBase(const StateBase &source) :
     Inherited(source),
+    _sfTransparencyMode       (source._sfTransparencyMode       ),
     _mfChunks                 ()
 {
 }
@@ -373,6 +430,31 @@ StateBase::~StateBase(void)
 {
 }
 
+
+GetFieldHandlePtr StateBase::getHandleTransparencyMode (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfTransparencyMode,
+             this->getType().getFieldDesc(TransparencyModeFieldId),
+             const_cast<StateBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr StateBase::editHandleTransparencyMode(void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfTransparencyMode,
+             this->getType().getFieldDesc(TransparencyModeFieldId),
+             this));
+
+
+    editSField(TransparencyModeFieldMask);
+
+    return returnValue;
+}
 
 GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 {

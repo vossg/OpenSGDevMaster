@@ -1,25 +1,36 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-   name="State"
-   parent="FieldContainer"
-   library="System"
-   structure="concrete"
-   pointerfieldtypes="both"
-   systemcomponent="true"
-   parentsystemcomponent="true"
-   docGroupBase="GrpSystemState"
->
-
-The state base class. See \ref PageSystemState for the conceptual background.
-	<Field
-		name="chunks"
-		type="StateChunkPtr"
-		cardinality="multi"
-		visibility="external"
-        removeTo="NULL"
-        clearMField="true"
-        access="none"
-	>
-	</Field>
+    name="State"
+    parent="FieldContainer"
+    library="System"
+    structure="concrete"
+    pointerfieldtypes="both"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    docGroupBase="GrpSystemState"
+    >
+  
+  The state base class. See \ref PageSystemState for the conceptual background.
+  <Field
+      name="transparencyMode"
+      type="Int32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0"
+      access="public"
+      >
+	Set the transparency mode, possible values are TransparencyAutoDetection,
+	TransparencyForceTransparent and TransparencyForceOpaque 
+  </Field>
+  <Field
+      name="chunks"
+      type="StateChunkPtr"
+      cardinality="multi"
+      visibility="external"
+      removeTo="NULL"
+      clearMField="true"
+      access="none"
+      >
+  </Field>
 </FieldContainer>

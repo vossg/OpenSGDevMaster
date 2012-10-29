@@ -374,6 +374,7 @@ void ChunkMaterial::rebuildState(void)
     }
 
     _pState->setCoreGLChunkLimit(_sfCoreGLChunkLimit.getValue());
+    _pState->setTransparencyMode(_sfTransparencyMode.getValue());
 
     addChunks(_pState);
 }
