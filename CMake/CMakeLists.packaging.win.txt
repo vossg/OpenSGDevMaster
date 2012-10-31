@@ -215,6 +215,26 @@ ENDIF()
 
 SET(SYSTEM_SPEC ${OSG_HOST_SYSTEM_NAME}.${OSG_HOST_SYSTEM_PROCESSOR})
 
+# Date macro by Benoit RAT (www.neub.co.nr)
+MACRO (TODAY RESULT)
+  IF (WIN32)
+    EXECUTE_PROCESS(COMMAND "cmd" "/C date /T" OUTPUT_VARIABLE ${RESULT})
+#    string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
+    string(REGEX REPLACE "([a-zA-Z]+ )(..)/(..)/..(..).*" "\\2_\\3_20\\4" "${RESULT}" "${${RESULT}}")
+  ELSEIF(UNIX)
+    EXECUTE_PROCESS(COMMAND "date" "+%d_%m_%Y" OUTPUT_VARIABLE ${RESULT})
+#    string(REGEX REPLACE "(..)_(..)_..(..).*" "\\1_\\2_\\3" "${RESULT}" "${${RESULT}}")
+    string(REGEX REPLACE "\n" "" "${RESULT}" "${${RESULT}}")
+  ELSE (WIN32)
+    MESSAGE(SEND_ERROR "date not implemented")
+    SET(${RESULT} 000000)
+  ENDIF (WIN32)
+ENDMACRO (TODAY)
+
+TODAY(DATE)
+
+MESSAGE("XXXX ${DATE}")
+
 SET(CPACK_PACKAGE_NAME                "OpenSG")
 SET(CPACK_PACKAGE_VERSION             @OSG_VERSION@)
 SET(CPACK_PACKAGE_VERSION_MAJOR       @OSG_VERSION_MAJOR@)
@@ -232,9 +252,7 @@ IF(NOT OSG_SINGLE_PACKAGE)
   SET(CPACK_RPM_COMPONENT_INSTALL     ON)
 ENDIF()
 
-SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}.@OSG_WIN_SEC@")
-
-MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
+SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${DATE}.${SYSTEM_SPEC}.@OSG_WIN_SEC@")
 
 SET(OSGBUILD_PACKAGE_TYPE "ZIP" CACHE STRING "")
 
@@ -444,7 +462,7 @@ IF(WIN32)
       DetermineVSServicePack( my_service_pack )
 
       IF(my_service_pack)
-        SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${SYSTEM_SPEC}.${my_service_pack}.@OSG_WIN_SEC@")
+        SET(CPACK_PACKAGE_FILE_NAME       "OpenSG.@OSG_VERSION@.${DATE}.${SYSTEM_SPEC}.${my_service_pack}.@OSG_WIN_SEC@")
       ENDIF()
     ENDIF()
 
@@ -474,5 +492,7 @@ IF(WIN32)
 
   ENDIF()
 ENDIF()
+
+MESSAGE("FOOO ${CPACK_PACKAGE_FILE_NAME}")
 
 INCLUDE(CPack)
