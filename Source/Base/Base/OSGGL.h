@@ -64,7 +64,9 @@
 #  include <OpenGL/gl.h>
 # else
 #  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
-#    include <GL3/gl3.h>
+//#    include <GL3/gl3.h>
+#    define GLCOREARB_PROTOTYPES 1
+#    include <GLArb/glcorearb.h>
 #  else
 #    include <GL/gl.h>
 #  endif

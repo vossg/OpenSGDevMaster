@@ -60,10 +60,17 @@ OSG_BEGIN_NAMESPACE
 
 typedef GLuint (OSG_APIENTRY * osgGlCreateShaderProc )(      GLenum    );
 typedef void   (OSG_APIENTRY * osgGlDeleteShaderProc )(      GLuint    );
+#  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+typedef void   (OSG_APIENTRY * osgGlShaderSourceProc )(      GLuint, 
+                                                             GLsizei, 
+                                                       const GLchar  * const *, 
+                                                       const GLint   * );
+#else
 typedef void   (OSG_APIENTRY * osgGlShaderSourceProc )(      GLuint, 
                                                              GLsizei, 
                                                        const GLchar  **, 
                                                        const GLint   * );
+#endif
 
 typedef void     (OSG_APIENTRY * osgGlCompileShaderProc)(    GLuint    );
 
@@ -793,10 +800,18 @@ typedef void (OSG_APIENTRY *osgGlGetCombinerStageParameterfvNVProc     )(
 typedef void (OSG_APIENTRY *osgGlBindBufferBaseProc           )(      GLenum, 
                                                                       GLuint, 
                                                                       GLuint  );
+#  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+typedef void (OSG_APIENTRY *
+                  osgGlTransformFeedbackVaryingsProc)(      GLuint,
+                                                            GLsizei, 
+                                                      const GLchar * const*,
+                                                            GLenum  );
+#else
 typedef void (OSG_APIENTRY *osgGlTransformFeedbackVaryingsProc)(      GLuint,
                                                                       GLsizei, 
                                                                 const GLchar **,
                                                                       GLenum  );
+#endif
 
 typedef void (OSG_APIENTRY *osgGlBeginTransformFeedbackProc   )(      GLenum  );
 typedef void (OSG_APIENTRY *osgGlEndTransformFeedbackProc     )(      void    );

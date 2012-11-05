@@ -66,7 +66,8 @@ const GLubyte *gluErrorString(GLenum eError)
 #  include <OpenGL/glu.h>
 # else
 #  if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
-#    include <GL3/glu3.h>
+//#    include <GL3/glu3.h>
+#    include <GLArb/gluarb.h>
 #  else
 #    include <GL/glu.h>
 #  endif
