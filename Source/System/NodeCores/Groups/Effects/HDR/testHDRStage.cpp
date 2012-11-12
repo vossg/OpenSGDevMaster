@@ -24,6 +24,11 @@
 #include "OSGHDRStage.h"
 #include "OSGVisitSubTree.h"
 
+// This test uses an HDR image as background ("grace_cross.chdr"), which
+// we do not distribute with the source tree.
+// See http://www.pauldebevec.com/Probes/ (near bottom) for images that can be
+// used as backgrounds.
+
 OSG::RenderActionRefPtr rentravact = NULL;
 
 OSG::NodeRecPtr  hdrroot = NULL;
