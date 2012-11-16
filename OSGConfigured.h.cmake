@@ -115,6 +115,10 @@ namespace OSG
 
 #cmakedefine OSG_WITH_COLLADA 1
 
+#cmakedefine OSG_WITH_COLLADA_NAMESPACE 1
+
+#cmakedefine COLLADA_DOM_SUPPORT141 1
+
 #cmakedefine OSG_WITH_FT2 1
 
 /* Use elf tls with pthreads. */

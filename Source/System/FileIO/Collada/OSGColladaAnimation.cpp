@@ -321,39 +321,30 @@ ColladaAnimation::createDataSource(
         return;
     }
 
-    switch(targetElem->getElementType())
-    {
-    case COLLADA_TYPE::MATRIX:
+    if(targetElem->typeID() == domMatrix::ID())
     {
         dsInfo._target     = channel->getTarget() + std::string(".matrix");
         dsInfo._dataSource = AnimMatrixDataSource::create();
     }
-    break;
-
-    case COLLADA_TYPE::TRANSLATE:
+    else if(targetElem->typeID() == domTranslate::ID())
     {
         dsInfo._target     = channel->getTarget() + std::string(".translate");
         dsInfo._dataSource = AnimVec3fDataSource::create();
     }
-    break;
-
-    case COLLADA_TYPE::ROTATE:
+    else if(targetElem->typeID() == domRotate::ID())
     {
         dsInfo._target     = channel->getTarget() + std::string(".rotate");
         dsInfo._dataSource = AnimQuaternionDataSource::create();
     }
-    break;
-
-    default:
+    else
     {
         dsInfo._dataSource = NULL;
 
         SWARNING << "ColladaAnimation::createDataSource: Target [" << target
-                 << "] has unhandled type [" << targetElem->getElementType()
+                 << "] has unhandled type [" << targetElem->typeID()
                  << "]. Ignoring" << std::endl;
         return;
     }
-    };
 
     // make sure the target has a AnimTargetAttachment on it
     daeElement *targetParentElem = targetElem->getParentElement();

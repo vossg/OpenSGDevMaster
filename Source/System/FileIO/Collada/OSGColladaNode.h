@@ -49,6 +49,10 @@
 #include "OSGNode.h"
 #include "OSGSkeleton.h"
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+namespace ColladaDOM141 {
+#endif
+
 // forward decl
 class domLookat;
 class domMatrix;
@@ -62,6 +66,9 @@ class domInstance_light;
 class domInstance_geometry;
 class domInstance_controller;
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+}
+#endif
 
 OSG_BEGIN_NAMESPACE
 

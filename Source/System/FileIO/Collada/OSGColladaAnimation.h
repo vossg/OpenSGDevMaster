@@ -50,12 +50,21 @@
 
 #include "OSGAnimKeyFrameTemplate.h"
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+namespace ColladaDOM141 {
+#endif
 // forward decl
 class domAnimation;
 class domInputLocal;
 class domChannel;
 class domSampler;
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+}
+#endif
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+using namespace ColladaDOM141;
+#endif
 
 OSG_BEGIN_NAMESPACE
 

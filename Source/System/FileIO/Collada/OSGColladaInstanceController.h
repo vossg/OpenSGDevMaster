@@ -49,9 +49,17 @@
 
 #include <dom/domController.h>
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+namespace ColladaDOM141 {
+#endif
+
 // forward decl
 class domNode;
 class domInstance_node;
+
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+}
+#endif
 
 OSG_BEGIN_NAMESPACE
 

@@ -330,7 +330,7 @@ ColladaGlobal::doRead(void)
     _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 
     _globalsAtt = GlobalsAttachment::create();
-    _docRoot    = _dae->getRoot(_docPath);
+    _docRoot    = dynamic_cast<domCOLLADA *>(_dae->getRoot(_docPath));
 
     if(_docRoot != NULL)
     {

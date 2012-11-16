@@ -58,6 +58,10 @@
 #include <dom/domCommon_float_or_param_type.h>
 #include <dom/domCommon_transparent_type.h>
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+namespace ColladaDOM141 {
+#endif
+
 // forward decl
 class domProfile_COMMON;
 class domProfile_GLSL;
@@ -65,6 +69,9 @@ class domProfile_CG;
 class domEffect;
 class domInstance_effect;
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+}
+#endif
 
 OSG_BEGIN_NAMESPACE
 

@@ -396,31 +396,29 @@ ColladaNode::createInstanceNode(ColladaInstInfo *colInstInfo, domNode *node)
     // they occur in the document
     for(UInt32 i = 0; i < contents.getCount(); ++i)
     {
-        switch(contents[i]->getElementType())
+        if(contents[i]->typeID() == domLookat::ID())
         {
-        case COLLADA_TYPE::LOOKAT:
             handleLookAt(daeSafeCast<domLookat>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::MATRIX:
+        }
+        else if(contents[i]->typeID() == domMatrix::ID())
+        {
             handleMatrix(daeSafeCast<domMatrix>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::ROTATE:
+        }
+        else if(contents[i]->typeID() == domRotate::ID())
+        {
             handleRotate(daeSafeCast<domRotate>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::SCALE:
+        }
+        else if(contents[i]->typeID() == domScale::ID())
+        {
             handleScale(daeSafeCast<domScale>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::SKEW:
+        }
+        else if(contents[i]->typeID() == domSkew::ID())
+        {
             handleSkew(daeSafeCast<domSkew>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::TRANSLATE:
+        }
+        else if(contents[i]->typeID() == domTranslate::ID())
+        {
             handleTranslate(daeSafeCast<domTranslate>(contents[i]), instData);
-            break;
         }
     }
 
@@ -537,31 +535,29 @@ ColladaNode::createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node)
 
     for(UInt32 i = 0; i < contents.getCount(); ++i)
     {
-        switch(contents[i]->getElementType())
+        if(contents[i]->typeID() == domLookat::ID())
         {
-        case COLLADA_TYPE::LOOKAT:
             handleLookAt(daeSafeCast<domLookat>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::MATRIX:
+        }
+        else if(contents[i]->typeID() == domMatrix::ID())
+        {
             handleMatrix(daeSafeCast<domMatrix>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::ROTATE:
+        }
+        else if(contents[i]->typeID() == domRotate::ID())
+        {
             handleRotate(daeSafeCast<domRotate>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::SCALE:
+        }
+        else if(contents[i]->typeID() == domScale::ID())
+        {
             handleScale(daeSafeCast<domScale>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::SKEW:
+        }
+        else if(contents[i]->typeID() == domSkew::ID())
+        {
             handleSkew(daeSafeCast<domSkew>(contents[i]), instData);
-            break;
-
-        case COLLADA_TYPE::TRANSLATE:
+        }
+        else if(contents[i]->typeID() == domTranslate::ID())
+        {
             handleTranslate(daeSafeCast<domTranslate>(contents[i]), instData);
-            break;
         }
     }
 

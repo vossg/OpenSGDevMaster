@@ -57,6 +57,10 @@
 #include <dae.h>
 #include <dae/daeElement.h>
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+using namespace ColladaDOM141;
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 // forward declarations

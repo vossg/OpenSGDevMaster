@@ -58,6 +58,10 @@
 #include <dom/domInputLocalOffset.h>
 #include <dom/domSource.h>
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+namespace ColladaDOM141 {
+#endif
+
 // forward decls
 class domMesh;
 class domLines;
@@ -68,6 +72,9 @@ class domTriangles;
 class domTrifans;
 class domTristrips;
 
+#ifdef OSG_WITH_COLLADA_NAMESPACE
+}
+#endif
 
 OSG_BEGIN_NAMESPACE
 
