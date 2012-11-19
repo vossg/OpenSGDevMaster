@@ -125,6 +125,27 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
         const Geometry::MFPropIndicesType *propIdx );
+
+    static bool masterClassicGeoSetupPumpFull(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static void masterClassicGeoJustDrawPump (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static bool masterClassicGeoShutdownPump(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
 #endif
 
     static bool masterAttribGeoSetupPump(
@@ -135,6 +156,28 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const Geometry::MFPropIndicesType *propIdx );
 
     static void masterAttribGeoDrawPump (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+
+    static bool masterAttribGeoSetupPumpFull(
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static void masterAttribGeoJustDrawPump (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx );
+
+    static bool masterAttribGeoShutdownPump(
               DrawEnv                     *pEnv,
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,

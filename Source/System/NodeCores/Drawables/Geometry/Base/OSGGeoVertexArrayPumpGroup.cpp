@@ -67,6 +67,7 @@ OSG_BEGIN_NAMESPACE
 // Intentionally INSIDE the namespace
 #include "OSGGeoPumpCommon.inl"
 
+//#define DEBUG_WHICH_PUMP 1
 
 /***************************************************************************\
  *                            Description                                  *
@@ -360,6 +361,16 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, "GeoVertexArrayPumpGroup::masterClassicGeoPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // Setup: get all the data
@@ -550,6 +561,16 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, "GeoVertexArrayPumpGroup::masterAttribGeoPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // Setup: get all the data

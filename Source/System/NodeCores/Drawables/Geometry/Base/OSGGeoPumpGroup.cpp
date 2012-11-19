@@ -62,7 +62,7 @@
 #include "OSGGeoImmediatePumpGroup.h"
 #include "OSGGeoVertexArrayPumpGroup.h"
 
-#if 1
+#if 0
 # ifdef OSG_NEW_GEOHANDLER
 #  undef OSG_NEW_GEOHANDLER
 # endif
@@ -260,7 +260,7 @@ GeoPumpGroup::SplitGeoPump GeoPumpGroup::findSplitGeoPump(
     DrawEnv                 *pEnv,
     PropertyCharacteristics  acset)
 {
-    SplitGeoPump  pump = { NULL, NULL };
+    SplitGeoPump  pump = { NULL, NULL, NULL };
     Window       *win  = pEnv->getWindow();
 
     std::vector<GeoPumpGroup*>::const_iterator pIt  = _activeGroups->begin();
@@ -285,7 +285,7 @@ GeoPumpGroup::SplitGeoPump GeoPumpGroup::getSplitGeoPump(
     DrawEnv                 *,
     PropertyCharacteristics  )
 {
-    SplitGeoPump  pump = { NULL, NULL };
+    SplitGeoPump  pump = { NULL, NULL, NULL };
 
     return pump;
 }

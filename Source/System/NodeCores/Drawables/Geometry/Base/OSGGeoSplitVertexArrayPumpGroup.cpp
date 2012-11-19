@@ -64,11 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-#define OSG_COMPILE_SPLIT_PUMP
+#define OSG_COMPILE_SPLIT_PUMP 1
 
 // Intentionally INSIDE the namespace
 #include "OSGGeoPumpCommon.inl"
 
+//#define DEBUG_WHICH_PUMP 1
 
 /***************************************************************************\
  *                            Description                                  *
@@ -271,7 +272,7 @@ GeoPumpGroup::SplitGeoPump GeoSplitVertexArrayPumpGroup::getSplitGeoPump(
     DrawEnv                 *pEnv,
     PropertyCharacteristics  acset)
 {
-    SplitGeoPump pump = { NULL, NULL };
+    SplitGeoPump pump = { NULL, NULL, NULL };
 
     // Remove the stuff we can handle
     PropertyCharacteristics prop;
@@ -283,16 +284,18 @@ GeoPumpGroup::SplitGeoPump GeoSplitVertexArrayPumpGroup::getSplitGeoPump(
 
         if(win->hasExtOrVersion(_arbVertexProgram, 
                                  0x0200, 
-                                0x0200           ) && (acset & UsesShader))
+                                 0x0200           ) && (acset & UsesShader))
         {
-            pump.setupPump = masterAttribGeoSetupPump;
-            pump.drawPump  = masterAttribGeoDrawPump;
+            pump.setupPump    = masterAttribGeoSetupPumpFull;
+            pump.drawPump     = masterAttribGeoJustDrawPump;
+            pump.shutdownPump = masterAttribGeoShutdownPump;
         }
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
         else
         {
-            pump.setupPump = masterClassicGeoSetupPump;
-            pump.drawPump  = masterAttribGeoDrawPump;
+            pump.setupPump    = masterClassicGeoSetupPumpFull;
+            pump.drawPump     = masterClassicGeoJustDrawPump;
+            pump.shutdownPump = masterClassicGeoShutdownPump;
         }
 #endif
     }
@@ -357,6 +360,17 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump(
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump\n");
+        bPrinted = true;
+    }
+#endif
+
     // Setup: get all the data
     PumpData       pumpData;
 
@@ -377,8 +391,19 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump(
     if(pumpData.attribPtr[0]              == NULL ||
        pumpData.attribPtr[0]->getUseVBO() == false)
     {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
         SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
-                 << "No positions." << endLog;
+                 << "No positions, or positions not in vbo." << endLog;
+
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
 
         return false;
     }
@@ -397,12 +422,23 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump(
 
 
 void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
-          DrawEnv                     *pEnv,
+    DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // check for empty geometry
@@ -503,7 +539,7 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
 //        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
-                                                      index->getDimension();
+            index->getDimension();
 
         index->activate(pEnv, 0);
 
@@ -541,16 +577,26 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
         }
     }
 }
-#endif
 
 
-bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
-          DrawEnv                     *pEnv,
+bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPumpFull(
+    DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPumpFull\n");
+        bPrinted = true;
+    }
+#endif
+
     // Setup: get all the data
     PumpData       pumpData;
 
@@ -571,9 +617,327 @@ bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
     if(pumpData.attribPtr[0]              == NULL ||
        pumpData.attribPtr[0]->getUseVBO() == false)
     {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
         SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
                  << "No positions." << endLog;
 
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
+        return false;
+    }
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpData.attribPtr[i] != NULL &&
+           pumpData.attribPtr[i]->size() != 1    )
+        {
+            pumpData.attribPtr[i]->activate(pEnv, i); 
+        }
+    }
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        (*propIdx)[0]->activate(pEnv, 0);
+    }
+
+    return true;
+}
+
+void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
+    DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump\n");
+        bPrinted = true;
+    }
+#endif
+
+    Window *win = pEnv->getWindow();
+
+    // check for empty geometry
+    if(types == NULL || types->size() == 0)
+        return;
+
+    if(!pumpInternalSetup(types,   true))
+        return;
+    if(!pumpInternalSetup(lengths, false))
+        return;
+
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+    }
+
+    // Length handling. Special case: no length given
+
+    UInt32 curlen;
+    UInt32 nprims;
+
+    // no lengths? use all available data for the first type
+    if(lengths == NULL)
+    {
+        if(types->size() != 1)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No lengths, but more than one type?!"
+                     << endLog;
+            return;
+        }
+
+        nprims = 1;
+
+        if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+        {
+            curlen = (*propIdx)[0]->size32();
+        }
+        else
+        {
+            curlen = (*prop)[0]->size32();
+        }
+    }
+    else
+    {
+        nprims = types->size32();
+        lengths->getValue(curlen, 0);
+    }
+
+    // global attribs?
+    globalAttrib(pumpData, Geometry::NormalsIndex,   NormalsPumpSlot);
+    globalAttrib(pumpData, Geometry::ColorsIndex,    ColorsPumpSlot);
+    globalAttrib(pumpData, Geometry::TexCoordsIndex, TexCoordsPumpSlot);
+
+    if(win->hasExtOrVersion(_extSecondaryColor, 0x0104) == true)
+    {
+        globalExtAttrib(pumpData,          Geometry::SecondaryColorsIndex,
+                        SecColorsPumpSlot, win                            );
+    }
+
+    if(win->hasExtOrVersion(_extMultitexture, 0x0103, 0x0200) == true)
+    {
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords1PumpSlot, GL_TEXTURE1_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords2PumpSlot, GL_TEXTURE2_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords3PumpSlot, GL_TEXTURE3_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords4PumpSlot, GL_TEXTURE4_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords5PumpSlot, GL_TEXTURE5_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords6PumpSlot, GL_TEXTURE6_ARB, win);
+        globalExtMultiAttrib(pumpData,           Geometry::TexCoords1Index,
+                             TexCoords7PumpSlot, GL_TEXTURE7_ARB, win);
+    }
+
+    UInt32 vertindex = 0;
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        // Single Indexed
+
+        GeoIntegralProperty *index       = (*propIdx)[0];
+        const UInt8         *indexData   = index->getData();
+        GLenum               indexFormat = index->getFormat();
+//        UInt32               indexSize   = index->getSize();
+        UInt32               indexStride =
+            index->getStride() ? index->getStride() : index->getFormatSize() *
+            index->getDimension();
+
+#if 0
+        index->activate(pEnv, 0);
+
+        if(index->isInVBO(pEnv))
+        {
+#endif
+            indexData = NULL;
+#if 0
+        }
+#endif
+
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->size())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawElements(types->getValue<UInt16>(primindex),
+                           curlen,
+                           indexFormat,
+                           indexData + vertindex * indexStride);
+
+            vertindex += curlen;
+        }
+
+#if 0
+        index->deactivate(pEnv, 0);
+#endif
+    }
+    else
+    {
+        // Non-indexed
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->size())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                         curlen);
+            vertindex += curlen;
+        }
+    }
+}
+
+bool GeoSplitVertexArrayPumpGroup::masterClassicGeoShutdownPump(
+    DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterClassicGeoShutdownPump\n");
+        bPrinted = true;
+    }
+#endif
+
+    // Setup: get all the data
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+    }
+
+    // we need positions
+    if(pumpData.attribPtr[0]              == NULL ||
+       pumpData.attribPtr[0]->getUseVBO() == false)
+    {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
+        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                 << "No positions." << endLog;
+
+        return false;
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
+    }
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpData.attribPtr[i] != NULL &&
+           pumpData.attribPtr[i]->size() != 1    )
+        {
+            pumpData.attribPtr[i]->deactivate(pEnv, i); 
+        }
+    }
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        (*propIdx)[0]->deactivate(pEnv, 0);
+    }
+
+    return true;
+}
+
+#endif
+
+
+bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
+    DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump\n");
+        bPrinted = true;
+    }
+#endif
+
+    // Setup: get all the data
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+    }
+
+    // we need positions
+    if(pumpData.attribPtr[0]              == NULL ||
+       pumpData.attribPtr[0]->getUseVBO() == false)
+    {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
+        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                 << "No positions." << endLog;
+
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
         return false;
     }
 
@@ -591,12 +955,304 @@ bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
 
 
 void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
-          DrawEnv                     *pEnv,
+    DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump\n");
+        bPrinted = true;
+    }
+#endif
+
+    Window *win = pEnv->getWindow();
+
+    // check for empty geometry
+    if(types == NULL || types->size() == 0)
+        return;
+
+    if(!pumpInternalSetup(types,   true))
+        return;
+    if(!pumpInternalSetup(lengths, false))
+        return;
+
+    attribPumpFunc attribFunc[Geometry::MaxAttribs];
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+
+        UInt16 formatIdx = pumpData.attribPtr[i]->getFormat   () - formatBase;
+        UInt16 dimIdx    = pumpData.attribPtr[i]->getDimension() - 1;
+
+#if !defined(OSG_USE_OGLES_PROTOS) && !defined(OSG_USE_OGL3_PROTOS) &&  \
+    !defined(OSG_USE_OGL4_PROTOS)
+        UInt32 funcId    = Window::invalidFunctionID;
+
+        if(pumpData.attribPtr[i]->getNormalize() == true)
+        {
+            funcId = normAttribPumpFuncIDs[formatIdx][dimIdx];
+
+            if(funcId == Window::invalidFunctionID)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                         << "Invalid pump function for property " << i
+                         << " type " << pumpData.attribPtr[i]->getDimension()
+                         << "D " << formatNames[formatIdx] << " (normalizing)."
+                         << endLog;
+
+                pumpData.attribData[i] = NULL;
+                pumpData.attribPtr [i] = NULL;
+                continue;
+            }
+        }
+        else
+        {
+            funcId = attribPumpFuncIDs[formatIdx][dimIdx];
+
+            if(funcId == Window::invalidFunctionID)
+            {
+                SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                         << "Invalid pump function for property " << i
+                         << " type " << pumpData.attribPtr[i]->getDimension()
+                         << "D " << formatNames[formatIdx]
+                         << endLog;
+
+                pumpData.attribData[i] = NULL;
+                pumpData.attribPtr [i] = NULL;
+                continue;
+            }
+        }
+
+        attribFunc[i] = reinterpret_cast<attribPumpFunc>(
+            win->getFunction(funcId));
+
+#else
+        if(pumpData.attribPtr[i]->getNormalize() == true)
+        {
+            attribFunc[i] = attribNormPumpFuncs[formatIdx][dimIdx];
+        }
+        else
+        {
+            attribFunc[i] = attribPumpFuncs[formatIdx][dimIdx];
+        }
+#endif
+
+        if(attribFunc[i] == NULL)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "Extension function for property " << i
+                     << " type " << pumpData.attribPtr[i]->getDimension()
+                     << "D " << formatNames[formatIdx]
+                     << " not supported by Window " << win
+                     << endLog;
+
+            pumpData.attribData[i] = NULL;
+            pumpData.attribPtr [i] = NULL;
+            continue;
+        }
+    }
+
+    // Length handling. Special case: no length given
+
+    UInt32 curlen;
+    UInt32 nprims;
+
+    // no lengths? use all available data for the first type
+    if(lengths == NULL)
+    {
+        if(types->size() != 1)
+        {
+            SWARNING << "GeoVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No lengths, but more than one type?!"
+                     << endLog;
+            return;
+        }
+
+        nprims = 1;
+
+        if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+        {
+            curlen = (*propIdx)[0]->size32();
+        }
+        else
+        {
+            curlen = (*prop)[0]->size32();
+        }
+    }
+    else
+    {
+        nprims = types->size32();
+        lengths->getValue(curlen, 0);
+    }
+
+    // global attribs?
+    for(Int16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpData.attribData[i]         != NULL &&
+           pumpData.attribPtr [i]->size() == 1      )
+        {
+            attribFunc[i](i, pumpData.attribData[i]);
+            pumpData.attribData[i] = NULL;
+        }
+    }
+
+    UInt32 vertindex = 0;
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        // Single Indexed
+
+        GeoIntegralProperty *index       = (*propIdx)[0];
+        const UInt8         *indexData   = index->getData();
+        GLenum               indexFormat = index->getFormat();
+//        UInt32               indexSize   = index->getSize();
+        UInt32               indexStride =
+            index->getStride() ? index->getStride() : index->getFormatSize() *
+            index->getDimension();
+
+        index->activate(pEnv, 0);
+
+        if(index->isInVBO(pEnv))
+        {
+            indexData = NULL;
+        }
+
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->size())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawElements(types->getValue<UInt16>(primindex),
+                           curlen,
+                           indexFormat,
+                           indexData + vertindex * indexStride);
+
+            vertindex += curlen;
+        }
+
+        index->deactivate(pEnv, 0);
+    }
+    else
+    {
+        // Non-indexed
+        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        {
+            if(primindex < lengths->size())
+                curlen = lengths->getValue<UInt32>(primindex);
+
+            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                         curlen);
+            vertindex += curlen;
+        }
+    }
+}
+
+bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPumpFull(
+    DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPumpFull\n");
+        bPrinted = true;
+    }
+#endif
+
+    // Setup: get all the data
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+    }
+
+    // we need positions
+    if(pumpData.attribPtr[0]              == NULL ||
+       pumpData.attribPtr[0]->getUseVBO() == false)
+    {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
+        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                 << "No positions, or positions not in vbo." << endLog;
+
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
+        return false;
+    }
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpData.attribPtr[i]         != NULL &&
+           pumpData.attribPtr[i]->size() != 1     )
+        {
+            pumpData.attribPtr[i]->activate(pEnv, i + 16); // XXX HACK
+        }
+    }
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        (*propIdx)[0]->activate(pEnv, 0);
+    }
+
+    return true;
+}
+
+void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
+    DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // check for empty geometry
@@ -752,12 +1408,16 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
             index->getStride() ? index->getStride() : index->getFormatSize() *
                                                       index->getDimension();
 
+#if 0
         index->activate(pEnv, 0);
 
         if(index->isInVBO(pEnv))
         {
+#endif
             indexData = NULL;
+#if 0
         }
+#endif
 
         for(UInt32 primindex = 0; primindex < nprims; ++primindex)
         {
@@ -772,7 +1432,9 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
             vertindex += curlen;
         }
 
+#if 0
         index->deactivate(pEnv, 0);
+#endif
     }
     else
     {
@@ -787,6 +1449,77 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
             vertindex += curlen;
         }
     }
+}
+
+bool GeoSplitVertexArrayPumpGroup::masterAttribGeoShutdownPump(
+          DrawEnv                     *pEnv,
+    const GeoIntegralProperty         *lengths,
+    const GeoIntegralProperty         *types,
+    const Geometry::MFPropertiesType  *prop,
+    const Geometry::MFPropIndicesType *propIdx)
+{
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, 
+                "GeoSplitVertexArrayPumpGroup::masterAttribGeoShutdownPump\n");
+        bPrinted = true;
+    }
+#endif
+
+    // Setup: get all the data
+    PumpData       pumpData;
+
+    pumpData.lengths = lengths;
+    pumpData.types   = types;
+    pumpData.prop    = prop;
+    pumpData.propIdx = propIdx;
+
+    UInt16 nattrib = prop->size32();
+
+    for(UInt16 i = 0; i < nattrib; ++i)
+    {
+        if(pumpGLSetup(pumpData, i) == false)
+            continue;
+    }
+
+    // we need positions
+    if(pumpData.attribPtr[0]              == NULL ||
+       pumpData.attribPtr[0]->getUseVBO() == false)
+    {
+#ifdef DEBUG_WHICH_PUMP
+        static bool bPrinted1 = false;
+
+        if(bPrinted1 == false)
+        {
+#endif
+        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                 << "No positions." << endLog;
+
+#ifdef DEBUG_WHICH_PUMP
+            bPrinted1 = true;
+        }
+#endif
+        return false;
+    }
+
+    for(Int16 i = nattrib - 1; i >= 0; --i)
+    {
+        if(pumpData.attribPtr[i]         != NULL &&
+           pumpData.attribPtr[i]->size() != 1     )
+        {
+            pumpData.attribPtr[i]->deactivate(pEnv, i + 16); // XXX HACK
+        }
+    }
+
+    if(propIdx->size() != 0 && (*propIdx)[0] != NULL)
+    {
+        (*propIdx)[0]->deactivate(pEnv, 0);
+    }
+
+    return true;
 }
 
 OSG_END_NAMESPACE

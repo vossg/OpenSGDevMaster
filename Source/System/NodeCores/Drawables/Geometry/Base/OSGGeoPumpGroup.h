@@ -108,6 +108,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
     {
         SetupGeoPump setupPump;
         GeoPump      drawPump;
+        SetupGeoPump shutdownPump;
     };
 
     /*! \}                                                                 */

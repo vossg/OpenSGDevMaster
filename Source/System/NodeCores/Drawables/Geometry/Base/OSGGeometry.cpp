@@ -66,7 +66,7 @@
 #include "OSGPointIterator.h"
 #include "OSGDrawableStatsAttachment.h"
 
-#if 1
+#if 0
 # ifdef OSG_NEW_GEOHANDLER
 #  undef OSG_NEW_GEOHANDLER
 # endif
@@ -480,6 +480,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         }
 
         pEnv->getWindow()->validateGLObject(glid, pEnv);
+
         glCallList(pEnv->getWindow()->getGLObjectId(glid));
     }
     else

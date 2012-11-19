@@ -61,6 +61,8 @@
 #include "OSGGeoImmediatePumpGroup.h"
 #include "OSGConceptPropertyChecks.h"
 
+//#define DEBUG_WHICH_PUMP 1
+
 OSG_BEGIN_NAMESPACE
 
 // Intentionally INSIDE the namespace
@@ -512,6 +514,16 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, "GeoImmediatePumpGroup::masterClassicGeoPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // Setup: get all the data
@@ -688,6 +700,16 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     const Geometry::MFPropertiesType  *prop,
     const Geometry::MFPropIndicesType *propIdx)
 {
+#ifdef DEBUG_WHICH_PUMP
+    static bool bPrinted = false;
+
+    if(bPrinted == false)
+    {
+        fprintf(stderr, "GeoImmediatePumpGroup::masterAttribGeoPump\n");
+        bPrinted = true;
+    }
+#endif
+
     Window *win = pEnv->getWindow();
 
     // Setup: get all the data

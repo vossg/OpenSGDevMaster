@@ -80,8 +80,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         GeoPumpGroup::PropertyCharacteristics prop = uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
-                     GeoPumpGroup::NonIndexed    )) == 0x0000) ||
-            _sfUseVAO.getValue() == false                       )
+                     GeoPumpGroup::NonIndexed    )) == 0x0000))
         {
             GeoPumpGroup::GeoPump pump = GeoPumpGroup::findGeoPump(pEnv, prop);
 
@@ -103,6 +102,30 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
 
             glEndList();
         }
+        else if(_sfUseVAO.getValue() == false)
+        {
+            GeoPumpGroup::SplitGeoPump pump = 
+                GeoPumpGroup::findSplitGeoPump(pEnv,
+                                               prop);
+
+            if(pump.drawPump != NULL)
+            {
+                glNewList(glid, GL_COMPILE);
+
+                pump.drawPump(pEnv,
+                              getLengths(),      getTypes(),
+                              getMFProperties(), getMFPropIndices());
+
+                glEndList();
+            }
+            else
+            {
+                SWARNING << "Geometry::handleClassicGL: no Pump found for "
+                         << "geometry "
+                         << this
+                         << std::endl;
+            }
+        }
         else
         {
             Int32 vaoGlid = getVaoGLId();
@@ -111,15 +134,13 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         
             UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
-            glNewList(glid, GL_COMPILE);
-
             if(uiValidVAO != 0)
             {
                 GeoPumpGroup::SplitGeoPump pump = 
                     GeoPumpGroup::findSplitGeoPump(pEnv,
                                                    prop);
 
-                if(pump.drawPump)
+                if(pump.drawPump != NULL)
                 {
                     OSGGETGLFUNCBYID_GL3(glBindVertexArray,
                                          osgGlBindVertexArray,
@@ -128,10 +149,14 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                     
                     osgGlBindVertexArray(pWin->getGLObjectId(vaoGlid));
                     
+                    glNewList(glid, GL_COMPILE);
+
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
                                   getMFProperties(), getMFPropIndices());
                     
+                    glEndList();
+
                     osgGlBindVertexArray(0);
                 }
                 else
@@ -142,8 +167,6 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                              << std::endl;
                 }
             }
-
-            glEndList();
         }
     }
     else
@@ -207,8 +230,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         GeoPumpGroup::PropertyCharacteristics prop = uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
-                     GeoPumpGroup::NonIndexed    )) == 0x0000) ||
-            _sfUseVAO.getValue() == false                       )
+                     GeoPumpGroup::NonIndexed    )) == 0x0000))
         {
             GeoPumpGroup::GeoPump pump = GeoPumpGroup::findGeoPump(pEnv, 
                                                                    prop);
@@ -230,6 +252,30 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
 
             glEndList();
         }
+        else if(_sfUseVAO.getValue() == false)
+        {
+            GeoPumpGroup::SplitGeoPump pump = 
+                GeoPumpGroup::findSplitGeoPump(pEnv, 
+                                               prop);
+
+            if(pump.drawPump != NULL)
+            {
+                glNewList(glid, GL_COMPILE);
+
+                pump.drawPump(pEnv,
+                              getLengths(),      getTypes(),
+                              getMFProperties(), getMFPropIndices());
+
+                glEndList();
+            }
+            else
+            {
+                SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                         << "geometry "
+                         << this
+                         << std::endl;
+            }
+        }
         else
         {
             Int32 vaoGlid = getVaoGLId();
@@ -238,15 +284,13 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         
             UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
-            glNewList(glid, GL_COMPILE);
-
             if(uiValidVAO != 0)
             {
                 GeoPumpGroup::SplitGeoPump pump = 
                     GeoPumpGroup::findSplitGeoPump(pEnv,
                                                    prop);
 
-                if(pump.drawPump)
+                if(pump.drawPump != NULL)
                 {
                     OSGGETGLFUNCBYID_GL3(glBindVertexArray,
                                          osgGlBindVertexArray,
@@ -255,10 +299,14 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                     
                     osgGlBindVertexArray(pWin->getGLObjectId(vaoGlid));
                     
+                    glNewList(glid, GL_COMPILE);
+
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
                                   getMFProperties(), getMFPropIndices());
                     
+                    glEndList();
+
                     osgGlBindVertexArray(0);
                 }
                 else
@@ -269,8 +317,6 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                              << std::endl;
                 }
             }
-
-            glEndList();
         }
     }
     else
@@ -446,30 +492,29 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
 #endif
 
-#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-    if(getDlistCache() == true)
+    if(((prop & (GeoPumpGroup::SingleIndexed | 
+                 GeoPumpGroup::NonIndexed    )) == 0x0000))
     {
-        Int32 glid;
-
-        if(usesShader)
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+        if(getDlistCache() == true)
         {
-            glid = getAttGLId();
+            Int32 glid;
+
+            if(usesShader)
+            {
+                glid = getAttGLId();
+            }
+            else
+            {
+                glid = getClassicGLId();
+            }
+
+            pWin->validateGLObject(glid, pEnv, prop);
+            
+            glCallList(pEnv->getWindow()->getGLObjectId(glid));
         }
         else
-        {
-            glid = getClassicGLId();
-        }
-
-        pWin->validateGLObject(glid, pEnv, prop);
-
-        glCallList(pEnv->getWindow()->getGLObjectId(glid));
-    }
-    else
 #endif
-    {
-        if(((prop & (GeoPumpGroup::SingleIndexed | 
-                     GeoPumpGroup::NonIndexed    )) == 0x0000) ||
-            _sfUseVAO.getValue() == false                       )
         {
             GeoPumpGroup::GeoPump pump = GeoPumpGroup::findGeoPump(pEnv, 
                                                                    prop);
@@ -487,45 +532,148 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                          << std::endl;
             }
         }
-        else
+    }
+    else if(_sfUseVAO.getValue() == false)
+    {
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+        if(getDlistCache() == true)
         {
-            Int32 glid = getVaoGLId();
+            Int32 glid;
 
-            pWin->validateGLObject(glid, pEnv, prop);
-        
-            UInt32 uiValidVAO = pWin->getGLObjectInfo(glid);
-
-            if(uiValidVAO != 0)
+            if(usesShader)
             {
-                GeoPumpGroup::SplitGeoPump pump = 
-                    GeoPumpGroup::findSplitGeoPump(pEnv,
-                                                   prop);
+                glid = getAttGLId();
+            }
+            else
+            {
+                glid = getClassicGLId();
+            }
+            
+            GeoPumpGroup::SplitGeoPump pump = 
+                GeoPumpGroup::findSplitGeoPump(pEnv,
+                                               prop);
 
-                if(pump.drawPump)
+            if(pump.setupPump != NULL)
+            {
+                bool rc = pump.setupPump(pEnv,
+                                         getLengths(),      
+                                         getTypes(),
+                                         getMFProperties(), 
+                                         getMFPropIndices());
+                
+                if(rc == true)
                 {
-                    OSGGETGLFUNCBYID_GL3(glBindVertexArray,
-                                         osgGlBindVertexArray,
-                                         FuncIdBindVertexArray,
-                                         pWin);
-                    
-                    osgGlBindVertexArray(pWin->getGLObjectId(glid));
-                    
-                    pump.drawPump(pEnv,
-                                  getLengths(),      getTypes(),
-                                  getMFProperties(), getMFPropIndices());
-                    
-                    osgGlBindVertexArray(0);
+                    pWin->validateGLObject(glid, pEnv, prop);
+                
+                    glCallList(pEnv->getWindow()->getGLObjectId(glid));
+                
+                    pump.shutdownPump(pEnv,
+                                      getLengths(),      
+                                      getTypes(),
+                                      getMFProperties(), 
+                                      getMFPropIndices());
                 }
-                else
+                else // fallback 
                 {
-                    SWARNING << "Geometry::drawPrimitives: no Pump found for "
-                             << "geometry "
-                             << this
-                             << std::endl;
+                    GeoPumpGroup::GeoPump pump = 
+                        GeoPumpGroup::findGeoPump(pEnv, 
+                                                  prop);
+                    if(pump != NULL)
+                    {
+                        pump(pEnv,
+                             getLengths(),      getTypes(),
+                             getMFProperties(), getMFPropIndices());
+                    }
                 }
             }
         }
+        else
+#endif
+        {
+            GeoPumpGroup::GeoPump pump = GeoPumpGroup::findGeoPump(pEnv, 
+                                                                   prop);
+            if(pump != NULL)
+            {
+                pump(pEnv,
+                     getLengths(),      getTypes(),
+                     getMFProperties(), getMFPropIndices());
+            }
+            else
+            {
+                SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                         << "geometry "
+                         << this
+                         << std::endl;
+            }
+        }
     }
+    else
+    {
+        Int32 glid = getVaoGLId();
+        
+        pWin->validateGLObject(glid, pEnv, prop);
+        
+        UInt32 uiValidVAO = pWin->getGLObjectInfo(glid);
+
+        if(uiValidVAO != 0)
+        {
+            GeoPumpGroup::SplitGeoPump pump = 
+                GeoPumpGroup::findSplitGeoPump(pEnv,
+                                               prop);
+
+            if(pump.drawPump != NULL)
+            {
+                OSGGETGLFUNCBYID_GL3(glBindVertexArray,
+                                     osgGlBindVertexArray,
+                                     FuncIdBindVertexArray,
+                                     pWin);
+                                      
+#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+                if(getDlistCache() == true)
+                {
+                    Int32 glid;
+                    
+                    if(usesShader)
+                    {
+                        glid = getAttGLId();
+                    }
+                    else
+                    {
+                        glid = getClassicGLId();
+                    }
+
+                    pWin->validateGLObject(glid, pEnv, prop);
+
+                    osgGlBindVertexArray(pWin->getGLObjectId(glid));
+
+                    glCallList(pEnv->getWindow()->getGLObjectId(glid));
+
+                    osgGlBindVertexArray(0);
+                }
+                else
+#endif
+                {
+                    osgGlBindVertexArray(pWin->getGLObjectId(glid));
+
+                    pump.drawPump(pEnv,
+                                  getLengths(),      
+                                  getTypes(),
+                                  getMFProperties(), 
+                                  getMFPropIndices());
+
+                    osgGlBindVertexArray(0);
+                }
+            }
+            else
+            {
+                SWARNING << "Geometry::drawPrimitives: no Pump found "
+                         << "for geometry "
+                         << this
+                         << std::endl;
+            }
+        }
+    }
+
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // restore glColor.
