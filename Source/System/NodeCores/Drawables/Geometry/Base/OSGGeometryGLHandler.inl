@@ -644,7 +644,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 
                     pWin->validateGLObject(glid, pEnv, prop);
 
-                    osgGlBindVertexArray(pWin->getGLObjectId(glid));
+                    osgGlBindVertexArray(uiValidVAO);
 
                     glCallList(pEnv->getWindow()->getGLObjectId(glid));
 
@@ -653,7 +653,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                 else
 #endif
                 {
-                    osgGlBindVertexArray(pWin->getGLObjectId(glid));
+                    osgGlBindVertexArray(uiValidVAO);
 
                     pump.drawPump(pEnv,
                                   getLengths(),      

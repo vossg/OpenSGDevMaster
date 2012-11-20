@@ -141,7 +141,8 @@ GeoIntegralProperty::GeoIntegralProperty(const GeoIntegralProperty &source) :
     Inherited(source)
 {
     // for some reason using VBo for elemnts doesn't work right now, disable it
-    _sfUseVBO.setValue(false);
+    // for vao indices must be in buffers, so far it seem to work
+    //_sfUseVBO.setValue(false);
 }
 
 GeoIntegralProperty::~GeoIntegralProperty(void)
