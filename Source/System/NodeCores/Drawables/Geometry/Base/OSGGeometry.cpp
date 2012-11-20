@@ -114,6 +114,7 @@ void Geometry::initMethod(InitPhase ePhase)
                 &MaterialDrawable::renderLeave));
 
 
+#ifndef __APPLE__
         _arbVertexArrayObject = 
             Window::registerExtension("GL_ARB_vertex_array_object");
 
@@ -131,6 +132,26 @@ void Geometry::initMethod(InitPhase ePhase)
             Window::registerFunction
             (OSG_DLSYM_UNDERSCORE"glGenVertexArrays",
              _arbVertexArrayObject);
+
+#else
+        _arbVertexArrayObject = 
+            Window::registerExtension("GL_APPLE_vertex_array_object");
+
+        FuncIdBindVertexArray    = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glBindVertexArrayAPPLE",
+             _arbVertexArrayObject);
+
+        FuncIdDeleteVertexArrays = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glDeleteVertexArraysAPPLE",
+             _arbVertexArrayObject);
+
+        FuncIdGenVertexArrays    = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glGenVertexArraysAPPLE",
+             _arbVertexArrayObject);
+#endif
     }
 }
 
