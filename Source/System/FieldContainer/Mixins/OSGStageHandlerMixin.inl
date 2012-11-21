@@ -255,7 +255,7 @@ void StageHandlerMixin<ParentT>::setData(
                             _2,
                             _3),
                 "");
-            
+
             pData->addChangedFunctor(
                 boost::bind(&Self::dataDestroyed, 
                             this, 
@@ -326,7 +326,7 @@ void StageHandlerMixin<ParentT>::dataDestroyed(FieldContainer *pCore,
     {
         this->subChangedFunctor(
             boost::bind(&StageData::updateData, 
-                        pCore, 
+                        dynamic_cast<StageData *>(pCore), 
                         _1, 
                         _2,
                         _3));
