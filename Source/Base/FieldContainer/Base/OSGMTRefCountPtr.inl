@@ -320,6 +320,8 @@ MTRefCountPtr<ObjectT, RefCountPolicyT>::operator =(
         RefCountPolicy::subRef(pObj);
         _pAspectStore = NULL;
     }
+
+    return *this;
 }
 
 template <class ObjectT, 
