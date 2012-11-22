@@ -157,7 +157,7 @@ http://download.osgeo.org/libtiff/tiff-3.8.2.zip
 
  http://www.xmission.com/~nate/glut/glut-3.7.6-src.zip
 
-http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.2/Collada%20DOM%202.2.zip/download
+http://sourceforge.net/projects/collada-dom/files/Collada%20DOM/Collada%20DOM%202.4/collada-dom-2.4.0-libsrc.tgz/download
 ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
 http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.zip/download
 #http://sourceforge.net/projects/pcre/files/pcre/8.12/pcre-8.12.tar.gz/download
