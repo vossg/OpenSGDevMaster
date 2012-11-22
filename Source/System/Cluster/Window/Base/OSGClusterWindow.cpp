@@ -243,10 +243,7 @@ void ClusterWindow::init(GLInitFunctor)
                 // update progress
                 if(_connectionFP != NULL)
                 {
-                    std::string message;
-                    message += "Starting:" + (*getMFServers())[id]; 
-
-                    if(!_connectionFP(message, progress))
+                    if(!_connectionFP("Starting:", (*getMFServers())[id], progress))
                     {
                         // abort, cleanup remaining pipes
                         for( ; id<getMFServers()->size() ; ++id)
@@ -331,9 +328,7 @@ void ClusterWindow::init(GLInitFunctor)
                 // update progress
                 if(_connectionFP != NULL)
                 {
-                    std::string message;
-                    message += "Connecting:" + *s; 
-                    if(!_connectionFP(message, progress))
+                    if(!_connectionFP("Connecting:", *s, progress))
                     {
                         serviceSock.close();
                         throw AsyncCancel();
@@ -423,7 +418,7 @@ void ClusterWindow::init(GLInitFunctor)
                         if(pointSock != NULL)
                         {
                             /* for all socket connections ignore the
-                               incomming host and use the host from
+                               incoming host and use the host from
                                the last response. */
 
                             char port[16];
@@ -495,13 +490,13 @@ void ClusterWindow::init(GLInitFunctor)
 
     // inform connection finished
     if(_connectionFP != NULL)
-        _connectionFP("ok", 1.0);
+        _connectionFP("ClusterWindow initialization completed.", "", 1.0);
 }
 
-bool ClusterWindow::initAsync(connectioncbfp fp)
+bool ClusterWindow::initAsync(const ConnectionCB& fp)
 {
     bool result;
-    connectioncbfp saveFP = _connectionFP;
+    ConnectionCB saveFP = _connectionFP;
 
     _connectionFP = fp;
 
@@ -519,7 +514,7 @@ bool ClusterWindow::initAsync(connectioncbfp fp)
     return result;
 }
 
-void ClusterWindow::setConnectionCB(connectioncbfp fp)
+void ClusterWindow::setConnectionCB(const ConnectionCB& fp)
 {
     _connectionFP = fp;
 }
