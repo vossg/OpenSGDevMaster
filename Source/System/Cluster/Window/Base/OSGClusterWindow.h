@@ -125,8 +125,8 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
 
     typedef boost::function<bool (const std::string& msg, const std::string& server, Real32 progress)> ConnectionCB;
 
-    bool initAsync      (ConnectionCB fp);
-    void setConnectionCB(ConnectionCB fp);
+    bool initAsync      (const ConnectionCB& fp);
+    void setConnectionCB(const ConnectionCB& fp);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
