@@ -46,6 +46,8 @@
 #include "OSGStatElemTypes.h"
 #include "OSGImageComposer.h"
 
+#include <boost/function.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 class StatCollector;
