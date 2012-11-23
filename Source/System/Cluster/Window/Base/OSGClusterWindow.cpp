@@ -493,7 +493,7 @@ void ClusterWindow::init(GLInitFunctor)
         _connectionFP("ClusterWindow initialization completed.", "", 1.0);
 }
 
-bool ClusterWindow::initAsync(const ConnectionCB& fp)
+bool ClusterWindow::initAsync(const ConnectionCB &fp)
 {
     bool result;
     ConnectionCB saveFP = _connectionFP;
@@ -514,7 +514,7 @@ bool ClusterWindow::initAsync(const ConnectionCB& fp)
     return result;
 }
 
-void ClusterWindow::setConnectionCB(const ConnectionCB& fp)
+void ClusterWindow::setConnectionCB(const ConnectionCB &fp)
 {
     _connectionFP = fp;
 }
