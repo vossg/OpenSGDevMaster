@@ -62,6 +62,10 @@ IF(_OSG_COLLADA_PRECOND)
 
   SET(OSGCOLLADA_DEF DOM_INCLUDE_LIBXML)
 
+  IF(APPLE)
+    SET(OSGCOLLADA_DEF ${OSGCOLLADA_DEF};USE_FILE32API)
+  ENDIF()
+
   EXECUTE_PROCESS(
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                      "${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/crypt.h"
