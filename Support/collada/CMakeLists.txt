@@ -44,6 +44,10 @@ IF(_OSG_COLLADA_PRECOND)
                           ${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/zip.c
                           ${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/unzip.c)
 
+  IF(WIN32)
+    SET(OSG_COLLADADAE_SRCS ${OSG_COLLADADAE_SRCS}
+                            ${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/iowin32.c)
+  ENDIF()
 
   FILE(GLOB OSG_COLLADADAE_HDR "${OSGColladaSrcDir}/dom/include/dae/*.h")
   FILE(GLOB OSG_COLLADA_HDR    "${OSGColladaSrcDir}/dom/include/*.h")
@@ -66,6 +70,12 @@ IF(_OSG_COLLADA_PRECOND)
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                      "${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/ioapi.h"
                      "${CMAKE_BINARY_DIR}/collada/include/ioapi.h")
+
+  EXECUTE_PROCESS(
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/iowin32.h"
+                     "${CMAKE_BINARY_DIR}/collada/include/iowin32.h")
+
   EXECUTE_PROCESS(
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                      "${OSGColladaSrcDir}/dom/external-libs/minizip-1.1/unzip.h"
