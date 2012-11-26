@@ -1460,31 +1460,36 @@ void CNurbsPatchSurface::Gen3DLoops(const unsigned int cuiSurface)
     }
 }
 
-void CNurbsPatchSurface::CutCurve(const unsigned int cuiSurface, BezierCurve2D &rclCurve, bezier2ddeque &rclCut, std::vector<unsigned int> &rvuiUSeg, std::vector<unsigned int> &rvuiVSeg)
+void CNurbsPatchSurface::CutCurve(const unsigned int         cuiSurface,
+                                  BezierCurve2D&             rclCurve,
+                                  bezier2ddeque&             rclCut,
+                                  std::vector<unsigned int>& rvuiUSeg,
+                                  std::vector<unsigned int>& rvuiVSeg)
 {
-    const int                           ci_u_seg_cnt = UInt32(m_vvdUParams[cuiSurface].size());
-    const int                           ci_v_seg_cnt = UInt32(m_vvdVParams[cuiSurface].size());
-    int                                 i_u_seg;
-    int                                 i_v_seg;
-    unsigned int                        ui_curve;
-    unsigned int                        ui_curve_cnt = 1;
-    std::vector<BezierCurve2D>          vcl_curves;
-    std::vector<double>                 vd_curvestart;
-    std::vector<double>                 vd_curveend;
-    std::vector<double>                 vd_int;
-    unsigned int                        ui_int;
-    BezierCurve2D                       cl_new_curve;
-    std::multimap<double, unsigned int> mm_curve_sort;
-    std::multimap<double, unsigned int>::iterator
-                 itmm_curve_it;
-    int          i_err;
-//    unsigned int ui_idx;
-    bool         b_cut;
+    typedef std::multimap<double, unsigned int> CurveMap;
+    typedef CurveMap::iterator                  CurveMapIt;
+
+    const int                  ci_u_seg_cnt = UInt32(m_vvdUParams[cuiSurface].size());
+    const int                  ci_v_seg_cnt = UInt32(m_vvdVParams[cuiSurface].size());
+    int                        i_u_seg;
+    int                        i_v_seg;
+    unsigned int               ui_curve;
+    unsigned int               ui_curve_cnt = 1;
+    std::vector<BezierCurve2D> vcl_curves;
+    std::vector<double>        vd_curvestart;
+    std::vector<double>        vd_curveend;
+    std::vector<double>        vd_int;
+    unsigned int               ui_int;
+    BezierCurve2D              cl_new_curve;
+    CurveMap                   mm_curve_sort;
+    CurveMapIt                 itmm_curve_it;
+    int                        i_err;
+    bool                       b_cut;
 
     vcl_curves.push_back(rclCurve);
     vd_curvestart.push_back(0.0);
     vd_curveend.push_back(1.0);
-    mm_curve_sort.insert(std::make_pair<const double, unsigned int>(0.0, 0u));
+    mm_curve_sort.insert(CurveMap::value_type(0.0, 0u));
 
     for(ui_curve = 0; ui_curve < ui_curve_cnt; ++ui_curve)
     {
@@ -1506,7 +1511,7 @@ void CNurbsPatchSurface::CutCurve(const unsigned int cuiSurface, BezierCurve2D &
                     vd_curvestart.push_back( (vd_curvestart[ui_curve] + vd_curveend[ui_curve]) * 0.5);
                     vd_curveend.push_back(vd_curveend[ui_curve]);
                     vd_curveend[ui_curve] = vd_curvestart[ui_curve_cnt];
-                    mm_curve_sort.insert(std::make_pair<const double, unsigned int>(vd_curvestart[ui_curve_cnt], ui_curve_cnt) );
+                    mm_curve_sort.insert(CurveMap::value_type(vd_curvestart[ui_curve_cnt], ui_curve_cnt));
                     ++ui_curve_cnt;
                     b_cut = true;
                     break;
@@ -1532,7 +1537,7 @@ void CNurbsPatchSurface::CutCurve(const unsigned int cuiSurface, BezierCurve2D &
                         vd_curvestart.push_back( (vd_curvestart[ui_curve] + vd_curveend[ui_curve]) * 0.5);
                         vd_curveend.push_back(vd_curveend[ui_curve]);
                         vd_curveend[ui_curve] = vd_curvestart[ui_curve_cnt];
-                        mm_curve_sort.insert(std::make_pair<const double, unsigned int>(vd_curvestart[ui_curve_cnt], ui_curve_cnt) );
+                        mm_curve_sort.insert(CurveMap::value_type(vd_curvestart[ui_curve_cnt], ui_curve_cnt) );
                         ++ui_curve_cnt;
                         b_cut = true;
                         break;
