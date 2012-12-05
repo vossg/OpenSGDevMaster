@@ -168,7 +168,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     template <class ExternalType>
     ExternalType getValue(const SizeT index) const
     {
-        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(%"PRIUSize")\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(%" PRIUSize ")\n", 
+                index));
 
         ExternalType val;
 
@@ -198,7 +199,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     template <class ExternalType>
     void getValue(ExternalType &eval, const SizeT index) const
     {
-        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(eval, %"PRIUSize")\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(eval, %" PRIUSize ")\n", index));
 
         if(GeoPropertyDesc::normalize)
         {
@@ -230,7 +231,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     template <class ExternalType>
     void setValue (ExternalType val, const SizeT index)
     {
-        FDEBUG(("TypedGeoVectorProperty<>::setValue<>(val, %"PRIUSize")\n", index));
+        FDEBUG(("TypedGeoVectorProperty<>::setValue<>(val, %" PRIUSize ")\n", index));
 
         StoredType ival;
 

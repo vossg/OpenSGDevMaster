@@ -40,20 +40,24 @@ IF(OSGNVidiaSDKSrcDir)
   ELSE()
     MESSAGE(STATUS "Without OpenCL SDK")
 
-    SET(OSG_NVSDKCOMMON_SRC_INPUT rendercheck_gl.cpp
-                                  cmd_arg_reader.cpp)
+#    SET(OSG_NVSDKCOMMON_SRC_INPUT rendercheck_gl.cpp
+#                                  cmd_arg_reader.cpp)
 
-    SET(OSG_NVSDKCOMMON_HDR_INPUT rendercheck_gl.h
-                                  exception.h
-                                  cmd_arg_reader.h
-                                  nvShaderUtils.h)
+    SET(OSG_NVSDKCOMMON_HDR_INPUT exception.h
+                                  helper_functions.h
+                                  helper_image.h
+                                  helper_math.h
+                                  helper_string.h
+                                  helper_timer.h
+                                  param.h
+                                  paramgl.h)
 
-    SET(OSG_NVSDKCOMMON_LNK_HDR ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheckGL.h)
+#    SET(OSG_NVSDKCOMMON_LNK_HDR ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheckGL.h)
 
-    SET(OSG_NVSDKCOMMON_SUBDIR C/common)
+    SET(OSG_NVSDKCOMMON_SUBDIR common)
 
-    CopyOrLink(${OSGNVidiaSDKSrcDir}/${OSG_NVSDKCOMMON_SUBDIR}/inc/rendercheck_gl.h
-               ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheckGL.h)
+#    CopyOrLink(${OSGNVidiaSDKSrcDir}/${OSG_NVSDKCOMMON_SUBDIR}/inc/rendercheck_gl.h
+#               ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheckGL.h)
   ENDIF()
 
 
@@ -72,27 +76,21 @@ IF(OSGNVidiaSDKSrcDir)
   IF(NOT WIN32)
     IF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
       FILE(MAKE_DIRECTORY ${_OSGSUPP_DST_DIR}/GL)
-      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n")
+      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n#include <GL/gl.h>")
     ENDIF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
   ENDIF(NOT WIN32)
 
   INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src")
-##  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
-##  INCLUDE_DIRECTORIES("${OSG_CUDA_UTIL_INCLUDEDIR}")
 
   IF(WIN32)
 #    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
 #    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
   ENDIF(WIN32)
 
-  IF(UNIX)
-    SET(OSGNVSDKCOMLIB_DEF GL_GLEXT_PROTOTYPES=1)
-  ENDIF(UNIX)
 
+#  ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_NVSDKCOMMON_SRCS})
 
-  ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_NVSDKCOMMON_SRCS})
-
-  ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
+#  ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
 
   IF(WIN32)
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
@@ -101,8 +99,8 @@ IF(OSGNVidiaSDKSrcDir)
 
   SET(OSGNVSDKCOMLIB_DEF_STATIC ${OSGNVSDKCOMLIB_DEF})
 
-  SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
-                        COMPILE_DEFINITIONS "${OSGNVSDKCOMLIB_DEF_STATIC}")
+#  SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+#                        COMPILE_DEFINITIONS "${OSGNVSDKCOMLIB_DEF_STATIC}")
 
 
   IF(WIN32)
@@ -112,10 +110,10 @@ IF(OSGNVidiaSDKSrcDir)
                 LIBRARY DESTINATION lib COMPONENT libraries
                 ARCHIVE DESTINATION lib COMPONENT libraries)
   ELSE(WIN32)
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
-                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
+#    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+#                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
+#                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries
+#                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
   ENDIF(WIN32)
 
 

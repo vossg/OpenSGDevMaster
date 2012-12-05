@@ -51,7 +51,8 @@
 
 #if !defined(WIN32) && !defined(__APPLE__) && !defined(OSG_EMBEDDED)
 # if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
-#  include <GL3/glx3.h>
+//#  include <GL3/glx3.h>
+#  include <GLArb/glxarb.h>
 # else
 #  include <GL/glx.h>
 # endif
@@ -666,7 +667,7 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
         _mfGlObjectLastRefresh.resize(osgId + 1, 0);
     }
 
-    FDEBUG(("Window 0x%p (event %d,ri:%"PRISize",rf:%"PRISize"): "
+    FDEBUG(("Window 0x%p (event %d,ri:%" PRISize ",rf:%" PRISize "): "
             "Validating object %d: last reinit:%d, last validate:"
             "%d last refresh: %d => %s\n", 
             this, getGlObjectEventCounter(), 
@@ -1584,7 +1585,7 @@ void OSG::Window::doFrameExit(void)
         }
 
         FDEBUG(("Window::doFrameExit: Destroying GLObject %d (%d) - GL id %"
-                PRIUSize"\n",
+                PRIUSize "\n",
                 i, n, getGLObjectId(i)));
            
         UInt32 rc = obj->getRefCounter();
@@ -1994,9 +1995,9 @@ void OSG::Window::render(RenderActionBase *action)
 
             _mfDrawTasks.clear();
         }
-
+       
         doRenderAllViewports(action);
-        
+       
         swap       ();
         doFrameExit(); // after frame cleanup: delete dead GL objects
         deactivate ();

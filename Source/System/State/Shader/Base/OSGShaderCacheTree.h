@@ -272,7 +272,8 @@ class ShaderCacheTreeV0
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
-#if !defined(WIN32) && !defined(__APPLE__) 
+#if !defined(WIN32) && !defined(__APPLE__) && \
+    !defined(__GXX_EXPERIMENTAL_CXX0X__)
     static const Real32 LevelFactor = 1.f / (LevelBits);
 #else
     static const Real32 LevelFactor;
@@ -440,7 +441,8 @@ class ShaderCacheTreeV1
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
-#if !defined(WIN32) && !defined(__APPLE__) 
+#if !defined(WIN32) && !defined(__APPLE__) && \
+    !defined(__GXX_EXPERIMENTAL_CXX0X__)
     static const Real32 LevelFactor = 1.f / (LevelBits);
 #else
     static const Real32 LevelFactor;
@@ -563,7 +565,8 @@ class ShaderCacheTreeV2
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
-#if !defined(WIN32) && !defined(__APPLE__) 
+#if !defined(WIN32) && !defined(__APPLE__) && \
+    !defined(__GXX_EXPERIMENTAL_CXX0X__)
     static const Real32 LevelFactor = 1.f / (LevelBits);
 #else
     static const Real32 LevelFactor;
@@ -689,7 +692,8 @@ class ShaderCacheTreeV3
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
-#if !defined(WIN32) && !defined(__APPLE__) 
+#if !defined(WIN32) && !defined(__APPLE__) && \
+    !defined(__GXX_EXPERIMENTAL_CXX0X__)
     static const Real32 LevelFactor = 1.f / (LevelBits);
 #else
     static const Real32 LevelFactor;

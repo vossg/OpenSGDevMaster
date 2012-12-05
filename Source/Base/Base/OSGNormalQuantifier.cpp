@@ -151,8 +151,10 @@ void NormalQuantifier::build (UInt32 numberSubdivisions)
         }
         else
         {
-            FLOG(("NormalQuantifier init: %d subdivision, %"PRISize" normal\n",
-                  _numberSubdivisions, _normalTable.size()));
+            FLOG(("NormalQuantifier init: %d subdivision, %" 
+                  PRISize " normal\n",
+                  _numberSubdivisions, 
+                  _normalTable.size()));
         }
     }  
 }

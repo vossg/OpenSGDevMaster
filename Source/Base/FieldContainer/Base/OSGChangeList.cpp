@@ -436,7 +436,7 @@ void ChangeList::dump(      UInt32    uiIndent,
         }
 
         fprintf(stderr,
-                "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64" (%p|%p) | %s\n",
+                "CE : %u %u 0x%016" PRIx64 " 0x%016" PRIx64 " (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -478,7 +478,7 @@ void ChangeList::dump(      UInt32    uiIndent,
         }
 
         fprintf(stderr,
-                "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64" (%p|%p) | %s\n",
+                "CE : %u %u 0x%016" PRIx64 " 0x%016" PRIx64 " (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -512,7 +512,7 @@ void ChangeList::dump(      UInt32    uiIndent,
             tmpChanges = *((*cIt)->bvUncommittedChanges);
         }
 
-        fprintf(stderr, "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64"\n",
+        fprintf(stderr, "CE : %u %u 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -524,8 +524,8 @@ void ChangeList::dump(      UInt32    uiIndent,
 
 void ChangeList::dumpListSizes(void) const
 {
-    fprintf(stderr, "CL : CH_S : %"PRISize" | CR_S : %"PRISize" | UC_S : %"
-            PRISize" | P_S %"PRISize"\n",
+    fprintf(stderr, "CL : CH_S : %" PRISize " | CR_S : %" PRISize " | UC_S : %"
+            PRISize " | P_S %" PRISize "\n",
             _changedStore.size(),
             _createdStore.size(),
             _uncommitedChanges.size(),

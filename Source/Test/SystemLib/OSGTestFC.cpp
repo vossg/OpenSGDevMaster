@@ -187,7 +187,7 @@ void TestFC::dump(      UInt32    uiIndent,
     _pAspectStore->dump();
 #endif
 
-    fprintf(stderr, "%p %p | 0x%016"PRIx64"\n", 
+    fprintf(stderr, "%p %p | 0x%016" PRIx64 "\n", 
             _pContainerChanges, 
             &_bvChanged,
            _bvChanged);

@@ -17,11 +17,11 @@ IF(OSGNVidiaSDKSrcDir)
     SET(${PROJECT_NAME}StaticTarget    osgcudacommon)
   ENDIF(WIN32)
 
-  SET(OSG_CUDACOMMON_SRC_INPUT param.cpp
-                               paramgl.cpp)
+#  SET(OSG_CUDACOMMON_SRC_INPUT param.cpp
+#                               paramgl.cpp)
 
-  SET(OSG_CUDACOMMON_HDR_INPUT param.h
-                               paramgl.h)
+  SET(OSG_CUDACOMMON_HDR_INPUT helper_cuda.h
+                               helper_cuda_gl.h)
 
   SetupFiles(OSG_CUDACOMMON_SRC_INPUT 
              OSG_CUDACOMMON_SRCS 
@@ -30,35 +30,29 @@ IF(OSGNVidiaSDKSrcDir)
 
   SetupFiles(OSG_CUDACOMMON_HDR_INPUT 
              OSG_CUDACOMMON_HDR 
-             "${OSGNVidiaSDKSrcDir}/C/common/inc"
+             "${OSGNVidiaSDKSrcDir}/common/inc"
              "${OSG_SUPP_CC_BBASE}/CudaCommon/src")
 
   IF(NOT WIN32)
     IF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
       FILE(MAKE_DIRECTORY ${_OSGSUPP_DST_DIR}/GL)
-      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n")
+      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n#include <GL/gl.h>")
     ENDIF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
   ENDIF(NOT WIN32)
 
-  INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/CudaCommon/src")
-  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
-  INCLUDE_DIRECTORIES("${OSG_CUDA_UTIL_INCLUDEDIR}")
-  IF(WIN32)
-    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
-    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
-  ENDIF(WIN32)
 
-  IF(UNIX)
-    SET(OSGCUDACOMLIB_DEF GL_GLEXT_PROTOTYPES=1)
-  ENDIF(UNIX)
+  IF(WIN32)
+#    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
+#    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
+  ENDIF(WIN32)
 
   IF(BUILD_STATIC_LIBS)
 
     ## device lib
 
-    ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_CUDACOMMON_SRCS})
+#    ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_CUDACOMMON_SRCS})
 
-    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
+#    ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
 
     IF(WIN32)
       SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
@@ -67,8 +61,8 @@ IF(OSGNVidiaSDKSrcDir)
 
     SET(OSGCUDACOMLIB_DEF_STATIC ${OSGCUDACOMLIB_DEF})
 
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
-                          COMPILE_DEFINITIONS "${OSGCUDACOMLIB_DEF_STATIC}")
+#    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+#                          COMPILE_DEFINITIONS "${OSGCUDACOMLIB_DEF_STATIC}")
 
 
     IF(WIN32)
@@ -78,10 +72,10 @@ IF(OSGNVidiaSDKSrcDir)
                   LIBRARY DESTINATION lib COMPONENT libraries 
                   ARCHIVE DESTINATION lib COMPONENT libraries )
     ELSE(WIN32)
-      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
-                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
-                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
+#      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+#                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
+#                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries 
+#                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries)
     ENDIF(WIN32)
 
   ENDIF(BUILD_STATIC_LIBS)

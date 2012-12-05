@@ -131,7 +131,7 @@ void DisplayFilterStageData::updateData(FieldContainer *pStageCore,
     if(pCore == NULL)
         return;
 
-    fprintf(stderr, "dfs data updateData %d | 0x%016"PRIx64"\n", 
+    fprintf(stderr, "dfs data updateData %d | 0x%016" PRIx64 "\n", 
             origin,
             whichField);
     

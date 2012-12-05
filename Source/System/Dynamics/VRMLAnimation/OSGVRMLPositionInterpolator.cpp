@@ -132,7 +132,7 @@ void VRMLPositionInterpolator::changed(ConstFieldMaskArg whichField,
         else
         {
             fprintf(stderr, 
-                    "interpol resort : sizes don't match %"PRISize" | %d\n",
+                    "interpol resort : sizes don't match %" PRISize " | %d\n",
                     uiNumRes, _mfResortIndex.size32());
         }
     }

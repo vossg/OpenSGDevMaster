@@ -55,7 +55,7 @@
 #include "OSGWindow.h"
 #include "OSGFrameBufferAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
 // OSGFBOViewportBase.cpp file.
@@ -184,3 +184,6 @@ void FBOViewport::render(DrawActionBase *action)
     }
 }
 #endif
+
+OSG_END_NAMESPACE
+

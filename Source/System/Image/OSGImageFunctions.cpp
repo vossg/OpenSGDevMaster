@@ -265,7 +265,8 @@ bool createNormalVolume (      Image       *inImage,
     pf = Image::OSG_RGBA_PF;
     break;
   default:
-    FFATAL(( "Invalid outputFormat length in createNormalVolume: %"PRISize"\n",
+    FFATAL(( "Invalid outputFormat length in createNormalVolume: %" 
+             PRISize "\n",
              outputFormat.size() ));
     return false;
   }
@@ -295,7 +296,7 @@ bool createNormalVolume (      Image       *inImage,
         calcThetaPhi = true;
         break;
       }
-      FDEBUG (( "dataIndex[%"PRISize"]: %d\n", i, dataIndex[i] ));
+      FDEBUG (( "dataIndex[%" PRISize "]: %d\n", i, dataIndex[i] ));
     }        
     else {
       FFATAL (( "Invalid outputFormat element %c, valid: %s\n",
@@ -870,7 +871,8 @@ bool createNormalizationCubeMap(std::vector<Image *> imageVec,
     
     if (imageVec.size() < 6)
     {
-        FFATAL(("Only %"PRISize" images given - need six\n", imageVec.size()));
+        FFATAL(("Only %" PRISize " images given - need six\n", 
+                imageVec.size()));
         return false;
     }
 

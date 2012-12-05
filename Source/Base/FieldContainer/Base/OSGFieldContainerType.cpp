@@ -461,7 +461,7 @@ void FieldContainerType::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
     for(UInt32 i = 0; i < _vDescVec.size(); i++)
     {
-        FLOG(("Desc : %s | %d | 0x%016"PRIx64"\n",
+        FLOG(("Desc : %s | %d | 0x%016" PRIx64 "\n",
               _vDescVec[i]->getCName(),
               _vDescVec[i]->getFieldId(),
               _vDescVec[i]->getFieldMask()));

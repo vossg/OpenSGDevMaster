@@ -697,7 +697,7 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
                     {
                         FWARNING(("OFObjectRecord::convertFaceGroup: "
                                   "Found different vtypes - first [0x%x] "
-                                  "current [0x%x] face [%u/%"PRIUSize"] "
+                                  "current [0x%x] face [%u/%" PRIUSize "] "
                                   "vert [%u]\n",
                                   uiFirstVType, uiVType,
                                   i, vFaceGroup.size(), j));

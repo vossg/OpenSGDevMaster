@@ -372,6 +372,18 @@ IF(${CMAKE_CXX_PLATFORM_ID} STREQUAL "Linux")
     SET(LINUX 1)
 ENDIF()
 
+IF(WIN32)
+  SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt"
+                                CACHE STRING "OpenSG Build Types" FORCE )
+ELSE()
+  SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugGV"
+                                CACHE STRING "OpenSG Build Types" FORCE )
+ENDIF(WIN32)
+IF(APPLE AND IOS)
+  SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;Debug-iphonesimulator;Release-iphonesimulator;Debug-iphoneos;Release-iphoneos"
+                                CACHE STRING "OpenSG Build Types" FORCE )
+ENDIF()
+
 IF(NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Debug CACHE STRING
       "Choose the type of build, options are: Debug Release."
@@ -2285,15 +2297,6 @@ INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/Rhino3DLoader/README
                     WORLD_READ
         RENAME README.rhine)
 
-
-IF(WIN32)
-  SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt"
-                                CACHE STRING "OpenSG Build Types" FORCE )
-ENDIF(WIN32)
-IF(APPLE AND IOS)
-  SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;Debug-iphonesimulator;Release-iphonesimulator;Debug-iphoneos;Release-iphoneos"
-                                CACHE STRING "OpenSG Build Types" FORCE )
-ENDIF()
 
 IF(WIN32)
   FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"

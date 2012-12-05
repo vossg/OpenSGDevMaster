@@ -11,13 +11,14 @@ class Foo
 
     void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField, OSG::UInt32 origin)
     {
-        fprintf(stderr, "Foo::testCB %"PRIx64" origin %u\n", whichField, origin);
+        fprintf(stderr, "Foo::testCB %" PRIx64 " origin %u\n", 
+                whichField, origin);
     }
 };
 
 void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField, OSG::UInt32 origin)
 {
-    fprintf(stderr, "testCB %"PRIx64" origin %u\n", whichField, origin);
+    fprintf(stderr, "testCB %" PRIx64 " origin %u\n", whichField, origin);
 }
 
 int main (int argc, char **argv)

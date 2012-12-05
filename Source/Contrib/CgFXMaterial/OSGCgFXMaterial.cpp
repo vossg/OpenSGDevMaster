@@ -176,7 +176,7 @@ UInt32 CgFXMaterial::handleGL(DrawEnv                 *pEnv,
         pEnv->getWindow()->setGLObjectId(osgId, glId);
 
 #if OSG_CGFX_DUMP_DEBUG
-        fprintf( stderr, "setting gl id %"PRIUSize" | %p\n",
+        fprintf( stderr, "setting gl id %" PRIUSize " | %p\n",
                  glId,
                 _pCGcontext);
 #endif
@@ -227,7 +227,7 @@ void CgFXMaterial::handleDestroyGL(DrawEnv                 *pEnv,
 
         CGcontext pCGcontext = reinterpret_cast<CGcontext>(glId);
 
-        fprintf(stderr, "destroying gl id %"PRIUSize"\n",
+        fprintf(stderr, "destroying gl id %" PRIUSize "\n",
                 glId);
 
         if(pCGcontext != NULL)

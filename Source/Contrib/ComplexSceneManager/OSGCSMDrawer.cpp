@@ -343,7 +343,8 @@ void CSMDrawer::runParallel(void)
         fprintf(stderr, "Running without swap lock\n");
         fflush (stderr);
 
-        fprintf(stderr, "Running with %"PRISize"-windws\n", _mfWindows.size());
+        fprintf(stderr, "Running with %" PRISize "-windws\n", 
+                _mfWindows.size());
         fflush (stderr);
 
         while(_bRun == true)
@@ -382,7 +383,8 @@ void CSMDrawer::runParallel(void)
         fprintf(stderr, "Running with swap lock\n");
         fflush (stderr);
 
-        fprintf(stderr, "Running with %"PRISize"-windws\n", _mfWindows.size());
+        fprintf(stderr, "Running with %" PRISize "-windws\n", 
+                _mfWindows.size());
         fflush (stderr);
 
         while(_bRun == true)

@@ -146,6 +146,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
     GeoIntegralPropertyUnrecPtr lensPtr;
     GeoIntegralPropertyUnrecPtr typePtr;
     DataElem dataElem;
+    DataElem lastDataElem;
     Char8 strBuf[8192], *token, *nextToken;
     Int32 strBufSize = sizeof(strBuf)/sizeof(Char8);
     Int32 index, posIndex = 0, indexType;
@@ -267,12 +268,20 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                             token = nextToken;
                         }
                     break;
+
                     case UNKNOWN_DE:
                     default:
-                        FWARNING (( "Unkown obj data elem: %s\n", elem.c_str()));
+                        // don't warn about 3rd tex coord
+                        if(lastDataElem != VERTEX_TEXTURECOORD_DE)
+                        {
+                            FWARNING (( "Unkown obj data elem: %s\n", 
+                                        elem.c_str()));
+                        }
                         is.ignore(INT_MAX, '\n');
                     break;
                 }
+
+                lastDataElem = dataElem;
             }
         }
 

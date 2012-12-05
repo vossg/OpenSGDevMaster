@@ -53,8 +53,7 @@
 #include "OSGDrawEnv.h"
 #include "OSGTextureObjChunk.h"
 
-OSG_USING_NAMESPACE
-
+OSG_BEGIN_NAMESPACE
 
 UInt32 TextureBuffer::_uiFramebuffer_object_extension = 
     Window::invalidExtensionID;
@@ -382,4 +381,4 @@ void TextureBuffer::dump(      UInt32    ,
     SLOG << "Dump TextureBuffer NI" << std::endl;
 }
 
-
+OSG_END_NAMESPACE

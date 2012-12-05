@@ -108,7 +108,7 @@ namespace Aspect
                     {
 #if 0
                         fprintf(stderr, 
-                                "initializing mfield[%"PRIUSize
+                                "initializing mfield[%" PRIUSize
                                 "] %s, cnt: %s\n",
                                 i,
                                 fDesc->getCName(),
@@ -175,7 +175,7 @@ namespace Aspect
         }
 
         fprintf(stderr,
-                "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64" (%p|%p) | %s\n",
+                "CE : %u %u 0x%016" PRIx64 " 0x%016" PRIx64 " (%p|%p) | %s\n",
                 pChanges->uiEntryDesc,
                 pChanges->uiContainerId,
                 tmpChanges,
@@ -195,7 +195,7 @@ namespace Aspect
 
             if(pDesc != NULL)
             {
-                fprintf(stderr, "Desc[%d] = %s [%d|0x%016"PRIx64"\n", 
+                fprintf(stderr, "Desc[%d] = %s [%d|0x%016" PRIx64 "\n", 
                         i, 
                         pDesc->getCName(),
                         pDesc->getFieldId(),

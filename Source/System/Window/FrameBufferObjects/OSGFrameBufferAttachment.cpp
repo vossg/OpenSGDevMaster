@@ -48,7 +48,7 @@
 
 #include "OSGFrameBufferAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
 // OSGFrameBufferAttachmentBase.cpp file.
@@ -117,4 +117,6 @@ void FrameBufferAttachment::dump(      UInt32    ,
 {
     SLOG << "Dump FrameBufferAttachment NI" << std::endl;
 }
+
+OSG_END_NAMESPACE
 

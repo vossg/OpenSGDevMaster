@@ -158,7 +158,7 @@ void FieldContainer::dumpFieldInfo(void) const
             fprintf(stderr, "\n");
 
 #if 0
-            fprintf(stderr, "0x%016"PRIx64" 0x%016"PRIx64"\n",
+            fprintf(stderr, "0x%016" PRIx64 " 0x%016" PRIx64 "\n",
                     _pFieldFlags->_bClusterLocalFlags,
                     pDesc      ->getFieldMask());
 #endif

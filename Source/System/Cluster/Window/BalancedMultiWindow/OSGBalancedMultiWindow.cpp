@@ -469,7 +469,7 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
         }
         conn->resetSelection();
         frameTime += getSystemTime();
-        printf("Cli %4"PRISize" L:%2.6lf T:%10d D:%2.6lf P:%2.6lf N:%2.6lf B:%2.6lf F:%2.6lf\n",
+        printf("Cli %4" PRISize " L:%2.6lf T:%10d D:%2.6lf P:%2.6lf N:%2.6lf B:%2.6lf F:%2.6lf\n",
                getMFServers()->size(),
                _loadTime,
                _triCount,

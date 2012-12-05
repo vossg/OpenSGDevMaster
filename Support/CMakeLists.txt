@@ -64,6 +64,9 @@ IF(${CMAKE_CXX_PLATFORM_ID} STREQUAL "Linux")
     SET(LINUX 1)
 ENDIF()
 
+SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
+                              CACHE STRING "OpenSGSupport Build Types" FORCE )
+
 IF(NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE Debug CACHE STRING
       "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
@@ -143,9 +146,6 @@ FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_SUPPORT})
   ENDIF()
 
 ENDFOREACH(EXTERNAL)
-
-SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
-                              CACHE STRING "OpenSGSupport Build Types" FORCE )
 
 FILE(WRITE  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake" 
             "SET(OSG_SUPPORT_DISABLE_MICROSOFT_SECURE_CXXX ${OSG_DISABLE_MICROSOFT_SECURE_CXXX} CACHE INTERNAL \"\")\n\n")

@@ -329,9 +329,9 @@ void ThreadManager::dump(void)
     }
 
     FLOG(
-        ("Sizes: ThreadStore: %"PRISize" BarrierStore: %"PRISize
-         " CondVarStore: %"PRISize" LockStore: %"PRISize" LockPoolStore: %"
-         PRISize" SemaphoreStore: %"PRISize"\n",
+        ("Sizes: ThreadStore: %" PRISize " BarrierStore: %" PRISize
+         " CondVarStore: %" PRISize " LockStore: %" PRISize " LockPoolStore: %"
+         PRISize " SemaphoreStore: %" PRISize "\n",
          _sThreadStore   ._mFieldMap.size(),
          _sBarrierStore  ._mFieldMap.size(),
          _sCondVarStore  ._mFieldMap.size(),
@@ -633,9 +633,9 @@ bool ThreadManager::shutdown(void)
 #endif
 
     FDEBUG(
-        ("Sizes: ThreadStore: %"PRISize" BarrierStore: %"PRISize
-         " CondVarStore: %"PRISize" LockStore: %"PRISize" LockPoolStore: %"
-         PRISize" SemaphoreStore: %"PRISize"\n",
+        ("Sizes: ThreadStore: %" PRISize " BarrierStore: %" PRISize
+         " CondVarStore: %" PRISize " LockStore: %" PRISize " LockPoolStore: %"
+         PRISize " SemaphoreStore: %" PRISize "\n",
          _sThreadStore   ._mFieldMap.size(),
          _sBarrierStore  ._mFieldMap.size(),
          _sCondVarStore  ._mFieldMap.size(),

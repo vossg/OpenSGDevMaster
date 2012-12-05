@@ -461,7 +461,7 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readLineStrips: material symbol [%s] "
-                     "vertices [%d] strips [%"PRIUSize"]\n",
+                     "vertices [%d] strips [%" PRIUSize "]\n",
                      (lineStrips->getMaterial() != NULL ?
                       lineStrips->getMaterial() : ""), 
                      verts,
@@ -570,7 +570,7 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readPolygons: material symbol [%s] "
-                     "vertices [%d] polygons [%"PRIUSize"]\n",
+                     "vertices [%d] polygons [%" PRIUSize "]\n",
                      (polygons->getMaterial() != NULL ?
                       polygons->getMaterial() : ""), verts,
                      _geoStore[geoIdx]._lengths->size()));
@@ -815,7 +815,7 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readTriFans: material symbol [%s] "
-                     "vertices [%d] fans [%"PRIUSize"]\n",
+                     "vertices [%d] fans [%" PRIUSize "]\n",
                      (triFans->getMaterial() != NULL ?
                       triFans->getMaterial() : ""), 
                      verts,
@@ -882,7 +882,7 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
     }
 
     OSG_COLLADA_LOG(("ColladaGeometry::readTriStrips: material symbol [%s] "
-                     "vertices [%d] strips [%"PRIUSize"]\n",
+                     "vertices [%d] strips [%" PRIUSize "]\n",
                      (triStrips->getMaterial() != NULL ?
                       triStrips->getMaterial() : ""), 
                      verts,

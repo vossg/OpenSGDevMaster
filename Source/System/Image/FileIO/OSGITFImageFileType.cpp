@@ -157,7 +157,7 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
 
         if(_vImages.size() != _uiRows * _uiColumns || _vImages.size() == 0)
         {
-            fprintf(stderr, "Images missing %"PRISize" %d\n",
+            fprintf(stderr, "Images missing %" PRISize " %d\n",
                     _vImages.size(),
                     _uiRows * _uiColumns);
 

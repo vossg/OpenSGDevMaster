@@ -287,7 +287,8 @@ FieldDescriptionBase *FieldDescFactoryBase::create(
 {
     if(uiFieldTypeId >= _vCreators.size())
     {
-        FWARNING(("FieldDescFactory::create, unknown type id %d (%"PRISize")\n",
+        FWARNING(("FieldDescFactory::create, unknown type id %d (%" 
+                  PRISize ")\n",
                    uiFieldTypeId,
                   _vCreators.size()));
 

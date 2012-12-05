@@ -369,8 +369,8 @@ ColladaController::readSkin(domSkin *skin)
         }
         
         OSG_COLLADA_LOG(("ColladaController::readSkin: "
-                         "jIndexProp.size() [%"PRIUSize"] "
-                         "jWeightProp.size() [%"PRIUSize"]\n",
+                         "jIndexProp.size() [%" PRIUSize "] "
+                         "jWeightProp.size() [%" PRIUSize "]\n",
                          jIndexProp->size(), 
                          jWeightProp->size()));
 

@@ -372,7 +372,7 @@ void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
     else if(getMFShaderOffsetMatrix()->size() != 0)
     {
         FWARNING(("TextureChunk::handleTextureShader: shaderOffsetMatrix has"
-                    " to have 4 entries, not %"PRIUSize"!\n",
+                    " to have 4 entries, not %" PRIUSize "!\n",
                     getMFShaderOffsetMatrix()->size() ));
     }
 

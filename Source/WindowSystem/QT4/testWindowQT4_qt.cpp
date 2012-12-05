@@ -8,6 +8,8 @@
 #pragma set woff 1375
 #endif
 
+#include <OSGGL.h>
+
 #include <QtGui/qapplication.h>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QKeyEvent>

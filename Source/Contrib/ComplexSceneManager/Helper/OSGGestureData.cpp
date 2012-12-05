@@ -257,7 +257,7 @@ void GestureData::clear(void)
 
 void GestureData::dump(void) const
 {
-    fprintf(stderr, "Blobs (%"PRISize") :\n", _vBlobs.size());
+    fprintf(stderr, "Blobs (%" PRISize ") :\n", _vBlobs.size());
     for(UInt32 i = 0; i < _vBlobs.size(); ++i)
     {
         fprintf(stderr, "  [%d] : %d %d %d | %f %f\n",
@@ -269,7 +269,7 @@ void GestureData::dump(void) const
                 _vBlobs[i]._vPosition[1]);
     }
 
-    fprintf(stderr, "Active Blobs (%"PRISize") :\n", _vActiveBlobs.size());
+    fprintf(stderr, "Active Blobs (%" PRISize ") :\n", _vActiveBlobs.size());
 
     for(UInt32 i = 0; i < _vActiveBlobs.size(); ++i)
     {

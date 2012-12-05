@@ -463,7 +463,7 @@ void DynFieldContainer<ParentT>::dump(
                  << ")"
                  << std::endl;
 
-            fprintf(stderr, "[%d] : 0x%016"PRIx64"\n",
+            fprintf(stderr, "[%d] : 0x%016" PRIx64 "\n",
                     i,
                     getType().getFieldDesc(i)->getFieldMask());
         }
@@ -513,7 +513,7 @@ void DynFieldContainer<ParentT>::dump(
                  << ")"
                  << std::endl;
 
-            fprintf(stderr, "[%d] : 0x%016"PRIx64"\n",
+            fprintf(stderr, "[%d] : 0x%016" PRIx64 "\n",
                     i,
                     getType().getFieldDesc(i)->getFieldMask());
 

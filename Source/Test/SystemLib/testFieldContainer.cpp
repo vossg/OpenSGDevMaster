@@ -59,7 +59,7 @@ void applyToAspectAndClear(OSG::UInt32 uiAspect)
 void testSharing(void)
 {
     fprintf(stderr, "sharing\n");
-    fprintf(stderr, "%"PRIUSize"\n", sizeof(OSG::TestFC));
+    fprintf(stderr, "%" PRIUSize "\n", sizeof(OSG::TestFC));
 
     OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
@@ -143,7 +143,7 @@ void testSharing(void)
 void testSharing1(void)
 {
     fprintf(stderr, "sharing\n");
-    fprintf(stderr, "%"PRIUSize"\n", sizeof(OSG::TestFC));
+    fprintf(stderr, "%" PRIUSize "\n", sizeof(OSG::TestFC));
 
     OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
@@ -198,7 +198,7 @@ void testSharing1(void)
 void testSharing2(void)
 {
     fprintf(stderr, "sharing\n");
-    fprintf(stderr, "%"PRIUSize"\n", sizeof(OSG::TestFC));
+    fprintf(stderr, "%" PRIUSize "\n", sizeof(OSG::TestFC));
 
     OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 
@@ -371,7 +371,7 @@ void testRefCount(void)
 void testChangeList(void)
 {
     fprintf(stderr, "testChangeList\n");
-    fprintf(stderr, "%"PRIUSize"\n", sizeof(OSG::TestFC));
+    fprintf(stderr, "%" PRIUSize "\n", sizeof(OSG::TestFC));
 
     OSG::TestFCUnrecPtr pTestFC = OSG::TestFC::create();
 

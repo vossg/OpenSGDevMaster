@@ -1341,7 +1341,7 @@ void RenderPartition::dump(UInt32 uiIndent)
     fprintf(stderr, "RenderParition %p | %d\n", this, Int32(_ubState));
 
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
-    fprintf(stderr, "with %"PRISize" groups\n", _vGroupStore.size());
+    fprintf(stderr, "with %" PRISize " groups\n", _vGroupStore.size());
 
     GroupStore::iterator gIt  = _vGroupStore.begin();
     GroupStore::iterator gEnd = _vGroupStore.end  ();

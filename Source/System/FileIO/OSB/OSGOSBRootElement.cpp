@@ -179,7 +179,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
             headerName.c_str()));
     OSG_OSB_LOG(("OSBRootElement::read: headerOptions: [%s]\n",
             headerOptions.c_str()));
-    OSG_OSB_LOG(("OSBRootElement::read: fileSize: [%"PRISize"]\n",
+    OSG_OSB_LOG(("OSBRootElement::read: fileSize: [%" PRISize "]\n",
             fileSize));
 
     std::string     fcTypeName;

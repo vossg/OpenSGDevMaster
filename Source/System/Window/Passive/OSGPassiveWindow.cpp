@@ -51,7 +51,8 @@
 
 #ifdef OSG_USE_GLX
 # if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
-#  include <GL3/glx3.h>
+//#  include <GL3/glx3.h>
+#  include <GLArb/glxarb.h>
 # else
 #  include <GL/glx.h>
 # endif
