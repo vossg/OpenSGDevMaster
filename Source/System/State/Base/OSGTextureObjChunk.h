@@ -218,6 +218,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 
     // extension indices for used extensions;
     static UInt32 _extTex3D;
+    static UInt32 _extTextureArray;
     static UInt32 _sgisGenerateMipmap;
     static UInt32 _arbTextureCompression;
     static UInt32 _arbTextureRectangle;

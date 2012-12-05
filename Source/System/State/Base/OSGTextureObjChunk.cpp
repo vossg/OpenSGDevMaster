@@ -73,6 +73,7 @@ OSG_USING_NAMESPACE
 typedef OSG::Window Win;
 
 UInt32 TextureObjChunk::_extTex3D                    = Win::invalidExtensionID;
+UInt32 TextureObjChunk::_extTextureArray             = Win::invalidExtensionID;
 UInt32 TextureObjChunk::_arbCubeTex                  = Win::invalidExtensionID;
 UInt32 TextureObjChunk::_sgisGenerateMipmap          = Win::invalidExtensionID;
 UInt32 TextureObjChunk::_arbTextureCompression       = Win::invalidExtensionID;
@@ -126,6 +127,8 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
     {
         _extTex3D          =
             Window::registerExtension("GL_EXT_texture3D"       );
+        _extTextureArray   =
+            Window::registerExtension("GL_EXT_texture_array"   );
         _arbCubeTex        =
             Window::registerExtension("GL_ARB_texture_cube_map");
         _sgisGenerateMipmap  =
@@ -481,6 +484,15 @@ void TextureObjChunk::handleTexture(Window                  *win,
             return;
         }
 
+        if((imgtarget == GL_TEXTURE_1D_ARRAY ||
+            imgtarget == GL_TEXTURE_2D_ARRAY  )              &&
+           !win->hasExtOrVersion(_extTextureArray, 0x0300))
+        {
+            FWARNING(("texture arrays not supported on Window %p!\n",
+                      win));
+            return;
+        }
+
         if(imgtarget == GL_TEXTURE_RECTANGLE_ARB &&
            !win->hasExtOrVersion(_arbTextureRectangle, 0x0301))
         {
@@ -570,6 +582,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
             glTexParameteri(paramtarget, GL_TEXTURE_WRAP_S, getWrapS());
 
             if(paramtarget == GL_TEXTURE_2D           ||
+               paramtarget == GL_TEXTURE_2D_ARRAY     ||
                paramtarget == GL_TEXTURE_3D           ||
                paramtarget == GL_TEXTURE_CUBE_MAP_ARB ||
                paramtarget == GL_TEXTURE_RECTANGLE_ARB )
@@ -577,8 +590,9 @@ void TextureObjChunk::handleTexture(Window                  *win,
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_T, getWrapT());
             }
 
-            if(paramtarget == GL_TEXTURE_3D ||
-               paramtarget == GL_TEXTURE_CUBE_MAP_ARB)
+            if(paramtarget == GL_TEXTURE_2D_ARRAY     ||
+               paramtarget == GL_TEXTURE_3D           ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARB  )
             {
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_R, getWrapR());
             }
@@ -690,6 +704,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                 break;
 #endif
                             case GL_TEXTURE_2D:
+                            case GL_TEXTURE_1D_ARRAY:
                                 osgGlCompressedTexImage2D(
                                     imgtarget, 
                                     i - baseLevel, 
@@ -717,8 +732,9 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                     img->getData(i, frame, side));
                                 break;
                             case GL_TEXTURE_3D:
+                            case GL_TEXTURE_2D_ARRAY:
                                 osgGlCompressedTexImage3D(
-                                    GL_TEXTURE_3D, 
+                                    imgtarget, 
                                     i - baseLevel, 
                                     internalFormat,
                                     w, 
@@ -751,7 +767,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                              img->getData(i, frame, side));
                                 break;
 #endif 
-                           case GL_TEXTURE_2D:
+                            case GL_TEXTURE_2D:
+                            case GL_TEXTURE_1D_ARRAY:
                             case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                             case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
                             case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
@@ -769,7 +786,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                              img->getData(i, frame, side));
                                 break;
                             case GL_TEXTURE_3D:
-                                osgGlTexImage3D(GL_TEXTURE_3D, 
+                            case GL_TEXTURE_2D_ARRAY:
+                                osgGlTexImage3D(imgtarget, 
                                                 i - baseLevel, 
                                                 internalFormat,
                                                 w, 
@@ -1042,6 +1060,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                break;
 #endif
                            case GL_TEXTURE_2D:
+                           case GL_TEXTURE_1D_ARRAY:
                                osgGlCompressedTexImage2D(imgtarget, 0, 
                                                          internalFormat,
                                                          osgNextPower2(width),
@@ -1089,14 +1108,15 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                                 side));
                                break;
                            case GL_TEXTURE_3D:
-                               osgGlCompressedTexImage3D(GL_TEXTURE_3D, 0, 
+                           case GL_TEXTURE_2D_ARRAY:
+                               osgGlCompressedTexImage3D(imgtarget, 0, 
                                                          internalFormat,
                                                          osgNextPower2(width),
                                                          osgNextPower2(height),
                                                          osgNextPower2(depth),
                                                          getBorderWidth(), 0, 
                                                          NULL);
-                               osgGlCompressedTexSubImage3D(GL_TEXTURE_3D, 
+                               osgGlCompressedTexSubImage3D(imgtarget, 
                                                             0,  0, 0,
                                                             0,
                                                             width, height, 
@@ -1130,6 +1150,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                break;
 #endif
                            case GL_TEXTURE_2D:
+                           case GL_TEXTURE_1D_ARRAY:
                            case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                            case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
                            case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
@@ -1155,7 +1176,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                              img->getData(0, frame, side));
                                break;
                            case GL_TEXTURE_3D:
-                               osgGlTexImage3D(GL_TEXTURE_3D, 
+                           case GL_TEXTURE_2D_ARRAY:
+                               osgGlTexImage3D(imgtarget, 
                                                0, 
                                                internalFormat,
                                                osgNextPower2(width),
@@ -1163,7 +1185,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                                osgNextPower2(depth),
                                                getBorderWidth(), 
                                                externalFormat, type, NULL);
-                               osgGlTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
+                               osgGlTexSubImage3D(imgtarget, 0,  0, 0, 0,
                                                   width, height, depth,
                                                   externalFormat, type,
                                                   img->getData(0, frame, side));
@@ -1209,6 +1231,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                             break;
 #endif
                         case GL_TEXTURE_2D:
+                        case GL_TEXTURE_1D_ARRAY:
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
@@ -1230,7 +1253,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                                       datasize, data);
                             break;
                         case GL_TEXTURE_3D:
-                            osgGlCompressedTexImage3D(GL_TEXTURE_3D, 0, 
+                        case GL_TEXTURE_2D_ARRAY:
+                            osgGlCompressedTexImage3D(imgtarget, 0, 
                                                       internalFormat,
                                                       width, height, depth, 
                                                       getBorderWidth(),
@@ -1255,6 +1279,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                             break;
 #endif
                         case GL_TEXTURE_2D:
+                        case GL_TEXTURE_1D_ARRAY:
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
@@ -1274,7 +1299,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                          data);
                             break;
                         case GL_TEXTURE_3D:
-                            osgGlTexImage3D(GL_TEXTURE_3D, 0, internalFormat,
+                        case GL_TEXTURE_2D_ARRAY:
+                            osgGlTexImage3D(imgtarget, 0, internalFormat,
                                             width, height, depth, 
                                             getBorderWidth(),
                                             externalFormat, type,
@@ -1394,6 +1420,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         break;
 #endif
                     case GL_TEXTURE_2D:
+                    case GL_TEXTURE_1D_ARRAY:
                         osgGlCompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
                                                      externalFormat, 
                                                      img->getFrameSize(),
@@ -1426,7 +1453,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                                                    side ) );
                         break;
                     case GL_TEXTURE_3D:
-                        osgGlCompressedTexSubImage3D(GL_TEXTURE_3D, 0,  
+                    case GL_TEXTURE_2D_ARRAY:
+                        osgGlCompressedTexSubImage3D(imgtarget, 0,  
                                                      ix, iy, iz,
                                                      w, h, d,
                                                      externalFormat, 
@@ -1452,6 +1480,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         break;
 #endif
                     case GL_TEXTURE_2D:
+                    case GL_TEXTURE_1D_ARRAY:
                     case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
                     case GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB:
                     case GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB:
@@ -1469,7 +1498,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                         img->getData( 0, getFrame(), side ) );
                         break;
                     case GL_TEXTURE_3D:
-                        osgGlTexSubImage3D(GL_TEXTURE_3D, 0,  ix, iy, iz,
+                    case GL_TEXTURE_2D_ARRAY:
+                        osgGlTexSubImage3D(imgtarget, 0,  ix, iy, iz,
                                            w, h, d,
                                            externalFormat, type,
                                            img->getData(0, getFrame(), side));
