@@ -184,6 +184,7 @@ void PerfMonitorForeground::initText(const std::string &family, Real32 size)
     // Increment reference counters
     OSG::addRef(_face);    
 
+#if 0
     // Init the text for the chart
     mode_names = boost::assign::map_list_of
                   (PerfMonitorForeground::Text,              "Text")
@@ -191,6 +192,7 @@ void PerfMonitorForeground::initText(const std::string &family, Real32 size)
                   (PerfMonitorForeground::PercentTotalLines, "PercentTotalLines")
                   (PerfMonitorForeground::MaxLines,          "MaxLines")
                   (PerfMonitorForeground::ThreadTiming,      "ThreadTiming");
+#endif
 }
 
 /** Draw the foreground on the viewport. */
