@@ -1,0 +1,195 @@
+#OSG V1.0 
+
+Node
+{
+  children
+  [
+    Node
+    {
+      core Geometry
+      {
+        dlistCache     TRUE
+        useVAO         FALSE
+        useAttribCalls FALSE
+
+        propIndices
+        [
+          # Positions / Attribute 0
+          DEF GeoUInt32Property483 GeoUInt32Property
+          {
+            values #6
+            [
+              0, 1, 2, 0, 2, 3
+            ]
+            usage 268435456
+            useVBO TRUE
+          }
+
+          # Attribute 1
+          NULL
+
+          # Normals / Attribute 2
+          GeoUInt32Property
+          {
+            values #6
+            [
+              0, 1, 2, 3, 4, 5
+            ]
+            usage 268435456
+            useVBO TRUE
+          }
+
+          # Colors / Attribute 3
+          NULL
+
+          # SecondaryColors / Attribute 4
+          NULL
+          # Attribute 5
+          NULL
+          # Attribute 6
+          NULL
+          # Attribute 7
+          NULL
+
+          # TexCoords0 / Attribute 8
+          USE GeoUInt32Property483
+
+          # TexCoords1 / Attribute 9
+          NULL
+          # TexCoords2 / Attribute 10
+          NULL
+          # TexCoords3 / Attribute 11
+          NULL
+          # TexCoords4 / Attribute 12
+          NULL
+          # TexCoords5 / Attribute 13
+          NULL
+          # TexCoords6 / Attribute 14
+          NULL
+          # TexCoords7 / Attribute 15
+          NULL
+        ]
+        properties
+        [
+          # Positions / Attribute 0
+          GeoPnt3fProperty
+          {
+            values #4
+            [
+              -1 -1 -1, 1 -1 -1, 1 1 -3, -1 1 -3
+            ]
+            usage 268435457
+            useVBO TRUE
+          }
+
+          # Attribute 1
+          NULL
+
+          # Normals / Attribute 2
+          GeoVec3fProperty
+          {
+            values #6
+            [
+              0 0 1, 0 0 1, 0 0 1, 0 0 1, 0 0 1, 0 0 1
+            ]
+            usage 268435458
+            useVBO TRUE
+          }
+          # Colors / Attribute 3
+          GeoColor3fProperty
+          {
+            values
+            [
+              0 1 0
+            ]
+
+            useVBO TRUE
+          }
+
+          # SecondaryColors / Attribute 4
+          NULL
+          # Attribute 5
+          NULL
+          # Attribute 6
+          NULL
+          # Attribute 7
+          NULL
+
+          # TexCoords0 / Attribute 8
+          GeoVec2fProperty
+          {
+            values #4
+            [
+              0 0, 1 0, 1 1, 0 1
+            ]
+            usage 268435460
+            useVBO TRUE
+          }
+
+          # TexCoords1 / Attribute 9
+          NULL
+          # TexCoords2 / Attribute 10
+          NULL
+          # TexCoords3 / Attribute 11
+          NULL
+          # TexCoords4 / Attribute 12
+          NULL
+          # TexCoords5 / Attribute 13
+          NULL
+          # TexCoords6 / Attribute 14
+          NULL
+          # TexCoords7 / Attribute 15
+          NULL
+        ]
+
+        lengths GeoUInt32Property
+        {
+          values #1
+          [
+            6
+          ]
+          usage 268435456
+          useVBO TRUE
+        }
+        types GeoUInt8Property
+        {
+          values #1
+          [
+            4
+          ]
+          usage 268435456
+          useVBO TRUE
+        }
+        material NULL
+      }
+      travMask 4294967295
+    }
+  ]
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      slots #0
+      [
+      ]
+      chunks
+      [
+#        TextureObjChunk
+#        {
+#          image ImageFile
+#          {
+#            url "../Texture/tree.jpg"
+#          }
+#        }
+#        TextureEnvChunk
+#        {
+#          envMode GL_REPLACE
+#        }
+         MaterialChunk
+         {
+           diffuse 1.0 0.7 0.7 1.0
+         }
+      ]
+    }
+  }
+}
