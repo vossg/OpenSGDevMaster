@@ -92,10 +92,10 @@ IF(OSGNVidiaSDKSrcDir)
 
 #  ADD_DEPENDENCIES(ALL_STANDARD_BUILD ${${PROJECT_NAME}StaticTarget})
 
-  IF(WIN32)
-    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
-                          DEBUG_POSTFIX "D")
-  ENDIF(WIN32)
+#  IF(WIN32)
+#    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+#                          DEBUG_POSTFIX "D")
+#  ENDIF(WIN32)
 
   SET(OSGNVSDKCOMLIB_DEF_STATIC ${OSGNVSDKCOMLIB_DEF})
 
@@ -104,11 +104,11 @@ IF(OSGNVidiaSDKSrcDir)
 
 
   IF(WIN32)
-    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
-                CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
-                RUNTIME DESTINATION bin COMPONENT libraries
-                LIBRARY DESTINATION lib COMPONENT libraries
-                ARCHIVE DESTINATION lib COMPONENT libraries)
+#    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+#                CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
+#                RUNTIME DESTINATION bin COMPONENT libraries
+#                LIBRARY DESTINATION lib COMPONENT libraries
+#                ARCHIVE DESTINATION lib COMPONENT libraries)
   ELSE(WIN32)
 #    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
 #                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} COMPONENT static_libraries

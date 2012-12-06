@@ -17,7 +17,7 @@ MACRO(SetupFiles fileList targetList sourceDir dstDir)
     ELSE()
 #MESSAGE(STATUS "
       EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${sourceDir}/${_src_file} ${_OSGSUPP_DST_DIR}/${_src_file} )
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${sourceDir}/${_src_file}" "${_OSGSUPP_DST_DIR}/${_src_file}" )
 #")
     ENDIF()
 
@@ -46,12 +46,12 @@ MACRO(CopyOrLink srcFile dstFile)
   IF(NOT WIN32)
 #MESSAGE(STATUS "
     EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E create_symlink ${srcFile} ${dstFile} )
+        COMMAND "${CMAKE_COMMAND}" -E create_symlink "${srcFile}" "${dstFile}" )
 #")
   ELSE()
 #MESSAGE(STATUS "
     EXECUTE_PROCESS(
-        COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${srcFile} ${dstFile} )
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${srcFile}" "${dstFile}" )
 #")
   ENDIF()
 ENDMACRO(CopyOrLink srcFile dstFile)
