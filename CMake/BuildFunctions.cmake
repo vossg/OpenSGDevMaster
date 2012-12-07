@@ -1574,7 +1574,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
 
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS Release Debug DebugGV
-                  RUNTIME DESTINATION bin
+                  RUNTIME DESTINATION bin/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}
                   COMPONENT binaries)
 
         ENDIF(WIN32)
