@@ -40,12 +40,15 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#define GL_GLEXT_PROTOTYPES 1
+
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "OSGConfig.h"
 
 #include "OSGGL.h"
+#include "OSGGLFuncProtos.h"
 
 #include "OSGFieldContainer.h"
 #include "OSGNode.h"
@@ -56,8 +59,19 @@
 #include "OSGBackground.h"
 #include "OSGPassiveBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
+UInt32 PassiveBackground::_uiFramebufferObjectExt  = 
+    Window::invalidExtensionID;
+
+UInt32 PassiveBackground::_uiFramebufferBlitExt    = 
+    Window::invalidExtensionID;
+
+UInt32 PassiveBackground::_uiFuncBindFramebuffer   = 
+    Window::invalidFunctionID;
+
+UInt32 PassiveBackground::_uiFuncBlitFramebuffer   =
+    Window::invalidFunctionID;
 
 /***************************************************************************\
  *                            Description                                  *
@@ -80,6 +94,25 @@ description.
 
 void PassiveBackground::initMethod (InitPhase ePhase)
 {
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+        _uiFramebufferObjectExt   = 
+            Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiFramebufferBlitExt   = 
+            Window::registerExtension("GL_EXT_framebuffer_blit");
+
+        _uiFuncBindFramebuffer          = 
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
+                _uiFramebufferObjectExt);
+
+        _uiFuncBlitFramebuffer  =
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glBlitFramebufferEXT", 
+                _uiFramebufferBlitExt);
+    }
 }
 
 /***************************************************************************\
@@ -109,9 +142,62 @@ void PassiveBackground::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-void PassiveBackground::clear(DrawEnv *)
+void PassiveBackground::clear(DrawEnv *pEnv)
 {
+    if(_sfClearFrameBufferObject.getValue() == true &&
+        pEnv->getActiveFBO()                != 0     )
+    {
+        if(_sfClearCallback.getValue()._func)
+        {
+            _sfClearCallback.getValue()._func(pEnv);
+        }
+        else
+        {
+            Window *win = pEnv->getWindow();
+
+            OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
+                                     osgGlBindFramebuffer,
+                                    _uiFuncBindFramebuffer,
+                                     win                  );
+
+            OSGGETGLFUNCBYID_GL3( glBlitFramebuffer,
+                                  osgGlBlitFramebuffer,
+                                 _uiFuncBlitFramebuffer,
+                                  win                  );
+
+            osgGlBindFramebuffer(GL_READ_FRAMEBUFFER_EXT, 
+                                 0);
+
+            // FixMe breaks if source size != target size
+            osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
+                                 pEnv->getPixelBottom(), 
+                                 pEnv->getPixelRight (), 
+                                 pEnv->getPixelTop   (),
+                             
+                                 pEnv->getPixelLeft  (), 
+                                 pEnv->getPixelBottom(), 
+                                 pEnv->getPixelRight (), 
+                                 pEnv->getPixelTop   (),
+                                 
+                                 (GL_COLOR_BUFFER_BIT  |
+                                  GL_DEPTH_BUFFER_BIT  |
+                                  GL_STENCIL_BUFFER_BIT),
+                                 GL_NEAREST); 
+        }
+    }
 }
+
+void PassiveBackground::setClearCallback(RenderFunctor func,
+                                         std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._createSymbol = createSymbol;
+
+    _sfClearCallback.setValue(oTmp);
+}
+
 
 /*------------------------------- dump ----------------------------------*/
 
@@ -121,4 +207,4 @@ void PassiveBackground::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump PassiveBackground NI" << std::endl;
 }
 
-
+OSG_END_NAMESPACE

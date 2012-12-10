@@ -54,7 +54,7 @@ ContainerCollection
       step  1
 
       lowerLimit  0x0000
-      upperLimit  0x0006
+      upperLimit  0x0007
     }
 
     DEF ModeUp KeySensor

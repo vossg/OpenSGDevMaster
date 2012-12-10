@@ -85,6 +85,14 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var bool            PassiveBackgroundBase::_sfClearFrameBufferObject
+    If used inside an FBO blit from the framebuffer
+*/
+
+/*! \var RenderFunctorCallback PassiveBackgroundBase::_sfClearCallback
+    Inherited the parent target if none is set  
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -111,6 +119,32 @@ OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
 
 void PassiveBackgroundBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "clearFrameBufferObject",
+        "If used inside an FBO blit from the framebuffer\n",
+        ClearFrameBufferObjectFieldId, ClearFrameBufferObjectFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&PassiveBackground::editHandleClearFrameBufferObject),
+        static_cast<FieldGetMethodSig >(&PassiveBackground::getHandleClearFrameBufferObject));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFRenderFunctorCallback::Description(
+        SFRenderFunctorCallback::getClassType(),
+        "clearCallback",
+        "Inherited the parent target if none is set  \n",
+        ClearCallbackFieldId, ClearCallbackFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&PassiveBackground::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&PassiveBackground::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -142,6 +176,26 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     "  i.e. it makes it possible to have two viewports on top of each other to\n"
     "  generate a single combined image. See \\ref\n"
     "  PageSystemWindowBackgroundPassive \n"
+    "\n"
+    "  <Field\n"
+    "     name=\"clearFrameBufferObject\"\n"
+    "     type=\"bool\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"false\"\n"
+    "     access=\"public\"\n"
+    "    >\n"
+    "    If used inside an FBO blit from the framebuffer\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"clearCallback\"\n"
+    "     type=\"RenderFunctorCallback\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"none\"\n"
+    "     >\n"
+    "    Inherited the parent target if none is set  \n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "A background that does nothing within the clear call, thus it also has no\n"
     "Fields at all. It is mainly used to stack viewports on top of each other,\n"
@@ -170,6 +224,20 @@ UInt32 PassiveBackgroundBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFBool *PassiveBackgroundBase::editSFClearFrameBufferObject(void)
+{
+    editSField(ClearFrameBufferObjectFieldMask);
+
+    return &_sfClearFrameBufferObject;
+}
+
+const SFBool *PassiveBackgroundBase::getSFClearFrameBufferObject(void) const
+{
+    return &_sfClearFrameBufferObject;
+}
+
+
+
 
 
 
@@ -180,6 +248,14 @@ SizeT PassiveBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (ClearFrameBufferObjectFieldMask & whichField))
+    {
+        returnValue += _sfClearFrameBufferObject.getBinSize();
+    }
+    if(FieldBits::NoField != (ClearCallbackFieldMask & whichField))
+    {
+        returnValue += _sfClearCallback.getBinSize();
+    }
 
     return returnValue;
 }
@@ -189,6 +265,14 @@ void PassiveBackgroundBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearFrameBufferObjectFieldMask & whichField))
+    {
+        _sfClearFrameBufferObject.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ClearCallbackFieldMask & whichField))
+    {
+        _sfClearCallback.copyToBin(pMem);
+    }
 }
 
 void PassiveBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -196,6 +280,16 @@ void PassiveBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearFrameBufferObjectFieldMask & whichField))
+    {
+        editSField(ClearFrameBufferObjectFieldMask);
+        _sfClearFrameBufferObject.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ClearCallbackFieldMask & whichField))
+    {
+        editSField(ClearCallbackFieldMask);
+        _sfClearCallback.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
@@ -320,12 +414,16 @@ FieldContainerTransitPtr PassiveBackgroundBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 PassiveBackgroundBase::PassiveBackgroundBase(void) :
-    Inherited()
+    Inherited(),
+    _sfClearFrameBufferObject (bool(false)),
+    _sfClearCallback          ()
 {
 }
 
 PassiveBackgroundBase::PassiveBackgroundBase(const PassiveBackgroundBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfClearFrameBufferObject (source._sfClearFrameBufferObject ),
+    _sfClearCallback          (source._sfClearCallback          )
 {
 }
 
@@ -336,6 +434,45 @@ PassiveBackgroundBase::~PassiveBackgroundBase(void)
 {
 }
 
+
+GetFieldHandlePtr PassiveBackgroundBase::getHandleClearFrameBufferObject (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfClearFrameBufferObject,
+             this->getType().getFieldDesc(ClearFrameBufferObjectFieldId),
+             const_cast<PassiveBackgroundBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr PassiveBackgroundBase::editHandleClearFrameBufferObject(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfClearFrameBufferObject,
+             this->getType().getFieldDesc(ClearFrameBufferObjectFieldId),
+             this));
+
+
+    editSField(ClearFrameBufferObjectFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr PassiveBackgroundBase::getHandleClearCallback   (void) const
+{
+    SFRenderFunctorCallback::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr PassiveBackgroundBase::editHandleClearCallback  (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -86,6 +86,10 @@ ComplexSceneManager
       beacon USE CameraRoot
     }
 
+    DEF PassiveBgnd PassiveBackground
+    {
+      clearFrameBufferObject TRUE
+    }
   ]
 
   drawManager DEF DrawManager CSMDrawManager
@@ -98,7 +102,7 @@ ComplexSceneManager
         [
            DEF MainWindow CSMPassiveWindow
            {
-             viewportScale 0.7 0.7
+#             viewportScale 0.7 0.7
 
 #             partitionDrawMode 0x0002
 
@@ -113,7 +117,7 @@ ComplexSceneManager
                {
                  root       USE RootNode
                  camera     USE PerspCamGL
-                 background USE BGnd
+                 background USE PassiveBgnd
                  passive    TRUE
 
                  foregrounds

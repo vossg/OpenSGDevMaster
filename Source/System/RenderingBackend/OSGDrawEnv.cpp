@@ -124,6 +124,7 @@ DrawEnv::DrawEnv(void) :
 
     _pStatCollector         (NULL ),
     _uiActiveShader         (0    ),
+    _uiActiveFBO            (0    ),
     _uiRequiredOGLFeature   (0    )
 {
     _cameraProjection       .setIdentity();

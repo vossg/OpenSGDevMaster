@@ -74,6 +74,31 @@ OSG::UInt16 PassiveBackgroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the PassiveBackground::_sfClearFrameBufferObject field.
+
+inline
+bool &PassiveBackgroundBase::editClearFrameBufferObject(void)
+{
+    editSField(ClearFrameBufferObjectFieldMask);
+
+    return _sfClearFrameBufferObject.getValue();
+}
+
+//! Get the value of the PassiveBackground::_sfClearFrameBufferObject field.
+inline
+      bool  PassiveBackgroundBase::getClearFrameBufferObject(void) const
+{
+    return _sfClearFrameBufferObject.getValue();
+}
+
+//! Set the value of the PassiveBackground::_sfClearFrameBufferObject field.
+inline
+void PassiveBackgroundBase::setClearFrameBufferObject(const bool value)
+{
+    editSField(ClearFrameBufferObjectFieldMask);
+
+    _sfClearFrameBufferObject.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -85,6 +110,12 @@ void PassiveBackgroundBase::execSync (      PassiveBackgroundBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ClearFrameBufferObjectFieldMask & whichField))
+        _sfClearFrameBufferObject.syncWith(pFrom->_sfClearFrameBufferObject);
+
+    if(FieldBits::NoField != (ClearCallbackFieldMask & whichField))
+        _sfClearCallback.syncWith(pFrom->_sfClearCallback);
 }
 #endif
 

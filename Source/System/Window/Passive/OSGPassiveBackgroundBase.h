@@ -65,6 +65,8 @@
 
 #include "OSGBackground.h" // Parent
 
+#include "OSGSysFields.h"               // ClearFrameBufferObject type
+#include "OSGRenderFunctorCallbackFields.h" // ClearCallback type
 
 #include "OSGPassiveBackgroundFields.h"
 
@@ -91,6 +93,22 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
 
   public:
 
+    enum
+    {
+        ClearFrameBufferObjectFieldId = Inherited::NextFieldId,
+        ClearCallbackFieldId = ClearFrameBufferObjectFieldId + 1,
+        NextFieldId = ClearCallbackFieldId + 1
+    };
+
+    static const OSG::BitVector ClearFrameBufferObjectFieldMask =
+        (TypeTraits<BitVector>::One << ClearFrameBufferObjectFieldId);
+    static const OSG::BitVector ClearCallbackFieldMask =
+        (TypeTraits<BitVector>::One << ClearCallbackFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFBool            SFClearFrameBufferObjectType;
+    typedef SFRenderFunctorCallback SFClearCallbackType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -109,6 +127,31 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFBool              *editSFClearFrameBufferObject(void);
+            const SFBool              *getSFClearFrameBufferObject (void) const;
+
+
+                  bool                &editClearFrameBufferObject(void);
+                  bool                 getClearFrameBufferObject (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setClearFrameBufferObject(const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -160,6 +203,14 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFBool            _sfClearFrameBufferObject;
+    SFRenderFunctorCallback _sfClearCallback;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -184,6 +235,10 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleClearFrameBufferObject (void) const;
+    EditFieldHandlePtr editHandleClearFrameBufferObject(void);
+    GetFieldHandlePtr  getHandleClearCallback   (void) const;
+    EditFieldHandlePtr editHandleClearCallback  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

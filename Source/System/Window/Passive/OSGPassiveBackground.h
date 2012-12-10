@@ -60,7 +60,8 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     public PassiveBackgroundBase
 {
     /*==========================  PUBLIC  =================================*/
- public:
+  
+  public:
 
     typedef PassiveBackgroundBase			Inherited;
 
@@ -68,8 +69,15 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     /*! \name                     your_category                            */
     /*! \{                                                                 */
 
-    void clear(DrawEnv *);
+    void clear(DrawEnv *pEnv);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     transformation                           */
+    /*! \{                                                                 */
+
+    void setClearCallback(RenderFunctor func,
+                          std::string   createSymbol);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -89,8 +97,15 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+  
   protected:
-    
+
+    static UInt32 _uiFramebufferObjectExt;
+    static UInt32 _uiFramebufferBlitExt;
+
+    static UInt32 _uiFuncBindFramebuffer;
+    static UInt32 _uiFuncBlitFramebuffer;
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -104,6 +119,11 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
     virtual ~PassiveBackground(void); 
 
 
@@ -111,6 +131,7 @@ class OSG_WINDOW_DLLMAPPING PassiveBackground :
     
     /*! \}                                                                 */
     /*=========================  PRIVATE  =================================*/
+
   private:
 
     friend class FieldContainer;

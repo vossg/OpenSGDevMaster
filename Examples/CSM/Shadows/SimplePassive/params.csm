@@ -1,0 +1,8 @@
+--global ../../Common/default-setup.osg
+--global ../Simple/global-effect.osg
+#--system ../../Common/system-native.osg
+--system ../../Common/system-passive.osg
+--global ../Simple/keys.osg
+--global ../Simple/hlight_off.osg
+--data   ../Simple/scene.wrl
+--global ../../Common/simple_mouse.osg

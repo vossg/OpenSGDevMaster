@@ -138,6 +138,9 @@ void CSMPassiveWindow::csmGlutReshapeHandler(Int32 w,
 
 void CSMPassiveWindow::csmGlutFrameHandler(void)
 {
+    glClearColor(0.2, 0.2, 0.5, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     ComplexSceneManager::the()->frame();
     
     Thread::getCurrentChangeList()->commitChangesAndClear();
@@ -152,7 +155,7 @@ void CSMPassiveWindow::csmGlutMouseHandler(Int32 iButton,
 {
     _pPassiveWindow->mouse(iButton, 
                            iState, 
-                           glutGetModifiers(), 
+                           1 | (glutGetModifiers() << 1), 
                            x, 
                            y);
 }
@@ -160,7 +163,7 @@ void CSMPassiveWindow::csmGlutMouseHandler(Int32 iButton,
 void CSMPassiveWindow::csmGlutMouseMotionHandler(Int32 x, 
                                                  Int32 y)
 {
-    _pPassiveWindow->motion(x, y, MouseData::NoModifier);
+    _pPassiveWindow->motion(x, y, 1 | (glutGetModifiers() << 1));
 }
 
 
@@ -203,14 +206,14 @@ void CSMPassiveWindow::terminateGLContext(void)
 /*----------------------------- class specific ----------------------------*/
 
 void CSMPassiveWindow::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                               UInt32            origin,
+                               BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
 void CSMPassiveWindow::dump(      UInt32    ,
-                         const BitVector ) const
+                            const BitVector ) const
 {
     SLOG << "Dump CSMPassiveWindow NI" << std::endl;
 }

@@ -175,7 +175,20 @@ ContainerCollection
       offFactor 4.0
       offBias   8.0
 
-      shadowMode          1
+      shadowMode          5
+    }
+
+    DEF Logger CSMLogger
+    {
+      containers
+      [
+        USE GlobalEffect2
+      ]
+
+      fields
+      [
+        "shadowMode"
+      ]
     }
   ]
 }

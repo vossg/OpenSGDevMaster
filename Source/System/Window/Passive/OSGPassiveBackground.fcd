@@ -15,4 +15,24 @@
   i.e. it makes it possible to have two viewports on top of each other to
   generate a single combined image. See \ref
   PageSystemWindowBackgroundPassive 
+
+  <Field
+     name="clearFrameBufferObject"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="false"
+     access="public"
+    >
+    If used inside an FBO blit from the framebuffer
+  </Field>
+  <Field
+     name="clearCallback"
+     type="RenderFunctorCallback"
+     cardinality="single"
+     visibility="external"
+     access="none"
+     >
+    Inherited the parent target if none is set  
+  </Field>
 </FieldContainer>

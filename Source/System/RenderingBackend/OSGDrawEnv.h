@@ -197,6 +197,9 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     void   setActiveShader      (      UInt32    uiActiveShader);
     UInt32 getActiveShader      (      void                    );
 
+    void   setActiveFBO         (      UInt32    uiActiveFBO   );
+    UInt32 getActiveFBO         (      void                    );
+
     UInt32 getRequiredOGLFeature(      void                    );
     void   addRequiredOGLFeature(      UInt32    uiFeatureMask );
     void   subRequiredOGLFeature(      UInt32    uiFeatureMask );
@@ -435,6 +438,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
     UInt32         _uiActiveShader;
+    UInt32         _uiActiveFBO;
     UInt32         _uiRequiredOGLFeature;
 
     /*! \}                                                                 */

@@ -608,6 +608,8 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
     osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 
                          win->getGLObjectId(glId));
 
+    pEnv->setActiveFBO(glId);
+
     glErr("FrameBufferObject::activate::bind");
     
     glErr("FrameBufferObject::activate");
@@ -734,6 +736,8 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     }
 
     osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
+
+    pEnv->setActiveFBO(0);
     
     if(_sfPostProcessOnDeactivate.getValue() == true)
     {

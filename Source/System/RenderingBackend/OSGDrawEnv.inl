@@ -227,6 +227,18 @@ UInt32 DrawEnv::getActiveShader(void)
 }
 
 inline
+void DrawEnv::setActiveFBO(UInt32 uiActiveFBO)
+{
+    _uiActiveFBO = uiActiveFBO;
+}
+
+inline
+UInt32 DrawEnv::getActiveFBO(void)
+{
+    return _uiActiveFBO;
+}
+
+inline
 UInt32 DrawEnv::getRequiredOGLFeature(void)
 {
     return _uiRequiredOGLFeature;

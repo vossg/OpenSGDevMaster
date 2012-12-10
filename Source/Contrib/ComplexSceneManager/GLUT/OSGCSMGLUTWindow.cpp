@@ -131,7 +131,7 @@ void CSMGLUTWindow::csmGlutMouseHandler(Int32 iButton,
 {
     _pGLUTWindow->mouse(iButton, 
                         iState, 
-                        glutGetModifiers(), 
+                        1 | (glutGetModifiers() << 1), 
                         x, 
                         y);
 }
@@ -139,7 +139,7 @@ void CSMGLUTWindow::csmGlutMouseHandler(Int32 iButton,
 void CSMGLUTWindow::csmGlutMouseMotionHandler(Int32 x, 
                                               Int32 y)
 {
-    _pGLUTWindow->motion(x, y, MouseData::NoModifier);
+    _pGLUTWindow->motion(x, y, 1 | (glutGetModifiers() << 1));
 }
 
 /***************************************************************************\
