@@ -55,6 +55,39 @@ OSG_BASE_DLLMAPPING bool MatrixOrthogonal(OSG::Matrix &result,
                                           OSG::Real32  rNear,
                                           OSG::Real32  rFar)
 {
+    bool error = false;
+
+    if(osgAbs(rRight - rLeft) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: right " << rRight << " ~= left " 
+                 << rLeft << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(osgAbs(rTop - rBottom) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: top " << rTop << " ~= bottom " 
+                 << rBottom << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(osgAbs(rFar - rNear) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: near " << rNear << " ~= far " << rFar
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+
+    if(error == true)
+    {
+        result.setIdentity();
+        return true;
+    }
+
     result.setValueTransposed(
 
          2.f / (rRight - rLeft), 
