@@ -22,10 +22,12 @@
 # Hack to bring in all symbols OpenSG is linked against and loads from plugins
 # Search for : setdlopenflags and RTLD_GLOBAL on google to see why
 
+import sys
+
 original_dlopen_flags = None
 
 try:
-   import dl, sys
+   import dl
    original_dlopen_flags = sys.getdlopenflags()
    sys.setdlopenflags(original_dlopen_flags | dl.RTLD_GLOBAL)
 except:
@@ -42,7 +44,7 @@ for osg2ModuleFP in osgPythonModules:
   
   osg2Module = os.path.basename(osg2ModuleFP)
   
-  if osg2ModuleNameList.count(osg2Module) == 0:
+  if osg2ModuleNameList.count(osg2Module) == 0 and osg2Module != "osg":
 
     exec("from .. " + osg2Module + " import *")
 
