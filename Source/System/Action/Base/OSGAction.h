@@ -391,16 +391,6 @@ typedef boost::function<
 
 typedef boost::function<Action::ResultE (Action *)> RenderActionFunctor;
 
-/*
-typedef ArgsCollector<Action::ResultE> ArgsT;
-
-typedef TypedFunctor1Base<Action::ResultE, 
-                          CPtrRefCallArg<NodePtr> > TraverseEnterFunctor;
-typedef TypedFunctor2Base<Action::ResultE, 
-                          CPtrRefCallArg<NodePtr>, 
-                          ArgsT                   > TraverseLeaveFunctor;
- */
-
 /*! \ingroup GrpSystemActionFuncs
  */
 
@@ -446,6 +436,7 @@ Action::ResultE traverse(const MFUnrecChildNodePtr  &nodeList,
                                TraverseLeaveFunctor  leave);
                             
 /*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 
