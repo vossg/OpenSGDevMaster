@@ -55,8 +55,8 @@ void SValueEmitter<DESC>::classDescInserter(TypeObject &oType)          \
         TriggerFieldId, TriggerFieldMask,                               \
         true,                                                           \
         (Field::FThreadLocal),                                          \
-        static_cast<FieldEditMethodSig>(&Self::editHandleValue),        \
-        static_cast<FieldGetMethodSig >(&Self::getHandleValue));        \
+        static_cast<FieldEditMethodSig>(&Self::editHandleTrigger),      \
+        static_cast<FieldGetMethodSig >(&Self::getHandleTrigger));      \
                                                                         \
     oType.addInitialDesc(pDesc);                                        \
                                                                         \

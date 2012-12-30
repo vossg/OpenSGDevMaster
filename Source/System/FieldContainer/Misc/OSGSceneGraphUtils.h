@@ -46,6 +46,8 @@
 #include <iosfwd>
 #include <map>
 
+#include <boost/bind.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
@@ -121,6 +123,15 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
     Action::ResultE traverseLeave(Node *node, Action::ResultE res);
 };
 
+/*! \ingroup GrpBaseFieldContainerNodes
+ */
+
+template<class CoreT>
+void collectCoresByType(Node                 *pRoot, 
+                        std::vector<CoreT *> &result);
+
 OSG_END_NAMESPACE
+
+#include "OSGSceneGraphUtils.inl"
 
 #endif // _OSGSCENEGRAPHUTILS_H_

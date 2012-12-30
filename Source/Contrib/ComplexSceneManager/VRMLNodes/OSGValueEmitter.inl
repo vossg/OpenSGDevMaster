@@ -298,6 +298,33 @@ SValueEmitter<Desc>::~SValueEmitter(void)
 }
 
 template<class Desc> inline
+GetFieldHandlePtr SValueEmitter<Desc>::getHandleTrigger(void) const
+{
+    SFOSGAny::GetHandlePtr returnValue(
+        new  SFOSGAny::GetHandle(
+             &_sfTrigger,
+             this->getType().getFieldDesc(TriggerFieldId),
+             const_cast<Self *>(this)));
+
+    return returnValue;
+}
+
+template<class Desc> inline
+EditFieldHandlePtr SValueEmitter<Desc>::editHandleTrigger(void)
+{
+    SFOSGAny::EditHandlePtr returnValue(
+        new  SFOSGAny::EditHandle(
+             &_sfTrigger,
+             this->getType().getFieldDesc(TriggerFieldId),
+             this));
+
+
+    editSField(TriggerFieldMask);
+
+    return returnValue;
+}
+
+template<class Desc> inline
 GetFieldHandlePtr SValueEmitter<Desc>::getHandleValue(void) const
 {
     typename SFValueType::GetHandlePtr returnValue(

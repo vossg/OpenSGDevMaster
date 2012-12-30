@@ -222,6 +222,9 @@ class SValueEmitter : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleTrigger          (void) const;
+    EditFieldHandlePtr editHandleTrigger         (void);
+
     GetFieldHandlePtr  getHandleValue            (void) const;
     EditFieldHandlePtr editHandleValue           (void);
 
