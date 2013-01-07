@@ -1554,6 +1554,19 @@ void VRMLShapeHelper::endNode(FieldContainer *pFC)
                 }
             }
         }
+
+        Node *pChild = pNode->getChild(0);
+
+        if(pChild != NULL)
+        {
+            Geometry      *pShapeGeo = pChild->getCore<Geometry     >();
+            MaterialGroup *pShapeMat = pNode ->getCore<MaterialGroup>();
+
+            if(pShapeGeo != NULL && pShapeMat != NULL)
+            {
+                pShapeGeo->setMaterial(pShapeMat->getMaterial());
+            }
+        }
     }
 
 #ifdef OSG_DEBUG_VRML

@@ -246,7 +246,8 @@ void State::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
     for(it = _mfChunks.begin(), cind = 0; it != _mfChunks.end(); ++it, ++cind)
     {
-        std::cerr << StateChunkClass::getName(cind) << "\t";
+        std::cerr << "[" << cind << "][" 
+                  << StateChunkClass::getName(cind) << "]\t";
 
         if(*it == NULL)
         {
