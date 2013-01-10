@@ -49,11 +49,16 @@
 
 #include "OSGQT4Window.h"
 
-#if 0
-#ifndef WIN32
-#include <QtGui/qx11info_x11.h>
-#include <GL/glx.h>
+#ifdef OSG_USE_GLX
+# if defined(OSG_USE_OGL3_PROTOS) || defined(OSG_USE_OGL4_PROTOS)
+//#  include <GL3/glx3.h>
+#  include <GLArb/glxarb.h>
+# else
+#  include <GL/glx.h>
+# endif
 #endif
+#if defined(__APPLE__) && !OSG_APPLE_IOS
+#include "OSGCocoaWindowWrapper.h"
 #endif
 
 
@@ -172,32 +177,83 @@ void QT4Window::init(GLInitFunctor oFunc)
 #endif
 #endif
 
-    Window::init(oFunc);
+    if(_sfPrivateOSGContext.getValue() == true)
+    {
+        if(getGlWidget() != NULL)
+        {
+            getGlWidget()->doMakeCurrent();
+        }
+
+#if defined(WIN32)
+        Inherited::setHdc  (wglGetCurrentDC     ());
+#elif defined(__APPLE__) && !OSG_APPLE_IOS
+        Inherited::setContext(cocoaWrapperCurrentContext());
+#elif defined(__APPLE__) && OSG_APPLE_IOS
+#else
+        Inherited::setDisplay(glXGetCurrentDisplay ());
+        Inherited::setWindow (glXGetCurrentDrawable());
+#endif
+
+        if(getGlWidget() != NULL)
+        {
+            getGlWidget()->doDoneCurrent();
+        }
+
+        Inherited::init(oFunc);
+        
+        int i;
+        glGetIntegerv(GL_ACCUM_BLUE_BITS, &i);
+    }
+    else
+    {
+        Window::init(oFunc);
+    }
 }
 
 void QT4Window::doActivate(void)
 {
-    if(getGlWidget() != NULL)
+    if(_sfPrivateOSGContext.getValue() == true)
     {
-        getGlWidget()->doMakeCurrent();
+        Inherited::doActivate();
+    }
+    else
+    {
+        if(getGlWidget() != NULL)
+        {
+            getGlWidget()->doMakeCurrent();
+        }
     }
 }
 
 void QT4Window::doDeactivate(void)
 {
-    if(getGlWidget() != NULL)
+    if(_sfPrivateOSGContext.getValue() == true)
     {
-        getGlWidget()->doDoneCurrent();
+        Inherited::doDeactivate();
+    }
+    else
+    {
+        if(getGlWidget() != NULL)
+        {
+            getGlWidget()->doDoneCurrent();
+        }
     }
 }
 
 bool QT4Window::doSwap(void)
 {
-    if(getGlWidget() != NULL)
+    if(_sfPrivateOSGContext.getValue() == true)
     {
-        getGlWidget()->doSwapBuffers();
-
-        return true;
+        Inherited::doSwap();
+    }
+    else
+    {
+        if(getGlWidget() != NULL)
+        {
+            getGlWidget()->doSwapBuffers();
+            
+            return true;
+        }
     }
 
     return false;

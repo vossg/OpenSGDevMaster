@@ -59,6 +59,16 @@ void OSGQGLWidget::GLContext::makeCurrent(void)
     OSG_ASSERT(false);
 }
 
+void OSGQGLWidget::GLContext::doneCurrent(void)
+{
+    OSG_ASSERT(false);
+}
+
+void OSGQGLWidget::GLContext::swapBuffers(void)
+{
+    OSG_ASSERT(false);
+}
+
 void OSGQGLWidget::GLContext::doMakeCurrent(void)
 {
     QGLContext::makeCurrent();
@@ -147,14 +157,17 @@ void OSGQGLWidget::resizeGL(int, int)
 
 void OSGQGLWidget::makeCurrent(void)
 {
+    OSG_ASSERT(false);
 }
 
 void OSGQGLWidget::doneCurrent(void)
 {
+    OSG_ASSERT(false);
 }
 
 void OSGQGLWidget::swapBuffers(void)
 {
+    OSG_ASSERT(false);
 }
 
 bool OSGQGLWidget::event(QEvent *pEvent)

@@ -78,6 +78,8 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
         GLContext(const QGLFormat &format);
 
         virtual void makeCurrent(void);
+        virtual void doneCurrent(void);
+        virtual void swapBuffers(void);
 
       protected:
 

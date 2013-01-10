@@ -26,4 +26,13 @@
       access="public"
       >
   </Field>
+  <Field
+      name="privateOSGContext"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      defaultValue="false"
+      access="public"
+      >
+  </Field>
 </FieldContainer>

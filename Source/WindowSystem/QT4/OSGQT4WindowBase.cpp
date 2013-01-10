@@ -89,6 +89,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            QT4WindowBase::_sfPrivateOSGContext
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -130,6 +134,18 @@ void QT4WindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&QT4Window::editHandleGlWidget),
         static_cast<FieldGetMethodSig >(&QT4Window::getHandleGlWidget));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "privateOSGContext",
+        "",
+        PrivateOSGContextFieldId, PrivateOSGContextFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&QT4Window::editHandlePrivateOSGContext),
+        static_cast<FieldGetMethodSig >(&QT4Window::getHandlePrivateOSGContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -174,6 +190,15 @@ QT4WindowBase::TypeObject QT4WindowBase::_type(
     "      access=\"public\"\n"
     "      >\n"
     "  </Field>\n"
+    "  <Field\n"
+    "      name=\"privateOSGContext\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      defaultValue=\"false\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "The class for QT windows.\n"
     "\n"
@@ -215,6 +240,19 @@ const SFOSGQGLWidgetP *QT4WindowBase::getSFGlWidget(void) const
 }
 
 
+SFBool *QT4WindowBase::editSFPrivateOSGContext(void)
+{
+    editSField(PrivateOSGContextFieldMask);
+
+    return &_sfPrivateOSGContext;
+}
+
+const SFBool *QT4WindowBase::getSFPrivateOSGContext(void) const
+{
+    return &_sfPrivateOSGContext;
+}
+
+
 
 
 
@@ -229,6 +267,10 @@ SizeT QT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfGlWidget.getBinSize();
     }
+    if(FieldBits::NoField != (PrivateOSGContextFieldMask & whichField))
+    {
+        returnValue += _sfPrivateOSGContext.getBinSize();
+    }
 
     return returnValue;
 }
@@ -242,6 +284,10 @@ void QT4WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfGlWidget.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PrivateOSGContextFieldMask & whichField))
+    {
+        _sfPrivateOSGContext.copyToBin(pMem);
+    }
 }
 
 void QT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -253,6 +299,11 @@ void QT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(GlWidgetFieldMask);
         _sfGlWidget.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PrivateOSGContextFieldMask & whichField))
+    {
+        editSField(PrivateOSGContextFieldMask);
+        _sfPrivateOSGContext.copyFromBin(pMem);
     }
 }
 
@@ -379,13 +430,15 @@ FieldContainerTransitPtr QT4WindowBase::shallowCopy(void) const
 
 QT4WindowBase::QT4WindowBase(void) :
     Inherited(),
-    _sfGlWidget               (OSGQGLWidgetP(NULL))
+    _sfGlWidget               (OSGQGLWidgetP(NULL)),
+    _sfPrivateOSGContext      (bool(false))
 {
 }
 
 QT4WindowBase::QT4WindowBase(const QT4WindowBase &source) :
     Inherited(source),
-    _sfGlWidget               (source._sfGlWidget               )
+    _sfGlWidget               (source._sfGlWidget               ),
+    _sfPrivateOSGContext      (source._sfPrivateOSGContext      )
 {
 }
 
@@ -418,6 +471,31 @@ EditFieldHandlePtr QT4WindowBase::editHandleGlWidget       (void)
 
 
     editSField(GlWidgetFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr QT4WindowBase::getHandlePrivateOSGContext (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPrivateOSGContext,
+             this->getType().getFieldDesc(PrivateOSGContextFieldId),
+             const_cast<QT4WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr QT4WindowBase::editHandlePrivateOSGContext(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPrivateOSGContext,
+             this->getType().getFieldDesc(PrivateOSGContextFieldId),
+             this));
+
+
+    editSField(PrivateOSGContextFieldMask);
 
     return returnValue;
 }

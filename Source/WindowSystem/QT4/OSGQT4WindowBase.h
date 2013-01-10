@@ -66,6 +66,7 @@
 #include "OSGNativeWindow.h" // Parent
 
 #include "OSGQT4WindowDataFields.h"     // GlWidget type
+#include "OSGSysFields.h"               // PrivateOSGContext type
 
 #include "OSGQT4WindowFields.h"
 
@@ -95,15 +96,19 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
     enum
     {
         GlWidgetFieldId = Inherited::NextFieldId,
-        NextFieldId = GlWidgetFieldId + 1
+        PrivateOSGContextFieldId = GlWidgetFieldId + 1,
+        NextFieldId = PrivateOSGContextFieldId + 1
     };
 
     static const OSG::BitVector GlWidgetFieldMask =
         (TypeTraits<BitVector>::One << GlWidgetFieldId);
+    static const OSG::BitVector PrivateOSGContextFieldMask =
+        (TypeTraits<BitVector>::One << PrivateOSGContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFOSGQGLWidgetP   SFGlWidgetType;
+    typedef SFBool            SFPrivateOSGContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -132,9 +137,15 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
                   SFOSGQGLWidgetP     *editSFGlWidget       (void);
             const SFOSGQGLWidgetP     *getSFGlWidget        (void) const;
 
+                  SFBool              *editSFPrivateOSGContext(void);
+            const SFBool              *getSFPrivateOSGContext (void) const;
+
 
                   OSGQGLWidgetP       &editGlWidget       (void);
             const OSGQGLWidgetP       &getGlWidget        (void) const;
+
+                  bool                &editPrivateOSGContext(void);
+                  bool                 getPrivateOSGContext (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,6 +153,7 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
     /*! \{                                                                 */
 
             void setGlWidget       (const OSGQGLWidgetP &value);
+            void setPrivateOSGContext(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,6 +214,7 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
     /*! \{                                                                 */
 
     SFOSGQGLWidgetP   _sfGlWidget;
+    SFBool            _sfPrivateOSGContext;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -231,6 +244,8 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
 
     GetFieldHandlePtr  getHandleGlWidget        (void) const;
     EditFieldHandlePtr editHandleGlWidget       (void);
+    GetFieldHandlePtr  getHandlePrivateOSGContext (void) const;
+    EditFieldHandlePtr editHandlePrivateOSGContext(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

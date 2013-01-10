@@ -99,6 +99,31 @@ void QT4WindowBase::setGlWidget(const OSGQGLWidgetP &value)
 
     _sfGlWidget.setValue(value);
 }
+//! Get the value of the QT4Window::_sfPrivateOSGContext field.
+
+inline
+bool &QT4WindowBase::editPrivateOSGContext(void)
+{
+    editSField(PrivateOSGContextFieldMask);
+
+    return _sfPrivateOSGContext.getValue();
+}
+
+//! Get the value of the QT4Window::_sfPrivateOSGContext field.
+inline
+      bool  QT4WindowBase::getPrivateOSGContext(void) const
+{
+    return _sfPrivateOSGContext.getValue();
+}
+
+//! Set the value of the QT4Window::_sfPrivateOSGContext field.
+inline
+void QT4WindowBase::setPrivateOSGContext(const bool value)
+{
+    editSField(PrivateOSGContextFieldMask);
+
+    _sfPrivateOSGContext.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -113,6 +138,9 @@ void QT4WindowBase::execSync (      QT4WindowBase *pFrom,
 
     if(FieldBits::NoField != (GlWidgetFieldMask & whichField))
         _sfGlWidget.syncWith(pFrom->_sfGlWidget);
+
+    if(FieldBits::NoField != (PrivateOSGContextFieldMask & whichField))
+        _sfPrivateOSGContext.syncWith(pFrom->_sfPrivateOSGContext);
 }
 #endif
 
