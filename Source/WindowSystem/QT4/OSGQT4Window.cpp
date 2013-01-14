@@ -131,52 +131,12 @@ void QT4Window::dump(      UInt32    ,
 }
 
 
-/*-------------------------- Window functions ---------------------------------*/
+/*------------------------- Window functions -------------------------------*/
 
 
 //! init the window: create the context
 void QT4Window::init(GLInitFunctor oFunc)
 {
-
-#if 0
-#ifdef WIN32
-    if(getGlWidget() != NULL)
-    {
-        setHwnd(getGlWidget()->winId());
-
-        Inherited::init();
-    }
-#else
-    XVisualInfo *vi;
-
-    ///// create a new GLX context
-    setDisplay(XOpenDisplay(NULL));
-    setWindow(static_cast<QWidget*>(getGlWidget())->winId());
-
-    // get the existing glWidget's visual-id and a visual for the new context
-    XVisualInfo visInfo;
-    memset(&visInfo, 0, sizeof(XVisualInfo));
-    visInfo.visualid = XVisualIDFromVisual(
-        static_cast<Visual*>(QX11Info::appVisual()));
-    int nvis;
-    vi = XGetVisualInfo( getDisplay(), VisualIDMask, &visInfo, &nvis );
-
-    // is the visual GL-capable ?
-    int useGL;
-    glXGetConfig( getDisplay(),
-                  vi,
-                  GLX_USE_GL,
-                  &useGL );
-    if (!useGL)
-    {
-        SFATAL << "Visual is not OpenGL-capable!" << endLog;
-    }
-
-    // create the new context
-    setContext(glXCreateContext(getDisplay(), vi, None, GL_TRUE));
-#endif
-#endif
-
     if(_sfPrivateOSGContext.getValue() == true)
     {
         if(getGlWidget() != NULL)
@@ -185,7 +145,12 @@ void QT4Window::init(GLInitFunctor oFunc)
         }
 
 #if defined(WIN32)
-        Inherited::setHdc  (wglGetCurrentDC     ());
+        if(getGlWidget() != NULL)
+        {
+            setHwnd(getGlWidget()->winId());
+        }
+
+        Inherited::setHdc(wglGetCurrentDC());
 #elif defined(__APPLE__) && !OSG_APPLE_IOS
         Inherited::setContext(cocoaWrapperCurrentContext());
 #elif defined(__APPLE__) && OSG_APPLE_IOS
@@ -200,9 +165,6 @@ void QT4Window::init(GLInitFunctor oFunc)
         }
 
         Inherited::init(oFunc);
-        
-        int i;
-        glGetIntegerv(GL_ACCUM_BLUE_BITS, &i);
     }
     else
     {

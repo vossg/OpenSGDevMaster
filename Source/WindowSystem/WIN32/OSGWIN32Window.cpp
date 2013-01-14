@@ -111,7 +111,10 @@ void WIN32Window::dump(      UInt32    ,
 */
 void WIN32Window::init(GLInitFunctor oFunc)
 {
-    setHdc(GetDC(getHwnd()));
+    if(getHwnd() != NULL)
+    {   
+        setHdc(GetDC(getHwnd()));
+    }
 
     if(getHglrc() == NULL)
     {
@@ -126,8 +129,8 @@ void WIN32Window::init(GLInitFunctor oFunc)
     }
 
     Inherited::init(oFunc);
-
-    if(getHdc() != NULL) 
+    
+    if(getHdc() != NULL && getHwnd() != NULL) 
     {
         ReleaseDC(getHwnd(), getHdc());
 
@@ -171,7 +174,7 @@ void WIN32Window::doDeactivate ( void )
     wglMakeCurrent(NULL, NULL);
 
     // release the hardware device context
-    if(getHdc() != NULL) 
+    if(getHdc() != NULL && getHwnd() != NULL) 
     {
         ReleaseDC(getHwnd(), getHdc());
         setHdc(NULL);

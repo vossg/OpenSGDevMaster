@@ -61,7 +61,9 @@ void OSGQGLWidget::GLContext::makeCurrent(void)
 
 void OSGQGLWidget::GLContext::doneCurrent(void)
 {
+#ifndef WIN32 // have to figure out why (GV)
     OSG_ASSERT(false);
+#endif
 }
 
 void OSGQGLWidget::GLContext::swapBuffers(void)
@@ -202,14 +204,20 @@ void OSGQGLWidget::paintEvent(QPaintEvent *)
 
 void OSGQGLWidget::doMakeCurrent(void)
 {
-    GLContext *pContext = 
-        const_cast<GLContext *>(
-            dynamic_cast<const GLContext *>(this->context()));
+    QGLContext *pQContext = const_cast  <QGLContext *>(this->context());
+    GLContext  *pContext  = dynamic_cast<GLContext  *>(pQContext);
+
 
     if(pContext != NULL)
     {
         pContext->doMakeCurrent();
     }
+#ifdef WIN32 // windows switches the context somewhere, find and fix (GV)
+    else if(pQContext != NULL)
+    {
+        pQContext->makeCurrent();
+    }
+#endif
     else
     {
         fprintf(stderr, "qglw::mc no context\n");
@@ -218,14 +226,19 @@ void OSGQGLWidget::doMakeCurrent(void)
 
 void OSGQGLWidget::doDoneCurrent(void)
 {
-    GLContext *pContext = 
-        const_cast<GLContext *>(
-            dynamic_cast<const GLContext *>(this->context()));
+    QGLContext *pQContext = const_cast  <QGLContext *>(this->context());
+    GLContext  *pContext  = dynamic_cast<GLContext  *>(pQContext);
 
     if(pContext != NULL)
     {
         pContext->doDoneCurrent();
     }
+#ifdef WIN32 // windows switches the context somewhere, find and fix (GV)
+    else if(pQContext != NULL)
+    {
+        pQContext->doneCurrent();
+    }
+#endif
     else
     {
         fprintf(stderr, "qglw::dc no context\n");
@@ -234,14 +247,19 @@ void OSGQGLWidget::doDoneCurrent(void)
 
 void OSGQGLWidget::doSwapBuffers(void)
 {
-    GLContext *pContext = 
-        const_cast<GLContext *>(
-            dynamic_cast<const GLContext *>(this->context()));
+    QGLContext *pQContext = const_cast  <QGLContext *>(this->context());
+    GLContext  *pContext  = dynamic_cast<GLContext  *>(pQContext);
 
     if(pContext != NULL)
     {
         pContext->doSwapBuffers();
     }
+#ifdef WIN32 // windows switches the context somewhere, find and fix (GV)
+    else if(pQContext != NULL)
+    {
+        pQContext->swapBuffers();
+    }
+#endif
     else
     {
         fprintf(stderr, "qglw::sb no context\n");
