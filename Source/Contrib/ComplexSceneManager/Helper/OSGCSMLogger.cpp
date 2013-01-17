@@ -136,6 +136,7 @@ void CSMLogger::postOSGLoading(FileContextAttachment * const pContext)
             {
                 ChangedFunctor logCB = 
                     boost::bind(&CSMLogger::doLog, 
+                                this,
                                 _1, 
                                 _2, 
                                 _3,
@@ -153,7 +154,7 @@ void CSMLogger::doLog(FieldContainer *pContainer,
                       UInt32          uiRefFieldId,
                       BitVector       uiRefFieldMask)
 {
-    if(0x0000 != (bvFlags & uiRefFieldMask))
+    if(0x0000 != (bvFlags & uiRefFieldMask) && _sfEnabled.getValue() == true)
     {
         GetFieldHandlePtr pFH = pContainer->getField(uiRefFieldId);
 

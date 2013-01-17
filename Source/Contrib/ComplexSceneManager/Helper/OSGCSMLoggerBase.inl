@@ -74,6 +74,31 @@ OSG::UInt16 CSMLoggerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CSMLogger::_sfEnabled field.
+
+inline
+bool &CSMLoggerBase::editEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return _sfEnabled.getValue();
+}
+
+//! Get the value of the CSMLogger::_sfEnabled field.
+inline
+      bool  CSMLoggerBase::getEnabled(void) const
+{
+    return _sfEnabled.getValue();
+}
+
+//! Set the value of the CSMLogger::_sfEnabled field.
+inline
+void CSMLoggerBase::setEnabled(const bool value)
+{
+    editSField(EnabledFieldMask);
+
+    _sfEnabled.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMLogger::_mfContainers field.
 inline
@@ -108,6 +133,9 @@ void CSMLoggerBase::execSync (      CSMLoggerBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
 
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
         _mfContainers.syncWith(pFrom->_mfContainers,

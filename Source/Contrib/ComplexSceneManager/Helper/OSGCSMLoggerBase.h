@@ -65,6 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGSysFields.h"               // Enabled type
 #include "OSGFieldContainerFields.h"    // Containers type
 #include "OSGBaseFields.h"              // Fields type
 
@@ -95,11 +96,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
 
     enum
     {
-        ContainersFieldId = Inherited::NextFieldId,
+        EnabledFieldId = Inherited::NextFieldId,
+        ContainersFieldId = EnabledFieldId + 1,
         FieldsFieldId = ContainersFieldId + 1,
         NextFieldId = FieldsFieldId + 1
     };
 
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector ContainersFieldMask =
         (TypeTraits<BitVector>::One << ContainersFieldId);
     static const OSG::BitVector FieldsFieldMask =
@@ -107,6 +111,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFBool            SFEnabledType;
     typedef MFUnrecFieldContainerPtr MFContainersType;
     typedef MFString          MFFieldsType;
 
@@ -133,12 +138,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
             const MFUnrecFieldContainerPtr *getMFContainers     (void) const;
                   MFUnrecFieldContainerPtr *editMFContainers     (void);
 
                   MFString            *editMFFields         (void);
             const MFString            *getMFFields          (void) const;
 
+
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
                   FieldContainer * getContainers     (const UInt32 index) const;
 
@@ -150,6 +161,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setEnabled        (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -220,6 +232,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFBool            _sfEnabled;
     MFUnrecFieldContainerPtr _mfContainers;
     MFString          _mfFields;
 
@@ -250,6 +263,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
     GetFieldHandlePtr  getHandleContainers      (void) const;
     EditFieldHandlePtr editHandleContainers     (void);
     GetFieldHandlePtr  getHandleFields          (void) const;

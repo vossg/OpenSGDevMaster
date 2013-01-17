@@ -15,6 +15,14 @@
     parentFields="none"
     >
   <Field
+     name="enabled"
+     type="bool"
+     defaultValue="true"
+     cardinality="single"
+     visibility="external"
+     access="public">
+  </Field>
+  <Field
       name="containers"
       type="FieldContainer"
       cardinality="multi"

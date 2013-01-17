@@ -82,6 +82,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var bool            CSMLoggerBase::_sfEnabled
+    
+*/
+
 /*! \var FieldContainer * CSMLoggerBase::_mfContainers
     
 */
@@ -113,6 +117,18 @@ void CSMLoggerBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enabled",
+        "",
+        EnabledFieldId, EnabledFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMLogger::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&CSMLogger::getHandleEnabled));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new MFUnrecFieldContainerPtr::Description(
         MFUnrecFieldContainerPtr::getClassType(),
@@ -168,6 +184,14 @@ CSMLoggerBase::TypeObject CSMLoggerBase::_type(
     "    parentFields=\"none\"\n"
     "    >\n"
     "  <Field\n"
+    "     name=\"enabled\"\n"
+    "     type=\"bool\"\n"
+    "     defaultValue=\"true\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\">\n"
+    "  </Field>\n"
+    "  <Field\n"
     "      name=\"containers\"\n"
     "      type=\"FieldContainer\"\n"
     "      cardinality=\"multi\"\n"
@@ -206,6 +230,19 @@ UInt32 CSMLoggerBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
+SFBool *CSMLoggerBase::editSFEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return &_sfEnabled;
+}
+
+const SFBool *CSMLoggerBase::getSFEnabled(void) const
+{
+    return &_sfEnabled;
+}
 
 
 //! Get the CSMLogger::_mfContainers field.
@@ -297,6 +334,10 @@ SizeT CSMLoggerBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        returnValue += _sfEnabled.getBinSize();
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         returnValue += _mfContainers.getBinSize();
@@ -314,6 +355,10 @@ void CSMLoggerBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        _sfEnabled.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         _mfContainers.copyToBin(pMem);
@@ -329,6 +374,11 @@ void CSMLoggerBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        editSField(EnabledFieldMask);
+        _sfEnabled.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         editMField(ContainersFieldMask, _mfContainers);
@@ -437,6 +487,7 @@ FieldContainerTransitPtr CSMLoggerBase::shallowCopy(void) const
 
 CSMLoggerBase::CSMLoggerBase(void) :
     Inherited(),
+    _sfEnabled                (bool(true)),
     _mfContainers             (),
     _mfFields                 ()
 {
@@ -444,6 +495,7 @@ CSMLoggerBase::CSMLoggerBase(void) :
 
 CSMLoggerBase::CSMLoggerBase(const CSMLoggerBase &source) :
     Inherited(source),
+    _sfEnabled                (source._sfEnabled                ),
     _mfContainers             (),
     _mfFields                 (source._mfFields                 )
 {
@@ -476,6 +528,31 @@ void CSMLoggerBase::onCreate(const CSMLogger *source)
             ++ContainersIt;
         }
     }
+}
+
+GetFieldHandlePtr CSMLoggerBase::getHandleEnabled         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<CSMLoggerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMLoggerBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
+
+
+    editSField(EnabledFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr CSMLoggerBase::getHandleContainers      (void) const

@@ -47,6 +47,7 @@
 #include "OSGLinux3AxisEventInterface.h"
 #include "OSGThreadManager.h"
 #include "OSGLinuxEventOptions.h"
+#include "OSGConceptPropertyChecks.h"
 
 #if defined(__linux)
 #include <fcntl.h>
@@ -146,6 +147,14 @@ bool Linux3AxisEventInterface::start(void)
         FWARNING(("Could not open device at %s\n", _szPort.c_str()));
 
         returnValue = false;
+    }
+    else
+    {
+        int iGrab = 1;
+
+        ioctl(_iFileDesc, EVIOCGRAB, &iGrab);
+
+        osgSinkUnusedWarning(iGrab);
     }
 
 #endif

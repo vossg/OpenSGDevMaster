@@ -109,11 +109,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLogger :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    static void doLog(FieldContainer *pContainer, 
-                      BitVector       bvFlags   ,
-                      UInt32          origin    ,
-                      UInt32          uiRefFieldId,
-                      BitVector       uiRefFieldMask);
+    void doLog(FieldContainer *pContainer, 
+               BitVector       bvFlags   ,
+               UInt32          origin    ,
+               UInt32          uiRefFieldId,
+               BitVector       uiRefFieldMask);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
