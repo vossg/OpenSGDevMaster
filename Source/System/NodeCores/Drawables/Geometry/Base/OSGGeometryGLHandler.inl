@@ -609,11 +609,11 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     }
     else
     {
-        Int32 glid = getVaoGLId();
+        Int32 vaoGlid = getVaoGLId();
         
-        pWin->validateGLObject(glid, pEnv, prop);
+        pWin->validateGLObject(vaoGlid, pEnv, prop);
         
-        UInt32 uiValidVAO = pWin->getGLObjectInfo(glid);
+        UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
         if(uiValidVAO != 0)
         {
@@ -644,7 +644,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 
                     pWin->validateGLObject(glid, pEnv, prop);
 
-                    osgGlBindVertexArray(uiValidVAO);
+                    osgGlBindVertexArray(
+                        pEnv->getWindow()->getGLObjectId(vaoGlid));
 
                     glCallList(pEnv->getWindow()->getGLObjectId(glid));
 
@@ -653,7 +654,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                 else
 #endif
                 {
-                    osgGlBindVertexArray(uiValidVAO);
+                    osgGlBindVertexArray(
+                        pEnv->getWindow()->getGLObjectId(vaoGlid));
 
                     pump.drawPump(pEnv,
                                   getLengths(),      
