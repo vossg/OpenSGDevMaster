@@ -138,12 +138,24 @@ void CSMPassiveWindow::csmGlutReshapeHandler(Int32 w,
 
 void CSMPassiveWindow::csmGlutFrameHandler(void)
 {
-    glClearColor(0.2, 0.2, 0.5, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if(_pPassiveWindow->getClearOp() != NULL)
+    {
+        _pPassiveWindow->getClearOp()->execute(_pPassiveWindow);
+    }
+    else
+    {
+        glClearColor(0.2, 0.2, 0.5, 0.0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 
     ComplexSceneManager::the()->frame();
     
     Thread::getCurrentChangeList()->commitChangesAndClear();
+
+    if(_pPassiveWindow->getClearOp() != NULL)
+    {
+        _pPassiveWindow->getClearOp()->postDraw(_pPassiveWindow);
+    }
 
     glutSwapBuffers();
 }

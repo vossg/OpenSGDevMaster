@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMPassiveWindow!
+ **     class CSMPassiveWinClearOp!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -57,10 +57,9 @@
 
 
 
-#include "OSGCSMPassiveWinClearOp.h"    // ClearOp Class
 
-#include "OSGCSMPassiveWindowBase.h"
-#include "OSGCSMPassiveWindow.h"
+#include "OSGCSMPassiveWinClearOpBase.h"
+#include "OSGCSMPassiveWinClearOp.h"
 
 #include <boost/bind.hpp>
 
@@ -74,7 +73,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::CSMPassiveWindow
+/*! \class OSG::CSMPassiveWinClearOp
     
  */
 
@@ -82,11 +81,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Vec2f           CSMPassiveWindowBase::_sfViewportScale
-    
-*/
-
-/*! \var CSMPassiveWinClearOp * CSMPassiveWindowBase::_sfClearOp
+/*! \var bool            CSMPassiveWinClearOpBase::_sfEnabled
     
 */
 
@@ -96,74 +91,62 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<CSMPassiveWindow *, nsOSG>::_type(
-    "CSMPassiveWindowPtr", 
-    "CSMWindowPtr", 
-    CSMPassiveWindow::getClassType(),
+PointerType FieldTraits<CSMPassiveWinClearOp *, nsOSG>::_type(
+    "CSMPassiveWinClearOpPtr", 
+    "AttachmentContainerPtr", 
+    CSMPassiveWinClearOp::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(CSMPassiveWindow *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(CSMPassiveWinClearOp *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMPassiveWindow *,
+                           CSMPassiveWinClearOp *,
                            nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMPassiveWindow *,
+                           CSMPassiveWinClearOp *,
                            nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void CSMPassiveWindowBase::classDescInserter(TypeObject &oType)
+void CSMPassiveWinClearOpBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFVec2f::Description(
-        SFVec2f::getClassType(),
-        "viewportScale",
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enabled",
         "",
-        ViewportScaleFieldId, ViewportScaleFieldMask,
+        EnabledFieldId, EnabledFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&CSMPassiveWindow::editHandleViewportScale),
-        static_cast<FieldGetMethodSig >(&CSMPassiveWindow::getHandleViewportScale));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUnrecCSMPassiveWinClearOpPtr::Description(
-        SFUnrecCSMPassiveWinClearOpPtr::getClassType(),
-        "clearOp",
-        "",
-        ClearOpFieldId, ClearOpFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&CSMPassiveWindow::editHandleClearOp),
-        static_cast<FieldGetMethodSig >(&CSMPassiveWindow::getHandleClearOp));
+        static_cast<FieldEditMethodSig>(&CSMPassiveWinClearOp::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&CSMPassiveWinClearOp::getHandleEnabled));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-CSMPassiveWindowBase::TypeObject CSMPassiveWindowBase::_type(
-    CSMPassiveWindowBase::getClassname(),
+CSMPassiveWinClearOpBase::TypeObject CSMPassiveWinClearOpBase::_type(
+    CSMPassiveWinClearOpBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&CSMPassiveWindowBase::createEmptyLocal),
-    CSMPassiveWindow::initMethod,
-    CSMPassiveWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMPassiveWindow::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&CSMPassiveWinClearOpBase::createEmptyLocal),
+    CSMPassiveWinClearOp::initMethod,
+    CSMPassiveWinClearOp::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&CSMPassiveWinClearOp::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"CSMPassiveWindow\"\n"
-    "    parent=\"CSMWindow\"\n"
+    "    name=\"CSMPassiveWinClearOp\"\n"
+    "    parent=\"AttachmentContainer\"\n"
     "    library=\"ContribCSM\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
@@ -173,75 +156,51 @@ CSMPassiveWindowBase::TypeObject CSMPassiveWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"viewportScale\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"1.f, 1.f\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"clearOp\"\n"
-    "\t\ttype=\"CSMPassiveWinClearOp\"\n"
-    "        category=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "    >\n"
+    "  <Field\n"
+    "\t  name=\"enabled\"\n"
+    "\t  type=\"bool\"\n"
+    "\t  cardinality=\"single\"\n"
+    "\t  visibility=\"external\"\n"
+    "      defaultValue=\"true\"\n"
+    "\t  >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &CSMPassiveWindowBase::getType(void)
+FieldContainerType &CSMPassiveWinClearOpBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &CSMPassiveWindowBase::getType(void) const
+const FieldContainerType &CSMPassiveWinClearOpBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 CSMPassiveWindowBase::getContainerSize(void) const
+UInt32 CSMPassiveWinClearOpBase::getContainerSize(void) const
 {
-    return sizeof(CSMPassiveWindow);
+    return sizeof(CSMPassiveWinClearOp);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-SFVec2f *CSMPassiveWindowBase::editSFViewportScale(void)
+SFBool *CSMPassiveWinClearOpBase::editSFEnabled(void)
 {
-    editSField(ViewportScaleFieldMask);
+    editSField(EnabledFieldMask);
 
-    return &_sfViewportScale;
+    return &_sfEnabled;
 }
 
-const SFVec2f *CSMPassiveWindowBase::getSFViewportScale(void) const
+const SFBool *CSMPassiveWinClearOpBase::getSFEnabled(void) const
 {
-    return &_sfViewportScale;
+    return &_sfEnabled;
 }
 
-
-//! Get the CSMPassiveWindow::_sfClearOp field.
-const SFUnrecCSMPassiveWinClearOpPtr *CSMPassiveWindowBase::getSFClearOp(void) const
-{
-    return &_sfClearOp;
-}
-
-SFUnrecCSMPassiveWinClearOpPtr *CSMPassiveWindowBase::editSFClearOp        (void)
-{
-    editSField(ClearOpFieldMask);
-
-    return &_sfClearOp;
-}
 
 
 
@@ -249,97 +208,84 @@ SFUnrecCSMPassiveWinClearOpPtr *CSMPassiveWindowBase::editSFClearOp        (void
 
 /*------------------------------ access -----------------------------------*/
 
-SizeT CSMPassiveWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CSMPassiveWinClearOpBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ViewportScaleFieldMask & whichField))
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
-        returnValue += _sfViewportScale.getBinSize();
-    }
-    if(FieldBits::NoField != (ClearOpFieldMask & whichField))
-    {
-        returnValue += _sfClearOp.getBinSize();
+        returnValue += _sfEnabled.getBinSize();
     }
 
     return returnValue;
 }
 
-void CSMPassiveWindowBase::copyToBin(BinaryDataHandler &pMem,
+void CSMPassiveWinClearOpBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ViewportScaleFieldMask & whichField))
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
-        _sfViewportScale.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ClearOpFieldMask & whichField))
-    {
-        _sfClearOp.copyToBin(pMem);
+        _sfEnabled.copyToBin(pMem);
     }
 }
 
-void CSMPassiveWindowBase::copyFromBin(BinaryDataHandler &pMem,
+void CSMPassiveWinClearOpBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ViewportScaleFieldMask & whichField))
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
     {
-        editSField(ViewportScaleFieldMask);
-        _sfViewportScale.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ClearOpFieldMask & whichField))
-    {
-        editSField(ClearOpFieldMask);
-        _sfClearOp.copyFromBin(pMem);
+        editSField(EnabledFieldMask);
+        _sfEnabled.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-CSMPassiveWindowTransitPtr CSMPassiveWindowBase::createLocal(BitVector bFlags)
+CSMPassiveWinClearOpTransitPtr CSMPassiveWinClearOpBase::createLocal(BitVector bFlags)
 {
-    CSMPassiveWindowTransitPtr fc;
+    CSMPassiveWinClearOpTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<CSMPassiveWindow>(tmpPtr);
+        fc = dynamic_pointer_cast<CSMPassiveWinClearOp>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-CSMPassiveWindowTransitPtr CSMPassiveWindowBase::createDependent(BitVector bFlags)
+CSMPassiveWinClearOpTransitPtr CSMPassiveWinClearOpBase::createDependent(BitVector bFlags)
 {
-    CSMPassiveWindowTransitPtr fc;
+    CSMPassiveWinClearOpTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<CSMPassiveWindow>(tmpPtr);
+        fc = dynamic_pointer_cast<CSMPassiveWinClearOp>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-CSMPassiveWindowTransitPtr CSMPassiveWindowBase::create(void)
+CSMPassiveWinClearOpTransitPtr CSMPassiveWinClearOpBase::create(void)
 {
     return createLocal();
 }
 
-CSMPassiveWindow *CSMPassiveWindowBase::createEmptyLocal(BitVector bFlags)
+CSMPassiveWinClearOp *CSMPassiveWinClearOpBase::createEmptyLocal(BitVector bFlags)
 {
-    CSMPassiveWindow *returnValue;
+    CSMPassiveWinClearOp *returnValue;
 
-    newPtr<CSMPassiveWindow>(returnValue, bFlags);
+    newPtr<CSMPassiveWinClearOp>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -347,18 +293,18 @@ CSMPassiveWindow *CSMPassiveWindowBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CSMPassiveWindow *CSMPassiveWindowBase::createEmpty(void)
+CSMPassiveWinClearOp *CSMPassiveWinClearOpBase::createEmpty(void)
 {
     return createEmptyLocal();
 }
 
 
-FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopyLocal(
+FieldContainerTransitPtr CSMPassiveWinClearOpBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    CSMPassiveWindow *tmpPtr;
+    CSMPassiveWinClearOp *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const CSMPassiveWindow *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CSMPassiveWinClearOp *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -367,12 +313,12 @@ FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopyDependent(
+FieldContainerTransitPtr CSMPassiveWinClearOpBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    CSMPassiveWindow *tmpPtr;
+    CSMPassiveWinClearOp *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const CSMPassiveWindow *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CSMPassiveWinClearOp *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -381,7 +327,7 @@ FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr CSMPassiveWinClearOpBase::shallowCopy(void) const
 {
     return shallowCopyLocal();
 }
@@ -391,103 +337,62 @@ FieldContainerTransitPtr CSMPassiveWindowBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-CSMPassiveWindowBase::CSMPassiveWindowBase(void) :
+CSMPassiveWinClearOpBase::CSMPassiveWinClearOpBase(void) :
     Inherited(),
-    _sfViewportScale          (Vec2f(1.f, 1.f)),
-    _sfClearOp                (NULL)
+    _sfEnabled                (bool(true))
 {
 }
 
-CSMPassiveWindowBase::CSMPassiveWindowBase(const CSMPassiveWindowBase &source) :
+CSMPassiveWinClearOpBase::CSMPassiveWinClearOpBase(const CSMPassiveWinClearOpBase &source) :
     Inherited(source),
-    _sfViewportScale          (source._sfViewportScale          ),
-    _sfClearOp                (NULL)
+    _sfEnabled                (source._sfEnabled                )
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-CSMPassiveWindowBase::~CSMPassiveWindowBase(void)
+CSMPassiveWinClearOpBase::~CSMPassiveWinClearOpBase(void)
 {
 }
 
-void CSMPassiveWindowBase::onCreate(const CSMPassiveWindow *source)
+
+GetFieldHandlePtr CSMPassiveWinClearOpBase::getHandleEnabled         (void) const
 {
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        CSMPassiveWindow *pThis = static_cast<CSMPassiveWindow *>(this);
-
-        pThis->setClearOp(source->getClearOp());
-    }
-}
-
-GetFieldHandlePtr CSMPassiveWindowBase::getHandleViewportScale   (void) const
-{
-    SFVec2f::GetHandlePtr returnValue(
-        new  SFVec2f::GetHandle(
-             &_sfViewportScale,
-             this->getType().getFieldDesc(ViewportScaleFieldId),
-             const_cast<CSMPassiveWindowBase *>(this)));
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<CSMPassiveWinClearOpBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr CSMPassiveWindowBase::editHandleViewportScale  (void)
+EditFieldHandlePtr CSMPassiveWinClearOpBase::editHandleEnabled        (void)
 {
-    SFVec2f::EditHandlePtr returnValue(
-        new  SFVec2f::EditHandle(
-             &_sfViewportScale,
-             this->getType().getFieldDesc(ViewportScaleFieldId),
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
              this));
 
 
-    editSField(ViewportScaleFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr CSMPassiveWindowBase::getHandleClearOp         (void) const
-{
-    SFUnrecCSMPassiveWinClearOpPtr::GetHandlePtr returnValue(
-        new  SFUnrecCSMPassiveWinClearOpPtr::GetHandle(
-             &_sfClearOp,
-             this->getType().getFieldDesc(ClearOpFieldId),
-             const_cast<CSMPassiveWindowBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr CSMPassiveWindowBase::editHandleClearOp        (void)
-{
-    SFUnrecCSMPassiveWinClearOpPtr::EditHandlePtr returnValue(
-        new  SFUnrecCSMPassiveWinClearOpPtr::EditHandle(
-             &_sfClearOp,
-             this->getType().getFieldDesc(ClearOpFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&CSMPassiveWindow::setClearOp,
-                    static_cast<CSMPassiveWindow *>(this), _1));
-
-    editSField(ClearOpFieldMask);
+    editSField(EnabledFieldMask);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void CSMPassiveWindowBase::execSyncV(      FieldContainer    &oFrom,
+void CSMPassiveWinClearOpBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    CSMPassiveWindow *pThis = static_cast<CSMPassiveWindow *>(this);
+    CSMPassiveWinClearOp *pThis = static_cast<CSMPassiveWinClearOp *>(this);
 
-    pThis->execSync(static_cast<CSMPassiveWindow *>(&oFrom),
+    pThis->execSync(static_cast<CSMPassiveWinClearOp *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -497,24 +402,22 @@ void CSMPassiveWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CSMPassiveWindowBase::createAspectCopy(
+FieldContainer *CSMPassiveWinClearOpBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    CSMPassiveWindow *returnValue;
+    CSMPassiveWinClearOp *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const CSMPassiveWindow *>(pRefAspect),
-                  dynamic_cast<const CSMPassiveWindow *>(this));
+                  dynamic_cast<const CSMPassiveWinClearOp *>(pRefAspect),
+                  dynamic_cast<const CSMPassiveWinClearOp *>(this));
 
     return returnValue;
 }
 #endif
 
-void CSMPassiveWindowBase::resolveLinks(void)
+void CSMPassiveWinClearOpBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<CSMPassiveWindow *>(this)->setClearOp(NULL);
 
 
 }

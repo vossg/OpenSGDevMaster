@@ -191,4 +191,14 @@
 	 >
 	Define whether the alpha color channel is written to.
   </Field>
+  <Field
+	 name="blitZBuffer"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
+	leave a correct Z-Buffer on the way out.
+  </Field>
 </FieldContainer>

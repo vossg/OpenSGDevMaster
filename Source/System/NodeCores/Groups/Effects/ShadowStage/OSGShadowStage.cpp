@@ -105,13 +105,19 @@ OSG_USING_NAMESPACE
 *                           Class variables                               *
 \***************************************************************************/
 
-UInt32 ShadowStage::_extSHL               = Window::invalidExtensionID;
-UInt32 ShadowStage::_extDepthTexture      = Window::invalidExtensionID;
-UInt32 ShadowStage::_extShadows           = Window::invalidExtensionID;
-UInt32 ShadowStage::_extFramebufferObject = Window::invalidExtensionID;
-UInt32 ShadowStage::_extDrawBuffers       = Window::invalidExtensionID;
+UInt32 ShadowStage::_extSHL                  = Window::invalidExtensionID;
+UInt32 ShadowStage::_extDepthTexture         = Window::invalidExtensionID;
+UInt32 ShadowStage::_extShadows              = Window::invalidExtensionID;
+UInt32 ShadowStage::_extFramebufferObject    = Window::invalidExtensionID;
+UInt32 ShadowStage::_extDrawBuffers          = Window::invalidExtensionID;
 
-UInt32 ShadowStage::FuncIdGenMipmaps      = Window::invalidFunctionID;
+UInt32 ShadowStage::FuncIdGenMipmaps         = Window::invalidFunctionID;
+
+UInt32 ShadowStage::_uiFramebufferObjectExt  = Window::invalidExtensionID;
+UInt32 ShadowStage::_uiFramebufferBlitExt    = Window::invalidExtensionID;
+
+UInt32 ShadowStage::_uiFuncBindFramebuffer   = Window::invalidFunctionID;
+UInt32 ShadowStage::_uiFuncBlitFramebuffer   = Window::invalidFunctionID;
 
 /***************************************************************************\
 *                           Class methods                                 *
@@ -153,6 +159,22 @@ void ShadowStage::initMethod(InitPhase ePhase)
         FuncIdGenMipmaps =
             Window::registerFunction(OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
                                      _extFramebufferObject);
+
+
+        _uiFramebufferObjectExt   = 
+            Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiFramebufferBlitExt   = 
+            Window::registerExtension("GL_EXT_framebuffer_blit");
+
+        _uiFuncBindFramebuffer          = 
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
+                _uiFramebufferObjectExt);
+
+        _uiFuncBlitFramebuffer  =
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glBlitFramebufferEXT", 
+                _uiFramebufferBlitExt);
     }
 }
 

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMPassiveWindow!
+ **     class CSMPassiveWinClearOp!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -54,72 +54,56 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &CSMPassiveWindowBase::getClassType(void)
+OSG::FieldContainerType &CSMPassiveWinClearOpBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CSMPassiveWindowBase::getClassTypeId(void)
+OSG::UInt32 CSMPassiveWinClearOpBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 CSMPassiveWindowBase::getClassGroupId(void)
+OSG::UInt16 CSMPassiveWinClearOpBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the CSMPassiveWindow::_sfViewportScale field.
+//! Get the value of the CSMPassiveWinClearOp::_sfEnabled field.
 
 inline
-Vec2f &CSMPassiveWindowBase::editViewportScale(void)
+bool &CSMPassiveWinClearOpBase::editEnabled(void)
 {
-    editSField(ViewportScaleFieldMask);
+    editSField(EnabledFieldMask);
 
-    return _sfViewportScale.getValue();
+    return _sfEnabled.getValue();
 }
 
-//! Get the value of the CSMPassiveWindow::_sfViewportScale field.
+//! Get the value of the CSMPassiveWinClearOp::_sfEnabled field.
 inline
-const Vec2f &CSMPassiveWindowBase::getViewportScale(void) const
+      bool  CSMPassiveWinClearOpBase::getEnabled(void) const
 {
-    return _sfViewportScale.getValue();
+    return _sfEnabled.getValue();
 }
 
-//! Set the value of the CSMPassiveWindow::_sfViewportScale field.
+//! Set the value of the CSMPassiveWinClearOp::_sfEnabled field.
 inline
-void CSMPassiveWindowBase::setViewportScale(const Vec2f &value)
+void CSMPassiveWinClearOpBase::setEnabled(const bool value)
 {
-    editSField(ViewportScaleFieldMask);
+    editSField(EnabledFieldMask);
 
-    _sfViewportScale.setValue(value);
-}
-
-//! Get the value of the CSMPassiveWindow::_sfClearOp field.
-inline
-CSMPassiveWinClearOp * CSMPassiveWindowBase::getClearOp(void) const
-{
-    return _sfClearOp.getValue();
-}
-
-//! Set the value of the CSMPassiveWindow::_sfClearOp field.
-inline
-void CSMPassiveWindowBase::setClearOp(CSMPassiveWinClearOp * const value)
-{
-    editSField(ClearOpFieldMask);
-
-    _sfClearOp.setValue(value);
+    _sfEnabled.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void CSMPassiveWindowBase::execSync (      CSMPassiveWindowBase *pFrom,
+void CSMPassiveWinClearOpBase::execSync (      CSMPassiveWinClearOpBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -127,21 +111,18 @@ void CSMPassiveWindowBase::execSync (      CSMPassiveWindowBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ViewportScaleFieldMask & whichField))
-        _sfViewportScale.syncWith(pFrom->_sfViewportScale);
-
-    if(FieldBits::NoField != (ClearOpFieldMask & whichField))
-        _sfClearOp.syncWith(pFrom->_sfClearOp);
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
 }
 #endif
 
 
 inline
-const Char8 *CSMPassiveWindowBase::getClassname(void)
+const Char8 *CSMPassiveWinClearOpBase::getClassname(void)
 {
-    return "CSMPassiveWindow";
+    return "CSMPassiveWinClearOp";
 }
-OSG_GEN_CONTAINERPTR(CSMPassiveWindow);
+OSG_GEN_CONTAINERPTR(CSMPassiveWinClearOp);
 
 OSG_END_NAMESPACE
 

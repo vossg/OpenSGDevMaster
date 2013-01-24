@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMPassiveWindow
+ **     class CSMPassiveWinClearOp
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCSMPASSIVEWINDOWBASE_H_
-#define _OSGCSMPASSIVEWINDOWBASE_H_
+#ifndef _OSGCSMPASSIVEWINCLEAROPBASE_H_
+#define _OSGCSMPASSIVEWINCLEAROPBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,31 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGCSMWindow.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGVecFields.h"               // ViewportScale type
-#include "OSGCSMPassiveWinClearOpFields.h" // ClearOp type
+#include "OSGSysFields.h"               // Enabled type
 
-#include "OSGCSMPassiveWindowFields.h"
+#include "OSGCSMPassiveWinClearOpFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 
-class CSMPassiveWindow;
+class CSMPassiveWinClearOp;
 
-//! \brief CSMPassiveWindow Base Class.
+//! \brief CSMPassiveWinClearOp Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
+class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWinClearOpBase : public AttachmentContainer
 {
   public:
 
-    typedef CSMWindow Inherited;
-    typedef CSMWindow ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(CSMPassiveWindow);
+    OSG_GEN_INTERNALPTR(CSMPassiveWinClearOp);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,20 +94,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
 
     enum
     {
-        ViewportScaleFieldId = Inherited::NextFieldId,
-        ClearOpFieldId = ViewportScaleFieldId + 1,
-        NextFieldId = ClearOpFieldId + 1
+        EnabledFieldId = Inherited::NextFieldId,
+        NextFieldId = EnabledFieldId + 1
     };
 
-    static const OSG::BitVector ViewportScaleFieldMask =
-        (TypeTraits<BitVector>::One << ViewportScaleFieldId);
-    static const OSG::BitVector ClearOpFieldMask =
-        (TypeTraits<BitVector>::One << ClearOpFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFVec2f           SFViewportScaleType;
-    typedef SFUnrecCSMPassiveWinClearOpPtr SFClearOpType;
+    typedef SFBool            SFEnabledType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -134,29 +129,19 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
     /*! \{                                                                 */
 
 
-                  SFVec2f             *editSFViewportScale  (void);
-            const SFVec2f             *getSFViewportScale   (void) const;
-            const SFUnrecCSMPassiveWinClearOpPtr *getSFClearOp        (void) const;
-                  SFUnrecCSMPassiveWinClearOpPtr *editSFClearOp        (void);
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
 
 
-                  Vec2f               &editViewportScale  (void);
-            const Vec2f               &getViewportScale   (void) const;
-
-                  CSMPassiveWinClearOp * getClearOp        (void) const;
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setViewportScale  (const Vec2f &value);
-            void setClearOp        (CSMPassiveWinClearOp * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setEnabled        (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -180,16 +165,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CSMPassiveWindowTransitPtr  create          (void);
-    static  CSMPassiveWindow           *createEmpty     (void);
+    static  CSMPassiveWinClearOpTransitPtr  create          (void);
+    static  CSMPassiveWinClearOp           *createEmpty     (void);
 
-    static  CSMPassiveWindowTransitPtr  createLocal     (
+    static  CSMPassiveWinClearOpTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  CSMPassiveWindow            *createEmptyLocal(
+    static  CSMPassiveWinClearOp            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  CSMPassiveWindowTransitPtr  createDependent  (BitVector bFlags);
+    static  CSMPassiveWinClearOpTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -216,40 +201,36 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec2f           _sfViewportScale;
-    SFUnrecCSMPassiveWinClearOpPtr _sfClearOp;
+    SFBool            _sfEnabled;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CSMPassiveWindowBase(void);
-    CSMPassiveWindowBase(const CSMPassiveWindowBase &source);
+    CSMPassiveWinClearOpBase(void);
+    CSMPassiveWinClearOpBase(const CSMPassiveWinClearOpBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMPassiveWindowBase(void);
+    virtual ~CSMPassiveWinClearOpBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CSMPassiveWindow *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleViewportScale   (void) const;
-    EditFieldHandlePtr editHandleViewportScale  (void);
-    GetFieldHandlePtr  getHandleClearOp         (void) const;
-    EditFieldHandlePtr editHandleClearOp        (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -263,7 +244,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      CSMPassiveWindowBase *pFrom,
+            void execSync (      CSMPassiveWinClearOpBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -303,11 +284,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMPassiveWindowBase &source);
+    void operator =(const CSMPassiveWinClearOpBase &source);
 };
 
-typedef CSMPassiveWindowBase *CSMPassiveWindowBaseP;
+typedef CSMPassiveWinClearOpBase *CSMPassiveWinClearOpBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCSMPASSIVEWINDOWBASE_H_ */
+#endif /* _OSGCSMPASSIVEWINCLEAROPBASE_H_ */

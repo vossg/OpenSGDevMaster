@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -159,6 +159,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var bool            ShadowStageBase::_sfAlpha
     Define whether the alpha color channel is written to.
+*/
+
+/*! \var bool            ShadowStageBase::_sfBlitZBuffer
+    leave a correct Z-Buffer on the way out.
 */
 
 
@@ -409,6 +413,18 @@ void ShadowStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShadowStage::getHandleAlpha));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "blitZBuffer",
+        "leave a correct Z-Buffer on the way out.\n",
+        BlitZBufferFieldId, BlitZBufferFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleBlitZBuffer),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleBlitZBuffer));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -615,6 +631,16 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t access=\"public\"\n"
     "\t >\n"
     "\tDefine whether the alpha color channel is written to.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"blitZBuffer\"\n"
+    "\t type=\"bool\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"false\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "\tleave a correct Z-Buffer on the way out.\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     "First Release of ShadowMap-Viewport. Viewport is capable to handle multiple\n"
@@ -876,6 +902,19 @@ const SFBool *ShadowStageBase::getSFAlpha(void) const
 }
 
 
+SFBool *ShadowStageBase::editSFBlitZBuffer(void)
+{
+    editSField(BlitZBufferFieldMask);
+
+    return &_sfBlitZBuffer;
+}
+
+const SFBool *ShadowStageBase::getSFBlitZBuffer(void) const
+{
+    return &_sfBlitZBuffer;
+}
+
+
 
 
 void ShadowStageBase::pushToLightNodes(Node * const value)
@@ -1064,6 +1103,10 @@ SizeT ShadowStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfAlpha.getBinSize();
     }
+    if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
+    {
+        returnValue += _sfBlitZBuffer.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1144,6 +1187,10 @@ void ShadowStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
     {
         _sfAlpha.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
+    {
+        _sfBlitZBuffer.copyToBin(pMem);
     }
 }
 
@@ -1241,6 +1288,11 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(AlphaFieldMask);
         _sfAlpha.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
+    {
+        editSField(BlitZBufferFieldMask);
+        _sfBlitZBuffer.copyFromBin(pMem);
     }
 }
 
@@ -1384,7 +1436,8 @@ ShadowStageBase::ShadowStageBase(void) :
     _sfRed                    (bool(GL_TRUE)),
     _sfBlue                   (bool(GL_TRUE)),
     _sfGreen                  (bool(GL_TRUE)),
-    _sfAlpha                  (bool(GL_TRUE))
+    _sfAlpha                  (bool(GL_TRUE)),
+    _sfBlitZBuffer            (bool(false))
 {
 }
 
@@ -1407,7 +1460,8 @@ ShadowStageBase::ShadowStageBase(const ShadowStageBase &source) :
     _sfRed                    (source._sfRed                    ),
     _sfBlue                   (source._sfBlue                   ),
     _sfGreen                  (source._sfGreen                  ),
-    _sfAlpha                  (source._sfAlpha                  )
+    _sfAlpha                  (source._sfAlpha                  ),
+    _sfBlitZBuffer            (source._sfBlitZBuffer            )
 {
 }
 
@@ -1922,6 +1976,31 @@ EditFieldHandlePtr ShadowStageBase::editHandleAlpha          (void)
 
 
     editSField(AlphaFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleBlitZBuffer     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfBlitZBuffer,
+             this->getType().getFieldDesc(BlitZBufferFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleBlitZBuffer    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfBlitZBuffer,
+             this->getType().getFieldDesc(BlitZBufferFieldId),
+             this));
+
+
+    editSField(BlitZBufferFieldMask);
 
     return returnValue;
 }

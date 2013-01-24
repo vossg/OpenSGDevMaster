@@ -681,6 +681,42 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
     pEnv->deactivateState();
 
     glPopMatrix();
+
+
+    if(_pStage->getBlitZBuffer() == true)
+    {
+        Window *win = pEnv->getWindow();
+
+        OSGGETGLFUNCBYID_GL3_ES(glBindFramebuffer,
+                                osgGlBindFramebuffer,
+                                ShadowStage::_uiFuncBindFramebuffer,
+                                win                  );
+
+        OSGGETGLFUNCBYID_GL3(glBlitFramebuffer,
+                             osgGlBlitFramebuffer,
+                             ShadowStage::_uiFuncBlitFramebuffer,
+                             win                  );
+
+        _pSceneFBO->activate(pEnv);
+
+        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
+                             0);
+
+        osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
+                             pEnv->getPixelBottom(), 
+                             pEnv->getPixelRight (), 
+                             pEnv->getPixelTop   (),
+                          
+                             pEnv->getPixelLeft  (), 
+                             pEnv->getPixelBottom(), 
+                             pEnv->getPixelRight (), 
+                             pEnv->getPixelTop   (),
+                      
+                             GL_DEPTH_BUFFER_BIT,
+                             GL_NEAREST); 
+        
+        _pSceneFBO->deactivate(pEnv);
+    }
 }
 
 
@@ -766,6 +802,41 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     pEnv->deactivateState();
 
     glPopMatrix();
+
+    if(_pStage->getBlitZBuffer() == true)
+    {
+        Window *win = pEnv->getWindow();
+        
+        OSGGETGLFUNCBYID_GL3_ES(glBindFramebuffer,
+                                osgGlBindFramebuffer,
+                                ShadowStage::_uiFuncBindFramebuffer,
+                                win                  );
+
+        OSGGETGLFUNCBYID_GL3(glBlitFramebuffer,
+                             osgGlBlitFramebuffer,
+                             ShadowStage::_uiFuncBlitFramebuffer,
+                             win                  );
+
+        _pSceneFBO->activate(pEnv);
+
+        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
+                             0);
+
+        osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
+                             pEnv->getPixelBottom(), 
+                             pEnv->getPixelRight (), 
+                             pEnv->getPixelTop   (),
+                          
+                             pEnv->getPixelLeft  (), 
+                             pEnv->getPixelBottom(), 
+                             pEnv->getPixelRight (), 
+                             pEnv->getPixelTop   (),
+                      
+                             GL_DEPTH_BUFFER_BIT,
+                             GL_NEAREST); 
+        
+        _pSceneFBO->deactivate(pEnv);
+    }
 }
 
 bool ShadowTreeHandler::hasFactorMap(void)

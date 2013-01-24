@@ -22,4 +22,14 @@
         defaultValue="1.f, 1.f"
 	>
 	</Field>
+	<Field
+		name="clearOp"
+		type="CSMPassiveWinClearOp"
+        category="pointer"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="NULL"
+	>
+	</Field>
 </FieldContainer>

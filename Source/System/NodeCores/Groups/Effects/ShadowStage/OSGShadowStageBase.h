@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -113,7 +113,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         BlueFieldId = RedFieldId + 1,
         GreenFieldId = BlueFieldId + 1,
         AlphaFieldId = GreenFieldId + 1,
-        NextFieldId = AlphaFieldId + 1
+        BlitZBufferFieldId = AlphaFieldId + 1,
+        NextFieldId = BlitZBufferFieldId + 1
     };
 
     static const OSG::BitVector OffBiasFieldMask =
@@ -152,6 +153,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         (TypeTraits<BitVector>::One << GreenFieldId);
     static const OSG::BitVector AlphaFieldMask =
         (TypeTraits<BitVector>::One << AlphaFieldId);
+    static const OSG::BitVector BlitZBufferFieldMask =
+        (TypeTraits<BitVector>::One << BlitZBufferFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -173,6 +176,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     typedef SFBool            SFBlueType;
     typedef SFBool            SFGreenType;
     typedef SFBool            SFAlphaType;
+    typedef SFBool            SFBlitZBufferType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -250,6 +254,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   SFBool              *editSFAlpha          (void);
             const SFBool              *getSFAlpha           (void) const;
 
+                  SFBool              *editSFBlitZBuffer    (void);
+            const SFBool              *getSFBlitZBuffer     (void) const;
+
 
                   Real32              &editOffBias        (void);
                   Real32               getOffBias         (void) const;
@@ -303,6 +310,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   bool                &editAlpha          (void);
                   bool                 getAlpha           (void) const;
 
+                  bool                &editBlitZBuffer    (void);
+                  bool                 getBlitZBuffer     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -324,6 +334,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
             void setBlue           (const bool value);
             void setGreen          (const bool value);
             void setAlpha          (const bool value);
+            void setBlitZBuffer    (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -418,6 +429,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     SFBool            _sfBlue;
     SFBool            _sfGreen;
     SFBool            _sfAlpha;
+    SFBool            _sfBlitZBuffer;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -482,6 +494,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     EditFieldHandlePtr editHandleGreen          (void);
     GetFieldHandlePtr  getHandleAlpha           (void) const;
     EditFieldHandlePtr editHandleAlpha          (void);
+    GetFieldHandlePtr  getHandleBlitZBuffer     (void) const;
+    EditFieldHandlePtr editHandleBlitZBuffer    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

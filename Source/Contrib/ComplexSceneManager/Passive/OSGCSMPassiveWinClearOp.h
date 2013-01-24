@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,128 +36,78 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSHADOWSTAGE_H_
-#define _OSGSHADOWSTAGE_H_
+#ifndef _OSGCSMPASSIVEWINCLEAROP_H_
+#define _OSGCSMPASSIVEWINCLEAROP_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include <vector>
-#include <utility>
-
-#include "OSGShadowStageBase.h"
+#include "OSGCSMPassiveWinClearOpBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ShadowStageData;
+class CSMPassiveWindow;
 
-/*! \ingroup GrpEffectsGroupsShadowObj
-    \ingroup GrpLibOSGEffectsGroups
-    \includebasedoc
- */
+/*! \brief CSMPassiveWinClearOp class. See \ref
+           PageContribCSMCSMPassiveWinClearOp for a description.
+*/
 
-class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWinClearOp : 
+    public CSMPassiveWinClearOpBase
 {
+  protected:
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ShadowStageBase Inherited;
-
-    enum Mode
-    {
-        NO_SHADOW              = 0x0000,
-        STD_SHADOW_MAP         = 0x0001,
-        PERSPECTIVE_SHADOW_MAP = 0x0002,
-        DITHER_SHADOW_MAP      = 0x0003,
-        PCF_SHADOW_MAP         = 0x0004,
-        PCF2_SHADOW_MAP        = 0x0005,
-        PCSS_SHADOW_MAP        = 0x0006,
-        VARIANCE_SHADOW_MAP    = 0x0007
-    };
+    typedef CSMPassiveWinClearOpBase Inherited;
+    typedef CSMPassiveWinClearOp     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         details   );
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void execute (CSMPassiveWindow *pWin);
+    virtual void postDraw(CSMPassiveWindow *pWin);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    void triggerMapUpdate(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    void checkLightsOcclusion(RenderActionBase *action);
-    void drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in ShadowStageBase.
-
-    static UInt32 _extSHL;
-    static UInt32 _extDepthTexture;
-    static UInt32 _extShadows;
-    static UInt32 _extFramebufferObject;
-    static UInt32 _extDrawBuffers;
-
-    static UInt32  FuncIdGenMipmaps;
-
-    static UInt32 _uiFramebufferObjectExt;
-    static UInt32 _uiFramebufferBlitExt;
-
-    static UInt32 _uiFuncBindFramebuffer;
-    static UInt32 _uiFuncBlitFramebuffer;
+    // Variables should all be in CSMTrackballBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ShadowStage(void);
-    ShadowStage(const ShadowStage &source);
+    CSMPassiveWinClearOp(void);
+    CSMPassiveWinClearOp(const CSMPassiveWinClearOp &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShadowStage(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter(Action *action);
-    Action::ResultE renderLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    void onCreate (const ShadowStage *source        = NULL);
-    void onDestroy(      UInt32       uiContainerId       );
+    virtual ~CSMPassiveWinClearOp(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,57 +117,22 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStage : public ShadowStageBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \{                                                                 */
-
-    bool   _trigger_update;
-    GLuint _occlusionQuery;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void checkLights     (RenderActionBase *action,
-                          ShadowStageData  *pData );
-    void updateLights    (RenderActionBase *action,
-                          ShadowStageData  *pData );
-    void initializeLights(RenderActionBase *action,
-                          ShadowStageData  *pData );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    Action::ResultE findLight      (ShadowStageData *pData, Node * const node);
-    Action::ResultE findTransparent(ShadowStageData *pData, Node * const node);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class ShadowStageBase;
-    friend class ShadowTreeHandler;
-    friend class StdShadowMapHandler;
-    friend class PerspectiveShadowMapHandler;
-    friend class DitherShadowMapHandler;
-    friend class PCFShadowMapHandler;
-    friend class PCF2ShadowMapHandler;
-    friend class VarianceShadowMapHandler;
-    friend class PCSSShadowMapHandler;
+    friend class CSMPassiveWinClearOpBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ShadowStage &source);
+    void operator =(const CSMPassiveWinClearOp &source);
 };
 
-typedef ShadowStage *ShadowStageP;
+typedef CSMPassiveWinClearOp *CSMPassiveWinClearOpP;
 
 OSG_END_NAMESPACE
 
-#include "OSGShadowStageBase.inl"
-#include "OSGShadowStage.inl"
+#include "OSGCSMPassiveWinClearOpBase.inl"
+#include "OSGCSMPassiveWinClearOp.inl"
 
-#endif /* _OSGSHADOWSTAGE_H_ */
+#endif /* _OSGCSMPASSIVEWINCLEAROP_H_ */

@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -474,6 +474,31 @@ void ShadowStageBase::setAlpha(const bool value)
 
     _sfAlpha.setValue(value);
 }
+//! Get the value of the ShadowStage::_sfBlitZBuffer field.
+
+inline
+bool &ShadowStageBase::editBlitZBuffer(void)
+{
+    editSField(BlitZBufferFieldMask);
+
+    return _sfBlitZBuffer.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfBlitZBuffer field.
+inline
+      bool  ShadowStageBase::getBlitZBuffer(void) const
+{
+    return _sfBlitZBuffer.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfBlitZBuffer field.
+inline
+void ShadowStageBase::setBlitZBuffer(const bool value)
+{
+    editSField(BlitZBufferFieldMask);
+
+    _sfBlitZBuffer.setValue(value);
+}
 
 //! Get the value of the \a index element the ShadowStage::_mfLightNodes field.
 inline
@@ -559,6 +584,9 @@ void ShadowStageBase::execSync (      ShadowStageBase *pFrom,
 
     if(FieldBits::NoField != (AlphaFieldMask & whichField))
         _sfAlpha.syncWith(pFrom->_sfAlpha);
+
+    if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
+        _sfBlitZBuffer.syncWith(pFrom->_sfBlitZBuffer);
 }
 #endif
 
