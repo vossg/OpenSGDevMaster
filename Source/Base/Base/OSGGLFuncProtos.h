@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
+#include "OSGConceptPropertyChecks.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "OSGGL.h"
@@ -878,9 +879,11 @@ typedef void (OSG_APIENTRY *osgGlResumeTransformFeedbackProc  )(      void    );
     OSG::FUNCVAR##Proc FUNCVAR = OGLFUNC;
 
 #define OSGGETGLFUNCBYID_P(OGLFUNC, FUNCVAR, FUNCID, WINDOW)            \
+    OSG::osgSinkUnusedWarning(WINDOW);                                  \
     OSG::FUNCVAR##Proc FUNCVAR = OGLFUNC;
 
 #define OSGGETGLFUNCBYNAME_P(OGLFUNC, FUNCVAR, FUNCNAME, WINDOW)        \
+    OSG::osgSinkUnusedWarning(WINDOW);                                  \
     OSG::FUNCVAR##Proc FUNCVAR = OGLFUNC;
        
 

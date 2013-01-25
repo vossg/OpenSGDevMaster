@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #ifndef _OSGCONCEPTPROPERTYCHECKS_H_
-#define _OSGCONECPTPROPERTYCHECKS_H_
+#define _OSGCONCEPTPROPERTYCHECKS_H_
 #ifdef __sgi
 #pragma once
 #endif
