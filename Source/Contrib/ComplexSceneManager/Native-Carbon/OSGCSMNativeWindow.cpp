@@ -44,6 +44,7 @@
 #include <cstdio>
 
 #include "OSGConfig.h"
+#include "OSGGL.h"
 
 #include "OSGCSMNativeWindow.h"
 #include "OSGCSMDrawer.h"

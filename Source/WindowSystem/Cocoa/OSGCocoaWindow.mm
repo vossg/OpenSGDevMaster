@@ -44,6 +44,7 @@
 #include <cstdio>
 
 #include "OSGConfig.h"
+#include "OSGGL.h"
 
 // Forget everything if we're not doing a Mac OS X compile
 #ifdef __APPLE__

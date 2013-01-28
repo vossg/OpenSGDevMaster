@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CoreGLWindow;
 
 OSG_GEN_CONTAINERPTR(CoreGLWindow);
-
 /*! \ingroup GrpWindowCoreGLFieldTraits
     \ingroup GrpLibOSGWindowCoreGL
  */
 template <>
-struct FieldTraits<CoreGLWindow *> :
-    public FieldTraitsFCPtrBase<CoreGLWindow *>
+struct FieldTraits<CoreGLWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<CoreGLWindow *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<CoreGLWindow *>  Self;
+    typedef FieldTraits<CoreGLWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CoreGLWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCoreGLWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCoreGLWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCoreGLWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CoreGLWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCoreGLWindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
-                      RecordedRefCountPolicy  > SFRecCoreGLWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCoreGLWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
-                      WeakRefCountPolicy      > SFWeakCoreGLWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
-                      NoRefCountPolicy        > SFUncountedCoreGLWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCoreGLWindowPtr;
 
 
 /*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
-                      RecordedRefCountPolicy  > MFRecCoreGLWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCoreGLWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
-                      WeakRefCountPolicy      > MFWeakCoreGLWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCoreGLWindowPtr;
 /*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
-                      NoRefCountPolicy        > MFUncountedCoreGLWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCoreGLWindowPtr;
 
 
 

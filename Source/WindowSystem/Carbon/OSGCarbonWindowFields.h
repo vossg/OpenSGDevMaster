@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CarbonWindow;
 
 OSG_GEN_CONTAINERPTR(CarbonWindow);
-
 /*! \ingroup GrpWindowCarbonFieldTraits
     \ingroup GrpLibOSGWindowCarbon
  */
 template <>
-struct FieldTraits<CarbonWindow *> :
-    public FieldTraitsFCPtrBase<CarbonWindow *>
+struct FieldTraits<CarbonWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<CarbonWindow *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<CarbonWindow *>  Self;
+    typedef FieldTraits<CarbonWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CarbonWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCarbonWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCarbonWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCarbonWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CarbonWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCarbonWindowPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<NoRefCountPolicy>(void)
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
-                      RecordedRefCountPolicy  > SFRecCarbonWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecCarbonWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
-                      WeakRefCountPolicy      > SFWeakCarbonWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
-                      NoRefCountPolicy        > SFUncountedCarbonWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCarbonWindowPtr;
 
 
 /*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
-                      RecordedRefCountPolicy  > MFRecCarbonWindowPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecCarbonWindowPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
-                      WeakRefCountPolicy      > MFWeakCarbonWindowPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCarbonWindowPtr;
 /*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
-                      NoRefCountPolicy        > MFUncountedCarbonWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCarbonWindowPtr;
 
 
 

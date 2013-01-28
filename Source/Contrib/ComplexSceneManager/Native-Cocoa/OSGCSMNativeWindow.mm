@@ -44,6 +44,7 @@
 #include <cstdio>
 
 #include "OSGConfig.h"
+#include "OSGGL.h"
 
 #import <Cocoa/Cocoa.h>
 
