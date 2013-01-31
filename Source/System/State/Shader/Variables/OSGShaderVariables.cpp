@@ -64,6 +64,12 @@ void osgUniformShaderVariableSwitch(DrawEnv        *pEnv,
                                              warnUnknown               );
             break;
 
+        case ShaderVariable::SHVTypeUInt:
+            osgUniformShaderVariableLocation(pEnv, pVar, loc, uiProgram);
+            osgUniformShaderVariableUInt    (pEnv, pVar, loc, uiProgram,
+                                             warnUnknown               );
+            break;
+
         case ShaderVariable::SHVTypeReal:
             osgUniformShaderVariableLocation(pEnv, pVar, loc, uiProgram);
             osgUniformShaderVariableReal    (pEnv, pVar, loc, uiProgram, 
@@ -109,6 +115,12 @@ void osgUniformShaderVariableSwitch(DrawEnv        *pEnv,
         case ShaderVariable::SHVTypeMInt:
             osgUniformShaderVariableLocation(pEnv, pVar, loc, uiProgram);
             osgUniformShaderVariableMInt    (pEnv, pVar, loc, uiProgram, 
+                                             warnUnknown               );
+            break;
+
+       case ShaderVariable::SHVTypeMUInt:
+            osgUniformShaderVariableLocation(pEnv, pVar, loc, uiProgram);
+            osgUniformShaderVariableMUInt   (pEnv, pVar, loc, uiProgram,
                                              warnUnknown               );
             break;
 

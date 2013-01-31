@@ -104,6 +104,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getFuncIdUniform3i                (void);
     static UInt32 getFuncIdUniform4i                (void);
 
+    static UInt32 getFuncIdUniform1ui               (void);
+    static UInt32 getFuncIdUniform2ui               (void);
+    static UInt32 getFuncIdUniform3ui               (void);
+    static UInt32 getFuncIdUniform4ui               (void);
+
     static UInt32 getFuncIdUniform1f                (void);
     static UInt32 getFuncIdUniform2f                (void);
     static UInt32 getFuncIdUniform3f                (void);
@@ -113,6 +118,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getFuncIdUniform2iv               (void);
     static UInt32 getFuncIdUniform3iv               (void);
     static UInt32 getFuncIdUniform4iv               (void);
+
+    static UInt32 getFuncIdUniform1uiv              (void);
+    static UInt32 getFuncIdUniform2uiv              (void);
+    static UInt32 getFuncIdUniform3uiv              (void);
+    static UInt32 getFuncIdUniform4uiv              (void);
 
     static UInt32 getFuncIdUniform1fv               (void);
     static UInt32 getFuncIdUniform2fv               (void);
@@ -321,6 +331,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  FuncIdUniform3i;
     static       UInt32  FuncIdUniform4i;
 
+    static       UInt32  FuncIdUniform1ui;
+    static       UInt32  FuncIdUniform2ui;
+    static       UInt32  FuncIdUniform3ui;
+    static       UInt32  FuncIdUniform4ui;
+
     static       UInt32  FuncIdUniform1f;
     static       UInt32  FuncIdUniform2f;
     static       UInt32  FuncIdUniform3f;
@@ -330,6 +345,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  FuncIdUniform2iv;
     static       UInt32  FuncIdUniform3iv;
     static       UInt32  FuncIdUniform4iv;
+
+    static       UInt32  FuncIdUniform1uiv;
+    static       UInt32  FuncIdUniform2uiv;
+    static       UInt32  FuncIdUniform3uiv;
+    static       UInt32  FuncIdUniform4uiv;
 
     static       UInt32  FuncIdUniform1fv;
     static       UInt32  FuncIdUniform2fv;

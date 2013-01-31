@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ShaderVariableMUInt"
+   parent="ShaderValueVariable"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemShader"
+   >
+  <Field
+	 name="value"
+	 type="UInt32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+	variable value
+  </Field>
+</FieldContainer>

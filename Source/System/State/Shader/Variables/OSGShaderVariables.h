@@ -44,6 +44,7 @@
 
 #include "OSGShaderVariableBool.h"
 #include "OSGShaderVariableInt.h"
+#include "OSGShaderVariableUInt.h"
 #include "OSGShaderVariableReal.h"
 
 #include "OSGShaderVariableVec2f.h"
@@ -56,6 +57,7 @@
 #include "OSGShaderVariableMatrix.h"
 
 #include "OSGShaderVariableMInt.h"
+#include "OSGShaderVariableMUInt.h"
 #include "OSGShaderVariableMReal.h"
 
 #include "OSGShaderVariableMVec2f.h"
@@ -92,6 +94,12 @@ void osgUniformShaderVariableInt     (DrawEnv        *pEnv,
                                       ShaderVariable *pVar,       
                                       Int32          &loc,
                                       UInt32          uiProgram, 
+                                      bool            warnUnknown);
+
+void osgUniformShaderVariableUInt    (DrawEnv        *pEnv,
+                                      ShaderVariable *pVar,
+                                      Int32          &loc,
+                                      UInt32          uiProgram,
                                       bool            warnUnknown);
 
 void osgUniformShaderVariableReal    (DrawEnv        *pEnv,      
@@ -140,6 +148,12 @@ void osgUniformShaderVariableMInt    (DrawEnv        *pEnv,
                                       ShaderVariable *pVar,       
                                       Int32          &loc,
                                       UInt32          uiProgram, 
+                                      bool            warnUnknown);
+
+void osgUniformShaderVariableMUInt   (DrawEnv        *pEnv,
+                                      ShaderVariable *pVar,
+                                      Int32          &loc,
+                                      UInt32          uiProgram,
                                       bool            warnUnknown);
 
 void osgUniformShaderVariableMReal   (DrawEnv        *pEnv,      

@@ -124,6 +124,21 @@ typedef void  (OSG_APIENTRY * osgGlUniform4iProc         )(      GLint,
                                                                  GLint,
                                                                  GLint  );
 
+typedef void  (OSG_APIENTRY * osgGlUniform1uiProc        )(      GLint,
+                                                                 GLuint );
+typedef void  (OSG_APIENTRY * osgGlUniform2uiProc        )(      GLint,
+                                                                 GLuint,
+                                                                 GLuint );
+typedef void  (OSG_APIENTRY * osgGlUniform3uiProc        )(      GLint,
+                                                                 GLuint,
+                                                                 GLuint,
+                                                                 GLuint );
+typedef void  (OSG_APIENTRY * osgGlUniform4uiProc        )(      GLint,
+                                                                 GLuint,
+                                                                 GLuint,
+                                                                 GLuint,
+                                                                 GLuint  );
+
 typedef void  (OSG_APIENTRY * osgGlUniform1fProc         )(      GLint,        
                                                                  GLfloat );
 typedef void  (OSG_APIENTRY * osgGlUniform2fProc         )(      GLint,        
@@ -151,6 +166,19 @@ typedef void  (OSG_APIENTRY * osgGlUniform3ivProc        )(      GLint,
 typedef void  (OSG_APIENTRY * osgGlUniform4ivProc        )(      GLint,        
                                                                  GLsizei,
                                                            const GLint *);
+
+typedef void  (OSG_APIENTRY * osgGlUniform1uivProc       )(      GLint,
+                                                                 GLsizei,
+                                                           const GLuint *);
+typedef void  (OSG_APIENTRY * osgGlUniform2uivProc       )(      GLint,
+                                                                 GLsizei,
+                                                           const GLuint *);
+typedef void  (OSG_APIENTRY * osgGlUniform3uivProc       )(      GLint,
+                                                                 GLsizei,
+                                                           const GLuint *);
+typedef void  (OSG_APIENTRY * osgGlUniform4uivProc       )(      GLint,
+                                                                 GLsizei,
+                                                           const GLuint *);
 
 typedef void  (OSG_APIENTRY * osgGlUniform1fvProc        )(      GLint,        
                                                                  GLsizei,

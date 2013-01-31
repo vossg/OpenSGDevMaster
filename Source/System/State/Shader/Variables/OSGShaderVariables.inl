@@ -111,6 +111,32 @@ void osgUniformShaderVariableInt(DrawEnv        *pEnv,
 }
 
 inline
+void osgUniformShaderVariableUInt(DrawEnv        *pEnv,
+                                  ShaderVariable *pVar,
+                                  Int32          &loc,
+                                  UInt32          uiProgram,
+                                  bool            warnUnknown)
+{
+    ShaderVariableUInt *p = dynamic_cast<ShaderVariableUInt *>(pVar);
+
+    if(loc != -1)
+    {
+        OSGGETGLFUNC_GL3_ES(glUniform1ui,
+                            osgGlUniform1ui,
+                            ShaderProgram::getFuncIdUniform1ui());
+
+        osgGlUniform1ui(loc, p->getValue());
+    }
+    else if(warnUnknown == true)
+    {
+        SWARNING << "Variable '" << p->getName() << "' type 'uint' "
+                 << "not found in active uniform "
+                 << "variables of shader program '" << uiProgram << "'"
+                 << std::endl;
+    }
+}
+
+inline
 void osgUniformShaderVariableReal(DrawEnv        *pEnv,      
                                   ShaderVariable *pVar,       
                                   Int32          &loc,
@@ -317,6 +343,34 @@ void osgUniformShaderVariableMInt(DrawEnv        *pEnv,
     else if(warnUnknown == true)
     {
         SWARNING << "Variable '" << p->getName() << "' type 'int []' "
+                 << "not found in active uniform "
+                 << "variables of shader program '" << uiProgram << "'"
+                 << std::endl;
+    }
+}
+
+inline
+void osgUniformShaderVariableMUInt(DrawEnv        *pEnv,
+                                   ShaderVariable *pVar,
+                                   Int32          &loc,
+                                   UInt32          uiProgram,
+                                   bool            warnUnknown)
+{
+    ShaderVariableMUInt *p = dynamic_cast<ShaderVariableMUInt *>(pVar);
+
+    if(loc != -1 && !p->getMFValue()->empty())
+    {
+        OSGGETGLFUNC_GL3_ES(glUniform1uiv,
+                            osgGlUniform1uiv,
+                            ShaderProgram::getFuncIdUniform1uiv());
+
+        osgGlUniform1uiv(  loc,
+                           p->getMFValue()->size32(),
+                         &(p->getMFValue()->front ()));
+    }
+    else if(warnUnknown == true)
+    {
+        SWARNING << "Variable '" << p->getName() << "' type 'uint []' "
                  << "not found in active uniform "
                  << "variables of shader program '" << uiProgram << "'"
                  << std::endl;

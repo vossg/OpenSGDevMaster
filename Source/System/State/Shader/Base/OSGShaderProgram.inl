@@ -292,6 +292,31 @@ UInt32 ShaderProgram::getFuncIdUniform4i(void)
 
 
 inline
+UInt32 ShaderProgram::getFuncIdUniform1ui(void)
+{
+    return FuncIdUniform1ui;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform2ui(void)
+{
+    return FuncIdUniform2ui;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform3ui(void)
+{
+    return FuncIdUniform3ui;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform4ui(void)
+{
+    return FuncIdUniform4ui;
+}
+
+
+inline
 UInt32 ShaderProgram::getFuncIdUniform1f(void)
 {
     return FuncIdUniform1f;
@@ -314,6 +339,7 @@ UInt32 ShaderProgram::getFuncIdUniform4f(void)
 {
     return FuncIdUniform4f;
 }
+
 
 inline
 UInt32 ShaderProgram::getFuncIdUniform1iv(void)
@@ -338,6 +364,32 @@ UInt32 ShaderProgram::getFuncIdUniform4iv(void)
 {
     return FuncIdUniform4iv;
 }
+
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform1uiv(void)
+{
+    return FuncIdUniform1uiv;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform2uiv(void)
+{
+    return FuncIdUniform2uiv;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform3uiv(void)
+{
+    return FuncIdUniform3uiv;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniform4uiv(void)
+{
+    return FuncIdUniform4uiv;
+}
+
 
 inline
 UInt32 ShaderProgram::getFuncIdUniform1fv(void)

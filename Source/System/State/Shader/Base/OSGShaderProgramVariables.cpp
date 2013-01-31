@@ -870,6 +870,17 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
 }
 
 bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
+                                                      UInt32   value,
+                                                      MFInt32 *pVarLoc,
+                                                      MFInt32 *pProcVarLoc)
+{
+    return this->addMapSVariable<ShaderVariableUInt>(name,
+                                                     value,
+                                                     pVarLoc,
+                                                     pProcVarLoc);
+}
+
+bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
                                                       Real32   value,
                                                       MFInt32 *pVarLoc,
                                                       MFInt32 *pProcVarLoc)
@@ -953,6 +964,17 @@ bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
 {
     return this->addMapMVariable<ShaderVariableMInt>(name, 
                                                      value, 
+                                                     pVarLoc,
+                                                     pProcVarLoc);
+}
+
+bool ShaderProgramVariables::addUniformVariable(const Char8   *name,
+                                                const MFUInt32 &value,
+                                                      MFInt32 *pVarLoc,
+                                                      MFInt32 *pProcVarLoc)
+{
+    return this->addMapMVariable<ShaderVariableMUInt>(name,
+                                                     value,
                                                      pVarLoc,
                                                      pProcVarLoc);
 }
@@ -1049,6 +1071,12 @@ bool ShaderProgramVariables::updateUniformVariable(const Char8 *name,
     return this->updateMapSVariable<ShaderVariableInt>(name, value);
 }
 
+bool ShaderProgramVariables::updateUniformVariable(const Char8 *name,
+                                                         UInt32  value)
+{
+    return this->updateMapSVariable<ShaderVariableUInt>(name, value);
+}
+
 bool ShaderProgramVariables::updateUniformVariable(const Char8  *name,
                                                          Real32  value)
 {
@@ -1098,6 +1126,12 @@ bool ShaderProgramVariables::updateUniformVariable(const Char8   *name,
     return this->updateMapMVariable<ShaderVariableMInt>(name, value);
 }
 
+bool ShaderProgramVariables::updateUniformVariable(const Char8    *name,
+                                                   const MFUInt32 &value)
+{
+    return this->updateMapMVariable<ShaderVariableMUInt>(name, value);
+}
+
 bool ShaderProgramVariables::updateUniformVariable(const Char8    *name, 
                                                    const MFReal32 &value)
 {
@@ -1141,6 +1175,12 @@ bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       Int32    &value)
 {
     return this->getMapSVariable<ShaderVariableInt>(name, value);
+}
+
+bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
+                                                      UInt32   &value)
+{
+    return this->getMapSVariable<ShaderVariableUInt>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
@@ -1190,6 +1230,12 @@ bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
                                                       MFInt32  &value)
 {
     return this->getMapMVariable<ShaderVariableMInt>(name, value);
+}
+
+bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
+                                                      MFUInt32 &value)
+{
+    return this->getMapMVariable<ShaderVariableMUInt>(name, value);
 }
 
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,

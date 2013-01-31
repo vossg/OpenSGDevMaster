@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,139 +36,71 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSHADERVARIABLE_H_
-#define _OSGSHADERVARIABLE_H_
+#ifndef _OSGSHADERVARIABLEUINT_H_
+#define _OSGSHADERVARIABLEUINT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGShaderVariableBase.h"
+#include "OSGShaderVariableUIntBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ShaderProgramVariables;
+/*! \brief ShaderVariableUInt class. See \ref
+           PageSystemShaderVariableUInt for a description.
+*/
 
-/*! \brief ShaderParameter class. See \ref 
-           PageSystemShaderParameter for a description.
-    \ingroup GrpSystemShaderBase
-    \ingroup GrpLibOSGSystem
-    \includebasedoc
- */
-
-class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
+class OSG_SYSTEM_DLLMAPPING ShaderVariableUInt : public ShaderVariableUIntBase
 {
-  private:
+  protected:
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ShaderVariableBase Inherited;
-
-    static bool WarnUnknown;
+    typedef ShaderVariableUIntBase Inherited;
+    typedef ShaderVariableUInt     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         details);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    const std::string &getName(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual bool isProcedural(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     TypeId's                                 */
-    /*! \{                                                                 */
-
-    enum SHVType
-    {
-        SHVTypeUnknown = 0,
-        SHVTypeBool,
-        SHVTypeInt,
-        SHVTypeUInt,
-        SHVTypeReal,
-        SHVTypeVec2s,            // missing
-        SHVTypeVec3s,            // missing
-        SHVTypeVec4s,            // missing
-        SHVTypeVec2f,
-        SHVTypeVec3f,
-        SHVTypeVec4f,
-        SHVTypePnt2f,
-        SHVTypePnt3f,
-        SHVTypeMatrix,
-        SHVTypeString,           // missing
-        SHVTypeMBool,            // missing
-        SHVTypeMInt,
-        SHVTypeMUInt,
-        SHVTypeMReal,
-        SHVTypeMVec2s,           // missing
-        SHVTypeMVec3s,           // missing
-        SHVTypeMVec4s,           // missing
-        SHVTypeMVec2f,
-        SHVTypeMVec3f,
-        SHVTypeMVec4f,
-        SHVTypeMMatrix,
-        SHVTypeMString,          // missing
-        SHVTypeOSG,
-        SHVTypeFunctor
-    };
-
-    enum SHVFlags
-    {
-        SHVFlagNone = 0,
-        SHVFlagUpdate = 1
-    };
-
-    SHVType getTypeId(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    SHVType _typeid;
+    // Variables should all be in ShaderVariableUIntBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ShaderVariable(void);
-    ShaderVariable(const ShaderVariable &source);
+    ShaderVariableUInt(void);
+    ShaderVariableUInt(const ShaderVariableUInt &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShaderVariable(void); 
-
-    void setTypeId (SHVType type);
+    virtual ~ShaderVariableUInt(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
@@ -179,18 +111,17 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
   private:
 
     friend class FieldContainer;
-    friend class ShaderVariableBase;
-    friend class ShaderProgramVariables;
+    friend class ShaderVariableUIntBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ShaderVariable &source);
+    void operator =(const ShaderVariableUInt &source);
 };
 
-typedef ShaderVariable *ShaderVariableP;
+typedef ShaderVariableUInt *ShaderVariableUIntP;
 
 OSG_END_NAMESPACE
 
-#include "OSGShaderVariableBase.inl"
-#include "OSGShaderVariable.inl"
+#include "OSGShaderVariableUIntBase.inl"
+#include "OSGShaderVariableUInt.inl"
 
-#endif /* _OSGSHADERVARIABLE_H_ */
+#endif /* _OSGSHADERVARIABLEUINT_H_ */

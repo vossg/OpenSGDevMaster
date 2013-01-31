@@ -140,6 +140,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
                                      MFInt32  *pVarLoc,
                                      MFInt32  *pProcVarLoc);
 
+    bool addUniformVariable   (const Char8    *name,
+                                     UInt32    value,
+                                     MFInt32  *pVarLoc,
+                                     MFInt32  *pProcVarLoc);
+
     bool addUniformVariable   (const Char8    *name,       
                                      Real32    value,
                                      MFInt32  *pVarLoc,
@@ -177,6 +182,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     bool addUniformVariable   (const Char8    *name, 
                                const MFInt32  &value,
+                                     MFInt32  *pVarLoc,
+                                     MFInt32  *pProcVarLoc);
+
+    bool addUniformVariable   (const Char8    *name,
+                               const MFUInt32 &value,
                                      MFInt32  *pVarLoc,
                                      MFInt32  *pProcVarLoc);
 
@@ -224,6 +234,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     bool updateUniformVariable(const Char8 *name,       bool      value);
     bool updateUniformVariable(const Char8 *name,       Int32     value);
+    bool updateUniformVariable(const Char8 *name,       UInt32    value);
     bool updateUniformVariable(const Char8 *name,       Real32    value);
 
     bool updateUniformVariable(const Char8 *name, const Vec2f    &value);
@@ -233,6 +244,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     bool updateUniformVariable(const Char8 *name, const Pnt2f    &value);
     bool updateUniformVariable(const Char8 *name, const Pnt3f    &value);
     bool updateUniformVariable(const Char8 *name, const MFInt32  &value);
+    bool updateUniformVariable(const Char8 *name, const MFUInt32 &value);
     bool updateUniformVariable(const Char8 *name, const MFReal32 &value);
     bool updateUniformVariable(const Char8 *name, const MFVec2f  &value);
     bool updateUniformVariable(const Char8 *name, const MFVec3f  &value);
@@ -250,6 +262,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     bool getUniformVariable   (const Char8 *name,       bool     &value);
     bool getUniformVariable   (const Char8 *name,       Int32    &value);
+    bool getUniformVariable   (const Char8 *name,       UInt32   &value);
     bool getUniformVariable   (const Char8 *name,       Real32   &value);
     bool getUniformVariable   (const Char8 *name,       Vec2f    &value);
     bool getUniformVariable   (const Char8 *name,       Vec3f    &value);
@@ -259,6 +272,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     bool getUniformVariable   (const Char8 *name,       Pnt3f    &value);
 
     bool getUniformVariable   (const Char8 *name,       MFInt32  &value);
+    bool getUniformVariable   (const Char8 *name,       MFUInt32 &value);
     bool getUniformVariable   (const Char8 *name,       MFReal32 &value);
     bool getUniformVariable   (const Char8 *name,       MFVec2f  &value);
     bool getUniformVariable   (const Char8 *name,       MFVec3f  &value);
