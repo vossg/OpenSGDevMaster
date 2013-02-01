@@ -245,6 +245,87 @@ void MTouchData::removeCursor(UInt32 uiId)
 }
 
 
+void MTouchData::addCursorSimple(UInt32 uiId, 
+                                 Real32 rX, 
+                                 Real32 rY,
+                                 UInt32 uiCoordSys)
+{
+    MTouchBlob tmpBlob(MTouchData::AddCursor, uiId, rX, rY, uiCoordSys);
+
+    MTouchBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
+                                              _vBlobs.end  (),
+                                               tmpBlob       );
+    if(tbIt == _vBlobs.end())
+    {
+        _vBlobs.push_back(tmpBlob);
+    }
+    else if(tmpBlob != *tbIt)
+    {
+        _vBlobs.insert(tbIt, tmpBlob);
+    }
+    else
+    {
+        fprintf(stderr, "addC: blob %d mode %d already present\n",
+                uiId,
+                MTouchData::AddCursor);
+    }
+}
+
+void MTouchData::updateCursorSimple(UInt32 uiId, 
+                                    Real32 rX, 
+                                    Real32 rY,
+                                    UInt32 uiCoordSys)
+{
+    UInt32 uiEvent = MTouchData::UpdateCursor;
+
+    MTouchBlob tmpBlob(uiEvent, uiId, rX, rY, uiCoordSys);
+
+//    fprintf(stderr, "update coursor %d / %f %f\n",
+//            uiId, rX, rY);
+
+    MTouchBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
+                                              _vBlobs.end  (),
+                                               tmpBlob       );
+
+    if(tbIt == _vBlobs.end())
+    {
+        _vBlobs.push_back(tmpBlob);
+    }
+    else if(tmpBlob != *tbIt)
+    {
+        _vBlobs.insert(tbIt, tmpBlob);
+    }
+    else
+    {
+        *tbIt = tmpBlob;
+    }
+}
+
+void MTouchData::removeCursorSimple(UInt32 uiId)
+{
+    MTouchBlob tmpBlob(MTouchData::RemoveCursor, uiId, 0.f, 0.f);
+
+    MTouchBlobStoreIt tbIt = std::lower_bound(_vBlobs.begin(),
+                                              _vBlobs.end  (),
+                                               tmpBlob       );
+
+    if(tbIt == _vBlobs.end())
+    {
+        _vBlobs.push_back(tmpBlob);
+    }
+    else if(tmpBlob != *tbIt)
+    {
+        _vBlobs.insert(tbIt, tmpBlob);
+    }
+    else
+    {
+        fprintf(stderr, "remC: blob %d mode %d already present\n",
+                uiId,
+                MTouchData::RemoveCursor);
+    }
+}
+
+
 void MTouchData::prepSubmission(void)
 {
 }

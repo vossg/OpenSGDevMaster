@@ -207,6 +207,16 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
     /*------------------------- your_category -------------------------------*/
 
 
+    void addCursorSimple   (UInt32 uiId, 
+                            Real32 rX, 
+                            Real32 rY,
+                            UInt32 uiCoordSys = GlobalRel);
+    void updateCursorSimple(UInt32 uiId, 
+                            Real32 rX, 
+                            Real32 rY,
+                            UInt32 uiCoordSys = GlobalRel);
+    void removeCursorSimple(UInt32 uiId                  );
+
     /*------------------------- your_category -------------------------------*/
 
     void addCursor   (UInt32 uiId, 
