@@ -132,11 +132,13 @@ void DepthPeelingStage::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             DepthPeelingStage::getClassType(),
-            reinterpret_cast<Action::Callback>(&DepthPeelingStage::renderEnter));
+            reinterpret_cast<Action::Callback>(
+                &DepthPeelingStage::renderEnter));
 
         RenderAction::registerLeaveDefault(
             DepthPeelingStage::getClassType(),
-            reinterpret_cast<Action::Callback>(&DepthPeelingStage::renderLeave));
+            reinterpret_cast<Action::Callback>(
+                &DepthPeelingStage::renderLeave));
 
         _uiFramebufferObjectExt =
             Window::registerExtension("GL_EXT_framebuffer_object");
@@ -144,7 +146,7 @@ void DepthPeelingStage::initMethod(InitPhase ePhase)
         _uiDepthBufferFloatExt =
             Window::registerExtension("GL_ARB_depth_buffer_float");
 
-        Window::registerConstant(GL_DEPTH_COMPONENT32F);
+//        Window::registerConstant(GL_DEPTH_COMPONENT32F);
 
         _uiFuncDrawBuffers  =
             Window::registerFunction (
