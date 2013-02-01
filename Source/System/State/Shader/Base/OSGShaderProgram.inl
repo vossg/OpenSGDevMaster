@@ -180,6 +180,36 @@ void ShaderProgram::clearDestroyedFunctors(void)
     _mfDestroyedFunctors.clear();
 }
 
+inline
+UInt32 ShaderProgram::getExtIdSHL(void)
+{
+    return _extSHL;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdCgShader(void)
+{
+    return _extCG;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdGeometryShader4(void)
+{
+    return _extGeoShader4;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdGPUShader4(void)
+{
+    return _extGPUShader4;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdTransformFeedback2(void)
+{
+    return _extTransformFeedback2;
+}
+
 
 inline
 UInt32 ShaderProgram::getFuncIdCreateShader(void)

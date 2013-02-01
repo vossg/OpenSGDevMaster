@@ -64,6 +64,7 @@ OSG_BEGIN_NAMESPACE
 UInt32 ShaderProgram::_extSHL                = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extCG                 = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extGeoShader4         = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extGPUShader4         = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extTransformFeedback2 = Window::invalidExtensionID;
 
 UInt32 ShaderProgram::FuncIdCreateShader            = Window::invalidFunctionID;
@@ -167,6 +168,9 @@ void ShaderProgram::initMethod(InitPhase ePhase)
 
         _extGeoShader4 = 
             Window::registerExtension("GL_EXT_geometry_shader4");
+
+        _extGPUShader4  =
+            Window::registerExtension("GL_EXT_gpu_shader4");
 
         _extTransformFeedback2 = 
             Window::registerExtension("GL_EXT_transform_feedback2");
@@ -335,22 +339,22 @@ void ShaderProgram::initMethod(InitPhase ePhase)
         // uint{,2,3,4} uniforms
         FuncIdUniform1ui =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform1uiARB",
+                OSG_DLSYM_UNDERSCORE"glUniform1uiEXT",
                 _extSHL);
 
         FuncIdUniform2ui =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform2uiARB",
+                OSG_DLSYM_UNDERSCORE"glUniform2uiEXT",
                 _extSHL);
 
         FuncIdUniform3ui =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform3uiARB",
+                OSG_DLSYM_UNDERSCORE"glUniform3uiEXT",
                 _extSHL);
 
         FuncIdUniform4ui =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform4uiARB",
+                OSG_DLSYM_UNDERSCORE"glUniform4uiEXT",
                 _extSHL);
 
         // float, vec{2,3,4} uniforms
@@ -396,20 +400,20 @@ void ShaderProgram::initMethod(InitPhase ePhase)
         // uint{,2,3,4} uniform arrays
         FuncIdUniform1uiv =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform1uivARB",
+                OSG_DLSYM_UNDERSCORE"glUniform1uivEXT",
                 _extSHL);
 
         FuncIdUniform2uiv =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform2uivARB",
+                OSG_DLSYM_UNDERSCORE"glUniform2uivEXT",
                 _extSHL);
         FuncIdUniform3uiv =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform3uivARB",
+                OSG_DLSYM_UNDERSCORE"glUniform3uivEXT",
                 _extSHL);
         FuncIdUniform4uiv =
             Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUniform4uivARB",
+                OSG_DLSYM_UNDERSCORE"glUniform4uivEXT",
                 _extSHL);
 
         // float, vec{2,3,4} uniform arrays

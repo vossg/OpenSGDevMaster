@@ -117,6 +117,15 @@ void osgUniformShaderVariableUInt(DrawEnv        *pEnv,
                                   UInt32          uiProgram,
                                   bool            warnUnknown)
 {
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdGPUShader4(), 0x0330, 0x0200))
+    {
+        SWARNING << "Uniforms of type 'uint' are not supported, could not "
+                 << "find extension 'EXT_gpu_shader4'!"
+                 << std::endl;
+        return;
+    }
+
     ShaderVariableUInt *p = dynamic_cast<ShaderVariableUInt *>(pVar);
 
     if(loc != -1)
@@ -356,6 +365,15 @@ void osgUniformShaderVariableMUInt(DrawEnv        *pEnv,
                                    UInt32          uiProgram,
                                    bool            warnUnknown)
 {
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdGPUShader4(), 0x0330, 0x0200))
+    {
+        SWARNING << "Uniforms of type 'uint' are not supported, could not "
+                 << "find extension 'EXT_gpu_shader4'!"
+                 << std::endl;
+        return;
+    }
+
     ShaderVariableMUInt *p = dynamic_cast<ShaderVariableMUInt *>(pVar);
 
     if(loc != -1 && !p->getMFValue()->empty())

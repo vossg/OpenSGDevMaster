@@ -82,6 +82,12 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
+    static UInt32 getExtIdSHL                       (void);
+    static UInt32 getExtIdCgShader                  (void);
+    static UInt32 getExtIdGeometryShader4           (void);
+    static UInt32 getExtIdGPUShader4                (void);
+    static UInt32 getExtIdTransformFeedback2        (void);
+
     static UInt32 getFuncIdCreateShader             (void);
     static UInt32 getFuncIdDeleteShader             (void);
     static UInt32 getFuncIdShaderSource             (void);
@@ -307,6 +313,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  _extSHL;
     static       UInt32  _extCG;
     static       UInt32  _extGeoShader4;
+    static       UInt32  _extGPUShader4;
     static       UInt32  _extTransformFeedback2;
 
     static       UInt32  FuncIdCreateShader;
