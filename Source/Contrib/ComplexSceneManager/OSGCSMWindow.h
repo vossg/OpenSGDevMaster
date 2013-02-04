@@ -218,15 +218,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void render             (RenderAction *pAction);
+    virtual void render             (RenderAction *pAction);
 
-    void frameRenderNoFinish(RenderAction *pAction);
-    void frameFinish        (void                 );
-    void frameExit          (void                 );
+    virtual void frameRenderNoFinish(RenderAction *pAction);
+    virtual void frameFinish        (void                 );
+    virtual void frameExit          (void                 );
 
-    void postSync           (void                 );
+            void postSync           (void                 );
 
-    void shutdown           (void                 );
+            void shutdown           (void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

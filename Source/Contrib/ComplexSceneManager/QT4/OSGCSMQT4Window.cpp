@@ -208,6 +208,11 @@ bool CSMQT4Window::init(void)
 
     _pQTWidget->setQT4Window(this);
 
+    if(this->getDecorEnabled() == false)
+    {
+        _pQTWidget->setWindowFlags(Qt::FramelessWindowHint);
+    }
+
     _pQTWidget->show();
     _pQTWidget->setGeometry(iXPos, iYPos, uiWidth, uiHeight);
 
@@ -227,6 +232,7 @@ bool CSMQT4Window::init(void)
     _bRun = true;
 
     _pApp->processEvents();
+
 
     Inherited::init();
 
