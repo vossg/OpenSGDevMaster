@@ -535,7 +535,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     }
     else if(_sfUseVAO.getValue() == false)
     {
-#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+#if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) &&  \
+    !defined(__APPLE__)
         if(getDlistCache() == true)
         {
             Int32 glid;
@@ -628,7 +629,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                                      FuncIdBindVertexArray,
                                      pWin);
                                       
-#if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
+#if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) && \
+    !defined(__APPLE__)
                 if(getDlistCache() == true)
                 {
                     Int32 glid;
