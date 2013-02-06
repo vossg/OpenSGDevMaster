@@ -271,10 +271,35 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                             a->pushMatrix(parent->getToWorld());
                         }
                         
-                        
+
+#if 1
                         a->overrideMaterial(_unlitMat, a->getActNode());
+#else
+                        if(_pStage->getOverrideLightMapMaterial() == true)
+                        {
+                            a->overrideMaterial(_unlitMat, a->getActNode());
+                        }
+                        else
+                        {
+                            a->pushState();
+                            a->addOverride(_pPoly->getClassId(), _pPoly);
+                        }
+#endif
+
                         _pStage->recurse(a, light);
+
+#if 1
                         a->overrideMaterial( NULL,       a->getActNode());
+#else
+                        if(_pStage->getOverrideLightMapMaterial() == true)
+                        {
+                            a->overrideMaterial( NULL,       a->getActNode());
+                        }
+                        else
+                        {
+                            a->popState();
+                        }
+#endif
 
                         if(parent != NULL)
                         {
@@ -386,10 +411,35 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                             }
                             
                             
+#if 1
                             a->overrideMaterial(_unlitMat, a->getActNode());
+#else
+                            if(_pStage->getOverrideLightMapMaterial() == true)
+                            {
+                                a->overrideMaterial(_unlitMat, a->getActNode());
+                            }
+                            else
+                            {
+                                a->pushState();
+                                a->addOverride(_pPoly->getClassId(), _pPoly);
+                            }
+#endif
+
                             _pStage->recurse(a, light);
-                            a->overrideMaterial( NULL,       a->getActNode());
-                            
+
+#if 1
+                            a->overrideMaterial( NULL,     a->getActNode());
+#else
+                            if(_pStage->getOverrideLightMapMaterial() == true)
+                            {
+                                a->overrideMaterial( NULL,     a->getActNode());
+                            }
+                            else
+                            {
+                                a->popState();
+                            }
+#endif
+
                             if(parent != NULL)
                             {
                                 a->popMatrix();
@@ -457,6 +507,11 @@ void StdShadowMapHandler::createColorMapFBO(RenderAction *a,
         if(parent != NULL)
         {
             a->popMatrix();
+        }
+
+        if(_pStage->getBlitZBuffer() == true)
+        {
+            pPart->addPostRenderCallback(&ShadowTreeHandler::blitZBufferCB);
         }
     }
     _pStage->popPartition(a);
@@ -1368,7 +1423,7 @@ void StdShadowMapHandler::render(RenderAction *a,
 
         createColorMapFBO(a, pEnv);
                 
-
+        
         //deactivate transparent Nodes
         for(UInt32 t = 0;t < vTransparents.size();++t)
         {

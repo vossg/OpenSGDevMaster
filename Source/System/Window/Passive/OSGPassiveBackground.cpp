@@ -183,6 +183,9 @@ void PassiveBackground::clear(DrawEnv *pEnv)
                                   GL_DEPTH_BUFFER_BIT  |
                                   GL_STENCIL_BUFFER_BIT),
                                  GL_NEAREST); 
+
+            osgGlBindFramebuffer(GL_READ_FRAMEBUFFER_EXT,
+                                 win->getGLObjectId(pEnv->getActiveFBO()));
         }
     }
 }

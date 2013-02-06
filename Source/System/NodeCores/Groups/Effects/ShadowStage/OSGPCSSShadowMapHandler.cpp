@@ -266,6 +266,11 @@ void PCSSShadowMapHandler::createColorMapFBO(RenderAction *a,
         {
             a->popMatrix();
         }
+
+        if(_pStage->getBlitZBuffer() == true)
+        {
+            pPart->addPostRenderCallback(&ShadowTreeHandler::blitZBufferCB);
+        }
     }
     _pStage->popPartition(a);
 }

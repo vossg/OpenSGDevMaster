@@ -191,6 +191,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     /*---------------------------------------------------------------------*/
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
+    
+           void blitZBuffer  (DrawEnv *pEnv);
+    static void blitZBufferCB(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
 
     static void setupAmbientModel        (DrawEnv *pEnv);
     static void setupAmbientModelAndMasks(DrawEnv *pEnv);

@@ -651,7 +651,8 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
     commitChanges();
 
     glClearColor(0.2f, 0.2, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -661,6 +662,9 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
     State *pCombineState = _combineCmat->getState();
 
     pEnv->activateState(pCombineState, NULL);
+
+    glDepthMask(GL_FALSE);
+    glDisable(GL_DEPTH_TEST);
 
     glBegin(GL_QUADS);
     {
@@ -678,45 +682,14 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
     }
     glEnd();
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+
     pEnv->deactivateState();
 
     glPopMatrix();
 
-
-    if(_pStage->getBlitZBuffer() == true)
-    {
-        Window *win = pEnv->getWindow();
-
-        OSGGETGLFUNCBYID_GL3_ES(glBindFramebuffer,
-                                osgGlBindFramebuffer,
-                                ShadowStage::_uiFuncBindFramebuffer,
-                                win                  );
-
-        OSGGETGLFUNCBYID_GL3(glBlitFramebuffer,
-                             osgGlBlitFramebuffer,
-                             ShadowStage::_uiFuncBlitFramebuffer,
-                             win                  );
-
-        _pSceneFBO->activate(pEnv);
-
-        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
-                             0);
-
-        osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
-                             pEnv->getPixelBottom(), 
-                             pEnv->getPixelRight (), 
-                             pEnv->getPixelTop   (),
-                          
-                             pEnv->getPixelLeft  (), 
-                             pEnv->getPixelBottom(), 
-                             pEnv->getPixelRight (), 
-                             pEnv->getPixelTop   (),
-                      
-                             GL_DEPTH_BUFFER_BIT,
-                             GL_NEAREST); 
-        
-        _pSceneFBO->deactivate(pEnv);
-    }
+//    blitZBuffer(pEnv);
 }
 
 
@@ -772,7 +745,9 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     commitChanges();
 
     glClearColor(0.2f, 0.2, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -782,6 +757,9 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     State *pCombineState = _combineCmat->getState();
 
     pEnv->activateState(pCombineState, NULL);
+
+    glDepthMask(GL_FALSE);
+    glDisable(GL_DEPTH_TEST);
 
     glBegin(GL_QUADS);
     {
@@ -799,14 +777,43 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     }
     glEnd();
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+
     pEnv->deactivateState();
 
     glPopMatrix();
 
+//    blitZBuffer(pEnv);
+}
+
+bool ShadowTreeHandler::hasFactorMap(void)
+{
+    const ShadowStageData::LightStore  &vLights      = 
+        _pStageData->getLights();
+
+    const ShadowStageData::LStateStore &vLightStates = 
+        _pStageData->getLightStates();
+
+    for(UInt32 i = 0;i < vLights.size();i++)
+    {
+        if (vLightStates[i] != 0 &&
+            (vLights[i].second->getShadowIntensity() != 0.0 ||
+             _pStage->getGlobalShadowIntensity() != 0.0))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void ShadowTreeHandler::blitZBuffer(DrawEnv *pEnv)
+{
     if(_pStage->getBlitZBuffer() == true)
     {
         Window *win = pEnv->getWindow();
-        
+
         OSGGETGLFUNCBYID_GL3_ES(glBindFramebuffer,
                                 osgGlBindFramebuffer,
                                 ShadowStage::_uiFuncBindFramebuffer,
@@ -839,25 +846,35 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     }
 }
 
-bool ShadowTreeHandler::hasFactorMap(void)
+void ShadowTreeHandler::blitZBufferCB(DrawEnv *pEnv)
 {
-    const ShadowStageData::LightStore  &vLights      = 
-        _pStageData->getLights();
+    Window *win = pEnv->getWindow();
 
-    const ShadowStageData::LStateStore &vLightStates = 
-        _pStageData->getLightStates();
+    OSGGETGLFUNCBYID_GL3_ES(glBindFramebuffer,
+                            osgGlBindFramebuffer,
+                            ShadowStage::_uiFuncBindFramebuffer,
+                            win                  );
 
-    for(UInt32 i = 0;i < vLights.size();i++)
-    {
-        if (vLightStates[i] != 0 &&
-            (vLights[i].second->getShadowIntensity() != 0.0 ||
-             _pStage->getGlobalShadowIntensity() != 0.0))
-        {
-            return true;
-        }
-    }
+    OSGGETGLFUNCBYID_GL3(glBlitFramebuffer,
+                         osgGlBlitFramebuffer,
+                         ShadowStage::_uiFuncBlitFramebuffer,
+                         win                  );
 
-    return false;
+    osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
+                         0);
+
+    osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
+                         pEnv->getPixelBottom(), 
+                         pEnv->getPixelRight (), 
+                         pEnv->getPixelTop   (),
+                          
+                         pEnv->getPixelLeft  (), 
+                         pEnv->getPixelBottom(), 
+                         pEnv->getPixelRight (), 
+                         pEnv->getPixelTop   (),
+                         
+                         GL_DEPTH_BUFFER_BIT,
+                         GL_NEAREST); 
 }
 
 void ShadowTreeHandler::setupAmbientModel(DrawEnv *pEnv)
