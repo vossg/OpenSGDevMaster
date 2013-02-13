@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGCSMDrawerFields.h"         // Drawer type
+#include "OSGCSMDrawerFields.h"         // AppDrawer type
 #include "OSGSysFields.h"               // Parallel type
 #include "OSGBaseFields.h"              // SyncBarrierName type
 
@@ -96,13 +96,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
 
     enum
     {
-        DrawerFieldId = Inherited::NextFieldId,
+        AppDrawerFieldId = Inherited::NextFieldId,
+        DrawerFieldId = AppDrawerFieldId + 1,
         ParallelFieldId = DrawerFieldId + 1,
         SyncBarrierNameFieldId = ParallelFieldId + 1,
         SwapBarrierNameFieldId = SyncBarrierNameFieldId + 1,
         NextFieldId = SwapBarrierNameFieldId + 1
     };
 
+    static const OSG::BitVector AppDrawerFieldMask =
+        (TypeTraits<BitVector>::One << AppDrawerFieldId);
     static const OSG::BitVector DrawerFieldMask =
         (TypeTraits<BitVector>::One << DrawerFieldId);
     static const OSG::BitVector ParallelFieldMask =
@@ -114,6 +117,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFUnrecCSMDrawerPtr SFAppDrawerType;
     typedef MFUnrecCSMDrawerPtr MFDrawerType;
     typedef SFBool            SFParallelType;
     typedef SFString          SFSyncBarrierNameType;
@@ -142,6 +146,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+            const SFUnrecCSMDrawerPtr *getSFAppDrawer      (void) const;
+                  SFUnrecCSMDrawerPtr *editSFAppDrawer      (void);
             const MFUnrecCSMDrawerPtr *getMFDrawer         (void) const;
                   MFUnrecCSMDrawerPtr *editMFDrawer         (void);
 
@@ -154,6 +160,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
                   SFString            *editSFSwapBarrierName(void);
             const SFString            *getSFSwapBarrierName (void) const;
 
+
+                  CSMDrawer * getAppDrawer      (void) const;
 
                   CSMDrawer * getDrawer         (const UInt32 index) const;
 
@@ -171,6 +179,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setAppDrawer      (CSMDrawer * const value);
             void setParallel       (const bool value);
             void setSyncBarrierName(const std::string &value);
             void setSwapBarrierName(const std::string &value);
@@ -244,6 +253,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFUnrecCSMDrawerPtr _sfAppDrawer;
     MFUnrecCSMDrawerPtr _mfDrawer;
     SFBool            _sfParallel;
     SFString          _sfSyncBarrierName;
@@ -276,6 +286,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleAppDrawer       (void) const;
+    EditFieldHandlePtr editHandleAppDrawer      (void);
     GetFieldHandlePtr  getHandleDrawer          (void) const;
     EditFieldHandlePtr editHandleDrawer         (void);
     GetFieldHandlePtr  getHandleParallel        (void) const;

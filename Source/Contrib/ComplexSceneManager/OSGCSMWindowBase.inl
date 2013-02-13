@@ -515,6 +515,31 @@ void CSMWindowBase::setPartitionDrawMode(const UInt32 value)
 
     _sfPartitionDrawMode.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfRegisterMainLoop field.
+
+inline
+bool &CSMWindowBase::editRegisterMainLoop(void)
+{
+    editSField(RegisterMainLoopFieldMask);
+
+    return _sfRegisterMainLoop.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfRegisterMainLoop field.
+inline
+      bool  CSMWindowBase::getRegisterMainLoop(void) const
+{
+    return _sfRegisterMainLoop.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRegisterMainLoop field.
+inline
+void CSMWindowBase::setRegisterMainLoop(const bool value)
+{
+    editSField(RegisterMainLoopFieldMask);
+
+    _sfRegisterMainLoop.setValue(value);
+}
 //! Get the value of the CSMWindow::_sfDumpContainer field.
 
 inline
@@ -643,6 +668,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
         _sfPartitionDrawMode.syncWith(pFrom->_sfPartitionDrawMode);
+
+    if(FieldBits::NoField != (RegisterMainLoopFieldMask & whichField))
+        _sfRegisterMainLoop.syncWith(pFrom->_sfRegisterMainLoop);
 
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
         _sfDumpContainer.syncWith(pFrom->_sfDumpContainer);

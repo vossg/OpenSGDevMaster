@@ -926,9 +926,12 @@ bool CSMNativeWindow::init(void)
 
     XStoreName(_pDisplay, pHWin, windowName.c_str());
 
-    if(ComplexSceneManager::the() != NULL)
+    if(ComplexSceneManager::the()  != NULL && 
+       this->getRegisterMainLoop() == true  )
+    {
         ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::xMainLoop);
-    
+    }
+
     _pWindow = _pXWindow;
 
 //    _uiCreateNapTime = pNativeWindow->getSFCreateNapTime()->getValue();

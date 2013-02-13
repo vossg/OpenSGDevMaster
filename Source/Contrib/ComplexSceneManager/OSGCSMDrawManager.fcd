@@ -12,7 +12,16 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
->
+    >
+	<Field
+		name="appDrawer"
+		type="CSMDrawer"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        category="pointer"
+	>
+	</Field>
 	<Field
 		name="drawer"
 		type="CSMDrawer"

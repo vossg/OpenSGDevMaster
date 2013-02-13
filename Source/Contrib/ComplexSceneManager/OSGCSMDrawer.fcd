@@ -4,7 +4,7 @@
     name="CSMDrawer"
     parent="AttachmentContainer"
     library="ContribCSM"
-    pointerfieldtypes="multi"
+    pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"
     parentsystemcomponent="true"

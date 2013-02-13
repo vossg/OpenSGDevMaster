@@ -658,10 +658,13 @@ bool CSMNativeWindow::init(void)
     RepositionWindow(_pLocalWindow, 0, kWindowCascadeOnMainScreen);
     ShowWindow      (_pLocalWindow                               );
 
-    if(ComplexSceneManager::the() != NULL)
+    if(ComplexSceneManager::the()  != NULL && 
+       this->getRegisterMainLoop() == true  )
+    {
         ComplexSceneManager::the()->setMainloop(
             &CSMNativeWindow::carbonMainLoop);
-    
+    }
+
     _pWindow = _pCarbWindow;
 
     _bRun = true;

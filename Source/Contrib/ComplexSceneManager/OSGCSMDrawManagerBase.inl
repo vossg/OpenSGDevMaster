@@ -74,6 +74,22 @@ OSG::UInt16 CSMDrawManagerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the CSMDrawManager::_sfAppDrawer field.
+inline
+CSMDrawer * CSMDrawManagerBase::getAppDrawer(void) const
+{
+    return _sfAppDrawer.getValue();
+}
+
+//! Set the value of the CSMDrawManager::_sfAppDrawer field.
+inline
+void CSMDrawManagerBase::setAppDrawer(CSMDrawer * const value)
+{
+    editSField(AppDrawerFieldMask);
+
+    _sfAppDrawer.setValue(value);
+}
 //! Get the value of the CSMDrawManager::_sfParallel field.
 
 inline
@@ -167,6 +183,9 @@ void CSMDrawManagerBase::execSync (      CSMDrawManagerBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AppDrawerFieldMask & whichField))
+        _sfAppDrawer.syncWith(pFrom->_sfAppDrawer);
 
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
         _mfDrawer.syncWith(pFrom->_mfDrawer,

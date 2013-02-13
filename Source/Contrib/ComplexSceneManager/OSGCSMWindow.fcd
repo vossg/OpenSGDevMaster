@@ -211,6 +211,16 @@
       >
   </Field>
   <Field
+      name="registerMainLoop"
+      type="bool"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      fieldFlags=""
+      defaultValue="true"
+      >
+  </Field>
+  <Field
       name="dumpContainer"
       type="bool"
       cardinality="single"

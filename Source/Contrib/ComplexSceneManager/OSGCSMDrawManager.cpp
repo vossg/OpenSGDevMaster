@@ -133,14 +133,21 @@ bool CSMDrawManager::init(void)
 {
     bool returnValue = true;
 
-    MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
-    MFUnrecCSMDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
-
-
     if(_sfParallel.getValue() == true)
     {
         CSMNativeWindow::initWindowSystemThreading();
+    }
 
+    if(_sfAppDrawer.getValue() != NULL)
+    {
+        returnValue = _sfAppDrawer.getValue()->init();
+    }
+
+    MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+    MFUnrecCSMDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
+
+    if(_sfParallel.getValue() == true)
+    {
         _pThread   = dynamic_cast<OSG::Thread *>(Thread::getCurrent());
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
@@ -201,6 +208,11 @@ bool CSMDrawManager::init(void)
 
 void CSMDrawManager::shutdown(void)
 {
+    if(_sfAppDrawer.getValue() != NULL)
+    {
+        _sfAppDrawer.getValue()->shutdown();
+    }
+    
     if(_sfParallel.getValue() == true)
     {
         MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
@@ -240,6 +252,11 @@ void CSMDrawManager::shutdown(void)
 
         AttachmentContainer::resolveLinks();
 
+        if(_sfAppDrawer.getValue() != NULL)
+        {
+            _sfAppDrawer.getValue()->terminateGLContexts();
+        }
+
         // sync structure takedown
 
         commitChanges();
@@ -272,6 +289,11 @@ void CSMDrawManager::shutdown(void)
 
 
         // release windows
+
+        if(_sfAppDrawer.getValue() != NULL)
+        {
+            _sfAppDrawer.getValue()->resolveLinks();
+        }
 
         dIt  = getMFDrawer()->begin();
 
@@ -339,6 +361,11 @@ void CSMDrawManager::shutdown(void)
 
         AttachmentContainer::resolveLinks();
 
+        if(_sfAppDrawer.getValue() != NULL)
+        {
+            _sfAppDrawer.getValue()->terminateGLContexts();
+        }
+
         dIt  = getMFDrawer()->begin();
 
         while(dIt != dEnd)
@@ -374,10 +401,20 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
         }
 
         _pThread->getChangeList()->clear();
+
+        if(_sfAppDrawer.getValue() != NULL)
+        {
+            _sfAppDrawer.getValue()->frame(oTime, uiFrame);
+        }
     }
     else
     {
         this->syncProducers(uiFrame);
+
+        if(_sfAppDrawer.getValue() != NULL)
+        {
+            _sfAppDrawer.getValue()->frame(oTime, uiFrame);
+        }
 
         MFUnrecCSMDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
         MFUnrecCSMDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
@@ -395,6 +432,24 @@ FieldContainer *CSMDrawManager::findNamedComponent(const Char8 *szName)
     MFUnrecCSMDrawerPtr::const_iterator drawerEnd = _mfDrawer.end  ();
 
     const Char8               *szTmpName   = NULL;
+
+    if(_sfAppDrawer.getValue() != NULL)
+    {
+        szTmpName = OSG::getName(_sfAppDrawer.getValue()); 
+
+        if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
+        {
+            return _sfAppDrawer.getValue();
+        }
+        else
+        {
+            FieldContainer *tmpVal = 
+                _sfAppDrawer.getValue()->findNamedComponent(szName);
+                
+            if(tmpVal != NULL)
+                return tmpVal;
+        }
+    }
 
     while(drawerIt != drawerEnd)
     {

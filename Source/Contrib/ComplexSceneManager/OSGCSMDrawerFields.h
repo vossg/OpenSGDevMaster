@@ -88,10 +88,36 @@ struct FieldTraits<CSMDrawer *, nsOSG> :
     static OSG_CONTRIBCSM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
 };
 
+template<> inline
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecCSMDrawerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecCSMDrawerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakCSMDrawerPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdCSMDrawerPtr"; 
+}
 
 template<> inline
 const Char8 *FieldTraits<CSMDrawer *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
@@ -152,6 +178,19 @@ struct FieldTraits<CSMDrawer *, nsOSG + 1> :
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
+typedef PointerSField<CSMDrawer *,
+                      RecordedRefCountPolicy, nsOSG  > SFRecCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
+typedef PointerSField<CSMDrawer *,
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
+typedef PointerSField<CSMDrawer *,
+                      WeakRefCountPolicy, nsOSG      > SFWeakCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
+typedef PointerSField<CSMDrawer *,
+                      NoRefCountPolicy, nsOSG        > SFUncountedCSMDrawerPtr;
+
 
 /*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
@@ -176,6 +215,23 @@ typedef ParentPointerSField<
 
 
 #else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMDrawerPtr : 
+    public PointerSField<CSMDrawer *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMDrawerPtr : 
+    public PointerSField<CSMDrawer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMDrawerPtr :
+    public PointerSField<CSMDrawer *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMDrawerPtr :
+    public PointerSField<CSMDrawer *,
+                         NoRefCountPolicy> {};
 
 
 /*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */

@@ -57,7 +57,7 @@
 
 
 
-#include "OSGCSMDrawer.h"               // Drawer Class
+#include "OSGCSMDrawer.h"               // AppDrawer Class
 
 #include "OSGCSMDrawManagerBase.h"
 #include "OSGCSMDrawManager.h"
@@ -81,6 +81,10 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
+
+/*! \var CSMDrawer *     CSMDrawManagerBase::_sfAppDrawer
+    
+*/
 
 /*! \var CSMDrawer *     CSMDrawManagerBase::_mfDrawer
     
@@ -129,6 +133,18 @@ void CSMDrawManagerBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFUnrecCSMDrawerPtr::Description(
+        SFUnrecCSMDrawerPtr::getClassType(),
+        "appDrawer",
+        "",
+        AppDrawerFieldId, AppDrawerFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMDrawManager::editHandleAppDrawer),
+        static_cast<FieldGetMethodSig >(&CSMDrawManager::getHandleAppDrawer));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new MFUnrecCSMDrawerPtr::Description(
         MFUnrecCSMDrawerPtr::getClassType(),
@@ -205,7 +221,16 @@ CSMDrawManagerBase::TypeObject CSMDrawManagerBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    ">\n"
+    "    >\n"
+    "\t<Field\n"
+    "\t\tname=\"appDrawer\"\n"
+    "\t\ttype=\"CSMDrawer\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        category=\"pointer\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"drawer\"\n"
     "\t\ttype=\"CSMDrawer\"\n"
@@ -264,6 +289,19 @@ UInt32 CSMDrawManagerBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
+
+//! Get the CSMDrawManager::_sfAppDrawer field.
+const SFUnrecCSMDrawerPtr *CSMDrawManagerBase::getSFAppDrawer(void) const
+{
+    return &_sfAppDrawer;
+}
+
+SFUnrecCSMDrawerPtr *CSMDrawManagerBase::editSFAppDrawer      (void)
+{
+    editSField(AppDrawerFieldMask);
+
+    return &_sfAppDrawer;
+}
 
 //! Get the CSMDrawManager::_mfDrawer field.
 const MFUnrecCSMDrawerPtr *CSMDrawManagerBase::getMFDrawer(void) const
@@ -380,6 +418,10 @@ SizeT CSMDrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (AppDrawerFieldMask & whichField))
+    {
+        returnValue += _sfAppDrawer.getBinSize();
+    }
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
     {
         returnValue += _mfDrawer.getBinSize();
@@ -405,6 +447,10 @@ void CSMDrawManagerBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (AppDrawerFieldMask & whichField))
+    {
+        _sfAppDrawer.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
     {
         _mfDrawer.copyToBin(pMem);
@@ -428,6 +474,11 @@ void CSMDrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (AppDrawerFieldMask & whichField))
+    {
+        editSField(AppDrawerFieldMask);
+        _sfAppDrawer.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (DrawerFieldMask & whichField))
     {
         editMField(DrawerFieldMask, _mfDrawer);
@@ -546,6 +597,7 @@ FieldContainerTransitPtr CSMDrawManagerBase::shallowCopy(void) const
 
 CSMDrawManagerBase::CSMDrawManagerBase(void) :
     Inherited(),
+    _sfAppDrawer              (NULL),
     _mfDrawer                 (),
     _sfParallel               (),
     _sfSyncBarrierName        (std::string("")),
@@ -555,6 +607,7 @@ CSMDrawManagerBase::CSMDrawManagerBase(void) :
 
 CSMDrawManagerBase::CSMDrawManagerBase(const CSMDrawManagerBase &source) :
     Inherited(source),
+    _sfAppDrawer              (NULL),
     _mfDrawer                 (),
     _sfParallel               (source._sfParallel               ),
     _sfSyncBarrierName        (source._sfSyncBarrierName        ),
@@ -577,6 +630,8 @@ void CSMDrawManagerBase::onCreate(const CSMDrawManager *source)
     {
         CSMDrawManager *pThis = static_cast<CSMDrawManager *>(this);
 
+        pThis->setAppDrawer(source->getAppDrawer());
+
         MFUnrecCSMDrawerPtr::const_iterator DrawerIt  =
             source->_mfDrawer.begin();
         MFUnrecCSMDrawerPtr::const_iterator DrawerEnd =
@@ -589,6 +644,34 @@ void CSMDrawManagerBase::onCreate(const CSMDrawManager *source)
             ++DrawerIt;
         }
     }
+}
+
+GetFieldHandlePtr CSMDrawManagerBase::getHandleAppDrawer       (void) const
+{
+    SFUnrecCSMDrawerPtr::GetHandlePtr returnValue(
+        new  SFUnrecCSMDrawerPtr::GetHandle(
+             &_sfAppDrawer,
+             this->getType().getFieldDesc(AppDrawerFieldId),
+             const_cast<CSMDrawManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMDrawManagerBase::editHandleAppDrawer      (void)
+{
+    SFUnrecCSMDrawerPtr::EditHandlePtr returnValue(
+        new  SFUnrecCSMDrawerPtr::EditHandle(
+             &_sfAppDrawer,
+             this->getType().getFieldDesc(AppDrawerFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&CSMDrawManager::setAppDrawer,
+                    static_cast<CSMDrawManager *>(this), _1));
+
+    editSField(AppDrawerFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr CSMDrawManagerBase::getHandleDrawer          (void) const
@@ -739,6 +822,8 @@ FieldContainer *CSMDrawManagerBase::createAspectCopy(
 void CSMDrawManagerBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<CSMDrawManager *>(this)->setAppDrawer(NULL);
 
     static_cast<CSMDrawManager *>(this)->clearDrawer();
 

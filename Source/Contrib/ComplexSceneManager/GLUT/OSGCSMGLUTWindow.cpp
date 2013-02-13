@@ -245,9 +245,11 @@ bool CSMGLUTWindow::init(void)
                             Int32(this->getYSize()));
     }
 
-    if(ComplexSceneManager::the() != NULL)
+    if(ComplexSceneManager::the()  != NULL && 
+       this->getRegisterMainLoop() == true  )
+    {
         ComplexSceneManager::the()->setMainloop(glutMainLoop);
-//    vscSetMainLoop(static_cast<MainLoopFuncF>(glutMainLoop));
+    }
 
 #if 0
     if(_pVSCWindow->getXSize       () <  0.f && 

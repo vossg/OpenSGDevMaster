@@ -1,0 +1,5 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-native-mwin-apppar.osg
+--data   ../Models/tie.wrl
+--data   ../Models/four_ties.osg
+--global ../Common/simple_mouse.osg

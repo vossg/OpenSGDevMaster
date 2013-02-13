@@ -109,6 +109,9 @@ PointerType FieldTraits<CSMDrawer *, nsOSG>::_type(
 
 OSG_FIELDTRAITS_GETTYPE_NS(CSMDrawer *, nsOSG)
 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMDrawer *,
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMDrawer *,
@@ -195,7 +198,7 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     "    name=\"CSMDrawer\"\n"
     "    parent=\"AttachmentContainer\"\n"
     "    library=\"ContribCSM\"\n"
-    "    pointerfieldtypes=\"multi\"\n"
+    "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"

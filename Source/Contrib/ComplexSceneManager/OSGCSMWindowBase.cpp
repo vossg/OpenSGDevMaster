@@ -168,6 +168,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            CSMWindowBase::_sfRegisterMainLoop
+    
+*/
+
 /*! \var bool            CSMWindowBase::_sfDumpContainer
     
 */
@@ -476,6 +480,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
+        "registerMainLoop",
+        "",
+        RegisterMainLoopFieldId, RegisterMainLoopFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleRegisterMainLoop),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRegisterMainLoop));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
         "dumpContainer",
         "",
         DumpContainerFieldId, DumpContainerFieldMask,
@@ -709,6 +725,16 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "      access=\"public\"\n"
     "      fieldFlags=\"\"\n"
     "      defaultValue=\"Window::SequentialPartitionDraw\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"registerMainLoop\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      access=\"public\"\n"
+    "      fieldFlags=\"\"\n"
+    "      defaultValue=\"true\"\n"
     "      >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -1006,6 +1032,19 @@ const SFUInt32 *CSMWindowBase::getSFPartitionDrawMode(void) const
 }
 
 
+SFBool *CSMWindowBase::editSFRegisterMainLoop(void)
+{
+    editSField(RegisterMainLoopFieldMask);
+
+    return &_sfRegisterMainLoop;
+}
+
+const SFBool *CSMWindowBase::getSFRegisterMainLoop(void) const
+{
+    return &_sfRegisterMainLoop;
+}
+
+
 SFBool *CSMWindowBase::editSFDumpContainer(void)
 {
     editSField(DumpContainerFieldMask);
@@ -1166,6 +1205,10 @@ SizeT CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPartitionDrawMode.getBinSize();
     }
+    if(FieldBits::NoField != (RegisterMainLoopFieldMask & whichField))
+    {
+        returnValue += _sfRegisterMainLoop.getBinSize();
+    }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         returnValue += _sfDumpContainer.getBinSize();
@@ -1262,6 +1305,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
     {
         _sfPartitionDrawMode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RegisterMainLoopFieldMask & whichField))
+    {
+        _sfRegisterMainLoop.copyToBin(pMem);
     }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
@@ -1379,6 +1426,11 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(PartitionDrawModeFieldMask);
         _sfPartitionDrawMode.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RegisterMainLoopFieldMask & whichField))
+    {
+        editSField(RegisterMainLoopFieldMask);
+        _sfRegisterMainLoop.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         editSField(DumpContainerFieldMask);
@@ -1414,6 +1466,7 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfFsaaHint               (UInt32(GL_FASTEST)),
     _sfRenderOptions          (NULL),
     _sfPartitionDrawMode      (UInt32(Window::SequentialPartitionDraw)),
+    _sfRegisterMainLoop       (bool(true)),
     _sfDumpContainer          (bool(false))
 {
 }
@@ -1441,6 +1494,7 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfFsaaHint               (source._sfFsaaHint               ),
     _sfRenderOptions          (NULL),
     _sfPartitionDrawMode      (source._sfPartitionDrawMode      ),
+    _sfRegisterMainLoop       (source._sfRegisterMainLoop       ),
     _sfDumpContainer          (source._sfDumpContainer          )
 {
 }
@@ -2079,6 +2133,31 @@ EditFieldHandlePtr CSMWindowBase::editHandlePartitionDrawMode(void)
 
 
     editSField(PartitionDrawModeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleRegisterMainLoop (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfRegisterMainLoop,
+             this->getType().getFieldDesc(RegisterMainLoopFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleRegisterMainLoop(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfRegisterMainLoop,
+             this->getType().getFieldDesc(RegisterMainLoopFieldId),
+             this));
+
+
+    editSField(RegisterMainLoopFieldMask);
 
     return returnValue;
 }
