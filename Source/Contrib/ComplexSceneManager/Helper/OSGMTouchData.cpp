@@ -315,7 +315,14 @@ void MTouchData::removeCursorSimple(UInt32 uiId)
     }
     else if(tmpBlob != *tbIt)
     {
-        _vBlobs.insert(tbIt, tmpBlob);
+        if(tmpBlob._iCursorId == tbIt->_iCursorId)
+        {
+            tbIt->_uiEvent = RemoveCursor;
+        }
+        else
+        {
+            _vBlobs.insert(tbIt, tmpBlob);
+        }
     }
     else
     {
