@@ -46,6 +46,8 @@
 #include "OSGShaderProgramVariables.h"
 #include "OSGShaderExecutableChunk.h"
 
+#include <map>
+
 OSG_BEGIN_NAMESPACE
 
 class ShaderCache;
@@ -143,11 +145,21 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunk :
 
   protected:
 
+#ifdef OSG_MULTISHADER_VARCHUNK
+    typedef std::map<UInt32, MFInt32>                 ShaderVarLocMap;
+    typedef std::map<UInt32, MFInt32>::value_type     ShaderVarLocMapValueT;
+    typedef std::map<UInt32, MFInt32>::iterator       ShaderVarLocMapIt;
+    typedef std::map<UInt32, MFInt32>::const_iterator ShaderVarLocMapConstIt;
+#endif
+
     /*---------------------------------------------------------------------*/
 
     static volatile UInt16 _uiChunkCounter;
 
-    UInt16 _uiChunkId;
+#ifdef OSG_MULTISHADER_VARCHUNK
+    ShaderVarLocMap _mShaderVarLocs;
+#endif
+    UInt16          _uiChunkId;
 
     // Variables should all be in SHLVariableChunkBase.
 

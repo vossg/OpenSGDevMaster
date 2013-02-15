@@ -99,7 +99,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
         ProgramVarChunksFieldId = Inherited::NextFieldId,
         VariablesFieldId = ProgramVarChunksFieldId + 1,
         VariableLocationsFieldId = VariablesFieldId + 1,
-        NextFieldId = VariableLocationsFieldId + 1
+        ActiveShaderFieldId = VariableLocationsFieldId + 1,
+        NextFieldId = ActiveShaderFieldId + 1
     };
 
     static const OSG::BitVector ProgramVarChunksFieldMask =
@@ -108,12 +109,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << VariablesFieldId);
     static const OSG::BitVector VariableLocationsFieldMask =
         (TypeTraits<BitVector>::One << VariableLocationsFieldId);
+    static const OSG::BitVector ActiveShaderFieldMask =
+        (TypeTraits<BitVector>::One << ActiveShaderFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUncountedShaderProgramVariableChunkPtr MFProgramVarChunksType;
     typedef SFUnrecChildShaderProgramVariablesPtr SFVariablesType;
     typedef MFInt32           MFVariableLocationsType;
+    typedef SFUInt32          SFActiveShaderType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -217,6 +221,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
     MFUncountedShaderProgramVariableChunkPtr _mfProgramVarChunks;
     SFUnrecChildShaderProgramVariablesPtr _sfVariables;
     MFInt32           _mfVariableLocations;
+    SFUInt32          _sfActiveShader;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -259,6 +264,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
     EditFieldHandlePtr editHandleVariables      (void);
     GetFieldHandlePtr  getHandleVariableLocations (void) const;
     EditFieldHandlePtr editHandleVariableLocations(void);
+    GetFieldHandlePtr  getHandleActiveShader    (void) const;
+    EditFieldHandlePtr editHandleActiveShader   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,15 +276,22 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
                   MFInt32             *editMFVariableLocations(void);
             const MFInt32             *getMFVariableLocations (void) const;
 
+                  SFUInt32            *editSFActiveShader   (void);
+            const SFUInt32            *getSFActiveShader    (void) const;
+
 
                   Int32               &editVariableLocations(const UInt32 index);
                   Int32                getVariableLocations (const UInt32 index) const;
+
+                  UInt32              &editActiveShader   (void);
+                  UInt32               getActiveShader    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setActiveShader   (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

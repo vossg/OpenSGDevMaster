@@ -33,6 +33,8 @@
 
 #cmakedefine OSG_WITH_JPG 1
 
+#cmakedefine OSG_MULTISHADER_VARCHUNK 1
+
 #cmakedefine OSG_OGL2_SHADERFUNCS 1
 
 #cmakedefine OSG_OGL_VERTEXATTRIB_FUNCS 1

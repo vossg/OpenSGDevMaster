@@ -90,6 +90,31 @@ void ShaderExecutableVarChunkBase::setVariables(ShaderProgramVariables * const v
 
     _sfVariables.setValue(value);
 }
+//! Get the value of the ShaderExecutableVarChunk::_sfActiveShader field.
+
+inline
+UInt32 &ShaderExecutableVarChunkBase::editActiveShader(void)
+{
+    editSField(ActiveShaderFieldMask);
+
+    return _sfActiveShader.getValue();
+}
+
+//! Get the value of the ShaderExecutableVarChunk::_sfActiveShader field.
+inline
+      UInt32  ShaderExecutableVarChunkBase::getActiveShader(void) const
+{
+    return _sfActiveShader.getValue();
+}
+
+//! Set the value of the ShaderExecutableVarChunk::_sfActiveShader field.
+inline
+void ShaderExecutableVarChunkBase::setActiveShader(const UInt32 value)
+{
+    editSField(ActiveShaderFieldMask);
+
+    _sfActiveShader.setValue(value);
+}
 
 //! Get the value of the \a index element the ShaderExecutableVarChunk::_mfVariableLocations field.
 inline
@@ -132,6 +157,9 @@ void ShaderExecutableVarChunkBase::execSync (      ShaderExecutableVarChunkBase 
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (ActiveShaderFieldMask & whichField))
+        _sfActiveShader.syncWith(pFrom->_sfActiveShader);
 }
 #endif
 

@@ -92,14 +92,22 @@ void ShaderExecutableVarChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderExecutableVarChunk::ShaderExecutableVarChunk(void) :
-    Inherited()
+     Inherited     ( ),
+#ifdef OSG_MULTISHADER_VARCHUNK
+    _mShaderVarLocs( ),
+#endif
+    _uiChunkId     (0)
 {
 }
 
 ShaderExecutableVarChunk::ShaderExecutableVarChunk(
     const ShaderExecutableVarChunk &source) :
 
-    Inherited(source)
+     Inherited     (source),
+#ifdef OSG_MULTISHADER_VARCHUNK
+    _mShaderVarLocs(      ),
+#endif
+    _uiChunkId     (     0)
 {
 }
 
@@ -204,8 +212,14 @@ void ShaderExecutableVarChunk::changeFrom(DrawEnv    *pEnv,
     }
 
     // SHLChunk didn't change so do nothing.
+#ifdef OSG_MULTISHADER_VARCHUNK
+    if(pOld == this && pEnv->getActiveShader() == this->getActiveShader())
+#else
     if(pOld == this)
+#endif
+    {
         return;
+    }
 
     updateVariables(pEnv);
 }
@@ -221,6 +235,10 @@ void ShaderExecutableVarChunk::updateVariables(DrawEnv *pEnv)
     if(uiProgram == 0)
         return;
 
+#ifdef OSG_MULTISHADER_VARCHUNK
+    this->setActiveShader(uiProgram);
+#endif
+
     pEnv->incNumShaderParamChanges();
 
     const ShaderProgramVariables::MFVariablesType       *pMFVars   = NULL;
@@ -235,11 +253,26 @@ void ShaderExecutableVarChunk::updateVariables(DrawEnv *pEnv)
         return;
     }
 
-    MFInt32 &vVarLocations = *this->editMFVariableLocations();
+    MFInt32 *pVarLocations = this->editMFVariableLocations();
 
-    OSG_ASSERT(pMFVars->size() == vVarLocations.size());
+#ifdef OSG_MULTISHADER_VARCHUNK
+    ShaderVarLocMapIt mIt = _mShaderVarLocs.lower_bound(uiProgram);
 
-    MFInt32::iterator mLocIt = vVarLocations.begin();
+    if(mIt == _mShaderVarLocs.end() || mIt->first != uiProgram)
+    {
+        mIt = _mShaderVarLocs.insert(mIt, 
+                                     ShaderVarLocMapValueT(uiProgram,
+                                                           MFInt32()));
+
+        mIt->second.resize(pVarLocations->size(), -1);
+    }
+
+    pVarLocations = &(mIt->second);
+#endif
+
+    OSG_ASSERT(pMFVars->size() == pVarLocations->size());
+
+    MFInt32::iterator mLocIt = pVarLocations->begin();
 
     ShaderProgramVariables::MFVariablesType::const_iterator mVarIt  =
         pMFVars->begin();
@@ -286,6 +319,22 @@ void ShaderExecutableVarChunk::remergeVariables(void)
                                        this->editMFVariableLocations(),
                                        NULL);
     }
+
+#ifdef OSG_MULTISHADER_VARCHUNK
+    ShaderVarLocMapIt      mIt  = _mShaderVarLocs.begin();
+    ShaderVarLocMapConstIt mEnd = _mShaderVarLocs.end  ();
+
+    SizeT uiVarLocSize = this->getMFVariableLocations()->size();
+
+    for(; mIt != mEnd; ++mIt)
+    {
+        std::fill( mIt->second.begin(),
+                   mIt->second.end  (),
+                  -1                  );
+ 
+        mIt->second.resize(uiVarLocSize, -1);
+    }
+#endif
 }
 
 OSG_END_NAMESPACE

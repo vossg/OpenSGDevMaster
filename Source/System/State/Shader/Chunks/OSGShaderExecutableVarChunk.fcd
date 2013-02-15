@@ -52,4 +52,13 @@
 	 >
 	fragment program object
   </Field>
+  <Field
+	 name="activeShader"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="protected"
+	 >
+	fragment program object
+  </Field>
 </FieldContainer>

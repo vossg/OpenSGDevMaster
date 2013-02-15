@@ -55,7 +55,11 @@ void osgUniformShaderVariableLocation(DrawEnv        *pEnv,
                             ShaderProgram::getFuncIdGetUniformLocation());
 
         loc = osgGlGetUniformLocation(uiProgram, pVar->getName().c_str());
-    }
+#ifdef OSG_MULTISHADER_VARCHUNK
+        if(loc == -1)
+            loc = -2;
+#endif
+     }
 }
 
 inline
@@ -67,7 +71,7 @@ void osgUniformShaderVariableBool(DrawEnv        *pEnv,
 {
     ShaderVariableBool *p = dynamic_cast<ShaderVariableBool *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform1i,
                             osgGlUniform1i,
@@ -93,7 +97,7 @@ void osgUniformShaderVariableInt(DrawEnv        *pEnv,
 {
     ShaderVariableInt *p = dynamic_cast<ShaderVariableInt *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform1i,
                             osgGlUniform1i,
@@ -128,7 +132,7 @@ void osgUniformShaderVariableUInt(DrawEnv        *pEnv,
 
     ShaderVariableUInt *p = dynamic_cast<ShaderVariableUInt *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform1ui,
                             osgGlUniform1ui,
@@ -154,7 +158,7 @@ void osgUniformShaderVariableReal(DrawEnv        *pEnv,
 {
     ShaderVariableReal *p = dynamic_cast<ShaderVariableReal *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform1f,
                             osgGlUniform1f,
@@ -180,7 +184,7 @@ void osgUniformShaderVariableVec2f(DrawEnv        *pEnv,
 {
     ShaderVariableVec2f *p = dynamic_cast<ShaderVariableVec2f *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform2fv,
                             osgGlUniform2fv,
@@ -206,7 +210,7 @@ void osgUniformShaderVariableVec3f(DrawEnv        *pEnv,
 {
     ShaderVariableVec3f *p = dynamic_cast<ShaderVariableVec3f *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform3fv,
                             osgGlUniform3fv,
@@ -232,7 +236,7 @@ void osgUniformShaderVariableVec4f(DrawEnv        *pEnv,
 {
     ShaderVariableVec4f *p = dynamic_cast<ShaderVariableVec4f *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform4fv,
                             osgGlUniform4fv,
@@ -258,7 +262,7 @@ void osgUniformShaderVariablePnt2f(DrawEnv        *pEnv,
 {
     ShaderVariablePnt2f *p = dynamic_cast<ShaderVariablePnt2f *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform2fv,
                             osgGlUniform2fv,
@@ -284,7 +288,7 @@ void osgUniformShaderVariablePnt3f(DrawEnv        *pEnv,
 {
     ShaderVariablePnt3f *p = dynamic_cast<ShaderVariablePnt3f *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniform3fv,
                             osgGlUniform3fv,
@@ -310,7 +314,7 @@ void osgUniformShaderVariableMatrix(DrawEnv        *pEnv,
 {
     ShaderVariableMatrix *p = dynamic_cast<ShaderVariableMatrix *>(pVar);
 
-    if(loc != -1)
+    if(loc > -1)
     {
         OSGGETGLFUNC_GL3_ES(glUniformMatrix4fv,
                             osgGlUniformMatrix4fv,
@@ -339,7 +343,7 @@ void osgUniformShaderVariableMInt(DrawEnv        *pEnv,
 {
     ShaderVariableMInt *p = dynamic_cast<ShaderVariableMInt *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform1iv,
                             osgGlUniform1iv,
@@ -376,7 +380,7 @@ void osgUniformShaderVariableMUInt(DrawEnv        *pEnv,
 
     ShaderVariableMUInt *p = dynamic_cast<ShaderVariableMUInt *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform1uiv,
                             osgGlUniform1uiv,
@@ -404,7 +408,7 @@ void osgUniformShaderVariableMReal(DrawEnv        *pEnv,
 {
     ShaderVariableMReal *p = dynamic_cast<ShaderVariableMReal *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform1fv,
                             osgGlUniform1fv,
@@ -432,7 +436,7 @@ void osgUniformShaderVariableMVec2f(DrawEnv        *pEnv,
 {
     ShaderVariableMVec2f *p = dynamic_cast<ShaderVariableMVec2f *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform2fv,
                             osgGlUniform2fv,
@@ -460,7 +464,7 @@ void osgUniformShaderVariableMVec3f(DrawEnv        *pEnv,
 {
     ShaderVariableMVec3f *p = dynamic_cast<ShaderVariableMVec3f *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform3fv,
                             osgGlUniform3fv,
@@ -488,7 +492,7 @@ void osgUniformShaderVariableMVec4f(DrawEnv        *pEnv,
 {
     ShaderVariableMVec4f *p = dynamic_cast<ShaderVariableMVec4f *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniform4fv,
                             osgGlUniform4fv,
@@ -516,7 +520,7 @@ void osgUniformShaderVariableMMatrix(DrawEnv        *pEnv,
 {
     ShaderVariableMMatrix *p = dynamic_cast<ShaderVariableMMatrix *>(pVar);
 
-    if(loc != -1 && !p->getMFValue()->empty())
+    if(loc > -1 && !p->getMFValue()->empty())
     {
         OSGGETGLFUNC_GL3_ES(glUniformMatrix4fv,
                             osgGlUniformMatrix4fv,

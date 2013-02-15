@@ -95,6 +95,10 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+/*! \var UInt32          ShaderExecutableVarChunkBase::_sfActiveShader
+    fragment program object
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -160,6 +164,18 @@ void ShaderExecutableVarChunkBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderExecutableVarChunk::editHandleVariableLocations),
         static_cast<FieldGetMethodSig >(&ShaderExecutableVarChunk::getHandleVariableLocations));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "activeShader",
+        "fragment program object\n",
+        ActiveShaderFieldId, ActiveShaderFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderExecutableVarChunk::editHandleActiveShader),
+        static_cast<FieldGetMethodSig >(&ShaderExecutableVarChunk::getHandleActiveShader));
 
     oType.addInitialDesc(pDesc);
 }
@@ -230,6 +246,15 @@ ShaderExecutableVarChunkBase::TypeObject ShaderExecutableVarChunkBase::_type(
     "\t >\n"
     "\tfragment program object\n"
     "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"activeShader\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t access=\"protected\"\n"
+    "\t >\n"
+    "\tfragment program object\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -281,6 +306,19 @@ const MFInt32 *ShaderExecutableVarChunkBase::getMFVariableLocations(void) const
 }
 
 
+SFUInt32 *ShaderExecutableVarChunkBase::editSFActiveShader(void)
+{
+    editSField(ActiveShaderFieldMask);
+
+    return &_sfActiveShader;
+}
+
+const SFUInt32 *ShaderExecutableVarChunkBase::getSFActiveShader(void) const
+{
+    return &_sfActiveShader;
+}
+
+
 
 
 
@@ -303,6 +341,10 @@ SizeT ShaderExecutableVarChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfVariableLocations.getBinSize();
     }
+    if(FieldBits::NoField != (ActiveShaderFieldMask & whichField))
+    {
+        returnValue += _sfActiveShader.getBinSize();
+    }
 
     return returnValue;
 }
@@ -323,6 +365,10 @@ void ShaderExecutableVarChunkBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (VariableLocationsFieldMask & whichField))
     {
         _mfVariableLocations.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ActiveShaderFieldMask & whichField))
+    {
+        _sfActiveShader.copyToBin(pMem);
     }
 }
 
@@ -345,6 +391,11 @@ void ShaderExecutableVarChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(VariableLocationsFieldMask, _mfVariableLocations);
         _mfVariableLocations.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ActiveShaderFieldMask & whichField))
+    {
+        editSField(ActiveShaderFieldMask);
+        _sfActiveShader.copyFromBin(pMem);
     }
 }
 
@@ -475,7 +526,8 @@ ShaderExecutableVarChunkBase::ShaderExecutableVarChunkBase(void) :
     _sfVariables              (this,
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
-    _mfVariableLocations      ()
+    _mfVariableLocations      (),
+    _sfActiveShader           ()
 {
 }
 
@@ -485,7 +537,8 @@ ShaderExecutableVarChunkBase::ShaderExecutableVarChunkBase(const ShaderExecutabl
     _sfVariables              (this,
                           VariablesFieldId,
                           ShaderProgramVariables::ParentsFieldId),
-    _mfVariableLocations      (source._mfVariableLocations      )
+    _mfVariableLocations      (source._mfVariableLocations      ),
+    _sfActiveShader           (source._sfActiveShader           )
 {
 }
 
@@ -614,6 +667,31 @@ EditFieldHandlePtr ShaderExecutableVarChunkBase::editHandleVariableLocations(voi
 
 
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderExecutableVarChunkBase::getHandleActiveShader    (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfActiveShader,
+             this->getType().getFieldDesc(ActiveShaderFieldId),
+             const_cast<ShaderExecutableVarChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderExecutableVarChunkBase::editHandleActiveShader   (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfActiveShader,
+             this->getType().getFieldDesc(ActiveShaderFieldId),
+             this));
+
+
+    editSField(ActiveShaderFieldMask);
 
     return returnValue;
 }

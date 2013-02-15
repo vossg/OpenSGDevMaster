@@ -457,7 +457,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->getObjectToWorld();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -479,7 +479,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
             m.invert();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -500,7 +500,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
             m.transpose();
 
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -519,7 +519,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
             
             m[3].setValues(0, 0, 0, 1);
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -534,7 +534,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGCameraPosition:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 Matrix m = pEnv->getCameraToWorld();
 
@@ -555,7 +555,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->getCameraViewing();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -572,7 +572,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->getCameraToWorld();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -589,7 +589,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->_openGLState.getProjection();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -606,7 +606,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->_openGLState.getModelView();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -624,7 +624,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->_openGLState.getNormalMatrix();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -641,7 +641,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
         {
             Matrix m = pEnv->_openGLState.getModelViewProjection();
 
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniformMatrix4fv,
@@ -662,7 +662,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGDrawerId:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -677,7 +677,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGDrawableId:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -692,7 +692,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeId:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -711,7 +711,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeBoxMin:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -734,7 +734,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeBoxMax :
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -757,7 +757,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeBoxCenter:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -783,7 +783,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeWorldBoxMin:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -808,7 +808,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeWorldBoxMax :
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -833,7 +833,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGNodeWorldBoxCenter:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 if(pEnv->getSGNode() != NULL)
                 {
@@ -861,7 +861,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGActiveLightsMask:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(
                     glUniform1i,
@@ -877,7 +877,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight0Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -892,7 +892,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight1Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -907,7 +907,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight2Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -922,7 +922,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight3Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -937,7 +937,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight4Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -952,7 +952,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight5Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -967,7 +967,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight6Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,
@@ -982,7 +982,7 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
         case OSGLight7Active:
         {
-            if(iLocation != -1)
+            if(iLocation > -1)
             {
                 OSGGETGLFUNCBYID_GL3_ES(glUniform1i,
                                         osgGlUniform1i,

@@ -1175,6 +1175,11 @@ void ShaderExecutableChunk::updateProceduralVariables(
 
                     *mLocIt = osgGlGetUniformLocation(uiProgram,
                                                       p->getName().c_str());
+
+#ifdef OSG_MULTISHADER_VARCHUNK
+                    if(*mLocIt == -1)
+                        *mLocIt = -2;
+#endif
                 }
 
                 p->evaluate(pEnv, *mLocIt);                
@@ -1199,6 +1204,10 @@ void ShaderExecutableChunk::updateProceduralVariables(
 
                     *mLocIt = osgGlGetUniformLocation(uiProgram,
                                                       p->getName().c_str());
+#ifdef OSG_MULTISHADER_VARCHUNK
+                    if(*mLocIt == -1)
+                        *mLocIt = -2;
+#endif
                 }
 
 #ifdef OSG_1_COMPAT
