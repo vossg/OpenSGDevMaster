@@ -192,6 +192,8 @@ class FileContextHandlerMixin  : public ParentT
 
   private:
 
+    friend struct OSGSceneFileType::PostLoadingDispatcher<ContainerT>;
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const FileContextHandlerMixin &source);
 };
