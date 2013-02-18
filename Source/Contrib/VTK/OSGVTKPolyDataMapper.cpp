@@ -298,7 +298,7 @@ bool VTKPolyDataMapper::processPrimitive(
     
     int prim = 0, vert = 0;
     vtkIdType i, npts, *pts;
-    int transparentFlag = 0;
+//    int transparentFlag = 0;
     
     unsigned char *aColor  = NULL;
     vtkReal       *aNormal = NULL;
@@ -541,7 +541,7 @@ void VTKPolyDataMapper::execute(void)
 
     this->_executeTime.Modified();
         
-    OSG::Thread::getCurrentChangeList()->commitChanges();
+//    OSG::Thread::getCurrentChangeList()->commitChanges();
 #endif
 }
 
@@ -669,7 +669,7 @@ Action::ResultE VTKPolyDataMapper::renderEnter(Action *action)
 
 Action::ResultE VTKPolyDataMapper::renderLeave(Action *action)
 {
-    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
+//    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
     return Action::Continue;
 }

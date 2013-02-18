@@ -74,6 +74,31 @@ OSG::UInt16 CSMQT4WindowBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the CSMQT4Window::_sfPrimaryDisplayString field.
+
+inline
+std::string &CSMQT4WindowBase::editPrimaryDisplayString(void)
+{
+    editSField(PrimaryDisplayStringFieldMask);
+
+    return _sfPrimaryDisplayString.getValue();
+}
+
+//! Get the value of the CSMQT4Window::_sfPrimaryDisplayString field.
+inline
+const std::string &CSMQT4WindowBase::getPrimaryDisplayString(void) const
+{
+    return _sfPrimaryDisplayString.getValue();
+}
+
+//! Set the value of the CSMQT4Window::_sfPrimaryDisplayString field.
+inline
+void CSMQT4WindowBase::setPrimaryDisplayString(const std::string &value)
+{
+    editSField(PrimaryDisplayStringFieldMask);
+
+    _sfPrimaryDisplayString.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -85,6 +110,9 @@ void CSMQT4WindowBase::execSync (      CSMQT4WindowBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (PrimaryDisplayStringFieldMask & whichField))
+        _sfPrimaryDisplayString.syncWith(pFrom->_sfPrimaryDisplayString);
 }
 #endif
 

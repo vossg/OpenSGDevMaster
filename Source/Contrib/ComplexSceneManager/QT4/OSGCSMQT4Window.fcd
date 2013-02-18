@@ -12,5 +12,13 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
->
+    >
+  <Field
+	  name="primaryDisplayString"
+	  type="std::string"
+	  cardinality="single"
+	  visibility="internal"
+	  access="public"
+	  >
+  </Field>
 </FieldContainer>

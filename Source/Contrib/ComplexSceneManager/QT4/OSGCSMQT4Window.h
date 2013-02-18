@@ -134,6 +134,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4Window : public CSMQT4WindowBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    void initQtApp(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void qtMainLoop(void);
 
     /*! \}                                                                 */

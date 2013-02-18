@@ -65,6 +65,7 @@
 
 #include "OSGCSMWindow.h" // Parent
 
+#include "OSGBaseFields.h"              // PrimaryDisplayString type
 
 #include "OSGCSMQT4WindowFields.h"
 
@@ -91,6 +92,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4WindowBase : public CSMWindow
 
   public:
 
+    enum
+    {
+        PrimaryDisplayStringFieldId = Inherited::NextFieldId,
+        NextFieldId = PrimaryDisplayStringFieldId + 1
+    };
+
+    static const OSG::BitVector PrimaryDisplayStringFieldMask =
+        (TypeTraits<BitVector>::One << PrimaryDisplayStringFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFString          SFPrimaryDisplayStringType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -109,6 +122,31 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFString            *editSFPrimaryDisplayString(void);
+            const SFString            *getSFPrimaryDisplayString (void) const;
+
+
+                  std::string         &editPrimaryDisplayString(void);
+            const std::string         &getPrimaryDisplayString (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setPrimaryDisplayString(const std::string &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -160,6 +198,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFString          _sfPrimaryDisplayString;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -184,6 +229,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandlePrimaryDisplayString (void) const;
+    EditFieldHandlePtr editHandlePrimaryDisplayString(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

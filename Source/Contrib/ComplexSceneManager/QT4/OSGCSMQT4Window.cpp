@@ -141,17 +141,37 @@ void CSMQT4Window::dump(      UInt32    ,
     SLOG << "Dump CSMQT4Window NI" << std::endl;
 }
 
-bool CSMQT4Window::init(void)
+void CSMQT4Window::initQtApp(void)
 {
     if(_pApp == NULL)
     {
         QApplication::setColorSpec(QApplication::CustomColor);
 
-        static       Int32  argc   = 1;
-        static const Char8 *argv[] = { "testCSM" };
+        static const Char8 *appName   = "testCSM";
+        static const Char8 *dispParam = "-display";
+        
+        std::vector<const Char8 *> vArgs;
+
+        vArgs.push_back(appName);
+
+#ifndef WIN32
+        if(this->getPrimaryDisplayString().empty() == false)
+        {
+            vArgs.push_back(dispParam);
+            vArgs.push_back(this->getPrimaryDisplayString().c_str());
+        }
+#endif
+
+        static       Int32   argc = vArgs.size();
+        static const Char8 **argv = &(vArgs[0]);
 
         _pApp = new QApplication(argc, const_cast<Char8 **>(argv));
     }
+}
+
+bool CSMQT4Window::init(void)
+{
+    this->initQtApp();
 
     UInt32 uiWidth;
     UInt32 uiHeight;

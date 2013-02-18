@@ -81,6 +81,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var std::string     CSMQT4WindowBase::_sfPrimaryDisplayString
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -110,6 +114,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void CSMQT4WindowBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "primaryDisplayString",
+        "",
+        PrimaryDisplayStringFieldId, PrimaryDisplayStringFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMQT4Window::editHandlePrimaryDisplayString),
+        static_cast<FieldGetMethodSig >(&CSMQT4Window::getHandlePrimaryDisplayString));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -138,7 +156,15 @@ CSMQT4WindowBase::TypeObject CSMQT4WindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    ">\n"
+    "    >\n"
+    "  <Field\n"
+    "\t  name=\"primaryDisplayString\"\n"
+    "\t  type=\"std::string\"\n"
+    "\t  cardinality=\"single\"\n"
+    "\t  visibility=\"internal\"\n"
+    "\t  access=\"public\"\n"
+    "\t  >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -163,6 +189,19 @@ UInt32 CSMQT4WindowBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFString *CSMQT4WindowBase::editSFPrimaryDisplayString(void)
+{
+    editSField(PrimaryDisplayStringFieldMask);
+
+    return &_sfPrimaryDisplayString;
+}
+
+const SFString *CSMQT4WindowBase::getSFPrimaryDisplayString(void) const
+{
+    return &_sfPrimaryDisplayString;
+}
+
+
 
 
 
@@ -173,6 +212,10 @@ SizeT CSMQT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (PrimaryDisplayStringFieldMask & whichField))
+    {
+        returnValue += _sfPrimaryDisplayString.getBinSize();
+    }
 
     return returnValue;
 }
@@ -182,6 +225,10 @@ void CSMQT4WindowBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (PrimaryDisplayStringFieldMask & whichField))
+    {
+        _sfPrimaryDisplayString.copyToBin(pMem);
+    }
 }
 
 void CSMQT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -189,6 +236,11 @@ void CSMQT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (PrimaryDisplayStringFieldMask & whichField))
+    {
+        editSField(PrimaryDisplayStringFieldMask);
+        _sfPrimaryDisplayString.copyFromBin(pMem);
+    }
 }
 
 //! create a new instance of the class
@@ -286,12 +338,14 @@ FieldContainerTransitPtr CSMQT4WindowBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 CSMQT4WindowBase::CSMQT4WindowBase(void) :
-    Inherited()
+    Inherited(),
+    _sfPrimaryDisplayString   ()
 {
 }
 
 CSMQT4WindowBase::CSMQT4WindowBase(const CSMQT4WindowBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfPrimaryDisplayString   (source._sfPrimaryDisplayString   )
 {
 }
 
@@ -302,6 +356,31 @@ CSMQT4WindowBase::~CSMQT4WindowBase(void)
 {
 }
 
+
+GetFieldHandlePtr CSMQT4WindowBase::getHandlePrimaryDisplayString (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfPrimaryDisplayString,
+             this->getType().getFieldDesc(PrimaryDisplayStringFieldId),
+             const_cast<CSMQT4WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMQT4WindowBase::editHandlePrimaryDisplayString(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfPrimaryDisplayString,
+             this->getType().getFieldDesc(PrimaryDisplayStringFieldId),
+             this));
+
+
+    editSField(PrimaryDisplayStringFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

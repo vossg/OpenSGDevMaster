@@ -44,7 +44,9 @@
 
 #include "OSGConfig.h"
 #include "OSGVTKPolyDataMapperBase.h"
+#include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
+#include "OSGGeometry.h"
 
 #ifdef OSG_WITH_VTK
 #include <vtkTimeStamp.h>

@@ -330,12 +330,12 @@ OSG::NodeTransitPtr initVTK(void)
     reader->SetFileName(szFilename.c_str());
     reader->Update();
 
-    OSG::Real64 length = reader->GetOutput()->GetLength();
+//    OSG::Real64 length = reader->GetOutput()->GetLength();
 
-    OSG::Real64 maxVelocity = 
-        reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
+//    OSG::Real64 maxVelocity = 
+//        reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
 
-    OSG::Real64 maxTime = 35.0 * length / maxVelocity;
+//    OSG::Real64 maxTime = 35.0 * length / maxVelocity;
 
 
 
