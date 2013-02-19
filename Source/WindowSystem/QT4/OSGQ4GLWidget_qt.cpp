@@ -56,7 +56,10 @@ OSGQGLWidget::GLContext::GLContext(const QGLFormat & format) :
  // on makeCurrent() just do pretty nothing
 void OSGQGLWidget::GLContext::makeCurrent(void)
 {
-    OSG_ASSERT(false);
+    if(this != QGLContext::currentContext())
+    {
+        OSG_ASSERT(false);
+    }
 }
 
 void OSGQGLWidget::GLContext::doneCurrent(void)
