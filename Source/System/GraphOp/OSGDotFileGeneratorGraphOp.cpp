@@ -826,7 +826,10 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::CoreInfo(
 
         name  << "Core_" << _core_cnt;
         label << core_name << " " << _core_cnt;
-        
+
+        if(OSG::getName(core))
+            label << "\\n" << OSG::getName(core);
+
         Info info;
 
         info.cnt     = _core_cnt;
@@ -863,7 +866,11 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::AttachmentInfo(
 
         name  << "Attachment_" << _attachment_cnt;
         label << attachment_name << " " << _attachment_cnt;
-        
+
+        Name* attName = dynamic_cast<Name*>(att);
+        if(attName)
+            label << "\\n" << attName->getFieldPtr()->getValue().c_str();
+
         Info info;
 
         info.cnt     = _attachment_cnt;
@@ -895,7 +902,10 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::MaterialInfo(
 
         name  << "Material_" << _material_cnt;
         label << material_name << " " << _material_cnt;
-        
+
+        if(OSG::getName(material))
+            label << "\\n" << OSG::getName(material);
+
         Info info;
 
         info.cnt     = _material_cnt;
@@ -1009,7 +1019,10 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::StateChunkInfo(
 
         name  << "StateChunk_" << _chunk_cnt;
         label << chunk_name << " " << _chunk_cnt;
-        
+
+        if(OSG::getName(chunk))
+            label << "\\n" << OSG::getName(chunk);
+
         Info info;
 
         info.cnt     = _chunk_cnt;
