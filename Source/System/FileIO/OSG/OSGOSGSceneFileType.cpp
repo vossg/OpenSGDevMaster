@@ -218,7 +218,8 @@ bool OSGSceneFileType::writeContainer(FieldContainer * const  pContainer,
 void OSGSceneFileType::registerEndNodeCallback(const FieldContainerType &type, 
                                                const Functor            &func)
 {
-    _endNodeFunctors.resize(type.getId() + 1, NULL);
+    if(_endNodeFunctors.size() <= type.getId())
+        _endNodeFunctors.resize(type.getId() + 1, NULL);
 
     _endNodeFunctors[type.getId()] = func;
 }

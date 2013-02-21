@@ -126,7 +126,7 @@ void CSMSceneParameter::frame(Time oTime, UInt32 uiFrame)
 
 void CSMSceneParameter::reset(void)
 {
-    fprintf(stderr, "CSMSceneParameter::reset\n");
+    fprintf(stderr, "CSMSceneParameter::reset %p\n", _sfSceneRef.getValue());
 
     if(_sfSceneRef.getValue() != NULL)
     {
@@ -159,8 +159,14 @@ void CSMSceneParameter::reset(void)
         std::cerr << "Center: " << getSceneCenter()
                   << std::endl;
 
-        setSceneNear(osgPow(10.f, Int32(        log10f(_sfSceneDiag.getValue().length()))  - 2));
-        setSceneFar (osgPow(10.f, Int32(osgCeil(log10f(_sfSceneDiag.getValue().length()))) + 1));
+        setSceneNear(
+            osgPow(10.f, 
+                   Int32(        
+                             log10f(_sfSceneDiag.getValue().length()))  - 2));
+        setSceneFar (
+            osgPow(10.f, 
+                   Int32(osgCeil(
+                             log10f(_sfSceneDiag.getValue().length()))) + 1));
 
         std::cerr << "clipping (" << _sfSceneDiag.getValue().length() 
                   << ": from " 
