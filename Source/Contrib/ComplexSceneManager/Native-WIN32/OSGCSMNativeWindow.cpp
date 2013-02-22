@@ -712,11 +712,8 @@ bool CSMNativeWindow::init(void)
     Int32  iXPos    = CW_USEDEFAULT;
     Int32  iYPos    = 0;
 
-    if(this->getXPos() >= 0.f && this->getYPos() >= 0.f)
-    {
-        iXPos = Int32(this->getXPos());
-        iYPos = Int32(this->getYPos());
-    }
+    iXPos = Int32(this->getXPos());
+    iYPos = Int32(this->getYPos());
 
     if(this->getXSize() >= 1.f) 
     {
@@ -806,15 +803,15 @@ bool CSMNativeWindow::init(void)
     {
         GetClientRect(_pHWND, &clientSize);
         
-        this->reshape(clientSize.right,
-                      clientSize.bottom);
+        this->reshape(clientSize.right  - clientSize.left,
+                      clientSize.bottom - clientSize.top );
     }
     else
     {
         GetWindowRect(_pHWND, &clientSize);
         
-        this->reshape(clientSize.right,
-                      clientSize.bottom);
+        this->reshape(clientSize.right  - clientSize.left,
+                      clientSize.bottom - clientSize.top);
     }
 
     _pWin32Window->init();
