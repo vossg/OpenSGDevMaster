@@ -224,9 +224,9 @@ UInt32 Color3<ValueTypeT>::minPart(const ValueType *rgbP)
 template <class ValueTypeT> inline
 Color3<ValueTypeT>::Color3(void)
 {
-    setValues(TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement());
+    this->setValues(TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement());
 }
 
 
@@ -243,7 +243,7 @@ Color3<ValueTypeT>::Color3(const ValueType red,
                            const ValueType green,
                            const ValueType blue)
 {
-    setValues(red, green, blue);
+    this->setValues(red, green, blue);
 }
 
 
@@ -255,9 +255,9 @@ Color3<ValueTypeT>::~Color3(void)
 template <class ValueTypeT> inline
 void Color3<ValueTypeT>::clear(void)
 {
-    setValues(TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement());
+    this->setValues(TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement());
 }
 
 
@@ -266,7 +266,7 @@ void Color3<ValueTypeT>::setValuesRGB(const ValueType red,
                                       const ValueType green,
                                       const ValueType blue)
 {
-    setValues(red, green, blue);
+    this->setValues(red, green, blue);
 }
 
 
@@ -284,9 +284,9 @@ void Color3<ValueTypeT>::setRandom(void)
 {
     Real32 rf = 1.0 / Real32(RAND_MAX);
 
-    setValuesRGB(TypeTraits<ValueTypeT>::getPortion(rf * rand()),
-                 TypeTraits<ValueTypeT>::getPortion(rf * rand()),
-                 TypeTraits<ValueTypeT>::getPortion(rf * rand()));
+    this->setValuesRGB(TypeTraits<ValueTypeT>::getPortion(rf * rand()),
+                       TypeTraits<ValueTypeT>::getPortion(rf * rand()),
+                       TypeTraits<ValueTypeT>::getPortion(rf * rand()));
 }
 
 /*! method to set the rgb values (BBGGRR)
@@ -399,10 +399,10 @@ const Color4<ValueTypeT> Color4<ValueTypeT>::Null;
 template <class ValueTypeT> inline
 Color4<ValueTypeT>::Color4(void)
 {
-    setValues(TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement());
+    this->setValues(TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement());
 }
 
 
@@ -420,7 +420,7 @@ Color4<ValueTypeT>::Color4(const ValueType red,
                            const ValueType blue,
                            const ValueType alpha)
 {
-    setValues(red, green, blue, alpha);
+    this->setValues(red, green, blue, alpha);
 }
 
 
@@ -432,10 +432,10 @@ Color4<ValueTypeT>::~Color4(void)
 template <class ValueTypeT> inline
 void Color4<ValueTypeT>::clear(void)
 {
-    setValues(TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement(),
-              TypeTraits<ValueTypeT>::getZeroElement());
+    this->setValues(TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement(),
+                    TypeTraits<ValueTypeT>::getZeroElement());
 }
 
 
@@ -445,7 +445,7 @@ void Color4<ValueTypeT>::setValuesRGBA(const ValueType red,
                                        const ValueType blue,
                                        const ValueType alpha)
 {
-    setValues(red, green, blue, alpha);
+    this->setValues(red, green, blue, alpha);
 }
 
 template <class ValueTypeT> inline
