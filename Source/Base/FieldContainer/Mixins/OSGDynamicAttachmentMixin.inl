@@ -359,9 +359,9 @@ typename DynFieldAttachment<AttachmentDescT>::ObjCPtr
 {
     ObjCPtr returnValue;
 
-    newAspectCopy(returnValue,
-                  dynamic_cast<const Self *>(pRefAspect),
-                  dynamic_cast<const Self *>(this));
+    this->newAspectCopy(returnValue,
+                        dynamic_cast<const Self *>(pRefAspect),
+                        dynamic_cast<const Self *>(this));
 
     return returnValue;
 }
