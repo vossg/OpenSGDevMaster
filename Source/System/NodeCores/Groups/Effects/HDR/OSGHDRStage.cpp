@@ -162,7 +162,7 @@ Action::ResultE HDRStage::renderEnter(Action *action)
             pPart->setRenderTarget(pTarget);
             
 #ifdef OSG_DEBUGX
-            std::string szMessage("RenderPartition\n");
+            std::string szMessage("HDR: RenderPartition\n");
             pPart->setDebugString(szMessage          );
 #endif
 
@@ -234,7 +234,7 @@ Action::ResultE HDRStage::renderEnter(Action *action)
             RenderPartition *pPart  = a->getActivePartition();
 
 #ifdef OSG_DEBUGX
-            std::string szMessage("PostProcessPartition\n");
+            std::string szMessage("HDR: PostProcessPartition\n");
             pPart->setDebugString(szMessage          );
 #endif
            
