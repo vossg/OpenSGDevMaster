@@ -866,30 +866,9 @@ void HDRStage::initData(RenderAction *pAction,
 
     if(pData == NULL)
     {
-#if 0
-        pData = setupStageData(pViewport->getPixelWidth(),
-                               pViewport->getPixelHeight());
-        
-        pData->setWidth (pViewport->getPixelWidth ());
-        pData->setHeight(pViewport->getPixelHeight());
-#endif
-
-        fprintf(stderr, "use pixe size %d %d\n",
-                pAction->getActivePartition()->getViewportWidth (),
-                pAction->getActivePartition()->getViewportHeight());
-
-#if 0
-        pData = setupStageData(
-            pAction->getActivePartition()->getViewportWidth (),
-            pAction->getActivePartition()->getViewportHeight());
-        
-        pData->setWidth (pAction->getActivePartition()->getViewportWidth ());
-        pData->setHeight(pAction->getActivePartition()->getViewportHeight());
-#endif
-
         pData = setupStageData(iVPWidth,
                                iVPHeight);
-        
+
         pData->setWidth (iVPWidth );
         pData->setHeight(iVPHeight);
 
@@ -945,8 +924,8 @@ SimpleSHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
         << "vec4 radial(sampler2D tex,"                                  OSGHDRL
         << "            vec2      texcoord,"                             OSGHDRL
         << "            int       samples,"                              OSGHDRL
-        << "            float     startScale = 1.0,"                     OSGHDRL
-        << "            float     scaleMul   = 0.9)"                     OSGHDRL
+        << "            float     startScale,"                           OSGHDRL
+        << "            float     scaleMul)"                             OSGHDRL
         << "{"                                                           OSGHDRL
         << "    vec4 c     = vec4(0., 0., 0., 0.);"                      OSGHDRL
         << "    float  scale = startScale;"                              OSGHDRL
