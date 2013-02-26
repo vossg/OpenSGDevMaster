@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,86 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGASPECTIDFIELDTRAITS_H_
-#define _OSGASPECTIDFIELDTRAITS_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGSystemDef.h"
-#include "OSGSysFieldTraits.h"
-#include "OSGAspectPool.h"
 
-OSG_BEGIN_NAMESPACE
+#include "OSGConfig.h"
+#include "OSGBaseInitFunctions.h"
 
-/*! \ingroup GrpBaseFieldTraits
-    \ingroup GrpLibOSGBase 
- */
+#define SVN_REVISION "382"
 
-template <>
-struct FieldTraits<AspectId, 2> : 
-    public FieldTraitsPODTemplateBase<AspectId, 2>
+/*! Append our version to the library versions string 
+*/
+
+namespace
 {
-  private:
-
-    static  DataType                  _type;
-
-  public:
-
-    typedef FieldTraits<AspectId, 2>   Self;
-
-    enum              { Convertible = (Self::ToStreamConvertible  |
-                                       Self::FromStringConvertible)    };
-
-    static OSG_SYSTEM_DLLMAPPING
-                 DataType  &getType (void);
-
-    static const Char8     *getSName(void)   { return "SFAspectId";    }
-
-    static const Char8     *getMName(void)   { return "MFAspectId";    }
-
-    static       BitVector  getDefault(void) { return AspectId();      }
-
-    static void putToStream(const AspectId  &val,
-                                  OutStream &str)
+    bool versionAdder(void)
     {
-        FieldTraits<UInt32>::putToStream(val, str);
-    }
-
-    static bool getFromCString(      AspectId  &outVal,
-                               const Char8    *&inVal )
-    {
-        outVal = 0;
-
-        if(inVal[0] == '\0')
-            return false;
+        OSG::addLibraryVersion("OSGContribCSMQt", 
+                               OSG_VERSION_STRING, SVN_REVISION);
         
-        if(inVal[0] >= '0' && inVal[0] <= '9')
-        {
-            FieldTraits<UInt32>::getFromCString(outVal, inVal);
-
-            return true;
-        }
-        
-        outVal = AspectPool::the()->get(inVal);
-
         return true;
     }
-};
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-/*! \ingroup GrpBaseFieldSingle */
-typedef SField<AspectId, 2>   SFAspectId;
-
-#else
-
-/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
-struct SFAspectId    : public SField<AspectId, 2> {};
-
-#endif
-
-OSG_END_NAMESPACE
-
-#endif /* _OSGASPECTIDFIELDTRAITS_H_ */
-
+    
+    static OSG::StaticInitFuncWrapper versionAdderWrapper(versionAdder);
+}

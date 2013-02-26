@@ -96,20 +96,20 @@ class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSGQGLWidget(      QWidget        *parent,
-                 const Char8          *name         = 0,
-                 const QGLWidget      *shareWidget  = 0,
-                       Qt::WFlags      f            = 0 );
+    OSGQGLWidget(      QWidget         *parent,
+                 const Char8           *name         = 0,
+                 const QGLWidget       *shareWidget  = 0,
+                       Qt::WindowFlags  f            = 0 );
     OSGQGLWidget(      GLContext       *context,
                        QWidget         *parent      = 0,
                  const QGLWidget       *shareWidget = 0,
                        Qt::WindowFlags  f           = 0 );
 
-    OSGQGLWidget(const QGLFormat  &format      = QGLFormat::defaultFormat(),
-                       QWidget    *parent      = 0,
-                 const Char8      *name        = 0,
-                 const QGLWidget  *shareWidget = 0,
-                       Qt::WFlags  f           = 0 );
+    OSGQGLWidget(const QGLFormat       &format      = QGLFormat::defaultFormat(),
+                       QWidget         *parent      = 0,
+                 const Char8           *name        = 0,
+                 const QGLWidget       *shareWidget = 0,
+                       Qt::WindowFlags  f           = 0 );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Desstructor                                */

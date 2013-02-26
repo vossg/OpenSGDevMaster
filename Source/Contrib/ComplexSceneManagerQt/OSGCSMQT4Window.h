@@ -55,7 +55,7 @@ class CSMQT4GLWidget;
            PageContribCSMCSMQT4Window for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMQT4Window : public CSMQT4WindowBase
+class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4Window : public CSMQT4WindowBase
 {
   protected:
 

@@ -43,8 +43,13 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <QtGui/qapplication.h>
-#include <QtGui/QDesktopWidget>
+#ifdef OSG_WITH_QT5
+# include <QtWidgets/QApplication>
+# include <QtWidgets/QDesktopWidget>
+#else
+# include <QtGui/QApplication>
+# include <QtGui/QDesktopWidget>
+#endif
 
 #include "OSGConfig.h"
 

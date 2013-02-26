@@ -1713,7 +1713,7 @@ typedef ptrdiff_t GLsizeiptrARB;
 /*! \{                                                                 */
 
 #ifndef GL_VERSION_2_0
-#ifndef GL_BLEND_EQUATION_RGB
+#if !defined(GL_BLEND_EQUATION_RGB) && !defined(OSG_GLES2_POINTERDEF)
 #  define GL_BLEND_EQUATION_RGB             GL_BLEND_EQUATION
 #endif
 #define GL_VERTEX_ATTRIB_ARRAY_ENABLED    0x8622

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribCSMDef.h"
+#include "OSGContribCSMQtDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class CSMQT4Window;
 
 //! \brief CSMQT4Window Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMQT4WindowBase : public CSMWindow
+class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
 {
   public:
 

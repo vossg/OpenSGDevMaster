@@ -147,7 +147,7 @@ void QT4Window::init(GLInitFunctor oFunc)
 #if defined(WIN32)
         if(getGlWidget() != NULL)
         {
-            setHwnd(getGlWidget()->winId());
+            setHwnd(HWND(getGlWidget()->winId()));
         }
 
         Inherited::setHdc(wglGetCurrentDC());

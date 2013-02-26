@@ -130,6 +130,21 @@ MACRO(OSG_ADD_PROJECT PNAME)
 ENDMACRO(OSG_ADD_PROJECT)
 
 #############################################################################
+# qt wrapper
+
+MACRO(OSG_QT_MAKE_OUTPUT_FILE ARG1 ARG2 ARG3 ARG4)
+
+  IF(QT4_FOUND)
+    QT4_MAKE_OUTPUT_FILE(${MOCFile} moc_ cpp MOCOutFile)
+  ENDIF()
+
+  IF(QT5_FOUND)
+    QT5_MAKE_OUTPUT_FILE(${MOCFile} moc_ cpp MOCOutFile)
+  ENDIF()
+
+ENDMACRO()
+
+#############################################################################
 # select the current project as the one settings are added to
 
 MACRO(OSG_SELECT_PROJECT)
@@ -881,7 +896,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
         FOREACH(MOCFile ${${PROJECT_NAME}_MOC})
             GET_FILENAME_COMPONENT(MOCFile ${MOCFile} ABSOLUTE)
-            QT4_MAKE_OUTPUT_FILE(${MOCFile} moc_ cpp MOCOutFile)
+            OSG_QT_MAKE_OUTPUT_FILE(${MOCFile} moc_ cpp MOCOutFile)
 
             ADD_CUSTOM_COMMAND(
                 OUTPUT ${MOCOutFile}

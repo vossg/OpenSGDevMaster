@@ -79,7 +79,7 @@
 
 #define OSG_GL_UNUSED 0xffff
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(OSG_GLES2_POINTERDEF)
 typedef ptrdiff_t GLintptr;
 typedef ptrdiff_t GLsizeiptr;
 #endif

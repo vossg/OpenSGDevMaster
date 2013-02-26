@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribCSMDef.h"
+#include "OSGContribCSMQtDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -85,7 +85,7 @@ struct FieldTraits<CSMQT4Window *, nsOSG> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIBCSM_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBCSMQT_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

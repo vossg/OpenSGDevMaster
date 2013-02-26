@@ -132,6 +132,8 @@ namespace OSG
 
 #cmakedefine OSG_WITH_QT 1
 
+#cmakedefine OSG_WITH_QT5 1
+
 #cmakedefine OSG_ENABLE_DEFAULT_READONLY_CHANGELIST 1
 
 #cmakedefine OSG_ENABLE_PAR_PARTITION_DRAWING 1

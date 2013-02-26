@@ -50,7 +50,7 @@
 
 #ifdef OSG_WITH_QT
 
-#include "OSGContribCSMDef.h"
+#include "OSGContribCSMQtDef.h"
 #include "OSGBaseTypes.h"
 
 #include "OSGQ4GLWidget_qt.h"
@@ -65,7 +65,7 @@ class CSMQT4Window;
     \includebasedoc
  */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
+class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
 {
     Q_OBJECT
 
@@ -80,7 +80,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
     CSMQT4GLWidget(      QWidget         *parent,
                    const Char8           *name         = 0,
                    const QGLWidget       *shareWidget  = 0,
-                         Qt::WFlags       f            = 0                   );
+                         Qt::WindowFlags  f            = 0                   );
     CSMQT4GLWidget(      GLContext       *context,
                          QWidget         *parent      = 0,
                    const QGLWidget       *shareWidget = 0,
@@ -90,7 +90,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
                          QWidget         *parent      = 0,
                    const Char8           *name        = 0,
                    const QGLWidget       *shareWidget = 0,
-                         Qt::WFlags       f           = 0                   );
+                         Qt::WindowFlags  f           = 0                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -1,5 +1,5 @@
 
-OSG_ADD_PROJECT("OSGWindowQT4")
+OSG_ADD_PROJECT("OSGContribCSMQt")
 
 #IF(APPLE)
 #    MESSAGE(STATUS "Qt4 is not supported on Apple systems.")
@@ -21,6 +21,8 @@ OSG_SELECT_PROJECT()
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGSystem
                                 OSGWindow
+                                OSGWindowQT4
+                                OSGContribCSM
                                 ${OSG_NATIVE_WINDOW})
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
@@ -53,7 +55,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 # collect sources
 ##############################################################################
 
-OSG_ADD_DIRECTORY("Source/WindowSystem/QT4")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManagerQt")
 
 ##############################################################################
 # setup python bindings
@@ -65,4 +67,4 @@ SET(${PROJECT_NAME}_NO_PYTHON TRUE)
 # setup build
 ##############################################################################
 
-OSG_SETUP_PROJECT("OSG_COMPILEWINDOWQT4LIB")
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBCSMQTLIB")

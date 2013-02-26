@@ -101,7 +101,7 @@ namespace
 CSMQT4GLWidget::CSMQT4GLWidget(      QWidget         *parent     ,
                                const Char8           *name       ,
                                const QGLWidget       *shareWidget,
-                                     Qt::WFlags       f          ) :
+                                     Qt::WindowFlags  f          ) :
      Inherited (parent, 
                 name, 
                 shareWidget, 
@@ -126,7 +126,7 @@ CSMQT4GLWidget::CSMQT4GLWidget(const QGLFormat       &format     ,
                                      QWidget         *parent     ,
                                const Char8           *name       ,
                                const QGLWidget       *shareWidget,
-                                     Qt::WFlags       f          ) :
+                                     Qt::WindowFlags  f          ) :
      Inherited (format, 
                 parent, 
                 name, 

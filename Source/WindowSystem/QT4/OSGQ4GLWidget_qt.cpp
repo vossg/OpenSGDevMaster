@@ -109,10 +109,10 @@ The class for QT-based windows. See \ref PageWindowQT for a description.
 */
 
 
-OSGQGLWidget::OSGQGLWidget(      QWidget    *parent,
-                           const char       *name,
-                           const QGLWidget  *shareWidget,
-                                 Qt::WFlags  f           ) :
+OSGQGLWidget::OSGQGLWidget(      QWidget        *parent,
+                           const char           *name,
+                           const QGLWidget      *shareWidget,
+                                 Qt::WindowFlags f           ) :
     QGLWidget(new GLContext(QGLFormat::defaultFormat()),
               parent, 
               shareWidget, 
@@ -128,11 +128,11 @@ OSGQGLWidget::OSGQGLWidget(      GLContext       *context,
 {
 }
 
-OSGQGLWidget::OSGQGLWidget(const QGLFormat  &format,
-                                 QWidget    *parent,
-                           const char       *name,
-                           const QGLWidget  *shareWidget,
-                                 Qt::WFlags  f           ) :
+OSGQGLWidget::OSGQGLWidget(const QGLFormat       &format,
+                                 QWidget         *parent,
+                           const char            *name,
+                           const QGLWidget       *shareWidget,
+                                 Qt::WindowFlags  f           ) :
     QGLWidget(new GLContext(format), parent, shareWidget, f)
 {
 }
