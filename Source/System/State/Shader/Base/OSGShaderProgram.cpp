@@ -751,7 +751,6 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
                 delete [] szDebug;
 
-#ifdef OSG_DEBUG
                 // log source that failed to compile
                 FINFO(("Shader source was:\n"));
 
@@ -761,7 +760,6 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
                 }
 
                 FPINFO(("%s\n", source));
-#endif
 
                 OSGGETGLFUNCBYID_GL3_ES(glDeleteShader,
                                         osgGlDeleteShader,

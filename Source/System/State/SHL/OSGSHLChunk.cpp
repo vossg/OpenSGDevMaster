@@ -663,13 +663,9 @@ void SHLChunk::updateProgram(Window *win)
             getInfoLog(vShader, debugLength, &debugLength, debug);
 
             FFATAL(("Couldn't compile vertex program!\n%s\n", debug));
+            FINFO(("Shader source was:\n%s\n", source));
             delete [] debug;
             deleteObject(vShader);
-
-#ifdef OSG_DEBUG
-            // log source that failed to compile
-            FINFO(("Shader source was:\n%s\n", source));
-#endif
         }
     }
 
@@ -707,13 +703,9 @@ void SHLChunk::updateProgram(Window *win)
             getInfoLog(fShader, debugLength, &debugLength, debug);
 
             FFATAL(("Couldn't compile fragment program!\n%s\n", debug));
+            FINFO(("Shader source was:\n%s\n", source));
             delete [] debug;
             deleteObject(fShader);
-
-#ifdef OSG_DEBUG
-            // log source that failed to compile
-            FINFO(("Shader source was:\n%s\n", source));
-#endif
         }
     }
 
@@ -748,13 +740,9 @@ void SHLChunk::updateProgram(Window *win)
                 getInfoLog(gShader, debugLength, &debugLength, debug);
 
                 FFATAL(("Couldn't compile geometry program!\n%s\n", debug));
+                FINFO(("Shader source was:\n%s\n", source));
                 delete [] debug;
                 deleteObject(gShader);
-
-#ifdef OSG_DEBUG
-                // log source that failed to compile
-                FINFO(("Shader source was:\n%s\n", source));
-#endif
             }
         }
         else
