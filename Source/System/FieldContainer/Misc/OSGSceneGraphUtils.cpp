@@ -172,7 +172,7 @@ Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
 
     if(core == NULL)
     {
-        os << "\n";
+        os << " -- !! MISSING CORE !!\n";
         return Action::Continue;
     }
 
