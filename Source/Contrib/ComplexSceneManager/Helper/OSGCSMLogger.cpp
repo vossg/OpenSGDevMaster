@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGCSMLogger.h"
+#include "OSGNameAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -164,6 +165,19 @@ void CSMLogger::doLog(FieldContainer *pContainer,
 
             const FieldDescriptionBase *pDesc = 
                 pContainer->getFieldDescription(uiRefFieldId);
+
+            AttachmentContainer *pAtt = 
+                dynamic_cast<AttachmentContainer *>(pContainer);
+
+            if(pAtt != NULL)
+            {
+                const Char8 *szName = getName(pAtt);
+
+                if(szName != NULL)
+                {
+                    cerrStream << "[" << szName << "]:";
+                }
+            }
 
             cerrStream << pContainer->getType().getName() 
                        << "."
