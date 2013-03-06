@@ -49,6 +49,7 @@
 #include "OSGCounter.h" // Parent
 
 #include "OSGSysFields.h" // Step type
+#include "OSGVecFields.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -311,7 +312,16 @@ class CounterImpl : public Counter
     void operator =(const CounterImpl &source);
 };
 
-struct Int32CounterDesc
+template<class FieldT>
+struct CounterDescBase
+{
+    typedef typename FieldT::StoredType ValueType;
+
+    static ValueType getZeroElement(void);
+    static ValueType getOneElement (void); 
+};
+
+struct Int32CounterDesc : public CounterDescBase<SFInt32>
 {
     typedef SFInt32 SFValueType;
 
@@ -321,7 +331,7 @@ struct Int32CounterDesc
     }
 };
 
-struct UInt32CounterDesc
+struct UInt32CounterDesc : public CounterDescBase<SFUInt32>
 {
     typedef SFUInt32 SFValueType;
 
@@ -331,7 +341,7 @@ struct UInt32CounterDesc
     }
 };
 
-struct Real32CounterDesc
+struct Real32CounterDesc : public CounterDescBase<SFReal32>
 {
     typedef SFReal32 SFValueType;
 
@@ -341,9 +351,23 @@ struct Real32CounterDesc
     }
 };
 
+struct Vec2fCounterDesc
+{
+    typedef SFVec2f SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Vec2fCounter";
+    }
+
+    static Vec2f getZeroElement(void);
+    static Vec2f getOneElement (void); 
+};
+
 typedef CounterImpl<Int32CounterDesc > Int32Counter;
 typedef CounterImpl<UInt32CounterDesc> UInt32Counter;
 typedef CounterImpl<Real32CounterDesc> Real32Counter;
+typedef CounterImpl<Vec2fCounterDesc > Vec2fCounter;
 
 OSG_END_NAMESPACE
 

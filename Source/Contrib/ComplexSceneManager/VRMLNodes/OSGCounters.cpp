@@ -99,7 +99,7 @@ CounterImpl<DESC>::TypeObject                                           \
         reinterpret_cast<InitalInsertDescFunc>(                         \
             &Self::classDescInserter),                                  \
         false,                                                          \
-        0,                                                              \
+        (ValueFieldMask),                                               \
         "",                                                             \
         ""                                                              \
                             );                                          \
@@ -147,7 +147,7 @@ void CounterImpl<UInt32CounterDesc>::changed(ConstFieldMaskArg whichField,
 
         if(0x0000 != (whichField & IncTriggerFieldMask))
         {
-                setValue(getValue() + getStep());
+            setValue(getValue() + getStep());
         }
         
         if(0x0000 != (whichField & DecTriggerFieldMask))
@@ -166,8 +166,19 @@ void CounterImpl<UInt32CounterDesc>::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+Vec2f Vec2fCounterDesc::getZeroElement(void)
+{
+    return Vec2f(0.f, 0.f);
+}
+
+Vec2f Vec2fCounterDesc::getOneElement(void)
+{
+    return Vec2f(1.f, 1.f);
+}
+
 OSGCOUNTER_IMPL(Int32CounterDesc )
 OSGCOUNTER_IMPL(UInt32CounterDesc)
 OSGCOUNTER_IMPL(Real32CounterDesc)
+OSGCOUNTER_IMPL(Vec2fCounterDesc)
 
 OSG_END_NAMESPACE

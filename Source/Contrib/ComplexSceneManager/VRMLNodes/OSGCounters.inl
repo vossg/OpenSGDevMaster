@@ -409,9 +409,9 @@ const Char8 *CounterImpl<Desc>::getClassname(void)
 template<class Desc> inline
 CounterImpl<Desc>::CounterImpl(void) :
     Inherited(),
-    _sfStep                   (TypeTraits<ValueType>::getOneElement ()),
-    _sfResetValue             (TypeTraits<ValueType>::getZeroElement()),
-    _sfValue                  (TypeTraits<ValueType>::getZeroElement())
+    _sfStep                   (Desc::getOneElement ()),
+    _sfResetValue             (Desc::getZeroElement()),
+    _sfValue                  (Desc::getZeroElement())
 {
 }
 
@@ -583,6 +583,19 @@ void CounterImpl<Desc>::initMethod(InitPhase ePhase)
     }
 }
 
+template<class FieldT> inline
+typename CounterDescBase<FieldT>::ValueType 
+    CounterDescBase<FieldT>::getZeroElement(void)
+{
+    return TypeTraits<ValueType>::getZeroElement();
+}
+
+template<class FieldT> inline
+typename CounterDescBase<FieldT>::ValueType 
+    CounterDescBase<FieldT>::getOneElement(void)
+{
+    return TypeTraits<ValueType>::getOneElement();
+}
 
 OSG_END_NAMESPACE
 

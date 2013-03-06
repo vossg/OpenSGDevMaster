@@ -165,7 +165,7 @@ CounterBase::TypeObject CounterBase::_type(
     Counter::exitMethod,
     reinterpret_cast<InitalInsertDescFunc>(&Counter::classDescInserter),
     false,
-    0,
+    (IncTriggerFieldMask | DecTriggerFieldMask | ResetTriggerFieldMask),
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
