@@ -664,6 +664,8 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
                                                      KeepProgActive);
 
 
+            uiProgId = pEnv->getActiveShader();
+
             if(uiProgId == 0)
                 return;
 
