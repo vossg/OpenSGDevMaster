@@ -740,12 +740,16 @@ void Geometry::changed(ConstFieldMaskArg whichField,
     if(whichField & (TypesFieldMask | LengthsFieldMask |
                      PropertiesFieldMask | PropIndicesFieldMask))
     {
-        if(getDlistCache())
+        if(this->getDlistCache() == true)
         {
 #if !defined(OSG_OGL_COREONLY)
             Window::refreshGLObject(getClassicGLId());
 #endif
             Window::refreshGLObject(getAttGLId    ());
+        }
+
+        if(this->getUseVAO() == true)
+        {
             Window::refreshGLObject(getVaoGLId    ());
         }
     }
