@@ -112,4 +112,9 @@ def postFCDInfoSetup(osg, mb, adddition_exp):
 
   splitGenHelper.customizeWindow(osg, "ClusterWindow")  
 
+  for class_name in ["ClusterWindow"]:
+    c = osg[class_name]
+    for m in ["initAsync", "setConnectionCB"]:
+      c[m].exclude()
+
   return
