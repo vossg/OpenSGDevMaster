@@ -45,6 +45,7 @@
 #include "OSGEffectGroupsDef.h"
 #include "OSGMemoryObject.h"
 
+#include "OSGBlendChunk.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGImage.h"
 #include "OSGSolidBackground.h"
@@ -148,6 +149,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     SimpleMaterialUnrecPtr     _unlitMat;
 
     SimpleSHLChunkUnrecPtr     _combineSHL;
+    BlendChunkUnrecPtr         _combineBlend;
     DepthChunkUnrecPtr         _combineDepth;
     ChunkMaterialUnrecPtr      _combineCmat;
 

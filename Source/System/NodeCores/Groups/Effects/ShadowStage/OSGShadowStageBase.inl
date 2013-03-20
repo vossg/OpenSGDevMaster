@@ -499,6 +499,31 @@ void ShadowStageBase::setBlitZBuffer(const bool value)
 
     _sfBlitZBuffer.setValue(value);
 }
+//! Get the value of the ShadowStage::_sfCombineBlend field.
+
+inline
+bool &ShadowStageBase::editCombineBlend(void)
+{
+    editSField(CombineBlendFieldMask);
+
+    return _sfCombineBlend.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfCombineBlend field.
+inline
+      bool  ShadowStageBase::getCombineBlend(void) const
+{
+    return _sfCombineBlend.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfCombineBlend field.
+inline
+void ShadowStageBase::setCombineBlend(const bool value)
+{
+    editSField(CombineBlendFieldMask);
+
+    _sfCombineBlend.setValue(value);
+}
 
 //! Get the value of the \a index element the ShadowStage::_mfLightNodes field.
 inline
@@ -587,6 +612,9 @@ void ShadowStageBase::execSync (      ShadowStageBase *pFrom,
 
     if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
         _sfBlitZBuffer.syncWith(pFrom->_sfBlitZBuffer);
+
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+        _sfCombineBlend.syncWith(pFrom->_sfCombineBlend);
 }
 #endif
 

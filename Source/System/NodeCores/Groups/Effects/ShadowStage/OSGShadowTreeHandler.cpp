@@ -69,9 +69,9 @@ std::string ShadowTreeHandler::_shadow_combine_fp =
     "void main(void)\n"
     "{\n"
     "    vec2 tc = texCoord * vec2(xFactor, yFactor);\n"
-    "    vec3 color = texture2D(colorMap, tc).rgb;\n"
-    "    color *= hasFactorMap ? (1.0 - texture2D(shadowFactorMap, tc).r) : 1.0;\n"
-    "    gl_FragColor = vec4(color, 1.0);\n"
+    "    vec4 color = texture2D(colorMap, tc).rgba;\n"
+    "    color.rgb *= hasFactorMap ? (1.0 - texture2D(shadowFactorMap, tc).r) : 1.0;\n"
+    "    gl_FragColor = color;\n"
     "}\n";
 
 
@@ -114,14 +114,13 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _unlitMat             (NULL                  ),
 
     _combineSHL           (NULL                  ),
+    _combineBlend         (NULL                  ),
     _combineDepth         (NULL                  ),
     _combineCmat          (NULL                  ),
 
     _aCubeTrans           (                      )
 {
-    GLint   max_tex_size = pWindow->getConstantValue(GL_MAX_TEXTURE_SIZE);
-
-//    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex_size);
+    GLint max_tex_size = pWindow->getConstantValue(GL_MAX_TEXTURE_SIZE);
 
     _maxTexSize   = max_tex_size;
     _maxPLMapSize = _maxTexSize / 4;
@@ -168,8 +167,8 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _colorMapImage = Image          ::createLocal();
 
     _colorMapO->setImage         (_colorMapImage);
-    _colorMapO->setInternalFormat(GL_RGB);
-    _colorMapO->setExternalFormat(GL_RGB);
+    _colorMapO->setInternalFormat(GL_RGBA);
+    _colorMapO->setExternalFormat(GL_RGBA);
     _colorMapO->setMinFilter     (GL_NEAREST);
     _colorMapO->setMagFilter     (GL_NEAREST);
     _colorMapO->setWrapS         (GL_REPEAT);
@@ -206,7 +205,12 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _combineSHL->setVertexProgram  (_shadow_combine_vp);
     _combineSHL->setFragmentProgram(_shadow_combine_fp);
 
+    _combineBlend = BlendChunk::createLocal();
+    _combineBlend->setSrcFactor (GL_SRC_ALPHA);
+    _combineBlend->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
     _combineDepth = DepthChunk::createLocal();
+    _combineDepth->setEnable  (false);
     _combineDepth->setReadOnly(true);
 
     //Combine Shader
@@ -214,6 +218,7 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _combineCmat->addChunk(_combineSHL);
     _combineCmat->addChunk(_colorMapO);
     _combineCmat->addChunk(_shadowFactorMapO);
+    _combineCmat->addChunk(_combineBlend);
     _combineCmat->addChunk(_combineDepth);
 }
 
@@ -240,6 +245,7 @@ ShadowTreeHandler::~ShadowTreeHandler(void)
     _unlitMat              = NULL;
 
     _combineSHL            = NULL;
+    _combineBlend          = NULL;
     _combineDepth          = NULL;
     _combineCmat           = NULL;
 }
@@ -640,6 +646,11 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
         _combineCmat->addChunk(_shadowFactorMapO);
     }
 
+    if(_pStage->getCombineBlend() == true)
+    {
+        _combineCmat->addChunk(_combineBlend);
+    }
+
     _combineCmat->addChunk(_combineDepth);
 
     _combineSHL->addUniformVariable("colorMap",        0);
@@ -650,10 +661,6 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
 
     commitChanges();
 
-    glClearColor(0.2f, 0.2, 0.2f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClear(GL_COLOR_BUFFER_BIT);
-
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
 
@@ -663,33 +670,25 @@ void ShadowTreeHandler::doDrawCombineMap2(DrawEnv *pEnv)
 
     pEnv->activateState(pCombineState, NULL);
 
-    glDepthMask(GL_FALSE);
-    glDisable(GL_DEPTH_TEST);
-
     glBegin(GL_QUADS);
     {
         glTexCoord2f(0.00, 0.00);
         glVertex2f  (0.00, 0.00);
-        
+
         glTexCoord2f(1.00, 0.00);
         glVertex2f  (1.00, 0.00);
-        
+
         glTexCoord2f(1.00, 1.00);
         glVertex2f  (1.00, 1.00);
-        
+
         glTexCoord2f(0.00, 1.00);
         glVertex2f  (0.00, 1.00);
     }
     glEnd();
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-
     pEnv->deactivateState();
 
     glPopMatrix();
-
-//    blitZBuffer(pEnv);
 }
 
 
@@ -742,12 +741,18 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     _combineSHL->addUniformVariable("yFactor",         Real32(yFactor));
     _combineSHL->addUniformVariable("hasFactorMap",    hasFactorMap());
 
+    Int32 idx = _combineCmat->find(_combineBlend);
+
+    if(_pStage->getCombineBlend() == true && idx < 0)
+    {
+        _combineCmat->addChunk(_combineBlend);
+    }
+    else if(_pStage->getCombineBlend() == false && idx >= 0)
+    {
+        _combineCmat->subChunk(_combineBlend);
+    }
+
     commitChanges();
-
-    glClearColor(0.2f, 0.2, 0.2f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glClear(GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -757,9 +762,6 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     State *pCombineState = _combineCmat->getState();
 
     pEnv->activateState(pCombineState, NULL);
-
-    glDepthMask(GL_FALSE);
-    glDisable(GL_DEPTH_TEST);
 
     glBegin(GL_QUADS);
     {
@@ -777,14 +779,9 @@ void ShadowTreeHandler::doDrawCombineMap1(DrawEnv *pEnv)
     }
     glEnd();
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-
     pEnv->deactivateState();
 
     glPopMatrix();
-
-//    blitZBuffer(pEnv);
 }
 
 bool ShadowTreeHandler::hasFactorMap(void)

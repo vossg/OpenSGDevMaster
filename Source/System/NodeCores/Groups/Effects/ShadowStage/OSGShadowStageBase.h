@@ -114,7 +114,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         GreenFieldId = BlueFieldId + 1,
         AlphaFieldId = GreenFieldId + 1,
         BlitZBufferFieldId = AlphaFieldId + 1,
-        NextFieldId = BlitZBufferFieldId + 1
+        CombineBlendFieldId = BlitZBufferFieldId + 1,
+        NextFieldId = CombineBlendFieldId + 1
     };
 
     static const OSG::BitVector OffBiasFieldMask =
@@ -155,6 +156,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         (TypeTraits<BitVector>::One << AlphaFieldId);
     static const OSG::BitVector BlitZBufferFieldMask =
         (TypeTraits<BitVector>::One << BlitZBufferFieldId);
+    static const OSG::BitVector CombineBlendFieldMask =
+        (TypeTraits<BitVector>::One << CombineBlendFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -177,6 +180,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     typedef SFBool            SFGreenType;
     typedef SFBool            SFAlphaType;
     typedef SFBool            SFBlitZBufferType;
+    typedef SFBool            SFCombineBlendType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -257,6 +261,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   SFBool              *editSFBlitZBuffer    (void);
             const SFBool              *getSFBlitZBuffer     (void) const;
 
+                  SFBool              *editSFCombineBlend   (void);
+            const SFBool              *getSFCombineBlend    (void) const;
+
 
                   Real32              &editOffBias        (void);
                   Real32               getOffBias         (void) const;
@@ -313,6 +320,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   bool                &editBlitZBuffer    (void);
                   bool                 getBlitZBuffer     (void) const;
 
+                  bool                &editCombineBlend   (void);
+                  bool                 getCombineBlend    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -335,6 +345,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
             void setGreen          (const bool value);
             void setAlpha          (const bool value);
             void setBlitZBuffer    (const bool value);
+            void setCombineBlend   (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -430,6 +441,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     SFBool            _sfGreen;
     SFBool            _sfAlpha;
     SFBool            _sfBlitZBuffer;
+    SFBool            _sfCombineBlend;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -496,6 +508,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     EditFieldHandlePtr editHandleAlpha          (void);
     GetFieldHandlePtr  getHandleBlitZBuffer     (void) const;
     EditFieldHandlePtr editHandleBlitZBuffer    (void);
+    GetFieldHandlePtr  getHandleCombineBlend    (void) const;
+    EditFieldHandlePtr editHandleCombineBlend   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

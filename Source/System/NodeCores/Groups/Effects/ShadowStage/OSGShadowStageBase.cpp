@@ -165,6 +165,11 @@ OSG_BEGIN_NAMESPACE
     leave a correct Z-Buffer on the way out.
 */
 
+/*! \var bool            ShadowStageBase::_sfCombineBlend
+    Use blending when writing the combined scene and shadow images to the
+    target framebuffer.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -425,6 +430,19 @@ void ShadowStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShadowStage::getHandleBlitZBuffer));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "combineBlend",
+        "Use blending when writing the combined scene and shadow images to the\n"
+        "target framebuffer.\n",
+        CombineBlendFieldId, CombineBlendFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleCombineBlend),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleCombineBlend));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -642,6 +660,17 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t >\n"
     "\tleave a correct Z-Buffer on the way out.\n"
     "  </Field>\n"
+    "  <Field\n"
+    "    name=\"combineBlend\"\n"
+    "    type=\"bool\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    defaultValue=\"false\"\n"
+    "    access=\"public\"\n"
+    "    >\n"
+    "    Use blending when writing the combined scene and shadow images to the\n"
+    "    target framebuffer.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "First Release of ShadowMap-Viewport. Viewport is capable to handle multiple\n"
     "Lights and produces ambient Shadows. Viewport uses On-Screen-rendering, so\n"
@@ -915,6 +944,19 @@ const SFBool *ShadowStageBase::getSFBlitZBuffer(void) const
 }
 
 
+SFBool *ShadowStageBase::editSFCombineBlend(void)
+{
+    editSField(CombineBlendFieldMask);
+
+    return &_sfCombineBlend;
+}
+
+const SFBool *ShadowStageBase::getSFCombineBlend(void) const
+{
+    return &_sfCombineBlend;
+}
+
+
 
 
 void ShadowStageBase::pushToLightNodes(Node * const value)
@@ -1107,6 +1149,10 @@ SizeT ShadowStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBlitZBuffer.getBinSize();
     }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        returnValue += _sfCombineBlend.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1191,6 +1237,10 @@ void ShadowStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BlitZBufferFieldMask & whichField))
     {
         _sfBlitZBuffer.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        _sfCombineBlend.copyToBin(pMem);
     }
 }
 
@@ -1293,6 +1343,11 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(BlitZBufferFieldMask);
         _sfBlitZBuffer.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        editSField(CombineBlendFieldMask);
+        _sfCombineBlend.copyFromBin(pMem);
     }
 }
 
@@ -1437,7 +1492,8 @@ ShadowStageBase::ShadowStageBase(void) :
     _sfBlue                   (bool(GL_TRUE)),
     _sfGreen                  (bool(GL_TRUE)),
     _sfAlpha                  (bool(GL_TRUE)),
-    _sfBlitZBuffer            (bool(false))
+    _sfBlitZBuffer            (bool(false)),
+    _sfCombineBlend           (bool(false))
 {
 }
 
@@ -1461,7 +1517,8 @@ ShadowStageBase::ShadowStageBase(const ShadowStageBase &source) :
     _sfBlue                   (source._sfBlue                   ),
     _sfGreen                  (source._sfGreen                  ),
     _sfAlpha                  (source._sfAlpha                  ),
-    _sfBlitZBuffer            (source._sfBlitZBuffer            )
+    _sfBlitZBuffer            (source._sfBlitZBuffer            ),
+    _sfCombineBlend           (source._sfCombineBlend           )
 {
 }
 
@@ -2001,6 +2058,31 @@ EditFieldHandlePtr ShadowStageBase::editHandleBlitZBuffer    (void)
 
 
     editSField(BlitZBufferFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleCombineBlend    (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCombineBlend,
+             this->getType().getFieldDesc(CombineBlendFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleCombineBlend   (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCombineBlend,
+             this->getType().getFieldDesc(CombineBlendFieldId),
+             this));
+
+
+    editSField(CombineBlendFieldMask);
 
     return returnValue;
 }
