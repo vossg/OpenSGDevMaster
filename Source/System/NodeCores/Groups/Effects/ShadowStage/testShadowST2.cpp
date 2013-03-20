@@ -872,12 +872,18 @@ void keyboard(unsigned char k, int x, int y)
         case '5':
             {
                 svp->setShadowMode(OSG::ShadowStage::PCF_SHADOW_MAP);
-                //svp->setShadowSmoothness(0.5);
                 SLOG << "PCF_SHADOW_MAP" << std::endl;
                 break;
             }
 
-        case '6':
+       case '6':
+            {
+                svp->setShadowMode(OSG::ShadowStage::PCF2_SHADOW_MAP);
+                SLOG << "PCF2_SHADOW_MAP" << std::endl;
+                break;
+            }
+
+        case '7':
             {
                 svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
                 svp->setShadowSmoothness(0.2f);
@@ -885,7 +891,7 @@ void keyboard(unsigned char k, int x, int y)
                 break;
             }
 
-        case '7':
+        case '8':
             {
                 svp->setShadowMode(OSG::ShadowStage::VARIANCE_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
