@@ -46,7 +46,7 @@
 
 #include "OSGGeometryBase.h"
 
-#include "OSGTypedGeoVectorProperty.h"
+#include "OSGGeoVectorProperty.h"
 #include "OSGGeoIntegralProperty.h"
 #include "OSGWindow.h"
 

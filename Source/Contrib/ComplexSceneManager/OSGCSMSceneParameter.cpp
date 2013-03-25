@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGCSMSceneParameter.h"
+#include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
 

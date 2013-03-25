@@ -361,6 +361,21 @@ SFUnrecImagePtr     *SimpleTexturedMaterialBase::editSFImage          (void)
     return &_sfImage;
 }
 
+//! Get the value of the SimpleTexturedMaterial::_sfImage field.
+Image * SimpleTexturedMaterialBase::getImage(void) const
+{
+    return _sfImage.getValue();
+}
+
+//! Set the value of the SimpleTexturedMaterial::_sfImage field.
+void SimpleTexturedMaterialBase::setImage(Image * const value)
+{
+    editSField(ImageFieldMask);
+
+    _sfImage.setValue(value);
+}
+
+
 SFGLenum *SimpleTexturedMaterialBase::editSFMinFilter(void)
 {
     editSField(MinFilterFieldMask);

@@ -251,6 +251,10 @@ MFUnrecTextureBaseChunkPtr *TextureSelectChunkBase::editMFTextures       (void)
 
     return &_mfTextures;
 }
+TextureBaseChunk * TextureSelectChunkBase::getTextures(const UInt32 index) const
+{
+    return _mfTextures[index];
+}
 
 
 

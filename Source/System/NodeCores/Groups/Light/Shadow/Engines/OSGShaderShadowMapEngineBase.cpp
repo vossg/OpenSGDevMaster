@@ -329,6 +329,21 @@ SFUnrecShaderProgramPtr *ShaderShadowMapEngineBase::editSFShadowVertexProgram(vo
     return &_sfShadowVertexProgram;
 }
 
+//! Get the value of the ShaderShadowMapEngine::_sfShadowVertexProgram field.
+ShaderProgram * ShaderShadowMapEngineBase::getShadowVertexProgram(void) const
+{
+    return _sfShadowVertexProgram.getValue();
+}
+
+//! Set the value of the ShaderShadowMapEngine::_sfShadowVertexProgram field.
+void ShaderShadowMapEngineBase::setShadowVertexProgram(ShaderProgram * const value)
+{
+    editSField(ShadowVertexProgramFieldMask);
+
+    _sfShadowVertexProgram.setValue(value);
+}
+
+
 //! Get the ShaderShadowMapEngine::_sfShadowFragmentProgram field.
 const SFUnrecShaderProgramPtr *ShaderShadowMapEngineBase::getSFShadowFragmentProgram(void) const
 {
@@ -341,6 +356,21 @@ SFUnrecShaderProgramPtr *ShaderShadowMapEngineBase::editSFShadowFragmentProgram(
 
     return &_sfShadowFragmentProgram;
 }
+
+//! Get the value of the ShaderShadowMapEngine::_sfShadowFragmentProgram field.
+ShaderProgram * ShaderShadowMapEngineBase::getShadowFragmentProgram(void) const
+{
+    return _sfShadowFragmentProgram.getValue();
+}
+
+//! Set the value of the ShaderShadowMapEngine::_sfShadowFragmentProgram field.
+void ShaderShadowMapEngineBase::setShadowFragmentProgram(ShaderProgram * const value)
+{
+    editSField(ShadowFragmentProgramFieldMask);
+
+    _sfShadowFragmentProgram.setValue(value);
+}
+
 
 SFInt32 *ShaderShadowMapEngineBase::editSFForceTextureUnit(void)
 {

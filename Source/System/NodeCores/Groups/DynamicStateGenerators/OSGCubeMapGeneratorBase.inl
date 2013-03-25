@@ -74,38 +74,6 @@ OSG::UInt16 CubeMapGeneratorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CubeMapGenerator::_sfRoot field.
-inline
-Node * CubeMapGeneratorBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
-
-//! Set the value of the CubeMapGenerator::_sfRoot field.
-inline
-void CubeMapGeneratorBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
-}
-
-//! Get the value of the CubeMapGenerator::_sfTexture field.
-inline
-TextureObjChunk * CubeMapGeneratorBase::getTexture(void) const
-{
-    return _sfTexture.getValue();
-}
-
-//! Set the value of the CubeMapGenerator::_sfTexture field.
-inline
-void CubeMapGeneratorBase::setTexture(TextureObjChunk * const value)
-{
-    editSField(TextureFieldMask);
-
-    _sfTexture.setValue(value);
-}
 //! Get the value of the CubeMapGenerator::_sfTextureSize field.
 
 inline
@@ -155,22 +123,6 @@ void CubeMapGeneratorBase::setTextureFormat(const GLenum &value)
     editSField(TextureFormatFieldMask);
 
     _sfTextureFormat.setValue(value);
-}
-
-//! Get the value of the CubeMapGenerator::_sfBeacon field.
-inline
-Node * CubeMapGeneratorBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the CubeMapGenerator::_sfBeacon field.
-inline
-void CubeMapGeneratorBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
 }
 //! Get the value of the CubeMapGenerator::_sfOrigin field.
 
@@ -273,44 +225,6 @@ void CubeMapGeneratorBase::setSetupMode(const UInt32 value)
     _sfSetupMode.setValue(value);
 }
 
-//! Get the value of the CubeMapGenerator::_sfBackground field.
-inline
-Background * CubeMapGeneratorBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the CubeMapGenerator::_sfBackground field.
-inline
-void CubeMapGeneratorBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-
-//! Get the value of the CubeMapGenerator::_sfCamera field.
-inline
-Camera * CubeMapGeneratorBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the CubeMapGenerator::_sfCamera field.
-inline
-void CubeMapGeneratorBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the \a index element the CubeMapGenerator::_mfExclude field.
-inline
-Node * CubeMapGeneratorBase::getExclude(const UInt32 index) const
-{
-    return _mfExclude[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

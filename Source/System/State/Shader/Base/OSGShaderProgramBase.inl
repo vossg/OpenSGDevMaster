@@ -174,22 +174,6 @@ void ShaderProgramBase::setGLId(const UInt32 value)
 
     _sfGLId.setValue(value);
 }
-
-//! Get the value of the ShaderProgram::_sfVariables field.
-inline
-ShaderProgramVariables * ShaderProgramBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the ShaderProgram::_sfVariables field.
-inline
-void ShaderProgramBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
 //! Get the value of the ShaderProgram::_sfCgFrontEnd field.
 
 inline
@@ -256,7 +240,6 @@ std::string &ShaderProgramBase::editFeedbackVaryings(const UInt32 index)
     return _mfFeedbackVaryings[index];
 }
 
-
 //! Get the value of the \a index element the ShaderProgram::_mfParameter field.
 inline
 const ShaderParameter &ShaderProgramBase::getParameter(const UInt32 index) const
@@ -272,7 +255,6 @@ ShaderParameter &ShaderProgramBase::editParameter(const UInt32 index)
     return _mfParameter[index];
 }
 
-
 //! Get the value of the \a index element the ShaderProgram::_mfAttributes field.
 inline
 const ShaderAttribute &ShaderProgramBase::getAttributes(const UInt32 index) const
@@ -287,7 +269,6 @@ ShaderAttribute &ShaderProgramBase::editAttributes(const UInt32 index)
 
     return _mfAttributes[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

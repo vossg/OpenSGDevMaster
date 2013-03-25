@@ -381,6 +381,21 @@ SFUnrecCameraPtr    *SimpleShadowMapEngineDataBase::editSFCamera         (void)
     return &_sfCamera;
 }
 
+//! Get the value of the SimpleShadowMapEngineData::_sfCamera field.
+Camera * SimpleShadowMapEngineDataBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfCamera field.
+void SimpleShadowMapEngineDataBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
+
 //! Get the SimpleShadowMapEngineData::_sfRenderTarget field.
 const SFUnrecFrameBufferObjectPtr *SimpleShadowMapEngineDataBase::getSFRenderTarget(void) const
 {
@@ -393,6 +408,21 @@ SFUnrecFrameBufferObjectPtr *SimpleShadowMapEngineDataBase::editSFRenderTarget  
 
     return &_sfRenderTarget;
 }
+
+//! Get the value of the SimpleShadowMapEngineData::_sfRenderTarget field.
+FrameBufferObject * SimpleShadowMapEngineDataBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfRenderTarget field.
+void SimpleShadowMapEngineDataBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
 
 //! Get the SimpleShadowMapEngineData::_sfTexChunk field.
 const SFUnrecTextureObjChunkPtr *SimpleShadowMapEngineDataBase::getSFTexChunk(void) const
@@ -407,6 +437,21 @@ SFUnrecTextureObjChunkPtr *SimpleShadowMapEngineDataBase::editSFTexChunk       (
     return &_sfTexChunk;
 }
 
+//! Get the value of the SimpleShadowMapEngineData::_sfTexChunk field.
+TextureObjChunk * SimpleShadowMapEngineDataBase::getTexChunk(void) const
+{
+    return _sfTexChunk.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfTexChunk field.
+void SimpleShadowMapEngineDataBase::setTexChunk(TextureObjChunk * const value)
+{
+    editSField(TexChunkFieldMask);
+
+    _sfTexChunk.setValue(value);
+}
+
+
 //! Get the SimpleShadowMapEngineData::_sfTexBuffer field.
 const SFUnrecTextureBufferPtr *SimpleShadowMapEngineDataBase::getSFTexBuffer(void) const
 {
@@ -419,6 +464,21 @@ SFUnrecTextureBufferPtr *SimpleShadowMapEngineDataBase::editSFTexBuffer      (vo
 
     return &_sfTexBuffer;
 }
+
+//! Get the value of the SimpleShadowMapEngineData::_sfTexBuffer field.
+TextureBuffer * SimpleShadowMapEngineDataBase::getTexBuffer(void) const
+{
+    return _sfTexBuffer.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfTexBuffer field.
+void SimpleShadowMapEngineDataBase::setTexBuffer(TextureBuffer * const value)
+{
+    editSField(TexBufferFieldMask);
+
+    _sfTexBuffer.setValue(value);
+}
+
 
 //! Get the SimpleShadowMapEngineData::_sfLightChunk field.
 const SFUnrecLightChunkPtr *SimpleShadowMapEngineDataBase::getSFLightChunk(void) const
@@ -433,6 +493,21 @@ SFUnrecLightChunkPtr *SimpleShadowMapEngineDataBase::editSFLightChunk     (void)
     return &_sfLightChunk;
 }
 
+//! Get the value of the SimpleShadowMapEngineData::_sfLightChunk field.
+LightChunk * SimpleShadowMapEngineDataBase::getLightChunk(void) const
+{
+    return _sfLightChunk.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfLightChunk field.
+void SimpleShadowMapEngineDataBase::setLightChunk(LightChunk * const value)
+{
+    editSField(LightChunkFieldMask);
+
+    _sfLightChunk.setValue(value);
+}
+
+
 //! Get the SimpleShadowMapEngineData::_sfBlendChunk field.
 const SFUnrecBlendChunkPtr *SimpleShadowMapEngineDataBase::getSFBlendChunk(void) const
 {
@@ -445,6 +520,21 @@ SFUnrecBlendChunkPtr *SimpleShadowMapEngineDataBase::editSFBlendChunk     (void)
 
     return &_sfBlendChunk;
 }
+
+//! Get the value of the SimpleShadowMapEngineData::_sfBlendChunk field.
+BlendChunk * SimpleShadowMapEngineDataBase::getBlendChunk(void) const
+{
+    return _sfBlendChunk.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfBlendChunk field.
+void SimpleShadowMapEngineDataBase::setBlendChunk(BlendChunk * const value)
+{
+    editSField(BlendChunkFieldMask);
+
+    _sfBlendChunk.setValue(value);
+}
+
 
 //! Get the SimpleShadowMapEngineData::_sfTexGenChunk field.
 const SFUnrecTexGenChunkPtr *SimpleShadowMapEngineDataBase::getSFTexGenChunk(void) const
@@ -459,6 +549,21 @@ SFUnrecTexGenChunkPtr *SimpleShadowMapEngineDataBase::editSFTexGenChunk    (void
     return &_sfTexGenChunk;
 }
 
+//! Get the value of the SimpleShadowMapEngineData::_sfTexGenChunk field.
+TexGenChunk * SimpleShadowMapEngineDataBase::getTexGenChunk(void) const
+{
+    return _sfTexGenChunk.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfTexGenChunk field.
+void SimpleShadowMapEngineDataBase::setTexGenChunk(TexGenChunk * const value)
+{
+    editSField(TexGenChunkFieldMask);
+
+    _sfTexGenChunk.setValue(value);
+}
+
+
 //! Get the SimpleShadowMapEngineData::_sfPolyChunk field.
 const SFUnrecPolygonChunkPtr *SimpleShadowMapEngineDataBase::getSFPolyChunk(void) const
 {
@@ -471,6 +576,21 @@ SFUnrecPolygonChunkPtr *SimpleShadowMapEngineDataBase::editSFPolyChunk      (voi
 
     return &_sfPolyChunk;
 }
+
+//! Get the value of the SimpleShadowMapEngineData::_sfPolyChunk field.
+PolygonChunk * SimpleShadowMapEngineDataBase::getPolyChunk(void) const
+{
+    return _sfPolyChunk.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfPolyChunk field.
+void SimpleShadowMapEngineDataBase::setPolyChunk(PolygonChunk * const value)
+{
+    editSField(PolyChunkFieldMask);
+
+    _sfPolyChunk.setValue(value);
+}
+
 
 
 

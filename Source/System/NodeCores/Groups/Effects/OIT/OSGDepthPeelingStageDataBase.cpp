@@ -528,6 +528,21 @@ SFUnrecBackgroundPtr *DepthPeelingStageDataBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfBackground field.
+Background * DepthPeelingStageDataBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfBackground field.
+void DepthPeelingStageDataBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfPeelPingFBO field.
 const SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::getSFPeelPingFBO(void) const
 {
@@ -540,6 +555,21 @@ SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::editSFPeelPingFBO    (vo
 
     return &_sfPeelPingFBO;
 }
+
+//! Get the value of the DepthPeelingStageData::_sfPeelPingFBO field.
+FrameBufferObject * DepthPeelingStageDataBase::getPeelPingFBO(void) const
+{
+    return _sfPeelPingFBO.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfPeelPingFBO field.
+void DepthPeelingStageDataBase::setPeelPingFBO(FrameBufferObject * const value)
+{
+    editSField(PeelPingFBOFieldMask);
+
+    _sfPeelPingFBO.setValue(value);
+}
+
 
 //! Get the DepthPeelingStageData::_sfPeelPongFBO field.
 const SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::getSFPeelPongFBO(void) const
@@ -554,6 +584,21 @@ SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::editSFPeelPongFBO    (vo
     return &_sfPeelPongFBO;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfPeelPongFBO field.
+FrameBufferObject * DepthPeelingStageDataBase::getPeelPongFBO(void) const
+{
+    return _sfPeelPongFBO.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfPeelPongFBO field.
+void DepthPeelingStageDataBase::setPeelPongFBO(FrameBufferObject * const value)
+{
+    editSField(PeelPongFBOFieldMask);
+
+    _sfPeelPongFBO.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfBlendFBO field.
 const SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::getSFBlendFBO(void) const
 {
@@ -566,6 +611,21 @@ SFUnrecFrameBufferObjectPtr *DepthPeelingStageDataBase::editSFBlendFBO       (vo
 
     return &_sfBlendFBO;
 }
+
+//! Get the value of the DepthPeelingStageData::_sfBlendFBO field.
+FrameBufferObject * DepthPeelingStageDataBase::getBlendFBO(void) const
+{
+    return _sfBlendFBO.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfBlendFBO field.
+void DepthPeelingStageDataBase::setBlendFBO(FrameBufferObject * const value)
+{
+    editSField(BlendFBOFieldMask);
+
+    _sfBlendFBO.setValue(value);
+}
+
 
 //! Get the DepthPeelingStageData::_sfBlendMaterial field.
 const SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::getSFBlendMaterial(void) const
@@ -580,6 +640,21 @@ SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::editSFBlendMaterial  (void)
     return &_sfBlendMaterial;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfBlendMaterial field.
+ChunkMaterial * DepthPeelingStageDataBase::getBlendMaterial(void) const
+{
+    return _sfBlendMaterial.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfBlendMaterial field.
+void DepthPeelingStageDataBase::setBlendMaterial(ChunkMaterial * const value)
+{
+    editSField(BlendMaterialFieldMask);
+
+    _sfBlendMaterial.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfBlendFinalMaterial field.
 const SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::getSFBlendFinalMaterial(void) const
 {
@@ -592,6 +667,21 @@ SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::editSFBlendFinalMaterial(voi
 
     return &_sfBlendFinalMaterial;
 }
+
+//! Get the value of the DepthPeelingStageData::_sfBlendFinalMaterial field.
+ChunkMaterial * DepthPeelingStageDataBase::getBlendFinalMaterial(void) const
+{
+    return _sfBlendFinalMaterial.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfBlendFinalMaterial field.
+void DepthPeelingStageDataBase::setBlendFinalMaterial(ChunkMaterial * const value)
+{
+    editSField(BlendFinalMaterialFieldMask);
+
+    _sfBlendFinalMaterial.setValue(value);
+}
+
 
 //! Get the DepthPeelingStageData::_sfPeelPingMaterial field.
 const SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::getSFPeelPingMaterial(void) const
@@ -606,6 +696,21 @@ SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::editSFPeelPingMaterial(void)
     return &_sfPeelPingMaterial;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfPeelPingMaterial field.
+ChunkMaterial * DepthPeelingStageDataBase::getPeelPingMaterial(void) const
+{
+    return _sfPeelPingMaterial.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfPeelPingMaterial field.
+void DepthPeelingStageDataBase::setPeelPingMaterial(ChunkMaterial * const value)
+{
+    editSField(PeelPingMaterialFieldMask);
+
+    _sfPeelPingMaterial.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfPeelPongMaterial field.
 const SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::getSFPeelPongMaterial(void) const
 {
@@ -618,6 +723,21 @@ SFUnrecChunkMaterialPtr *DepthPeelingStageDataBase::editSFPeelPongMaterial(void)
 
     return &_sfPeelPongMaterial;
 }
+
+//! Get the value of the DepthPeelingStageData::_sfPeelPongMaterial field.
+ChunkMaterial * DepthPeelingStageDataBase::getPeelPongMaterial(void) const
+{
+    return _sfPeelPongMaterial.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfPeelPongMaterial field.
+void DepthPeelingStageDataBase::setPeelPongMaterial(ChunkMaterial * const value)
+{
+    editSField(PeelPongMaterialFieldMask);
+
+    _sfPeelPongMaterial.setValue(value);
+}
+
 
 //! Get the DepthPeelingStageData::_sfDepthChunk field.
 const SFUnrecDepthChunkPtr *DepthPeelingStageDataBase::getSFDepthChunk(void) const
@@ -632,6 +752,21 @@ SFUnrecDepthChunkPtr *DepthPeelingStageDataBase::editSFDepthChunk     (void)
     return &_sfDepthChunk;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfDepthChunk field.
+DepthChunk * DepthPeelingStageDataBase::getDepthChunk(void) const
+{
+    return _sfDepthChunk.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfDepthChunk field.
+void DepthPeelingStageDataBase::setDepthChunk(DepthChunk * const value)
+{
+    editSField(DepthChunkFieldMask);
+
+    _sfDepthChunk.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfSpvIsPeelChunk field.
 const SFUnrecShaderProgramVariableChunkPtr *DepthPeelingStageDataBase::getSFSpvIsPeelChunk(void) const
 {
@@ -645,6 +780,21 @@ SFUnrecShaderProgramVariableChunkPtr *DepthPeelingStageDataBase::editSFSpvIsPeel
     return &_sfSpvIsPeelChunk;
 }
 
+//! Get the value of the DepthPeelingStageData::_sfSpvIsPeelChunk field.
+ShaderProgramVariableChunk * DepthPeelingStageDataBase::getSpvIsPeelChunk(void) const
+{
+    return _sfSpvIsPeelChunk.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfSpvIsPeelChunk field.
+void DepthPeelingStageDataBase::setSpvIsPeelChunk(ShaderProgramVariableChunk * const value)
+{
+    editSField(SpvIsPeelChunkFieldMask);
+
+    _sfSpvIsPeelChunk.setValue(value);
+}
+
+
 //! Get the DepthPeelingStageData::_sfSpvIsInitialChunk field.
 const SFUnrecShaderProgramVariableChunkPtr *DepthPeelingStageDataBase::getSFSpvIsInitialChunk(void) const
 {
@@ -657,6 +807,21 @@ SFUnrecShaderProgramVariableChunkPtr *DepthPeelingStageDataBase::editSFSpvIsInit
 
     return &_sfSpvIsInitialChunk;
 }
+
+//! Get the value of the DepthPeelingStageData::_sfSpvIsInitialChunk field.
+ShaderProgramVariableChunk * DepthPeelingStageDataBase::getSpvIsInitialChunk(void) const
+{
+    return _sfSpvIsInitialChunk.getValue();
+}
+
+//! Set the value of the DepthPeelingStageData::_sfSpvIsInitialChunk field.
+void DepthPeelingStageDataBase::setSpvIsInitialChunk(ShaderProgramVariableChunk * const value)
+{
+    editSField(SpvIsInitialChunkFieldMask);
+
+    _sfSpvIsInitialChunk.setValue(value);
+}
+
 
 
 

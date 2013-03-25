@@ -26,6 +26,7 @@
 #include "OSGMaterialChunk.h"
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
+#include "OSGShaderProgram.h"
 
 // vertex shader program for 
 static std::string _vp_program =

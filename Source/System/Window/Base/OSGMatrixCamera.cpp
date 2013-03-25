@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGMatrixCamera.h"
+#include "OSGNode.h"
 
 OSG_USING_NAMESPACE
 

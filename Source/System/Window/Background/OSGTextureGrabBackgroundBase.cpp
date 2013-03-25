@@ -288,6 +288,21 @@ SFUnrecTextureObjChunkPtr *TextureGrabBackgroundBase::editSFTexture        (void
     return &_sfTexture;
 }
 
+//! Get the value of the TextureGrabBackground::_sfTexture field.
+TextureObjChunk * TextureGrabBackgroundBase::getTexture(void) const
+{
+    return _sfTexture.getValue();
+}
+
+//! Set the value of the TextureGrabBackground::_sfTexture field.
+void TextureGrabBackgroundBase::setTexture(TextureObjChunk * const value)
+{
+    editSField(TextureFieldMask);
+
+    _sfTexture.setValue(value);
+}
+
+
 SFBool *TextureGrabBackgroundBase::editSFAutoResize(void)
 {
     editSField(AutoResizeFieldMask);

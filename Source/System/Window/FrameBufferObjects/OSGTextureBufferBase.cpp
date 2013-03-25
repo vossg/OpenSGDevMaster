@@ -290,6 +290,21 @@ SFUnrecTextureObjChunkPtr *TextureBufferBase::editSFTexture        (void)
     return &_sfTexture;
 }
 
+//! Get the value of the TextureBuffer::_sfTexture field.
+TextureObjChunk * TextureBufferBase::getTexture(void) const
+{
+    return _sfTexture.getValue();
+}
+
+//! Set the value of the TextureBuffer::_sfTexture field.
+void TextureBufferBase::setTexture(TextureObjChunk * const value)
+{
+    editSField(TextureFieldMask);
+
+    _sfTexture.setValue(value);
+}
+
+
 SFGLenum *TextureBufferBase::editSFTexTarget(void)
 {
     editSField(TexTargetFieldMask);

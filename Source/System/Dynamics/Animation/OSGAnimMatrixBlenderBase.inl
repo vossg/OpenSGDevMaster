@@ -100,12 +100,6 @@ void AnimMatrixBlenderBase::setOutValue(const Matrix &value)
     _sfOutValue.setValue(value);
 }
 
-//! Get the value of the \a index element the AnimMatrixBlender::_mfChannels field.
-inline
-AnimMatrixChannel * AnimMatrixBlenderBase::getChannels(const UInt32 index) const
-{
-    return _mfChannels[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

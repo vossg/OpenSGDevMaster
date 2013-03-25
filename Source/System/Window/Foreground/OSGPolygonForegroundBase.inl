@@ -74,22 +74,6 @@ OSG::UInt16 PolygonForegroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the PolygonForeground::_sfMaterial field.
-inline
-PrimeMaterial * PolygonForegroundBase::getMaterial(void) const
-{
-    return _sfMaterial.getValue();
-}
-
-//! Set the value of the PolygonForeground::_sfMaterial field.
-inline
-void PolygonForegroundBase::setMaterial(PrimeMaterial * const value)
-{
-    editSField(MaterialFieldMask);
-
-    _sfMaterial.setValue(value);
-}
 //! Get the value of the PolygonForeground::_sfNormalizedX field.
 
 inline
@@ -256,7 +240,6 @@ Pnt2f &PolygonForegroundBase::editPositions(const UInt32 index)
     return _mfPositions[index];
 }
 
-
 //! Get the value of the \a index element the PolygonForeground::_mfTexCoords field.
 inline
 const Vec3f &PolygonForegroundBase::getTexCoords(const UInt32 index) const
@@ -271,7 +254,6 @@ Vec3f &PolygonForegroundBase::editTexCoords(const UInt32 index)
 
     return _mfTexCoords[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

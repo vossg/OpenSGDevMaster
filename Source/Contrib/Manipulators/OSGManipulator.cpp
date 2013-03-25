@@ -54,6 +54,7 @@
 #include "OSGWindow.h"
 #include "OSGNameAttachment.h"
 #include "OSGCamera.h"
+#include "OSGViewport.h"
 
 #include "OSGManipulator.h"
 #include "OSGSimpleGeometryExt.h"

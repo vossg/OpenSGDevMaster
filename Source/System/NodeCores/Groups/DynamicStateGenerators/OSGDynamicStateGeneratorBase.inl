@@ -75,22 +75,6 @@ OSG::UInt16 DynamicStateGeneratorBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the DynamicStateGenerator::_sfRenderTarget field.
-inline
-FrameBufferObject * DynamicStateGeneratorBase::getRenderTarget(void) const
-{
-    return _sfRenderTarget.getValue();
-}
-
-//! Set the value of the DynamicStateGenerator::_sfRenderTarget field.
-inline
-void DynamicStateGeneratorBase::setRenderTarget(FrameBufferObject * const value)
-{
-    editSField(RenderTargetFieldMask);
-
-    _sfRenderTarget.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

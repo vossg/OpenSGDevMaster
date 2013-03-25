@@ -74,70 +74,6 @@ OSG::UInt16 DisplayFilterStageBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
-inline
-CalibrationPatternFilter * DisplayFilterStageBase::getCalibrationPatternFilter(void) const
-{
-    return _sfCalibrationPatternFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
-inline
-void DisplayFilterStageBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
-{
-    editSField(CalibrationPatternFilterFieldMask);
-
-    _sfCalibrationPatternFilter.setValue(value);
-}
-
-//! Get the value of the DisplayFilterStage::_sfResolutionFilter field.
-inline
-ResolutionDisplayFilter * DisplayFilterStageBase::getResolutionFilter(void) const
-{
-    return _sfResolutionFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfResolutionFilter field.
-inline
-void DisplayFilterStageBase::setResolutionFilter(ResolutionDisplayFilter * const value)
-{
-    editSField(ResolutionFilterFieldMask);
-
-    _sfResolutionFilter.setValue(value);
-}
-
-//! Get the value of the DisplayFilterStage::_sfColorFilter field.
-inline
-ColorDisplayFilter * DisplayFilterStageBase::getColorFilter(void) const
-{
-    return _sfColorFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfColorFilter field.
-inline
-void DisplayFilterStageBase::setColorFilter(ColorDisplayFilter * const value)
-{
-    editSField(ColorFilterFieldMask);
-
-    _sfColorFilter.setValue(value);
-}
-
-//! Get the value of the DisplayFilterStage::_sfDistortionFilter field.
-inline
-DistortionDisplayFilter * DisplayFilterStageBase::getDistortionFilter(void) const
-{
-    return _sfDistortionFilter.getValue();
-}
-
-//! Set the value of the DisplayFilterStage::_sfDistortionFilter field.
-inline
-void DisplayFilterStageBase::setDistortionFilter(DistortionDisplayFilter * const value)
-{
-    editSField(DistortionFilterFieldMask);
-
-    _sfDistortionFilter.setValue(value);
-}
 //! Get the value of the DisplayFilterStage::_sfActiveGroup field.
 
 inline
@@ -264,19 +200,7 @@ void DisplayFilterStageBase::setFixedSampleLocation(const bool value)
     _sfFixedSampleLocation.setValue(value);
 }
 
-//! Get the value of the \a index element the DisplayFilterStage::_mfFilterGroups field.
-inline
-DisplayFilterGroup * DisplayFilterStageBase::getFilterGroups(const UInt32 index) const
-{
-    return _mfFilterGroups[index];
-}
 
-//! Get the value of the \a index element the DisplayFilterStage::_mfForegrounds field.
-inline
-Foreground * DisplayFilterStageBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

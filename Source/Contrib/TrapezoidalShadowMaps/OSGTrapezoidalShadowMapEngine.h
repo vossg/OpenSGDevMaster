@@ -98,7 +98,6 @@ class OSG_CONTRIBTRAPEZOIDALSHADOWMAPS_DLLMAPPING TrapezoidalShadowMapEngine
     // Variables should all be in TrapezoidalShadowMapEngineBase.
 
     typedef ShaderShadowMapEngineData         TSMEngineData;
-    typedef ShaderShadowMapEngineDataUnrecPtr TSMEngineDataUnrecPtr;
 
     static const std::string _lightPassVPCode;
     static const std::string _lightPassFPCode;

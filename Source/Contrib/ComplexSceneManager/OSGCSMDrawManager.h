@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGCSMDrawManagerBase.h"
-#include "OSGCSMDrawer.h"
 #include "OSGFrameProducerHandlerMixin.h"
 
 OSG_BEGIN_NAMESPACE

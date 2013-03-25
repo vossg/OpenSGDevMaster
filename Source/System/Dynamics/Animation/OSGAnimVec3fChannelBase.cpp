@@ -234,6 +234,21 @@ SFUnrecAnimVec3fDataSourcePtr *AnimVec3fChannelBase::editSFData           (void)
     return &_sfData;
 }
 
+//! Get the value of the AnimVec3fChannel::_sfData field.
+AnimVec3fDataSource * AnimVec3fChannelBase::getData(void) const
+{
+    return _sfData.getValue();
+}
+
+//! Set the value of the AnimVec3fChannel::_sfData field.
+void AnimVec3fChannelBase::setData(AnimVec3fDataSource * const value)
+{
+    editSField(DataFieldMask);
+
+    _sfData.setValue(value);
+}
+
+
 SFVec3f *AnimVec3fChannelBase::editSFOutValue(void)
 {
     editSField(OutValueFieldMask);

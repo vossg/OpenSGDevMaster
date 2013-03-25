@@ -52,6 +52,7 @@
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
 #include "OSGNameAttachment.h"
+#include "OSGTextureObjChunk.h"
 
 #include "OSGCgFXVariableTexObj.h"
 

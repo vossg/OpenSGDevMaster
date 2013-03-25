@@ -432,6 +432,21 @@ SFUnrecCameraPtr    *SimpleStageBase::editSFCamera         (void)
     return &_sfCamera;
 }
 
+//! Get the value of the SimpleStage::_sfCamera field.
+Camera * SimpleStageBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the SimpleStage::_sfCamera field.
+void SimpleStageBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
+
 //! Get the SimpleStage::_sfBackground field.
 const SFUnrecBackgroundPtr *SimpleStageBase::getSFBackground(void) const
 {
@@ -445,6 +460,21 @@ SFUnrecBackgroundPtr *SimpleStageBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the value of the SimpleStage::_sfBackground field.
+Background * SimpleStageBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the SimpleStage::_sfBackground field.
+void SimpleStageBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
+
 //! Get the SimpleStage::_mfForegrounds field.
 const MFUnrecForegroundPtr *SimpleStageBase::getMFForegrounds(void) const
 {
@@ -456,6 +486,10 @@ MFUnrecForegroundPtr *SimpleStageBase::editMFForegrounds    (void)
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
     return &_mfForegrounds;
+}
+Foreground * SimpleStageBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
 }
 
 

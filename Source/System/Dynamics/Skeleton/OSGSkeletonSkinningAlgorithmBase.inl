@@ -90,7 +90,6 @@ Pnt3f &SkeletonSkinningAlgorithmBase::editDrawPositions(const UInt32 index)
     return _mfDrawPositions[index];
 }
 
-
 //! Get the value of the \a index element the SkeletonSkinningAlgorithm::_mfDrawIndex field.
 inline
       UInt32  SkeletonSkinningAlgorithmBase::getDrawIndex(const UInt32 index) const
@@ -105,7 +104,6 @@ UInt32 &SkeletonSkinningAlgorithmBase::editDrawIndex(const UInt32 index)
 
     return _mfDrawIndex[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

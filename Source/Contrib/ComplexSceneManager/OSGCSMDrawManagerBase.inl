@@ -74,22 +74,6 @@ OSG::UInt16 CSMDrawManagerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CSMDrawManager::_sfAppDrawer field.
-inline
-CSMDrawer * CSMDrawManagerBase::getAppDrawer(void) const
-{
-    return _sfAppDrawer.getValue();
-}
-
-//! Set the value of the CSMDrawManager::_sfAppDrawer field.
-inline
-void CSMDrawManagerBase::setAppDrawer(CSMDrawer * const value)
-{
-    editSField(AppDrawerFieldMask);
-
-    _sfAppDrawer.setValue(value);
-}
 //! Get the value of the CSMDrawManager::_sfParallel field.
 
 inline
@@ -166,12 +150,6 @@ void CSMDrawManagerBase::setSwapBarrierName(const std::string &value)
     _sfSwapBarrierName.setValue(value);
 }
 
-//! Get the value of the \a index element the CSMDrawManager::_mfDrawer field.
-inline
-CSMDrawer * CSMDrawManagerBase::getDrawer(const UInt32 index) const
-{
-    return _mfDrawer[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

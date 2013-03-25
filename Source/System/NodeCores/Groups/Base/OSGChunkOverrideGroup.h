@@ -43,8 +43,9 @@
 #endif
 
 #include "OSGChunkOverrideGroupBase.h"
-#include "OSGChunkBlock.h"
+
 #include "OSGChunkBlockMapFields.h"
+#include "OSGChunkBlock.h"
 #include "OSGMapCacheHandlerMixin.h"
 #include "OSGState.h"
 

@@ -165,7 +165,6 @@ std::string &PostShaderStageBase::editVertexShaders(const UInt32 index)
     return _mfVertexShaders[index];
 }
 
-
 //! Get the value of the \a index element the PostShaderStage::_mfFragmentShaders field.
 inline
 const std::string &PostShaderStageBase::getFragmentShaders(const UInt32 index) const
@@ -181,7 +180,6 @@ std::string &PostShaderStageBase::editFragmentShaders(const UInt32 index)
     return _mfFragmentShaders[index];
 }
 
-
 //! Get the value of the \a index element the PostShaderStage::_mfPassSizes field.
 inline
 const Vec2f &PostShaderStageBase::getPassSizes(const UInt32 index) const
@@ -196,7 +194,6 @@ Vec2f &PostShaderStageBase::editPassSizes(const UInt32 index)
 
     return _mfPassSizes[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

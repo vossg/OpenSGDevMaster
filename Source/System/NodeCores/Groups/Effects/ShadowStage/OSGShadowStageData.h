@@ -43,11 +43,11 @@
 #endif
 
 #include "OSGShadowStageDataBase.h"
-#include "OSGShadowTreeHandler.h"
 #include "OSGTextureEnvChunk.h"
-
+#include "OSGTextureObjChunk.h"
 #include "OSGLight.h"
 #include "OSGTransform.h"
+#include "OSGShadowTreeHandler.h"
 #include "OSGCamera.h"
 
 OSG_BEGIN_NAMESPACE

@@ -336,6 +336,21 @@ SFUnrecTextureObjChunkPtr *ShadowMapEngineBase::editSFShadowTexChunk (void)
     return &_sfShadowTexChunk;
 }
 
+//! Get the value of the ShadowMapEngine::_sfShadowTexChunk field.
+TextureObjChunk * ShadowMapEngineBase::getShadowTexChunk(void) const
+{
+    return _sfShadowTexChunk.getValue();
+}
+
+//! Set the value of the ShadowMapEngine::_sfShadowTexChunk field.
+void ShadowMapEngineBase::setShadowTexChunk(TextureObjChunk * const value)
+{
+    editSField(ShadowTexChunkFieldMask);
+
+    _sfShadowTexChunk.setValue(value);
+}
+
+
 SFInt32 *ShadowMapEngineBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);

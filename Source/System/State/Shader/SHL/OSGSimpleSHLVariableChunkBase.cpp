@@ -241,6 +241,21 @@ SFUnrecChildShaderProgramVariablesPtr *SimpleSHLVariableChunkBase::editSFVariabl
     return &_sfVariables;
 }
 
+//! Get the value of the SimpleSHLVariableChunk::_sfVariables field.
+ShaderProgramVariables * SimpleSHLVariableChunkBase::getVariables(void) const
+{
+    return _sfVariables.getValue();
+}
+
+//! Set the value of the SimpleSHLVariableChunk::_sfVariables field.
+void SimpleSHLVariableChunkBase::setVariables(ShaderProgramVariables * const value)
+{
+    editSField(VariablesFieldMask);
+
+    _sfVariables.setValue(value);
+}
+
+
 MFInt32 *SimpleSHLVariableChunkBase::editMFVariableLocations(void)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);

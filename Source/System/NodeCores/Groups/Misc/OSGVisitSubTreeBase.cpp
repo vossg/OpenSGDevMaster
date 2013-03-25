@@ -263,6 +263,14 @@ const SFWeakNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
     return &_sfSubTreeRoot;
 }
 
+//! Get the value of the VisitSubTree::_sfSubTreeRoot field.
+Node * VisitSubTreeBase::getSubTreeRoot(void) const
+{
+    return _sfSubTreeRoot.getValue();
+}
+
+
+
 SFUInt32 *VisitSubTreeBase::editSFSubTreeTravMask(void)
 {
     editSField(SubTreeTravMaskFieldMask);

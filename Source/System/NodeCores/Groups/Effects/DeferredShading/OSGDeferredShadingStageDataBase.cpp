@@ -359,6 +359,21 @@ SFUnrecFrameBufferObjectPtr *DeferredShadingStageDataBase::editSFGBufferTarget  
     return &_sfGBufferTarget;
 }
 
+//! Get the value of the DeferredShadingStageData::_sfGBufferTarget field.
+FrameBufferObject * DeferredShadingStageDataBase::getGBufferTarget(void) const
+{
+    return _sfGBufferTarget.getValue();
+}
+
+//! Set the value of the DeferredShadingStageData::_sfGBufferTarget field.
+void DeferredShadingStageDataBase::setGBufferTarget(FrameBufferObject * const value)
+{
+    editSField(GBufferTargetFieldMask);
+
+    _sfGBufferTarget.setValue(value);
+}
+
+
 //! Get the DeferredShadingStageData::_sfGBufferBackground field.
 const SFUnrecBackgroundPtr *DeferredShadingStageDataBase::getSFGBufferBackground(void) const
 {
@@ -371,6 +386,21 @@ SFUnrecBackgroundPtr *DeferredShadingStageDataBase::editSFGBufferBackground(void
 
     return &_sfGBufferBackground;
 }
+
+//! Get the value of the DeferredShadingStageData::_sfGBufferBackground field.
+Background * DeferredShadingStageDataBase::getGBufferBackground(void) const
+{
+    return _sfGBufferBackground.getValue();
+}
+
+//! Set the value of the DeferredShadingStageData::_sfGBufferBackground field.
+void DeferredShadingStageDataBase::setGBufferBackground(Background * const value)
+{
+    editSField(GBufferBackgroundFieldMask);
+
+    _sfGBufferBackground.setValue(value);
+}
+
 
 //! Get the DeferredShadingStageData::_sfShadingTarget field.
 const SFUnrecFrameBufferObjectPtr *DeferredShadingStageDataBase::getSFShadingTarget(void) const
@@ -385,6 +415,21 @@ SFUnrecFrameBufferObjectPtr *DeferredShadingStageDataBase::editSFShadingTarget  
     return &_sfShadingTarget;
 }
 
+//! Get the value of the DeferredShadingStageData::_sfShadingTarget field.
+FrameBufferObject * DeferredShadingStageDataBase::getShadingTarget(void) const
+{
+    return _sfShadingTarget.getValue();
+}
+
+//! Set the value of the DeferredShadingStageData::_sfShadingTarget field.
+void DeferredShadingStageDataBase::setShadingTarget(FrameBufferObject * const value)
+{
+    editSField(ShadingTargetFieldMask);
+
+    _sfShadingTarget.setValue(value);
+}
+
+
 //! Get the DeferredShadingStageData::_mfShadingStates field.
 const MFUnrecStatePtr *DeferredShadingStageDataBase::getMFShadingStates(void) const
 {
@@ -396,6 +441,10 @@ MFUnrecStatePtr     *DeferredShadingStageDataBase::editMFShadingStates  (void)
     editMField(ShadingStatesFieldMask, _mfShadingStates);
 
     return &_mfShadingStates;
+}
+State * DeferredShadingStageDataBase::getShadingStates(const UInt32 index) const
+{
+    return _mfShadingStates[index];
 }
 
 //! Get the DeferredShadingStageData::_mfShadingProgramChunks field.
@@ -410,6 +459,10 @@ MFUnrecShaderProgramChunkPtr *DeferredShadingStageDataBase::editMFShadingProgram
 
     return &_mfShadingProgramChunks;
 }
+ShaderProgramChunk * DeferredShadingStageDataBase::getShadingProgramChunks(const UInt32 index) const
+{
+    return _mfShadingProgramChunks[index];
+}
 
 //! Get the DeferredShadingStageData::_mfLightChunks field.
 const MFUnrecDSLightChunkPtr *DeferredShadingStageDataBase::getMFLightChunks(void) const
@@ -422,6 +475,10 @@ MFUnrecDSLightChunkPtr *DeferredShadingStageDataBase::editMFLightChunks    (void
     editMField(LightChunksFieldMask, _mfLightChunks);
 
     return &_mfLightChunks;
+}
+DSLightChunk * DeferredShadingStageDataBase::getLightChunks(const UInt32 index) const
+{
+    return _mfLightChunks[index];
 }
 
 //! Get the DeferredShadingStageData::_sfBlendChunk field.
@@ -436,6 +493,21 @@ SFUnrecBlendChunkPtr *DeferredShadingStageDataBase::editSFBlendChunk     (void)
 
     return &_sfBlendChunk;
 }
+
+//! Get the value of the DeferredShadingStageData::_sfBlendChunk field.
+BlendChunk * DeferredShadingStageDataBase::getBlendChunk(void) const
+{
+    return _sfBlendChunk.getValue();
+}
+
+//! Set the value of the DeferredShadingStageData::_sfBlendChunk field.
+void DeferredShadingStageDataBase::setBlendChunk(BlendChunk * const value)
+{
+    editSField(BlendChunkFieldMask);
+
+    _sfBlendChunk.setValue(value);
+}
+
 
 
 

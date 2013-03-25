@@ -46,16 +46,23 @@
 #include "OSGConfig.h"
 
 #include "OSGDisplayFilterStage.h"
+#include "OSGDisplayFilterGroup.h"
 #include "OSGRenderAction.h"
 #include "OSGMatrixUtility.h"
 
 #include "OSGRenderBuffer.h"
 #include "OSGTextureBuffer.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGChunkMaterial.h"
+#include "OSGImage.h"
+#include "OSGCamera.h"
+#include "OSGFrameBufferObject.h"
+#include "OSGForeground.h"
 
 #include "OSGResolutionDisplayFilter.h"
 #include "OSGColorDisplayFilter.h"
 #include "OSGDistortionDisplayFilter.h"
+#include "OSGCalibrationPatternFilter.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -49,6 +49,7 @@
 
 #include "OSGIntersectAction.h"
 #include "OSGIntersectKDTree.h"
+#include "OSGGeometry.h"
 
 OSG_BEGIN_NAMESPACE
 

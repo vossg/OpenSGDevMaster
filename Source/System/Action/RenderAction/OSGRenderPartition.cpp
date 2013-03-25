@@ -55,6 +55,7 @@
 #include "OSGVolumeDraw.h"
 
 #include "OSGCamera.h"
+#include "OSGForeground.h"
 #include "OSGFrameBufferAttachment.h"
 
 #include "OSGStateSortTreeBuilder.h"

@@ -45,6 +45,7 @@
 
 #include "OSGConfig.h"
 #include "OSGCamera.h"
+#include "OSGNode.h"
 
 #include "OSGImageComposer.h"
 

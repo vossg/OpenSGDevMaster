@@ -237,6 +237,21 @@ SFUnrecFieldContainerPtr *MapHelperBase::editSFContainer      (void)
     return &_sfContainer;
 }
 
+//! Get the value of the MapHelper::_sfContainer field.
+FieldContainer * MapHelperBase::getContainer(void) const
+{
+    return _sfContainer.getValue();
+}
+
+//! Set the value of the MapHelper::_sfContainer field.
+void MapHelperBase::setContainer(FieldContainer * const value)
+{
+    editSField(ContainerFieldMask);
+
+    _sfContainer.setValue(value);
+}
+
+
 
 
 

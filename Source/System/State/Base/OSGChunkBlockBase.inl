@@ -75,12 +75,6 @@ OSG::UInt16 ChunkBlockBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the ChunkBlock::_mfChunks field.
-inline
-StateChunk * ChunkBlockBase::getChunks(const UInt32 index) const
-{
-    return _mfChunks[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

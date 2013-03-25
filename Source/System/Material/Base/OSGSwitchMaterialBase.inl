@@ -100,12 +100,6 @@ void SwitchMaterialBase::setChoice(const UInt32 value)
     _sfChoice.setValue(value);
 }
 
-//! Get the value of the \a index element the SwitchMaterial::_mfMaterials field.
-inline
-Material * SwitchMaterialBase::getMaterials(const UInt32 index) const
-{
-    return _mfMaterials[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

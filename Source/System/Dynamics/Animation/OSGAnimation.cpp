@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimation.h"
+#include "OSGAnimChannel.h"
 
 #include <boost/bind.hpp>
 

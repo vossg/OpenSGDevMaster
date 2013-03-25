@@ -51,7 +51,8 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsCPUSkinningDataAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachment : public CPUSkinningDataAttachmentBase
+class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachment : 
+    public CPUSkinningDataAttachmentBase
 {
   protected:
 

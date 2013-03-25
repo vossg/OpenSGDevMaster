@@ -90,7 +90,6 @@ Vec3f &VRMLNormalInterpolatorBase::editKeyValue(const UInt32 index)
     return _mfKeyValue[index];
 }
 
-
 //! Get the value of the \a index element the VRMLNormalInterpolator::_mfOutValue field.
 inline
 const Vec3f &VRMLNormalInterpolatorBase::getOutValue(const UInt32 index) const
@@ -105,7 +104,6 @@ Vec3f &VRMLNormalInterpolatorBase::editOutValue(const UInt32 index)
 
     return _mfOutValue[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

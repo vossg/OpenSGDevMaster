@@ -43,11 +43,6 @@
 #endif
 
 #include "OSGDisplayFilterGroupBase.h"
-#include "OSGDisplayFilter.h"
-#include "OSGResolutionDisplayFilter.h"
-#include "OSGDistortionDisplayFilter.h"
-#include "OSGColorDisplayFilter.h"
-#include "OSGCalibrationPatternFilter.h"
 
 OSG_BEGIN_NAMESPACE
 

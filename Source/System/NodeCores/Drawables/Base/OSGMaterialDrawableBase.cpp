@@ -202,6 +202,21 @@ SFUnrecMaterialPtr  *MaterialDrawableBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the MaterialDrawable::_sfMaterial field.
+Material * MaterialDrawableBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the MaterialDrawable::_sfMaterial field.
+void MaterialDrawableBase::setMaterial(Material * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 
 
 

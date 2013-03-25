@@ -196,6 +196,10 @@ const MFUnrecChildTransformationElementPtr *StackedTransformBase::getMFTransform
 {
     return &_mfTransformElements;
 }
+TransformationElement * StackedTransformBase::getTransformElements(const UInt32 index) const
+{
+    return _mfTransformElements[index];
+}
 
 
 

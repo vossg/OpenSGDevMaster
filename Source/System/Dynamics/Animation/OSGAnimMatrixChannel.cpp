@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimMatrixChannel.h"
+#include "OSGAnimMatrixDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

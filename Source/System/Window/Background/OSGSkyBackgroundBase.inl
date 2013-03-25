@@ -99,102 +99,6 @@ void SkyBackgroundBase::setSphereRes(const UInt32 value)
 
     _sfSphereRes.setValue(value);
 }
-
-//! Get the value of the SkyBackground::_sfBackTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getBackTexture(void) const
-{
-    return _sfBackTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfBackTexture field.
-inline
-void SkyBackgroundBase::setBackTexture(TextureBaseChunk * const value)
-{
-    editSField(BackTextureFieldMask);
-
-    _sfBackTexture.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfBottomTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getBottomTexture(void) const
-{
-    return _sfBottomTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfBottomTexture field.
-inline
-void SkyBackgroundBase::setBottomTexture(TextureBaseChunk * const value)
-{
-    editSField(BottomTextureFieldMask);
-
-    _sfBottomTexture.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfFrontTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getFrontTexture(void) const
-{
-    return _sfFrontTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfFrontTexture field.
-inline
-void SkyBackgroundBase::setFrontTexture(TextureBaseChunk * const value)
-{
-    editSField(FrontTextureFieldMask);
-
-    _sfFrontTexture.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfLeftTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getLeftTexture(void) const
-{
-    return _sfLeftTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfLeftTexture field.
-inline
-void SkyBackgroundBase::setLeftTexture(TextureBaseChunk * const value)
-{
-    editSField(LeftTextureFieldMask);
-
-    _sfLeftTexture.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfRightTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getRightTexture(void) const
-{
-    return _sfRightTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfRightTexture field.
-inline
-void SkyBackgroundBase::setRightTexture(TextureBaseChunk * const value)
-{
-    editSField(RightTextureFieldMask);
-
-    _sfRightTexture.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfTopTexture field.
-inline
-TextureBaseChunk * SkyBackgroundBase::getTopTexture(void) const
-{
-    return _sfTopTexture.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfTopTexture field.
-inline
-void SkyBackgroundBase::setTopTexture(TextureBaseChunk * const value)
-{
-    editSField(TopTextureFieldMask);
-
-    _sfTopTexture.setValue(value);
-}
 //! Get the value of the SkyBackground::_sfBoxInside field.
 
 inline
@@ -219,22 +123,6 @@ void SkyBackgroundBase::setBoxInside(const bool value)
     editSField(BoxInsideFieldMask);
 
     _sfBoxInside.setValue(value);
-}
-
-//! Get the value of the SkyBackground::_sfBeacon field.
-inline
-Node * SkyBackgroundBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the SkyBackground::_sfBeacon field.
-inline
-void SkyBackgroundBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
 }
 //! Get the value of the SkyBackground::_sfUseVRMLCubeTextureSemantics field.
 
@@ -277,7 +165,6 @@ Color4f &SkyBackgroundBase::editSkyColor(const UInt32 index)
     return _mfSkyColor[index];
 }
 
-
 //! Get the value of the \a index element the SkyBackground::_mfSkyAngle field.
 inline
       Real32  SkyBackgroundBase::getSkyAngle(const UInt32 index) const
@@ -292,7 +179,6 @@ Real32 &SkyBackgroundBase::editSkyAngle(const UInt32 index)
 
     return _mfSkyAngle[index];
 }
-
 
 //! Get the value of the \a index element the SkyBackground::_mfGroundColor field.
 inline
@@ -309,7 +195,6 @@ Color4f &SkyBackgroundBase::editGroundColor(const UInt32 index)
     return _mfGroundColor[index];
 }
 
-
 //! Get the value of the \a index element the SkyBackground::_mfGroundAngle field.
 inline
       Real32  SkyBackgroundBase::getGroundAngle(const UInt32 index) const
@@ -324,7 +209,6 @@ Real32 &SkyBackgroundBase::editGroundAngle(const UInt32 index)
 
     return _mfGroundAngle[index];
 }
-
 
 //! Get the value of the \a index element the SkyBackground::_mfTopTexCoord field.
 inline
@@ -341,7 +225,6 @@ Vec3f &SkyBackgroundBase::editTopTexCoord(const UInt32 index)
     return _mfTopTexCoord[index];
 }
 
-
 //! Get the value of the \a index element the SkyBackground::_mfBottomTexCoord field.
 inline
 const Vec3f &SkyBackgroundBase::getBottomTexCoord(const UInt32 index) const
@@ -356,7 +239,6 @@ Vec3f &SkyBackgroundBase::editBottomTexCoord(const UInt32 index)
 
     return _mfBottomTexCoord[index];
 }
-
 
 //! Get the value of the \a index element the SkyBackground::_mfRightTexCoord field.
 inline
@@ -373,7 +255,6 @@ Vec3f &SkyBackgroundBase::editRightTexCoord(const UInt32 index)
     return _mfRightTexCoord[index];
 }
 
-
 //! Get the value of the \a index element the SkyBackground::_mfLeftTexCoord field.
 inline
 const Vec3f &SkyBackgroundBase::getLeftTexCoord(const UInt32 index) const
@@ -388,7 +269,6 @@ Vec3f &SkyBackgroundBase::editLeftTexCoord(const UInt32 index)
 
     return _mfLeftTexCoord[index];
 }
-
 
 //! Get the value of the \a index element the SkyBackground::_mfFrontTexCoord field.
 inline
@@ -405,7 +285,6 @@ Vec3f &SkyBackgroundBase::editFrontTexCoord(const UInt32 index)
     return _mfFrontTexCoord[index];
 }
 
-
 //! Get the value of the \a index element the SkyBackground::_mfBackTexCoord field.
 inline
 const Vec3f &SkyBackgroundBase::getBackTexCoord(const UInt32 index) const
@@ -420,7 +299,6 @@ Vec3f &SkyBackgroundBase::editBackTexCoord(const UInt32 index)
 
     return _mfBackTexCoord[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

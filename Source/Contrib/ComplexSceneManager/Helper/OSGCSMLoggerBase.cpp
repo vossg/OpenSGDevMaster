@@ -257,6 +257,10 @@ MFUnrecFieldContainerPtr *CSMLoggerBase::editMFContainers     (void)
 
     return &_mfContainers;
 }
+FieldContainer * CSMLoggerBase::getContainers(const UInt32 index) const
+{
+    return _mfContainers[index];
+}
 
 MFString *CSMLoggerBase::editMFFields(void)
 {

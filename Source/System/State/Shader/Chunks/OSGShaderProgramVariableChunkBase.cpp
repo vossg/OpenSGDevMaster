@@ -233,6 +233,21 @@ SFUnrecChildShaderProgramVariablesPtr *ShaderProgramVariableChunkBase::editSFVar
     return &_sfVariables;
 }
 
+//! Get the value of the ShaderProgramVariableChunk::_sfVariables field.
+ShaderProgramVariables * ShaderProgramVariableChunkBase::getVariables(void) const
+{
+    return _sfVariables.getValue();
+}
+
+//! Set the value of the ShaderProgramVariableChunk::_sfVariables field.
+void ShaderProgramVariableChunkBase::setVariables(ShaderProgramVariables * const value)
+{
+    editSField(VariablesFieldMask);
+
+    _sfVariables.setValue(value);
+}
+
+
 
 
 

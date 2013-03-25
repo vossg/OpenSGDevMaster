@@ -45,8 +45,6 @@
 #include <queue>
 
 #include "OSGAlgorithmStageBase.h"
-#include "OSGAction.h"
-#include "OSGAlgorithm.h"
 
 OSG_BEGIN_NAMESPACE
 

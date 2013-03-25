@@ -639,6 +639,10 @@ MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editMFColorAttachments(v
 
     return &_mfColorAttachments;
 }
+FrameBufferAttachment * FrameBufferObjectBase::getColorAttachments(const UInt32 index) const
+{
+    return _mfColorAttachments[index];
+}
 
 MFGLenum *FrameBufferObjectBase::editMFDrawBuffers(void)
 {
@@ -666,6 +670,21 @@ SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFDepthAttachment(vo
     return &_sfDepthAttachment;
 }
 
+//! Get the value of the FrameBufferObject::_sfDepthAttachment field.
+FrameBufferAttachment * FrameBufferObjectBase::getDepthAttachment(void) const
+{
+    return _sfDepthAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfDepthAttachment field.
+void FrameBufferObjectBase::setDepthAttachment(FrameBufferAttachment * const value)
+{
+    editSField(DepthAttachmentFieldMask);
+
+    _sfDepthAttachment.setValue(value);
+}
+
+
 //! Get the FrameBufferObject::_sfStencilAttachment field.
 const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFStencilAttachment(void) const
 {
@@ -678,6 +697,21 @@ SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFStencilAttachment(
 
     return &_sfStencilAttachment;
 }
+
+//! Get the value of the FrameBufferObject::_sfStencilAttachment field.
+FrameBufferAttachment * FrameBufferObjectBase::getStencilAttachment(void) const
+{
+    return _sfStencilAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfStencilAttachment field.
+void FrameBufferObjectBase::setStencilAttachment(FrameBufferAttachment * const value)
+{
+    editSField(StencilAttachmentFieldMask);
+
+    _sfStencilAttachment.setValue(value);
+}
+
 
 SFUInt16 *FrameBufferObjectBase::editSFWidth(void)
 {
@@ -782,6 +816,10 @@ MFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editMFMsaaColorAttachmen
 
     return &_mfMsaaColorAttachments;
 }
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaColorAttachments(const UInt32 index) const
+{
+    return _mfMsaaColorAttachments[index];
+}
 
 //! Get the FrameBufferObject::_sfMsaaDepthAttachment field.
 const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFMsaaDepthAttachment(void) const
@@ -796,6 +834,21 @@ SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFMsaaDepthAttachmen
     return &_sfMsaaDepthAttachment;
 }
 
+//! Get the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaDepthAttachment(void) const
+{
+    return _sfMsaaDepthAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
+void FrameBufferObjectBase::setMsaaDepthAttachment(FrameBufferAttachment * const value)
+{
+    editSField(MsaaDepthAttachmentFieldMask);
+
+    _sfMsaaDepthAttachment.setValue(value);
+}
+
+
 //! Get the FrameBufferObject::_sfMsaaStencilAttachment field.
 const SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFMsaaStencilAttachment(void) const
 {
@@ -808,6 +861,21 @@ SFUnrecFrameBufferAttachmentPtr *FrameBufferObjectBase::editSFMsaaStencilAttachm
 
     return &_sfMsaaStencilAttachment;
 }
+
+//! Get the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
+FrameBufferAttachment * FrameBufferObjectBase::getMsaaStencilAttachment(void) const
+{
+    return _sfMsaaStencilAttachment.getValue();
+}
+
+//! Set the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
+void FrameBufferObjectBase::setMsaaStencilAttachment(FrameBufferAttachment * const value)
+{
+    editSField(MsaaStencilAttachmentFieldMask);
+
+    _sfMsaaStencilAttachment.setValue(value);
+}
+
 
 
 

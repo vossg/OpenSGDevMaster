@@ -75,22 +75,6 @@ OSG::UInt16 SimpleSHLVariableChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the SimpleSHLVariableChunk::_sfVariables field.
-inline
-ShaderProgramVariables * SimpleSHLVariableChunkBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the SimpleSHLVariableChunk::_sfVariables field.
-inline
-void SimpleSHLVariableChunkBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
-
 //! Get the value of the \a index element the SimpleSHLVariableChunk::_mfVariableLocations field.
 inline
       Int32  SimpleSHLVariableChunkBase::getVariableLocations(const UInt32 index) const
@@ -105,7 +89,6 @@ Int32 &SimpleSHLVariableChunkBase::editVariableLocations(const UInt32 index)
 
     return _mfVariableLocations[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

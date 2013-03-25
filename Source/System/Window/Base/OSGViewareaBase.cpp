@@ -615,6 +615,21 @@ SFUnrecRenderOptionsPtr *ViewareaBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+//! Get the value of the Viewarea::_sfRenderOptions field.
+RenderOptions * ViewareaBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the Viewarea::_sfRenderOptions field.
+void ViewareaBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
+
 
 
 

@@ -74,38 +74,6 @@ OSG::UInt16 ShaderShadowMapEngineBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ShaderShadowMapEngine::_sfShadowVertexProgram field.
-inline
-ShaderProgram * ShaderShadowMapEngineBase::getShadowVertexProgram(void) const
-{
-    return _sfShadowVertexProgram.getValue();
-}
-
-//! Set the value of the ShaderShadowMapEngine::_sfShadowVertexProgram field.
-inline
-void ShaderShadowMapEngineBase::setShadowVertexProgram(ShaderProgram * const value)
-{
-    editSField(ShadowVertexProgramFieldMask);
-
-    _sfShadowVertexProgram.setValue(value);
-}
-
-//! Get the value of the ShaderShadowMapEngine::_sfShadowFragmentProgram field.
-inline
-ShaderProgram * ShaderShadowMapEngineBase::getShadowFragmentProgram(void) const
-{
-    return _sfShadowFragmentProgram.getValue();
-}
-
-//! Set the value of the ShaderShadowMapEngine::_sfShadowFragmentProgram field.
-inline
-void ShaderShadowMapEngineBase::setShadowFragmentProgram(ShaderProgram * const value)
-{
-    editSField(ShadowFragmentProgramFieldMask);
-
-    _sfShadowFragmentProgram.setValue(value);
-}
 //! Get the value of the ShaderShadowMapEngine::_sfForceTextureUnit field.
 
 inline

@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGShaderProgram.h"
 #include "OSGShaderProgramChunkBase.h"
 
 OSG_BEGIN_NAMESPACE

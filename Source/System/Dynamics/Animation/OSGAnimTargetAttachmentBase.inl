@@ -100,12 +100,6 @@ void AnimTargetAttachmentBase::setTargetId(const std::string &value)
     _sfTargetId.setValue(value);
 }
 
-//! Get the value of the \a index element the AnimTargetAttachment::_mfBlenders field.
-inline
-AnimBlender * AnimTargetAttachmentBase::getBlenders(const UInt32 index) const
-{
-    return _mfBlenders[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

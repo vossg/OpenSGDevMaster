@@ -375,12 +375,6 @@ void FishEyeProjectorBase::setShowMesh(const bool value)
     _sfShowMesh.setValue(value);
 }
 
-//! Get the value of the \a index element the FishEyeProjector::_mfGeometries field.
-inline
-Geometry * FishEyeProjectorBase::getGeometries(const UInt32 index) const
-{
-    return _mfGeometries[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

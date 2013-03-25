@@ -75,22 +75,6 @@ OSG::UInt16 SkinningAlgorithmBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the SkinningAlgorithm::_sfSkeleton field.
-inline
-Skeleton * SkinningAlgorithmBase::getSkeleton(void) const
-{
-    return _sfSkeleton.getValue();
-}
-
-//! Set the value of the SkinningAlgorithm::_sfSkeleton field.
-inline
-void SkinningAlgorithmBase::setSkeleton(Skeleton * const value)
-{
-    editSField(SkeletonFieldMask);
-
-    _sfSkeleton.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

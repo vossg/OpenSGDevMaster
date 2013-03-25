@@ -389,6 +389,21 @@ SFUnrecNodePtr      *ProjectionCameraDecoratorBase::editSFUser           (void)
     return &_sfUser;
 }
 
+//! Get the value of the ProjectionCameraDecorator::_sfUser field.
+Node * ProjectionCameraDecoratorBase::getUser(void) const
+{
+    return _sfUser.getValue();
+}
+
+//! Set the value of the ProjectionCameraDecorator::_sfUser field.
+void ProjectionCameraDecoratorBase::setUser(Node * const value)
+{
+    editSField(UserFieldMask);
+
+    _sfUser.setValue(value);
+}
+
+
 MFPnt3f *ProjectionCameraDecoratorBase::editMFSurface(void)
 {
     editMField(SurfaceFieldMask, _mfSurface);

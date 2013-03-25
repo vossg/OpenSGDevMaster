@@ -181,6 +181,7 @@ CounterBase::TypeObject CounterBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
+    "    fieldsUnmarkedOnCreate=\"(IncTriggerFieldMask | DecTriggerFieldMask | ResetTriggerFieldMask)\"\n"
     "    >\n"
     "    <Field\n"
     "        name=\"incTrigger\"\n"

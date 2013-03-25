@@ -47,6 +47,7 @@
 #include "OSGGeometry.h"
 #include "OSGGeoFunctions.h"
 #include "OSGFieldContainerUtils.h"
+#include "OSGMaterial.h"
 
 /*! \class OSG::TransformPushGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry

@@ -331,6 +331,21 @@ SFWeakNodePtr       *ScreenTransformBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+//! Get the value of the ScreenTransform::_sfBeacon field.
+Node * ScreenTransformBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the ScreenTransform::_sfBeacon field.
+void ScreenTransformBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
+
 SFBool *ScreenTransformBase::editSFInvertWorldTransform(void)
 {
     editSField(InvertWorldTransformFieldMask);

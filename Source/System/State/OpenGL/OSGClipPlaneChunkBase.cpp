@@ -303,6 +303,21 @@ SFWeakNodePtr       *ClipPlaneChunkBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+//! Get the value of the ClipPlaneChunk::_sfBeacon field.
+Node * ClipPlaneChunkBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the ClipPlaneChunk::_sfBeacon field.
+void ClipPlaneChunkBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
+
 
 
 

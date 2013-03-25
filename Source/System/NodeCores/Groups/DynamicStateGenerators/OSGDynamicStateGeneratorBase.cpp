@@ -209,6 +209,21 @@ SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorBase::editSFRenderTarget   (vo
     return &_sfRenderTarget;
 }
 
+//! Get the value of the DynamicStateGenerator::_sfRenderTarget field.
+FrameBufferObject * DynamicStateGeneratorBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the DynamicStateGenerator::_sfRenderTarget field.
+void DynamicStateGeneratorBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
+
 
 
 

@@ -150,26 +150,8 @@ void SkeletonBase::setJointsChanged(const OSGAny &value)
     _sfJointsChanged.setValue(value);
 }
 
-//! Get the value of the \a index element the Skeleton::_mfRoots field.
-inline
-Node * SkeletonBase::getRoots(const UInt32 index) const
-{
-    return _mfRoots[index];
-}
 
-//! Get the value of the \a index element the Skeleton::_mfJoints field.
-inline
-BaseSkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
-{
-    return _mfJoints[index];
-}
 
-//! Get the value of the \a index element the Skeleton::_mfParentJoints field.
-inline
-BaseSkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
-{
-    return _mfParentJoints[index];
-}
 
 //! Get the value of the \a index element the Skeleton::_mfJointMatrices field.
 inline
@@ -186,7 +168,6 @@ Matrix &SkeletonBase::editJointMatrices(const UInt32 index)
     return _mfJointMatrices[index];
 }
 
-
 //! Get the value of the \a index element the Skeleton::_mfJointNormalMatrices field.
 inline
 const Matrix &SkeletonBase::getJointNormalMatrices(const UInt32 index) const
@@ -201,7 +182,6 @@ Matrix &SkeletonBase::editJointNormalMatrices(const UInt32 index)
 
     return _mfJointNormalMatrices[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

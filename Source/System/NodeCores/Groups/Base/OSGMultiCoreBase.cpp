@@ -235,6 +235,10 @@ MFUnrecChildNodeCorePtr *MultiCoreBase::editMFCores          (void)
 
     return &_mfCores;
 }
+NodeCore * MultiCoreBase::getCores(const UInt32 index) const
+{
+    return _mfCores[index];
+}
 
 SFBool *MultiCoreBase::editSFExitOnSkip(void)
 {

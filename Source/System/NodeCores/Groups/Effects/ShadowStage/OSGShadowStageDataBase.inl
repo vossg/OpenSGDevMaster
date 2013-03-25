@@ -74,86 +74,6 @@ OSG::UInt16 ShadowStageDataBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ShadowStageData::_sfToneMappingMaterial field.
-inline
-ChunkMaterial * ShadowStageDataBase::getToneMappingMaterial(void) const
-{
-    return _sfToneMappingMaterial.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfToneMappingMaterial field.
-inline
-void ShadowStageDataBase::setToneMappingMaterial(ChunkMaterial * const value)
-{
-    editSField(ToneMappingMaterialFieldMask);
-
-    _sfToneMappingMaterial.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfBlurRenderTarget field.
-inline
-FrameBufferObject * ShadowStageDataBase::getBlurRenderTarget(void) const
-{
-    return _sfBlurRenderTarget.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfBlurRenderTarget field.
-inline
-void ShadowStageDataBase::setBlurRenderTarget(FrameBufferObject * const value)
-{
-    editSField(BlurRenderTargetFieldMask);
-
-    _sfBlurRenderTarget.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfBlurMaterial field.
-inline
-ChunkMaterial * ShadowStageDataBase::getBlurMaterial(void) const
-{
-    return _sfBlurMaterial.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfBlurMaterial field.
-inline
-void ShadowStageDataBase::setBlurMaterial(ChunkMaterial * const value)
-{
-    editSField(BlurMaterialFieldMask);
-
-    _sfBlurMaterial.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfHBlurShader field.
-inline
-SimpleSHLChunk * ShadowStageDataBase::getHBlurShader(void) const
-{
-    return _sfHBlurShader.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfHBlurShader field.
-inline
-void ShadowStageDataBase::setHBlurShader(SimpleSHLChunk * const value)
-{
-    editSField(HBlurShaderFieldMask);
-
-    _sfHBlurShader.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfVBlurShader field.
-inline
-SimpleSHLChunk * ShadowStageDataBase::getVBlurShader(void) const
-{
-    return _sfVBlurShader.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfVBlurShader field.
-inline
-void ShadowStageDataBase::setVBlurShader(SimpleSHLChunk * const value)
-{
-    editSField(VBlurShaderFieldMask);
-
-    _sfVBlurShader.setValue(value);
-}
 //! Get the value of the ShadowStageData::_sfWidth field.
 
 inline
@@ -203,38 +123,6 @@ void ShadowStageDataBase::setHeight(const UInt32 value)
     editSField(HeightFieldMask);
 
     _sfHeight.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfShrinkRenderTarget field.
-inline
-FrameBufferObject * ShadowStageDataBase::getShrinkRenderTarget(void) const
-{
-    return _sfShrinkRenderTarget.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfShrinkRenderTarget field.
-inline
-void ShadowStageDataBase::setShrinkRenderTarget(FrameBufferObject * const value)
-{
-    editSField(ShrinkRenderTargetFieldMask);
-
-    _sfShrinkRenderTarget.setValue(value);
-}
-
-//! Get the value of the ShadowStageData::_sfShrinkMaterial field.
-inline
-ChunkMaterial * ShadowStageDataBase::getShrinkMaterial(void) const
-{
-    return _sfShrinkMaterial.getValue();
-}
-
-//! Set the value of the ShadowStageData::_sfShrinkMaterial field.
-inline
-void ShadowStageDataBase::setShrinkMaterial(ChunkMaterial * const value)
-{
-    editSField(ShrinkMaterialFieldMask);
-
-    _sfShrinkMaterial.setValue(value);
 }
 
 

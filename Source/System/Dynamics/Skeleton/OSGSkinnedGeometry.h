@@ -43,9 +43,6 @@
 #endif
 
 #include "OSGSkinnedGeometryBase.h"
-
-#include "OSGSkeleton.h"
-#include "OSGSkeletonJoint.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE

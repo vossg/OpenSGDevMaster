@@ -303,6 +303,21 @@ SFUnrecCSMDrawerPtr *CSMDrawManagerBase::editSFAppDrawer      (void)
     return &_sfAppDrawer;
 }
 
+//! Get the value of the CSMDrawManager::_sfAppDrawer field.
+CSMDrawer * CSMDrawManagerBase::getAppDrawer(void) const
+{
+    return _sfAppDrawer.getValue();
+}
+
+//! Set the value of the CSMDrawManager::_sfAppDrawer field.
+void CSMDrawManagerBase::setAppDrawer(CSMDrawer * const value)
+{
+    editSField(AppDrawerFieldMask);
+
+    _sfAppDrawer.setValue(value);
+}
+
+
 //! Get the CSMDrawManager::_mfDrawer field.
 const MFUnrecCSMDrawerPtr *CSMDrawManagerBase::getMFDrawer(void) const
 {
@@ -314,6 +329,10 @@ MFUnrecCSMDrawerPtr *CSMDrawManagerBase::editMFDrawer         (void)
     editMField(DrawerFieldMask, _mfDrawer);
 
     return &_mfDrawer;
+}
+CSMDrawer * CSMDrawManagerBase::getDrawer(const UInt32 index) const
+{
+    return _mfDrawer[index];
 }
 
 SFBool *CSMDrawManagerBase::editSFParallel(void)

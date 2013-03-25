@@ -75,12 +75,6 @@ OSG::UInt16 MultiPassMaterialBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the MultiPassMaterial::_mfMaterials field.
-inline
-PrimeMaterial * MultiPassMaterialBase::getMaterials(const UInt32 index) const
-{
-    return _mfMaterials[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

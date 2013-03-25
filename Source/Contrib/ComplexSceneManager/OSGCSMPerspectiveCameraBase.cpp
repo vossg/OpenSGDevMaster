@@ -279,6 +279,21 @@ SFWeakNodePtr       *CSMPerspectiveCameraBase::editSFHeadBeacon     (void)
     return &_sfHeadBeacon;
 }
 
+//! Get the value of the CSMPerspectiveCamera::_sfHeadBeacon field.
+Node * CSMPerspectiveCameraBase::getHeadBeacon(void) const
+{
+    return _sfHeadBeacon.getValue();
+}
+
+//! Set the value of the CSMPerspectiveCamera::_sfHeadBeacon field.
+void CSMPerspectiveCameraBase::setHeadBeacon(Node * const value)
+{
+    editSField(HeadBeaconFieldMask);
+
+    _sfHeadBeacon.setValue(value);
+}
+
+
 
 
 

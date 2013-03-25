@@ -125,35 +125,7 @@ void PostShaderStageDataBase::setHeight(const Int32 value)
     _sfHeight.setValue(value);
 }
 
-//! Get the value of the PostShaderStageData::_sfCamera field.
-inline
-Camera * PostShaderStageDataBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
 
-//! Set the value of the PostShaderStageData::_sfCamera field.
-inline
-void PostShaderStageDataBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the \a index element the PostShaderStageData::_mfShaderMaterials field.
-inline
-ChunkMaterial * PostShaderStageDataBase::getShaderMaterials(const UInt32 index) const
-{
-    return _mfShaderMaterials[index];
-}
-
-//! Get the value of the \a index element the PostShaderStageData::_mfRenderTargets field.
-inline
-FrameBufferObject * PostShaderStageDataBase::getRenderTargets(const UInt32 index) const
-{
-    return _mfRenderTargets[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

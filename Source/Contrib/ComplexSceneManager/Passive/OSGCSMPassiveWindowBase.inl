@@ -100,22 +100,6 @@ void CSMPassiveWindowBase::setViewportScale(const Vec2f &value)
     _sfViewportScale.setValue(value);
 }
 
-//! Get the value of the CSMPassiveWindow::_sfClearOp field.
-inline
-CSMPassiveWinClearOp * CSMPassiveWindowBase::getClearOp(void) const
-{
-    return _sfClearOp.getValue();
-}
-
-//! Set the value of the CSMPassiveWindow::_sfClearOp field.
-inline
-void CSMPassiveWindowBase::setClearOp(CSMPassiveWinClearOp * const value)
-{
-    editSField(ClearOpFieldMask);
-
-    _sfClearOp.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

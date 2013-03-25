@@ -150,26 +150,8 @@ void ShaderProgramChunkBase::setGeometryOutputType(const GLenum &value)
     _sfGeometryOutputType.setValue(value);
 }
 
-//! Get the value of the \a index element the ShaderProgramChunk::_mfVertexShader field.
-inline
-ShaderProgram * ShaderProgramChunkBase::getVertexShader(const UInt32 index) const
-{
-    return _mfVertexShader[index];
-}
 
-//! Get the value of the \a index element the ShaderProgramChunk::_mfGeometryShader field.
-inline
-ShaderProgram * ShaderProgramChunkBase::getGeometryShader(const UInt32 index) const
-{
-    return _mfGeometryShader[index];
-}
 
-//! Get the value of the \a index element the ShaderProgramChunk::_mfFragmentShader field.
-inline
-ShaderProgram * ShaderProgramChunkBase::getFragmentShader(const UInt32 index) const
-{
-    return _mfFragmentShader[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

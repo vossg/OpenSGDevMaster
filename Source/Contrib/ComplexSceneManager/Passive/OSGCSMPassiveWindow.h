@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGCSMPassiveWindowBase.h"
-#include "OSGCSMPassiveWinClearOp.h"
 
 OSG_BEGIN_NAMESPACE
 

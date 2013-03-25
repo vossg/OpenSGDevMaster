@@ -90,7 +90,6 @@ Vec3f &AnimVec3fDataSourceBase::editValues(const UInt32 index)
     return _mfValues[index];
 }
 
-
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfInTangentsX field.
 inline
 const Vec2f &AnimVec3fDataSourceBase::getInTangentsX(const UInt32 index) const
@@ -105,7 +104,6 @@ Vec2f &AnimVec3fDataSourceBase::editInTangentsX(const UInt32 index)
 
     return _mfInTangentsX[index];
 }
-
 
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfInTangentsY field.
 inline
@@ -122,7 +120,6 @@ Vec2f &AnimVec3fDataSourceBase::editInTangentsY(const UInt32 index)
     return _mfInTangentsY[index];
 }
 
-
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfInTangentsZ field.
 inline
 const Vec2f &AnimVec3fDataSourceBase::getInTangentsZ(const UInt32 index) const
@@ -137,7 +134,6 @@ Vec2f &AnimVec3fDataSourceBase::editInTangentsZ(const UInt32 index)
 
     return _mfInTangentsZ[index];
 }
-
 
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfOutTangentsX field.
 inline
@@ -154,7 +150,6 @@ Vec2f &AnimVec3fDataSourceBase::editOutTangentsX(const UInt32 index)
     return _mfOutTangentsX[index];
 }
 
-
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfOutTangentsY field.
 inline
 const Vec2f &AnimVec3fDataSourceBase::getOutTangentsY(const UInt32 index) const
@@ -170,7 +165,6 @@ Vec2f &AnimVec3fDataSourceBase::editOutTangentsY(const UInt32 index)
     return _mfOutTangentsY[index];
 }
 
-
 //! Get the value of the \a index element the AnimVec3fDataSource::_mfOutTangentsZ field.
 inline
 const Vec2f &AnimVec3fDataSourceBase::getOutTangentsZ(const UInt32 index) const
@@ -185,7 +179,6 @@ Vec2f &AnimVec3fDataSourceBase::editOutTangentsZ(const UInt32 index)
 
     return _mfOutTangentsZ[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

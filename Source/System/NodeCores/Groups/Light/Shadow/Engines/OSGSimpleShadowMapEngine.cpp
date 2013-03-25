@@ -58,6 +58,7 @@
 #include "OSGPolygonChunk.h"
 #include "OSGTexGenChunk.h"
 #include "OSGBlendChunk.h"
+#include "OSGImage.h"
 
 OSG_USING_NAMESPACE
 

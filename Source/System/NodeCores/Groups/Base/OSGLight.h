@@ -42,14 +42,13 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
 #include "OSGLightBase.h"
-#include "OSGAction.h"
 #include "OSGLightChunk.h"
-#include "OSGStatCollector.h"
 #include "OSGLightEngine.h"
 
 OSG_BEGIN_NAMESPACE
+
+class RenderAction;
 
 /*! \brief Lights Base class
 

@@ -254,6 +254,10 @@ MFUnrecFieldContainerPtr *GlobalsAttachmentBase::editMFElements       (void)
 
     return &_mfElements;
 }
+FieldContainer * GlobalsAttachmentBase::getElements(const UInt32 index) const
+{
+    return _mfElements[index];
+}
 
 
 

@@ -42,9 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGGeoMultiPropertyData.h"
 #include "OSGGeoMultiPropertyBase.h"
-#include "OSGGeoVectorPropertyConversion.h"
 
 OSG_BEGIN_NAMESPACE
 

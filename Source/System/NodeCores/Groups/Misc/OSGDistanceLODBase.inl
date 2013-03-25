@@ -116,7 +116,6 @@ Real32 &DistanceLODBase::editRange(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void DistanceLODBase::execSync (      DistanceLODBase *pFrom,

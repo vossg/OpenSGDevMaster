@@ -75,22 +75,6 @@ OSG::UInt16 CgFXPassChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the CgFXPassChunk::_sfMaterial field.
-inline
-CgFXMaterial * CgFXPassChunkBase::getMaterial(void) const
-{
-    return _sfMaterial.getValue();
-}
-
-//! Set the value of the CgFXPassChunk::_sfMaterial field.
-inline
-void CgFXPassChunkBase::setMaterial(CgFXMaterial * const value)
-{
-    editSField(MaterialFieldMask);
-
-    _sfMaterial.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

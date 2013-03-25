@@ -345,6 +345,10 @@ MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFVertexShader   (void)
 
     return &_mfVertexShader;
 }
+ShaderProgram * ShaderProgramChunkBase::getVertexShader(const UInt32 index) const
+{
+    return _mfVertexShader[index];
+}
 
 //! Get the ShaderProgramChunk::_mfGeometryShader field.
 const MFUnrecShaderProgramPtr *ShaderProgramChunkBase::getMFGeometryShader(void) const
@@ -358,6 +362,10 @@ MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFGeometryShader (void)
 
     return &_mfGeometryShader;
 }
+ShaderProgram * ShaderProgramChunkBase::getGeometryShader(const UInt32 index) const
+{
+    return _mfGeometryShader[index];
+}
 
 //! Get the ShaderProgramChunk::_mfFragmentShader field.
 const MFUnrecShaderProgramPtr *ShaderProgramChunkBase::getMFFragmentShader(void) const
@@ -370,6 +378,10 @@ MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFFragmentShader (void)
     editMField(FragmentShaderFieldMask, _mfFragmentShader);
 
     return &_mfFragmentShader;
+}
+ShaderProgram * ShaderProgramChunkBase::getFragmentShader(const UInt32 index) const
+{
+    return _mfFragmentShader[index];
 }
 
 SFUInt32 *ShaderProgramChunkBase::editSFGeometryVerticesOut(void)

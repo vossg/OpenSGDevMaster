@@ -74,22 +74,6 @@ OSG::UInt16 SkinnedGeometryBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the SkinnedGeometry::_sfSkeleton field.
-inline
-Skeleton * SkinnedGeometryBase::getSkeleton(void) const
-{
-    return _sfSkeleton.getValue();
-}
-
-//! Set the value of the SkinnedGeometry::_sfSkeleton field.
-inline
-void SkinnedGeometryBase::setSkeleton(Skeleton * const value)
-{
-    editSField(SkeletonFieldMask);
-
-    _sfSkeleton.setValue(value);
-}
 //! Get the value of the SkinnedGeometry::_sfBindShapeMatrix field.
 
 inline
@@ -191,22 +175,6 @@ void SkinnedGeometryBase::setRenderMode(const UInt32 value)
     _sfRenderMode.setValue(value);
 }
 
-//! Get the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
-inline
-SkinningAlgorithm * SkinnedGeometryBase::getSkinningAlgorithm(void) const
-{
-    return _sfSkinningAlgorithm.getValue();
-}
-
-//! Set the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
-inline
-void SkinnedGeometryBase::setSkinningAlgorithm(SkinningAlgorithm * const value)
-{
-    editSField(SkinningAlgorithmFieldMask);
-
-    _sfSkinningAlgorithm.setValue(value);
-}
-
 //! Get the value of the \a index element the SkinnedGeometry::_mfJointIds field.
 inline
       Int16  SkinnedGeometryBase::getJointIds(const UInt32 index) const
@@ -221,7 +189,6 @@ Int16 &SkinnedGeometryBase::editJointIds(const UInt32 index)
 
     return _mfJointIds[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

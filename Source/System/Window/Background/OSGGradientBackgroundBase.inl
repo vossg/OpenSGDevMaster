@@ -140,7 +140,6 @@ Color3f &GradientBackgroundBase::editColor(const UInt32 index)
     return _mfColor[index];
 }
 
-
 //! Get the value of the \a index element the GradientBackground::_mfPosition field.
 inline
       Real32  GradientBackgroundBase::getPosition(const UInt32 index) const
@@ -155,7 +154,6 @@ Real32 &GradientBackgroundBase::editPosition(const UInt32 index)
 
     return _mfPosition[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

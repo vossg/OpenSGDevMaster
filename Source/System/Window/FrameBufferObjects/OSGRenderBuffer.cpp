@@ -50,9 +50,9 @@
 #include "OSGGLFuncProtos.h"
 
 #include "OSGRenderBuffer.h"
-#include "OSGWindow.h"
 #include "OSGDrawEnv.h"
 #include "OSGGLU.h"
+#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 

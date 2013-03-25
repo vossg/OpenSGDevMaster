@@ -74,22 +74,6 @@ OSG::UInt16 AnimMatrixChannelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the AnimMatrixChannel::_sfData field.
-inline
-AnimMatrixDataSource * AnimMatrixChannelBase::getData(void) const
-{
-    return _sfData.getValue();
-}
-
-//! Set the value of the AnimMatrixChannel::_sfData field.
-inline
-void AnimMatrixChannelBase::setData(AnimMatrixDataSource * const value)
-{
-    editSField(DataFieldMask);
-
-    _sfData.setValue(value);
-}
 //! Get the value of the AnimMatrixChannel::_sfOutValue field.
 
 inline

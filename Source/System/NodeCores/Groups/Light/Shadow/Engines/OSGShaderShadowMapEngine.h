@@ -44,14 +44,12 @@
 
 #include "OSGShaderShadowMapEngineBase.h"
 
-#include "OSGShaderShadowMapEngineData.h"
-#include "OSGLight.h"
-#include "OSGDirectionalLight.h"
-#include "OSGPointLight.h"
-#include "OSGSpotLight.h"
-#include "OSGShaderProgramChunk.h"
-
 OSG_BEGIN_NAMESPACE
+
+class PointLight;
+class DirectionalLight;
+class SpotLight;
+class ShaderShadowMapEngineData;
 
 /*! \brief ShaderShadowMapEngine class. See \ref
            PageEffectGroupsShaderShadowMapEngine for a description.
@@ -107,8 +105,7 @@ class OSG_GROUP_DLLMAPPING ShaderShadowMapEngine :
 
     // Variables should all be in ShaderShadowMapEngineBase.
 
-    typedef ShaderShadowMapEngineData           SSMEngineData;
-    typedef ShaderShadowMapEngineDataUnrecPtr   SSMEngineDataUnrecPtr;
+    typedef ShaderShadowMapEngineData SSMEngineData;
 
     static const Matrix      _matCubeFaceInv [6];
     static const GLenum      _cubeFaceTargets[6];

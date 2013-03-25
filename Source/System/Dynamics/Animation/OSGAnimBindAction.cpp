@@ -40,6 +40,8 @@
 #include "OSGAnimTemplate.h"
 #include "OSGAnimation.h"
 #include "OSGAnimDataSource.h"
+#include "OSGAnimBlender.h"
+#include "OSGAnimChannel.h"
 
 // for callbacks only
 #include "OSGTransform.h"

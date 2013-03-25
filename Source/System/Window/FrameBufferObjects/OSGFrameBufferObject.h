@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGFrameBufferObjectBase.h"
-#include "OSGFrameBufferAttachment.h"
 #include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE

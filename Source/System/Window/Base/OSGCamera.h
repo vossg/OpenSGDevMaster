@@ -44,8 +44,6 @@
 
 #include "OSGMatrix.h"
 #include "OSGFrustumVolume.h"
-#include "OSGNode.h"
-
 #include "OSGCameraBase.h"
 
 OSG_BEGIN_NAMESPACE

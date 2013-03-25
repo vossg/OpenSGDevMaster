@@ -75,12 +75,6 @@ OSG::UInt16 CgFXTechniqueBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the CgFXTechnique::_mfRenderPassStates field.
-inline
-State * CgFXTechniqueBase::getRenderPassStates(const UInt32 index) const
-{
-    return _mfRenderPassStates[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

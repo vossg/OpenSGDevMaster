@@ -243,6 +243,21 @@ SFUnrecCSMPassiveWinClearOpPtr *CSMPassiveWindowBase::editSFClearOp        (void
     return &_sfClearOp;
 }
 
+//! Get the value of the CSMPassiveWindow::_sfClearOp field.
+CSMPassiveWinClearOp * CSMPassiveWindowBase::getClearOp(void) const
+{
+    return _sfClearOp.getValue();
+}
+
+//! Set the value of the CSMPassiveWindow::_sfClearOp field.
+void CSMPassiveWindowBase::setClearOp(CSMPassiveWinClearOp * const value)
+{
+    editSField(ClearOpFieldMask);
+
+    _sfClearOp.setValue(value);
+}
+
+
 
 
 

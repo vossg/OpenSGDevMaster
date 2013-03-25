@@ -464,6 +464,10 @@ MFRecFieldContainerPtr *ComplexSceneManagerBase::editMFGlobals        (void)
 
     return &_mfGlobals;
 }
+FieldContainer * ComplexSceneManagerBase::getGlobals(const UInt32 index) const
+{
+    return _mfGlobals[index];
+}
 
 //! Get the ComplexSceneManager::_sfDrawManager field.
 const SFUnrecCSMDrawManagerPtr *ComplexSceneManagerBase::getSFDrawManager(void) const
@@ -477,6 +481,21 @@ SFUnrecCSMDrawManagerPtr *ComplexSceneManagerBase::editSFDrawManager    (void)
 
     return &_sfDrawManager;
 }
+
+//! Get the value of the ComplexSceneManager::_sfDrawManager field.
+CSMDrawManager * ComplexSceneManagerBase::getDrawManager(void) const
+{
+    return _sfDrawManager.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfDrawManager field.
+void ComplexSceneManagerBase::setDrawManager(CSMDrawManager * const value)
+{
+    editSField(DrawManagerFieldMask);
+
+    _sfDrawManager.setValue(value);
+}
+
 
 SFTime *ComplexSceneManagerBase::editSFStartTime(void)
 {

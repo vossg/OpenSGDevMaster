@@ -544,6 +544,10 @@ MFUnrecNodePtr      *SkeletonBase::editMFRoots          (void)
 
     return &_mfRoots;
 }
+Node * SkeletonBase::getRoots(const UInt32 index) const
+{
+    return _mfRoots[index];
+}
 
 //! Get the Skeleton::_mfJoints field.
 const MFUnrecChildBaseSkeletonJointPtr *SkeletonBase::getMFJoints(void) const
@@ -557,6 +561,10 @@ MFUnrecChildBaseSkeletonJointPtr *SkeletonBase::editMFJoints         (void)
 
     return &_mfJoints;
 }
+BaseSkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
+{
+    return _mfJoints[index];
+}
 
 //! Get the Skeleton::_mfParentJoints field.
 const MFUnrecBaseSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
@@ -569,6 +577,10 @@ MFUnrecBaseSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
     editMField(ParentJointsFieldMask, _mfParentJoints);
 
     return &_mfParentJoints;
+}
+BaseSkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
+{
+    return _mfParentJoints[index];
 }
 
 MFMatrix *SkeletonBase::editMFJointMatrices(void)

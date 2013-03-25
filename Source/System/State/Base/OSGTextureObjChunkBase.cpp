@@ -1053,6 +1053,21 @@ SFUnrecChildImagePtr *TextureObjChunkBase::editSFImage          (void)
     return &_sfImage;
 }
 
+//! Get the value of the TextureObjChunk::_sfImage field.
+Image * TextureObjChunkBase::getImage(void) const
+{
+    return _sfImage.getValue();
+}
+
+//! Set the value of the TextureObjChunk::_sfImage field.
+void TextureObjChunkBase::setImage(Image * const value)
+{
+    editSField(ImageFieldMask);
+
+    _sfImage.setValue(value);
+}
+
+
 SFGLenum *TextureObjChunkBase::editSFInternalFormat(void)
 {
     editSField(InternalFormatFieldMask);

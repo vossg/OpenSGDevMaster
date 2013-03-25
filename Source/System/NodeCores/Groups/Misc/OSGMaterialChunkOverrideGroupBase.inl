@@ -75,22 +75,6 @@ OSG::UInt16 MaterialChunkOverrideGroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the MaterialChunkOverrideGroup::_sfMaterial field.
-inline
-Material * MaterialChunkOverrideGroupBase::getMaterial(void) const
-{
-    return _sfMaterial.getValue();
-}
-
-//! Set the value of the MaterialChunkOverrideGroup::_sfMaterial field.
-inline
-void MaterialChunkOverrideGroupBase::setMaterial(Material * const value)
-{
-    editSField(MaterialFieldMask);
-
-    _sfMaterial.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

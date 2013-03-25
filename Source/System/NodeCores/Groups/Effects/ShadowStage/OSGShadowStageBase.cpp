@@ -748,6 +748,10 @@ MFUnrecNodePtr      *ShadowStageBase::editMFLightNodes     (void)
 
     return &_mfLightNodes;
 }
+Node * ShadowStageBase::getLightNodes(const UInt32 index) const
+{
+    return _mfLightNodes[index];
+}
 
 //! Get the ShadowStage::_mfExcludeNodes field.
 const MFUnrecNodePtr *ShadowStageBase::getMFExcludeNodes(void) const
@@ -760,6 +764,10 @@ MFUnrecNodePtr      *ShadowStageBase::editMFExcludeNodes   (void)
     editMField(ExcludeNodesFieldMask, _mfExcludeNodes);
 
     return &_mfExcludeNodes;
+}
+Node * ShadowStageBase::getExcludeNodes(const UInt32 index) const
+{
+    return _mfExcludeNodes[index];
 }
 
 SFBool *ShadowStageBase::editSFMapAutoUpdate(void)

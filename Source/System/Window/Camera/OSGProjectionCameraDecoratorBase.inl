@@ -74,22 +74,6 @@ OSG::UInt16 ProjectionCameraDecoratorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ProjectionCameraDecorator::_sfUser field.
-inline
-Node * ProjectionCameraDecoratorBase::getUser(void) const
-{
-    return _sfUser.getValue();
-}
-
-//! Set the value of the ProjectionCameraDecorator::_sfUser field.
-inline
-void ProjectionCameraDecoratorBase::setUser(Node * const value)
-{
-    editSField(UserFieldMask);
-
-    _sfUser.setValue(value);
-}
 //! Get the value of the ProjectionCameraDecorator::_sfLeft field.
 
 inline
@@ -230,7 +214,6 @@ Pnt3f &ProjectionCameraDecoratorBase::editSurface(const UInt32 index)
 
     return _mfSurface[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

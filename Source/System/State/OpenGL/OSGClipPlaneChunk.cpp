@@ -49,6 +49,7 @@
 
 #include "OSGCamera.h"
 #include "OSGDrawEnv.h"
+#include "OSGNode.h"
 
 #include "OSGClipPlaneChunk.h"
 

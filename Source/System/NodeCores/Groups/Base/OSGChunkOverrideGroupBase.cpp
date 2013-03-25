@@ -214,6 +214,21 @@ SFUnrecChunkBlockPtr *ChunkOverrideGroupBase::editSFFallbackChunkBlock(void)
     return &_sfFallbackChunkBlock;
 }
 
+//! Get the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
+ChunkBlock * ChunkOverrideGroupBase::getFallbackChunkBlock(void) const
+{
+    return _sfFallbackChunkBlock.getValue();
+}
+
+//! Set the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
+void ChunkOverrideGroupBase::setFallbackChunkBlock(ChunkBlock * const value)
+{
+    editSField(FallbackChunkBlockFieldMask);
+
+    _sfFallbackChunkBlock.setValue(value);
+}
+
+
 
 
 

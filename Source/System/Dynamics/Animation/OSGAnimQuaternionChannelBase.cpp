@@ -233,6 +233,21 @@ SFUnrecAnimQuaternionDataSourcePtr *AnimQuaternionChannelBase::editSFData       
     return &_sfData;
 }
 
+//! Get the value of the AnimQuaternionChannel::_sfData field.
+AnimQuaternionDataSource * AnimQuaternionChannelBase::getData(void) const
+{
+    return _sfData.getValue();
+}
+
+//! Set the value of the AnimQuaternionChannel::_sfData field.
+void AnimQuaternionChannelBase::setData(AnimQuaternionDataSource * const value)
+{
+    editSField(DataFieldMask);
+
+    _sfData.setValue(value);
+}
+
+
 SFQuaternion *AnimQuaternionChannelBase::editSFOutValue(void)
 {
     editSField(OutValueFieldMask);

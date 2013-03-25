@@ -272,6 +272,10 @@ MFUnrecChildCSMWindowPtr *CSMDrawerBase::editMFWindows        (void)
 
     return &_mfWindows;
 }
+CSMWindow * CSMDrawerBase::getWindows(const UInt32 index) const
+{
+    return _mfWindows[index];
+}
 
 SFString *CSMDrawerBase::editSFDisplayString(void)
 {

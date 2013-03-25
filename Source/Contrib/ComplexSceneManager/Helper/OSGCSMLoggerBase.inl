@@ -100,12 +100,6 @@ void CSMLoggerBase::setEnabled(const bool value)
     _sfEnabled.setValue(value);
 }
 
-//! Get the value of the \a index element the CSMLogger::_mfContainers field.
-inline
-FieldContainer * CSMLoggerBase::getContainers(const UInt32 index) const
-{
-    return _mfContainers[index];
-}
 
 //! Get the value of the \a index element the CSMLogger::_mfFields field.
 inline
@@ -121,7 +115,6 @@ std::string &CSMLoggerBase::editFields(const UInt32 index)
 
     return _mfFields[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

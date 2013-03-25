@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 #include "OSGSkinnedGeometry.h"
 
+#include "OSGSkeleton.h"
 #include "OSGAnimBindAction.h"
 #include "OSGCPUSkinningAlgorithm.h"
 #include "OSGGPUSkinningAlgorithm.h"

@@ -44,7 +44,6 @@
 
 #include "OSGCSMWindowBase.h"
 #include "OSGWindow.h"
-#include "OSGCSMViewport.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -74,54 +74,6 @@ OSG::UInt16 CSMViewportBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CSMViewport::_sfRoot field.
-inline
-Node * CSMViewportBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
-
-//! Set the value of the CSMViewport::_sfRoot field.
-inline
-void CSMViewportBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
-}
-
-//! Get the value of the CSMViewport::_sfCamera field.
-inline
-Camera * CSMViewportBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the CSMViewport::_sfCamera field.
-inline
-void CSMViewportBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the CSMViewport::_sfBackground field.
-inline
-Background * CSMViewportBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the CSMViewport::_sfBackground field.
-inline
-void CSMViewportBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
 //! Get the value of the CSMViewport::_sfLeftBottom field.
 
 inline
@@ -196,22 +148,6 @@ void CSMViewportBase::setTravMask(const UInt32 value)
     editSField(TravMaskFieldMask);
 
     _sfTravMask.setValue(value);
-}
-
-//! Get the value of the CSMViewport::_sfRenderOptions field.
-inline
-RenderOptions * CSMViewportBase::getRenderOptions(void) const
-{
-    return _sfRenderOptions.getValue();
-}
-
-//! Set the value of the CSMViewport::_sfRenderOptions field.
-inline
-void CSMViewportBase::setRenderOptions(RenderOptions * const value)
-{
-    editSField(RenderOptionsFieldMask);
-
-    _sfRenderOptions.setValue(value);
 }
 //! Get the value of the CSMViewport::_sfStereoMode field.
 
@@ -339,12 +275,6 @@ void CSMViewportBase::setMTouchDataVC(const MTouchData &value)
     _sfMTouchDataVC.setValue(value);
 }
 
-//! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
-inline
-Foreground * CSMViewportBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

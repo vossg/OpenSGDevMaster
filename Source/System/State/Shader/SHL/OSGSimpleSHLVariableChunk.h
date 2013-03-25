@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGSimpleSHLVariableChunkBase.h"
-#include "OSGShaderProgramVariables.h"
-#include "OSGSimpleSHLChunk.h"
 #include "OSGShaderExecutableVarChunk.h"
 
 OSG_BEGIN_NAMESPACE

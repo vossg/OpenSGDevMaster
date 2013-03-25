@@ -140,7 +140,6 @@ Vec4f &ProgramChunkBase::editParamValues(const UInt32 index)
     return _mfParamValues[index];
 }
 
-
 //! Get the value of the \a index element the ProgramChunk::_mfParamNames field.
 inline
 const std::string &ProgramChunkBase::getParamNames(const UInt32 index) const
@@ -155,7 +154,6 @@ std::string &ProgramChunkBase::editParamNames(const UInt32 index)
 
     return _mfParamNames[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

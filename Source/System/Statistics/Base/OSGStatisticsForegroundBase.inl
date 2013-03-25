@@ -116,7 +116,6 @@ Int32 &StatisticsForegroundBase::editElementIDs(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,

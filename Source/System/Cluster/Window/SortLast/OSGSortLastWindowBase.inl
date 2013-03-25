@@ -100,12 +100,6 @@ void SortLastWindowBase::setGroupsChanged(const bool value)
     _sfGroupsChanged.setValue(value);
 }
 
-//! Get the value of the \a index element the SortLastWindow::_mfGroupNodes field.
-inline
-Node * SortLastWindowBase::getGroupNodes(const UInt32 index) const
-{
-    return _mfGroupNodes[index];
-}
 
 //! Get the value of the \a index element the SortLastWindow::_mfGroupLengths field.
 inline
@@ -121,7 +115,6 @@ UInt32 &SortLastWindowBase::editGroupLengths(const UInt32 index)
 
     return _mfGroupLengths[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -45,7 +45,6 @@
 #include <queue>
 
 #include "OSGProxyGroupBase.h"
-#include "OSGAction.h"
 #include "OSGLock.h"
 
 OSG_BEGIN_NAMESPACE

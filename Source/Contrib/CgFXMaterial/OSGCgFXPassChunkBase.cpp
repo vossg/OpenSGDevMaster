@@ -212,6 +212,21 @@ SFWeakCgFXMaterialPtr *CgFXPassChunkBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the CgFXPassChunk::_sfMaterial field.
+CgFXMaterial * CgFXPassChunkBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the CgFXPassChunk::_sfMaterial field.
+void CgFXPassChunkBase::setMaterial(CgFXMaterial * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 
 
 

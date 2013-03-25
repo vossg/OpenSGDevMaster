@@ -516,6 +516,21 @@ SFUnrecNodePtr      *CSMViewportBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+//! Get the value of the CSMViewport::_sfRoot field.
+Node * CSMViewportBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfRoot field.
+void CSMViewportBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
+
 //! Get the CSMViewport::_sfCamera field.
 const SFUnrecCameraPtr *CSMViewportBase::getSFCamera(void) const
 {
@@ -528,6 +543,21 @@ SFUnrecCameraPtr    *CSMViewportBase::editSFCamera         (void)
 
     return &_sfCamera;
 }
+
+//! Get the value of the CSMViewport::_sfCamera field.
+Camera * CSMViewportBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfCamera field.
+void CSMViewportBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 
 //! Get the CSMViewport::_sfBackground field.
 const SFUnrecBackgroundPtr *CSMViewportBase::getSFBackground(void) const
@@ -542,6 +572,21 @@ SFUnrecBackgroundPtr *CSMViewportBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the value of the CSMViewport::_sfBackground field.
+Background * CSMViewportBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfBackground field.
+void CSMViewportBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
+
 //! Get the CSMViewport::_mfForegrounds field.
 const MFUnrecForegroundPtr *CSMViewportBase::getMFForegrounds(void) const
 {
@@ -553,6 +598,10 @@ MFUnrecForegroundPtr *CSMViewportBase::editMFForegrounds    (void)
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
     return &_mfForegrounds;
+}
+Foreground * CSMViewportBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
 }
 
 SFVec2f *CSMViewportBase::editSFLeftBottom(void)
@@ -606,6 +655,21 @@ SFUnrecRenderOptionsPtr *CSMViewportBase::editSFRenderOptions  (void)
 
     return &_sfRenderOptions;
 }
+
+//! Get the value of the CSMViewport::_sfRenderOptions field.
+RenderOptions * CSMViewportBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfRenderOptions field.
+void CSMViewportBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 
 SFString *CSMViewportBase::editSFStereoMode(void)
 {

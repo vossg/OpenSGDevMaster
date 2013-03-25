@@ -75,38 +75,6 @@ OSG::UInt16 CubeMapGeneratorStageDataBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the CubeMapGeneratorStageData::_sfCamera field.
-inline
-Camera * CubeMapGeneratorStageDataBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the CubeMapGeneratorStageData::_sfCamera field.
-inline
-void CubeMapGeneratorStageDataBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the CubeMapGeneratorStageData::_sfTexTransform field.
-inline
-TextureTransformChunk * CubeMapGeneratorStageDataBase::getTexTransform(void) const
-{
-    return _sfTexTransform.getValue();
-}
-
-//! Set the value of the CubeMapGeneratorStageData::_sfTexTransform field.
-inline
-void CubeMapGeneratorStageDataBase::setTexTransform(TextureTransformChunk * const value)
-{
-    editSField(TexTransformFieldMask);
-
-    _sfTexTransform.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

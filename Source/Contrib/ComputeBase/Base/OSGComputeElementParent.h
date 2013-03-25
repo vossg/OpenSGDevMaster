@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGGroup.h"
+#include "OSGViewarea.h"
 #include "OSGComputeElementHandlerMixin.h"
 #include "OSGComputeElementIdPool.h"
 

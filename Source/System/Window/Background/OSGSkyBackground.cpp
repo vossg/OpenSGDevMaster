@@ -50,6 +50,7 @@
 #include "OSGTextureObjChunk.h"
 #include "OSGImage.h"
 #include "OSGDrawEnv.h"
+#include "OSGNode.h"
 
 #include "OSGSkyBackground.h"
 

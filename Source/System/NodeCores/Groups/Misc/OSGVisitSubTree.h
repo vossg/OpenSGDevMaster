@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGVisitSubTreeBase.h"
-#include "OSGAction.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -195,6 +195,21 @@ SFUnrecComputeAlgorithmPtr *AlgorithmComputeElementBase::editSFAlgorithm      (v
     return &_sfAlgorithm;
 }
 
+//! Get the value of the AlgorithmComputeElement::_sfAlgorithm field.
+ComputeAlgorithm * AlgorithmComputeElementBase::getAlgorithm(void) const
+{
+    return _sfAlgorithm.getValue();
+}
+
+//! Set the value of the AlgorithmComputeElement::_sfAlgorithm field.
+void AlgorithmComputeElementBase::setAlgorithm(ComputeAlgorithm * const value)
+{
+    editSField(AlgorithmFieldMask);
+
+    _sfAlgorithm.setValue(value);
+}
+
+
 
 
 

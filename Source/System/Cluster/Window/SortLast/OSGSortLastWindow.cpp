@@ -57,6 +57,7 @@
 #include "OSGClusterNetwork.h"
 #include "OSGDrawEnv.h"
 #include "OSGRenderActionBase.h"
+#include "OSGMaterial.h"
 
 #include "OSGSortLastWindow.h"
 

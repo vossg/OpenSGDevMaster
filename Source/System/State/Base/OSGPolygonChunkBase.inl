@@ -341,7 +341,6 @@ Int32 &PolygonChunkBase::editStipple(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,

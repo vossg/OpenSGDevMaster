@@ -249,22 +249,6 @@ void ClusterWindowBase::setServiceInterface(const std::string &value)
 
     _sfServiceInterface.setValue(value);
 }
-
-//! Get the value of the ClusterWindow::_sfClientWindow field.
-inline
-Window * ClusterWindowBase::getClientWindow(void) const
-{
-    return _sfClientWindow.getValue();
-}
-
-//! Set the value of the ClusterWindow::_sfClientWindow field.
-inline
-void ClusterWindowBase::setClientWindow(Window * const value)
-{
-    editSField(ClientWindowFieldMask);
-
-    _sfClientWindow.setValue(value);
-}
 //! Get the value of the ClusterWindow::_sfInterleave field.
 
 inline
@@ -316,22 +300,6 @@ void ClusterWindowBase::setFrameCount(const UInt32 value)
     _sfFrameCount.setValue(value);
 }
 
-//! Get the value of the ClusterWindow::_sfComposer field.
-inline
-ImageComposer * ClusterWindowBase::getComposer(void) const
-{
-    return _sfComposer.getValue();
-}
-
-//! Set the value of the ClusterWindow::_sfComposer field.
-inline
-void ClusterWindowBase::setComposer(ImageComposer * const value)
-{
-    editSField(ComposerFieldMask);
-
-    _sfComposer.setValue(value);
-}
-
 //! Get the value of the \a index element the ClusterWindow::_mfServers field.
 inline
 const std::string &ClusterWindowBase::getServers(const UInt32 index) const
@@ -346,7 +314,6 @@ std::string &ClusterWindowBase::editServers(const UInt32 index)
 
     return _mfServers[index];
 }
-
 
 //! Get the value of the \a index element the ClusterWindow::_mfServerIds field.
 inline
@@ -363,7 +330,6 @@ UInt32 &ClusterWindowBase::editServerIds(const UInt32 index)
     return _mfServerIds[index];
 }
 
-
 //! Get the value of the \a index element the ClusterWindow::_mfAutostart field.
 inline
 const std::string &ClusterWindowBase::getAutostart(const UInt32 index) const
@@ -378,7 +344,6 @@ std::string &ClusterWindowBase::editAutostart(const UInt32 index)
 
     return _mfAutostart[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

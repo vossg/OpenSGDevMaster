@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimTemplate.h"
+#include "OSGAnimDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

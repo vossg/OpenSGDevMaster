@@ -91,7 +91,6 @@ Vec2f &ShaderVariableMVec2fBase::editValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderVariableMVec2fBase::execSync (      ShaderVariableMVec2fBase *pFrom,

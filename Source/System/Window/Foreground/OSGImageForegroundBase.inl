@@ -75,12 +75,6 @@ OSG::UInt16 ImageForegroundBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the ImageForeground::_mfImages field.
-inline
-Image * ImageForegroundBase::getImages(const UInt32 index) const
-{
-    return _mfImages[index];
-}
 
 //! Get the value of the \a index element the ImageForeground::_mfPositions field.
 inline
@@ -97,7 +91,6 @@ Pnt2f &ImageForegroundBase::editPositions(const UInt32 index)
     return _mfPositions[index];
 }
 
-
 //! Get the value of the \a index element the ImageForeground::_mfScales field.
 inline
 const Pnt2f &ImageForegroundBase::getScales(const UInt32 index) const
@@ -112,7 +105,6 @@ Pnt2f &ImageForegroundBase::editScales(const UInt32 index)
 
     return _mfScales[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

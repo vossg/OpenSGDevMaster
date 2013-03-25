@@ -231,6 +231,10 @@ MFUnrecAnimMatrixChannelPtr *AnimMatrixBlenderBase::editMFChannels       (void)
 
     return &_mfChannels;
 }
+AnimMatrixChannel * AnimMatrixBlenderBase::getChannels(const UInt32 index) const
+{
+    return _mfChannels[index];
+}
 
 SFMatrix *AnimMatrixBlenderBase::editSFOutValue(void)
 {

@@ -53,6 +53,7 @@
 #include "OSGNameAttachment.h"
 #include "OSGGeoBuilder.h"
 #include "OSGLineChunk.h"
+#include "OSGCamera.h"
 
 #include "OSGPlaneMoveManipulator.h"
 

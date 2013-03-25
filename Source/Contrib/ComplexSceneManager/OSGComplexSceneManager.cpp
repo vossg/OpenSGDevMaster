@@ -61,6 +61,8 @@
 #include "OSGGeoFunctions.h"
 #include "OSGGraphOpFactory.h"
 
+#include "OSGCSMDrawManager.h"
+
 //#include "OSGFieldContainerFactory.h"
 //#include "OSGTypeFactory.h"
 

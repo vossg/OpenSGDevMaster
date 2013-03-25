@@ -74,22 +74,6 @@ OSG::UInt16 FishEyeProjectorDataBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the FishEyeProjectorData::_sfRenderTarget field.
-inline
-FrameBufferObject * FishEyeProjectorDataBase::getRenderTarget(void) const
-{
-    return _sfRenderTarget.getValue();
-}
-
-//! Set the value of the FishEyeProjectorData::_sfRenderTarget field.
-inline
-void FishEyeProjectorDataBase::setRenderTarget(FrameBufferObject * const value)
-{
-    editSField(RenderTargetFieldMask);
-
-    _sfRenderTarget.setValue(value);
-}
 //! Get the value of the FishEyeProjectorData::_sfTextureRes field.
 
 inline
@@ -141,28 +125,6 @@ void FishEyeProjectorDataBase::setTextureFormat(const GLenum &value)
     _sfTextureFormat.setValue(value);
 }
 
-//! Get the value of the FishEyeProjectorData::_sfCamera field.
-inline
-Camera * FishEyeProjectorDataBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the FishEyeProjectorData::_sfCamera field.
-inline
-void FishEyeProjectorDataBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the \a index element the FishEyeProjectorData::_mfTextures field.
-inline
-TextureObjChunk * FishEyeProjectorDataBase::getTextures(const UInt32 index) const
-{
-    return _mfTextures[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

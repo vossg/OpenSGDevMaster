@@ -147,7 +147,7 @@ CSMQT4WindowBase::TypeObject CSMQT4WindowBase::_type(
     "<FieldContainer\n"
     "    name=\"CSMQT4Window\"\n"
     "    parent=\"CSMWindow\"\n"
-    "    library=\"ContribCSM\"\n"
+    "    library=\"ContribCSMQt\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"

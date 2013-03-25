@@ -387,6 +387,21 @@ SFUnrecCameraPtr    *ViewportBase::editSFCamera         (void)
     return &_sfCamera;
 }
 
+//! Get the value of the Viewport::_sfCamera field.
+Camera * ViewportBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the Viewport::_sfCamera field.
+void ViewportBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
+
 //! Get the Viewport::_sfRoot field.
 const SFUnrecNodePtr *ViewportBase::getSFRoot(void) const
 {
@@ -399,6 +414,21 @@ SFUnrecNodePtr      *ViewportBase::editSFRoot           (void)
 
     return &_sfRoot;
 }
+
+//! Get the value of the Viewport::_sfRoot field.
+Node * ViewportBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the Viewport::_sfRoot field.
+void ViewportBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
 
 //! Get the Viewport::_sfBackground field.
 const SFUnrecBackgroundPtr *ViewportBase::getSFBackground(void) const
@@ -413,6 +443,21 @@ SFUnrecBackgroundPtr *ViewportBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the value of the Viewport::_sfBackground field.
+Background * ViewportBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the Viewport::_sfBackground field.
+void ViewportBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
+
 //! Get the Viewport::_mfForegrounds field.
 const MFUnrecForegroundPtr *ViewportBase::getMFForegrounds(void) const
 {
@@ -424,6 +469,10 @@ MFUnrecForegroundPtr *ViewportBase::editMFForegrounds    (void)
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
     return &_mfForegrounds;
+}
+Foreground * ViewportBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
 }
 
 

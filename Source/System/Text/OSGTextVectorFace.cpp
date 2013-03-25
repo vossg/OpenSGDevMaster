@@ -45,6 +45,7 @@
 #include "OSGTextLayoutResult.h"
 #include "OSGTextFaceFactory.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 
 OSG_BEGIN_NAMESPACE
 

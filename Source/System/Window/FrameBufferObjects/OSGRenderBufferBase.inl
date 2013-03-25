@@ -124,22 +124,6 @@ void RenderBufferBase::setInternalFormat(const GLenum &value)
 
     _sfInternalFormat.setValue(value);
 }
-
-//! Get the value of the RenderBuffer::_sfImage field.
-inline
-Image * RenderBufferBase::getImage(void) const
-{
-    return _sfImage.getValue();
-}
-
-//! Set the value of the RenderBuffer::_sfImage field.
-inline
-void RenderBufferBase::setImage(Image * const value)
-{
-    editSField(ImageFieldMask);
-
-    _sfImage.setValue(value);
-}
 //! Get the value of the RenderBuffer::_sfColorSamples field.
 
 inline

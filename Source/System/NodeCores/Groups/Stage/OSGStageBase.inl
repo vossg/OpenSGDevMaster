@@ -74,22 +74,6 @@ OSG::UInt16 StageBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the Stage::_sfRenderTarget field.
-inline
-FrameBufferObject * StageBase::getRenderTarget(void) const
-{
-    return _sfRenderTarget.getValue();
-}
-
-//! Set the value of the Stage::_sfRenderTarget field.
-inline
-void StageBase::setRenderTarget(FrameBufferObject * const value)
-{
-    editSField(RenderTargetFieldMask);
-
-    _sfRenderTarget.setValue(value);
-}
 //! Get the value of the Stage::_sfInheritedTarget field.
 
 inline

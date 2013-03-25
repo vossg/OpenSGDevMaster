@@ -50,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageEffectGroupsPostShaderStageData for a description.
 */
 
-class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStageData : public PostShaderStageDataBase
+class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStageData : 
+    public PostShaderStageDataBase
 {
   protected:
 

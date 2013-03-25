@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGFishEyeProjectorDataBase.h"
-#include "OSGTextureObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -43,10 +43,6 @@
 #endif
 
 #include "OSGCSMViewportBase.h"
-#include "OSGNode.h"
-#include "OSGCamera.h"
-#include "OSGBackground.h"
-#include "OSGForeground.h"
 #include "OSGViewport.h"
 
 OSG_BEGIN_NAMESPACE

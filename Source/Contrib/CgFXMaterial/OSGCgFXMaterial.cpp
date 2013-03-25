@@ -46,11 +46,13 @@
 #include "OSGConfig.h"
 
 #include "OSGCgFXMaterial.h"
+#include "OSGCgFXTechnique.h"
 
 #include "OSGSceneFileHandler.h"
 #include "OSGFileSystem.h"
 #include "OSGImageFileHandler.h"
 #include "OSGNameAttachment.h"
+#include "OSGTextureObjChunk.h"
 
 #include "OSGShaderVariableBool.h"
 #include "OSGShaderVariableInt.h"

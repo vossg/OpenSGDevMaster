@@ -249,22 +249,6 @@ void WindowBase::setContextFlags(const Int32 value)
 
     _sfContextFlags.setValue(value);
 }
-
-//! Get the value of the Window::_sfRenderOptions field.
-inline
-RenderOptions * WindowBase::getRenderOptions(void) const
-{
-    return _sfRenderOptions.getValue();
-}
-
-//! Set the value of the Window::_sfRenderOptions field.
-inline
-void WindowBase::setRenderOptions(RenderOptions * const value)
-{
-    editSField(RenderOptionsFieldMask);
-
-    _sfRenderOptions.setValue(value);
-}
 //! Get the value of the Window::_sfIgnoreAllExtensions field.
 
 inline
@@ -341,12 +325,6 @@ void WindowBase::setRendererInfo(const std::string &value)
     _sfRendererInfo.setValue(value);
 }
 
-//! Get the value of the \a index element the Window::_mfPort field.
-inline
-Viewport * WindowBase::getPort(const UInt32 index) const
-{
-    return _mfPort[index];
-}
 
 //! Get the value of the \a index element the Window::_mfGlObjectLastRefresh field.
 inline
@@ -363,7 +341,6 @@ UInt32 &WindowBase::editGlObjectLastRefresh(const UInt32 index)
     return _mfGlObjectLastRefresh[index];
 }
 
-
 //! Get the value of the \a index element the Window::_mfGlObjectLastReinitialize field.
 inline
       UInt32  WindowBase::getGlObjectLastReinitialize(const UInt32 index) const
@@ -379,13 +356,6 @@ UInt32 &WindowBase::editGlObjectLastReinitialize(const UInt32 index)
     return _mfGlObjectLastReinitialize[index];
 }
 
-
-//! Get the value of the \a index element the Window::_mfDrawTasks field.
-inline
-DrawTask * WindowBase::getDrawTasks(const UInt32 index) const
-{
-    return _mfDrawTasks[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

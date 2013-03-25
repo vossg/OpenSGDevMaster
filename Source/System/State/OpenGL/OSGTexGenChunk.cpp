@@ -55,6 +55,7 @@
 #include "OSGTexGenChunk.h"
 #include "OSGCamera.h"
 #include "OSGViewport.h"
+#include "OSGNode.h"
 
 OSG_USING_NAMESPACE
 

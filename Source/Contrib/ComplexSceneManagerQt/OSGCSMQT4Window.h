@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGCSMQT4WindowBase.h"
-#include "OSGCSMDrawer.h"
 
 class QApplication;
 

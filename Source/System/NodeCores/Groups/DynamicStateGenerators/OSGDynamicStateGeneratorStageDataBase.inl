@@ -75,28 +75,6 @@ OSG::UInt16 DynamicStateGeneratorStageDataBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
-inline
-FrameBufferObject * DynamicStateGeneratorStageDataBase::getRenderTarget(void) const
-{
-    return _sfRenderTarget.getValue();
-}
-
-//! Set the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
-inline
-void DynamicStateGeneratorStageDataBase::setRenderTarget(FrameBufferObject * const value)
-{
-    editSField(RenderTargetFieldMask);
-
-    _sfRenderTarget.setValue(value);
-}
-
-//! Get the value of the \a index element the DynamicStateGeneratorStageData::_mfChunks field.
-inline
-StateChunk * DynamicStateGeneratorStageDataBase::getChunks(const UInt32 index) const
-{
-    return _mfChunks[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

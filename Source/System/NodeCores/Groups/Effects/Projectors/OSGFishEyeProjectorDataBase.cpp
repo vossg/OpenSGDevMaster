@@ -302,6 +302,21 @@ SFUnrecFrameBufferObjectPtr *FishEyeProjectorDataBase::editSFRenderTarget   (voi
     return &_sfRenderTarget;
 }
 
+//! Get the value of the FishEyeProjectorData::_sfRenderTarget field.
+FrameBufferObject * FishEyeProjectorDataBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the FishEyeProjectorData::_sfRenderTarget field.
+void FishEyeProjectorDataBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
+
 //! Get the FishEyeProjectorData::_mfTextures field.
 const MFUnrecTextureObjChunkPtr *FishEyeProjectorDataBase::getMFTextures(void) const
 {
@@ -313,6 +328,10 @@ MFUnrecTextureObjChunkPtr *FishEyeProjectorDataBase::editMFTextures       (void)
     editMField(TexturesFieldMask, _mfTextures);
 
     return &_mfTextures;
+}
+TextureObjChunk * FishEyeProjectorDataBase::getTextures(const UInt32 index) const
+{
+    return _mfTextures[index];
 }
 
 SFUInt32 *FishEyeProjectorDataBase::editSFTextureRes(void)
@@ -353,6 +372,21 @@ SFUnrecCameraPtr    *FishEyeProjectorDataBase::editSFCamera         (void)
 
     return &_sfCamera;
 }
+
+//! Get the value of the FishEyeProjectorData::_sfCamera field.
+Camera * FishEyeProjectorDataBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the FishEyeProjectorData::_sfCamera field.
+void FishEyeProjectorDataBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 
 
 

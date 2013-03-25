@@ -91,7 +91,6 @@ Real32 &ShaderVariableMRealBase::editValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderVariableMRealBase::execSync (      ShaderVariableMRealBase *pFrom,

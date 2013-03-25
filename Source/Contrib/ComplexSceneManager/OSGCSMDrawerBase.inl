@@ -125,12 +125,6 @@ void CSMDrawerBase::setAspect(const AspectId &value)
     _sfAspect.setValue(value);
 }
 
-//! Get the value of the \a index element the CSMDrawer::_mfWindows field.
-inline
-CSMWindow * CSMDrawerBase::getWindows(const UInt32 index) const
-{
-    return _mfWindows[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -43,9 +43,7 @@
 #endif
 
 #include "OSGDisplayFilterStageBase.h"
-#include "OSGDisplayFilterGroup.h"
 #include "OSGDisplayFilterStageData.h"
-#include "OSGForeground.h"
 
 OSG_BEGIN_NAMESPACE
 

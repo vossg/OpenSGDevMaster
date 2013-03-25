@@ -42,13 +42,8 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGAction.h"
 #include "OSGShadowMapEngineBase.h"
-#include "OSGLightFields.h"
 #include "OSGChunkMaterialFields.h"
-#include "OSGTextureObjChunk.h"
-
 
 OSG_BEGIN_NAMESPACE
 

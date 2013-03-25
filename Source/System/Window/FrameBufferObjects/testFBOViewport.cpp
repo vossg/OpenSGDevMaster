@@ -45,6 +45,7 @@
 #include "OSGMultiCore.h"
 
 #include "OSGFBOViewport.h"
+#include "OSGFrameBufferObject.h"
 #include "OSGTextureBuffer.h"
 #include "OSGRenderBuffer.h"
 

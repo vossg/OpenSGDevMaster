@@ -75,12 +75,6 @@ OSG::UInt16 StackedTransformBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the StackedTransform::_mfTransformElements field.
-inline
-TransformationElement * StackedTransformBase::getTransformElements(const UInt32 index) const
-{
-    return _mfTransformElements[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

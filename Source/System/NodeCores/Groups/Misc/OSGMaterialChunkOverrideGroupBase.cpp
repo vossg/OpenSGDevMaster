@@ -214,6 +214,21 @@ SFUnrecMaterialPtr  *MaterialChunkOverrideGroupBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the MaterialChunkOverrideGroup::_sfMaterial field.
+Material * MaterialChunkOverrideGroupBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the MaterialChunkOverrideGroup::_sfMaterial field.
+void MaterialChunkOverrideGroupBase::setMaterial(Material * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 
 
 

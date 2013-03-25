@@ -75,22 +75,6 @@ OSG::UInt16 ShaderProgramVariableChunkBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ShaderProgramVariableChunk::_sfVariables field.
-inline
-ShaderProgramVariables * ShaderProgramVariableChunkBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the ShaderProgramVariableChunk::_sfVariables field.
-inline
-void ShaderProgramVariableChunkBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

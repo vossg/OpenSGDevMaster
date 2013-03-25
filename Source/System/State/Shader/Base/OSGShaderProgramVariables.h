@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGShaderProgramVariablesBase.h"
-#include "OSGShaderValueVariable.h"
 #include "OSGVecMFields.h"
 #include "OSGMathMFields.h"
 #include "OSGShaderVariableFunctor.h"

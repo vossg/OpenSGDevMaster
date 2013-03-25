@@ -43,8 +43,7 @@
 #endif
 
 #include "OSGCubeMapGeneratorBase.h"
-#include "OSGCubeMapGeneratorStageDataFields.h"
-#include "OSGTextureObjChunk.h"
+#include "OSGCubeMapGeneratorStageData.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -507,6 +507,21 @@ SFUnrecNodePtr      *ProxyGroupBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+//! Get the value of the ProxyGroup::_sfRoot field.
+Node * ProxyGroupBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the ProxyGroup::_sfRoot field.
+void ProxyGroupBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
+
 SFUInt32 *ProxyGroupBase::editSFState(void)
 {
     editSField(StateFieldMask);

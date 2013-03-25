@@ -100,12 +100,6 @@ void AnimTemplateBase::setName(const std::string &value)
     _sfName.setValue(value);
 }
 
-//! Get the value of the \a index element the AnimTemplate::_mfSources field.
-inline
-AnimDataSource * AnimTemplateBase::getSources(const UInt32 index) const
-{
-    return _mfSources[index];
-}
 
 //! Get the value of the \a index element the AnimTemplate::_mfTargetIds field.
 inline
@@ -121,7 +115,6 @@ std::string &AnimTemplateBase::editTargetIds(const UInt32 index)
 
     return _mfTargetIds[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

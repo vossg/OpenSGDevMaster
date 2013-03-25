@@ -47,6 +47,7 @@
 
 #include "OSGViewport.h"
 #include "OSGMaterial.h"
+#include "OSGPrimeMaterial.h"
 
 #include "OSGPolygonForeground.h"
 

@@ -74,22 +74,6 @@ OSG::UInt16 CSMSceneParameterBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CSMSceneParameter::_sfSceneRef field.
-inline
-Node * CSMSceneParameterBase::getSceneRef(void) const
-{
-    return _sfSceneRef.getValue();
-}
-
-//! Set the value of the CSMSceneParameter::_sfSceneRef field.
-inline
-void CSMSceneParameterBase::setSceneRef(Node * const value)
-{
-    editSField(SceneRefFieldMask);
-
-    _sfSceneRef.setValue(value);
-}
 //! Get the value of the CSMSceneParameter::_sfDistScale field.
 
 inline

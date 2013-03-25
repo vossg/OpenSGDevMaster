@@ -74,22 +74,6 @@ OSG::UInt16 AnimVec3fChannelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the AnimVec3fChannel::_sfData field.
-inline
-AnimVec3fDataSource * AnimVec3fChannelBase::getData(void) const
-{
-    return _sfData.getValue();
-}
-
-//! Set the value of the AnimVec3fChannel::_sfData field.
-inline
-void AnimVec3fChannelBase::setData(AnimVec3fDataSource * const value)
-{
-    editSField(DataFieldMask);
-
-    _sfData.setValue(value);
-}
 //! Get the value of the AnimVec3fChannel::_sfOutValue field.
 
 inline

@@ -45,9 +45,7 @@
 #include <queue>
 
 #include "OSGFishEyeProjectorBase.h"
-#include "OSGAction.h"
 #include "OSGFishEyeProjectorDataFields.h"
-#include "OSGGeometry.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -52,10 +52,6 @@
 
 #include "OSGVector.h"
 
-#include "OSGBackground.h"
-#include "OSGCamera.h"
-#include "OSGViewport.h"
-
 #include "OSGWindowBase.h"
 #include "OSGWindowDrawTask.h"
 #include "OSGWindowDrawThread.h"

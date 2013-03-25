@@ -48,6 +48,7 @@
 #include "OSGConfig.h"
 #include "OSGRenderAction.h"
 #include "OSGIntersectAction.h"
+#include "OSGCamera.h"
 
 #include "OSGMoveManipulator.h"
 

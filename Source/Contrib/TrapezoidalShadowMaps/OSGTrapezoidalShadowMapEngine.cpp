@@ -51,6 +51,16 @@
 #include "OSGColorMaskChunk.h"
 #include "OSGPolygonChunk.h"
 #include "OSGRenderAction.h"
+#include "OSGShaderProgram.h"
+#include "OSGShaderProgramChunk.h"
+
+#include "OSGSpotLight.h"
+#include "OSGDirectionalLight.h"
+
+#include "OSGFrameBufferObject.h"
+
+#include "OSGChunkMaterial.h"
+#include "OSGShaderShadowMapEngineData.h"
 
 #include <boost/cast.hpp>
 
@@ -397,6 +407,8 @@ TrapezoidalShadowMapEngine::~TrapezoidalShadowMapEngine(void)
 Action::ResultE TrapezoidalShadowMapEngine::runOnEnter(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
+    typedef ShaderShadowMapEngineDataUnrecPtr TSMEngineDataUnrecPtr;
+
     BitVector      passMask = ract->getPassMask             (            );
     TSMEngineData *data     = ract->getData<TSMEngineData *>(_iDataSlotId);
 

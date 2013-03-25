@@ -74,22 +74,6 @@ OSG::UInt16 LayeredTextureBufferBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the LayeredTextureBuffer::_sfTexture field.
-inline
-TextureObjChunk * LayeredTextureBufferBase::getTexture(void) const
-{
-    return _sfTexture.getValue();
-}
-
-//! Set the value of the LayeredTextureBuffer::_sfTexture field.
-inline
-void LayeredTextureBufferBase::setTexture(TextureObjChunk * const value)
-{
-    editSField(TextureFieldMask);
-
-    _sfTexture.setValue(value);
-}
 //! Get the value of the LayeredTextureBuffer::_sfTexTarget field.
 
 inline

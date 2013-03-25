@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGTextureGrabForegroundBase.h"
-#include "OSGTextureObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

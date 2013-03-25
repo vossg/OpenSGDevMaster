@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGScreenTransformBase.h"
-#include "OSGViewportFields.h"
 
 OSG_BEGIN_NAMESPACE
 

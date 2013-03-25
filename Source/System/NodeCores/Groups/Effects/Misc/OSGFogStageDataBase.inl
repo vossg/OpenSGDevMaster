@@ -74,22 +74,6 @@ OSG::UInt16 FogStageDataBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the FogStageData::_sfFogMaterial field.
-inline
-ChunkMaterial * FogStageDataBase::getFogMaterial(void) const
-{
-    return _sfFogMaterial.getValue();
-}
-
-//! Set the value of the FogStageData::_sfFogMaterial field.
-inline
-void FogStageDataBase::setFogMaterial(ChunkMaterial * const value)
-{
-    editSField(FogMaterialFieldMask);
-
-    _sfFogMaterial.setValue(value);
-}
 //! Get the value of the FogStageData::_sfWidth field.
 
 inline
@@ -139,38 +123,6 @@ void FogStageDataBase::setHeight(const Int32 value)
     editSField(HeightFieldMask);
 
     _sfHeight.setValue(value);
-}
-
-//! Get the value of the FogStageData::_sfRenderTarget field.
-inline
-FrameBufferObject * FogStageDataBase::getRenderTarget(void) const
-{
-    return _sfRenderTarget.getValue();
-}
-
-//! Set the value of the FogStageData::_sfRenderTarget field.
-inline
-void FogStageDataBase::setRenderTarget(FrameBufferObject * const value)
-{
-    editSField(RenderTargetFieldMask);
-
-    _sfRenderTarget.setValue(value);
-}
-
-//! Get the value of the FogStageData::_sfCamera field.
-inline
-Camera * FogStageDataBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the FogStageData::_sfCamera field.
-inline
-void FogStageDataBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
 }
 
 

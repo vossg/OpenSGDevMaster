@@ -51,6 +51,7 @@
 
 #include "OSGDrawEnv.h"
 #include "OSGWindow.h"
+#include "OSGNode.h"
 
 #include "OSGConceptPropertyChecks.h"
 

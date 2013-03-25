@@ -47,6 +47,7 @@
 
 #include "OSGDisplayFilterStageData.h"
 #include "OSGDisplayFilterStage.h"
+#include "OSGFrameBufferObject.h"
 
 OSG_BEGIN_NAMESPACE
 

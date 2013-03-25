@@ -75,22 +75,6 @@ OSG::UInt16 ChunkOverrideGroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
-inline
-ChunkBlock * ChunkOverrideGroupBase::getFallbackChunkBlock(void) const
-{
-    return _sfFallbackChunkBlock.getValue();
-}
-
-//! Set the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
-inline
-void ChunkOverrideGroupBase::setFallbackChunkBlock(ChunkBlock * const value)
-{
-    editSField(FallbackChunkBlockFieldMask);
-
-    _sfFallbackChunkBlock.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

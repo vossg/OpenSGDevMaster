@@ -282,6 +282,21 @@ SFUnrecGeometryPtr  *KDTreeIntersectProxyAttachmentBase::editSFGeometry       (v
     return &_sfGeometry;
 }
 
+//! Get the value of the KDTreeIntersectProxyAttachment::_sfGeometry field.
+Geometry * KDTreeIntersectProxyAttachmentBase::getGeometry(void) const
+{
+    return _sfGeometry.getValue();
+}
+
+//! Set the value of the KDTreeIntersectProxyAttachment::_sfGeometry field.
+void KDTreeIntersectProxyAttachmentBase::setGeometry(Geometry * const value)
+{
+    editSField(GeometryFieldMask);
+
+    _sfGeometry.setValue(value);
+}
+
+
 SFInt32 *KDTreeIntersectProxyAttachmentBase::editSFMaxDepth(void)
 {
     editSField(MaxDepthFieldMask);

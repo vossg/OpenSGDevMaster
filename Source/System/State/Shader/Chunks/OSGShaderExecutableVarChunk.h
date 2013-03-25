@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGShaderExecutableVarChunkBase.h"
-#include "OSGShaderProgramVariables.h"
 #include "OSGShaderExecutableChunk.h"
 
 #include <map>

@@ -42,9 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGAction.h"
-
 #include "OSGParticlesBase.h"
 
 OSG_BEGIN_NAMESPACE

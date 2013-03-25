@@ -53,6 +53,7 @@
 #include "OSGRenderBuffer.h"
 #include "OSGTextureBuffer.h"
 #include "OSGTextureEnvChunk.h"
+#include "OSGTextureObjChunk.h"
 #include "OSGTexGenChunk.h"
 #include "OSGTextureTransformChunk.h"
 #include "OSGRenderAction.h"

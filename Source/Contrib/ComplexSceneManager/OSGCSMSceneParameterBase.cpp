@@ -378,6 +378,21 @@ SFUnrecNodePtr      *CSMSceneParameterBase::editSFSceneRef       (void)
     return &_sfSceneRef;
 }
 
+//! Get the value of the CSMSceneParameter::_sfSceneRef field.
+Node * CSMSceneParameterBase::getSceneRef(void) const
+{
+    return _sfSceneRef.getValue();
+}
+
+//! Set the value of the CSMSceneParameter::_sfSceneRef field.
+void CSMSceneParameterBase::setSceneRef(Node * const value)
+{
+    editSField(SceneRefFieldMask);
+
+    _sfSceneRef.setValue(value);
+}
+
+
 SFReal32 *CSMSceneParameterBase::editSFDistScale(void)
 {
     editSField(DistScaleFieldMask);

@@ -200,38 +200,6 @@ void ColorDisplayFilterBase::setColorTableDepth(const UInt32 value)
     _sfColorTableDepth.setValue(value);
 }
 
-//! Get the value of the ColorDisplayFilter::_sfTableImage field.
-inline
-Image * ColorDisplayFilterBase::getTableImage(void) const
-{
-    return _sfTableImage.getValue();
-}
-
-//! Set the value of the ColorDisplayFilter::_sfTableImage field.
-inline
-void ColorDisplayFilterBase::setTableImage(Image * const value)
-{
-    editSField(TableImageFieldMask);
-
-    _sfTableImage.setValue(value);
-}
-
-//! Get the value of the ColorDisplayFilter::_sfFilterShader field.
-inline
-SimpleSHLChunk * ColorDisplayFilterBase::getFilterShader(void) const
-{
-    return _sfFilterShader.getValue();
-}
-
-//! Set the value of the ColorDisplayFilter::_sfFilterShader field.
-inline
-void ColorDisplayFilterBase::setFilterShader(SimpleSHLChunk * const value)
-{
-    editSField(FilterShaderFieldMask);
-
-    _sfFilterShader.setValue(value);
-}
-
 //! Get the value of the \a index element the ColorDisplayFilter::_mfColorTable field.
 inline
 const Color3f &ColorDisplayFilterBase::getColorTable(const UInt32 index) const
@@ -246,7 +214,6 @@ Color3f &ColorDisplayFilterBase::editColorTable(const UInt32 index)
 
     return _mfColorTable[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -225,10 +225,29 @@ SFUnrecFrameBufferObjectPtr *DynamicStateGeneratorStageDataBase::editSFRenderTar
     return &_sfRenderTarget;
 }
 
+//! Get the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
+FrameBufferObject * DynamicStateGeneratorStageDataBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the DynamicStateGeneratorStageData::_sfRenderTarget field.
+void DynamicStateGeneratorStageDataBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
+
 //! Get the DynamicStateGeneratorStageData::_mfChunks field.
 const MFUnrecStateChunkPtr *DynamicStateGeneratorStageDataBase::getMFChunks(void) const
 {
     return &_mfChunks;
+}
+StateChunk * DynamicStateGeneratorStageDataBase::getChunks(const UInt32 index) const
+{
+    return _mfChunks[index];
 }
 
 

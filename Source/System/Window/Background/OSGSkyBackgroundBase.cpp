@@ -800,6 +800,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFBackTexture    (void)
     return &_sfBackTexture;
 }
 
+//! Get the value of the SkyBackground::_sfBackTexture field.
+TextureBaseChunk * SkyBackgroundBase::getBackTexture(void) const
+{
+    return _sfBackTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfBackTexture field.
+void SkyBackgroundBase::setBackTexture(TextureBaseChunk * const value)
+{
+    editSField(BackTextureFieldMask);
+
+    _sfBackTexture.setValue(value);
+}
+
+
 //! Get the SkyBackground::_sfBottomTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
 {
@@ -812,6 +827,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFBottomTexture  (void)
 
     return &_sfBottomTexture;
 }
+
+//! Get the value of the SkyBackground::_sfBottomTexture field.
+TextureBaseChunk * SkyBackgroundBase::getBottomTexture(void) const
+{
+    return _sfBottomTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfBottomTexture field.
+void SkyBackgroundBase::setBottomTexture(TextureBaseChunk * const value)
+{
+    editSField(BottomTextureFieldMask);
+
+    _sfBottomTexture.setValue(value);
+}
+
 
 //! Get the SkyBackground::_sfFrontTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) const
@@ -826,6 +856,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFFrontTexture   (void)
     return &_sfFrontTexture;
 }
 
+//! Get the value of the SkyBackground::_sfFrontTexture field.
+TextureBaseChunk * SkyBackgroundBase::getFrontTexture(void) const
+{
+    return _sfFrontTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfFrontTexture field.
+void SkyBackgroundBase::setFrontTexture(TextureBaseChunk * const value)
+{
+    editSField(FrontTextureFieldMask);
+
+    _sfFrontTexture.setValue(value);
+}
+
+
 //! Get the SkyBackground::_sfLeftTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
 {
@@ -838,6 +883,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFLeftTexture    (void)
 
     return &_sfLeftTexture;
 }
+
+//! Get the value of the SkyBackground::_sfLeftTexture field.
+TextureBaseChunk * SkyBackgroundBase::getLeftTexture(void) const
+{
+    return _sfLeftTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfLeftTexture field.
+void SkyBackgroundBase::setLeftTexture(TextureBaseChunk * const value)
+{
+    editSField(LeftTextureFieldMask);
+
+    _sfLeftTexture.setValue(value);
+}
+
 
 //! Get the SkyBackground::_sfRightTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFRightTexture(void) const
@@ -852,6 +912,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFRightTexture   (void)
     return &_sfRightTexture;
 }
 
+//! Get the value of the SkyBackground::_sfRightTexture field.
+TextureBaseChunk * SkyBackgroundBase::getRightTexture(void) const
+{
+    return _sfRightTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfRightTexture field.
+void SkyBackgroundBase::setRightTexture(TextureBaseChunk * const value)
+{
+    editSField(RightTextureFieldMask);
+
+    _sfRightTexture.setValue(value);
+}
+
+
 //! Get the SkyBackground::_sfTopTexture field.
 const SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
 {
@@ -864,6 +939,21 @@ SFUnrecTextureBaseChunkPtr *SkyBackgroundBase::editSFTopTexture     (void)
 
     return &_sfTopTexture;
 }
+
+//! Get the value of the SkyBackground::_sfTopTexture field.
+TextureBaseChunk * SkyBackgroundBase::getTopTexture(void) const
+{
+    return _sfTopTexture.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfTopTexture field.
+void SkyBackgroundBase::setTopTexture(TextureBaseChunk * const value)
+{
+    editSField(TopTextureFieldMask);
+
+    _sfTopTexture.setValue(value);
+}
+
 
 SFBool *SkyBackgroundBase::editSFBoxInside(void)
 {
@@ -968,6 +1058,21 @@ SFWeakNodePtr       *SkyBackgroundBase::editSFBeacon         (void)
 
     return &_sfBeacon;
 }
+
+//! Get the value of the SkyBackground::_sfBeacon field.
+Node * SkyBackgroundBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfBeacon field.
+void SkyBackgroundBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
 
 SFBool *SkyBackgroundBase::editSFUseVRMLCubeTextureSemantics(void)
 {

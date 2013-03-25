@@ -100,12 +100,6 @@ void MultiCoreBase::setExitOnSkip(const bool value)
     _sfExitOnSkip.setValue(value);
 }
 
-//! Get the value of the \a index element the MultiCore::_mfCores field.
-inline
-NodeCore * MultiCoreBase::getCores(const UInt32 index) const
-{
-    return _mfCores[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

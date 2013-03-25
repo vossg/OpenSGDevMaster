@@ -231,6 +231,10 @@ MFUnrecMaterialPtr  *SwitchMaterialBase::editMFMaterials      (void)
 
     return &_mfMaterials;
 }
+Material * SwitchMaterialBase::getMaterials(const UInt32 index) const
+{
+    return _mfMaterials[index];
+}
 
 SFUInt32 *SwitchMaterialBase::editSFChoice(void)
 {

@@ -46,6 +46,9 @@
 #include <OSGConfig.h>
 
 #include "OSGSkeletonSkinningAlgorithm.h"
+#include "OSGSkeleton.h"
+#include "OSGBaseSkeletonJoint.h"
+
 #include "OSGPrimeMaterial.h"
 
 #include <boost/cast.hpp>

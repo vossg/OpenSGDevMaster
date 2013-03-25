@@ -191,7 +191,6 @@ UInt32 &SortFirstWindowBase::editRegion(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SortFirstWindowBase::execSync (      SortFirstWindowBase *pFrom,

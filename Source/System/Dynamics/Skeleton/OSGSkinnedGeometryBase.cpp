@@ -413,6 +413,21 @@ SFUnrecSkeletonPtr  *SkinnedGeometryBase::editSFSkeleton       (void)
     return &_sfSkeleton;
 }
 
+//! Get the value of the SkinnedGeometry::_sfSkeleton field.
+Skeleton * SkinnedGeometryBase::getSkeleton(void) const
+{
+    return _sfSkeleton.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfSkeleton field.
+void SkinnedGeometryBase::setSkeleton(Skeleton * const value)
+{
+    editSField(SkeletonFieldMask);
+
+    _sfSkeleton.setValue(value);
+}
+
+
 SFMatrix *SkinnedGeometryBase::editSFBindShapeMatrix(void)
 {
     editSField(BindShapeMatrixFieldMask);
@@ -490,6 +505,21 @@ SFUnrecChildSkinningAlgorithmPtr *SkinnedGeometryBase::editSFSkinningAlgorithm(v
 
     return &_sfSkinningAlgorithm;
 }
+
+//! Get the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
+SkinningAlgorithm * SkinnedGeometryBase::getSkinningAlgorithm(void) const
+{
+    return _sfSkinningAlgorithm.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfSkinningAlgorithm field.
+void SkinnedGeometryBase::setSkinningAlgorithm(SkinningAlgorithm * const value)
+{
+    editSField(SkinningAlgorithmFieldMask);
+
+    _sfSkinningAlgorithm.setValue(value);
+}
+
 
 
 

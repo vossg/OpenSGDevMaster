@@ -706,6 +706,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTarget         (void)
     return &_sfTarget;
 }
 
+//! Get the value of the Manipulator::_sfTarget field.
+Node * ManipulatorBase::getTarget(void) const
+{
+    return _sfTarget.getValue();
+}
+
+//! Set the value of the Manipulator::_sfTarget field.
+void ManipulatorBase::setTarget(Node * const value)
+{
+    editSField(TargetFieldMask);
+
+    _sfTarget.setValue(value);
+}
+
+
 SFBool *ManipulatorBase::editSFEnablePivot(void)
 {
     editSField(EnablePivotFieldMask);
@@ -732,6 +747,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFActiveSubHandle(void)
     return &_sfActiveSubHandle;
 }
 
+//! Get the value of the Manipulator::_sfActiveSubHandle field.
+Node * ManipulatorBase::getActiveSubHandle(void) const
+{
+    return _sfActiveSubHandle.getValue();
+}
+
+//! Set the value of the Manipulator::_sfActiveSubHandle field.
+void ManipulatorBase::setActiveSubHandle(Node * const value)
+{
+    editSField(ActiveSubHandleFieldMask);
+
+    _sfActiveSubHandle.setValue(value);
+}
+
+
 SFPnt2f *ManipulatorBase::editSFLastMousePos(void)
 {
     editSField(LastMousePosFieldMask);
@@ -757,6 +787,21 @@ SFUnrecViewportPtr  *ManipulatorBase::editSFViewport       (void)
 
     return &_sfViewport;
 }
+
+//! Get the value of the Manipulator::_sfViewport field.
+Viewport * ManipulatorBase::getViewport(void) const
+{
+    return _sfViewport.getValue();
+}
+
+//! Set the value of the Manipulator::_sfViewport field.
+void ManipulatorBase::setViewport(Viewport * const value)
+{
+    editSField(ViewportFieldMask);
+
+    _sfViewport.setValue(value);
+}
+
 
 SFBool *ManipulatorBase::editSFActive(void)
 {
@@ -810,6 +855,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFHandleXNode    (void)
     return &_sfHandleXNode;
 }
 
+//! Get the value of the Manipulator::_sfHandleXNode field.
+Node * ManipulatorBase::getHandleXNode(void) const
+{
+    return _sfHandleXNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfHandleXNode field.
+void ManipulatorBase::setHandleXNode(Node * const value)
+{
+    editSField(HandleXNodeFieldMask);
+
+    _sfHandleXNode.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfHandleYNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandleYNode(void) const
 {
@@ -822,6 +882,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFHandleYNode    (void)
 
     return &_sfHandleYNode;
 }
+
+//! Get the value of the Manipulator::_sfHandleYNode field.
+Node * ManipulatorBase::getHandleYNode(void) const
+{
+    return _sfHandleYNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfHandleYNode field.
+void ManipulatorBase::setHandleYNode(Node * const value)
+{
+    editSField(HandleYNodeFieldMask);
+
+    _sfHandleYNode.setValue(value);
+}
+
 
 //! Get the Manipulator::_sfHandleZNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandleZNode(void) const
@@ -836,6 +911,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFHandleZNode    (void)
     return &_sfHandleZNode;
 }
 
+//! Get the value of the Manipulator::_sfHandleZNode field.
+Node * ManipulatorBase::getHandleZNode(void) const
+{
+    return _sfHandleZNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfHandleZNode field.
+void ManipulatorBase::setHandleZNode(Node * const value)
+{
+    editSField(HandleZNodeFieldMask);
+
+    _sfHandleZNode.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfHandlePNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFHandlePNode(void) const
 {
@@ -848,6 +938,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFHandlePNode    (void)
 
     return &_sfHandlePNode;
 }
+
+//! Get the value of the Manipulator::_sfHandlePNode field.
+Node * ManipulatorBase::getHandlePNode(void) const
+{
+    return _sfHandlePNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfHandlePNode field.
+void ManipulatorBase::setHandlePNode(Node * const value)
+{
+    editSField(HandlePNodeFieldMask);
+
+    _sfHandlePNode.setValue(value);
+}
+
 
 //! Get the Manipulator::_sfTransXNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFTransXNode(void) const
@@ -862,6 +967,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTransXNode     (void)
     return &_sfTransXNode;
 }
 
+//! Get the value of the Manipulator::_sfTransXNode field.
+Node * ManipulatorBase::getTransXNode(void) const
+{
+    return _sfTransXNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfTransXNode field.
+void ManipulatorBase::setTransXNode(Node * const value)
+{
+    editSField(TransXNodeFieldMask);
+
+    _sfTransXNode.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfTransYNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFTransYNode(void) const
 {
@@ -874,6 +994,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTransYNode     (void)
 
     return &_sfTransYNode;
 }
+
+//! Get the value of the Manipulator::_sfTransYNode field.
+Node * ManipulatorBase::getTransYNode(void) const
+{
+    return _sfTransYNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfTransYNode field.
+void ManipulatorBase::setTransYNode(Node * const value)
+{
+    editSField(TransYNodeFieldMask);
+
+    _sfTransYNode.setValue(value);
+}
+
 
 //! Get the Manipulator::_sfTransZNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFTransZNode(void) const
@@ -888,6 +1023,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFTransZNode     (void)
     return &_sfTransZNode;
 }
 
+//! Get the value of the Manipulator::_sfTransZNode field.
+Node * ManipulatorBase::getTransZNode(void) const
+{
+    return _sfTransZNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfTransZNode field.
+void ManipulatorBase::setTransZNode(Node * const value)
+{
+    editSField(TransZNodeFieldMask);
+
+    _sfTransZNode.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfPivotNode field.
 const SFUnrecNodePtr *ManipulatorBase::getSFPivotNode(void) const
 {
@@ -900,6 +1050,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFPivotNode      (void)
 
     return &_sfPivotNode;
 }
+
+//! Get the value of the Manipulator::_sfPivotNode field.
+Node * ManipulatorBase::getPivotNode(void) const
+{
+    return _sfPivotNode.getValue();
+}
+
+//! Set the value of the Manipulator::_sfPivotNode field.
+void ManipulatorBase::setPivotNode(Node * const value)
+{
+    editSField(PivotNodeFieldMask);
+
+    _sfPivotNode.setValue(value);
+}
+
 
 //! Get the Manipulator::_sfMaterialX field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialX(void) const
@@ -914,6 +1079,21 @@ SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialX      (void)
     return &_sfMaterialX;
 }
 
+//! Get the value of the Manipulator::_sfMaterialX field.
+Material * ManipulatorBase::getMaterialX(void) const
+{
+    return _sfMaterialX.getValue();
+}
+
+//! Set the value of the Manipulator::_sfMaterialX field.
+void ManipulatorBase::setMaterialX(Material * const value)
+{
+    editSField(MaterialXFieldMask);
+
+    _sfMaterialX.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfMaterialY field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialY(void) const
 {
@@ -926,6 +1106,21 @@ SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialY      (void)
 
     return &_sfMaterialY;
 }
+
+//! Get the value of the Manipulator::_sfMaterialY field.
+Material * ManipulatorBase::getMaterialY(void) const
+{
+    return _sfMaterialY.getValue();
+}
+
+//! Set the value of the Manipulator::_sfMaterialY field.
+void ManipulatorBase::setMaterialY(Material * const value)
+{
+    editSField(MaterialYFieldMask);
+
+    _sfMaterialY.setValue(value);
+}
+
 
 //! Get the Manipulator::_sfMaterialZ field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialZ(void) const
@@ -940,6 +1135,21 @@ SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialZ      (void)
     return &_sfMaterialZ;
 }
 
+//! Get the value of the Manipulator::_sfMaterialZ field.
+Material * ManipulatorBase::getMaterialZ(void) const
+{
+    return _sfMaterialZ.getValue();
+}
+
+//! Set the value of the Manipulator::_sfMaterialZ field.
+void ManipulatorBase::setMaterialZ(Material * const value)
+{
+    editSField(MaterialZFieldMask);
+
+    _sfMaterialZ.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfMaterialPivot field.
 const SFUnrecMaterialPtr *ManipulatorBase::getSFMaterialPivot(void) const
 {
@@ -953,6 +1163,21 @@ SFUnrecMaterialPtr  *ManipulatorBase::editSFMaterialPivot  (void)
     return &_sfMaterialPivot;
 }
 
+//! Get the value of the Manipulator::_sfMaterialPivot field.
+Material * ManipulatorBase::getMaterialPivot(void) const
+{
+    return _sfMaterialPivot.getValue();
+}
+
+//! Set the value of the Manipulator::_sfMaterialPivot field.
+void ManipulatorBase::setMaterialPivot(Material * const value)
+{
+    editSField(MaterialPivotFieldMask);
+
+    _sfMaterialPivot.setValue(value);
+}
+
+
 //! Get the Manipulator::_sfAxisLinesN field.
 const SFUnrecNodePtr *ManipulatorBase::getSFAxisLinesN(void) const
 {
@@ -965,6 +1190,21 @@ SFUnrecNodePtr      *ManipulatorBase::editSFAxisLinesN     (void)
 
     return &_sfAxisLinesN;
 }
+
+//! Get the value of the Manipulator::_sfAxisLinesN field.
+Node * ManipulatorBase::getAxisLinesN(void) const
+{
+    return _sfAxisLinesN.getValue();
+}
+
+//! Set the value of the Manipulator::_sfAxisLinesN field.
+void ManipulatorBase::setAxisLinesN(Node * const value)
+{
+    editSField(AxisLinesNFieldMask);
+
+    _sfAxisLinesN.setValue(value);
+}
+
 
 
 

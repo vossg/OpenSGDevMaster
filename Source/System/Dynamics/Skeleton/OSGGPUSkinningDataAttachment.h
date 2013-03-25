@@ -51,7 +51,8 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsGPUSkinningDataAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : public GPUSkinningDataAttachmentBase
+class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachment : 
+    public GPUSkinningDataAttachmentBase
 {
   protected:
 

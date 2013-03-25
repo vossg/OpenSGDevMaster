@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimQuaternionChannel.h"
+#include "OSGAnimQuaternionDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

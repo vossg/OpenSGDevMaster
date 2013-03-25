@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGCSMDrawerBase.h"
-#include "OSGCSMWindow.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE

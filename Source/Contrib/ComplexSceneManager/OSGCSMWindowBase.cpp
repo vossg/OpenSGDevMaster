@@ -784,6 +784,10 @@ MFUnrecCSMViewportPtr *CSMWindowBase::editMFViewports      (void)
 
     return &_mfViewports;
 }
+CSMViewport * CSMWindowBase::getViewports(const UInt32 index) const
+{
+    return _mfViewports[index];
+}
 
 SFMouseData *CSMWindowBase::editSFMouseData(void)
 {
@@ -1018,6 +1022,21 @@ SFUnrecRenderOptionsPtr *CSMWindowBase::editSFRenderOptions  (void)
 
     return &_sfRenderOptions;
 }
+
+//! Get the value of the CSMWindow::_sfRenderOptions field.
+RenderOptions * CSMWindowBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRenderOptions field.
+void CSMWindowBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 
 SFUInt32 *CSMWindowBase::editSFPartitionDrawMode(void)
 {

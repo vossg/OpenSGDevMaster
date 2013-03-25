@@ -461,6 +461,21 @@ SFUnrecImagePtr     *ColorDisplayFilterBase::editSFTableImage     (void)
     return &_sfTableImage;
 }
 
+//! Get the value of the ColorDisplayFilter::_sfTableImage field.
+Image * ColorDisplayFilterBase::getTableImage(void) const
+{
+    return _sfTableImage.getValue();
+}
+
+//! Set the value of the ColorDisplayFilter::_sfTableImage field.
+void ColorDisplayFilterBase::setTableImage(Image * const value)
+{
+    editSField(TableImageFieldMask);
+
+    _sfTableImage.setValue(value);
+}
+
+
 //! Get the ColorDisplayFilter::_sfFilterShader field.
 const SFUnrecSimpleSHLChunkPtr *ColorDisplayFilterBase::getSFFilterShader(void) const
 {
@@ -473,6 +488,21 @@ SFUnrecSimpleSHLChunkPtr *ColorDisplayFilterBase::editSFFilterShader   (void)
 
     return &_sfFilterShader;
 }
+
+//! Get the value of the ColorDisplayFilter::_sfFilterShader field.
+SimpleSHLChunk * ColorDisplayFilterBase::getFilterShader(void) const
+{
+    return _sfFilterShader.getValue();
+}
+
+//! Set the value of the ColorDisplayFilter::_sfFilterShader field.
+void ColorDisplayFilterBase::setFilterShader(SimpleSHLChunk * const value)
+{
+    editSField(FilterShaderFieldMask);
+
+    _sfFilterShader.setValue(value);
+}
+
 
 
 

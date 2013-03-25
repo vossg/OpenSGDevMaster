@@ -367,6 +367,21 @@ SFUnrecTextureBaseChunkPtr *TextureBackgroundBase::editSFTexture        (void)
     return &_sfTexture;
 }
 
+//! Get the value of the TextureBackground::_sfTexture field.
+TextureBaseChunk * TextureBackgroundBase::getTexture(void) const
+{
+    return _sfTexture.getValue();
+}
+
+//! Set the value of the TextureBackground::_sfTexture field.
+void TextureBackgroundBase::setTexture(TextureBaseChunk * const value)
+{
+    editSField(TextureFieldMask);
+
+    _sfTexture.setValue(value);
+}
+
+
 MFPnt2f *TextureBackgroundBase::editMFTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);

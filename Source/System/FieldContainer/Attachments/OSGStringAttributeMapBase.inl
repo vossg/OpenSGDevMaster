@@ -90,7 +90,6 @@ std::string &StringAttributeMapBase::editKeys(const UInt32 index)
     return _mfKeys[index];
 }
 
-
 //! Get the value of the \a index element the StringAttributeMap::_mfValues field.
 inline
 const std::string &StringAttributeMapBase::getValues(const UInt32 index) const
@@ -105,7 +104,6 @@ std::string &StringAttributeMapBase::editValues(const UInt32 index)
 
     return _mfValues[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

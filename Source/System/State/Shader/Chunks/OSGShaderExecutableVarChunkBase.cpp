@@ -293,6 +293,21 @@ SFUnrecChildShaderProgramVariablesPtr *ShaderExecutableVarChunkBase::editSFVaria
     return &_sfVariables;
 }
 
+//! Get the value of the ShaderExecutableVarChunk::_sfVariables field.
+ShaderProgramVariables * ShaderExecutableVarChunkBase::getVariables(void) const
+{
+    return _sfVariables.getValue();
+}
+
+//! Set the value of the ShaderExecutableVarChunk::_sfVariables field.
+void ShaderExecutableVarChunkBase::setVariables(ShaderProgramVariables * const value)
+{
+    editSField(VariablesFieldMask);
+
+    _sfVariables.setValue(value);
+}
+
+
 MFInt32 *ShaderExecutableVarChunkBase::editMFVariableLocations(void)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);

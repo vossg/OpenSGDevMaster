@@ -91,7 +91,6 @@ Matrix &AnimMatrixDataSourceBase::editValues(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void AnimMatrixDataSourceBase::execSync (      AnimMatrixDataSourceBase *pFrom,

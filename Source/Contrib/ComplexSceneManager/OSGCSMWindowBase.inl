@@ -474,22 +474,6 @@ void CSMWindowBase::setFsaaHint(const UInt32 value)
 
     _sfFsaaHint.setValue(value);
 }
-
-//! Get the value of the CSMWindow::_sfRenderOptions field.
-inline
-RenderOptions * CSMWindowBase::getRenderOptions(void) const
-{
-    return _sfRenderOptions.getValue();
-}
-
-//! Set the value of the CSMWindow::_sfRenderOptions field.
-inline
-void CSMWindowBase::setRenderOptions(RenderOptions * const value)
-{
-    editSField(RenderOptionsFieldMask);
-
-    _sfRenderOptions.setValue(value);
-}
 //! Get the value of the CSMWindow::_sfPartitionDrawMode field.
 
 inline
@@ -566,12 +550,6 @@ void CSMWindowBase::setDumpContainer(const bool value)
     _sfDumpContainer.setValue(value);
 }
 
-//! Get the value of the \a index element the CSMWindow::_mfViewports field.
-inline
-CSMViewport * CSMWindowBase::getViewports(const UInt32 index) const
-{
-    return _mfViewports[index];
-}
 
 //! Get the value of the \a index element the CSMWindow::_mfIgnoreExtensions field.
 inline
@@ -587,7 +565,6 @@ std::string &CSMWindowBase::editIgnoreExtensions(const UInt32 index)
 
     return _mfIgnoreExtensions[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

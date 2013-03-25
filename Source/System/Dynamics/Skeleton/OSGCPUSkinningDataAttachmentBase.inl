@@ -100,12 +100,6 @@ void CPUSkinningDataAttachmentBase::setDataValid(const bool value)
     _sfDataValid.setValue(value);
 }
 
-//! Get the value of the \a index element the CPUSkinningDataAttachment::_mfProperties field.
-inline
-GeoVectorProperty * CPUSkinningDataAttachmentBase::getProperties(const UInt32 index) const
-{
-    return _mfProperties[index];
-}
 
 //! Get the value of the \a index element the CPUSkinningDataAttachment::_mfJointMatrices field.
 inline
@@ -122,7 +116,6 @@ Matrix &CPUSkinningDataAttachmentBase::editJointMatrices(const UInt32 index)
     return _mfJointMatrices[index];
 }
 
-
 //! Get the value of the \a index element the CPUSkinningDataAttachment::_mfJointNormalMatrices field.
 inline
 const Matrix &CPUSkinningDataAttachmentBase::getJointNormalMatrices(const UInt32 index) const
@@ -137,7 +130,6 @@ Matrix &CPUSkinningDataAttachmentBase::editJointNormalMatrices(const UInt32 inde
 
     return _mfJointNormalMatrices[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

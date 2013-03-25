@@ -549,6 +549,21 @@ SFUnrecChildShaderProgramVariablesPtr *ShaderProgramBase::editSFVariables      (
     return &_sfVariables;
 }
 
+//! Get the value of the ShaderProgram::_sfVariables field.
+ShaderProgramVariables * ShaderProgramBase::getVariables(void) const
+{
+    return _sfVariables.getValue();
+}
+
+//! Set the value of the ShaderProgram::_sfVariables field.
+void ShaderProgramBase::setVariables(ShaderProgramVariables * const value)
+{
+    editSField(VariablesFieldMask);
+
+    _sfVariables.setValue(value);
+}
+
+
 MFString *ShaderProgramBase::editMFFeedbackVaryings(void)
 {
     editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);

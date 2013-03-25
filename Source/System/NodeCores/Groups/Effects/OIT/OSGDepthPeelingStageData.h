@@ -42,11 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGChunkMaterial.h"
-#include "OSGFrameBufferObject.h"
-#include "OSGDepthChunk.h"
-#include "OSGShaderProgramVariableChunk.h"
-
 #include "OSGDepthPeelingStageDataBase.h"
 
 OSG_BEGIN_NAMESPACE
@@ -55,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageDepthPeelingStageData for a description.
 */
 
-class OSG_EFFECTGROUPS_DLLMAPPING DepthPeelingStageData : public DepthPeelingStageDataBase
+class OSG_EFFECTGROUPS_DLLMAPPING DepthPeelingStageData : 
+    public DepthPeelingStageDataBase
 {
   protected:
 

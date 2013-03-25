@@ -74,22 +74,6 @@ OSG::UInt16 ShadowMapEngineBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ShadowMapEngine::_sfShadowTexChunk field.
-inline
-TextureObjChunk * ShadowMapEngineBase::getShadowTexChunk(void) const
-{
-    return _sfShadowTexChunk.getValue();
-}
-
-//! Set the value of the ShadowMapEngine::_sfShadowTexChunk field.
-inline
-void ShadowMapEngineBase::setShadowTexChunk(TextureObjChunk * const value)
-{
-    editSField(ShadowTexChunkFieldMask);
-
-    _sfShadowTexChunk.setValue(value);
-}
 //! Get the value of the ShadowMapEngine::_sfWidth field.
 
 inline

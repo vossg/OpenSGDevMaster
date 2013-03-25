@@ -74,22 +74,6 @@ OSG::UInt16 ScreenTransformBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ScreenTransform::_sfBeacon field.
-inline
-Node * ScreenTransformBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the ScreenTransform::_sfBeacon field.
-inline
-void ScreenTransformBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
-}
 //! Get the value of the ScreenTransform::_sfInvertWorldTransform field.
 
 inline

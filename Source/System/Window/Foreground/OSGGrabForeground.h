@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGGrabForegroundBase.h"
-#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 

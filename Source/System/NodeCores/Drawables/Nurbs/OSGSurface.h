@@ -42,10 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGDrawableDef.h"
-#include "OSGVertexProgramChunk.h"
-
 #include "OSGSurfaceBase.h"
 
 OSG_BEGIN_NAMESPACE

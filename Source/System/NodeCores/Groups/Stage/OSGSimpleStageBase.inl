@@ -175,44 +175,6 @@ void SimpleStageBase::setTop(const Real32 value)
     _sfTop.setValue(value);
 }
 
-//! Get the value of the SimpleStage::_sfCamera field.
-inline
-Camera * SimpleStageBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfCamera field.
-inline
-void SimpleStageBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the SimpleStage::_sfBackground field.
-inline
-Background * SimpleStageBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfBackground field.
-inline
-void SimpleStageBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-
-//! Get the value of the \a index element the SimpleStage::_mfForegrounds field.
-inline
-Foreground * SimpleStageBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

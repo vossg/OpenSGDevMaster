@@ -213,6 +213,21 @@ SFUnrecMaterialPtr  *MaterialGroupBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the MaterialGroup::_sfMaterial field.
+Material * MaterialGroupBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the MaterialGroup::_sfMaterial field.
+void MaterialGroupBase::setMaterial(Material * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 
 
 

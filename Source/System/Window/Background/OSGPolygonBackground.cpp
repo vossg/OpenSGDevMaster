@@ -51,6 +51,7 @@
 #include "OSGTileCameraDecorator.h"
 #include "OSGDrawEnv.h"
 #include "OSGRenderActionBase.h"
+#include "OSGPrimeMaterial.h"
 
 OSG_USING_NAMESPACE
 

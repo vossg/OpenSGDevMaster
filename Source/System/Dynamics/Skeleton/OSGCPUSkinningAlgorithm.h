@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGCPUSkinningAlgorithmBase.h"
+#include "OSGTypedGeoVectorProperty.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -53,7 +54,8 @@ class IntersectAction;
            PageDynamicsCPUSkinningAlgorithm for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : public CPUSkinningAlgorithmBase
+class OSG_DYNAMICS_DLLMAPPING CPUSkinningAlgorithm : 
+    public CPUSkinningAlgorithmBase
 {
   protected:
 

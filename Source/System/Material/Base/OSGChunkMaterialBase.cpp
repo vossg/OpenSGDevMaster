@@ -245,6 +245,10 @@ const MFUnrecStateChunkPtr *ChunkMaterialBase::getMFChunks(void) const
 {
     return &_mfChunks;
 }
+StateChunk * ChunkMaterialBase::getChunks(const UInt32 index) const
+{
+    return _mfChunks[index];
+}
 
 MFInt32 *ChunkMaterialBase::editMFSlots(void)
 {

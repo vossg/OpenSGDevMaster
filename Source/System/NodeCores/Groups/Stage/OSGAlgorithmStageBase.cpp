@@ -271,6 +271,21 @@ SFUnrecAlgorithmPtr *AlgorithmStageBase::editSFAlgorithm      (void)
     return &_sfAlgorithm;
 }
 
+//! Get the value of the AlgorithmStage::_sfAlgorithm field.
+Algorithm * AlgorithmStageBase::getAlgorithm(void) const
+{
+    return _sfAlgorithm.getValue();
+}
+
+//! Set the value of the AlgorithmStage::_sfAlgorithm field.
+void AlgorithmStageBase::setAlgorithm(Algorithm * const value)
+{
+    editSField(AlgorithmFieldMask);
+
+    _sfAlgorithm.setValue(value);
+}
+
+
 SFUInt32 *AlgorithmStageBase::editSFProjectionMode(void)
 {
     editSField(ProjectionModeFieldMask);

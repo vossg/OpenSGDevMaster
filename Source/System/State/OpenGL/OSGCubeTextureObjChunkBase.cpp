@@ -333,6 +333,21 @@ SFUnrecImagePtr     *CubeTextureObjChunkBase::editSFPosZImage      (void)
     return &_sfPosZImage;
 }
 
+//! Get the value of the CubeTextureObjChunk::_sfPosZImage field.
+Image * CubeTextureObjChunkBase::getPosZImage(void) const
+{
+    return _sfPosZImage.getValue();
+}
+
+//! Set the value of the CubeTextureObjChunk::_sfPosZImage field.
+void CubeTextureObjChunkBase::setPosZImage(Image * const value)
+{
+    editSField(PosZImageFieldMask);
+
+    _sfPosZImage.setValue(value);
+}
+
+
 //! Get the CubeTextureObjChunk::_sfPosXImage field.
 const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFPosXImage(void) const
 {
@@ -345,6 +360,21 @@ SFUnrecImagePtr     *CubeTextureObjChunkBase::editSFPosXImage      (void)
 
     return &_sfPosXImage;
 }
+
+//! Get the value of the CubeTextureObjChunk::_sfPosXImage field.
+Image * CubeTextureObjChunkBase::getPosXImage(void) const
+{
+    return _sfPosXImage.getValue();
+}
+
+//! Set the value of the CubeTextureObjChunk::_sfPosXImage field.
+void CubeTextureObjChunkBase::setPosXImage(Image * const value)
+{
+    editSField(PosXImageFieldMask);
+
+    _sfPosXImage.setValue(value);
+}
+
 
 //! Get the CubeTextureObjChunk::_sfNegXImage field.
 const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFNegXImage(void) const
@@ -359,6 +389,21 @@ SFUnrecImagePtr     *CubeTextureObjChunkBase::editSFNegXImage      (void)
     return &_sfNegXImage;
 }
 
+//! Get the value of the CubeTextureObjChunk::_sfNegXImage field.
+Image * CubeTextureObjChunkBase::getNegXImage(void) const
+{
+    return _sfNegXImage.getValue();
+}
+
+//! Set the value of the CubeTextureObjChunk::_sfNegXImage field.
+void CubeTextureObjChunkBase::setNegXImage(Image * const value)
+{
+    editSField(NegXImageFieldMask);
+
+    _sfNegXImage.setValue(value);
+}
+
+
 //! Get the CubeTextureObjChunk::_sfPosYImage field.
 const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFPosYImage(void) const
 {
@@ -372,6 +417,21 @@ SFUnrecImagePtr     *CubeTextureObjChunkBase::editSFPosYImage      (void)
     return &_sfPosYImage;
 }
 
+//! Get the value of the CubeTextureObjChunk::_sfPosYImage field.
+Image * CubeTextureObjChunkBase::getPosYImage(void) const
+{
+    return _sfPosYImage.getValue();
+}
+
+//! Set the value of the CubeTextureObjChunk::_sfPosYImage field.
+void CubeTextureObjChunkBase::setPosYImage(Image * const value)
+{
+    editSField(PosYImageFieldMask);
+
+    _sfPosYImage.setValue(value);
+}
+
+
 //! Get the CubeTextureObjChunk::_sfNegYImage field.
 const SFUnrecImagePtr *CubeTextureObjChunkBase::getSFNegYImage(void) const
 {
@@ -384,6 +444,21 @@ SFUnrecImagePtr     *CubeTextureObjChunkBase::editSFNegYImage      (void)
 
     return &_sfNegYImage;
 }
+
+//! Get the value of the CubeTextureObjChunk::_sfNegYImage field.
+Image * CubeTextureObjChunkBase::getNegYImage(void) const
+{
+    return _sfNegYImage.getValue();
+}
+
+//! Set the value of the CubeTextureObjChunk::_sfNegYImage field.
+void CubeTextureObjChunkBase::setNegYImage(Image * const value)
+{
+    editSField(NegYImageFieldMask);
+
+    _sfNegYImage.setValue(value);
+}
+
 
 
 

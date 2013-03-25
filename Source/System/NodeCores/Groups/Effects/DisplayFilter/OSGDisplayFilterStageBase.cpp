@@ -468,6 +468,21 @@ SFUnrecCalibrationPatternFilterPtr *DisplayFilterStageBase::editSFCalibrationPat
     return &_sfCalibrationPatternFilter;
 }
 
+//! Get the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
+CalibrationPatternFilter * DisplayFilterStageBase::getCalibrationPatternFilter(void) const
+{
+    return _sfCalibrationPatternFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfCalibrationPatternFilter field.
+void DisplayFilterStageBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
+{
+    editSField(CalibrationPatternFilterFieldMask);
+
+    _sfCalibrationPatternFilter.setValue(value);
+}
+
+
 //! Get the DisplayFilterStage::_sfResolutionFilter field.
 const SFUnrecResolutionDisplayFilterPtr *DisplayFilterStageBase::getSFResolutionFilter(void) const
 {
@@ -480,6 +495,21 @@ SFUnrecResolutionDisplayFilterPtr *DisplayFilterStageBase::editSFResolutionFilte
 
     return &_sfResolutionFilter;
 }
+
+//! Get the value of the DisplayFilterStage::_sfResolutionFilter field.
+ResolutionDisplayFilter * DisplayFilterStageBase::getResolutionFilter(void) const
+{
+    return _sfResolutionFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfResolutionFilter field.
+void DisplayFilterStageBase::setResolutionFilter(ResolutionDisplayFilter * const value)
+{
+    editSField(ResolutionFilterFieldMask);
+
+    _sfResolutionFilter.setValue(value);
+}
+
 
 //! Get the DisplayFilterStage::_sfColorFilter field.
 const SFUnrecColorDisplayFilterPtr *DisplayFilterStageBase::getSFColorFilter(void) const
@@ -494,6 +524,21 @@ SFUnrecColorDisplayFilterPtr *DisplayFilterStageBase::editSFColorFilter    (void
     return &_sfColorFilter;
 }
 
+//! Get the value of the DisplayFilterStage::_sfColorFilter field.
+ColorDisplayFilter * DisplayFilterStageBase::getColorFilter(void) const
+{
+    return _sfColorFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfColorFilter field.
+void DisplayFilterStageBase::setColorFilter(ColorDisplayFilter * const value)
+{
+    editSField(ColorFilterFieldMask);
+
+    _sfColorFilter.setValue(value);
+}
+
+
 //! Get the DisplayFilterStage::_sfDistortionFilter field.
 const SFUnrecDistortionDisplayFilterPtr *DisplayFilterStageBase::getSFDistortionFilter(void) const
 {
@@ -507,6 +552,21 @@ SFUnrecDistortionDisplayFilterPtr *DisplayFilterStageBase::editSFDistortionFilte
     return &_sfDistortionFilter;
 }
 
+//! Get the value of the DisplayFilterStage::_sfDistortionFilter field.
+DistortionDisplayFilter * DisplayFilterStageBase::getDistortionFilter(void) const
+{
+    return _sfDistortionFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterStage::_sfDistortionFilter field.
+void DisplayFilterStageBase::setDistortionFilter(DistortionDisplayFilter * const value)
+{
+    editSField(DistortionFilterFieldMask);
+
+    _sfDistortionFilter.setValue(value);
+}
+
+
 //! Get the DisplayFilterStage::_mfFilterGroups field.
 const MFUnrecDisplayFilterGroupPtr *DisplayFilterStageBase::getMFFilterGroups(void) const
 {
@@ -518,6 +578,10 @@ MFUnrecDisplayFilterGroupPtr *DisplayFilterStageBase::editMFFilterGroups   (void
     editMField(FilterGroupsFieldMask, _mfFilterGroups);
 
     return &_mfFilterGroups;
+}
+DisplayFilterGroup * DisplayFilterStageBase::getFilterGroups(const UInt32 index) const
+{
+    return _mfFilterGroups[index];
 }
 
 SFInt32 *DisplayFilterStageBase::editSFActiveGroup(void)
@@ -596,6 +660,10 @@ MFUnrecForegroundPtr *DisplayFilterStageBase::editMFForegrounds    (void)
     editMField(ForegroundsFieldMask, _mfForegrounds);
 
     return &_mfForegrounds;
+}
+Foreground * DisplayFilterStageBase::getForegrounds(const UInt32 index) const
+{
+    return _mfForegrounds[index];
 }
 
 

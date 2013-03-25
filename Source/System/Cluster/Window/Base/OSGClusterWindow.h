@@ -44,7 +44,6 @@
 
 #include "OSGClusterWindowBase.h"
 #include "OSGStatElemTypes.h"
-#include "OSGImageComposer.h"
 
 #include <boost/function.hpp>
 

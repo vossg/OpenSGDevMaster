@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGSkeletonBase.h"
-#include "OSGBaseSkeletonJoint.h"
-#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 

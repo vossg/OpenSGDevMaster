@@ -234,6 +234,21 @@ SFUnrecAnimMatrixDataSourcePtr *AnimMatrixChannelBase::editSFData           (voi
     return &_sfData;
 }
 
+//! Get the value of the AnimMatrixChannel::_sfData field.
+AnimMatrixDataSource * AnimMatrixChannelBase::getData(void) const
+{
+    return _sfData.getValue();
+}
+
+//! Set the value of the AnimMatrixChannel::_sfData field.
+void AnimMatrixChannelBase::setData(AnimMatrixDataSource * const value)
+{
+    editSField(DataFieldMask);
+
+    _sfData.setValue(value);
+}
+
+
 SFMatrix *AnimMatrixChannelBase::editSFOutValue(void)
 {
     editSField(OutValueFieldMask);

@@ -675,6 +675,21 @@ SFWeakNodePtr       *TexGenChunkBase::editSFSBeacon        (void)
     return &_sfSBeacon;
 }
 
+//! Get the value of the TexGenChunk::_sfSBeacon field.
+Node * TexGenChunkBase::getSBeacon(void) const
+{
+    return _sfSBeacon.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfSBeacon field.
+void TexGenChunkBase::setSBeacon(Node * const value)
+{
+    editSField(SBeaconFieldMask);
+
+    _sfSBeacon.setValue(value);
+}
+
+
 //! Get the TexGenChunk::_sfTBeacon field.
 const SFWeakNodePtr *TexGenChunkBase::getSFTBeacon(void) const
 {
@@ -687,6 +702,21 @@ SFWeakNodePtr       *TexGenChunkBase::editSFTBeacon        (void)
 
     return &_sfTBeacon;
 }
+
+//! Get the value of the TexGenChunk::_sfTBeacon field.
+Node * TexGenChunkBase::getTBeacon(void) const
+{
+    return _sfTBeacon.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfTBeacon field.
+void TexGenChunkBase::setTBeacon(Node * const value)
+{
+    editSField(TBeaconFieldMask);
+
+    _sfTBeacon.setValue(value);
+}
+
 
 //! Get the TexGenChunk::_sfRBeacon field.
 const SFWeakNodePtr *TexGenChunkBase::getSFRBeacon(void) const
@@ -701,6 +731,21 @@ SFWeakNodePtr       *TexGenChunkBase::editSFRBeacon        (void)
     return &_sfRBeacon;
 }
 
+//! Get the value of the TexGenChunk::_sfRBeacon field.
+Node * TexGenChunkBase::getRBeacon(void) const
+{
+    return _sfRBeacon.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfRBeacon field.
+void TexGenChunkBase::setRBeacon(Node * const value)
+{
+    editSField(RBeaconFieldMask);
+
+    _sfRBeacon.setValue(value);
+}
+
+
 //! Get the TexGenChunk::_sfQBeacon field.
 const SFWeakNodePtr *TexGenChunkBase::getSFQBeacon(void) const
 {
@@ -713,6 +758,21 @@ SFWeakNodePtr       *TexGenChunkBase::editSFQBeacon        (void)
 
     return &_sfQBeacon;
 }
+
+//! Get the value of the TexGenChunk::_sfQBeacon field.
+Node * TexGenChunkBase::getQBeacon(void) const
+{
+    return _sfQBeacon.getValue();
+}
+
+//! Set the value of the TexGenChunk::_sfQBeacon field.
+void TexGenChunkBase::setQBeacon(Node * const value)
+{
+    editSField(QBeaconFieldMask);
+
+    _sfQBeacon.setValue(value);
+}
+
 
 SFMatrix *TexGenChunkBase::editSFEyeModelViewMatrix(void)
 {

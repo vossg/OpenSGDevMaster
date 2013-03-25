@@ -325,22 +325,6 @@ void LightChunkBase::setQuadraticAttenuation(const Real32 value)
     _sfQuadraticAttenuation.setValue(value);
 }
 
-//! Get the value of the LightChunk::_sfBeacon field.
-inline
-Node * LightChunkBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the LightChunk::_sfBeacon field.
-inline
-void LightChunkBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

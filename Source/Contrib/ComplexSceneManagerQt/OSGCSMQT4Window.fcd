@@ -2,8 +2,8 @@
 
 <FieldContainer
     name="CSMQT4Window"
-    parent="CSMWindowQt"
-    library="ContribCSM"
+    parent="CSMWindow"
+    library="ContribCSMQt"
     pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"

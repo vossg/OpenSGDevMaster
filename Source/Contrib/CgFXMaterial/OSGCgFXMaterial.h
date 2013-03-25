@@ -43,9 +43,8 @@
 #endif
 
 #include "OSGCgFXMaterialBase.h"
-#include "OSGCgFXTechnique.h"
 #include "OSGShaderProgramVariables.h"
-#include "OSGTextureObjChunk.h"
+#include "OSGWindow.h"
 
 #include "OSGCG.h"
 

@@ -300,6 +300,10 @@ MFUnrecChunkMaterialPtr *PostShaderStageDataBase::editMFShaderMaterials(void)
 
     return &_mfShaderMaterials;
 }
+ChunkMaterial * PostShaderStageDataBase::getShaderMaterials(const UInt32 index) const
+{
+    return _mfShaderMaterials[index];
+}
 
 SFInt32 *PostShaderStageDataBase::editSFWidth(void)
 {
@@ -339,6 +343,10 @@ MFUnrecFrameBufferObjectPtr *PostShaderStageDataBase::editMFRenderTargets  (void
 
     return &_mfRenderTargets;
 }
+FrameBufferObject * PostShaderStageDataBase::getRenderTargets(const UInt32 index) const
+{
+    return _mfRenderTargets[index];
+}
 
 //! Get the PostShaderStageData::_sfCamera field.
 const SFUnrecCameraPtr *PostShaderStageDataBase::getSFCamera(void) const
@@ -352,6 +360,21 @@ SFUnrecCameraPtr    *PostShaderStageDataBase::editSFCamera         (void)
 
     return &_sfCamera;
 }
+
+//! Get the value of the PostShaderStageData::_sfCamera field.
+Camera * PostShaderStageDataBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the PostShaderStageData::_sfCamera field.
+void PostShaderStageDataBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 
 
 

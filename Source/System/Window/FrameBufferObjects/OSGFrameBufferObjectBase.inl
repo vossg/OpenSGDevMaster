@@ -124,38 +124,6 @@ void FrameBufferObjectBase::setMultiSampleGLId(const GLenum &value)
 
     _sfMultiSampleGLId.setValue(value);
 }
-
-//! Get the value of the FrameBufferObject::_sfDepthAttachment field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getDepthAttachment(void) const
-{
-    return _sfDepthAttachment.getValue();
-}
-
-//! Set the value of the FrameBufferObject::_sfDepthAttachment field.
-inline
-void FrameBufferObjectBase::setDepthAttachment(FrameBufferAttachment * const value)
-{
-    editSField(DepthAttachmentFieldMask);
-
-    _sfDepthAttachment.setValue(value);
-}
-
-//! Get the value of the FrameBufferObject::_sfStencilAttachment field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getStencilAttachment(void) const
-{
-    return _sfStencilAttachment.getValue();
-}
-
-//! Set the value of the FrameBufferObject::_sfStencilAttachment field.
-inline
-void FrameBufferObjectBase::setStencilAttachment(FrameBufferAttachment * const value)
-{
-    editSField(StencilAttachmentFieldMask);
-
-    _sfStencilAttachment.setValue(value);
-}
 //! Get the value of the FrameBufferObject::_sfWidth field.
 
 inline
@@ -332,44 +300,6 @@ void FrameBufferObjectBase::setFixedSampleLocation(const bool value)
     _sfFixedSampleLocation.setValue(value);
 }
 
-//! Get the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getMsaaDepthAttachment(void) const
-{
-    return _sfMsaaDepthAttachment.getValue();
-}
-
-//! Set the value of the FrameBufferObject::_sfMsaaDepthAttachment field.
-inline
-void FrameBufferObjectBase::setMsaaDepthAttachment(FrameBufferAttachment * const value)
-{
-    editSField(MsaaDepthAttachmentFieldMask);
-
-    _sfMsaaDepthAttachment.setValue(value);
-}
-
-//! Get the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getMsaaStencilAttachment(void) const
-{
-    return _sfMsaaStencilAttachment.getValue();
-}
-
-//! Set the value of the FrameBufferObject::_sfMsaaStencilAttachment field.
-inline
-void FrameBufferObjectBase::setMsaaStencilAttachment(FrameBufferAttachment * const value)
-{
-    editSField(MsaaStencilAttachmentFieldMask);
-
-    _sfMsaaStencilAttachment.setValue(value);
-}
-
-//! Get the value of the \a index element the FrameBufferObject::_mfColorAttachments field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getColorAttachments(const UInt32 index) const
-{
-    return _mfColorAttachments[index];
-}
 
 //! Get the value of the \a index element the FrameBufferObject::_mfDrawBuffers field.
 inline
@@ -386,13 +316,6 @@ GLenum &FrameBufferObjectBase::editDrawBuffers(const UInt32 index)
     return _mfDrawBuffers[index];
 }
 
-
-//! Get the value of the \a index element the FrameBufferObject::_mfMsaaColorAttachments field.
-inline
-FrameBufferAttachment * FrameBufferObjectBase::getMsaaColorAttachments(const UInt32 index) const
-{
-    return _mfMsaaColorAttachments[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

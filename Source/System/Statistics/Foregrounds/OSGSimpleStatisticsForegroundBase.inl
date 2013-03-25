@@ -366,7 +366,6 @@ std::string &SimpleStatisticsForegroundBase::editFormats(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundBase *pFrom,

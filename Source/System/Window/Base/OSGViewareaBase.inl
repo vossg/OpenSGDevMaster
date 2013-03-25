@@ -275,22 +275,6 @@ void ViewareaBase::setDrawableId(const Int32 value)
     _sfDrawableId.setValue(value);
 }
 
-//! Get the value of the Viewarea::_sfRenderOptions field.
-inline
-RenderOptions * ViewareaBase::getRenderOptions(void) const
-{
-    return _sfRenderOptions.getValue();
-}
-
-//! Set the value of the Viewarea::_sfRenderOptions field.
-inline
-void ViewareaBase::setRenderOptions(RenderOptions * const value)
-{
-    editSField(RenderOptionsFieldMask);
-
-    _sfRenderOptions.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

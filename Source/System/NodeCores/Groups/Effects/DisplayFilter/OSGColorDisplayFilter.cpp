@@ -48,6 +48,10 @@
 #include "OSGColorDisplayFilter.h"
 #include "OSGDisplayFilterStageData.h"
 #include "OSGDrawEnv.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGImage.h"
+#include "OSGSimpleSHLChunk.h"
+#include "OSGChunkMaterial.h"
 
 OSG_BEGIN_NAMESPACE
 

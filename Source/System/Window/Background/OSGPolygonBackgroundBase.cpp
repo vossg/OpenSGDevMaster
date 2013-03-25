@@ -410,6 +410,21 @@ SFUnrecPrimeMaterialPtr *PolygonBackgroundBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the PolygonBackground::_sfMaterial field.
+PrimeMaterial * PolygonBackgroundBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the PolygonBackground::_sfMaterial field.
+void PolygonBackgroundBase::setMaterial(PrimeMaterial * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 MFVec3f *PolygonBackgroundBase::editMFTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);

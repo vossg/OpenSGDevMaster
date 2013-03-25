@@ -99,22 +99,6 @@ void InlineBase::setLoaded(const bool value)
 
     _sfLoaded.setValue(value);
 }
-
-//! Get the value of the Inline::_sfRoot field.
-inline
-Node * InlineBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
-
-//! Set the value of the Inline::_sfRoot field.
-inline
-void InlineBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
-}
 //! Get the value of the Inline::_sfGraphOp field.
 
 inline
@@ -156,7 +140,6 @@ std::string &InlineBase::editUrl(const UInt32 index)
     return _mfUrl[index];
 }
 
-
 //! Get the value of the \a index element the Inline::_mfOptions field.
 inline
 const std::string &InlineBase::getOptions(const UInt32 index) const
@@ -171,7 +154,6 @@ std::string &InlineBase::editOptions(const UInt32 index)
 
     return _mfOptions[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

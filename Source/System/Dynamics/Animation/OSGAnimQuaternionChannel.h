@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGAnimQuaternionChannelBase.h"
-#include "OSGAnimQuaternionDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -51,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsAnimQuaternionChannel for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimQuaternionChannel : public AnimQuaternionChannelBase
+class OSG_DYNAMICS_DLLMAPPING AnimQuaternionChannel : 
+    public AnimQuaternionChannelBase
 {
   protected:
 

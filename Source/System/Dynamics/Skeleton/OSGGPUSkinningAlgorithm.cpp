@@ -47,6 +47,8 @@
 
 #include "OSGGPUSkinningAlgorithm.h"
 #include "OSGGPUSkinningDataAttachment.h"
+#include "OSGSkeleton.h"
+#include "OSGShaderProgram.h"
 
 #include <boost/cast.hpp>
 

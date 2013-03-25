@@ -75,22 +75,6 @@ OSG::UInt16 MaterialGroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the MaterialGroup::_sfMaterial field.
-inline
-Material * MaterialGroupBase::getMaterial(void) const
-{
-    return _sfMaterial.getValue();
-}
-
-//! Set the value of the MaterialGroup::_sfMaterial field.
-inline
-void MaterialGroupBase::setMaterial(Material * const value)
-{
-    editSField(MaterialFieldMask);
-
-    _sfMaterial.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

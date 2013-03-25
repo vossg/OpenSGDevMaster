@@ -74,22 +74,6 @@ OSG::UInt16 TextureObjChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the TextureObjChunk::_sfImage field.
-inline
-Image * TextureObjChunkBase::getImage(void) const
-{
-    return _sfImage.getValue();
-}
-
-//! Set the value of the TextureObjChunk::_sfImage field.
-inline
-void TextureObjChunkBase::setImage(Image * const value)
-{
-    editSField(ImageFieldMask);
-
-    _sfImage.setValue(value);
-}
 //! Get the value of the TextureObjChunk::_sfInternalFormat field.
 
 inline

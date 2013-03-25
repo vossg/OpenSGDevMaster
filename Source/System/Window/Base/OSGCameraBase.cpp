@@ -266,6 +266,8 @@ SFWeakNodePtr       *CameraBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+
+
 SFReal32 *CameraBase::editSFNear(void)
 {
     editSField(NearFieldMask);

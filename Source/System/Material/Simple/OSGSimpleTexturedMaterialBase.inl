@@ -74,22 +74,6 @@ OSG::UInt16 SimpleTexturedMaterialBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the SimpleTexturedMaterial::_sfImage field.
-inline
-Image * SimpleTexturedMaterialBase::getImage(void) const
-{
-    return _sfImage.getValue();
-}
-
-//! Set the value of the SimpleTexturedMaterial::_sfImage field.
-inline
-void SimpleTexturedMaterialBase::setImage(Image * const value)
-{
-    editSField(ImageFieldMask);
-
-    _sfImage.setValue(value);
-}
 //! Get the value of the SimpleTexturedMaterial::_sfMinFilter field.
 
 inline

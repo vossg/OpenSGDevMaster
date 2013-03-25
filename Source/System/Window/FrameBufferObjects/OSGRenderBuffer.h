@@ -44,7 +44,6 @@
 
 #include "OSGRenderBufferBase.h"
 #include "OSGWindow.h"
-#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 

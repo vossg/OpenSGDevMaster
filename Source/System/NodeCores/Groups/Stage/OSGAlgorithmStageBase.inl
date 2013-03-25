@@ -74,22 +74,6 @@ OSG::UInt16 AlgorithmStageBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the AlgorithmStage::_sfAlgorithm field.
-inline
-Algorithm * AlgorithmStageBase::getAlgorithm(void) const
-{
-    return _sfAlgorithm.getValue();
-}
-
-//! Set the value of the AlgorithmStage::_sfAlgorithm field.
-inline
-void AlgorithmStageBase::setAlgorithm(Algorithm * const value)
-{
-    editSField(AlgorithmFieldMask);
-
-    _sfAlgorithm.setValue(value);
-}
 //! Get the value of the AlgorithmStage::_sfProjectionMode field.
 
 inline

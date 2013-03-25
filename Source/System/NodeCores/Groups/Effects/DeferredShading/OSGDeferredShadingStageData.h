@@ -43,13 +43,6 @@
 #endif
 
 #include "OSGDeferredShadingStageDataBase.h"
-#include "OSGDSLightChunk.h"
-#include "OSGBackground.h"
-#include "OSGBlendChunk.h"
-#include "OSGFrameBufferObject.h"
-#include "OSGShaderProgramChunk.h"
-#include "OSGState.h"
-
 
 OSG_BEGIN_NAMESPACE
 

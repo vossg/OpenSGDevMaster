@@ -209,6 +209,21 @@ SFUnrecFrameBufferObjectPtr *FBOViewportBase::editSFFrameBufferObject(void)
     return &_sfFrameBufferObject;
 }
 
+//! Get the value of the FBOViewport::_sfFrameBufferObject field.
+FrameBufferObject * FBOViewportBase::getFrameBufferObject(void) const
+{
+    return _sfFrameBufferObject.getValue();
+}
+
+//! Set the value of the FBOViewport::_sfFrameBufferObject field.
+void FBOViewportBase::setFrameBufferObject(FrameBufferObject * const value)
+{
+    editSField(FrameBufferObjectFieldMask);
+
+    _sfFrameBufferObject.setValue(value);
+}
+
+
 
 
 

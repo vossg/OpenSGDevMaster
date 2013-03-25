@@ -675,6 +675,21 @@ SFUnrecWindowPtr    *ClusterWindowBase::editSFClientWindow   (void)
     return &_sfClientWindow;
 }
 
+//! Get the value of the ClusterWindow::_sfClientWindow field.
+Window * ClusterWindowBase::getClientWindow(void) const
+{
+    return _sfClientWindow.getValue();
+}
+
+//! Set the value of the ClusterWindow::_sfClientWindow field.
+void ClusterWindowBase::setClientWindow(Window * const value)
+{
+    editSField(ClientWindowFieldMask);
+
+    _sfClientWindow.setValue(value);
+}
+
+
 SFUInt32 *ClusterWindowBase::editSFInterleave(void)
 {
     editSField(InterleaveFieldMask);
@@ -713,6 +728,21 @@ SFUnrecImageComposerPtr *ClusterWindowBase::editSFComposer       (void)
 
     return &_sfComposer;
 }
+
+//! Get the value of the ClusterWindow::_sfComposer field.
+ImageComposer * ClusterWindowBase::getComposer(void) const
+{
+    return _sfComposer.getValue();
+}
+
+//! Set the value of the ClusterWindow::_sfComposer field.
+void ClusterWindowBase::setComposer(ImageComposer * const value)
+{
+    editSField(ComposerFieldMask);
+
+    _sfComposer.setValue(value);
+}
+
 
 MFString *ClusterWindowBase::editMFAutostart(void)
 {

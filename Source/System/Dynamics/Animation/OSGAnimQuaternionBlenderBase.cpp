@@ -231,6 +231,10 @@ MFUnrecAnimQuaternionChannelPtr *AnimQuaternionBlenderBase::editMFChannels      
 
     return &_mfChannels;
 }
+AnimQuaternionChannel * AnimQuaternionBlenderBase::getChannels(const UInt32 index) const
+{
+    return _mfChannels[index];
+}
 
 SFQuaternion *AnimQuaternionBlenderBase::editSFOutValue(void)
 {

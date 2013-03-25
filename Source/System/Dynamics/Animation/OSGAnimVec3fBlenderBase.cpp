@@ -231,6 +231,10 @@ MFUnrecAnimVec3fChannelPtr *AnimVec3fBlenderBase::editMFChannels       (void)
 
     return &_mfChannels;
 }
+AnimVec3fChannel * AnimVec3fBlenderBase::getChannels(const UInt32 index) const
+{
+    return _mfChannels[index];
+}
 
 SFVec3f *AnimVec3fBlenderBase::editSFOutValue(void)
 {

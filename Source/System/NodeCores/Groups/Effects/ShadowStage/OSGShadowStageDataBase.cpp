@@ -400,6 +400,21 @@ SFUnrecChunkMaterialPtr *ShadowStageDataBase::editSFToneMappingMaterial(void)
     return &_sfToneMappingMaterial;
 }
 
+//! Get the value of the ShadowStageData::_sfToneMappingMaterial field.
+ChunkMaterial * ShadowStageDataBase::getToneMappingMaterial(void) const
+{
+    return _sfToneMappingMaterial.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfToneMappingMaterial field.
+void ShadowStageDataBase::setToneMappingMaterial(ChunkMaterial * const value)
+{
+    editSField(ToneMappingMaterialFieldMask);
+
+    _sfToneMappingMaterial.setValue(value);
+}
+
+
 //! Get the ShadowStageData::_sfBlurRenderTarget field.
 const SFUnrecFrameBufferObjectPtr *ShadowStageDataBase::getSFBlurRenderTarget(void) const
 {
@@ -412,6 +427,21 @@ SFUnrecFrameBufferObjectPtr *ShadowStageDataBase::editSFBlurRenderTarget(void)
 
     return &_sfBlurRenderTarget;
 }
+
+//! Get the value of the ShadowStageData::_sfBlurRenderTarget field.
+FrameBufferObject * ShadowStageDataBase::getBlurRenderTarget(void) const
+{
+    return _sfBlurRenderTarget.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfBlurRenderTarget field.
+void ShadowStageDataBase::setBlurRenderTarget(FrameBufferObject * const value)
+{
+    editSField(BlurRenderTargetFieldMask);
+
+    _sfBlurRenderTarget.setValue(value);
+}
+
 
 //! Get the ShadowStageData::_sfBlurMaterial field.
 const SFUnrecChunkMaterialPtr *ShadowStageDataBase::getSFBlurMaterial(void) const
@@ -426,6 +456,21 @@ SFUnrecChunkMaterialPtr *ShadowStageDataBase::editSFBlurMaterial   (void)
     return &_sfBlurMaterial;
 }
 
+//! Get the value of the ShadowStageData::_sfBlurMaterial field.
+ChunkMaterial * ShadowStageDataBase::getBlurMaterial(void) const
+{
+    return _sfBlurMaterial.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfBlurMaterial field.
+void ShadowStageDataBase::setBlurMaterial(ChunkMaterial * const value)
+{
+    editSField(BlurMaterialFieldMask);
+
+    _sfBlurMaterial.setValue(value);
+}
+
+
 //! Get the ShadowStageData::_sfHBlurShader field.
 const SFUnrecSimpleSHLChunkPtr *ShadowStageDataBase::getSFHBlurShader(void) const
 {
@@ -439,6 +484,21 @@ SFUnrecSimpleSHLChunkPtr *ShadowStageDataBase::editSFHBlurShader    (void)
     return &_sfHBlurShader;
 }
 
+//! Get the value of the ShadowStageData::_sfHBlurShader field.
+SimpleSHLChunk * ShadowStageDataBase::getHBlurShader(void) const
+{
+    return _sfHBlurShader.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfHBlurShader field.
+void ShadowStageDataBase::setHBlurShader(SimpleSHLChunk * const value)
+{
+    editSField(HBlurShaderFieldMask);
+
+    _sfHBlurShader.setValue(value);
+}
+
+
 //! Get the ShadowStageData::_sfVBlurShader field.
 const SFUnrecSimpleSHLChunkPtr *ShadowStageDataBase::getSFVBlurShader(void) const
 {
@@ -451,6 +511,21 @@ SFUnrecSimpleSHLChunkPtr *ShadowStageDataBase::editSFVBlurShader    (void)
 
     return &_sfVBlurShader;
 }
+
+//! Get the value of the ShadowStageData::_sfVBlurShader field.
+SimpleSHLChunk * ShadowStageDataBase::getVBlurShader(void) const
+{
+    return _sfVBlurShader.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfVBlurShader field.
+void ShadowStageDataBase::setVBlurShader(SimpleSHLChunk * const value)
+{
+    editSField(VBlurShaderFieldMask);
+
+    _sfVBlurShader.setValue(value);
+}
+
 
 SFUInt32 *ShadowStageDataBase::editSFWidth(void)
 {
@@ -491,6 +566,21 @@ SFUnrecFrameBufferObjectPtr *ShadowStageDataBase::editSFShrinkRenderTarget(void)
     return &_sfShrinkRenderTarget;
 }
 
+//! Get the value of the ShadowStageData::_sfShrinkRenderTarget field.
+FrameBufferObject * ShadowStageDataBase::getShrinkRenderTarget(void) const
+{
+    return _sfShrinkRenderTarget.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfShrinkRenderTarget field.
+void ShadowStageDataBase::setShrinkRenderTarget(FrameBufferObject * const value)
+{
+    editSField(ShrinkRenderTargetFieldMask);
+
+    _sfShrinkRenderTarget.setValue(value);
+}
+
+
 //! Get the ShadowStageData::_sfShrinkMaterial field.
 const SFUnrecChunkMaterialPtr *ShadowStageDataBase::getSFShrinkMaterial(void) const
 {
@@ -503,6 +593,21 @@ SFUnrecChunkMaterialPtr *ShadowStageDataBase::editSFShrinkMaterial (void)
 
     return &_sfShrinkMaterial;
 }
+
+//! Get the value of the ShadowStageData::_sfShrinkMaterial field.
+ChunkMaterial * ShadowStageDataBase::getShrinkMaterial(void) const
+{
+    return _sfShrinkMaterial.getValue();
+}
+
+//! Set the value of the ShadowStageData::_sfShrinkMaterial field.
+void ShadowStageDataBase::setShrinkMaterial(ChunkMaterial * const value)
+{
+    editSField(ShrinkMaterialFieldMask);
+
+    _sfShrinkMaterial.setValue(value);
+}
+
 
 
 

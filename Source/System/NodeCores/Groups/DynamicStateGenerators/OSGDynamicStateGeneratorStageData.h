@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGDynamicStateGeneratorStageDataBase.h"
-#include "OSGFrameBufferObject.h"
 #include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE

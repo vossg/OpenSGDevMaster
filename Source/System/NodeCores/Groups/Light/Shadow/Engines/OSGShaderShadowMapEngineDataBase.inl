@@ -75,74 +75,8 @@ OSG::UInt16 ShaderShadowMapEngineDataBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ShaderShadowMapEngineData::_sfShadowTexChunk field.
-inline
-TextureObjChunk * ShaderShadowMapEngineDataBase::getShadowTexChunk(void) const
-{
-    return _sfShadowTexChunk.getValue();
-}
 
-//! Set the value of the ShaderShadowMapEngineData::_sfShadowTexChunk field.
-inline
-void ShaderShadowMapEngineDataBase::setShadowTexChunk(TextureObjChunk * const value)
-{
-    editSField(ShadowTexChunkFieldMask);
 
-    _sfShadowTexChunk.setValue(value);
-}
-
-//! Get the value of the ShaderShadowMapEngineData::_sfShadowTexImage field.
-inline
-Image * ShaderShadowMapEngineDataBase::getShadowTexImage(void) const
-{
-    return _sfShadowTexImage.getValue();
-}
-
-//! Set the value of the ShaderShadowMapEngineData::_sfShadowTexImage field.
-inline
-void ShaderShadowMapEngineDataBase::setShadowTexImage(Image * const value)
-{
-    editSField(ShadowTexImageFieldMask);
-
-    _sfShadowTexImage.setValue(value);
-}
-
-//! Get the value of the ShaderShadowMapEngineData::_sfBackground field.
-inline
-Background * ShaderShadowMapEngineDataBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the ShaderShadowMapEngineData::_sfBackground field.
-inline
-void ShaderShadowMapEngineDataBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-
-//! Get the value of the \a index element the ShaderShadowMapEngineData::_mfRenderTargets field.
-inline
-FrameBufferObject * ShaderShadowMapEngineDataBase::getRenderTargets(const UInt32 index) const
-{
-    return _mfRenderTargets[index];
-}
-
-//! Get the value of the \a index element the ShaderShadowMapEngineData::_mfShadowTexBuffers field.
-inline
-TextureBuffer * ShaderShadowMapEngineDataBase::getShadowTexBuffers(const UInt32 index) const
-{
-    return _mfShadowTexBuffers[index];
-}
-
-//! Get the value of the \a index element the ShaderShadowMapEngineData::_mfLightPassMaterials field.
-inline
-ChunkMaterial * ShaderShadowMapEngineDataBase::getLightPassMaterials(const UInt32 index) const
-{
-    return _mfLightPassMaterials[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

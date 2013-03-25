@@ -42,8 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-
 #include "OSGTiledQuadTreeTerrainBase.h"
 
 OSG_BEGIN_NAMESPACE

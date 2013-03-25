@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGCSMSceneParameterBase.h"
-#include "OSGNode.h"
 #include "OSGCSMResetInterface.h"
 
 OSG_BEGIN_NAMESPACE

@@ -99,22 +99,6 @@ void TextureBackgroundBase::setColor(const Color4f &value)
 
     _sfColor.setValue(value);
 }
-
-//! Get the value of the TextureBackground::_sfTexture field.
-inline
-TextureBaseChunk * TextureBackgroundBase::getTexture(void) const
-{
-    return _sfTexture.getValue();
-}
-
-//! Set the value of the TextureBackground::_sfTexture field.
-inline
-void TextureBackgroundBase::setTexture(TextureBaseChunk * const value)
-{
-    editSField(TextureFieldMask);
-
-    _sfTexture.setValue(value);
-}
 //! Get the value of the TextureBackground::_sfRadialDistortion field.
 
 inline
@@ -230,7 +214,6 @@ Pnt2f &TextureBackgroundBase::editTexCoords(const UInt32 index)
 
     return _mfTexCoords[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

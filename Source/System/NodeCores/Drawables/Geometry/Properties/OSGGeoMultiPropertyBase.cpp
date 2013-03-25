@@ -375,6 +375,21 @@ SFUnrecGeoMultiPropertyDataPtr *GeoMultiPropertyBase::editSFContainer      (void
     return &_sfContainer;
 }
 
+//! Get the value of the GeoMultiProperty::_sfContainer field.
+GeoMultiPropertyData * GeoMultiPropertyBase::getContainer(void) const
+{
+    return _sfContainer.getValue();
+}
+
+//! Set the value of the GeoMultiProperty::_sfContainer field.
+void GeoMultiPropertyBase::setContainer(GeoMultiPropertyData * const value)
+{
+    editSField(ContainerFieldMask);
+
+    _sfContainer.setValue(value);
+}
+
+
 SFUInt32 *GeoMultiPropertyBase::editSFOffset(void)
 {
     editSField(OffsetFieldMask);

@@ -100,22 +100,6 @@ void DeviceInterfaceSensorBase::setInterfaceName(const std::string &value)
     _sfInterfaceName.setValue(value);
 }
 
-//! Get the value of the DeviceInterfaceSensor::_sfOptions field.
-inline
-InterfaceOptions * DeviceInterfaceSensorBase::getOptions(void) const
-{
-    return _sfOptions.getValue();
-}
-
-//! Set the value of the DeviceInterfaceSensor::_sfOptions field.
-inline
-void DeviceInterfaceSensorBase::setOptions(InterfaceOptions * const value)
-{
-    editSField(OptionsFieldMask);
-
-    _sfOptions.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

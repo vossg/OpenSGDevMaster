@@ -67,6 +67,7 @@
 #include "OSGTextureEnvChunk.h"
 #include "OSGSimpleSHLFunctions.h"
 #include "OSGPerspectiveCamera.h"
+#include "OSGGeometry.h"
 
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"

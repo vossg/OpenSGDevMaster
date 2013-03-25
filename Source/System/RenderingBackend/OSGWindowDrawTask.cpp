@@ -43,6 +43,7 @@
 
 #include "OSGWindowDrawTask.h"
 #include "OSGWindow.h"
+#include "OSGViewport.h"
 #include "OSGDrawEnv.h"
 
 #if defined(OSG_WITH_CUDA) && !defined(OSG_OGL_ES2)

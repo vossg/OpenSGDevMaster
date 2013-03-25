@@ -431,6 +431,21 @@ SFUnrecPrimeMaterialPtr *PolygonForegroundBase::editSFMaterial       (void)
     return &_sfMaterial;
 }
 
+//! Get the value of the PolygonForeground::_sfMaterial field.
+PrimeMaterial * PolygonForegroundBase::getMaterial(void) const
+{
+    return _sfMaterial.getValue();
+}
+
+//! Set the value of the PolygonForeground::_sfMaterial field.
+void PolygonForegroundBase::setMaterial(PrimeMaterial * const value)
+{
+    editSField(MaterialFieldMask);
+
+    _sfMaterial.setValue(value);
+}
+
+
 MFPnt2f *PolygonForegroundBase::editMFPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);

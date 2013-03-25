@@ -44,8 +44,6 @@
 #endif
 
 #include "OSGMaterialGroupBase.h"
-#include "OSGAction.h"
-#include "OSGMaterial.h"
 
 OSG_BEGIN_NAMESPACE
 

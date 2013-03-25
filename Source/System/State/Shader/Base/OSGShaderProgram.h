@@ -43,11 +43,8 @@
 #endif
 
 #include "OSGShaderProgramBase.h"
-#include "OSGWindow.h"
-#include "OSGDrawEnv.h"
 #include "OSGShaderProgramVariables.h"
-#include "OSGLockPolicies.h"
-#include "OSGSimpleReusePool.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 

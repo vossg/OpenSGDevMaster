@@ -270,6 +270,10 @@ MFUnrecAnimDataSourcePtr *AnimTemplateBase::editMFSources        (void)
 
     return &_mfSources;
 }
+AnimDataSource * AnimTemplateBase::getSources(const UInt32 index) const
+{
+    return _mfSources[index];
+}
 
 MFString *AnimTemplateBase::editMFTargetIds(void)
 {

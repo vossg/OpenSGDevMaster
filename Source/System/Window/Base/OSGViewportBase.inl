@@ -75,60 +75,6 @@ OSG::UInt16 ViewportBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the Viewport::_sfCamera field.
-inline
-Camera * ViewportBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the Viewport::_sfCamera field.
-inline
-void ViewportBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the Viewport::_sfRoot field.
-inline
-Node * ViewportBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
-
-//! Set the value of the Viewport::_sfRoot field.
-inline
-void ViewportBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
-}
-
-//! Get the value of the Viewport::_sfBackground field.
-inline
-Background * ViewportBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the Viewport::_sfBackground field.
-inline
-void ViewportBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-
-//! Get the value of the \a index element the Viewport::_mfForegrounds field.
-inline
-Foreground * ViewportBase::getForegrounds(const UInt32 index) const
-{
-    return _mfForegrounds[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

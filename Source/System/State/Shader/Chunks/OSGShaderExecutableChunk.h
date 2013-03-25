@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGShaderProgramVariables.h"
 #include "OSGShaderProgram.h"
 #include "OSGShaderExecutableChunkBase.h"
 

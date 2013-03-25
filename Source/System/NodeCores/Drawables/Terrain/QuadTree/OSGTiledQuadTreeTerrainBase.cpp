@@ -536,6 +536,10 @@ MFUnrecImagePtr     *TiledQuadTreeTerrainBase::editMFHeightTiles    (void)
 
     return &_mfHeightTiles;
 }
+Image * TiledQuadTreeTerrainBase::getHeightTiles(const UInt32 index) const
+{
+    return _mfHeightTiles[index];
+}
 
 //! Get the TiledQuadTreeTerrain::_mfHeightTextures field.
 const MFUnrecMaterialPtr *TiledQuadTreeTerrainBase::getMFHeightTextures(void) const
@@ -548,6 +552,10 @@ MFUnrecMaterialPtr  *TiledQuadTreeTerrainBase::editMFHeightTextures (void)
     editMField(HeightTexturesFieldMask, _mfHeightTextures);
 
     return &_mfHeightTextures;
+}
+Material * TiledQuadTreeTerrainBase::getHeightTextures(const UInt32 index) const
+{
+    return _mfHeightTextures[index];
 }
 
 SFUInt32 *TiledQuadTreeTerrainBase::editSFSizeX(void)

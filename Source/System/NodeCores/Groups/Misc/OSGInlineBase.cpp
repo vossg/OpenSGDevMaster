@@ -326,6 +326,21 @@ SFUnrecNodePtr      *InlineBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+//! Get the value of the Inline::_sfRoot field.
+Node * InlineBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the Inline::_sfRoot field.
+void InlineBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
+
 SFString *InlineBase::editSFGraphOp(void)
 {
     editSField(GraphOpFieldMask);

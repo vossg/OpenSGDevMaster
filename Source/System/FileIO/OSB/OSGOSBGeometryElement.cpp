@@ -43,6 +43,7 @@
 #include "OSGOSBGeoIntegralPropertyElement.h"
 #include "OSGOSBGeoVectorPropertyElement.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 #include "OSGGeometry.h"
 
 OSG_USING_NAMESPACE

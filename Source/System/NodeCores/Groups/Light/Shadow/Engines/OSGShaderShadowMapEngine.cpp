@@ -57,6 +57,18 @@
 
 #include "OSGBlendChunk.h"
 #include "OSGDepthChunk.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGImage.h"
+
+#include "OSGSpotLight.h"
+#include "OSGDirectionalLight.h"
+
+#include "OSGFrameBufferObject.h"
+#include "OSGTextureBuffer.h"
+
+#include "OSGChunkMaterial.h"
+#include "OSGShaderShadowMapEngineData.h"
+
 
 #include "OSGGL.h"
 
@@ -244,6 +256,8 @@ ShaderShadowMapEngine::~ShaderShadowMapEngine(void)
 Action::ResultE ShaderShadowMapEngine::runOnEnter(
     Light *light, LightTypeE eType, RenderAction *ract)
 {
+    typedef ShaderShadowMapEngineDataUnrecPtr SSMEngineDataUnrecPtr;
+
     BitVector      bvMask = ract->getPassMask             (            );
     SSMEngineData *data   = ract->getData<SSMEngineData *>(_iDataSlotId);
 

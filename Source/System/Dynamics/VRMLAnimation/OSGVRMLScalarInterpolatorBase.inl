@@ -116,7 +116,6 @@ Real32 &VRMLScalarInterpolatorBase::editKeyValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void VRMLScalarInterpolatorBase::execSync (      VRMLScalarInterpolatorBase *pFrom,

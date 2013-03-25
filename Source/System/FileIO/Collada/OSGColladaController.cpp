@@ -56,6 +56,8 @@
 #include "OSGNameAttachment.h"
 #include "OSGFieldContainerUtils.h"
 
+#include "OSGTypedGeoVectorProperty.h"
+
 #include <dom/domController.h>
 #include <dom/domGeometry.h>
 

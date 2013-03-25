@@ -42,12 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGImage.h"
 #include "OSGTextureObjChunkBase.h"
-#include "OSGStatElemDesc.h"
-#include "OSGStatElemTypes.h"
-#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 

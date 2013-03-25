@@ -44,10 +44,6 @@
 
 #include "OSGSimpleSHLChunkBase.h"
 #include "OSGShaderProgram.h"
-#include "OSGShaderProgramVariables.h"
-#include "OSGShaderVariableFunctor.h"
-#include "OSGGLFuncProtos.h"
-
 #include "OSGShaderExecutableChunk.h"
 
 OSG_BEGIN_NAMESPACE

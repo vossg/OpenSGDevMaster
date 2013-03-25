@@ -24,6 +24,7 @@
 #include "OSGMaterialChunk.h"
 #include "OSGShaderProgramChunk.h"
 #include "OSGGLFuncProtos.h"
+#include "OSGShaderProgram.h"
 
 // vertex shader program for bump mapping in surface local coordinates
 static std::string _vp_program =

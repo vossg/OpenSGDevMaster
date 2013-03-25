@@ -43,12 +43,9 @@
 #endif
 
 #include "OSGDeferredShadingStageBase.h"
+
 #include "OSGDeferredShadingStageData.h"
-#include "OSGFrameBufferObject.h"
-#include "OSGLight.h"
-#include "OSGShaderProgramChunk.h"
 #include "OSGTextureBuffer.h"
-#include "OSGTextureObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -60,7 +57,8 @@ OSG_BEGIN_NAMESPACE
     \includebasedoc
  */
 
-class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStage : public DeferredShadingStageBase
+class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStage : 
+    public DeferredShadingStageBase
 {
   protected:
 

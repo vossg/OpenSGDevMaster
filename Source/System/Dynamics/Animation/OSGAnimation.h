@@ -43,9 +43,9 @@
 #endif
 
 #include "OSGAnimationBase.h"
-#include "OSGAnimChannel.h"
-#include "OSGAnimTemplate.h"
+
 #include "OSGAnimTimeSensor.h"
+#include "OSGAnimTemplate.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -53,6 +53,8 @@
 #include "OSGVolumeDraw.h"
 #include "OSGTraversalValidator.h"
 #include "OSGWindow.h"
+#include "OSGCamera.h"
+#include "OSGViewarea.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -100,22 +100,6 @@ void ChunkListHelperBase::setSlot(const Int32 value)
     _sfSlot.setValue(value);
 }
 
-//! Get the value of the ChunkListHelper::_sfChunk field.
-inline
-StateChunk * ChunkListHelperBase::getChunk(void) const
-{
-    return _sfChunk.getValue();
-}
-
-//! Set the value of the ChunkListHelper::_sfChunk field.
-inline
-void ChunkListHelperBase::setChunk(StateChunk * const value)
-{
-    editSField(ChunkFieldMask);
-
-    _sfChunk.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

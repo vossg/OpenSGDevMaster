@@ -90,7 +90,6 @@ Pnt3f &VRMLCoordinateInterpolatorBase::editKeyValue(const UInt32 index)
     return _mfKeyValue[index];
 }
 
-
 //! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfOutValue field.
 inline
 const Pnt3f &VRMLCoordinateInterpolatorBase::getOutValue(const UInt32 index) const
@@ -105,7 +104,6 @@ Pnt3f &VRMLCoordinateInterpolatorBase::editOutValue(const UInt32 index)
 
     return _mfOutValue[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -75,22 +75,6 @@ OSG::UInt16 VariantMaterialBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the VariantMaterial::_sfFallbackMaterial field.
-inline
-PrimeMaterial * VariantMaterialBase::getFallbackMaterial(void) const
-{
-    return _sfFallbackMaterial.getValue();
-}
-
-//! Set the value of the VariantMaterial::_sfFallbackMaterial field.
-inline
-void VariantMaterialBase::setFallbackMaterial(PrimeMaterial * const value)
-{
-    editSField(FallbackMaterialFieldMask);
-
-    _sfFallbackMaterial.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

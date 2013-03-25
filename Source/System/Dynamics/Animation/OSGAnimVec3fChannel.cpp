@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimVec3fChannel.h"
+#include "OSGAnimVec3fDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

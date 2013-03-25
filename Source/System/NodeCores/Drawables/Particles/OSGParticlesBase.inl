@@ -99,70 +99,6 @@ void ParticlesBase::setMode(const UInt32 value)
 
     _sfMode.setValue(value);
 }
-
-//! Get the value of the Particles::_sfPositions field.
-inline
-GeoVectorProperty * ParticlesBase::getPositions(void) const
-{
-    return _sfPositions.getValue();
-}
-
-//! Set the value of the Particles::_sfPositions field.
-inline
-void ParticlesBase::setPositions(GeoVectorProperty * const value)
-{
-    editSField(PositionsFieldMask);
-
-    _sfPositions.setValue(value);
-}
-
-//! Get the value of the Particles::_sfSecPositions field.
-inline
-GeoVectorProperty * ParticlesBase::getSecPositions(void) const
-{
-    return _sfSecPositions.getValue();
-}
-
-//! Set the value of the Particles::_sfSecPositions field.
-inline
-void ParticlesBase::setSecPositions(GeoVectorProperty * const value)
-{
-    editSField(SecPositionsFieldMask);
-
-    _sfSecPositions.setValue(value);
-}
-
-//! Get the value of the Particles::_sfColors field.
-inline
-GeoVectorProperty * ParticlesBase::getColors(void) const
-{
-    return _sfColors.getValue();
-}
-
-//! Set the value of the Particles::_sfColors field.
-inline
-void ParticlesBase::setColors(GeoVectorProperty * const value)
-{
-    editSField(ColorsFieldMask);
-
-    _sfColors.setValue(value);
-}
-
-//! Get the value of the Particles::_sfNormals field.
-inline
-GeoVectorProperty * ParticlesBase::getNormals(void) const
-{
-    return _sfNormals.getValue();
-}
-
-//! Set the value of the Particles::_sfNormals field.
-inline
-void ParticlesBase::setNormals(GeoVectorProperty * const value)
-{
-    editSField(NormalsFieldMask);
-
-    _sfNormals.setValue(value);
-}
 //! Get the value of the Particles::_sfDrawOrder field.
 
 inline
@@ -304,7 +240,6 @@ Vec3f &ParticlesBase::editSizes(const UInt32 index)
     return _mfSizes[index];
 }
 
-
 //! Get the value of the \a index element the Particles::_mfIndices field.
 inline
       Int32  ParticlesBase::getIndices(const UInt32 index) const
@@ -320,7 +255,6 @@ Int32 &ParticlesBase::editIndices(const UInt32 index)
     return _mfIndices[index];
 }
 
-
 //! Get the value of the \a index element the Particles::_mfTextureZs field.
 inline
       Real32  ParticlesBase::getTextureZs(const UInt32 index) const
@@ -335,7 +269,6 @@ Real32 &ParticlesBase::editTextureZs(const UInt32 index)
 
     return _mfTextureZs[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

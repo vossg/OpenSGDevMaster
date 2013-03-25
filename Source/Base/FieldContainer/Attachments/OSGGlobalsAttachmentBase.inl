@@ -75,12 +75,6 @@ OSG::UInt16 GlobalsAttachmentBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the GlobalsAttachment::_mfElements field.
-inline
-FieldContainer * GlobalsAttachmentBase::getElements(const UInt32 index) const
-{
-    return _mfElements[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

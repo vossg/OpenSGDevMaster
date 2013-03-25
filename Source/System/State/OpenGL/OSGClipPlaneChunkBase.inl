@@ -125,22 +125,6 @@ void ClipPlaneChunkBase::setEnable(const bool value)
     _sfEnable.setValue(value);
 }
 
-//! Get the value of the ClipPlaneChunk::_sfBeacon field.
-inline
-Node * ClipPlaneChunkBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the ClipPlaneChunk::_sfBeacon field.
-inline
-void ClipPlaneChunkBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

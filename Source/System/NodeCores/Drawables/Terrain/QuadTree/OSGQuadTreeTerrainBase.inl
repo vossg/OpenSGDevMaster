@@ -74,22 +74,6 @@ OSG::UInt16 QuadTreeTerrainBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the QuadTreeTerrain::_sfHeightData field.
-inline
-Image * QuadTreeTerrainBase::getHeightData(void) const
-{
-    return _sfHeightData.getValue();
-}
-
-//! Set the value of the QuadTreeTerrain::_sfHeightData field.
-inline
-void QuadTreeTerrainBase::setHeightData(Image * const value)
-{
-    editSField(HeightDataFieldMask);
-
-    _sfHeightData.setValue(value);
-}
 //! Get the value of the QuadTreeTerrain::_sfHeightScale field.
 
 inline
@@ -239,22 +223,6 @@ void QuadTreeTerrainBase::setVertexSpacing(const Real32 value)
     editSField(VertexSpacingFieldMask);
 
     _sfVertexSpacing.setValue(value);
-}
-
-//! Get the value of the QuadTreeTerrain::_sfHeightVertices field.
-inline
-GeoVectorProperty * QuadTreeTerrainBase::getHeightVertices(void) const
-{
-    return _sfHeightVertices.getValue();
-}
-
-//! Set the value of the QuadTreeTerrain::_sfHeightVertices field.
-inline
-void QuadTreeTerrainBase::setHeightVertices(GeoVectorProperty * const value)
-{
-    editSField(HeightVerticesFieldMask);
-
-    _sfHeightVertices.setValue(value);
 }
 //! Get the value of the QuadTreeTerrain::_sfGeoMorphing field.
 
@@ -622,7 +590,6 @@ Real32 &QuadTreeTerrainBase::editHeightError(const UInt32 index)
     return _mfHeightError[index];
 }
 
-
 //! Get the value of the \a index element the QuadTreeTerrain::_mfHeightQuad field.
 inline
       Real32  QuadTreeTerrainBase::getHeightQuad(const UInt32 index) const
@@ -637,7 +604,6 @@ Real32 &QuadTreeTerrainBase::editHeightQuad(const UInt32 index)
 
     return _mfHeightQuad[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

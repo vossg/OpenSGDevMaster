@@ -48,6 +48,8 @@
 #include "OSGCSMDrawer.h"
 #include "OSGCSMWindow.h"
 #include "OSGRenderAction.h"
+#include "OSGCSMViewport.h"
+#include "OSGCSMDrawManager.h"
 
 #include "OSGOSGSceneFileType.h"
 #include "OSGNameAttachment.h"

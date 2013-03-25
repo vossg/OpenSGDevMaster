@@ -75,38 +75,6 @@ OSG::UInt16 DeferredShadingStageBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the DeferredShadingStage::_sfGBufferProgram field.
-inline
-ShaderProgramChunk * DeferredShadingStageBase::getGBufferProgram(void) const
-{
-    return _sfGBufferProgram.getValue();
-}
-
-//! Set the value of the DeferredShadingStage::_sfGBufferProgram field.
-inline
-void DeferredShadingStageBase::setGBufferProgram(ShaderProgramChunk * const value)
-{
-    editSField(GBufferProgramFieldMask);
-
-    _sfGBufferProgram.setValue(value);
-}
-
-//! Get the value of the DeferredShadingStage::_sfAmbientProgram field.
-inline
-ShaderProgramChunk * DeferredShadingStageBase::getAmbientProgram(void) const
-{
-    return _sfAmbientProgram.getValue();
-}
-
-//! Set the value of the DeferredShadingStage::_sfAmbientProgram field.
-inline
-void DeferredShadingStageBase::setAmbientProgram(ShaderProgramChunk * const value)
-{
-    editSField(AmbientProgramFieldMask);
-
-    _sfAmbientProgram.setValue(value);
-}
-
 //! Get the value of the \a index element the DeferredShadingStage::_mfPixelFormats field.
 inline
 const GLenum &DeferredShadingStageBase::getPixelFormats(const UInt32 index) const
@@ -121,7 +89,6 @@ GLenum &DeferredShadingStageBase::editPixelFormats(const UInt32 index)
 
     return _mfPixelFormats[index];
 }
-
 
 //! Get the value of the \a index element the DeferredShadingStage::_mfPixelTypes field.
 inline
@@ -139,19 +106,6 @@ GLenum &DeferredShadingStageBase::editPixelTypes(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the DeferredShadingStage::_mfLightPrograms field.
-inline
-ShaderProgramChunk * DeferredShadingStageBase::getLightPrograms(const UInt32 index) const
-{
-    return _mfLightPrograms[index];
-}
-
-//! Get the value of the \a index element the DeferredShadingStage::_mfLights field.
-inline
-Light * DeferredShadingStageBase::getLights(const UInt32 index) const
-{
-    return _mfLights[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

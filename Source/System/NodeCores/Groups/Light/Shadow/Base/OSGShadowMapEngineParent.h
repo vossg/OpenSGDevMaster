@@ -42,6 +42,7 @@
 #pragma once
 #endif
 
+#include "OSGViewarea.h"
 #include "OSGLightEngine.h"
 #include "OSGStageHandlerMixin.h"
 #include "OSGStageIdPool.h"

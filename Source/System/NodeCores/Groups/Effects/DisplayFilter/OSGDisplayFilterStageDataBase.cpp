@@ -353,6 +353,21 @@ SFUnrecFrameBufferObjectPtr *DisplayFilterStageDataBase::editSFTarget         (v
     return &_sfTarget;
 }
 
+//! Get the value of the DisplayFilterStageData::_sfTarget field.
+FrameBufferObject * DisplayFilterStageDataBase::getTarget(void) const
+{
+    return _sfTarget.getValue();
+}
+
+//! Set the value of the DisplayFilterStageData::_sfTarget field.
+void DisplayFilterStageDataBase::setTarget(FrameBufferObject * const value)
+{
+    editSField(TargetFieldMask);
+
+    _sfTarget.setValue(value);
+}
+
+
 //! Get the DisplayFilterStageData::_sfBaseMaterial field.
 const SFUnrecChunkMaterialPtr *DisplayFilterStageDataBase::getSFBaseMaterial(void) const
 {
@@ -365,6 +380,21 @@ SFUnrecChunkMaterialPtr *DisplayFilterStageDataBase::editSFBaseMaterial   (void)
 
     return &_sfBaseMaterial;
 }
+
+//! Get the value of the DisplayFilterStageData::_sfBaseMaterial field.
+ChunkMaterial * DisplayFilterStageDataBase::getBaseMaterial(void) const
+{
+    return _sfBaseMaterial.getValue();
+}
+
+//! Set the value of the DisplayFilterStageData::_sfBaseMaterial field.
+void DisplayFilterStageDataBase::setBaseMaterial(ChunkMaterial * const value)
+{
+    editSField(BaseMaterialFieldMask);
+
+    _sfBaseMaterial.setValue(value);
+}
+
 
 //! Get the DisplayFilterStageData::_sfColorFilterShader field.
 const SFUnrecSimpleSHLChunkPtr *DisplayFilterStageDataBase::getSFColorFilterShader(void) const
@@ -379,6 +409,21 @@ SFUnrecSimpleSHLChunkPtr *DisplayFilterStageDataBase::editSFColorFilterShader(vo
     return &_sfColorFilterShader;
 }
 
+//! Get the value of the DisplayFilterStageData::_sfColorFilterShader field.
+SimpleSHLChunk * DisplayFilterStageDataBase::getColorFilterShader(void) const
+{
+    return _sfColorFilterShader.getValue();
+}
+
+//! Set the value of the DisplayFilterStageData::_sfColorFilterShader field.
+void DisplayFilterStageDataBase::setColorFilterShader(SimpleSHLChunk * const value)
+{
+    editSField(ColorFilterShaderFieldMask);
+
+    _sfColorFilterShader.setValue(value);
+}
+
+
 //! Get the DisplayFilterStageData::_sfColorFilterTexture field.
 const SFUnrecTextureObjChunkPtr *DisplayFilterStageDataBase::getSFColorFilterTexture(void) const
 {
@@ -391,6 +436,21 @@ SFUnrecTextureObjChunkPtr *DisplayFilterStageDataBase::editSFColorFilterTexture(
 
     return &_sfColorFilterTexture;
 }
+
+//! Get the value of the DisplayFilterStageData::_sfColorFilterTexture field.
+TextureObjChunk * DisplayFilterStageDataBase::getColorFilterTexture(void) const
+{
+    return _sfColorFilterTexture.getValue();
+}
+
+//! Set the value of the DisplayFilterStageData::_sfColorFilterTexture field.
+void DisplayFilterStageDataBase::setColorFilterTexture(TextureObjChunk * const value)
+{
+    editSField(ColorFilterTextureFieldMask);
+
+    _sfColorFilterTexture.setValue(value);
+}
+
 
 
 

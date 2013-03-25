@@ -115,7 +115,6 @@ Real32 &VRMLInterpolatorBase::editKey(const UInt32 index)
     return _mfKey[index];
 }
 
-
 //! Get the value of the \a index element the VRMLInterpolator::_mfResortIndex field.
 inline
       UInt32  VRMLInterpolatorBase::getResortIndex(const UInt32 index) const
@@ -130,7 +129,6 @@ UInt32 &VRMLInterpolatorBase::editResortIndex(const UInt32 index)
 
     return _mfResortIndex[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

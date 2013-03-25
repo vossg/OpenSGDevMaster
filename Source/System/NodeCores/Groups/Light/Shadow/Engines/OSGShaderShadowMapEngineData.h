@@ -44,11 +44,6 @@
 
 #include "OSGShaderShadowMapEngineDataBase.h"
 
-#include "OSGFrameBufferObject.h"
-#include "OSGTextureBuffer.h"
-#include "OSGTextureObjChunk.h"
-#include "OSGChunkMaterial.h"
-
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderShadowMapEngineData class. See \ref

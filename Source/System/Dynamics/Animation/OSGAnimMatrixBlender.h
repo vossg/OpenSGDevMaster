@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGAnimMatrixBlenderBase.h"
-#include "OSGAnimMatrixChannel.h"
 
 OSG_BEGIN_NAMESPACE
 

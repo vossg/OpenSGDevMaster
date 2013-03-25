@@ -46,7 +46,6 @@
 
 #include "OSGAlgorithmComputeElementBase.h"
 #include "OSGAction.h"
-#include "OSGComputeAlgorithm.h"
 
 OSG_BEGIN_NAMESPACE
 

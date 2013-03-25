@@ -666,7 +666,6 @@ UInt8 &ImageBase::editPixel(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ImageBase::execSync (      ImageBase *pFrom,

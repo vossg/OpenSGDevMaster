@@ -83,31 +83,7 @@ OSG::UInt16 @!Classname!@Base::getClassGroupId(void)
     @@BeginSFFieldLoop@@
       @@if !field.noAccess
         @@if !field.isStoreless
-          @@if field.isPtrField
-
-//! Get the value of the @!Classname!@::_@!field.VarName!@ field.
-inline
-@!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
-{
-    return _@!field.VarName!@.getValue();
-}
-
-            @@if !field.ptrFieldCustomAccess
-//! Set the value of the @!Classname!@::_@!field.VarName!@ field.
-inline
-              @@if field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value,
-                             const UInt16                      uiStoredInFieldId)
-              @@else // field.PassFieldMask
-void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
-              @@endif // field.PassFieldMask
-{
-    editSField(@!field.Name!@FieldMask);
-
-    _@!field.VarName!@.setValue(value);
-}
-            @@endif //!field.ptrFieldCustomAccess
-          @@else // field.isPtrField
+          @@if !field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
 inline
@@ -133,7 +109,7 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRe
 
     _@!field.VarName!@.setValue(value);
 }
-          @@endif // field.isPtrField
+          @@endif // !field.isPtrField
         @@endif // !field.isStoreless
       @@endif // !field.noAccess
     @@EndSFFieldLoop@@
@@ -141,16 +117,14 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRe
     @@BeginMFFieldLoop@@
       @@if !field.noAccess
         @@if !field.isStoreless
+          @@if !field.isPtrField
 //! Get the value of the \a index element the @!Classname!@::_@!field.VarName!@ field.
 inline
-          @@if field.isPtrField
-@!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-          @@else // field.isPtrField
 @!field.RetConst!@ @!field.FullType!@ @!field.RetRef!@@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-          @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
 }
+          @@endif // !field.isPtrField
           @@if !field.isPtrField
 
 inline
@@ -160,7 +134,6 @@ inline
 
     return _@!field.VarName!@[index];
 }
-
           @@endif // !field.isPtrField
 
         @@endif // !field.isStoreless

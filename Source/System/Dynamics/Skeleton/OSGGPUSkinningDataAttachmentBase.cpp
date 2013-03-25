@@ -232,6 +232,21 @@ SFUnrecShaderProgramChunkPtr *GPUSkinningDataAttachmentBase::editSFShaderCode   
     return &_sfShaderCode;
 }
 
+//! Get the value of the GPUSkinningDataAttachment::_sfShaderCode field.
+ShaderProgramChunk * GPUSkinningDataAttachmentBase::getShaderCode(void) const
+{
+    return _sfShaderCode.getValue();
+}
+
+//! Set the value of the GPUSkinningDataAttachment::_sfShaderCode field.
+void GPUSkinningDataAttachmentBase::setShaderCode(ShaderProgramChunk * const value)
+{
+    editSField(ShaderCodeFieldMask);
+
+    _sfShaderCode.setValue(value);
+}
+
+
 SFBool *GPUSkinningDataAttachmentBase::editSFDataValid(void)
 {
     editSField(DataValidFieldMask);

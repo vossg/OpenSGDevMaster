@@ -802,6 +802,21 @@ SFUnrecImagePtr     *QuadTreeTerrainBase::editSFHeightData     (void)
     return &_sfHeightData;
 }
 
+//! Get the value of the QuadTreeTerrain::_sfHeightData field.
+Image * QuadTreeTerrainBase::getHeightData(void) const
+{
+    return _sfHeightData.getValue();
+}
+
+//! Set the value of the QuadTreeTerrain::_sfHeightData field.
+void QuadTreeTerrainBase::setHeightData(Image * const value)
+{
+    editSField(HeightDataFieldMask);
+
+    _sfHeightData.setValue(value);
+}
+
+
 SFReal32 *QuadTreeTerrainBase::editSFHeightScale(void)
 {
     editSField(HeightScaleFieldMask);
@@ -918,6 +933,21 @@ SFUnrecGeoVectorPropertyPtr *QuadTreeTerrainBase::editSFHeightVertices (void)
 
     return &_sfHeightVertices;
 }
+
+//! Get the value of the QuadTreeTerrain::_sfHeightVertices field.
+GeoVectorProperty * QuadTreeTerrainBase::getHeightVertices(void) const
+{
+    return _sfHeightVertices.getValue();
+}
+
+//! Set the value of the QuadTreeTerrain::_sfHeightVertices field.
+void QuadTreeTerrainBase::setHeightVertices(GeoVectorProperty * const value)
+{
+    editSField(HeightVerticesFieldMask);
+
+    _sfHeightVertices.setValue(value);
+}
+
 
 SFBool *QuadTreeTerrainBase::editSFGeoMorphing(void)
 {

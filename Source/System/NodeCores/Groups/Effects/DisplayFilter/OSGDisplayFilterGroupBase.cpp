@@ -335,6 +335,21 @@ SFUnrecCalibrationPatternFilterPtr *DisplayFilterGroupBase::editSFCalibrationPat
     return &_sfCalibrationPatternFilter;
 }
 
+//! Get the value of the DisplayFilterGroup::_sfCalibrationPatternFilter field.
+CalibrationPatternFilter * DisplayFilterGroupBase::getCalibrationPatternFilter(void) const
+{
+    return _sfCalibrationPatternFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterGroup::_sfCalibrationPatternFilter field.
+void DisplayFilterGroupBase::setCalibrationPatternFilter(CalibrationPatternFilter * const value)
+{
+    editSField(CalibrationPatternFilterFieldMask);
+
+    _sfCalibrationPatternFilter.setValue(value);
+}
+
+
 //! Get the DisplayFilterGroup::_sfResolutionFilter field.
 const SFUnrecResolutionDisplayFilterPtr *DisplayFilterGroupBase::getSFResolutionFilter(void) const
 {
@@ -347,6 +362,21 @@ SFUnrecResolutionDisplayFilterPtr *DisplayFilterGroupBase::editSFResolutionFilte
 
     return &_sfResolutionFilter;
 }
+
+//! Get the value of the DisplayFilterGroup::_sfResolutionFilter field.
+ResolutionDisplayFilter * DisplayFilterGroupBase::getResolutionFilter(void) const
+{
+    return _sfResolutionFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterGroup::_sfResolutionFilter field.
+void DisplayFilterGroupBase::setResolutionFilter(ResolutionDisplayFilter * const value)
+{
+    editSField(ResolutionFilterFieldMask);
+
+    _sfResolutionFilter.setValue(value);
+}
+
 
 //! Get the DisplayFilterGroup::_sfColorFilter field.
 const SFUnrecColorDisplayFilterPtr *DisplayFilterGroupBase::getSFColorFilter(void) const
@@ -361,6 +391,21 @@ SFUnrecColorDisplayFilterPtr *DisplayFilterGroupBase::editSFColorFilter    (void
     return &_sfColorFilter;
 }
 
+//! Get the value of the DisplayFilterGroup::_sfColorFilter field.
+ColorDisplayFilter * DisplayFilterGroupBase::getColorFilter(void) const
+{
+    return _sfColorFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterGroup::_sfColorFilter field.
+void DisplayFilterGroupBase::setColorFilter(ColorDisplayFilter * const value)
+{
+    editSField(ColorFilterFieldMask);
+
+    _sfColorFilter.setValue(value);
+}
+
+
 //! Get the DisplayFilterGroup::_sfDistortionFilter field.
 const SFUnrecDistortionDisplayFilterPtr *DisplayFilterGroupBase::getSFDistortionFilter(void) const
 {
@@ -373,6 +418,21 @@ SFUnrecDistortionDisplayFilterPtr *DisplayFilterGroupBase::editSFDistortionFilte
 
     return &_sfDistortionFilter;
 }
+
+//! Get the value of the DisplayFilterGroup::_sfDistortionFilter field.
+DistortionDisplayFilter * DisplayFilterGroupBase::getDistortionFilter(void) const
+{
+    return _sfDistortionFilter.getValue();
+}
+
+//! Set the value of the DisplayFilterGroup::_sfDistortionFilter field.
+void DisplayFilterGroupBase::setDistortionFilter(DistortionDisplayFilter * const value)
+{
+    editSField(DistortionFilterFieldMask);
+
+    _sfDistortionFilter.setValue(value);
+}
+
 
 SFInt32 *DisplayFilterGroupBase::editSFDrawerId(void)
 {

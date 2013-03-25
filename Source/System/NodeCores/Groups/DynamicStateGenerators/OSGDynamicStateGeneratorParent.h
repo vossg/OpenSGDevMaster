@@ -42,7 +42,9 @@
 #pragma once
 #endif
 
+#include "OSGViewarea.h"
 #include "OSGChunkOverrideGroup.h"
+#include "OSGChunkBlock.h"
 #include "OSGStageHandlerMixin.h"
 #include "OSGStageIdPool.h"
 

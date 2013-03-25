@@ -475,6 +475,21 @@ SFUnrecNodePtr      *CubeMapGeneratorBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+//! Get the value of the CubeMapGenerator::_sfRoot field.
+Node * CubeMapGeneratorBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfRoot field.
+void CubeMapGeneratorBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
+
 //! Get the CubeMapGenerator::_mfExclude field.
 const MFUnrecNodePtr *CubeMapGeneratorBase::getMFExclude(void) const
 {
@@ -486,6 +501,10 @@ MFUnrecNodePtr      *CubeMapGeneratorBase::editMFExclude        (void)
     editMField(ExcludeFieldMask, _mfExclude);
 
     return &_mfExclude;
+}
+Node * CubeMapGeneratorBase::getExclude(const UInt32 index) const
+{
+    return _mfExclude[index];
 }
 
 //! Get the CubeMapGenerator::_sfTexture field.
@@ -500,6 +519,21 @@ SFUnrecTextureObjChunkPtr *CubeMapGeneratorBase::editSFTexture        (void)
 
     return &_sfTexture;
 }
+
+//! Get the value of the CubeMapGenerator::_sfTexture field.
+TextureObjChunk * CubeMapGeneratorBase::getTexture(void) const
+{
+    return _sfTexture.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfTexture field.
+void CubeMapGeneratorBase::setTexture(TextureObjChunk * const value)
+{
+    editSField(TextureFieldMask);
+
+    _sfTexture.setValue(value);
+}
+
 
 SFVec2s *CubeMapGeneratorBase::editSFTextureSize(void)
 {
@@ -539,6 +573,21 @@ SFWeakNodePtr       *CubeMapGeneratorBase::editSFBeacon         (void)
 
     return &_sfBeacon;
 }
+
+//! Get the value of the CubeMapGenerator::_sfBeacon field.
+Node * CubeMapGeneratorBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfBeacon field.
+void CubeMapGeneratorBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
 
 SFPnt3f *CubeMapGeneratorBase::editSFOrigin(void)
 {
@@ -605,6 +654,21 @@ SFUnrecBackgroundPtr *CubeMapGeneratorBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+//! Get the value of the CubeMapGenerator::_sfBackground field.
+Background * CubeMapGeneratorBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfBackground field.
+void CubeMapGeneratorBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
+
 //! Get the CubeMapGenerator::_sfCamera field.
 const SFUnrecCameraPtr *CubeMapGeneratorBase::getSFCamera(void) const
 {
@@ -617,6 +681,21 @@ SFUnrecCameraPtr    *CubeMapGeneratorBase::editSFCamera         (void)
 
     return &_sfCamera;
 }
+
+//! Get the value of the CubeMapGenerator::_sfCamera field.
+Camera * CubeMapGeneratorBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the CubeMapGenerator::_sfCamera field.
+void CubeMapGeneratorBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 
 
 

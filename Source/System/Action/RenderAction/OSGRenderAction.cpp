@@ -53,6 +53,8 @@
 #include "OSGStateSorter.h"
 
 #include "OSGWindow.h"
+#include "OSGRenderOptions.h"
+#include "OSGCamera.h"
 
 #include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"

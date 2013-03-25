@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGAnimVec3fBlenderBase.h"
-#include "OSGAnimVec3fChannel.h"
 
 OSG_BEGIN_NAMESPACE
 

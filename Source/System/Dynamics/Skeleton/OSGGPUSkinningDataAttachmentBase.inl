@@ -74,22 +74,6 @@ OSG::UInt16 GPUSkinningDataAttachmentBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the GPUSkinningDataAttachment::_sfShaderCode field.
-inline
-ShaderProgramChunk * GPUSkinningDataAttachmentBase::getShaderCode(void) const
-{
-    return _sfShaderCode.getValue();
-}
-
-//! Set the value of the GPUSkinningDataAttachment::_sfShaderCode field.
-inline
-void GPUSkinningDataAttachmentBase::setShaderCode(ShaderProgramChunk * const value)
-{
-    editSField(ShaderCodeFieldMask);
-
-    _sfShaderCode.setValue(value);
-}
 //! Get the value of the GPUSkinningDataAttachment::_sfDataValid field.
 
 inline

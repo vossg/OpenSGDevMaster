@@ -426,6 +426,21 @@ SFUnrecChildCSMWindowPtr *CSMClusterWindowBase::editSFClientWindow   (void)
     return &_sfClientWindow;
 }
 
+//! Get the value of the CSMClusterWindow::_sfClientWindow field.
+CSMWindow * CSMClusterWindowBase::getClientWindow(void) const
+{
+    return _sfClientWindow.getValue();
+}
+
+//! Set the value of the CSMClusterWindow::_sfClientWindow field.
+void CSMClusterWindowBase::setClientWindow(CSMWindow * const value)
+{
+    editSField(ClientWindowFieldMask);
+
+    _sfClientWindow.setValue(value);
+}
+
+
 SFBool *CSMClusterWindowBase::editSFRenderClient(void)
 {
     editSField(RenderClientFieldMask);
@@ -517,6 +532,21 @@ SFUnrecImageComposerPtr *CSMClusterWindowBase::editSFComposer       (void)
     return &_sfComposer;
 }
 
+//! Get the value of the CSMClusterWindow::_sfComposer field.
+ImageComposer * CSMClusterWindowBase::getComposer(void) const
+{
+    return _sfComposer.getValue();
+}
+
+//! Set the value of the CSMClusterWindow::_sfComposer field.
+void CSMClusterWindowBase::setComposer(ImageComposer * const value)
+{
+    editSField(ComposerFieldMask);
+
+    _sfComposer.setValue(value);
+}
+
+
 //! Get the CSMClusterWindow::_sfOptions field.
 const SFUnrecChildCSMClusterWinOptionsPtr *CSMClusterWindowBase::getSFOptions(void) const
 {
@@ -529,6 +559,21 @@ SFUnrecChildCSMClusterWinOptionsPtr *CSMClusterWindowBase::editSFOptions        
 
     return &_sfOptions;
 }
+
+//! Get the value of the CSMClusterWindow::_sfOptions field.
+CSMClusterWinOptions * CSMClusterWindowBase::getOptions(void) const
+{
+    return _sfOptions.getValue();
+}
+
+//! Set the value of the CSMClusterWindow::_sfOptions field.
+void CSMClusterWindowBase::setOptions(CSMClusterWinOptions * const value)
+{
+    editSField(OptionsFieldMask);
+
+    _sfOptions.setValue(value);
+}
+
 
 
 

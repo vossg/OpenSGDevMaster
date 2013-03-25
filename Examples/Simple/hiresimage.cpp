@@ -54,6 +54,7 @@
 #include <OSGTileCameraDecorator.h>
 #include <OSGTileableBackground.h>
 #include <OSGVisitSubTree.h>
+#include <OSGImage.h>
 #else
 // Headers
 #include <OpenSG/OSGGLUT.h>
@@ -72,6 +73,7 @@
 #include <OpenSG/OSGTileCameraDecorator.h>
 #include <OpenSG/OSGTileableBackground.h>
 #include <OpenSG/OSGVisitSubTree.h>
+#include <OpenSG/OSGImage.h>
 #endif
 
 OSG_USING_NAMESPACE; // just for convenience but not recommended

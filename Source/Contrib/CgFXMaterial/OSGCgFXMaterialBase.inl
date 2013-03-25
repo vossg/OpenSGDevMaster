@@ -174,22 +174,6 @@ void CgFXMaterialBase::setEffectString(const std::string &value)
 
     _sfEffectString.setValue(value);
 }
-
-//! Get the value of the CgFXMaterial::_sfVariables field.
-inline
-ShaderProgramVariables * CgFXMaterialBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the CgFXMaterial::_sfVariables field.
-inline
-void CgFXMaterialBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
 //! Get the value of the CgFXMaterial::_sfSelectedTechnique field.
 
 inline
@@ -282,19 +266,6 @@ std::string &CgFXMaterialBase::editCompilerOptions(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the CgFXMaterial::_mfTechniques field.
-inline
-CgFXTechnique * CgFXMaterialBase::getTechniques(const UInt32 index) const
-{
-    return _mfTechniques[index];
-}
-
-//! Get the value of the \a index element the CgFXMaterial::_mfTextures field.
-inline
-TextureObjChunk * CgFXMaterialBase::getTextures(const UInt32 index) const
-{
-    return _mfTextures[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

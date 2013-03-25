@@ -525,19 +525,7 @@ void ShadowStageBase::setCombineBlend(const bool value)
     _sfCombineBlend.setValue(value);
 }
 
-//! Get the value of the \a index element the ShadowStage::_mfLightNodes field.
-inline
-Node * ShadowStageBase::getLightNodes(const UInt32 index) const
-{
-    return _mfLightNodes[index];
-}
 
-//! Get the value of the \a index element the ShadowStage::_mfExcludeNodes field.
-inline
-Node * ShadowStageBase::getExcludeNodes(const UInt32 index) const
-{
-    return _mfExcludeNodes[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -274,11 +274,19 @@ const MFUnrecShaderValueVariablePtr *ShaderProgramVariablesBase::getMFVariables(
 {
     return &_mfVariables;
 }
+ShaderValueVariable * ShaderProgramVariablesBase::getVariables(const UInt32 index) const
+{
+    return _mfVariables[index];
+}
 
 //! Get the ShaderProgramVariables::_mfProceduralVariables field.
 const MFUnrecChildShaderProcVariablePtr *ShaderProgramVariablesBase::getMFProceduralVariables(void) const
 {
     return &_mfProceduralVariables;
+}
+ShaderProcVariable * ShaderProgramVariablesBase::getProceduralVariables(const UInt32 index) const
+{
+    return _mfProceduralVariables[index];
 }
 
 MFUInt8 *ShaderProgramVariablesBase::editMFVariableChanged(void)

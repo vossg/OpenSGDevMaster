@@ -518,6 +518,21 @@ SFWeakNodePtr       *LightBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+//! Get the value of the Light::_sfBeacon field.
+Node * LightBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the Light::_sfBeacon field.
+void LightBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
+
 SFBool *LightBase::editSFOn(void)
 {
     editSField(OnFieldMask);
@@ -582,6 +597,21 @@ SFUnrecLightEnginePtr *LightBase::editSFLightEngine    (void)
 
     return &_sfLightEngine;
 }
+
+//! Get the value of the Light::_sfLightEngine field.
+LightEngine * LightBase::getLightEngine(void) const
+{
+    return _sfLightEngine.getValue();
+}
+
+//! Set the value of the Light::_sfLightEngine field.
+void LightBase::setLightEngine(LightEngine * const value)
+{
+    editSField(LightEngineFieldMask);
+
+    _sfLightEngine.setValue(value);
+}
+
 
 SFReal32 *LightBase::editSFShadowIntensity(void)
 {

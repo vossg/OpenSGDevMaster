@@ -252,6 +252,21 @@ SFUnrecSkeletonPtr  *SkinningAlgorithmBase::editSFSkeleton       (void)
     return &_sfSkeleton;
 }
 
+//! Get the value of the SkinningAlgorithm::_sfSkeleton field.
+Skeleton * SkinningAlgorithmBase::getSkeleton(void) const
+{
+    return _sfSkeleton.getValue();
+}
+
+//! Set the value of the SkinningAlgorithm::_sfSkeleton field.
+void SkinningAlgorithmBase::setSkeleton(Skeleton * const value)
+{
+    editSField(SkeletonFieldMask);
+
+    _sfSkeleton.setValue(value);
+}
+
+
 
 
 

@@ -224,6 +224,21 @@ SFUnrecCameraPtr    *CubeMapGeneratorStageDataBase::editSFCamera         (void)
     return &_sfCamera;
 }
 
+//! Get the value of the CubeMapGeneratorStageData::_sfCamera field.
+Camera * CubeMapGeneratorStageDataBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the CubeMapGeneratorStageData::_sfCamera field.
+void CubeMapGeneratorStageDataBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
+
 //! Get the CubeMapGeneratorStageData::_sfTexTransform field.
 const SFUnrecTextureTransformChunkPtr *CubeMapGeneratorStageDataBase::getSFTexTransform(void) const
 {
@@ -236,6 +251,21 @@ SFUnrecTextureTransformChunkPtr *CubeMapGeneratorStageDataBase::editSFTexTransfo
 
     return &_sfTexTransform;
 }
+
+//! Get the value of the CubeMapGeneratorStageData::_sfTexTransform field.
+TextureTransformChunk * CubeMapGeneratorStageDataBase::getTexTransform(void) const
+{
+    return _sfTexTransform.getValue();
+}
+
+//! Set the value of the CubeMapGeneratorStageData::_sfTexTransform field.
+void CubeMapGeneratorStageDataBase::setTexTransform(TextureTransformChunk * const value)
+{
+    editSField(TexTransformFieldMask);
+
+    _sfTexTransform.setValue(value);
+}
+
 
 
 

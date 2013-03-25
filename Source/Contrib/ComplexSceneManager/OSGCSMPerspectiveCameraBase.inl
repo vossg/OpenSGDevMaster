@@ -125,22 +125,6 @@ void CSMPerspectiveCameraBase::setZeroParallax(const Real32 value)
     _sfZeroParallax.setValue(value);
 }
 
-//! Get the value of the CSMPerspectiveCamera::_sfHeadBeacon field.
-inline
-Node * CSMPerspectiveCameraBase::getHeadBeacon(void) const
-{
-    return _sfHeadBeacon.getValue();
-}
-
-//! Set the value of the CSMPerspectiveCamera::_sfHeadBeacon field.
-inline
-void CSMPerspectiveCameraBase::setHeadBeacon(Node * const value)
-{
-    editSField(HeadBeaconFieldMask);
-
-    _sfHeadBeacon.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

@@ -46,6 +46,8 @@
 #include "OSGConfig.h"
 
 #include "OSGCSMDrawer.h"
+#include "OSGCSMWindow.h"
+
 #include "OSGRenderAction.h"
 #include "OSGNameAttachment.h"
 

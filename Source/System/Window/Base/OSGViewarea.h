@@ -42,15 +42,14 @@
 #pragma once
 #endif
 
-#include "OSGRenderOptions.h"
 #include "OSGViewareaBase.h"
-#include "OSGWindowDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
 class TraversalValidator;
 class FrameBufferObject;
+class Window;
 
 /*! \brief Viewarea base class. See \ref 
     PageSystemWindowViewareas for a description.

@@ -75,22 +75,6 @@ OSG::UInt16 AlgorithmComputeElementBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the AlgorithmComputeElement::_sfAlgorithm field.
-inline
-ComputeAlgorithm * AlgorithmComputeElementBase::getAlgorithm(void) const
-{
-    return _sfAlgorithm.getValue();
-}
-
-//! Set the value of the AlgorithmComputeElement::_sfAlgorithm field.
-inline
-void AlgorithmComputeElementBase::setAlgorithm(ComputeAlgorithm * const value)
-{
-    editSField(AlgorithmFieldMask);
-
-    _sfAlgorithm.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

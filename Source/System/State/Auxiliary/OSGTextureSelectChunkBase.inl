@@ -100,12 +100,6 @@ void TextureSelectChunkBase::setChoice(const UInt32 value)
     _sfChoice.setValue(value);
 }
 
-//! Get the value of the \a index element the TextureSelectChunk::_mfTextures field.
-inline
-TextureBaseChunk * TextureSelectChunkBase::getTextures(const UInt32 index) const
-{
-    return _mfTextures[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

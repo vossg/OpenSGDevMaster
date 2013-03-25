@@ -54,6 +54,9 @@
 #include "OSGPassiveViewport.h"
 #include "OSGCSMStatisticsForeground.h"
 #include "OSGCSMWindow.h"
+#include "OSGNode.h"
+#include "OSGBackground.h"
+#include "OSGRenderOptions.h"
 
 OSG_BEGIN_NAMESPACE
 

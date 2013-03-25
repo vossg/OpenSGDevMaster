@@ -263,6 +263,10 @@ MFUnrecImagePtr     *ImageForegroundBase::editMFImages         (void)
 
     return &_mfImages;
 }
+Image * ImageForegroundBase::getImages(const UInt32 index) const
+{
+    return _mfImages[index];
+}
 
 MFPnt2f *ImageForegroundBase::editMFPositions(void)
 {

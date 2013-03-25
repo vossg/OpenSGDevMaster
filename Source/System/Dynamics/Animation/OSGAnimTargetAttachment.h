@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGAnimTargetAttachmentBase.h"
-#include "OSGAnimBlender.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -51,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsAnimTargetAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimTargetAttachment : public AnimTargetAttachmentBase
+class OSG_DYNAMICS_DLLMAPPING AnimTargetAttachment : 
+    public AnimTargetAttachmentBase
 {
   protected:
 

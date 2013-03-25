@@ -625,6 +625,10 @@ const MFUnrecChildViewportPtr *WindowBase::getMFPort(void) const
 {
     return &_mfPort;
 }
+Viewport * WindowBase::getPort(const UInt32 index) const
+{
+    return _mfPort[index];
+}
 
 SFUInt32 *WindowBase::editSFGlObjectEventCounter(void)
 {
@@ -730,6 +734,21 @@ SFUnrecRenderOptionsPtr *WindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+//! Get the value of the Window::_sfRenderOptions field.
+RenderOptions * WindowBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the Window::_sfRenderOptions field.
+void WindowBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
+
 SFBool *WindowBase::editSFIgnoreAllExtensions(void)
 {
     editSField(IgnoreAllExtensionsFieldMask);
@@ -773,6 +792,10 @@ const SFString *WindowBase::getSFRendererInfo(void) const
 const MFDrawTask *WindowBase::getMFDrawTasks(void) const
 {
     return &_mfDrawTasks;
+}
+DrawTask * WindowBase::getDrawTasks(const UInt32 index) const
+{
+    return _mfDrawTasks[index];
 }
 
 

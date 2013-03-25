@@ -75,22 +75,6 @@ OSG::UInt16 ReplicateTransformBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ReplicateTransform::_sfTarget field.
-inline
-Node * ReplicateTransformBase::getTarget(void) const
-{
-    return _sfTarget.getValue();
-}
-
-//! Set the value of the ReplicateTransform::_sfTarget field.
-inline
-void ReplicateTransformBase::setTarget(Node * const value)
-{
-    editSField(TargetFieldMask);
-
-    _sfTarget.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

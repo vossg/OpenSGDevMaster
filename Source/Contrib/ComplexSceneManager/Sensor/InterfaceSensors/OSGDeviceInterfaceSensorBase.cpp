@@ -258,6 +258,21 @@ SFUnrecChildInterfaceOptionsPtr *DeviceInterfaceSensorBase::editSFOptions       
     return &_sfOptions;
 }
 
+//! Get the value of the DeviceInterfaceSensor::_sfOptions field.
+InterfaceOptions * DeviceInterfaceSensorBase::getOptions(void) const
+{
+    return _sfOptions.getValue();
+}
+
+//! Set the value of the DeviceInterfaceSensor::_sfOptions field.
+void DeviceInterfaceSensorBase::setOptions(InterfaceOptions * const value)
+{
+    editSField(OptionsFieldMask);
+
+    _sfOptions.setValue(value);
+}
+
+
 
 
 

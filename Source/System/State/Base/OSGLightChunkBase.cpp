@@ -616,6 +616,21 @@ SFWeakNodePtr       *LightChunkBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+//! Get the value of the LightChunk::_sfBeacon field.
+Node * LightChunkBase::getBeacon(void) const
+{
+    return _sfBeacon.getValue();
+}
+
+//! Set the value of the LightChunk::_sfBeacon field.
+void LightChunkBase::setBeacon(Node * const value)
+{
+    editSField(BeaconFieldMask);
+
+    _sfBeacon.setValue(value);
+}
+
+
 
 
 

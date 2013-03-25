@@ -574,6 +574,21 @@ SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFPositions      (void)
     return &_sfPositions;
 }
 
+//! Get the value of the Particles::_sfPositions field.
+GeoVectorProperty * ParticlesBase::getPositions(void) const
+{
+    return _sfPositions.getValue();
+}
+
+//! Set the value of the Particles::_sfPositions field.
+void ParticlesBase::setPositions(GeoVectorProperty * const value)
+{
+    editSField(PositionsFieldMask);
+
+    _sfPositions.setValue(value);
+}
+
+
 MFVec3f *ParticlesBase::editMFSizes(void)
 {
     editMField(SizesFieldMask, _mfSizes);
@@ -600,6 +615,21 @@ SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFSecPositions   (void)
     return &_sfSecPositions;
 }
 
+//! Get the value of the Particles::_sfSecPositions field.
+GeoVectorProperty * ParticlesBase::getSecPositions(void) const
+{
+    return _sfSecPositions.getValue();
+}
+
+//! Set the value of the Particles::_sfSecPositions field.
+void ParticlesBase::setSecPositions(GeoVectorProperty * const value)
+{
+    editSField(SecPositionsFieldMask);
+
+    _sfSecPositions.setValue(value);
+}
+
+
 //! Get the Particles::_sfColors field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFColors(void) const
 {
@@ -613,6 +643,21 @@ SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFColors         (void)
     return &_sfColors;
 }
 
+//! Get the value of the Particles::_sfColors field.
+GeoVectorProperty * ParticlesBase::getColors(void) const
+{
+    return _sfColors.getValue();
+}
+
+//! Set the value of the Particles::_sfColors field.
+void ParticlesBase::setColors(GeoVectorProperty * const value)
+{
+    editSField(ColorsFieldMask);
+
+    _sfColors.setValue(value);
+}
+
+
 //! Get the Particles::_sfNormals field.
 const SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::getSFNormals(void) const
 {
@@ -625,6 +670,21 @@ SFUnrecChildGeoVectorPropertyPtr *ParticlesBase::editSFNormals        (void)
 
     return &_sfNormals;
 }
+
+//! Get the value of the Particles::_sfNormals field.
+GeoVectorProperty * ParticlesBase::getNormals(void) const
+{
+    return _sfNormals.getValue();
+}
+
+//! Set the value of the Particles::_sfNormals field.
+void ParticlesBase::setNormals(GeoVectorProperty * const value)
+{
+    editSField(NormalsFieldMask);
+
+    _sfNormals.setValue(value);
+}
+
 
 MFInt32 *ParticlesBase::editMFIndices(void)
 {

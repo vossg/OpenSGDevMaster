@@ -74,22 +74,6 @@ OSG::UInt16 TextureGrabForegroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the TextureGrabForeground::_sfTexture field.
-inline
-TextureObjChunk * TextureGrabForegroundBase::getTexture(void) const
-{
-    return _sfTexture.getValue();
-}
-
-//! Set the value of the TextureGrabForeground::_sfTexture field.
-inline
-void TextureGrabForegroundBase::setTexture(TextureObjChunk * const value)
-{
-    editSField(TextureFieldMask);
-
-    _sfTexture.setValue(value);
-}
 //! Get the value of the TextureGrabForeground::_sfAutoResize field.
 
 inline

@@ -373,6 +373,21 @@ SFUnrecShaderProgramChunkPtr *DeferredShadingStageBase::editSFGBufferProgram (vo
     return &_sfGBufferProgram;
 }
 
+//! Get the value of the DeferredShadingStage::_sfGBufferProgram field.
+ShaderProgramChunk * DeferredShadingStageBase::getGBufferProgram(void) const
+{
+    return _sfGBufferProgram.getValue();
+}
+
+//! Set the value of the DeferredShadingStage::_sfGBufferProgram field.
+void DeferredShadingStageBase::setGBufferProgram(ShaderProgramChunk * const value)
+{
+    editSField(GBufferProgramFieldMask);
+
+    _sfGBufferProgram.setValue(value);
+}
+
+
 //! Get the DeferredShadingStage::_sfAmbientProgram field.
 const SFUnrecShaderProgramChunkPtr *DeferredShadingStageBase::getSFAmbientProgram(void) const
 {
@@ -386,6 +401,21 @@ SFUnrecShaderProgramChunkPtr *DeferredShadingStageBase::editSFAmbientProgram (vo
     return &_sfAmbientProgram;
 }
 
+//! Get the value of the DeferredShadingStage::_sfAmbientProgram field.
+ShaderProgramChunk * DeferredShadingStageBase::getAmbientProgram(void) const
+{
+    return _sfAmbientProgram.getValue();
+}
+
+//! Set the value of the DeferredShadingStage::_sfAmbientProgram field.
+void DeferredShadingStageBase::setAmbientProgram(ShaderProgramChunk * const value)
+{
+    editSField(AmbientProgramFieldMask);
+
+    _sfAmbientProgram.setValue(value);
+}
+
+
 //! Get the DeferredShadingStage::_mfLightPrograms field.
 const MFUnrecShaderProgramChunkPtr *DeferredShadingStageBase::getMFLightPrograms(void) const
 {
@@ -397,6 +427,10 @@ MFUnrecShaderProgramChunkPtr *DeferredShadingStageBase::editMFLightPrograms  (vo
     editMField(LightProgramsFieldMask, _mfLightPrograms);
 
     return &_mfLightPrograms;
+}
+ShaderProgramChunk * DeferredShadingStageBase::getLightPrograms(const UInt32 index) const
+{
+    return _mfLightPrograms[index];
 }
 
 //! Get the DeferredShadingStage::_mfLights field.
@@ -410,6 +444,10 @@ MFUnrecLightPtr     *DeferredShadingStageBase::editMFLights         (void)
     editMField(LightsFieldMask, _mfLights);
 
     return &_mfLights;
+}
+Light * DeferredShadingStageBase::getLights(const UInt32 index) const
+{
+    return _mfLights[index];
 }
 
 

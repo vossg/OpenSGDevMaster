@@ -149,22 +149,6 @@ void LightBase::setSpecular(const Color4f &value)
 
     _sfSpecular.setValue(value);
 }
-
-//! Get the value of the Light::_sfBeacon field.
-inline
-Node * LightBase::getBeacon(void) const
-{
-    return _sfBeacon.getValue();
-}
-
-//! Set the value of the Light::_sfBeacon field.
-inline
-void LightBase::setBeacon(Node * const value)
-{
-    editSField(BeaconFieldMask);
-
-    _sfBeacon.setValue(value);
-}
 //! Get the value of the Light::_sfOn field.
 
 inline
@@ -264,22 +248,6 @@ void LightBase::setQuadraticAttenuation(const Real32 value)
     editSField(QuadraticAttenuationFieldMask);
 
     _sfQuadraticAttenuation.setValue(value);
-}
-
-//! Get the value of the Light::_sfLightEngine field.
-inline
-LightEngine * LightBase::getLightEngine(void) const
-{
-    return _sfLightEngine.getValue();
-}
-
-//! Set the value of the Light::_sfLightEngine field.
-inline
-void LightBase::setLightEngine(LightEngine * const value)
-{
-    editSField(LightEngineFieldMask);
-
-    _sfLightEngine.setValue(value);
 }
 //! Get the value of the Light::_sfShadowIntensity field.
 

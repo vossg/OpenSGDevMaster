@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGFogStageDataBase.h"
-#include "OSGChunkMaterial.h"
-#include "OSGFrameBufferObject.h"
 
 OSG_BEGIN_NAMESPACE
 

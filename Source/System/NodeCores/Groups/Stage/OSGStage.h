@@ -45,8 +45,6 @@
 #include <queue>
 
 #include "OSGStageBase.h"
-#include "OSGAction.h"
-#include "OSGFrameBufferObject.h"
 
 OSG_BEGIN_NAMESPACE
 

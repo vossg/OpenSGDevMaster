@@ -74,14 +74,6 @@ OSG::UInt16 VisitSubTreeBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the VisitSubTree::_sfSubTreeRoot field.
-inline
-Node * VisitSubTreeBase::getSubTreeRoot(void) const
-{
-    return _sfSubTreeRoot.getValue();
-}
-
 //! Get the value of the VisitSubTree::_sfSubTreeTravMask field.
 
 inline

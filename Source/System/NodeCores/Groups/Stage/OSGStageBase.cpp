@@ -238,6 +238,21 @@ SFUnrecFrameBufferObjectPtr *StageBase::editSFRenderTarget   (void)
     return &_sfRenderTarget;
 }
 
+//! Get the value of the Stage::_sfRenderTarget field.
+FrameBufferObject * StageBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the Stage::_sfRenderTarget field.
+void StageBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
+
 SFBool *StageBase::editSFInheritedTarget(void)
 {
     editSField(InheritedTargetFieldMask);

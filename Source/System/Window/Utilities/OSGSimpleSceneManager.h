@@ -53,6 +53,7 @@
 #include "OSGImageForeground.h"
 #include "OSGTransform.h"
 #include "OSGGeometry.h"
+#include "OSGTypedGeoVectorProperty.h"
 #include "OSGSimpleMaterial.h"
 #include "OSGCamera.h"
 #include "OSGDirectionalLight.h"

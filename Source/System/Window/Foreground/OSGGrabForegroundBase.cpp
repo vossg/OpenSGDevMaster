@@ -233,6 +233,21 @@ SFUnrecImagePtr     *GrabForegroundBase::editSFImage          (void)
     return &_sfImage;
 }
 
+//! Get the value of the GrabForeground::_sfImage field.
+Image * GrabForegroundBase::getImage(void) const
+{
+    return _sfImage.getValue();
+}
+
+//! Set the value of the GrabForeground::_sfImage field.
+void GrabForegroundBase::setImage(Image * const value)
+{
+    editSField(ImageFieldMask);
+
+    _sfImage.setValue(value);
+}
+
+
 SFBool *GrabForegroundBase::editSFAutoResize(void)
 {
     editSField(AutoResizeFieldMask);

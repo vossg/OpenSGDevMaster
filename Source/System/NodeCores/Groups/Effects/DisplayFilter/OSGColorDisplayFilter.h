@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGColorDisplayFilterBase.h"
-#include "OSGImage.h"
-#include "OSGSimpleSHLChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

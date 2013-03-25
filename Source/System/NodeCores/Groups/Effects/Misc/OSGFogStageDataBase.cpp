@@ -303,6 +303,21 @@ SFUnrecChunkMaterialPtr *FogStageDataBase::editSFFogMaterial    (void)
     return &_sfFogMaterial;
 }
 
+//! Get the value of the FogStageData::_sfFogMaterial field.
+ChunkMaterial * FogStageDataBase::getFogMaterial(void) const
+{
+    return _sfFogMaterial.getValue();
+}
+
+//! Set the value of the FogStageData::_sfFogMaterial field.
+void FogStageDataBase::setFogMaterial(ChunkMaterial * const value)
+{
+    editSField(FogMaterialFieldMask);
+
+    _sfFogMaterial.setValue(value);
+}
+
+
 SFInt32 *FogStageDataBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);
@@ -342,6 +357,21 @@ SFUnrecFrameBufferObjectPtr *FogStageDataBase::editSFRenderTarget   (void)
     return &_sfRenderTarget;
 }
 
+//! Get the value of the FogStageData::_sfRenderTarget field.
+FrameBufferObject * FogStageDataBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the FogStageData::_sfRenderTarget field.
+void FogStageDataBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
+
 //! Get the FogStageData::_sfCamera field.
 const SFUnrecCameraPtr *FogStageDataBase::getSFCamera(void) const
 {
@@ -354,6 +384,21 @@ SFUnrecCameraPtr    *FogStageDataBase::editSFCamera         (void)
 
     return &_sfCamera;
 }
+
+//! Get the value of the FogStageData::_sfCamera field.
+Camera * FogStageDataBase::getCamera(void) const
+{
+    return _sfCamera.getValue();
+}
+
+//! Set the value of the FogStageData::_sfCamera field.
+void FogStageDataBase::setCamera(Camera * const value)
+{
+    editSField(CameraFieldMask);
+
+    _sfCamera.setValue(value);
+}
+
 
 
 

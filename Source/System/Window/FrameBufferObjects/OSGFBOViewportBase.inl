@@ -75,22 +75,6 @@ OSG::UInt16 FBOViewportBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the FBOViewport::_sfFrameBufferObject field.
-inline
-FrameBufferObject * FBOViewportBase::getFrameBufferObject(void) const
-{
-    return _sfFrameBufferObject.getValue();
-}
-
-//! Set the value of the FBOViewport::_sfFrameBufferObject field.
-inline
-void FBOViewportBase::setFrameBufferObject(FrameBufferObject * const value)
-{
-    editSField(FrameBufferObjectFieldMask);
-
-    _sfFrameBufferObject.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

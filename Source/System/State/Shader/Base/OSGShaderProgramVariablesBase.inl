@@ -75,19 +75,7 @@ OSG::UInt16 ShaderProgramVariablesBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the ShaderProgramVariables::_mfVariables field.
-inline
-ShaderValueVariable * ShaderProgramVariablesBase::getVariables(const UInt32 index) const
-{
-    return _mfVariables[index];
-}
 
-//! Get the value of the \a index element the ShaderProgramVariables::_mfProceduralVariables field.
-inline
-ShaderProcVariable * ShaderProgramVariablesBase::getProceduralVariables(const UInt32 index) const
-{
-    return _mfProceduralVariables[index];
-}
 
 //! Get the value of the \a index element the ShaderProgramVariables::_mfVariableChanged field.
 inline
@@ -103,7 +91,6 @@ UInt8 &ShaderProgramVariablesBase::editVariableChanged(const UInt32 index)
 
     return _mfVariableChanged[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

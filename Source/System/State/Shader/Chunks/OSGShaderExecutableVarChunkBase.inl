@@ -74,22 +74,6 @@ OSG::UInt16 ShaderExecutableVarChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ShaderExecutableVarChunk::_sfVariables field.
-inline
-ShaderProgramVariables * ShaderExecutableVarChunkBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the ShaderExecutableVarChunk::_sfVariables field.
-inline
-void ShaderExecutableVarChunkBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
 //! Get the value of the ShaderExecutableVarChunk::_sfActiveShader field.
 
 inline
@@ -130,7 +114,6 @@ Int32 &ShaderExecutableVarChunkBase::editVariableLocations(const UInt32 index)
 
     return _mfVariableLocations[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

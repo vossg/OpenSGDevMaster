@@ -23,7 +23,7 @@
 #include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
 #include "OSGShaderProgramChunk.h"
-
+#include "OSGShaderProgram.h"
 
 
 // ------------------- global vars ----------------------

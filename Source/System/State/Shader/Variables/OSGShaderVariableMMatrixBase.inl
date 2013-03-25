@@ -91,7 +91,6 @@ Matrix &ShaderVariableMMatrixBase::editValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderVariableMMatrixBase::execSync (      ShaderVariableMMatrixBase *pFrom,

@@ -116,7 +116,6 @@ Vec3f &VRMLPositionInterpolatorBase::editKeyValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void VRMLPositionInterpolatorBase::execSync (      VRMLPositionInterpolatorBase *pFrom,

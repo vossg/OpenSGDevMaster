@@ -49,6 +49,7 @@
 #include "OSGWindow.h"
 #include "OSGGeoMultiProperty.h"
 #include "OSGDrawEnv.h"
+#include "OSGGeoMultiPropertyData.h"
 
 #include "OSGGLFuncProtos.h"
 

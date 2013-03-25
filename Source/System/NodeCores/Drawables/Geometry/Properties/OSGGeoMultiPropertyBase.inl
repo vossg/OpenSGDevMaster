@@ -74,22 +74,6 @@ OSG::UInt16 GeoMultiPropertyBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the GeoMultiProperty::_sfContainer field.
-inline
-GeoMultiPropertyData * GeoMultiPropertyBase::getContainer(void) const
-{
-    return _sfContainer.getValue();
-}
-
-//! Set the value of the GeoMultiProperty::_sfContainer field.
-inline
-void GeoMultiPropertyBase::setContainer(GeoMultiPropertyData * const value)
-{
-    editSField(ContainerFieldMask);
-
-    _sfContainer.setValue(value);
-}
 //! Get the value of the GeoMultiProperty::_sfOffset field.
 
 inline

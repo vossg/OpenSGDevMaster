@@ -512,6 +512,10 @@ MFUnrecGeometryPtr  *FishEyeProjectorBase::editMFGeometries     (void)
 
     return &_mfGeometries;
 }
+Geometry * FishEyeProjectorBase::getGeometries(const UInt32 index) const
+{
+    return _mfGeometries[index];
+}
 
 SFBool *FishEyeProjectorBase::editSFShowDomeIntensity(void)
 {

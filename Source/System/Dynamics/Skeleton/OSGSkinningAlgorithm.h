@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGSkinningAlgorithmBase.h"
-
 #include "OSGSkinnedGeometry.h"
 #include "OSGVolume.h"
 

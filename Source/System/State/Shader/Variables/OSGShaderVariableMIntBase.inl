@@ -91,7 +91,6 @@ Int32 &ShaderVariableMIntBase::editValue(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderVariableMIntBase::execSync (      ShaderVariableMIntBase *pFrom,

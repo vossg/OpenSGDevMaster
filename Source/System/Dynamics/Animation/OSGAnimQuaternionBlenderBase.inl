@@ -100,12 +100,6 @@ void AnimQuaternionBlenderBase::setOutValue(const Quaternion &value)
     _sfOutValue.setValue(value);
 }
 
-//! Get the value of the \a index element the AnimQuaternionBlender::_mfChannels field.
-inline
-AnimQuaternionChannel * AnimQuaternionBlenderBase::getChannels(const UInt32 index) const
-{
-    return _mfChannels[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

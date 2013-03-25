@@ -46,7 +46,6 @@
 #include "OSGConfig.h"
 
 #include "OSGImageForegroundBase.h"
-#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 

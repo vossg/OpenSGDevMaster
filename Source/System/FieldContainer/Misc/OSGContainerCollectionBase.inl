@@ -100,12 +100,6 @@ void ContainerCollectionBase::setName(const std::string &value)
     _sfName.setValue(value);
 }
 
-//! Get the value of the \a index element the ContainerCollection::_mfContainers field.
-inline
-FieldContainer * ContainerCollectionBase::getContainers(const UInt32 index) const
-{
-    return _mfContainers[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

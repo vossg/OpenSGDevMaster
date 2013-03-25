@@ -74,22 +74,6 @@ OSG::UInt16 ShaderExecutableChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ShaderExecutableChunk::_sfVariables field.
-inline
-ShaderProgramVariables * ShaderExecutableChunkBase::getVariables(void) const
-{
-    return _sfVariables.getValue();
-}
-
-//! Set the value of the ShaderExecutableChunk::_sfVariables field.
-inline
-void ShaderExecutableChunkBase::setVariables(ShaderProgramVariables * const value)
-{
-    editSField(VariablesFieldMask);
-
-    _sfVariables.setValue(value);
-}
 //! Get the value of the ShaderExecutableChunk::_sfGeometryVerticesOut field.
 
 inline
@@ -231,7 +215,6 @@ Int32 &ShaderExecutableChunkBase::editVariableLocations(const UInt32 index)
     return _mfVariableLocations[index];
 }
 
-
 //! Get the value of the \a index element the ShaderExecutableChunk::_mfProceduralVariableLocations field.
 inline
       Int32  ShaderExecutableChunkBase::getProceduralVariableLocations(const UInt32 index) const
@@ -247,7 +230,6 @@ Int32 &ShaderExecutableChunkBase::editProceduralVariableLocations(const UInt32 i
     return _mfProceduralVariableLocations[index];
 }
 
-
 //! Get the value of the \a index element the ShaderExecutableChunk::_mfAttributes field.
 inline
 const ShaderAttribute &ShaderExecutableChunkBase::getAttributes(const UInt32 index) const
@@ -262,7 +244,6 @@ ShaderAttribute &ShaderExecutableChunkBase::editAttributes(const UInt32 index)
 
     return _mfAttributes[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

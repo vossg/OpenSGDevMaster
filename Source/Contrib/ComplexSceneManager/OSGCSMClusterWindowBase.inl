@@ -74,22 +74,6 @@ OSG::UInt16 CSMClusterWindowBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CSMClusterWindow::_sfClientWindow field.
-inline
-CSMWindow * CSMClusterWindowBase::getClientWindow(void) const
-{
-    return _sfClientWindow.getValue();
-}
-
-//! Set the value of the CSMClusterWindow::_sfClientWindow field.
-inline
-void CSMClusterWindowBase::setClientWindow(CSMWindow * const value)
-{
-    editSField(ClientWindowFieldMask);
-
-    _sfClientWindow.setValue(value);
-}
 //! Get the value of the CSMClusterWindow::_sfRenderClient field.
 
 inline
@@ -191,38 +175,6 @@ void CSMClusterWindowBase::setClusterMode(const std::string &value)
     _sfClusterMode.setValue(value);
 }
 
-//! Get the value of the CSMClusterWindow::_sfComposer field.
-inline
-ImageComposer * CSMClusterWindowBase::getComposer(void) const
-{
-    return _sfComposer.getValue();
-}
-
-//! Set the value of the CSMClusterWindow::_sfComposer field.
-inline
-void CSMClusterWindowBase::setComposer(ImageComposer * const value)
-{
-    editSField(ComposerFieldMask);
-
-    _sfComposer.setValue(value);
-}
-
-//! Get the value of the CSMClusterWindow::_sfOptions field.
-inline
-CSMClusterWinOptions * CSMClusterWindowBase::getOptions(void) const
-{
-    return _sfOptions.getValue();
-}
-
-//! Set the value of the CSMClusterWindow::_sfOptions field.
-inline
-void CSMClusterWindowBase::setOptions(CSMClusterWinOptions * const value)
-{
-    editSField(OptionsFieldMask);
-
-    _sfOptions.setValue(value);
-}
-
 //! Get the value of the \a index element the CSMClusterWindow::_mfServers field.
 inline
 const std::string &CSMClusterWindowBase::getServers(const UInt32 index) const
@@ -238,7 +190,6 @@ std::string &CSMClusterWindowBase::editServers(const UInt32 index)
     return _mfServers[index];
 }
 
-
 //! Get the value of the \a index element the CSMClusterWindow::_mfServerIds field.
 inline
       UInt32  CSMClusterWindowBase::getServerIds(const UInt32 index) const
@@ -253,7 +204,6 @@ UInt32 &CSMClusterWindowBase::editServerIds(const UInt32 index)
 
     return _mfServerIds[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

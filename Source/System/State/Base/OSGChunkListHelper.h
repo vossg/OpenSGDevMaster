@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGChunkListHelperBase.h"
-#include "OSGStateChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

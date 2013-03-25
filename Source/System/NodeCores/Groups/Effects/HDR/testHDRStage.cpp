@@ -23,6 +23,7 @@
 #include "OSGImageFileHandler.h"
 #include "OSGHDRStage.h"
 #include "OSGVisitSubTree.h"
+#include "OSGTextureObjChunk.h"
 
 // This test uses an HDR image as background ("grace_cross.chdr"), which
 // we do not distribute with the source tree.

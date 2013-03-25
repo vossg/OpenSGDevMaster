@@ -75,12 +75,6 @@ OSG::UInt16 ChunkMaterialBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the ChunkMaterial::_mfChunks field.
-inline
-StateChunk * ChunkMaterialBase::getChunks(const UInt32 index) const
-{
-    return _mfChunks[index];
-}
 
 //! Get the value of the \a index element the ChunkMaterial::_mfSlots field.
 inline
@@ -96,7 +90,6 @@ Int32 &ChunkMaterialBase::editSlots(const UInt32 index)
 
     return _mfSlots[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

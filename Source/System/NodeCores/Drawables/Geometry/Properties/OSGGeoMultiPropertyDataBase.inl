@@ -116,7 +116,6 @@ UInt8 &GeoMultiPropertyDataBase::editIData(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,

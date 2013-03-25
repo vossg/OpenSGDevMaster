@@ -68,8 +68,8 @@ OSG_BEGIN_NAMESPACE
 class CSMQT4Window;
 
 OSG_GEN_CONTAINERPTR(CSMQT4Window);
-/*! \ingroup GrpContribCSMFieldTraits
-    \ingroup GrpLibOSGContribCSM
+/*! \ingroup GrpContribCSMQtFieldTraits
+    \ingroup GrpLibOSGContribCSMQt
  */
 template <>
 struct FieldTraits<CSMQT4Window *, nsOSG> :
@@ -145,30 +145,30 @@ const Char8 *FieldTraits<CSMQT4Window *, nsOSG>::getMName<NoRefCountPolicy>(void
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribCSMFieldSFields */
+/*! \ingroup GrpContribCSMQtFieldSFields */
 typedef PointerSField<CSMQT4Window *,
                       RecordedRefCountPolicy, nsOSG  > SFRecCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldSFields */
+/*! \ingroup GrpContribCSMQtFieldSFields */
 typedef PointerSField<CSMQT4Window *,
                       UnrecordedRefCountPolicy, nsOSG> SFUnrecCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldSFields */
+/*! \ingroup GrpContribCSMQtFieldSFields */
 typedef PointerSField<CSMQT4Window *,
                       WeakRefCountPolicy, nsOSG      > SFWeakCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldSFields */
+/*! \ingroup GrpContribCSMQtFieldSFields */
 typedef PointerSField<CSMQT4Window *,
                       NoRefCountPolicy, nsOSG        > SFUncountedCSMQT4WindowPtr;
 
 
-/*! \ingroup GrpContribCSMFieldMFields */
+/*! \ingroup GrpContribCSMQtFieldMFields */
 typedef PointerMField<CSMQT4Window *,
                       RecordedRefCountPolicy, nsOSG  > MFRecCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldMFields */
+/*! \ingroup GrpContribCSMQtFieldMFields */
 typedef PointerMField<CSMQT4Window *,
                       UnrecordedRefCountPolicy, nsOSG> MFUnrecCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldMFields */
+/*! \ingroup GrpContribCSMQtFieldMFields */
 typedef PointerMField<CSMQT4Window *,
                       WeakRefCountPolicy, nsOSG      > MFWeakCSMQT4WindowPtr;
-/*! \ingroup GrpContribCSMFieldMFields */
+/*! \ingroup GrpContribCSMQtFieldMFields */
 typedef PointerMField<CSMQT4Window *,
                       NoRefCountPolicy, nsOSG        > MFUncountedCSMQT4WindowPtr;
 
@@ -177,37 +177,37 @@ typedef PointerMField<CSMQT4Window *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldSFields \ingroup GrpLibOSGContribCSMQt */
 struct SFRecCSMQT4WindowPtr : 
     public PointerSField<CSMQT4Window *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldSFields \ingroup GrpLibOSGContribCSMQt */
 struct SFUnrecCSMQT4WindowPtr : 
     public PointerSField<CSMQT4Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldSFields \ingroup GrpLibOSGContribCSMQt */
 struct SFWeakCSMQT4WindowPtr :
     public PointerSField<CSMQT4Window *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldSFields \ingroup GrpLibOSGContribCSMQt */
 struct SFUncountedCSMQT4WindowPtr :
     public PointerSField<CSMQT4Window *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldMFields \ingroup GrpLibOSGContribCSMQt */
 struct MFRecCSMQT4WindowPtr :
     public PointerMField<CSMQT4Window *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldMFields \ingroup GrpLibOSGContribCSMQt */
 struct MFUnrecCSMQT4WindowPtr :
     public PointerMField<CSMQT4Window *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldMFields \ingroup GrpLibOSGContribCSMQt */
 struct MFWeakCSMQT4WindowPtr :
     public PointerMField<CSMQT4Window *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+/*! \ingroup GrpContribCSMQtFieldMFields \ingroup GrpLibOSGContribCSMQt */
 struct MFUncountedCSMQT4WindowPtr :
     public PointerMField<CSMQT4Window *,
                          NoRefCountPolicy        > {};

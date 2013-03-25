@@ -211,6 +211,21 @@ SFUnrecNodePtr      *ReplicateTransformBase::editSFTarget         (void)
     return &_sfTarget;
 }
 
+//! Get the value of the ReplicateTransform::_sfTarget field.
+Node * ReplicateTransformBase::getTarget(void) const
+{
+    return _sfTarget.getValue();
+}
+
+//! Set the value of the ReplicateTransform::_sfTarget field.
+void ReplicateTransformBase::setTarget(Node * const value)
+{
+    editSField(TargetFieldMask);
+
+    _sfTarget.setValue(value);
+}
+
+
 
 
 

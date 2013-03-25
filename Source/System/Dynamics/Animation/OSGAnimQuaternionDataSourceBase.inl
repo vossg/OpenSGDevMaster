@@ -90,7 +90,6 @@ Quaternion &AnimQuaternionDataSourceBase::editValues(const UInt32 index)
     return _mfValues[index];
 }
 
-
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfInTangentsX field.
 inline
 const Vec2f &AnimQuaternionDataSourceBase::getInTangentsX(const UInt32 index) const
@@ -105,7 +104,6 @@ Vec2f &AnimQuaternionDataSourceBase::editInTangentsX(const UInt32 index)
 
     return _mfInTangentsX[index];
 }
-
 
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfInTangentsY field.
 inline
@@ -122,7 +120,6 @@ Vec2f &AnimQuaternionDataSourceBase::editInTangentsY(const UInt32 index)
     return _mfInTangentsY[index];
 }
 
-
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfInTangentsZ field.
 inline
 const Vec2f &AnimQuaternionDataSourceBase::getInTangentsZ(const UInt32 index) const
@@ -137,7 +134,6 @@ Vec2f &AnimQuaternionDataSourceBase::editInTangentsZ(const UInt32 index)
 
     return _mfInTangentsZ[index];
 }
-
 
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfInTangentsW field.
 inline
@@ -154,7 +150,6 @@ Vec2f &AnimQuaternionDataSourceBase::editInTangentsW(const UInt32 index)
     return _mfInTangentsW[index];
 }
 
-
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfOutTangentsX field.
 inline
 const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsX(const UInt32 index) const
@@ -169,7 +164,6 @@ Vec2f &AnimQuaternionDataSourceBase::editOutTangentsX(const UInt32 index)
 
     return _mfOutTangentsX[index];
 }
-
 
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfOutTangentsY field.
 inline
@@ -186,7 +180,6 @@ Vec2f &AnimQuaternionDataSourceBase::editOutTangentsY(const UInt32 index)
     return _mfOutTangentsY[index];
 }
 
-
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfOutTangentsZ field.
 inline
 const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsZ(const UInt32 index) const
@@ -202,7 +195,6 @@ Vec2f &AnimQuaternionDataSourceBase::editOutTangentsZ(const UInt32 index)
     return _mfOutTangentsZ[index];
 }
 
-
 //! Get the value of the \a index element the AnimQuaternionDataSource::_mfOutTangentsW field.
 inline
 const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsW(const UInt32 index) const
@@ -217,7 +209,6 @@ Vec2f &AnimQuaternionDataSourceBase::editOutTangentsW(const UInt32 index)
 
     return _mfOutTangentsW[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

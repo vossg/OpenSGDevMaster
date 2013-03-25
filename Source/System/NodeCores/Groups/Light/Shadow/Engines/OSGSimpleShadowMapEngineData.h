@@ -43,13 +43,6 @@
 #endif
 
 #include "OSGSimpleShadowMapEngineDataBase.h"
-#include "OSGFrameBufferObject.h"
-#include "OSGTextureObjChunk.h"
-#include "OSGTextureBuffer.h"
-#include "OSGBlendChunk.h"
-#include "OSGTexGenChunk.h"
-#include "OSGPolygonChunk.h"
-#include "OSGLightChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

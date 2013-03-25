@@ -47,6 +47,8 @@
 
 #include "OSGCPUSkinningAlgorithm.h"
 #include "OSGCPUSkinningDataAttachment.h"
+#include "OSGSkeleton.h"
+
 #include "OSGGeoPumpGroup.h"
 #include "OSGIntersectAction.h"
 #include "OSGPrimeMaterial.h"

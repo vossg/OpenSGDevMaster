@@ -70,6 +70,7 @@
 #include "OSGTextureEnvChunk.h"
 #include "OSGSimpleSHLVariableChunk.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 
 OSG_USING_NAMESPACE
 

@@ -42,9 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGDrawableDef.h"
-#include "OSGGeometry.h"
 #include "OSGKDTreeIntersectProxyAttachmentBase.h"
 
 OSG_BEGIN_NAMESPACE

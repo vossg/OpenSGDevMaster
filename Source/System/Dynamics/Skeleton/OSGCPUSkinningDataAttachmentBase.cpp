@@ -284,6 +284,10 @@ MFUnrecChildGeoVectorPropertyPtr *CPUSkinningDataAttachmentBase::editMFPropertie
 
     return &_mfProperties;
 }
+GeoVectorProperty * CPUSkinningDataAttachmentBase::getProperties(const UInt32 index) const
+{
+    return _mfProperties[index];
+}
 
 MFMatrix *CPUSkinningDataAttachmentBase::editMFJointMatrices(void)
 {

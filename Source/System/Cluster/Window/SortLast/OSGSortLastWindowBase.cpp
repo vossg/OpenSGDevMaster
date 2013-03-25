@@ -242,6 +242,10 @@ MFUnrecNodePtr      *SortLastWindowBase::editMFGroupNodes     (void)
 
     return &_mfGroupNodes;
 }
+Node * SortLastWindowBase::getGroupNodes(const UInt32 index) const
+{
+    return _mfGroupNodes[index];
+}
 
 MFUInt32 *SortLastWindowBase::editMFGroupLengths(void)
 {

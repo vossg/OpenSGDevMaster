@@ -74,38 +74,6 @@ OSG::UInt16 AnimationBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the Animation::_sfTimeSensor field.
-inline
-AnimTimeSensor * AnimationBase::getTimeSensor(void) const
-{
-    return _sfTimeSensor.getValue();
-}
-
-//! Set the value of the Animation::_sfTimeSensor field.
-inline
-void AnimationBase::setTimeSensor(AnimTimeSensor * const value)
-{
-    editSField(TimeSensorFieldMask);
-
-    _sfTimeSensor.setValue(value);
-}
-
-//! Get the value of the Animation::_sfTemplate field.
-inline
-AnimTemplate * AnimationBase::getTemplate(void) const
-{
-    return _sfTemplate.getValue();
-}
-
-//! Set the value of the Animation::_sfTemplate field.
-inline
-void AnimationBase::setTemplate(AnimTemplate * const value)
-{
-    editSField(TemplateFieldMask);
-
-    _sfTemplate.setValue(value);
-}
 //! Get the value of the Animation::_sfEnabled field.
 
 inline
@@ -157,12 +125,6 @@ void AnimationBase::setWeight(const Real32 value)
     _sfWeight.setValue(value);
 }
 
-//! Get the value of the \a index element the Animation::_mfChannels field.
-inline
-AnimChannel * AnimationBase::getChannels(const UInt32 index) const
-{
-    return _mfChannels[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

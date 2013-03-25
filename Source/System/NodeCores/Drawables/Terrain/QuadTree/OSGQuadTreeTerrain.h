@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
 #include "OSGQuadTreeTerrainBase.h"
 #include "OSGSimpleSHLChunk.h"
 #include "OSGVertexProgramChunk.h"

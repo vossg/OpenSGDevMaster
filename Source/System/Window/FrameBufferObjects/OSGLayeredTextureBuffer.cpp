@@ -52,6 +52,7 @@
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 

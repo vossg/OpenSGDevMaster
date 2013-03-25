@@ -75,22 +75,6 @@ OSG::UInt16 MapHelperBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the MapHelper::_sfContainer field.
-inline
-FieldContainer * MapHelperBase::getContainer(void) const
-{
-    return _sfContainer.getValue();
-}
-
-//! Set the value of the MapHelper::_sfContainer field.
-inline
-void MapHelperBase::setContainer(FieldContainer * const value)
-{
-    editSField(ContainerFieldMask);
-
-    _sfContainer.setValue(value);
-}
-
 //! Get the value of the \a index element the MapHelper::_mfKeys field.
 inline
 const std::string &MapHelperBase::getKeys(const UInt32 index) const
@@ -105,7 +89,6 @@ std::string &MapHelperBase::editKeys(const UInt32 index)
 
     return _mfKeys[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

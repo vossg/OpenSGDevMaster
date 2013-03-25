@@ -15,6 +15,7 @@
 #include <OSGBaseFunctions.h>
 
 #include <OSGTextureBackground.h>
+#include <OSGImage.h>
 
 #else
 
@@ -28,6 +29,7 @@
 #include <OpenSG/OSGBaseFunctions.h>
 
 #include <OpenSG/OSGTextureBackground.h>
+#include <OpenSG/OSGImage.h>
 
 #endif // OSG_BUILD_ACTIVE
 

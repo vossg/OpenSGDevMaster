@@ -240,6 +240,10 @@ MFUnrecAnimBlenderPtr *AnimTargetAttachmentBase::editMFBlenders       (void)
 
     return &_mfBlenders;
 }
+AnimBlender * AnimTargetAttachmentBase::getBlenders(const UInt32 index) const
+{
+    return _mfBlenders[index];
+}
 
 
 

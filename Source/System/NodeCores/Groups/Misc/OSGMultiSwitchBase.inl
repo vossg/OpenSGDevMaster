@@ -116,7 +116,6 @@ UInt32 &MultiSwitchBase::editChoices(const UInt32 index)
 }
 
 
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void MultiSwitchBase::execSync (      MultiSwitchBase *pFrom,

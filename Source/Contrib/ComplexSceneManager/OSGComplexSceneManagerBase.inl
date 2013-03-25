@@ -74,22 +74,6 @@ OSG::UInt16 ComplexSceneManagerBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ComplexSceneManager::_sfDrawManager field.
-inline
-CSMDrawManager * ComplexSceneManagerBase::getDrawManager(void) const
-{
-    return _sfDrawManager.getValue();
-}
-
-//! Set the value of the ComplexSceneManager::_sfDrawManager field.
-inline
-void ComplexSceneManagerBase::setDrawManager(CSMDrawManager * const value)
-{
-    editSField(DrawManagerFieldMask);
-
-    _sfDrawManager.setValue(value);
-}
 //! Get the value of the ComplexSceneManager::_sfStartTime field.
 
 inline
@@ -316,12 +300,6 @@ void ComplexSceneManagerBase::setWebServiceRoot(const std::string &value)
     _sfWebServiceRoot.setValue(value);
 }
 
-//! Get the value of the \a index element the ComplexSceneManager::_mfGlobals field.
-inline
-FieldContainer * ComplexSceneManagerBase::getGlobals(const UInt32 index) const
-{
-    return _mfGlobals[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

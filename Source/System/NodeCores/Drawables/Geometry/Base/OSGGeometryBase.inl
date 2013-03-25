@@ -74,38 +74,6 @@ OSG::UInt16 GeometryBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the Geometry::_sfTypes field.
-inline
-GeoIntegralProperty * GeometryBase::getTypes(void) const
-{
-    return _sfTypes.getValue();
-}
-
-//! Set the value of the Geometry::_sfTypes field.
-inline
-void GeometryBase::setTypes(GeoIntegralProperty * const value)
-{
-    editSField(TypesFieldMask);
-
-    _sfTypes.setValue(value);
-}
-
-//! Get the value of the Geometry::_sfLengths field.
-inline
-GeoIntegralProperty * GeometryBase::getLengths(void) const
-{
-    return _sfLengths.getValue();
-}
-
-//! Set the value of the Geometry::_sfLengths field.
-inline
-void GeometryBase::setLengths(GeoIntegralProperty * const value)
-{
-    editSField(LengthsFieldMask);
-
-    _sfLengths.setValue(value);
-}
 //! Get the value of the Geometry::_sfDlistCache field.
 
 inline
@@ -257,19 +225,7 @@ void GeometryBase::setVaoGLId(const Int32 value)
     _sfVaoGLId.setValue(value);
 }
 
-//! Get the value of the \a index element the Geometry::_mfProperties field.
-inline
-GeoVectorProperty * GeometryBase::getProperties(const UInt32 index) const
-{
-    return _mfProperties[index];
-}
 
-//! Get the value of the \a index element the Geometry::_mfPropIndices field.
-inline
-GeoIntegralProperty * GeometryBase::getPropIndices(const UInt32 index) const
-{
-    return _mfPropIndices[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

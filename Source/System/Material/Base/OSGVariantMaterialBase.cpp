@@ -200,6 +200,21 @@ SFUnrecPrimeMaterialPtr *VariantMaterialBase::editSFFallbackMaterial(void)
     return &_sfFallbackMaterial;
 }
 
+//! Get the value of the VariantMaterial::_sfFallbackMaterial field.
+PrimeMaterial * VariantMaterialBase::getFallbackMaterial(void) const
+{
+    return _sfFallbackMaterial.getValue();
+}
+
+//! Set the value of the VariantMaterial::_sfFallbackMaterial field.
+void VariantMaterialBase::setFallbackMaterial(PrimeMaterial * const value)
+{
+    editSField(FallbackMaterialFieldMask);
+
+    _sfFallbackMaterial.setValue(value);
+}
+
+
 
 
 

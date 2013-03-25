@@ -46,6 +46,7 @@
 #include "OSGMaterialMergeGraphOp.h"
 #include "OSGGraphOpFactory.h"
 #include "OSGFieldContainerUtils.h"
+#include "OSGMaterial.h"
 
 #include <boost/next_prior.hpp>
 

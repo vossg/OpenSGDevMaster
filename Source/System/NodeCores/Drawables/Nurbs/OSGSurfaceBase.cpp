@@ -659,6 +659,21 @@ SFUnrecChildGeoVectorPropertyPtr *SurfaceBase::editSFControlPoints  (void)
     return &_sfControlPoints;
 }
 
+//! Get the value of the Surface::_sfControlPoints field.
+GeoVectorProperty * SurfaceBase::getControlPoints(void) const
+{
+    return _sfControlPoints.getValue();
+}
+
+//! Set the value of the Surface::_sfControlPoints field.
+void SurfaceBase::setControlPoints(GeoVectorProperty * const value)
+{
+    editSField(ControlPointsFieldMask);
+
+    _sfControlPoints.setValue(value);
+}
+
+
 SFReal32 *SurfaceBase::editSFError(void)
 {
     editSField(ErrorFieldMask);
@@ -775,6 +790,21 @@ SFUnrecChildGeoVectorPropertyPtr *SurfaceBase::editSFTextureControlPoints(void)
 
     return &_sfTextureControlPoints;
 }
+
+//! Get the value of the Surface::_sfTextureControlPoints field.
+GeoVectorProperty * SurfaceBase::getTextureControlPoints(void) const
+{
+    return _sfTextureControlPoints.getValue();
+}
+
+//! Set the value of the Surface::_sfTextureControlPoints field.
+void SurfaceBase::setTextureControlPoints(GeoVectorProperty * const value)
+{
+    editSField(TextureControlPointsFieldMask);
+
+    _sfTextureControlPoints.setValue(value);
+}
+
 
 SFUInt32 *SurfaceBase::editSFDirtyMask(void)
 {

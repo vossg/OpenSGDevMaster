@@ -209,6 +209,10 @@ MFUnrecPrimeMaterialPtr *MultiPassMaterialBase::editMFMaterials      (void)
 
     return &_mfMaterials;
 }
+PrimeMaterial * MultiPassMaterialBase::getMaterials(const UInt32 index) const
+{
+    return _mfMaterials[index];
+}
 
 
 

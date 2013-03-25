@@ -50,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsAnimQuaternionBlender for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimQuaternionBlender : public AnimQuaternionBlenderBase
+class OSG_DYNAMICS_DLLMAPPING AnimQuaternionBlender : 
+    public AnimQuaternionBlenderBase
 {
   protected:
 

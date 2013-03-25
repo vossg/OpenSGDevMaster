@@ -52,6 +52,8 @@
 
 #include "OSGAlgorithmComputeElement.h"
 
+#include "OSGComputeAlgorithm.h"
+
 #include "OSGFrameBufferObject.h"
 #include "OSGFrameBufferAttachment.h"
 

@@ -45,8 +45,6 @@
 #include "OSGChunkBlockBase.h"
 #include "OSGChunkListHandlerMixin.h"
 #include "OSGChunkListHelper.h"
-
-#include "OSGStateChunkFields.h"
 #include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE

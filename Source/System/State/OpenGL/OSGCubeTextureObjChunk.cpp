@@ -52,6 +52,7 @@
 #include "OSGDrawEnv.h"
 
 #include "OSGCubeTextureObjChunk.h"
+#include "OSGImage.h"
 
 OSG_USING_NAMESPACE
 

@@ -202,6 +202,10 @@ const MFUnrecStatePtr *CgFXTechniqueBase::getMFRenderPassStates(void) const
 {
     return &_mfRenderPassStates;
 }
+State * CgFXTechniqueBase::getRenderPassStates(const UInt32 index) const
+{
+    return _mfRenderPassStates[index];
+}
 
 
 

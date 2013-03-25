@@ -237,6 +237,21 @@ SFUnrecStateChunkPtr *ChunkListHelperBase::editSFChunk          (void)
     return &_sfChunk;
 }
 
+//! Get the value of the ChunkListHelper::_sfChunk field.
+StateChunk * ChunkListHelperBase::getChunk(void) const
+{
+    return _sfChunk.getValue();
+}
+
+//! Set the value of the ChunkListHelper::_sfChunk field.
+void ChunkListHelperBase::setChunk(StateChunk * const value)
+{
+    editSField(ChunkFieldMask);
+
+    _sfChunk.setValue(value);
+}
+
+
 
 
 

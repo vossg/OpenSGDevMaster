@@ -54,6 +54,7 @@
 #include "OSGGeometry.h"
 #include "OSGSimpleMaterial.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 
 #include "OSGRAWSceneFileType.h"
 

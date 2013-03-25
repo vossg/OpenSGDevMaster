@@ -238,6 +238,10 @@ MFUnrecFieldContainerPtr *ContainerCollectionBase::editMFContainers     (void)
 
     return &_mfContainers;
 }
+FieldContainer * ContainerCollectionBase::getContainers(const UInt32 index) const
+{
+    return _mfContainers[index];
+}
 
 
 

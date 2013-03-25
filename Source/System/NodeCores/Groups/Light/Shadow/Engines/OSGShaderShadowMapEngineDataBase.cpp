@@ -334,6 +334,10 @@ MFUnrecFrameBufferObjectPtr *ShaderShadowMapEngineDataBase::editMFRenderTargets 
 
     return &_mfRenderTargets;
 }
+FrameBufferObject * ShaderShadowMapEngineDataBase::getRenderTargets(const UInt32 index) const
+{
+    return _mfRenderTargets[index];
+}
 
 //! Get the ShaderShadowMapEngineData::_mfShadowTexBuffers field.
 const MFUnrecTextureBufferPtr *ShaderShadowMapEngineDataBase::getMFShadowTexBuffers(void) const
@@ -346,6 +350,10 @@ MFUnrecTextureBufferPtr *ShaderShadowMapEngineDataBase::editMFShadowTexBuffers(v
     editMField(ShadowTexBuffersFieldMask, _mfShadowTexBuffers);
 
     return &_mfShadowTexBuffers;
+}
+TextureBuffer * ShaderShadowMapEngineDataBase::getShadowTexBuffers(const UInt32 index) const
+{
+    return _mfShadowTexBuffers[index];
 }
 
 //! Get the ShaderShadowMapEngineData::_sfShadowTexChunk field.
@@ -361,6 +369,21 @@ SFUnrecTextureObjChunkPtr *ShaderShadowMapEngineDataBase::editSFShadowTexChunk (
     return &_sfShadowTexChunk;
 }
 
+//! Get the value of the ShaderShadowMapEngineData::_sfShadowTexChunk field.
+TextureObjChunk * ShaderShadowMapEngineDataBase::getShadowTexChunk(void) const
+{
+    return _sfShadowTexChunk.getValue();
+}
+
+//! Set the value of the ShaderShadowMapEngineData::_sfShadowTexChunk field.
+void ShaderShadowMapEngineDataBase::setShadowTexChunk(TextureObjChunk * const value)
+{
+    editSField(ShadowTexChunkFieldMask);
+
+    _sfShadowTexChunk.setValue(value);
+}
+
+
 //! Get the ShaderShadowMapEngineData::_sfShadowTexImage field.
 const SFUnrecImagePtr *ShaderShadowMapEngineDataBase::getSFShadowTexImage(void) const
 {
@@ -374,6 +397,21 @@ SFUnrecImagePtr     *ShaderShadowMapEngineDataBase::editSFShadowTexImage (void)
     return &_sfShadowTexImage;
 }
 
+//! Get the value of the ShaderShadowMapEngineData::_sfShadowTexImage field.
+Image * ShaderShadowMapEngineDataBase::getShadowTexImage(void) const
+{
+    return _sfShadowTexImage.getValue();
+}
+
+//! Set the value of the ShaderShadowMapEngineData::_sfShadowTexImage field.
+void ShaderShadowMapEngineDataBase::setShadowTexImage(Image * const value)
+{
+    editSField(ShadowTexImageFieldMask);
+
+    _sfShadowTexImage.setValue(value);
+}
+
+
 //! Get the ShaderShadowMapEngineData::_mfLightPassMaterials field.
 const MFUnrecChunkMaterialPtr *ShaderShadowMapEngineDataBase::getMFLightPassMaterials(void) const
 {
@@ -385,6 +423,10 @@ MFUnrecChunkMaterialPtr *ShaderShadowMapEngineDataBase::editMFLightPassMaterials
     editMField(LightPassMaterialsFieldMask, _mfLightPassMaterials);
 
     return &_mfLightPassMaterials;
+}
+ChunkMaterial * ShaderShadowMapEngineDataBase::getLightPassMaterials(const UInt32 index) const
+{
+    return _mfLightPassMaterials[index];
 }
 
 //! Get the ShaderShadowMapEngineData::_sfBackground field.
@@ -399,6 +441,21 @@ SFUnrecBackgroundPtr *ShaderShadowMapEngineDataBase::editSFBackground     (void)
 
     return &_sfBackground;
 }
+
+//! Get the value of the ShaderShadowMapEngineData::_sfBackground field.
+Background * ShaderShadowMapEngineDataBase::getBackground(void) const
+{
+    return _sfBackground.getValue();
+}
+
+//! Set the value of the ShaderShadowMapEngineData::_sfBackground field.
+void ShaderShadowMapEngineDataBase::setBackground(Background * const value)
+{
+    editSField(BackgroundFieldMask);
+
+    _sfBackground.setValue(value);
+}
+
 
 
 

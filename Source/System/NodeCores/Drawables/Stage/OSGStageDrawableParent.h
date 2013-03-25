@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGDrawable.h"
+#include "OSGViewarea.h"
 #include "OSGStageHandlerMixin.h"
 #include "OSGStageIdPool.h"
 

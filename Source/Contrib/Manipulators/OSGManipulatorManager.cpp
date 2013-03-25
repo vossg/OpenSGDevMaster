@@ -43,6 +43,8 @@
 #include "OSGConfig.h"
 #include "OSGIntersectAction.h"
 #include "OSGManipulatorManager.h"
+#include "OSGViewport.h"
+#include "OSGCamera.h"
 
 OSG_BEGIN_NAMESPACE
 

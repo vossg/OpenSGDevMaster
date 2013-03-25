@@ -465,6 +465,21 @@ SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editSFTypes          (void)
     return &_sfTypes;
 }
 
+//! Get the value of the Geometry::_sfTypes field.
+GeoIntegralProperty * GeometryBase::getTypes(void) const
+{
+    return _sfTypes.getValue();
+}
+
+//! Set the value of the Geometry::_sfTypes field.
+void GeometryBase::setTypes(GeoIntegralProperty * const value)
+{
+    editSField(TypesFieldMask);
+
+    _sfTypes.setValue(value);
+}
+
+
 //! Get the Geometry::_sfLengths field.
 const SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::getSFLengths(void) const
 {
@@ -478,6 +493,21 @@ SFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editSFLengths        (void)
     return &_sfLengths;
 }
 
+//! Get the value of the Geometry::_sfLengths field.
+GeoIntegralProperty * GeometryBase::getLengths(void) const
+{
+    return _sfLengths.getValue();
+}
+
+//! Set the value of the Geometry::_sfLengths field.
+void GeometryBase::setLengths(GeoIntegralProperty * const value)
+{
+    editSField(LengthsFieldMask);
+
+    _sfLengths.setValue(value);
+}
+
+
 //! Get the Geometry::_mfProperties field.
 const MFUnrecChildGeoVectorPropertyPtr *GeometryBase::getMFProperties(void) const
 {
@@ -489,6 +519,10 @@ MFUnrecChildGeoVectorPropertyPtr *GeometryBase::editMFProperties     (void)
     editMField(PropertiesFieldMask, _mfProperties);
 
     return &_mfProperties;
+}
+GeoVectorProperty * GeometryBase::getProperties(const UInt32 index) const
+{
+    return _mfProperties[index];
 }
 
 //! Get the Geometry::_mfPropIndices field.
@@ -502,6 +536,10 @@ MFUnrecChildGeoIntegralPropertyPtr *GeometryBase::editMFPropIndices    (void)
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
     return &_mfPropIndices;
+}
+GeoIntegralProperty * GeometryBase::getPropIndices(const UInt32 index) const
+{
+    return _mfPropIndices[index];
 }
 
 SFBool *GeometryBase::editSFDlistCache(void)

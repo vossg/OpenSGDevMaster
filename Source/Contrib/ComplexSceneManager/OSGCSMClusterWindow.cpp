@@ -47,6 +47,8 @@
 
 #include "OSGCSMClusterWindow.h"
 
+#include "OSGCSMViewport.h"
+
 #include "OSGBalancedMultiWindow.h"
 #include "OSGSortFirstWindow.h"
 #include "OSGSortLastWindow.h"
@@ -55,6 +57,7 @@
 #include "OSGCSMSortFirstWinOptions.h"
 
 #include "OSGNameAttachment.h"
+#include "OSGImageComposer.h"
 
 OSG_BEGIN_NAMESPACE
 

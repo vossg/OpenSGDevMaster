@@ -74,22 +74,6 @@ OSG::UInt16 AnimQuaternionChannelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the AnimQuaternionChannel::_sfData field.
-inline
-AnimQuaternionDataSource * AnimQuaternionChannelBase::getData(void) const
-{
-    return _sfData.getValue();
-}
-
-//! Set the value of the AnimQuaternionChannel::_sfData field.
-inline
-void AnimQuaternionChannelBase::setData(AnimQuaternionDataSource * const value)
-{
-    editSField(DataFieldMask);
-
-    _sfData.setValue(value);
-}
 //! Get the value of the AnimQuaternionChannel::_sfOutValue field.
 
 inline

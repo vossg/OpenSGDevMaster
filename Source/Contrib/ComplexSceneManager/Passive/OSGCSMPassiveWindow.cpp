@@ -46,6 +46,8 @@
 #include "OSGConfig.h"
 
 #include "OSGCSMPassiveWindow.h"
+#include "OSGCSMPassiveWinClearOp.h"
+
 #include "OSGPassiveWindow.h"
 #include "OSGComplexSceneManager.h"
 #include "OSGGLUT.h"

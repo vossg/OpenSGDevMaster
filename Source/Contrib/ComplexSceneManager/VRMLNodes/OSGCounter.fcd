@@ -13,6 +13,7 @@
     isNodeCore="false"
     isBundle="true"
     parentFields="none"
+    fieldsUnmarkedOnCreate="(IncTriggerFieldMask | DecTriggerFieldMask | ResetTriggerFieldMask)"
     >
     <Field
         name="incTrigger"

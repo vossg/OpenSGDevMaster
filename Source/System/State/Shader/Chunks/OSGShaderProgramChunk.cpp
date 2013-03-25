@@ -46,6 +46,8 @@
 #include "OSGConfig.h"
 
 #include "OSGShaderProgramChunk.h"
+#include "OSGWindow.h"
+#include "OSGShaderProgram.h"
 
 OSG_BEGIN_NAMESPACE
 

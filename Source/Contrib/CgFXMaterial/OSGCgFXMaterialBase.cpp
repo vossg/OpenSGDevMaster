@@ -545,6 +545,21 @@ SFUnrecChildShaderProgramVariablesPtr *CgFXMaterialBase::editSFVariables      (v
     return &_sfVariables;
 }
 
+//! Get the value of the CgFXMaterial::_sfVariables field.
+ShaderProgramVariables * CgFXMaterialBase::getVariables(void) const
+{
+    return _sfVariables.getValue();
+}
+
+//! Set the value of the CgFXMaterial::_sfVariables field.
+void CgFXMaterialBase::setVariables(ShaderProgramVariables * const value)
+{
+    editSField(VariablesFieldMask);
+
+    _sfVariables.setValue(value);
+}
+
+
 SFString *CgFXMaterialBase::editSFSelectedTechnique(void)
 {
     editSField(SelectedTechniqueFieldMask);
@@ -583,6 +598,10 @@ MFUnrecCgFXTechniquePtr *CgFXMaterialBase::editMFTechniques     (void)
 
     return &_mfTechniques;
 }
+CgFXTechnique * CgFXMaterialBase::getTechniques(const UInt32 index) const
+{
+    return _mfTechniques[index];
+}
 
 //! Get the CgFXMaterial::_mfTextures field.
 const MFUnrecTextureObjChunkPtr *CgFXMaterialBase::getMFTextures(void) const
@@ -595,6 +614,10 @@ MFUnrecTextureObjChunkPtr *CgFXMaterialBase::editMFTextures       (void)
     editMField(TexturesFieldMask, _mfTextures);
 
     return &_mfTextures;
+}
+TextureObjChunk * CgFXMaterialBase::getTextures(const UInt32 index) const
+{
+    return _mfTextures[index];
 }
 
 SFGLenum *CgFXMaterialBase::editSFGLId(void)

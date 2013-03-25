@@ -47,6 +47,7 @@
 
 #include "OSGCSMTrackball.h"
 #include "OSGWindow.h"
+#include "OSGViewport.h"
 
 OSG_BEGIN_NAMESPACE
 

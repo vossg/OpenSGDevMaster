@@ -74,22 +74,6 @@ OSG::UInt16 GrabForegroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the GrabForeground::_sfImage field.
-inline
-Image * GrabForegroundBase::getImage(void) const
-{
-    return _sfImage.getValue();
-}
-
-//! Set the value of the GrabForeground::_sfImage field.
-inline
-void GrabForegroundBase::setImage(Image * const value)
-{
-    editSField(ImageFieldMask);
-
-    _sfImage.setValue(value);
-}
 //! Get the value of the GrabForeground::_sfAutoResize field.
 
 inline

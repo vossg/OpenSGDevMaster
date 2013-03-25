@@ -56,6 +56,7 @@
 
 #include "OSGCSMNativeWindow.h"
 #include "OSGComplexSceneManager.h"
+#include "OSGCSMDrawManager.h"
 
 #define OSG_REG_CLASS_PERWINDOW 1
 

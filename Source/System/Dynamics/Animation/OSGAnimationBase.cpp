@@ -343,6 +343,21 @@ SFUnrecAnimTimeSensorPtr *AnimationBase::editSFTimeSensor     (void)
     return &_sfTimeSensor;
 }
 
+//! Get the value of the Animation::_sfTimeSensor field.
+AnimTimeSensor * AnimationBase::getTimeSensor(void) const
+{
+    return _sfTimeSensor.getValue();
+}
+
+//! Set the value of the Animation::_sfTimeSensor field.
+void AnimationBase::setTimeSensor(AnimTimeSensor * const value)
+{
+    editSField(TimeSensorFieldMask);
+
+    _sfTimeSensor.setValue(value);
+}
+
+
 //! Get the Animation::_sfTemplate field.
 const SFUnrecAnimTemplatePtr *AnimationBase::getSFTemplate(void) const
 {
@@ -356,6 +371,21 @@ SFUnrecAnimTemplatePtr *AnimationBase::editSFTemplate       (void)
     return &_sfTemplate;
 }
 
+//! Get the value of the Animation::_sfTemplate field.
+AnimTemplate * AnimationBase::getTemplate(void) const
+{
+    return _sfTemplate.getValue();
+}
+
+//! Set the value of the Animation::_sfTemplate field.
+void AnimationBase::setTemplate(AnimTemplate * const value)
+{
+    editSField(TemplateFieldMask);
+
+    _sfTemplate.setValue(value);
+}
+
+
 //! Get the Animation::_mfChannels field.
 const MFUnrecChildAnimChannelPtr *AnimationBase::getMFChannels(void) const
 {
@@ -367,6 +397,10 @@ MFUnrecChildAnimChannelPtr *AnimationBase::editMFChannels       (void)
     editMField(ChannelsFieldMask, _mfChannels);
 
     return &_mfChannels;
+}
+AnimChannel * AnimationBase::getChannels(const UInt32 index) const
+{
+    return _mfChannels[index];
 }
 
 SFBool *AnimationBase::editSFEnabled(void)

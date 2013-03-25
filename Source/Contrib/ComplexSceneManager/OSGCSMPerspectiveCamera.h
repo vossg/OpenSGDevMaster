@@ -50,7 +50,8 @@ OSG_BEGIN_NAMESPACE
            PageContribCSMCSMPerspectiveCamera for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMPerspectiveCamera : public CSMPerspectiveCameraBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMPerspectiveCamera : 
+    public CSMPerspectiveCameraBase
 {
   protected:
 

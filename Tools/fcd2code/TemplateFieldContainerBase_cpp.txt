@@ -428,6 +428,41 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     return &_@!field.VarName!@;
 }
             @@endif // field.ptrFieldNullCheckAccess
+
+            @@if !isDecorator
+              @@if !isDecoratable
+//! Get the value of the @!Classname!@::_@!field.VarName!@ field.
+@!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
+{
+    return _@!field.VarName!@.getValue();
+}
+
+                @@if !field.ptrFieldCustomAccess
+//! Set the value of the @!Classname!@::_@!field.VarName!@ field.
+                  @@if field.PassFieldMask
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value,
+                             const UInt16                      uiStoredInFieldId)
+                  @@else // field.PassFieldMask
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
+                  @@endif // field.PassFieldMask
+{
+    editSField(@!field.Name!@FieldMask);
+
+    _@!field.VarName!@.setValue(value);
+}
+                @@endif //!field.ptrFieldCustomAccess
+              @@endif // !isDecoratable
+            @@endif // !isDecorator
+
+          @@else // field.isSField
+            @@if !isDecorator
+              @@if !isDecoratable
+@!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+{
+    return _@!field.VarName!@[index];
+}
+              @@endif // !isDecoratable
+            @@endif // !isDecorator
           @@endif // field.isSField
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)

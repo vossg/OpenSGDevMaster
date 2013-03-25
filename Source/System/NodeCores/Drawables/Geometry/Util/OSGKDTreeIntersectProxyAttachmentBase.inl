@@ -74,22 +74,6 @@ OSG::UInt16 KDTreeIntersectProxyAttachmentBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the KDTreeIntersectProxyAttachment::_sfGeometry field.
-inline
-Geometry * KDTreeIntersectProxyAttachmentBase::getGeometry(void) const
-{
-    return _sfGeometry.getValue();
-}
-
-//! Set the value of the KDTreeIntersectProxyAttachment::_sfGeometry field.
-inline
-void KDTreeIntersectProxyAttachmentBase::setGeometry(Geometry * const value)
-{
-    editSField(GeometryFieldMask);
-
-    _sfGeometry.setValue(value);
-}
 //! Get the value of the KDTreeIntersectProxyAttachment::_sfMaxDepth field.
 
 inline
@@ -131,7 +115,6 @@ IntersectKDTreeNode &KDTreeIntersectProxyAttachmentBase::editTreeNodes(const UIn
     return _mfTreeNodes[index];
 }
 
-
 //! Get the value of the \a index element the KDTreeIntersectProxyAttachment::_mfTriIndices field.
 inline
       UInt32  KDTreeIntersectProxyAttachmentBase::getTriIndices(const UInt32 index) const
@@ -146,7 +129,6 @@ UInt32 &KDTreeIntersectProxyAttachmentBase::editTriIndices(const UInt32 index)
 
     return _mfTriIndices[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

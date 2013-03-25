@@ -369,6 +369,21 @@ SFUnrecImagePtr     *RenderBufferBase::editSFImage          (void)
     return &_sfImage;
 }
 
+//! Get the value of the RenderBuffer::_sfImage field.
+Image * RenderBufferBase::getImage(void) const
+{
+    return _sfImage.getValue();
+}
+
+//! Set the value of the RenderBuffer::_sfImage field.
+void RenderBufferBase::setImage(Image * const value)
+{
+    editSField(ImageFieldMask);
+
+    _sfImage.setValue(value);
+}
+
+
 SFUInt32 *RenderBufferBase::editSFColorSamples(void)
 {
     editSField(ColorSamplesFieldMask);

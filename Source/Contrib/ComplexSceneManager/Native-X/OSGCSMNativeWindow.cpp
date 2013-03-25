@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGCSMNativeWindow.h"
+#include "OSGCSMDrawManager.h"
 #include "OSGCSMDrawer.h"
 #include "OSGComplexSceneManager.h"
 #ifdef OSG_NEW_SHADER

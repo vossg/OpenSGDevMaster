@@ -194,6 +194,10 @@ const MFUnrecStateChunkPtr *ChunkBlockBase::getMFChunks(void) const
 {
     return &_mfChunks;
 }
+StateChunk * ChunkBlockBase::getChunks(const UInt32 index) const
+{
+    return _mfChunks[index];
+}
 
 
 

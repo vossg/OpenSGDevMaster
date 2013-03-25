@@ -124,22 +124,6 @@ void ProxyGroupBase::setUrl(const std::string &value)
 
     _sfUrl.setValue(value);
 }
-
-//! Get the value of the ProxyGroup::_sfRoot field.
-inline
-Node * ProxyGroupBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
-
-//! Set the value of the ProxyGroup::_sfRoot field.
-inline
-void ProxyGroupBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
-
-    _sfRoot.setValue(value);
-}
 //! Get the value of the ProxyGroup::_sfState field.
 
 inline
@@ -355,7 +339,6 @@ UInt8 &ProxyGroupBase::editInline(const UInt32 index)
 
     return _mfInline[index];
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

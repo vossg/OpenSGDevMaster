@@ -57,6 +57,13 @@
 #include "OSGSpotLight.h"
 #include "OSGTransform.h"
 #include "OSGDepthChunk.h"
+#include "OSGShaderProgram.h"
+#include "OSGShaderProgramChunk.h"
+#include "OSGImage.h"
+#include "OSGFrameBufferObject.h"
+#include "OSGTextureObjChunk.h"
+
+#include "OSGDSLightChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

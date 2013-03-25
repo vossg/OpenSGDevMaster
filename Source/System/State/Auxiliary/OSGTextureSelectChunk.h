@@ -42,10 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
-#include "OSGImage.h"
 #include "OSGTextureSelectChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
