@@ -899,7 +899,8 @@ bool EditFCPtrMFieldHandle<FieldT>::replace(
             else
             {
                 FFATAL(("EditFCPtrMFieldHandle<%s>::replace called, but "
-                        "_fReplaceMethod is not set.\n", typeid(FieldT).name()));
+                        "_fReplaceMethod is not set.\n", 
+                        typeid(FieldT).name()));
             }
         }
     }

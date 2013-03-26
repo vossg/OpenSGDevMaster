@@ -163,6 +163,7 @@ ChunkBlockBase::TypeObject ChunkBlockBase::_type(
     "      access=\"protected\"\n"
     "      ptrFieldAccess = \"custom\"\n"
     "      pushToFieldAs=\"pushToChunks\"\n"
+    "      replaceInMFieldIndexAs=\"replaceChunk\"\n"
     "      >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
@@ -425,6 +426,9 @@ EditFieldHandlePtr ChunkBlockBase::editHandleChunks         (void)
     returnValue->setAddMethod(
         boost::bind(&ChunkBlock::pushToChunks,
                     static_cast<ChunkBlock *>(this), _1));
+    returnValue->setReplaceMethod(
+        boost::bind(&ChunkBlock::replaceChunk,
+                    static_cast<ChunkBlock *>(this), _1, _2));
 
     editMField(ChunksFieldMask, _mfChunks);
 

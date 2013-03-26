@@ -49,6 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class OSBChunkBlockElement;
+
 template <class Desc>
 class MapCacheHandlerMixin;
 
@@ -109,7 +111,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock :
 
     Int32       find(      StateChunk      *chunk);
     StateChunk *find(const StateChunkClass &type, 
-                           Int32            slot =State::AutoSlotReplace);
+                           Int32            slot = State::AutoSlotReplace);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,12 +155,16 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock :
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
+    Int32 getSlot(StateChunk *pChunk);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
     void pushToChunks    (StateChunk * const value   );
+    void replaceChunk    (UInt32             uiIndex,
+                          StateChunk * const value   );
     void removeFromChunks(UInt32             uiIndex );
     void removeFromChunks(StateChunk * const value   );
 
@@ -177,6 +183,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock :
     friend class FieldContainer;
     friend class ChunkBlockBase;
     friend class ChunkListHandlerMixin<ChunkBlockListHandlerDesc>;
+    friend class OSBChunkBlockElement;
 
     template <class Desc>
     friend class MapCacheHandlerMixin;

@@ -18,6 +18,7 @@
       access="protected"
       ptrFieldAccess = "custom"
       pushToFieldAs="pushToChunks"
+      replaceInMFieldIndexAs="replaceChunk"
       >
   </Field>
 </FieldContainer>

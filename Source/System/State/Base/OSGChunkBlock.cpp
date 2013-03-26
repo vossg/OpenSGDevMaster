@@ -315,6 +315,18 @@ void ChunkBlock::dump(      UInt32    ,
     SLOG << "Dump ChunkOverrideGroup NI" << std::endl;
 }
 
+Int32 ChunkBlock::getSlot(StateChunk *pChunk)
+{
+    if(pChunk == NULL)
+        return -1;
+
+    Int32 iPos = this->find(pChunk);
+
+    if(iPos == -1)
+        return -1;
+
+    return iPos - pChunk->getClassId();
+}
 
 void ChunkBlock::pushToChunks(StateChunk * const value)
 {
@@ -346,6 +358,17 @@ void ChunkBlock::pushToChunks(StateChunk * const value)
     editMField(ChunksFieldMask, _mfChunks);
 
     _mfChunks.push_back(value);
+}
+
+void ChunkBlock::replaceChunk(UInt32             uiIndex,
+                              StateChunk * const value   )
+{
+    if(uiIndex < _mfChunks.size())
+    {
+        editMField(ChunksFieldMask, _mfChunks);
+
+        _mfChunks.replace(uiIndex, value);
+    }
 }
 
 void ChunkBlock::removeFromChunks(UInt32 uiIndex)
