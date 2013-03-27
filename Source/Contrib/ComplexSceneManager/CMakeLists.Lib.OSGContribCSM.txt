@@ -204,6 +204,13 @@ LIST(APPEND OSG_IGNORE_CLASSBUILD OSGCSMNativeWindow)
 
 #SET(${PROJECT_NAME}_NO_PYTHON TRUE)
 
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGRenderOptions.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGImageComposer.h")
+
+ENDIF()
+
 ##############################################################################
 # setup build
 ##############################################################################

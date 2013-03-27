@@ -58,6 +58,15 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/OIT")
 
 #SET(${PROJECT_NAME}_NO_PYTHON TRUE)
 
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGPYTHON")
+
+#  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "GroupWrappers.h")
+
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGGeometry.h")
+  LIST(APPEND ${PROJECT_NAME}_PYTHON_BIND_HEADERS "OSGForeground.h")
+
+ENDIF()
+
 ##############################################################################
 # setup build
 ##############################################################################
