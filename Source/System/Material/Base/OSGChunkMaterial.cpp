@@ -51,6 +51,7 @@
 #include "OSGMaterialDrawable.h"
 
 #include "OSGChunkMaterial.h"
+#include "OSGChunkBlock.h"
 
 OSG_USING_NAMESPACE
 
@@ -336,6 +337,30 @@ void ChunkMaterial::clearChunks(void)
 
     _mfChunks.clear();
     _mfSlots .clear();
+}
+
+void ChunkMaterial::fill(ChunkBlock *pBlock)
+{
+    if(pBlock == NULL)
+        return;
+
+    pBlock->clearChunks();
+
+    const MFUnrecStateChunkPtr *chunks = this->getMFChunks();
+    const MFInt32              *slots  = this->getMFSlots ();
+
+    for(SizeT i = 0; i < chunks->size(); ++i) 
+    {
+        int slot = i < slots->size() ? 
+            (*slots)[i] : 
+            State::AutoSlotReplace;
+                    
+        StateChunk *chunk = (*chunks)[i];
+        
+        if(chunk != NULL)
+            pBlock->addChunk(chunk, slot);
+    }
+
 }
 
 /*! Add chunks to the given state. Needed for ordering in the drived

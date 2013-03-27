@@ -90,7 +90,13 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase
     virtual bool isTransparent(void) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Rendering                                  */
+    /*! \{                                                                 */
 
+    virtual void fill(ChunkBlock *pBlock);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

@@ -54,6 +54,7 @@
 #include "OSGMaterialChunk.h"
 
 #include "OSGSimpleMaterial.h"
+#include "OSGChunkBlock.h"
 
 OSG_USING_NAMESPACE
 
@@ -206,6 +207,39 @@ bool SimpleMaterial::isTransparent(void) const
 {
     return ((getTransparency() > TypeTraits<Real32>::getDefaultEps()) || 
             (Inherited::isTransparent()                             )   );
+}
+
+void SimpleMaterial::fill(ChunkBlock *pBlock)
+{
+    if(pBlock == NULL)
+        return;
+
+    pBlock->clearChunks();
+
+    const MFUnrecStateChunkPtr *chunks = this->getMFChunks();
+    const MFInt32              *slots  = this->getMFSlots ();
+
+    for(SizeT i = 0; i < chunks->size(); ++i) 
+    {
+        int slot = i < slots->size() ? 
+            (*slots)[i] : 
+            State::AutoSlotReplace;
+                    
+        StateChunk *chunk = (*chunks)[i];
+        
+        if(chunk != NULL)
+            pBlock->addChunk(chunk, slot);
+    }
+    
+    if(_materialChunk != NULL)
+    {
+        pBlock->addChunk(_materialChunk);
+    }
+
+    if(_blendChunk != NULL && this->isTransparent() == true)
+    {
+        pBlock->addChunk(_blendChunk);
+    }
 }
 
 /*------------------------------- dump ----------------------------------*/

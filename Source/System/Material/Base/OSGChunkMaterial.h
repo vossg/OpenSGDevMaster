@@ -47,6 +47,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class ChunkBlock;
+
 /*! \brief Material using chunk set.  See \ref 
     PageSystemMaterialChunkMaterial for a description.
 
@@ -121,6 +123,13 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \{                                                                 */
 
     void clearChunks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Find                                    */
+    /*! \{                                                                 */
+
+    virtual void fill(ChunkBlock *pBlock);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

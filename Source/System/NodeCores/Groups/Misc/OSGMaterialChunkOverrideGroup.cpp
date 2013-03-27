@@ -146,24 +146,17 @@ Action::ResultE MaterialChunkOverrideGroup::renderEnter(Action *action)
 
             if(pChunkMaterial != NULL) 
             {
-                const MFUnrecStateChunkPtr *chunks = 
-                    pChunkMaterial->getMFChunks();
+                ChunkBlockUnrecPtr pBlock = this->finalize(0x0000);
 
-                const MFInt32              *slots  = 
-                    pChunkMaterial->getMFSlots();
-
-                for(unsigned int i = 0; i < chunks->size(); ++i) 
+                if(pBlock == NULL)
                 {
-                    int slot = i < slots->size() ? 
-                        (*slots)[i] : 
-                        State::AutoSlotReplace;
+                    pBlock = ChunkBlock::create();
                     
-                    StateChunk *chunk = (*chunks)[i];
-                    
-                    if(chunk != NULL)
-                        this->addChunk(chunk, slot);
+                    this->addChunkBlock(pBlock, 0x0000);
                 }
-
+                
+                pChunkMaterial->fill(pBlock);
+                
                 return Inherited::renderEnter(action);
             } 
             else 
