@@ -297,7 +297,7 @@ class FieldContainer(FCDElement):
             if field.isPublic() or field.isPublicRead():
                 self["hasPublicFields"] = True;
             
-            if field.isPtrField() and field.hasAccess():
+            if field.isPtrField() and field.hasAccess() and not field.isParentField():
                 self["hasPtrFields"] = True;
             
             if field.isChildField():

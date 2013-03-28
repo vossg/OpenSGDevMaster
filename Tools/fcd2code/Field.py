@@ -478,7 +478,7 @@ class Field(FCDElement):
             self["isPublicRead"] = False;
 
         #Public Write
-        if "isPublic" in self and self["access"] == "public":
+        if "isPublic" in self and self["access"] == "public" and self["pointertype"] != "parent":
             self["isPublicWrite"] = True;
         else:
             self["isPublicWrite"] = False;
