@@ -75,84 +75,14 @@ OSG::UInt16 VTKPolyDataMapperBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the VTKPolyDataMapper::_sfRoot field.
-inline
-Node * VTKPolyDataMapperBase::getRoot(void) const
-{
-    return _sfRoot.getValue();
-}
 
-//! Set the value of the VTKPolyDataMapper::_sfRoot field.
-inline
-void VTKPolyDataMapperBase::setRoot(Node * const value)
-{
-    editSField(RootFieldMask);
 
-    _sfRoot.setValue(value);
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfGeoRoots field.
-inline
-Node * VTKPolyDataMapperBase::getGeoRoots(const UInt32 index) const
-{
-    return _mfGeoRoots[index];
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfGeometries field.
-inline
-Geometry * VTKPolyDataMapperBase::getGeometries(const UInt32 index) const
-{
-    return _mfGeometries[index];
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfMaterials field.
-inline
-ChunkMaterial * VTKPolyDataMapperBase::getMaterials(const UInt32 index) const
-{
-    return _mfMaterials[index];
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfMaterialChunks field.
-inline
-MaterialChunk * VTKPolyDataMapperBase::getMaterialChunks(const UInt32 index) const
-{
-    return _mfMaterialChunks[index];
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfPositions field.
-inline
-GeoPnt3fProperty * VTKPolyDataMapperBase::getPositions(const UInt32 index) const
-{
-    return _mfPositions[index];
-}
 
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfLength field.
-inline
-GeoUInt32Property * VTKPolyDataMapperBase::getLength(const UInt32 index) const
-{
-    return _mfLength[index];
-}
-
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfTypes field.
-inline
-GeoUInt8Property * VTKPolyDataMapperBase::getTypes(const UInt32 index) const
-{
-    return _mfTypes[index];
-}
-
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfColors field.
-inline
-GeoColor4fProperty * VTKPolyDataMapperBase::getColors(const UInt32 index) const
-{
-    return _mfColors[index];
-}
-
-//! Get the value of the \a index element the VTKPolyDataMapper::_mfNormals field.
-inline
-GeoVec3fProperty * VTKPolyDataMapperBase::getNormals(const UInt32 index) const
-{
-    return _mfNormals[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

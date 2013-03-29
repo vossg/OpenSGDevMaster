@@ -433,6 +433,21 @@ SFUnrecNodePtr      *VTKPolyDataMapperBase::editSFRoot           (void)
     return &_sfRoot;
 }
 
+//! Get the value of the VTKPolyDataMapper::_sfRoot field.
+Node * VTKPolyDataMapperBase::getRoot(void) const
+{
+    return _sfRoot.getValue();
+}
+
+//! Set the value of the VTKPolyDataMapper::_sfRoot field.
+void VTKPolyDataMapperBase::setRoot(Node * const value)
+{
+    editSField(RootFieldMask);
+
+    _sfRoot.setValue(value);
+}
+
+
 //! Get the VTKPolyDataMapper::_mfGeoRoots field.
 const MFUnrecNodePtr *VTKPolyDataMapperBase::getMFGeoRoots(void) const
 {
@@ -444,6 +459,10 @@ MFUnrecNodePtr      *VTKPolyDataMapperBase::editMFGeoRoots       (void)
     editMField(GeoRootsFieldMask, _mfGeoRoots);
 
     return &_mfGeoRoots;
+}
+Node * VTKPolyDataMapperBase::getGeoRoots(const UInt32 index) const
+{
+    return _mfGeoRoots[index];
 }
 
 //! Get the VTKPolyDataMapper::_mfGeometries field.
@@ -458,6 +477,10 @@ MFUnrecGeometryPtr  *VTKPolyDataMapperBase::editMFGeometries     (void)
 
     return &_mfGeometries;
 }
+Geometry * VTKPolyDataMapperBase::getGeometries(const UInt32 index) const
+{
+    return _mfGeometries[index];
+}
 
 //! Get the VTKPolyDataMapper::_mfMaterials field.
 const MFUnrecChunkMaterialPtr *VTKPolyDataMapperBase::getMFMaterials(void) const
@@ -470,6 +493,10 @@ MFUnrecChunkMaterialPtr *VTKPolyDataMapperBase::editMFMaterials      (void)
     editMField(MaterialsFieldMask, _mfMaterials);
 
     return &_mfMaterials;
+}
+ChunkMaterial * VTKPolyDataMapperBase::getMaterials(const UInt32 index) const
+{
+    return _mfMaterials[index];
 }
 
 //! Get the VTKPolyDataMapper::_mfMaterialChunks field.
@@ -484,6 +511,10 @@ MFUnrecMaterialChunkPtr *VTKPolyDataMapperBase::editMFMaterialChunks (void)
 
     return &_mfMaterialChunks;
 }
+MaterialChunk * VTKPolyDataMapperBase::getMaterialChunks(const UInt32 index) const
+{
+    return _mfMaterialChunks[index];
+}
 
 //! Get the VTKPolyDataMapper::_mfPositions field.
 const MFUnrecGeoPnt3fPropertyPtr *VTKPolyDataMapperBase::getMFPositions(void) const
@@ -496,6 +527,10 @@ MFUnrecGeoPnt3fPropertyPtr *VTKPolyDataMapperBase::editMFPositions      (void)
     editMField(PositionsFieldMask, _mfPositions);
 
     return &_mfPositions;
+}
+GeoPnt3fProperty * VTKPolyDataMapperBase::getPositions(const UInt32 index) const
+{
+    return _mfPositions[index];
 }
 
 //! Get the VTKPolyDataMapper::_mfLength field.
@@ -510,6 +545,10 @@ MFUnrecGeoUInt32PropertyPtr *VTKPolyDataMapperBase::editMFLength         (void)
 
     return &_mfLength;
 }
+GeoUInt32Property * VTKPolyDataMapperBase::getLength(const UInt32 index) const
+{
+    return _mfLength[index];
+}
 
 //! Get the VTKPolyDataMapper::_mfTypes field.
 const MFUnrecGeoUInt8PropertyPtr *VTKPolyDataMapperBase::getMFTypes(void) const
@@ -522,6 +561,10 @@ MFUnrecGeoUInt8PropertyPtr *VTKPolyDataMapperBase::editMFTypes          (void)
     editMField(TypesFieldMask, _mfTypes);
 
     return &_mfTypes;
+}
+GeoUInt8Property * VTKPolyDataMapperBase::getTypes(const UInt32 index) const
+{
+    return _mfTypes[index];
 }
 
 //! Get the VTKPolyDataMapper::_mfColors field.
@@ -536,6 +579,10 @@ MFUnrecGeoColor4fPropertyPtr *VTKPolyDataMapperBase::editMFColors         (void)
 
     return &_mfColors;
 }
+GeoColor4fProperty * VTKPolyDataMapperBase::getColors(const UInt32 index) const
+{
+    return _mfColors[index];
+}
 
 //! Get the VTKPolyDataMapper::_mfNormals field.
 const MFUnrecGeoVec3fPropertyPtr *VTKPolyDataMapperBase::getMFNormals(void) const
@@ -548,6 +595,10 @@ MFUnrecGeoVec3fPropertyPtr *VTKPolyDataMapperBase::editMFNormals        (void)
     editMField(NormalsFieldMask, _mfNormals);
 
     return &_mfNormals;
+}
+GeoVec3fProperty * VTKPolyDataMapperBase::getNormals(const UInt32 index) const
+{
+    return _mfNormals[index];
 }
 
 

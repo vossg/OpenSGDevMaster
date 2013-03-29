@@ -38,6 +38,7 @@
 
 #include "OSGOgreFileType.h"
 #include "OSGOgreMeshReader.h"
+#include "OSGMaterial.h"
 
 OSG_BEGIN_NAMESPACE
 
