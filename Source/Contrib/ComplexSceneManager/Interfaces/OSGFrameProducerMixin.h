@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGComplexSceneManager.h"
+#include "OSGFrameProducerInterface.h"
 
 OSG_BEGIN_NAMESPACE
 
