@@ -106,6 +106,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            HDRStageBase::_sfCombineBlend
+    Use blending when writing the combined scene and "effect"images
+    to the target framebuffer.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -201,6 +206,19 @@ void HDRStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&HDRStage::getHandleBufferFormat));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "combineBlend",
+        "Use blending when writing the combined scene and \"effect\"images\n"
+        "to the target framebuffer.\n",
+        CombineBlendFieldId, CombineBlendFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&HDRStage::editHandleCombineBlend),
+        static_cast<FieldGetMethodSig >(&HDRStage::getHandleCombineBlend));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -285,6 +303,17 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     "\t defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t access=\"public\"\n"
     "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"combineBlend\"\n"
+    "     type=\"bool\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"false\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "     Use blending when writing the combined scene and &quot;effect&quot; images\n"
+    "     to the target framebuffer.\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -388,6 +417,19 @@ const SFGLenum *HDRStageBase::getSFBufferFormat(void) const
 }
 
 
+SFBool *HDRStageBase::editSFCombineBlend(void)
+{
+    editSField(CombineBlendFieldMask);
+
+    return &_sfCombineBlend;
+}
+
+const SFBool *HDRStageBase::getSFCombineBlend(void) const
+{
+    return &_sfCombineBlend;
+}
+
+
 
 
 
@@ -422,6 +464,10 @@ SizeT HDRStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBufferFormat.getBinSize();
     }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        returnValue += _sfCombineBlend.getBinSize();
+    }
 
     return returnValue;
 }
@@ -454,6 +500,10 @@ void HDRStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
     {
         _sfBufferFormat.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        _sfCombineBlend.copyToBin(pMem);
     }
 }
 
@@ -491,6 +541,11 @@ void HDRStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(BufferFormatFieldMask);
         _sfBufferFormat.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+    {
+        editSField(CombineBlendFieldMask);
+        _sfCombineBlend.copyFromBin(pMem);
     }
 }
 
@@ -622,7 +677,8 @@ HDRStageBase::HDRStageBase(void) :
     _sfBlurAmount             (Real32(0.5f)),
     _sfEffectAmount           (Real32(0.2f)),
     _sfGamma                  (Real32(0.5f)),
-    _sfBufferFormat           (GLenum(GL_RGBA16F_ARB))
+    _sfBufferFormat           (GLenum(GL_RGBA16F_ARB)),
+    _sfCombineBlend           (bool(false))
 {
 }
 
@@ -633,7 +689,8 @@ HDRStageBase::HDRStageBase(const HDRStageBase &source) :
     _sfBlurAmount             (source._sfBlurAmount             ),
     _sfEffectAmount           (source._sfEffectAmount           ),
     _sfGamma                  (source._sfGamma                  ),
-    _sfBufferFormat           (source._sfBufferFormat           )
+    _sfBufferFormat           (source._sfBufferFormat           ),
+    _sfCombineBlend           (source._sfCombineBlend           )
 {
 }
 
@@ -791,6 +848,31 @@ EditFieldHandlePtr HDRStageBase::editHandleBufferFormat   (void)
 
 
     editSField(BufferFormatFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr HDRStageBase::getHandleCombineBlend    (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCombineBlend,
+             this->getType().getFieldDesc(CombineBlendFieldId),
+             const_cast<HDRStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr HDRStageBase::editHandleCombineBlend   (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCombineBlend,
+             this->getType().getFieldDesc(CombineBlendFieldId),
+             this));
+
+
+    editSField(CombineBlendFieldMask);
 
     return returnValue;
 }

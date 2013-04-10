@@ -101,7 +101,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
         EffectAmountFieldId = BlurAmountFieldId + 1,
         GammaFieldId = EffectAmountFieldId + 1,
         BufferFormatFieldId = GammaFieldId + 1,
-        NextFieldId = BufferFormatFieldId + 1
+        CombineBlendFieldId = BufferFormatFieldId + 1,
+        NextFieldId = CombineBlendFieldId + 1
     };
 
     static const OSG::BitVector ExposureFieldMask =
@@ -116,6 +117,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
         (TypeTraits<BitVector>::One << GammaFieldId);
     static const OSG::BitVector BufferFormatFieldMask =
         (TypeTraits<BitVector>::One << BufferFormatFieldId);
+    static const OSG::BitVector CombineBlendFieldMask =
+        (TypeTraits<BitVector>::One << CombineBlendFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -125,6 +128,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
     typedef SFReal32          SFEffectAmountType;
     typedef SFReal32          SFGammaType;
     typedef SFGLenum          SFBufferFormatType;
+    typedef SFBool            SFCombineBlendType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -168,6 +172,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
                   SFGLenum            *editSFBufferFormat   (void);
             const SFGLenum            *getSFBufferFormat    (void) const;
 
+                  SFBool              *editSFCombineBlend   (void);
+            const SFBool              *getSFCombineBlend    (void) const;
+
 
                   Real32              &editExposure       (void);
                   Real32               getExposure        (void) const;
@@ -187,6 +194,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
                   GLenum              &editBufferFormat   (void);
             const GLenum              &getBufferFormat    (void) const;
 
+                  bool                &editCombineBlend   (void);
+                  bool                 getCombineBlend    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -198,6 +208,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
             void setEffectAmount   (const Real32 value);
             void setGamma          (const Real32 value);
             void setBufferFormat   (const GLenum &value);
+            void setCombineBlend   (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -263,6 +274,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
     SFReal32          _sfEffectAmount;
     SFReal32          _sfGamma;
     SFGLenum          _sfBufferFormat;
+    SFBool            _sfCombineBlend;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -302,6 +314,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
     EditFieldHandlePtr editHandleGamma          (void);
     GetFieldHandlePtr  getHandleBufferFormat    (void) const;
     EditFieldHandlePtr editHandleBufferFormat   (void);
+    GetFieldHandlePtr  getHandleCombineBlend    (void) const;
+    EditFieldHandlePtr editHandleCombineBlend   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

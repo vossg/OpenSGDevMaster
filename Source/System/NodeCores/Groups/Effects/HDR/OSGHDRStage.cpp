@@ -59,6 +59,7 @@
 #include "OSGTextureBuffer.h"
 
 #include "OSGChunkMaterial.h"
+#include "OSGBlendChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGDrawEnv.h"
@@ -483,10 +484,12 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
 
 
     MaterialChunkUnrecPtr pMatChunk = MaterialChunk::createLocal();
-        
     pMatChunk->setLit(false);
 
-
+    BlendChunkUnrecPtr pBlendChunk  = BlendChunk   ::createLocal();
+    pBlendChunk->setSrcFactor (GL_SRC_ALPHA);
+    pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+    pBlendChunk->setIgnore    (!getCombineBlend());
 
 
     // tone map material
@@ -494,6 +497,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     ChunkMaterialUnrecPtr    pTonemapMat  = ChunkMaterial  ::createLocal();
     
     pTonemapMat->addChunk(pMatChunk         );
+    pTonemapMat->addChunk(pBlendChunk       );
     pTonemapMat->addChunk(pSceneTex,       0);
     pTonemapMat->addChunk(pSceneTexEnv,    0);
     pTonemapMat->addChunk(pBlurTex1,       1);
@@ -885,6 +889,8 @@ void HDRStage::updateData(RenderAction *pAction,
     if(pData == NULL)
     {
         initData(pAction, iVPWidth, iVPHeight);
+
+        pData = pAction->getData<HDRStageData *>(_iDataSlotId);
     }
     else if((pData->getWidth () != iVPWidth ) ||
             (pData->getHeight() != iVPHeight)  )
@@ -896,6 +902,13 @@ void HDRStage::updateData(RenderAction *pAction,
         pData->setWidth (iVPWidth );
         pData->setHeight(iVPHeight);
     }
+
+    ChunkMaterial* pTonemapMat = pData->getToneMappingMaterial();
+    BlendChunk*    pBlendChunk = static_cast<BlendChunk*>(
+        pTonemapMat->find(BlendChunk::getClassType()));
+
+    if(pBlendChunk != NULL)
+        pBlendChunk->setIgnore(!getCombineBlend());
 }
 
 #define OSGHDRL << std::endl
@@ -957,10 +970,11 @@ SimpleSHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
         << "	c += effect * effectAmount;"                             OSGHDRL
         << ""                                                            OSGHDRL
         << "    // exposure"                                             OSGHDRL
-        << "    c = c * exposure;"                                       OSGHDRL
+        << "    c.rgb = c.rgb * exposure;"                               OSGHDRL
         << ""                                                            OSGHDRL
         << "    // vignette effect"                                      OSGHDRL
-        << "    c *= vignette(gl_TexCoord[0].xy * 2.0 - 1.0, 0.7, 1.5);" OSGHDRL
+        << "    c.rgb *="                                                OSGHDRL
+        << "        vignette(gl_TexCoord[0].xy * 2.0 - 1.0, 0.7, 1.5);"  OSGHDRL
         << ""                                                            OSGHDRL
         << "    // gamma correction"                                     OSGHDRL
         << "    c.rgb = pow(c.rgb, vec3(gamma));"                        OSGHDRL

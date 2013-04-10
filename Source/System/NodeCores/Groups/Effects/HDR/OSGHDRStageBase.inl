@@ -224,6 +224,31 @@ void HDRStageBase::setBufferFormat(const GLenum &value)
 
     _sfBufferFormat.setValue(value);
 }
+//! Get the value of the HDRStage::_sfCombineBlend field.
+
+inline
+bool &HDRStageBase::editCombineBlend(void)
+{
+    editSField(CombineBlendFieldMask);
+
+    return _sfCombineBlend.getValue();
+}
+
+//! Get the value of the HDRStage::_sfCombineBlend field.
+inline
+      bool  HDRStageBase::getCombineBlend(void) const
+{
+    return _sfCombineBlend.getValue();
+}
+
+//! Set the value of the HDRStage::_sfCombineBlend field.
+inline
+void HDRStageBase::setCombineBlend(const bool value)
+{
+    editSField(CombineBlendFieldMask);
+
+    _sfCombineBlend.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -253,6 +278,9 @@ void HDRStageBase::execSync (      HDRStageBase *pFrom,
 
     if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
         _sfBufferFormat.syncWith(pFrom->_sfBufferFormat);
+
+    if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
+        _sfCombineBlend.syncWith(pFrom->_sfCombineBlend);
 }
 #endif
 

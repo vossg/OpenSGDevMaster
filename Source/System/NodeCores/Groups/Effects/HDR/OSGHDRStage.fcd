@@ -69,4 +69,15 @@
 	 access="public"
      >
   </Field>
+  <Field
+     name="combineBlend"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="false"
+     access="public"
+     >
+     Use blending when writing the combined scene and &quot;effect&quot; images
+     to the target framebuffer.
+  </Field>
 </FieldContainer>
