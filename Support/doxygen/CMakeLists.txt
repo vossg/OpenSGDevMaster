@@ -507,7 +507,7 @@ IF(OSGDoxygenSrcDir)
                     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/External/doxygen")
 
   INSTALL(FILES "${CMAKE_BINARY_DIR}/External/doxygen/bin/doxygen"
-          DESTINATION bin
+          DESTINATION bin/${OSG_LIBDIR_BUILD_TYPE_SUFFIX} 
           COMPONENT development_tools
           PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
                       GROUP_READ GROUP_EXECUTE

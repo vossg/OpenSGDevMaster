@@ -715,7 +715,6 @@ static const Char8 *PluginPattern OSG_UNUSED_ATTRIB = "*.so";
 
 static const Char8  DirSep OSG_UNUSED_ATTRIB = '/';
 
-#undef OSG_UNUSED_ATTRIB
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
