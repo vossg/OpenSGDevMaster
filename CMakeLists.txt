@@ -69,9 +69,9 @@ OSG_OPTION(OSGEXCLUDE_UNITTESTS_FROM_ALL         "Build/run unit test programs" 
 OSG_OPTION(OSGEXCLUDE_EXAMPLES_SIMPLE_FROM_ALL   "Build example programs during system build" OFF)
 OSG_OPTION(OSGEXCLUDE_EXAMPLES_ADVANCED_FROM_ALL "Build advanced example programs during system build" OFF)
 
-OSG_OPTION(OSGBUILD_ENABLE_PACKAGING "Generate binary packages with CPack" OFF)
-SET(OSGBUILD_PACKAGE_TYPE "" CACHE STRING
-    "The type of package to generate (empty->default)")
+#OSG_OPTION(OSGBUILD_ENABLE_PACKAGING "Generate binary packages with CPack" OFF)
+#SET(OSGBUILD_PACKAGE_TYPE "" CACHE STRING
+#    "The type of package to generate (empty->default)")
 
 OSG_OPTION(OSG_ENABLE_NEW_SHADER "" ON)
 OSG_OPTION(OSG_ENABLE_MULTISHADER_VARCHUNK "" OFF)
@@ -824,17 +824,17 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### NVPerfSDK
     ##############
 
-    OSG_FIND_PACKAGE(NVidiaPerfSDK)
-
-    IF(NVIDIAPERFSDK_FOUND)
-        OSG_SET(OSG_WITH_NVPERFSDK 1)
-        OSG_SET(OSG_NVPERFSDK_INC_DIR ${NVIDIAPERFSDK_INCLUDE_DIR})
-        OSG_SET(OSG_NVPERFSDK_LIBS ${NVIDIAPERFSDK_LIBRARIES})
-    ELSE(NVIDIAPERFSDK_FOUND)
-        OSG_SET(OSG_WITH_NVPERFSDK 0)
-        OSG_SET(OSG_NVPERFSDK_INC_DIR "")
-        OSG_SET(OSG_NVPERFSDK_LIBS "")
-    ENDIF(NVIDIAPERFSDK_FOUND)
+#    OSG_FIND_PACKAGE(NVidiaPerfSDK)
+#
+#    IF(NVIDIAPERFSDK_FOUND)
+#        OSG_SET(OSG_WITH_NVPERFSDK 1)
+#        OSG_SET(OSG_NVPERFSDK_INC_DIR ${NVIDIAPERFSDK_INCLUDE_DIR})
+#        OSG_SET(OSG_NVPERFSDK_LIBS ${NVIDIAPERFSDK_LIBRARIES})
+#    ELSE(NVIDIAPERFSDK_FOUND)
+#        OSG_SET(OSG_WITH_NVPERFSDK 0)
+#        OSG_SET(OSG_NVPERFSDK_INC_DIR "")
+#        OSG_SET(OSG_NVPERFSDK_LIBS "")
+#    ENDIF(NVIDIAPERFSDK_FOUND)
 
 
     #############
@@ -864,6 +864,8 @@ IF(NOT OSG_BUILD_DEPENDEND)
     OSG_ADD_OPT(CMAKE_INSTALL_PREFIX)
 
 ENDIF(NOT OSG_BUILD_DEPENDEND)
+
+MESSAGE("")
 
 FOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
   IF(EXISTS ${OSG_${EXTERNAL_CONFIG}_SOURCE_DIR}/${EXTERNAL_CONFIG}.Prepare.cmake)
@@ -1036,6 +1038,11 @@ IF(OSGBUILD_PYTHON_BINDINGS)
     FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "fullLibInfo = {}\n\n")
 
     IF(EXISTS ${PYOSG_DIR})
+
+      MESSAGE(STATUS "")
+      MESSAGE(STATUS "preparing python")
+      MESSAGE(STATUS "")
+
       FILE(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/Python/Helper")
 
       #########################
@@ -1370,6 +1377,10 @@ IF(OSGBUILD_PYTHON_BINDINGS)
                   "${_OSG_FILE_OUT_PROC}"
                   "${_OSG_FILE_OUT}")
 
+      MESSAGE(STATUS "")
+      MESSAGE(STATUS "done python")
+      MESSAGE(STATUS "")
+
     ENDIF(EXISTS ${PYOSG_DIR})
 
     SET(_OSG_SRC_PYPATH_HELPERS ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers)
@@ -1408,8 +1419,8 @@ ENDIF(OSGBUILD_PYTHON_BINDINGS)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/PreBoostPython.h"
               "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/OsgPtrHelpers.h"
               "${CMAKE_SOURCE_DIR}/Bindings/Python/Common/pypp_aliases.h"
-        DESTINATION include/OpenSG/Bindings/Python/Common
-        COMPONENT code_headers)
+        DESTINATION include/OpenSG/Bindings/Python/Common)
+#        COMPONENT code_headers)
 
 
 
@@ -1797,61 +1808,61 @@ FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part2.tmp")
 FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
 
 INSTALL(PROGRAMS "${CMAKE_BINARY_DIR}/bin/osg2-config"
-        DESTINATION bin
-        COMPONENT development_tools)
+        DESTINATION bin)
+#        COMPONENT development_tools)
 
 ##################
 # cmake modules
 ##################
 
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindGLUT_OpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindJPEG_OpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindPNG_OpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindTIFF_OpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindZLIB_OpenSG.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/ConfigurePackages.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/ExternalProjectHelper.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OpenSGVersion.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin
-        COMPONENT development_tools
+#        COMPONENT development_tools
         PATTERN "*.pyc" EXCLUDE
         PATTERN ".svn"  EXCLUDE)
 
@@ -1897,79 +1908,79 @@ IF(OSGBUILD_PYTHON_BINDINGS)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}/osg
-            CONFIGURATIONS Release
-            COMPONENT      release_runtimes)
+            CONFIGURATIONS Release)
+#            COMPONENT      release_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/osg
-            CONFIGURATIONS Debug
-            COMPONENT      debug_runtimes)
+            CONFIGURATIONS Debug)
+#            COMPONENT      debug_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/osg
-            CONFIGURATIONS DebugOpt
-            COMPONENT      debug_opt_runtimes)
+            CONFIGURATIONS DebugOpt)
+#            COMPONENT      debug_opt_runtimes)
 
     INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/osg
-            CONFIGURATIONS ReleaseNoOpt
-            COMPONENT      release_no_opt_runtimes)
+            CONFIGURATIONS ReleaseNoOpt)
+#            COMPONENT      release_no_opt_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}
-            CONFIGURATIONS Release
-            COMPONENT      release_runtimes)
+            CONFIGURATIONS Release)
+#            COMPONENT      release_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR}/helpers
-            CONFIGURATIONS Release
-            COMPONENT      release_runtimes)
+            CONFIGURATIONS Release)
+#            COMPONENT      release_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}
-            CONFIGURATIONS Debug
-            COMPONENT      debug_runtimes)
+            CONFIGURATIONS Debug)
+#            COMPONENT      debug_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_D}/helpers
-            CONFIGURATIONS Debug
-            COMPONENT      debug_runtimes)
+            CONFIGURATIONS Debug)
+#            COMPONENT      debug_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}
-            CONFIGURATIONS DebugOpt
-            COMPONENT      debug_opt_runtimes)
+            CONFIGURATIONS DebugOpt)
+#            COMPONENT      debug_opt_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_DO}/helpers
-            CONFIGURATIONS DebugOpt
-            COMPONENT      debug_opt_runtimes)
+            CONFIGURATIONS DebugOpt)
+#            COMPONENT      debug_opt_runtimes)
 
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}
-            CONFIGURATIONS ReleaseNoOpt
-            COMPONENT      release_no_opt_runtimes)
+            CONFIGURATIONS ReleaseNoOpt)
+#            COMPONENT      release_no_opt_runtimes)
 
     INSTALL(FILES          ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                            ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
             DESTINATION    ${_OSG_TARGET_PYLIBDIR_RN}/helpers
-            CONFIGURATIONS ReleaseNoOpt
-            COMPONENT      release_no_opt_runtimes)
+            CONFIGURATIONS ReleaseNoOpt)
+#            COMPONENT      release_no_opt_runtimes)
 
   ELSE(WIN32)   
 
@@ -1978,19 +1989,19 @@ IF(OSGBUILD_PYTHON_BINDINGS)
         "lib${OSG_LIBDIR_BASE_SUFFIX}/${_PY_VERSION_DIR}/site-packages/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}/osg2")
 
     INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
-            DESTINATION ${_OSG_PY_INST_BASE}/osg
-            COMPONENT   libraries)
+            DESTINATION ${_OSG_PY_INST_BASE}/osg)
+#            COMPONENT   libraries)
 
     INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/osg2/__init__.py 
-            DESTINATION ${_OSG_PY_INST_BASE}
-            COMPONENT   libraries)
+            DESTINATION ${_OSG_PY_INST_BASE})
+#            COMPONENT   libraries)
 
     INSTALL(FILES       ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/__init__.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/helpers.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/cored_node.py 
                         ${CMAKE_SOURCE_DIR}/Bindings/Python/helpers/fcd_reflector.py 
-            DESTINATION ${_OSG_PY_INST_BASE}/helpers
-            COMPONENT   libraries)
+            DESTINATION ${_OSG_PY_INST_BASE}/helpers)
+#            COMPONENT   libraries)
 
   ENDIF(WIN32)
 
@@ -2003,8 +2014,8 @@ ENDIF()
 IF(DOXYGEN_EXECUTABLE)
     IF(OSG_INSTALL_DOXYDOC)
         INSTALL(DIRECTORY "${OSG_DOXY_HTML_DIR}"
-                DESTINATION share/OpenSG/documentation
-                COMPONENT documentation)
+                DESTINATION share/OpenSG/documentation)
+#                COMPONENT documentation)
     ENDIF()
 ENDIF()
 
@@ -2017,229 +2028,229 @@ ENDIF()
 ##################
 
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Examples/CSM"
-        DESTINATION share/OpenSG/Examples/
-        COMPONENT examples_basic)
+        DESTINATION share/OpenSG/Examples/)
+#        COMPONENT examples_basic)
 
 ##################
 # Packaging
 ##################
 
-IF(OSGBUILD_ENABLE_PACKAGING AND FALSE)
-
-    SET(SYSTEM_SPEC  ${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR})
-
-    SET(CPACK_PACKAGE_NAME                "OpenSG")
-    SET(CPACK_PACKAGE_VERSION             ${OSG_VERSION})
-    SET(CPACK_PACKAGE_VERSION_MAJOR       ${OSG_VERSION_MAJOR})
-    SET(CPACK_PACKAGE_VERSION_MINOR       ${OSG_VERSION_MINOR})
-    SET(CPACK_PACKAGE_VERSION_PATCH       ${OSG_VERSION_PATCH})
-    SET(CPACK_PACKAGE_VENDOR              "OpenSG")
-    SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
-    SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSG is a portable scenegraph system to create realtime 3D graphics programs")
-    SET(CPACK_RESOURCE_FILE_LICENSE       "${CMAKE_SOURCE_DIR}/COPYING")
-    SET(CPACK_PACKAGE_FILE_NAME           "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${CMAKE_BUILD_TYPE}")
-
-    if (EXISTS "${CMAKE_SOURCE_DIR}/README.txt")
-        set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.txt")
-        set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
-    endif ()
-
-    if (EXISTS "${CMAKE_SOURCE_DIR}/Welcome.txt")
-        set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/Welcome.txt")
-    endif()
-
-    #Define Components
-    SET(CPACK_COMPONENTS_ALL development_tools
-        development_configuration
-        code_headers
-        libraries
-        debug_program_db
-        release_program_db
-        debug_libraries
-        release_libraries
-        debug_runtimes
-        release_runtimes
-        data_images
-        examples_basic
-        examples_advanced
-        Unspecified
-        )
-
-
-    #Components
-    #Runtime
-    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Files needed to execute software with OpenSG.")
-
-    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_DISPLAY_NAME "Debug Runtime")
-    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_DESCRIPTION "Debug Runtimes Libraries Description")
-    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_GROUP "Runtime")
-    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_INSTALL_TYPES Full Developer Runtime)
-
-    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_DISPLAY_NAME "Release Runtime")
-    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_DESCRIPTION "Release Runtime Libraries Description")
-    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_GROUP "Runtime")
-    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_INSTALL_TYPES Full Developer Runtime)
-
-    #Development
-    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Development files needed to develop software with OpenSG.")
-
-    #Libraries
-    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_DISPLAY_NAME "Release Libraries")
-    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_DESCRIPTION "Release Libraries Description")
-    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_GROUP "Development")
-    set(CPACK_COMPONENT_RELEASE_LIBRARIES_INSTALL_TYPES Full Developer)
-
-    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_DISPLAY_NAME "Debug Libraries")
-    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_DESCRIPTION "Debug Libraries Description")
-    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_GROUP "Development")
-    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_INSTALL_TYPES Full Developer)
-
-    #Program database
-    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_DISPLAY_NAME "Release Program Database")
-    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_DESCRIPTION "Release Program Database Description")
-    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_GROUP "Development")
-    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_INSTALL_TYPES Full Developer)
-
-    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_DISPLAY_NAME "Debug Program Database")
-    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_DESCRIPTION "Debug Program Database Description")
-    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_GROUP "Development")
-    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_INSTALL_TYPES Full Developer)
-
-    #Tools
-    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DISPLAY_NAME "Tools")
-    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DESCRIPTION "Tools Description")
-    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_GROUP "Development")
-    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_INSTALL_TYPES Full Developer)
-
-    #Configuration
-    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_DISPLAY_NAME "Cmake Configuration")
-    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_DESCRIPTION "Cmake files")
-    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_GROUP "Development")
-    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_INSTALL_TYPES Full Developer)
-
-    #Headers
-    SET(CPACK_COMPONENT_CODE_HEADERS_DISPLAY_NAME "C++ Headers")
-    SET(CPACK_COMPONENT_CODE_HEADERS_DESCRIPTION "C++ Header, inline, and insert files.")
-    SET(CPACK_COMPONENT_CODE_HEADERS_GROUP "Development")
-    SET(CPACK_COMPONENT_CODE_HEADERS_INSTALL_TYPES Full Developer)
-
-    #Examples
-    SET(CPACK_COMPONENT_GROUP_EXAMPES_DESCRIPTION "OpenSG Examples.")
-
-    SET(CPACK_COMPONENT_EXAMPLES_BASIC_DISPLAY_NAME "Simple Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_BASIC_DESCRIPTION "A Collection of Simple OpenSG Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_BASIC_GROUP "Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_BASIC_INSTALL_TYPES Full Developer)
-
-    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_DISPLAY_NAME "Advanced Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_DESCRIPTION "A Collection of Advanced OpenSG Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_GROUP "Examples")
-    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_INSTALL_TYPES Full Developer)
-
-    #Shared Data
-    SET(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Extra Data files.")
-
-    SET(CPACK_COMPONENT_DATA_IMAGES_DISPLAY_NAME "Images")
-    SET(CPACK_COMPONENT_DATA_IMAGES_DESCRIPTION "OpenSG Images and Icons")
-    SET(CPACK_COMPONENT_DATA_IMAGES_GROUP "Data")
-    SET(CPACK_COMPONENT_DATA_IMAGES_INSTALL_TYPES Full Developer Runtime)
-
-    #Documentation
-    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Documentation.")
-
-    #Dependencies
-    #Boost
-    #Base
-
-    #NSIS specific configuration
-    IF(WIN32)
-        INCLUDE(InstallRequiredSystemLibraries)
-        IF(OSGBUILD_PACKAGE_TYPE STREQUAL "NSIS")
-            IF(MSVC AND (${CMAKE_VERSION} VERSION_GREATER "2.8.0" OR
-                         ${CMAKE_VERSION} VERSION_EQUAL   "2.8.0"   ))
-                 include(CMakeDetermineVSServicePack)
-                 DetermineVSServicePack( my_service_pack )
-
-                 IF( my_service_pack )
-                     SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
-                 ENDIF()
-            ENDIF()
-
-            #Extra install commands
-            SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "")
-            SET(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "")
+#IF(OSGBUILD_ENABLE_PACKAGING AND FALSE)
+#
+#    SET(SYSTEM_SPEC  ${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR})
+#
+#    SET(CPACK_PACKAGE_NAME                "OpenSG")
+#    SET(CPACK_PACKAGE_VERSION             ${OSG_VERSION})
+#    SET(CPACK_PACKAGE_VERSION_MAJOR       ${OSG_VERSION_MAJOR})
+#    SET(CPACK_PACKAGE_VERSION_MINOR       ${OSG_VERSION_MINOR})
+#    SET(CPACK_PACKAGE_VERSION_PATCH       ${OSG_VERSION_PATCH})
+#    SET(CPACK_PACKAGE_VENDOR              "OpenSG")
+#    SET(CPACK_PACKAGE_CONTACT             "Dirk Reiners <dirk@www.opensg.org>")
+#    SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "OpenSG is a portable scenegraph system to create realtime 3D graphics programs")
+#    SET(CPACK_RESOURCE_FILE_LICENSE       "${CMAKE_SOURCE_DIR}/COPYING")
+#    SET(CPACK_PACKAGE_FILE_NAME           "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${CMAKE_BUILD_TYPE}")
+#
+#    if (EXISTS "${CMAKE_SOURCE_DIR}/README.txt")
+#        set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.txt")
+#        set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
+#    endif ()
+#
+#    if (EXISTS "${CMAKE_SOURCE_DIR}/Welcome.txt")
+#        set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_SOURCE_DIR}/Welcome.txt")
+#    endif()
+#
+#    #Define Components
+#    SET(CPACK_COMPONENTS_ALL development_tools
+#        development_configuration
+#        code_headers
+#        libraries
+#        debug_program_db
+#        release_program_db
+#        debug_libraries
+#        release_libraries
+#        debug_runtimes
+#        release_runtimes
+#        data_images
+#        examples_basic
+#        examples_advanced
+#        Unspecified
+#        )
 
 
-            SET(CPACK_NSIS_MUI_ICON            "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico")
-            SET(CPACK_NSIS_MUI_UNIICON         "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico")
-            FILE(TO_NATIVE_PATH                "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallerHeader.bmp" CPACK_PACKAGE_ICON)
-            SET(CPACK_NSIS_MODIFY_PATH         ON)
-            SET(CPACK_NSIS_INSTALLED_ICON_NAME "${CPACK_PACKAGE_NAME}")
-            SET(CPACK_NSIS_HELP_LINK           "http://www.opensg.org/wiki/Help")
-            SET(CPACK_NSIS_URL_INFO_ABOUT      "http://www.opensg.org")
-            SET(CPACK_NSIS_CONTACT             "${CPACK_PACKAGE_CONTACT}")
-            SET(CPACK_NSIS_CREATE_ICONS_EXTRA  "createShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk' '$INSTDIR'")
-            SET(CPACK_NSIS_DELETE_ICONS_EXTRA  "Delete '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk'")
-            SET(CPACK_NSIS_MENU_LINKS          "")
-            #FILE(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallFinish.bmp" CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP)
-            #FILE(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/UnInstallFinish.bmp" CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP)
-        ENDIF()
-    ENDIF()
+#    #Components
+#    #Runtime
+#    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Files needed to execute software with OpenSG.")
+#
+#    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_DISPLAY_NAME "Debug Runtime")
+#    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_DESCRIPTION "Debug Runtimes Libraries Description")
+#    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_GROUP "Runtime")
+#    SET(CPACK_COMPONENT_DEBUG_RUNTIMES_INSTALL_TYPES Full Developer Runtime)
+#
+#    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_DISPLAY_NAME "Release Runtime")
+#    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_DESCRIPTION "Release Runtime Libraries Description")
+#    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_GROUP "Runtime")
+#    SET(CPACK_COMPONENT_RELEASE_RUNTIMES_INSTALL_TYPES Full Developer Runtime)
+#
+#    #Development
+#    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Development files needed to develop software with OpenSG.")
+#
+#    #Libraries
+#    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_DISPLAY_NAME "Release Libraries")
+#    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_DESCRIPTION "Release Libraries Description")
+#    SET(CPACK_COMPONENT_RELEASE_LIBRARIES_GROUP "Development")
+#    set(CPACK_COMPONENT_RELEASE_LIBRARIES_INSTALL_TYPES Full Developer)
+#
+#    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_DISPLAY_NAME "Debug Libraries")
+#    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_DESCRIPTION "Debug Libraries Description")
+#    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_GROUP "Development")
+#    SET(CPACK_COMPONENT_DEBUG_LIBRARIES_INSTALL_TYPES Full Developer)
 
-
-    # Date macro by Benoit RAT (www.neub.co.nr)
-    MACRO (TODAY RESULT)
-        IF (WIN32)
-            EXECUTE_PROCESS(COMMAND "date /T" OUTPUT_VARIABLE ${RESULT})
-            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
-        ELSEIF(UNIX)
-            EXECUTE_PROCESS(COMMAND "date" "+%d/%m/%Y" OUTPUT_VARIABLE ${RESULT})
-            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
-        ELSE (WIN32)
-            MESSAGE(SEND_ERROR "date not implemented")
-            SET(${RESULT} 000000)
-        ENDIF (WIN32)
-    ENDMACRO (TODAY)
-
-    TODAY(DATE)
-
-    # Determine package type
-    IF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
-        IF(WIN32)
-            SET(OSGBUILD_PACKAGE_TYPE "ZIP")
-        ELSE(WIN32)
-            SET(OSGBUILD_PACKAGE_TYPE "RPM")
-        ENDIF(WIN32)
-    ENDIF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
-
-    STRING(TOUPPER ${OSGBUILD_PACKAGE_TYPE} CPACK_GENERATOR)
-
-    IF(${CPACK_GENERATOR} STREQUAL "TBZ2")
-        SET( PACK_EXT "tar.bz2" )
-    ELSEIF(${CPACK_GENERATOR} STREQUAL "TGZ")
-        SET( PACK_EXT "tar.gz" )
-    ELSE()
-        STRING(TOLOWER ${OSGBUILD_PACKAGE_TYPE} PACK_EXT)
-    ENDIF()
-
-    SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.${PACK_EXT}")
-    SET(OUTFILE "${CPACK_PACKAGE_FILE_NAME}-${BUILDNAME}-${DATE}.${PACK_EXT}")
-
-    INCLUDE(CPack)
-
-
-    # For some reason using ${CPACK_OUTPUT_FILE_NAME} in here doesn't work, and neither does setting PACKAGE to it. :(
-    IF(WIN32)
-        #TODO: Need a way to do this on Windows
-        #ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "quiet=1" -F "out=${OUTFILE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
-        #ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
-    ELSE(WIN32)
-        ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "quiet=1" -F "out=${OUTFILE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
-        ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
-    ENDIF(WIN32)
-
-
-ENDIF(OSGBUILD_ENABLE_PACKAGING AND FALSE)
+#    #Program database
+#    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_DISPLAY_NAME "Release Program Database")
+#    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_DESCRIPTION "Release Program Database Description")
+#    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_GROUP "Development")
+#    SET(CPACK_COMPONENT_RELEASE_PROGRAM_DB_INSTALL_TYPES Full Developer)
+#
+#    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_DISPLAY_NAME "Debug Program Database")
+#    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_DESCRIPTION "Debug Program Database Description")
+#    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_GROUP "Development")
+#    SET(CPACK_COMPONENT_DEBUG_PROGRAM_DB_INSTALL_TYPES Full Developer)
+#
+#    #Tools
+#    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DISPLAY_NAME "Tools")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_DESCRIPTION "Tools Description")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_GROUP "Development")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_TOOLS_INSTALL_TYPES Full Developer)
+#
+#    #Configuration
+#    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_DISPLAY_NAME "Cmake Configuration")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_DESCRIPTION "Cmake files")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_GROUP "Development")
+#    SET(CPACK_COMPONENT_DEVELOPMENT_CONFIGURATION_INSTALL_TYPES Full Developer)
+#
+#    #Headers
+#    SET(CPACK_COMPONENT_CODE_HEADERS_DISPLAY_NAME "C++ Headers")
+#    SET(CPACK_COMPONENT_CODE_HEADERS_DESCRIPTION "C++ Header, inline, and insert files.")
+#    SET(CPACK_COMPONENT_CODE_HEADERS_GROUP "Development")
+#    SET(CPACK_COMPONENT_CODE_HEADERS_INSTALL_TYPES Full Developer)
+#
+#    #Examples
+#    SET(CPACK_COMPONENT_GROUP_EXAMPES_DESCRIPTION "OpenSG Examples.")
+#
+#    SET(CPACK_COMPONENT_EXAMPLES_BASIC_DISPLAY_NAME "Simple Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_BASIC_DESCRIPTION "A Collection of Simple OpenSG Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_BASIC_GROUP "Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_BASIC_INSTALL_TYPES Full Developer)
+#
+#    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_DISPLAY_NAME "Advanced Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_DESCRIPTION "A Collection of Advanced OpenSG Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_GROUP "Examples")
+#    SET(CPACK_COMPONENT_EXAMPLES_ADVANCED_INSTALL_TYPES Full Developer)
+#
+#    #Shared Data
+#    SET(CPACK_COMPONENT_GROUP_DATA_DESCRIPTION "Extra Data files.")
+#
+#    SET(CPACK_COMPONENT_DATA_IMAGES_DISPLAY_NAME "Images")
+#    SET(CPACK_COMPONENT_DATA_IMAGES_DESCRIPTION "OpenSG Images and Icons")
+#    SET(CPACK_COMPONENT_DATA_IMAGES_GROUP "Data")
+#    SET(CPACK_COMPONENT_DATA_IMAGES_INSTALL_TYPES Full Developer Runtime)
+#
+#    #Documentation
+#    SET(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION "Documentation.")
+#
+#    #Dependencies
+#    #Boost
+#    #Base
+#
+#    #NSIS specific configuration
+#    IF(WIN32)
+#        INCLUDE(InstallRequiredSystemLibraries)
+#        IF(OSGBUILD_PACKAGE_TYPE STREQUAL "NSIS")
+#            IF(MSVC AND (${CMAKE_VERSION} VERSION_GREATER "2.8.0" OR
+#                         ${CMAKE_VERSION} VERSION_EQUAL   "2.8.0"   ))
+#                 include(CMakeDetermineVSServicePack)
+#                 DetermineVSServicePack( my_service_pack )
+#
+#                 IF( my_service_pack )
+#                     SET(CPACK_PACKAGE_FILE_NAME       "${PROJECT_NAME}-${OSG_VERSION}-${SYSTEM_SPEC}-${my_service_pack}")
+#                 ENDIF()
+#            ENDIF()
+#
+#            #Extra install commands
+#            SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "")
+#            SET(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "")
+#
+#
+#            SET(CPACK_NSIS_MUI_ICON            "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico")
+#            SET(CPACK_NSIS_MUI_UNIICON         "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico")
+#            FILE(TO_NATIVE_PATH                "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallerHeader.bmp" CPACK_PACKAGE_ICON)
+#            SET(CPACK_NSIS_MODIFY_PATH         ON)
+#            SET(CPACK_NSIS_INSTALLED_ICON_NAME "${CPACK_PACKAGE_NAME}")
+#            SET(CPACK_NSIS_HELP_LINK           "http://www.opensg.org/wiki/Help")
+#            SET(CPACK_NSIS_URL_INFO_ABOUT      "http://www.opensg.org")
+#            SET(CPACK_NSIS_CONTACT             "${CPACK_PACKAGE_CONTACT}")
+#            SET(CPACK_NSIS_CREATE_ICONS_EXTRA  "createShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk' '$INSTDIR'")
+#            SET(CPACK_NSIS_DELETE_ICONS_EXTRA  "Delete '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\${PROJECT_NAME} Directory.lnk'")
+#            SET(CPACK_NSIS_MENU_LINKS          "")
+#            #FILE(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallFinish.bmp" CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP)
+#            #FILE(TO_NATIVE_PATH "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/UnInstallFinish.bmp" CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP)
+#        ENDIF()
+#    ENDIF()
+#
+#
+#    # Date macro by Benoit RAT (www.neub.co.nr)
+#    MACRO (TODAY RESULT)
+#        IF (WIN32)
+#            EXECUTE_PROCESS(COMMAND "date /T" OUTPUT_VARIABLE ${RESULT})
+#            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
+#        ELSEIF(UNIX)
+#            EXECUTE_PROCESS(COMMAND "date" "+%d/%m/%Y" OUTPUT_VARIABLE ${RESULT})
+#            string(REGEX REPLACE "(..)/(..)/..(..).*" "\\3\\2\\1" "${RESULT}" "${${RESULT}}")
+#        ELSE (WIN32)
+#            MESSAGE(SEND_ERROR "date not implemented")
+#            SET(${RESULT} 000000)
+#        ENDIF (WIN32)
+#    ENDMACRO (TODAY)
+#
+#    TODAY(DATE)
+#
+#    # Determine package type
+#    IF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
+#        IF(WIN32)
+#            SET(OSGBUILD_PACKAGE_TYPE "ZIP")
+#        ELSE(WIN32)
+#            SET(OSGBUILD_PACKAGE_TYPE "RPM")
+#        ENDIF(WIN32)
+#    ENDIF(OSGBUILD_PACKAGE_TYPE STREQUAL "")
+#
+#    STRING(TOUPPER ${OSGBUILD_PACKAGE_TYPE} CPACK_GENERATOR)
+#
+#    IF(${CPACK_GENERATOR} STREQUAL "TBZ2")
+#        SET( PACK_EXT "tar.bz2" )
+#    ELSEIF(${CPACK_GENERATOR} STREQUAL "TGZ")
+#        SET( PACK_EXT "tar.gz" )
+#    ELSE()
+#        STRING(TOLOWER ${OSGBUILD_PACKAGE_TYPE} PACK_EXT)
+#    ENDIF()
+#
+#    SET(PACKAGE "${CPACK_PACKAGE_FILE_NAME}.${PACK_EXT}")
+#    SET(OUTFILE "${CPACK_PACKAGE_FILE_NAME}-${BUILDNAME}-${DATE}.${PACK_EXT}")
+#
+#    INCLUDE(CPack)
+#
+#
+#    # For some reason using ${CPACK_OUTPUT_FILE_NAME} in here doesn't work, and neither does setting PACKAGE to it. :(
+#    IF(WIN32)
+#        #TODO: Need a way to do this on Windows
+#        #ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "quiet=1" -F "out=${OUTFILE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
+#        #ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
+#    ELSE(WIN32)
+#        ADD_CUSTOM_TARGET(PackageUpload COMMAND curl -F "code=${OPENSG_UPLOAD_CODE}" -F "quiet=1" -F "out=${OUTFILE}" -F "file=@${PACKAGE}" http://www.opensg.org/htdocs/drop.php )
+#        ADD_DEPENDENCIES(PackageUpload "${CPACK_OUTPUT_FILE_NAME}")
+#    ENDIF(WIN32)
+#
+#
+#ENDIF(OSGBUILD_ENABLE_PACKAGING AND FALSE)
 
 IF(NOT WIN32)
   CONFIGURE_FILE(CMake/CMakeLists.packaging.unix.txt 
@@ -2258,14 +2269,14 @@ ELSE()
                  @ONLY                                      )
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/OpenSG2_Icon.ico"
           DESTINATION share/OpenSG/Packaging
-          COMPONENT packaging
+#          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
 
   INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/Packaging/Windows/InstallerHeader.bmp"
           DESTINATION share/OpenSG/Packaging
-          COMPONENT packaging
+#          COMPONENT packaging
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ            )
@@ -2273,7 +2284,7 @@ ENDIF()
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
         DESTINATION share/OpenSG/Packaging
-        COMPONENT packaging
+#        COMPONENT packaging
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ
@@ -2281,14 +2292,14 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/CMakeLists.packaging.txt
 
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING
         DESTINATION share/doc/OpenSG/
-        COMPONENT doc
+#        COMPONENT doc
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ)
 
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/README
         DESTINATION share/doc/OpenSG/
-        COMPONENT doc
+#        COMPONENT doc
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ
@@ -2296,7 +2307,7 @@ INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/PLY/README
 
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/README
         DESTINATION share/doc/OpenSG/
-        COMPONENT doc
+#        COMPONENT doc
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ
@@ -2304,7 +2315,7 @@ INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/TrapezoidalShadowMaps/README
 
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/Source/Contrib/Rhino3DLoader/README
         DESTINATION share/doc/OpenSG/
-        COMPONENT doc
+#        COMPONENT doc
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ

@@ -5,9 +5,9 @@ INCLUDE(OSGContribComputeBase.SetupHelper)
 
 SET(OSG_CUDA_COMMON_BUILD FALSE CACHE INTERNAL "" FORCE)
 
-MESSAGE(STATUS "add CudaCommon")
-
 IF(OSGNVidiaSDKSrcDir)
+
+  MESSAGE(STATUS "adding CudaCommon from : ${OSGNVidiaSDKSrcDir}")
 
   PROJECT(OSGCudaCommon)
 
@@ -100,5 +100,7 @@ IF(OSGNVidiaSDKSrcDir)
   SET(OSG_CUDA_COMMON_INCLUDEDIR "${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/CudaCommon/src" CACHE PATH "")
 
 ELSE(OSGNVidiaSDKSrcDir)
+  MESSAGE(STATUS "ignoring CudaCommon")
+
   SET(OSGNVidiaSDKSrcDir "" CACHE PATH "")
 ENDIF(OSGNVidiaSDKSrcDir)

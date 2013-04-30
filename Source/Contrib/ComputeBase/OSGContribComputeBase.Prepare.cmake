@@ -1,5 +1,6 @@
 
 MESSAGE(STATUS "Prepare OSGComputeBase")
+MESSAGE(STATUS "")
 
 GET_FILENAME_COMPONENT(_CMAKE_CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
 
@@ -41,9 +42,10 @@ OSG_CONFIGURE_CUDACOMMON()
 #OSG_CONFIGURE_CUDAUTIL()
 OSG_CONFIGURE_CUDAPARTSDK()
 
-MESSAGE(STATUS "NV Status: NV:${OSG_WITH_NVSDKCOMMON}")
-MESSAGE(STATUS "Cuda Status: CC:${OSG_WITH_CUDACOMMON} CU:${OSG_WITH_CUDAUTIL} CP:${OSG_WITH_CUDPP}")
-MESSAGE(STATUS "OCL Status : NV:${OSG_WITH_NVOCLUTILS}")
+MESSAGE("  with nvsdkcommon  : ${OSG_WITH_NVSDKCOMMON}")
+MESSAGE("  with cudacommon   : ${OSG_WITH_CUDACOMMON}" )
+MESSAGE("  with opencl utils : ${OSG_WITH_NVOCLUTILS}" )
+MESSAGE("")
 
 LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_NVSDKCOMMON 1")
 LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_NVOCLUTILS 1")
@@ -52,14 +54,14 @@ LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_CUDAUTIL 1")
 LIST(APPEND OSG_ADDITIONAL_CONFIGURE_LINES "#cmakedefine OSG_WITH_CUDPP 1")
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/FindOpenCL.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/ConfigurePackages.OSGContribComputeBase.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 
 INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/OSGContribComputeBase.SetupHelper.cmake"
-        DESTINATION share/OpenSG/cmake
-        COMPONENT development_configuration)
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 

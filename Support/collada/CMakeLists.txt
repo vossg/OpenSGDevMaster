@@ -19,6 +19,8 @@ ENDIF(WIN32)
 
 IF(_OSG_COLLADA_PRECOND)
 
+  MESSAGE(STATUS "adding collada from : ${OSGColladaSrcDir}")
+
   PROJECT(OSGCollada)
 
   SET(${PROJECT_NAME}SharedTarget_14 osgcollada14dom22)
@@ -160,5 +162,7 @@ IF(_OSG_COLLADA_PRECOND)
   ENDIF(OSG_BUILD_COLLADADOM_15)
 
 ELSE(_OSG_COLLADA_PRECOND)
+  MESSAGE(STATUS "ignoring collada")
+
   SET(OSGColladaSrcDir "" CACHE PATH "")
 ENDIF(_OSG_COLLADA_PRECOND)

@@ -1160,62 +1160,62 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
-                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
-                COMPONENT release_runtimes)
+                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL})
+#                COMPONENT release_runtimes)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
 
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-                COMPONENT release_libraries
+#                COMPONENT release_libraries
 
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-                COMPONENT release_libraries)
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL})
+#                COMPONENT release_libraries)
 
         IF(NOT ${PROJECT_NAME}_NO_DBG_INSTALL)
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS Debug
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
-                  COMPONENT debug_runtimes)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG})
+#                  COMPONENT debug_runtimes)
 
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS Debug
 
                   LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-                  COMPONENT debug_libraries 
+#                  COMPONENT debug_libraries 
 
-                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-                  COMPONENT debug_libraries)
+                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG})
+#                  COMPONENT debug_libraries)
         ENDIF()
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS ReleaseNoOpt
-                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
-                COMPONENT release_no_opt_runtimes)
+                RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO})
+#                COMPONENT release_no_opt_runtimes)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS ReleaseNoOpt
 
                 LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-                COMPONENT release_no_opt_libraries
+#                COMPONENT release_no_opt_libraries
 
-                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-                COMPONENT release_no_opt_libraries)
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO})
+#                COMPONENT release_no_opt_libraries)
 
         IF(NOT ${PROJECT_NAME}_NO_DBG_INSTALL)
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS DebugOpt
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
-                  COMPONENT debug_opt_runtimes)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO})
+#                  COMPONENT debug_opt_runtimes)
 
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS DebugOpt
 
                   LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-                  COMPONENT debug_opt_libraries
+#                  COMPONENT debug_opt_libraries
 
-                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-                  COMPONENT debug_opt_libraries)
+                  ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO})
+#                  COMPONENT debug_opt_libraries)
         ENDIF()
 
 
@@ -1227,8 +1227,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS Release
-                  DESTINATION ${_OSG_TARGET_BINDIR_REL}
-                  COMPONENT release_program_db)
+                  DESTINATION ${_OSG_TARGET_BINDIR_REL})
+#                  COMPONENT release_program_db)
 
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Debug_LOCATION)
@@ -1237,8 +1237,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS Debug
-                  DESTINATION ${_OSG_TARGET_BINDIR_DBG}
-                  COMPONENT debug_program_db)
+                  DESTINATION ${_OSG_TARGET_BINDIR_DBG})
+#                  COMPONENT debug_program_db)
 
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} ReleaseNoOpt_LOCATION)
@@ -1247,8 +1247,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS ReleaseNoOpt
-                  DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
-                  COMPONENT release_no_opt_program_db)
+                  DESTINATION ${_OSG_TARGET_BINDIR_RELNO})
+#                  COMPONENT release_no_opt_program_db)
 
 
           GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} DebugOpt_LOCATION)
@@ -1257,35 +1257,35 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
           INSTALL(FILES ${_TMPVAL1}
                   CONFIGURATIONS DebugOpt
-                  DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
-                  COMPONENT debug_opt_program_db)
+                  DESTINATION ${_OSG_TARGET_BINDIR_DBGO})
+#                  COMPONENT debug_opt_program_db)
 
         ENDIF(OSG_INSTALL_PDB_FILES)
 
         IF(FALSE)
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS MinSizeRel
-                  RUNTIME DESTINATION lib/minsizerel
-                  COMPONENT release_minsize_runtimes)
+                  RUNTIME DESTINATION lib/minsizerel)
+#                  COMPONENT release_minsize_runtimes)
 
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS MinSizeRel
                   LIBRARY DESTINATION lib/minsizerel
-                  COMPONENT release_minsize_libraries
-                  ARCHIVE DESTINATION lib/minsizerel
-                  COMPONENT release_minsize_libraries)
+#                  COMPONENT release_minsize_libraries
+                  ARCHIVE DESTINATION lib/minsizerel)
+#                  COMPONENT release_minsize_libraries)
 
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS RelWithDebInfo
-                  RUNTIME DESTINATION lib/relwithdbg
-                  COMPONENT release_with_debinfo_runtimes)
+                  RUNTIME DESTINATION lib/relwithdbg)
+#                  COMPONENT release_with_debinfo_runtimes)
 
           INSTALL(TARGETS ${PROJECT_NAME}
                   CONFIGURATIONS RelWithDebInfo
                   LIBRARY DESTINATION lib/relwithdbg
-                  COMPONENT release_with_debinfo_libraries
-                  ARCHIVE DESTINATION lib/relwithdbg
-                  COMPONENT release_with_debinfo_libraries)
+#                  COMPONENT release_with_debinfo_libraries
+                  ARCHIVE DESTINATION lib/relwithdbg)
+#                  COMPONENT release_with_debinfo_libraries)
         ENDIF()
     ELSEIF(APPLE AND IOS)
         INSTALL(TARGETS ${PROJECT_NAME}
@@ -1310,10 +1310,10 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS Release
 
                 LIBRARY DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}
-                COMPONENT release_libraries
+#                COMPONENT release_libraries
 
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}
-                COMPONENT release_libraries)
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX})
+#                COMPONENT release_libraries)
 
 #        INSTALL(TARGETS ${PROJECT_NAME}
 #                CONFIGURATIONS Debug
@@ -1324,43 +1324,43 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 CONFIGURATIONS Debug
 
                 LIBRARY DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug
-                COMPONENT debug_libraries
+#                COMPONENT debug_libraries
 
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug
-                COMPONENT debug_libraries)
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_BASE_SUFFIX}/debug)
+#                COMPONENT debug_libraries)
     ELSE(WIN32)
         INSTALL(TARGETS ${PROJECT_NAME}
 
                 RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                COMPONENT libraries
+#                COMPONENT libraries
 
                 LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                COMPONENT libraries
+#                COMPONENT libraries
 
-                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX}
-                COMPONENT libraries)
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+#                COMPONENT libraries)
     ENDIF(WIN32)
 
     INSTALL(FILES ${${PROJECT_NAME}_HDR}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ
-            COMPONENT code_headers)
+                        WORLD_READ)
+#            COMPONENT code_headers)
 
     INSTALL(FILES ${${PROJECT_NAME}_INL}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ
-            COMPONENT code_headers)
+                        WORLD_READ)
+#            COMPONENT code_headers)
 
     INSTALL(FILES ${${PROJECT_NAME}_INS}
             DESTINATION include/OpenSG
             PERMISSIONS OWNER_WRITE OWNER_READ
                         GROUP_READ
-                        WORLD_READ
-            COMPONENT code_headers)
+                        WORLD_READ)
+#            COMPONENT code_headers)
 
     IF(NOT ${PROJECT_NAME}_NO_PYTHON)
       FILE(APPEND "${CMAKE_BINARY_DIR}/Python/Helper/libOrder.py" "libInfo[\"${PROJECT_NAME}\"] = [\n")
@@ -1570,27 +1570,27 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
 
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS Release
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL}
-                  COMPONENT release_binaries)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_REL})
+#                  COMPONENT release_binaries)
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS Debug
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG}
-                  COMPONENT debug_binaries)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBG})
+#                  COMPONENT debug_binaries)
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS ReleaseNoOpt
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO}
-                  COMPONENT release_no_opt_binaries)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_RELNO})
+#                  COMPONENT release_no_opt_binaries)
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS DebugOpt
-                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO}
-                  COMPONENT debug_opt_binaries)
+                  RUNTIME DESTINATION ${_OSG_TARGET_BINDIR_DBGO})
+#                  COMPONENT debug_opt_binaries)
 
         ELSE(WIN32)
 
           INSTALL(TARGETS ${EXE}
                   CONFIGURATIONS Release Debug DebugGV
-                  RUNTIME DESTINATION bin/${OSG_LIBDIR_BUILD_TYPE_SUFFIX}
-                  COMPONENT binaries)
+                  RUNTIME DESTINATION bin/${OSG_LIBDIR_BUILD_TYPE_SUFFIX})
+#                  COMPONENT binaries)
 
         ENDIF(WIN32)
       ENDFOREACH()
@@ -2004,69 +2004,69 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Release
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_REL}
-              COMPONENT release_runtimes
+#              COMPONENT release_runtimes
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Release
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-              COMPONENT release_libraries
+#              COMPONENT release_libraries
               OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL}
-              COMPONENT release_libraries
+#              COMPONENT release_libraries
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Debug
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
-              COMPONENT debug_runtimes
+#              COMPONENT debug_runtimes
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS Debug
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-              COMPONENT debug_libraries
+#              COMPONENT debug_libraries
               OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
-              COMPONENT debug_libraries
+#              COMPONENT debug_libraries
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS ReleaseNoOpt
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
-              COMPONENT release_no_opt_runtimes
+#              COMPONENT release_no_opt_runtimes
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS ReleaseNoOpt
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-              COMPONENT release_no_opt_libraries
+#              COMPONENT release_no_opt_libraries
               OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
-              COMPONENT release_no_opt_libraries
+#              COMPONENT release_no_opt_libraries
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS DebugOpt
               RUNTIME DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
-              COMPONENT debug_opt_runtimes
+#              COMPONENT debug_opt_runtimes
               OPTIONAL)
 
       INSTALL(TARGETS ${PROJECT_NAME}Py
               CONFIGURATIONS DebugOpt
 
               LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-              COMPONENT debug_opt_libraries
+#              COMPONENT debug_opt_libraries
               OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
-              COMPONENT debug_opt_libraries
+#              COMPONENT debug_opt_libraries
               OPTIONAL)
 
 
@@ -2079,7 +2079,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS Release
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_REL}
-                COMPONENT release_program_db
+#                COMPONENT release_program_db
                 OPTIONAL)
 
 
@@ -2090,7 +2090,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS Debug
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
-                COMPONENT debug_program_db
+#                COMPONENT debug_program_db
                 OPTIONAL)
 
 
@@ -2101,7 +2101,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS ReleaseNoOpt
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
-                COMPONENT release_no_opt_program_db
+#                COMPONENT release_no_opt_program_db
                 OPTIONAL)
 
 
@@ -2112,7 +2112,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
         INSTALL(FILES ${_TMPVAL1}
                 CONFIGURATIONS DebugOpt
                 DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
-                COMPONENT debug_opt_program_db
+#                COMPONENT debug_opt_program_db
                 OPTIONAL)
 
       ENDIF(OSG_INSTALL_PDB_FILES)
@@ -2122,7 +2122,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES          ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION    ${_OSG_TARGET_PYLIBDIR_REL}
               CONFIGURATIONS Release
-              COMPONENT      release_runtimes
+#              COMPONENT      release_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2130,7 +2130,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBG}
               CONFIGURATIONS Debug
-              COMPONENT      debug_runtimes
+#              COMPONENT      debug_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2138,7 +2138,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_DBGO}
               CONFIGURATIONS DebugOpt
-              COMPONENT      debug_opt_runtimes
+#              COMPONENT      debug_opt_runtimes
               OPTIONAL)
 
       SET(_OSG_GEN_INIT_FILE_OUT "${OSG_PYTHON_${PROJECT_NAME}_MODULE_DIR}/__init__.py")
@@ -2146,7 +2146,7 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_TARGET_PYLIBDIR_RELNO}
               CONFIGURATIONS ReleaseNoOpt
-              COMPONENT      release_no_opt_runtimes
+#              COMPONENT      release_no_opt_runtimes
               OPTIONAL)
 
 
@@ -2159,21 +2159,21 @@ FUNCTION(OSG_SETUP_PYTHON_BUILD)
       INSTALL(TARGETS ${PROJECT_NAME}Py
 
               RUNTIME DESTINATION ${_OSG_PY_INST_BASE}
-              COMPONENT libraries
+#              COMPONENT libraries
               OPTIONAL
 
               LIBRARY DESTINATION ${_OSG_PY_INST_BASE}
-              COMPONENT libraries
+#              COMPONENT libraries
               OPTIONAL
 
               ARCHIVE DESTINATION ${_OSG_PY_INST_BASE}
-              COMPONENT libraries
+#              COMPONENT libraries
 
               OPTIONAL)
 
       INSTALL(FILES       ${_OSG_GEN_INIT_FILE_OUT} 
               DESTINATION ${_OSG_PY_INST_BASE}
-              COMPONENT   libraries
+#              COMPONENT   libraries
               OPTIONAL)
 
 
@@ -2468,6 +2468,17 @@ MACRO(OSG_FIND_PACKAGE NAME)
 
     OSG_ADD_OPT(${NAME}_FOUND)
 ENDMACRO(OSG_FIND_PACKAGE)
+
+MACRO(OSG_FIND_PACKAGE_QUIET NAME)
+    FIND_PACKAGE(${NAME} QUIET)
+
+    IF(${NAME}_FOUND)
+        OSG_ADD_OPT(${NAME}_LIBRARIES)
+        OSG_ADD_OPT(${NAME}_INCLUDE_DIR)
+    ENDIF(${NAME}_FOUND)
+
+    OSG_ADD_OPT(${NAME}_FOUND)
+ENDMACRO(OSG_FIND_PACKAGE_QUIET)
 
 MACRO(OSG_BOOST_DEP_SETUP)
     SET(Boost_USE_MULTITHREAD ON )

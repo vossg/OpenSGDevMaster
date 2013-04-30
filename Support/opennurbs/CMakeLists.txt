@@ -17,6 +17,8 @@ IF(OSGOpenNurbsSrcDir)
 
   PROJECT(OSGOpenNurbs)
 
+  MESSAGE(STATUS "adding opennurbs from : ${OSGOpenNurbsSrcDir}")
+
   SET(${PROJECT_NAME}SharedTarget osgopennurbs)
   IF(WIN32)
     SET(${PROJECT_NAME}StaticTarget libosgopennurbs)
@@ -413,5 +415,7 @@ IF(OSGOpenNurbsSrcDir)
                       WORLD_READ)
 
 ELSE(OSGOpenNurbsSrcDir)
+  MESSAGE(STATUS "ignoring opennurbs")
+
   SET(OSGOpenNurbsSrcDir "" CACHE PATH "")
 ENDIF(OSGOpenNurbsSrcDir)

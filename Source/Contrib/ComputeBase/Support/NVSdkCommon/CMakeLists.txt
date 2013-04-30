@@ -5,9 +5,9 @@ INCLUDE(OSGContribComputeBase.SetupHelper)
 
 SET(OSG_NVSDK_COMMON_BUILD FALSE CACHE INTERNAL "" FORCE)
 
-MESSAGE(STATUS "add NVSdkCommon")
-
 IF(OSGNVidiaSDKSrcDir)
+
+MESSAGE(STATUS "adding NVSdkCommon from : ${OSGNVidiaSDKSrcDir}")
 
   PROJECT(OSGNVSdkCommon)
 
@@ -18,7 +18,7 @@ IF(OSGNVidiaSDKSrcDir)
   ENDIF(WIN32)
 
   IF(EXISTS ${OSGNVidiaSDKSrcDir}/shared)
-    MESSAGE(STATUS "With OpenCL SDK")
+    MESSAGE("  With OpenCL SDK")
 
     SET(OSG_NVSDKCOMMON_SRC_INPUT cmd_arg_reader.cpp
                                   rendercheckGL.cpp
@@ -38,7 +38,7 @@ IF(OSGNVidiaSDKSrcDir)
     CopyOrLink(${OSGNVidiaSDKSrcDir}/${OSG_NVSDKCOMMON_SUBDIR}/inc/rendercheckGL.h
                ${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/NVSdkCommon/src/rendercheck_gl.h)
   ELSE()
-    MESSAGE(STATUS "Without OpenCL SDK")
+    MESSAGE("  Without OpenCL SDK")
 
 #    SET(OSG_NVSDKCOMMON_SRC_INPUT rendercheck_gl.cpp
 #                                  cmd_arg_reader.cpp)
@@ -138,5 +138,7 @@ IF(OSGNVidiaSDKSrcDir)
   SET(OSG_NVSDK_COMMON_LIBRARY "${${PROJECT_NAME}StaticTarget}" CACHE FILEPATH "")
 
 ELSE(OSGNVidiaSDKSrcDir)
+  MESSAGE(STATUS "ignoring NVSdkCommon")
+
   SET(OSGNVidiaSDKSrcDir "" CACHE PATH "")
 ENDIF(OSGNVidiaSDKSrcDir)

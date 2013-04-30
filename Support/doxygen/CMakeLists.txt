@@ -10,6 +10,8 @@ ENDFUNCTION()
 
 IF(OSGDoxygenSrcDir)
 
+  MESSAGE(STATUS "adding doxygen from : ${OSGDoxygenSrcDir}")
+
   PROJECT(OSGDoxygen)
 
   SET(OSG_DOXYGEN_SRC_PATCH classdef.cpp
@@ -515,6 +517,8 @@ IF(OSGDoxygenSrcDir)
 
 
 ELSE(OSGDoxygenSrcDir)
+
+  MESSAGE(STATUS "ignored doxygen")
 
   SET(OSGDoxygenSrcDir "" CACHE PATH "")
 

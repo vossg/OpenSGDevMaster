@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGLibMiniSrcDir)
 
+  MESSAGE(STATUS "adding libMini from : ${OSGLibMiniSrcDir}")
+
   PROJECT(OSGLibMini)
 
   IF(WIN32)
@@ -186,5 +188,7 @@ IF(OSGLibMiniSrcDir)
                       WORLD_READ)
 
 ELSE(OSGLibMiniSrcDir)
+  MESSAGE(STATUS "ignoring libMini")
+
   SET(OSGLibMiniSrcDir "" CACHE PATH "")
 ENDIF(OSGLibMiniSrcDir)

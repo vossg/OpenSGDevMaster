@@ -158,7 +158,7 @@ FILE(APPEND  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake"
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
         DESTINATION include${OSG_SUPPORT_INC_SUBDIR}
-        COMPONENT development_configuration
+#        COMPONENT development_configuration
         PERMISSIONS OWNER_WRITE OWNER_READ
                     GROUP_READ
                     WORLD_READ)
