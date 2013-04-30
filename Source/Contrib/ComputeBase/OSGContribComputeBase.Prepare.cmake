@@ -65,3 +65,7 @@ INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/OSGContribComputeBase.SetupHelpe
         DESTINATION share/OpenSG/cmake)
 #        COMPONENT development_configuration)
 
+INSTALL(FILES "${_CMAKE_CURRENT_LIST_DIR}/CMake/CudaHelper.cmake"
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
+

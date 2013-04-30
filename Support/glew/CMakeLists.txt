@@ -67,8 +67,8 @@ IF(OSGGLEWSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
-  SET(OSG_GLEW_INCLUDE_DIR ${OSGGLEWSrcDir}/include CACHE PATH "")
-  SET(OSG_GLEW_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
+  SET(GLEW_INCLUDE_DIR ${OSGGLEWSrcDir}/include CACHE PATH "")
+  SET(GLEW_LIBRARIES ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGGLEWSrcDir)
   MESSAGE(STATUS "ignoring glew")
