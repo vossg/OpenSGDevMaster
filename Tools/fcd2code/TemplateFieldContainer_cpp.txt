@@ -54,7 +54,7 @@
 
 @@endif
 @@endif
-#include "@!HeaderPrefix!@OSGConfig.h"
+#include "@!HeaderPrefix!@@!Package!@Config.h"
 
 #include "OSG@!Classname!@.h"
 

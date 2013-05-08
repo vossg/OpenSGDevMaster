@@ -58,7 +58,7 @@
 #pragma once
 #endif
 
-#include "@!HeaderPrefix!@OSGConfig.h"
+#include "@!HeaderPrefix!@@!Package!@Config.h"
 @@if isInLibrary
 #include "OSG@!Libname!@Def.h"
 @@endif

@@ -48,6 +48,8 @@ class FieldContainer(FCDElement):
         self.setFCD("authors",                    "",       True);
         self.setFCD("typeDescAddable",            "false",  True);
         self.setFCD("dynFCDerived",               "false",  True);
+        self.setFCD("dynFCDerived",               "false",  True);
+        self.setFCD("package",                    "OSG",    True);
     #
     # Access fields
     
@@ -147,6 +149,8 @@ class FieldContainer(FCDElement):
             self["hasAuthors"] = False;
             self["authors"] = "";
             self["Authors"] = "";
+
+        self["Package"] = self.getFCD("package");
 
         #Create the Authors comment text
         self["AuthorsCommentText"] = "";

@@ -58,7 +58,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "@!HeaderPrefix!@OSGConfig.h"
+#include "@!HeaderPrefix!@@!Package!@Config.h"
 
 @@AdditionalIncludes@@
 
