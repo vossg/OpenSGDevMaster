@@ -52,9 +52,11 @@ OSG_BEGIN_NAMESPACE
 
 PCSSShadowMapHandler::PCSSShadowMapHandler(ShadowStage     *pSource,
                                            ShadowStageData *pData,
+                                           GLenum           eTargetBufferFormat,
                                            Window          *pWindow) :
      Inherited     (pSource, 
                     pData,
+                    eTargetBufferFormat,
                     pWindow),
     _pClearSMapBack(NULL   ),
     _pPoly         (NULL   ),

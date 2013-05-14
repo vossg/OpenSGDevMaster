@@ -67,6 +67,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING StdShadowMapHandler : public ShadowTreeHandler
 
     StdShadowMapHandler(ShadowStage     *pSource,
                         ShadowStageData *pData,
+                        GLenum           eTargetBufferFormat,
                         Window          *pWindow);
     ~StdShadowMapHandler(void);
 

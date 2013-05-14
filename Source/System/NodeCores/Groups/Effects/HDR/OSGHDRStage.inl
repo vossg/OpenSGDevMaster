@@ -36,4 +36,45 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+void HDRStage::renderQuad(Real32 rTexScale)
+{
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(0.00,      0.00     );
+        glVertex2f  (0.00,      0.00     );
+        
+        glTexCoord2f(rTexScale, 0.00     );
+        glVertex2f  (1.00,      0.00     );
+        
+        glTexCoord2f(rTexScale, rTexScale);
+        glVertex2f  (1.00,      1.00     );
+        
+        glTexCoord2f(0.00,      rTexScale);
+        glVertex2f  (0.00,      1.00     );
+    }
+    glEnd();
+}
+
+inline
+void HDRStage::renderQuad(Real32 rMinTex,
+                          Real32 rMaxTex)
+{
+    glBegin(GL_QUADS);
+    {
+        glTexCoord2f(rMinTex, rMinTex);
+        glVertex2f  (0.00,    0.00   );
+        
+        glTexCoord2f(rMaxTex, rMinTex);
+        glVertex2f  (1.00,    0.00   );
+        
+        glTexCoord2f(rMaxTex, rMaxTex);
+        glVertex2f  (1.00,    1.00   );
+        
+        glTexCoord2f(rMinTex, rMaxTex);
+        glVertex2f  (0.00,    1.00   );
+    }
+    glEnd();
+}
+
 OSG_END_NAMESPACE

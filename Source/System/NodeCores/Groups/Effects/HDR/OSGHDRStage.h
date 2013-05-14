@@ -144,6 +144,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
+    void renderQuad(Real32 rTexScale = 1.f);
+    void renderQuad(Real32 rMinTex,
+                    Real32 rMaxTex        );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */

@@ -67,6 +67,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING VarianceShadowMapHandler :
 
     VarianceShadowMapHandler (ShadowStage     *pSource,
                               ShadowStageData *pData,
+                              GLenum           eTargetBufferFormat,
                               Window          *pWindow);
 
     ~VarianceShadowMapHandler(void);

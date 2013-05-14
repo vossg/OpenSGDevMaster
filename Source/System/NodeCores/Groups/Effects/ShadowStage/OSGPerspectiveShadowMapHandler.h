@@ -67,6 +67,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING PerspectiveShadowMapHandler :
 
     PerspectiveShadowMapHandler (ShadowStage     *pSource,
                                  ShadowStageData *pData,
+                                 GLenum           eTargetBufferFormat,
                                  Window          *pWindow);
     ~PerspectiveShadowMapHandler(void);
 

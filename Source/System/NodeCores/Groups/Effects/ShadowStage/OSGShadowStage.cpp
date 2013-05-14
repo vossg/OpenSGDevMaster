@@ -336,6 +336,15 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 
 //        clearLights(_oldLights.size());
 
+        GLenum eTargetFormat = this->getBufferFormat();
+
+        if(eTargetFormat == GL_NONE)
+        {
+            eTargetFormat = 
+                ract->getActivePartition()->
+                    getDrawEnv().getTargetBufferFormat();
+        }
+
         switch(getShadowMode())
         {
             case NO_SHADOW:
@@ -350,6 +359,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_STDMAP
                 pTreeHandler = new StdShadowMapHandler(this, 
                                                        pData,
+                                                       eTargetFormat,
                                                        ract->getWindow());
 #endif
             }
@@ -362,6 +372,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
                 pTreeHandler = 
                     new PerspectiveShadowMapHandler(this, 
                                                     pData,
+                                                    eTargetFormat,
                                                     ract->getWindow());
 #endif
             }
@@ -373,6 +384,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_DITHERMAP
                 pTreeHandler = new DitherShadowMapHandler(this, 
                                                           pData,
+                                                          eTargetFormat,
                                                           ract->getWindow());
 #endif
             }
@@ -384,6 +396,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_PCFMAP
                 pTreeHandler = new PCFShadowMapHandler(this, 
                                                        pData,
+                                                       eTargetFormat,
                                                        ract->getWindow());
 #endif
             }
@@ -395,6 +408,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_PCF2MAP
                 pTreeHandler = new PCF2ShadowMapHandler(this, 
                                                         pData,
+                                                        eTargetFormat,
                                                         ract->getWindow());
 #endif
             }
@@ -406,6 +420,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_PCSSMAP
                 pTreeHandler = new PCSSShadowMapHandler(this, 
                                                         pData,
+                                                        eTargetFormat,
                                                         ract->getWindow());
 #endif
             }
@@ -417,6 +432,7 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
 #ifdef OSG_HAS_VARMAP
                 pTreeHandler = new VarianceShadowMapHandler(this, 
                                                             pData,
+                                                            eTargetFormat,
                                                             ract->getWindow());
 #endif
             }

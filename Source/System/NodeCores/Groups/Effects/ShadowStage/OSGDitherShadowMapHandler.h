@@ -66,6 +66,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DitherShadowMapHandler :
 
     DitherShadowMapHandler (ShadowStage     *pSource,
                             ShadowStageData *pData,
+                            GLenum           eTargetBufferFormat,
                             Window          *pWindow);
     ~DitherShadowMapHandler(void);
 

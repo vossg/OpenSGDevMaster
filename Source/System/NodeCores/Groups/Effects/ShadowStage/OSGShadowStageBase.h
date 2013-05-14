@@ -65,6 +65,7 @@
 
 #include "OSGStage.h" // Parent
 
+#include "OSGBaseFields.h"              // BufferFormat type
 #include "OSGSysFields.h"               // OffBias type
 #include "OSGNodeFields.h"              // LightNodes type
 
@@ -95,7 +96,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
 
     enum
     {
-        OffBiasFieldId = Inherited::NextFieldId,
+        BufferFormatFieldId = Inherited::NextFieldId,
+        OffBiasFieldId = BufferFormatFieldId + 1,
         OffFactorFieldId = OffBiasFieldId + 1,
         MapSizeFieldId = OffFactorFieldId + 1,
         LightNodesFieldId = MapSizeFieldId + 1,
@@ -118,6 +120,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         NextFieldId = CombineBlendFieldId + 1
     };
 
+    static const OSG::BitVector BufferFormatFieldMask =
+        (TypeTraits<BitVector>::One << BufferFormatFieldId);
     static const OSG::BitVector OffBiasFieldMask =
         (TypeTraits<BitVector>::One << OffBiasFieldId);
     static const OSG::BitVector OffFactorFieldMask =
@@ -161,6 +165,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFGLenum          SFBufferFormatType;
     typedef SFReal32          SFOffBiasType;
     typedef SFReal32          SFOffFactorType;
     typedef SFUInt32          SFMapSizeType;
@@ -205,6 +210,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+                  SFGLenum            *editSFBufferFormat   (void);
+            const SFGLenum            *getSFBufferFormat    (void) const;
 
                   SFReal32            *editSFOffBias        (void);
             const SFReal32            *getSFOffBias         (void) const;
@@ -264,6 +272,9 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   SFBool              *editSFCombineBlend   (void);
             const SFBool              *getSFCombineBlend    (void) const;
 
+
+                  GLenum              &editBufferFormat   (void);
+            const GLenum              &getBufferFormat    (void) const;
 
                   Real32              &editOffBias        (void);
                   Real32               getOffBias         (void) const;
@@ -328,6 +339,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setBufferFormat   (const GLenum &value);
             void setOffBias        (const Real32 value);
             void setOffFactor      (const Real32 value);
             void setMapSize        (const UInt32 value);
@@ -422,6 +434,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFGLenum          _sfBufferFormat;
     SFReal32          _sfOffBias;
     SFReal32          _sfOffFactor;
     SFUInt32          _sfMapSize;
@@ -470,6 +483,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleBufferFormat    (void) const;
+    EditFieldHandlePtr editHandleBufferFormat   (void);
     GetFieldHandlePtr  getHandleOffBias         (void) const;
     EditFieldHandlePtr editHandleOffBias        (void);
     GetFieldHandlePtr  getHandleOffFactor       (void) const;

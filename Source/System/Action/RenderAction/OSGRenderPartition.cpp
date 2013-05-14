@@ -166,6 +166,9 @@ void RenderPartition::initFrom(RenderPartition *pSource,
                                RenderPartition *pInitial,
                                Int32            uiCopyOnPush)
 {
+    this->_oDrawEnv.setTargetBufferFormat(
+        pSource->_oDrawEnv.getTargetBufferFormat());
+
     if(uiCopyOnPush == 0x0000 || pSource == NULL)
     {
         _sStateOverrides.push(_pStatePool->create());

@@ -82,50 +82,51 @@ OpenGLState::~OpenGLState(void)
 /*                            Constructors                                 */
 
 DrawEnv::DrawEnv(void) :
-    _pRenderAction          (NULL ),
-    _cameraProjection       (     ),
-    _cameraProjectionTrans  (     ),
-    _cameraViewing          (     ),
-    _cameraToWorld          (     ),
-    _cameraDecoration       (     ),
-    _objectToWorld          (     ),
+    _pRenderAction          (NULL   ),
+    _cameraProjection       (       ),
+    _cameraProjectionTrans  (       ),
+    _cameraViewing          (       ),
+    _cameraToWorld          (       ),
+    _cameraDecoration       (       ),
+    _objectToWorld          (       ),
 
-    _vpCameraFullProjection (     ),
-    _vpCameraProjection     (     ),
-    _vpCameraProjectionTrans(     ),
-    _vpCameraViewing        (     ),
-    _vpCameraToWorld        (     ),
-    _vpWorldToScreen        (     ),
+    _vpCameraFullProjection (       ),
+    _vpCameraProjection     (       ),
+    _vpCameraProjectionTrans(       ),
+    _vpCameraViewing        (       ),
+    _vpCameraToWorld        (       ),
+    _vpWorldToScreen        (       ),
 
-    _cameraNear             (1.f  ),
-    _cameraFar              (100.f),
+    _cameraNear             (  1.f  ),
+    _cameraFar              (  100.f),
 
-    _iPixelLeft             (    0),
-    _iPixelRight            (    1),
-    _iPixelBottom           (    0),
-    _iPixelTop              (    1),
-    _bFull                  ( true),
+    _iPixelLeft             (      0),
+    _iPixelRight            (      1),
+    _iPixelBottom           (      0),
+    _iPixelTop              (      1),
+    _bFull                  (   true),
 
-    _iDrawerId              (-1   ),
-    _iDrawableId            (-1   ),
+    _iDrawerId              (-1     ),
+    _iDrawableId            (-1     ),
 
-    _uiLightState           (    0),
+    _uiLightState           (      0),
 
-    _pWindow                (NULL ),
-    _pSGNode                (NULL ),
+    _pWindow                (NULL   ),
+    _pSGNode                (NULL   ),
 
-    _pActiveState           (NULL ),
-    _pActiveStateOverride   (NULL ),
+    _pActiveState           (NULL   ),
+    _pActiveStateOverride   (NULL   ),
 
-    _uiNumStateChanges      (0    ),
-    _uiNumChunkChanges      (0    ),
-    _uiNumShaderChanges     (0    ),
-    _uiNumShaderParamChanges(0    ),
+    _uiNumStateChanges      (0      ),
+    _uiNumChunkChanges      (0      ),
+    _uiNumShaderChanges     (0      ),
+    _uiNumShaderParamChanges(0      ),
 
-    _pStatCollector         (NULL ),
-    _uiActiveShader         (0    ),
-    _uiActiveFBO            (0    ),
-    _uiRequiredOGLFeature   (0    )
+    _pStatCollector         (NULL   ),
+    _uiActiveShader         (0      ),
+    _uiActiveFBO            (0      ),
+    _eTargetBufferFormat    (GL_RGBA),
+    _uiRequiredOGLFeature   (0      )
 {
     _cameraProjection       .setIdentity();
     _cameraProjectionTrans  .setIdentity();

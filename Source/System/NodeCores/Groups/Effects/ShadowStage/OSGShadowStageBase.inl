@@ -74,6 +74,31 @@ OSG::UInt16 ShadowStageBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the ShadowStage::_sfBufferFormat field.
+
+inline
+GLenum &ShadowStageBase::editBufferFormat(void)
+{
+    editSField(BufferFormatFieldMask);
+
+    return _sfBufferFormat.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfBufferFormat field.
+inline
+const GLenum &ShadowStageBase::getBufferFormat(void) const
+{
+    return _sfBufferFormat.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfBufferFormat field.
+inline
+void ShadowStageBase::setBufferFormat(const GLenum &value)
+{
+    editSField(BufferFormatFieldMask);
+
+    _sfBufferFormat.setValue(value);
+}
 //! Get the value of the ShadowStage::_sfOffBias field.
 
 inline
@@ -537,6 +562,9 @@ void ShadowStageBase::execSync (      ShadowStageBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
+        _sfBufferFormat.syncWith(pFrom->_sfBufferFormat);
 
     if(FieldBits::NoField != (OffBiasFieldMask & whichField))
         _sfOffBias.syncWith(pFrom->_sfOffBias);

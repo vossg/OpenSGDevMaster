@@ -67,6 +67,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING PCSSShadowMapHandler :
 
     PCSSShadowMapHandler (ShadowStage     *pSource,
                           ShadowStageData *pData,
+                          GLenum           eTargetBufferFormat,
                           Window          *pWindow);
 
     ~PCSSShadowMapHandler(void);

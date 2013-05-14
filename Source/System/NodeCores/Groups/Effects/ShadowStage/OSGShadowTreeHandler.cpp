@@ -79,10 +79,12 @@ std::string ShadowTreeHandler::_shadow_combine_fp =
 
 ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
                                      ShadowStageData *pData,
+                                     GLenum           eTargetBufferFormat,
                                      Window          *pWindow) :
      Inherited            (                      ),
 
     _uiMode               (ShadowStage::NO_SHADOW),
+    _eTargetBufferFormat  (eTargetBufferFormat   ),
     _uiMapSize            (0                     ),
     _bShadowMapsConfigured(false                 ),
     _activeFactorMap      (1                     ),
@@ -167,7 +169,7 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _colorMapImage = Image          ::createLocal();
 
     _colorMapO->setImage         (_colorMapImage);
-    _colorMapO->setInternalFormat(GL_RGBA);
+    _colorMapO->setInternalFormat(eTargetBufferFormat);
     _colorMapO->setExternalFormat(GL_RGBA);
     _colorMapO->setMinFilter     (GL_NEAREST);
     _colorMapO->setMagFilter     (GL_NEAREST);
@@ -192,7 +194,7 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _shadowFactorMapImage = Image          ::createLocal();
 
     _shadowFactorMapO->setImage         (_shadowFactorMapImage);
-    _shadowFactorMapO->setInternalFormat(GL_RGB);
+    _shadowFactorMapO->setInternalFormat(eTargetBufferFormat);
     _shadowFactorMapO->setExternalFormat(GL_RGB);
     _shadowFactorMapO->setMinFilter     (GL_LINEAR);
     _shadowFactorMapO->setMagFilter     (GL_LINEAR);

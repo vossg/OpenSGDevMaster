@@ -92,7 +92,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    CubeMapGeneratorStageData *initData(RenderActionBase *pAction);
+    CubeMapGeneratorStageData *initData(RenderAction *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,8 +156,7 @@ class OSG_GROUP_DLLMAPPING CubeMapGenerator : public CubeMapGeneratorBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    CubeMapGeneratorStageDataTransitPtr setupStageData(
-        RenderActionBase *pAction);
+    CubeMapGeneratorStageDataTransitPtr setupStageData(RenderAction *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

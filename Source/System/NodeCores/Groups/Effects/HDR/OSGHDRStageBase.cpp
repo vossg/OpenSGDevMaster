@@ -290,7 +290,7 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
-    "\t defaultValue=\"0.5f\"\n"
+    "\t defaultValue=\"1.f / 2.2f\"\n"
     "\t access=\"public\"\n"
     "     >\n"
     "  </Field>\n"
@@ -676,7 +676,7 @@ HDRStageBase::HDRStageBase(void) :
     _sfBlurWidth              (Real32(3.0f)),
     _sfBlurAmount             (Real32(0.5f)),
     _sfEffectAmount           (Real32(0.2f)),
-    _sfGamma                  (Real32(0.5f)),
+    _sfGamma                  (Real32(1.f / 2.2f)),
     _sfBufferFormat           (GLenum(GL_RGBA16F_ARB)),
     _sfCombineBlend           (bool(false))
 {

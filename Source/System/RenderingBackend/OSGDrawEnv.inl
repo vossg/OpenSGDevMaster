@@ -239,6 +239,18 @@ UInt32 DrawEnv::getActiveFBO(void)
 }
 
 inline
+void DrawEnv::setTargetBufferFormat(GLenum eBufferFormat)
+{
+    _eTargetBufferFormat = eBufferFormat;
+}
+
+inline
+GLenum DrawEnv::getTargetBufferFormat(void)
+{
+    return _eTargetBufferFormat;
+}
+
+inline
 UInt32 DrawEnv::getRequiredOGLFeature(void)
 {
     return _uiRequiredOGLFeature;

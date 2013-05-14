@@ -50,11 +50,15 @@ OSG_BEGIN_NAMESPACE
 #include "ShaderCode/OSGDitherShadowMapShaderCode.cinl"
 
 
-DitherShadowMapHandler::DitherShadowMapHandler(ShadowStage     *pSource,
-                                               ShadowStageData *pData,
-                                               Window          *pWindow) :
+DitherShadowMapHandler::DitherShadowMapHandler(
+    ShadowStage     *pSource,
+    ShadowStageData *pData,
+    GLenum           eTargetBufferFormat,
+    Window          *pWindow) :
+
      Inherited    (pSource, 
                    pData,
+                   eTargetBufferFormat,
                    pWindow),
     _blender      (NULL   ),
     _matrixDeco   (NULL   ),
@@ -72,7 +76,7 @@ DitherShadowMapHandler::DitherShadowMapHandler(ShadowStage     *pSource,
     _shadowFactorMapImage2 = Image          ::createLocal();
 
     _shadowFactorMap2O->setImage         (_shadowFactorMapImage2);
-    _shadowFactorMap2O->setInternalFormat(GL_RGB);
+    _shadowFactorMap2O->setInternalFormat(eTargetBufferFormat);
     _shadowFactorMap2O->setExternalFormat(GL_RGB);
     _shadowFactorMap2O->setMinFilter     (GL_LINEAR);
     _shadowFactorMap2O->setMagFilter     (GL_LINEAR);

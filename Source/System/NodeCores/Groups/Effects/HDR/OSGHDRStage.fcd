@@ -55,7 +55,7 @@
 	 type="Real32"
 	 cardinality="single"
 	 visibility="external"
-	 defaultValue="0.5f"
+	 defaultValue="1.f / 2.2f"
 	 access="public"
      >
   </Field>

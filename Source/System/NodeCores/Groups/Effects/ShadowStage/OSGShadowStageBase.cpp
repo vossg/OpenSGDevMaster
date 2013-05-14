@@ -56,6 +56,7 @@
 #include "OSGConfig.h"
 
 
+#include "OSGGLEXT.h"                     // BufferFormat default header
 #include "OSGGL.h"                        // Red default header
 #include "OSGGL.h"                        // Blue default header
 #include "OSGGL.h"                        // Green default header
@@ -87,6 +88,10 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
+
+/*! \var GLenum          ShadowStageBase::_sfBufferFormat
+    
+*/
 
 /*! \var Real32          ShadowStageBase::_sfOffBias
     Offset-Bias for Polygon-Offset. Needs to be used with Polygon-Chunk
@@ -201,6 +206,18 @@ void ShadowStageBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "bufferFormat",
+        "",
+        BufferFormatFieldId, BufferFormatFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleBufferFormat),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleBufferFormat));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
@@ -475,6 +492,16 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "  Lights and produces ambient Shadows. Viewport uses On-Screen-rendering, so\n"
     "  Window must not be occulled. \n"
     "  <Field\n"
+    "\t name=\"bufferFormat\"\n"
+    "\t type=\"GLenum\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t defaultValue=\"GL_NONE\"\n"
+    "\t defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
+    "\t access=\"public\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"offBias\"\n"
     "\t type=\"Real32\"\n"
     "\t cardinality=\"single\"\n"
@@ -695,6 +722,19 @@ UInt32 ShadowStageBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
+SFGLenum *ShadowStageBase::editSFBufferFormat(void)
+{
+    editSField(BufferFormatFieldMask);
+
+    return &_sfBufferFormat;
+}
+
+const SFGLenum *ShadowStageBase::getSFBufferFormat(void) const
+{
+    return &_sfBufferFormat;
+}
 
 
 SFReal32 *ShadowStageBase::editSFOffBias(void)
@@ -1081,6 +1121,10 @@ SizeT ShadowStageBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
+    {
+        returnValue += _sfBufferFormat.getBinSize();
+    }
     if(FieldBits::NoField != (OffBiasFieldMask & whichField))
     {
         returnValue += _sfOffBias.getBinSize();
@@ -1170,6 +1214,10 @@ void ShadowStageBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
+    {
+        _sfBufferFormat.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (OffBiasFieldMask & whichField))
     {
         _sfOffBias.copyToBin(pMem);
@@ -1257,6 +1305,11 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (BufferFormatFieldMask & whichField))
+    {
+        editSField(BufferFormatFieldMask);
+        _sfBufferFormat.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (OffBiasFieldMask & whichField))
     {
         editSField(OffBiasFieldMask);
@@ -1482,6 +1535,7 @@ FieldContainerTransitPtr ShadowStageBase::shallowCopy(void) const
 
 ShadowStageBase::ShadowStageBase(void) :
     Inherited(),
+    _sfBufferFormat           (GLenum(GL_NONE)),
     _sfOffBias                (Real32(6)),
     _sfOffFactor              (Real32(4)),
     _sfMapSize                (UInt32(512)),
@@ -1507,6 +1561,7 @@ ShadowStageBase::ShadowStageBase(void) :
 
 ShadowStageBase::ShadowStageBase(const ShadowStageBase &source) :
     Inherited(source),
+    _sfBufferFormat           (source._sfBufferFormat           ),
     _sfOffBias                (source._sfOffBias                ),
     _sfOffFactor              (source._sfOffFactor              ),
     _sfMapSize                (source._sfMapSize                ),
@@ -1569,6 +1624,31 @@ void ShadowStageBase::onCreate(const ShadowStage *source)
             ++ExcludeNodesIt;
         }
     }
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleBufferFormat    (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfBufferFormat,
+             this->getType().getFieldDesc(BufferFormatFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleBufferFormat   (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfBufferFormat,
+             this->getType().getFieldDesc(BufferFormatFieldId),
+             this));
+
+
+    editSField(BufferFormatFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr ShadowStageBase::getHandleOffBias         (void) const

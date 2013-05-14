@@ -83,6 +83,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
 
     ShadowTreeHandler(ShadowStage     *pSource,
                       ShadowStageData *pData,
+                      GLenum           eTargetBufferFormat,
                       Window          *pWindow);
     
     /*! \}                                                                 */
@@ -116,6 +117,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
 
 
     UInt32                     _uiMode;
+    GLenum                     _eTargetBufferFormat;
     UInt32                     _uiMapSize;
     bool                       _bShadowMapsConfigured;
     UInt32                     _activeFactorMap;

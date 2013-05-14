@@ -73,6 +73,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING PCF2ShadowMapHandler : public ShadowTreeHandle
 
     PCF2ShadowMapHandler(ShadowStage     *pSource,
                          ShadowStageData *pData,
+                         GLenum           eTargetBufferFormat,
                          Window          *pWindow);
     ~PCF2ShadowMapHandler(void);
 

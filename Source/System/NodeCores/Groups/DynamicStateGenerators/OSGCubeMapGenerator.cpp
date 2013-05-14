@@ -332,7 +332,7 @@ Action::ResultE CubeMapGenerator::renderLeave(Action *action)
 
 
 CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
-    RenderActionBase *pAction)
+    RenderAction *pAction)
 {
     CubeMapGeneratorStageDataTransitPtr returnValue = 
         CubeMapGeneratorStageData::createLocal();
@@ -385,7 +385,16 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
         pCubeTex   ->setWrapS         (GL_CLAMP_TO_EDGE  );
         pCubeTex   ->setWrapT         (GL_CLAMP_TO_EDGE  );
         pCubeTex   ->setWrapR         (GL_CLAMP_TO_EDGE  );
-        pCubeTex   ->setInternalFormat(getTextureFormat());
+
+        GLenum eTexTarget = this->getTextureFormat();
+
+        if(eTexTarget == GL_NONE)
+        {
+            eTexTarget = pAction->getActivePartition()->
+                getDrawEnv().getTargetBufferFormat();
+        }
+
+        pCubeTex->setInternalFormat(eTexTarget);
     }
     else
     {
@@ -478,7 +487,7 @@ CubeMapGeneratorStageDataTransitPtr CubeMapGenerator::setupStageData(
     return returnValue;
 }
 
-CubeMapGeneratorStageData *CubeMapGenerator::initData(RenderActionBase *pAction)
+CubeMapGeneratorStageData *CubeMapGenerator::initData(RenderAction *pAction)
 {
     CubeMapGeneratorStageDataUnrecPtr pData = 
         pAction->getData<CubeMapGeneratorStageData *>(_iDataSlotId);

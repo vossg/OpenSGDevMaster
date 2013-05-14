@@ -54,11 +54,15 @@ OSG_BEGIN_NAMESPACE
 
 #include "ShaderCode/OSGVarianceShadowMapShaderCode.cinl"
 
-VarianceShadowMapHandler::VarianceShadowMapHandler(ShadowStage     *pSource,
-                                                   ShadowStageData *pData,
-                                                   Window          *pWindow) :
+VarianceShadowMapHandler::VarianceShadowMapHandler(
+    ShadowStage     *pSource,
+    ShadowStageData *pData,
+    GLenum           eTargetBufferFormat,
+    Window          *pWindow) :
+
      Inherited     (pSource, 
                     pData,
+                    eTargetBufferFormat,
                     pWindow),
     _pClearSMapBack(NULL   ),
     _shadowSHL     (NULL   ),
