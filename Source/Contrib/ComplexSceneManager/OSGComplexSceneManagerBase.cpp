@@ -127,6 +127,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            ComplexSceneManagerBase::_sfWaitKeyAfterFrame
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -282,6 +286,18 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleWebServiceRoot));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "waitKeyAfterFrame",
+        "",
+        WaitKeyAfterFrameFieldId, WaitKeyAfterFrameFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleWaitKeyAfterFrame),
+        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleWaitKeyAfterFrame));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -425,6 +441,15 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue='\"RootNode\"'\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"waitKeyAfterFrame\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "        defaultValue=\"false\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\n"
@@ -614,6 +639,19 @@ const SFString *ComplexSceneManagerBase::getSFWebServiceRoot(void) const
 }
 
 
+SFBool *ComplexSceneManagerBase::editSFWaitKeyAfterFrame(void)
+{
+    editSField(WaitKeyAfterFrameFieldMask);
+
+    return &_sfWaitKeyAfterFrame;
+}
+
+const SFBool *ComplexSceneManagerBase::getSFWaitKeyAfterFrame(void) const
+{
+    return &_sfWaitKeyAfterFrame;
+}
+
+
 
 
 void ComplexSceneManagerBase::pushToGlobals(FieldContainer * const value)
@@ -721,6 +759,10 @@ SizeT ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfWebServiceRoot.getBinSize();
     }
+    if(FieldBits::NoField != (WaitKeyAfterFrameFieldMask & whichField))
+    {
+        returnValue += _sfWaitKeyAfterFrame.getBinSize();
+    }
 
     return returnValue;
 }
@@ -773,6 +815,10 @@ void ComplexSceneManagerBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
     {
         _sfWebServiceRoot.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (WaitKeyAfterFrameFieldMask & whichField))
+    {
+        _sfWaitKeyAfterFrame.copyToBin(pMem);
     }
 }
 
@@ -835,6 +881,11 @@ void ComplexSceneManagerBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(WebServiceRootFieldMask);
         _sfWebServiceRoot.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (WaitKeyAfterFrameFieldMask & whichField))
+    {
+        editSField(WaitKeyAfterFrameFieldMask);
+        _sfWaitKeyAfterFrame.copyFromBin(pMem);
     }
 }
 
@@ -944,7 +995,8 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(void) :
     _sfDumpFrameStart         (bool(false)),
     _sfEnableWebService       (bool(false)),
     _sfWebServicePort         (UInt32(8080)),
-    _sfWebServiceRoot         (std::string("RootNode"))
+    _sfWebServiceRoot         (std::string("RootNode")),
+    _sfWaitKeyAfterFrame      (bool(false))
 {
 }
 
@@ -960,7 +1012,8 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(const ComplexSceneManagerBase &
     _sfDumpFrameStart         (source._sfDumpFrameStart         ),
     _sfEnableWebService       (source._sfEnableWebService       ),
     _sfWebServicePort         (source._sfWebServicePort         ),
-    _sfWebServiceRoot         (source._sfWebServiceRoot         )
+    _sfWebServiceRoot         (source._sfWebServiceRoot         ),
+    _sfWaitKeyAfterFrame      (source._sfWaitKeyAfterFrame      )
 {
 }
 
@@ -1281,6 +1334,31 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleWebServiceRoot (void)
 
 
     editSField(WebServiceRootFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComplexSceneManagerBase::getHandleWaitKeyAfterFrame (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfWaitKeyAfterFrame,
+             this->getType().getFieldDesc(WaitKeyAfterFrameFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComplexSceneManagerBase::editHandleWaitKeyAfterFrame(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfWaitKeyAfterFrame,
+             this->getType().getFieldDesc(WaitKeyAfterFrameFieldId),
+             this));
+
+
+    editSField(WaitKeyAfterFrameFieldMask);
 
     return returnValue;
 }

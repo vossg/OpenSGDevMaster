@@ -97,7 +97,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
     {
         SizeFieldId = Inherited::NextFieldId,
         ColorFieldId = SizeFieldId + 1,
-        ElementsFieldId = ColorFieldId + 1,
+        BgColorFieldId = ColorFieldId + 1,
+        ElementsFieldId = BgColorFieldId + 1,
         NextFieldId = ElementsFieldId + 1
     };
 
@@ -105,6 +106,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
         (TypeTraits<BitVector>::One << SizeFieldId);
     static const OSG::BitVector ColorFieldMask =
         (TypeTraits<BitVector>::One << ColorFieldId);
+    static const OSG::BitVector BgColorFieldMask =
+        (TypeTraits<BitVector>::One << BgColorFieldId);
     static const OSG::BitVector ElementsFieldMask =
         (TypeTraits<BitVector>::One << ElementsFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -112,6 +115,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
         
     typedef SFUInt32          SFSizeType;
     typedef SFColor4f         SFColorType;
+    typedef SFColor4f         SFBgColorType;
     typedef MFString          MFElementsType;
 
     /*---------------------------------------------------------------------*/
@@ -144,6 +148,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
                   SFColor4f           *editSFColor          (void);
             const SFColor4f           *getSFColor           (void) const;
 
+                  SFColor4f           *editSFBgColor        (void);
+            const SFColor4f           *getSFBgColor         (void) const;
+
                   MFString            *editMFElements       (void);
             const MFString            *getMFElements        (void) const;
 
@@ -153,6 +160,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
 
                   Color4f             &editColor          (void);
             const Color4f             &getColor           (void) const;
+
+                  Color4f             &editBgColor        (void);
+            const Color4f             &getBgColor         (void) const;
 
                   std::string         &editElements       (const UInt32 index);
             const std::string         &getElements        (const UInt32 index) const;
@@ -164,6 +174,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
 
             void setSize           (const UInt32 value);
             void setColor          (const Color4f &value);
+            void setBgColor        (const Color4f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,6 +236,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
 
     SFUInt32          _sfSize;
     SFColor4f         _sfColor;
+    SFColor4f         _sfBgColor;
     MFString          _mfElements;
 
     /*! \}                                                                 */
@@ -257,6 +269,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
     EditFieldHandlePtr editHandleSize           (void);
     GetFieldHandlePtr  getHandleColor           (void) const;
     EditFieldHandlePtr editHandleColor          (void);
+    GetFieldHandlePtr  getHandleBgColor         (void) const;
+    EditFieldHandlePtr editHandleBgColor        (void);
     GetFieldHandlePtr  getHandleElements        (void) const;
     EditFieldHandlePtr editHandleElements       (void);
 

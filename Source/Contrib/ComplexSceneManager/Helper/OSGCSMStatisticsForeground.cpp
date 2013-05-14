@@ -341,9 +341,10 @@ bool CSMStatisticsForeground::init(CSMWindow *pCSMWin)
     SimpleStatisticsForegroundUnrecPtr pStatFG =  
         OSG::SimpleStatisticsForeground::create();
 
-    pStatFG->setActive(this->getActive());
-    pStatFG->setSize  (this->getSize  ());
-    pStatFG->setColor (this->getColor ());
+    pStatFG->setActive (this->getActive ());
+    pStatFG->setSize   (this->getSize   ());
+    pStatFG->setColor  (this->getColor  ());
+    pStatFG->setBgColor(this->getBgColor());
 
     _pStatFG = pStatFG;
 

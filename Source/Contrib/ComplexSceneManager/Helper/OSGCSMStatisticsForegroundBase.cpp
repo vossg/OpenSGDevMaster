@@ -89,6 +89,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Color4f         CSMStatisticsForegroundBase::_sfBgColor
+    
+*/
+
 /*! \var std::string     CSMStatisticsForegroundBase::_mfElements
     
 */
@@ -138,6 +142,18 @@ void CSMStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMStatisticsForeground::editHandleColor),
         static_cast<FieldGetMethodSig >(&CSMStatisticsForeground::getHandleColor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
+        "bgColor",
+        "",
+        BgColorFieldId, BgColorFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMStatisticsForeground::editHandleBgColor),
+        static_cast<FieldGetMethodSig >(&CSMStatisticsForeground::getHandleBgColor));
 
     oType.addInitialDesc(pDesc);
 
@@ -201,6 +217,15 @@ CSMStatisticsForegroundBase::TypeObject CSMStatisticsForegroundBase::_type(
     "    >\n"
     "    </Field>\n"
     "    <Field\n"
+    "       name=\"bgColor\"\n"
+    "       type=\"Color4f\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "       defaultValue=\"0.0, 0.0, 0.0, 0.0\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
     "       name=\"elements\"\n"
     "       type=\"std::string\"\n"
     "       cardinality=\"multi\"\n"
@@ -258,6 +283,19 @@ const SFColor4f *CSMStatisticsForegroundBase::getSFColor(void) const
 }
 
 
+SFColor4f *CSMStatisticsForegroundBase::editSFBgColor(void)
+{
+    editSField(BgColorFieldMask);
+
+    return &_sfBgColor;
+}
+
+const SFColor4f *CSMStatisticsForegroundBase::getSFBgColor(void) const
+{
+    return &_sfBgColor;
+}
+
+
 MFString *CSMStatisticsForegroundBase::editMFElements(void)
 {
     editMField(ElementsFieldMask, _mfElements);
@@ -289,6 +327,10 @@ SizeT CSMStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfColor.getBinSize();
     }
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+    {
+        returnValue += _sfBgColor.getBinSize();
+    }
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
     {
         returnValue += _mfElements.getBinSize();
@@ -310,6 +352,10 @@ void CSMStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfColor.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+    {
+        _sfBgColor.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
     {
         _mfElements.copyToBin(pMem);
@@ -330,6 +376,11 @@ void CSMStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(ColorFieldMask);
         _sfColor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+    {
+        editSField(BgColorFieldMask);
+        _sfBgColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
     {
@@ -436,6 +487,7 @@ CSMStatisticsForegroundBase::CSMStatisticsForegroundBase(void) :
     Inherited(),
     _sfSize                   (UInt32(25)),
     _sfColor                  (Color4f(0.0, 1.0, 0.0, 0.7)),
+    _sfBgColor                (Color4f(0.0, 0.0, 0.0, 0.0)),
     _mfElements               ()
 {
 }
@@ -444,6 +496,7 @@ CSMStatisticsForegroundBase::CSMStatisticsForegroundBase(const CSMStatisticsFore
     Inherited(source),
     _sfSize                   (source._sfSize                   ),
     _sfColor                  (source._sfColor                  ),
+    _sfBgColor                (source._sfBgColor                ),
     _mfElements               (source._mfElements               )
 {
 }
@@ -502,6 +555,31 @@ EditFieldHandlePtr CSMStatisticsForegroundBase::editHandleColor          (void)
 
 
     editSField(ColorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMStatisticsForegroundBase::getHandleBgColor         (void) const
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfBgColor,
+             this->getType().getFieldDesc(BgColorFieldId),
+             const_cast<CSMStatisticsForegroundBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMStatisticsForegroundBase::editHandleBgColor        (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfBgColor,
+             this->getType().getFieldDesc(BgColorFieldId),
+             this));
+
+
+    editSField(BgColorFieldMask);
 
     return returnValue;
 }

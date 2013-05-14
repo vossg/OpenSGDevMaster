@@ -109,7 +109,7 @@ void LayeredTextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                                       pWindow);
 
                 osgGlFramebufferTexture(
-                    GL_FRAMEBUFFER_EXT, 
+                    GL_FRAMEBUFFER, 
                     index,
                     pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
                     0);
@@ -318,7 +318,7 @@ void LayeredTextureBuffer::initMethod(InitPhase ePhase)
             Window::registerExtension("GL_ARB_geometry_shader4");
 
         _uiFramebuffer_object_extension = 
-            Window::registerExtension("GL_EXT_framebuffer_object");
+            Window::registerExtension("GL_ARB_framebuffer_object");
 
         _uiFuncFramebufferTexture =
             Window::registerFunction (
@@ -327,7 +327,7 @@ void LayeredTextureBuffer::initMethod(InitPhase ePhase)
 
         _uiFuncGenerateMipmap =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
+                 OSG_DLSYM_UNDERSCORE"glGenerateMipmap",
                 _uiFramebuffer_object_extension);
     }
 

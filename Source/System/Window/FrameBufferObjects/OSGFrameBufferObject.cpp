@@ -49,21 +49,21 @@
                          osgGlCheckFramebufferStatus,                  \
                         _uiFuncCheckFramebufferStatus    );            \
                                                                        \
-    status = osgGlCheckFramebufferStatus(GL_FRAMEBUFFER_EXT);          \
+    status = osgGlCheckFramebufferStatus(GL_FRAMEBUFFER);              \
                                                                        \
                                                                        \
     switch(status)                                                     \
     {                                                                  \
-        case GL_FRAMEBUFFER_COMPLETE_EXT:                              \
+        case GL_FRAMEBUFFER_COMPLETE:                                  \
             break;                                                     \
-        case GL_FRAMEBUFFER_UNSUPPORTED_EXT:                           \
+        case GL_FRAMEBUFFER_UNSUPPORTED:                               \
             FWARNING(("Unsupported Framebuffer\n"));                   \
             /* choose different formats */                             \
             break;                                                     \
-		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT:                 \
+		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:                     \
             FWARNING(("Incomplete Attachment\n"));                     \
             break;                                                     \
-		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT:         \
+		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:             \
             FWARNING(("Incomplete Missing Attachment\n"));             \
             break;                                                     \
 		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:                 \
@@ -72,13 +72,13 @@
 		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:                    \
             FWARNING(("Incomplete Formats\n"));                        \
             break;                                                     \
-		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:                \
+		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:                    \
             FWARNING(("Incomplete Draw Buffer\n"));                    \
             break;                                                     \
-		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:                \
+		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:                    \
             FWARNING(("Incomplete Read Buffer\n"));                    \
             break;                                                     \
-		case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT:                \
+		case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:                    \
             FWARNING(("Incomplete Multisample\n"));                    \
             break;                                                     \
 		default:                                                       \
@@ -109,7 +109,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-UInt32 FrameBufferObject::_uiFramebufferObjectExt  = 
+UInt32 FrameBufferObject::_uiFramebufferObjectArb  = 
     Window::invalidExtensionID;
 
 UInt32 FrameBufferObject::_uiFramebufferBlitExt  = 
@@ -148,9 +148,9 @@ void FrameBufferObject::setColorAttachment(
     FrameBufferAttachment *pAttachment,
     UInt32                 uiSlot     )
 {
-    if(uiSlot >= GL_COLOR_ATTACHMENT0_EXT)
+    if(uiSlot >= GL_COLOR_ATTACHMENT0)
     {
-        uiSlot -= GL_COLOR_ATTACHMENT0_EXT;
+        uiSlot -= GL_COLOR_ATTACHMENT0;
     }
 
     editMField(ColorAttachmentsFieldMask, _mfColorAttachments);
@@ -251,8 +251,8 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        _uiFramebufferObjectExt   = 
-            Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiFramebufferObjectArb   = 
+            Window::registerExtension("GL_ARB_framebuffer_object");
         _uiFramebufferBlitExt   = 
             Window::registerExtension("GL_EXT_framebuffer_blit");
         _uiPackedDepthStencilExt  =
@@ -260,33 +260,33 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
 
         _uiFuncGenFramebuffers =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glGenFramebuffersEXT",
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glGenFramebuffers",
+                _uiFramebufferObjectArb);
 
         _uiFuncCheckFramebufferStatus   = 
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glCheckFramebufferStatusEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glCheckFramebufferStatus", 
+                _uiFramebufferObjectArb);
         
         _uiFuncBindFramebuffer          = 
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glBindFramebuffer", 
+                _uiFramebufferObjectArb);
 
         _uiFuncDeleteFramebuffers       = 
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glDeleteFramebuffersEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glDeleteFramebuffers", 
+                _uiFramebufferObjectArb);
 
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbuffer", 
+                _uiFramebufferObjectArb);
 
         _uiFuncDrawBuffers  =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glDrawBuffersARB", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glDrawBuffers", 
+                _uiFramebufferObjectArb);
 
         _uiFuncBlitFramebuffer  =
             Window::registerFunction (
@@ -578,7 +578,7 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
 {
     Window *win = pEnv->getWindow();
 
-    if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
+    if(win->hasExtOrVersion(_uiFramebufferObjectArb, 0x0300, 0x0200) == false)
     {
         FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
         return;        
@@ -605,7 +605,7 @@ void FrameBufferObject::activate(DrawEnv *pEnv,
                             _uiFuncBindFramebuffer,
                              win);
 
-    osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 
+    osgGlBindFramebuffer(GL_FRAMEBUFFER, 
                          win->getGLObjectId(glId));
 
     pEnv->setActiveFBO(glId);
@@ -651,7 +651,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 {
     Window *win = pEnv->getWindow();
 
-    if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
+    if(win->hasExtOrVersion(_uiFramebufferObjectArb, 0x0300, 0x0200) == false)
     {
         FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
         return;        
@@ -675,9 +675,9 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 //        GLbitfield bufferMask = GL_COLOR_BUFFER_BIT;
         glDisable(GL_MULTISAMPLE);
 
-        osgGlBindFramebuffer(GL_READ_FRAMEBUFFER_EXT, 
+        osgGlBindFramebuffer(GL_READ_FRAMEBUFFER, 
                              win->getGLObjectId(getMultiSampleGLId()));
-        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER_EXT, 
+        osgGlBindFramebuffer(GL_DRAW_FRAMEBUFFER, 
                              win->getGLObjectId(getGLId           ()));
 
         osgGlBlitFramebuffer(0, 0, getWidth(), getHeight(),
@@ -687,7 +687,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
                               GL_STENCIL_BUFFER_BIT), 
                               GL_NEAREST);
 
-        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, win->getGLObjectId(getGLId()));
+        osgGlBindFramebuffer(GL_FRAMEBUFFER, win->getGLObjectId(getGLId()));
     }
 
     if(_sfPostProcessOnDeactivate.getValue() == true)
@@ -697,7 +697,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
         MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
             _mfColorAttachments.end  ();
 
-        UInt32 index = GL_COLOR_ATTACHMENT0_EXT;
+        UInt32 index = GL_COLOR_ATTACHMENT0;
     
         for(; attIt != attEnd; ++attIt, ++index)
         {
@@ -735,7 +735,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
         }
     }
 
-    osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
+    osgGlBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     pEnv->setActiveFBO(0);
     
@@ -798,7 +798,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
                                 _uiFuncFramebufferRenderbuffer,
                                  win);
 
-        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, uiFBOId);
+        osgGlBindFramebuffer(GL_FRAMEBUFFER, uiFBOId);
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
             _mfColorAttachments.begin();
@@ -807,11 +807,11 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         GLint iMaxColorAttachments;
 
-        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &iMaxColorAttachments);
+        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &iMaxColorAttachments);
 
-        Int32 index = GL_COLOR_ATTACHMENT0_EXT;
+        Int32 index = GL_COLOR_ATTACHMENT0;
         
-        iMaxColorAttachments += GL_COLOR_ATTACHMENT0_EXT;
+        iMaxColorAttachments += GL_COLOR_ATTACHMENT0;
 
         while(attIt != attEnd && index < iMaxColorAttachments)
         {
@@ -821,9 +821,9 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
             }
             else
             {
-                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                              index,
-                                             GL_RENDERBUFFER_EXT,
+                                             GL_RENDERBUFFER,
                                              0);
             }
 
@@ -835,9 +835,9 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         while(index < iMaxColorAttachments)
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                          index,
-                                         GL_RENDERBUFFER_EXT,
+                                         GL_RENDERBUFFER,
                                          0);
             
             glErr("FrameBufferObject::coloroff");
@@ -848,13 +848,13 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->bind(pEnv, 
-                                                GL_DEPTH_ATTACHMENT_EXT);
+                                                GL_DEPTH_ATTACHMENT);
         }
         else
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
-                                         GL_DEPTH_ATTACHMENT_EXT,
-                                         GL_RENDERBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                                         GL_DEPTH_ATTACHMENT,
+                                         GL_RENDERBUFFER,
                                          0);
         }
 
@@ -863,13 +863,13 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
         if(_sfStencilAttachment.getValue() != NULL)
         {
             _sfStencilAttachment.getValue()->bind(pEnv, 
-                                                  GL_STENCIL_ATTACHMENT_EXT);
+                                                  GL_STENCIL_ATTACHMENT);
         }
         else
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
-                                         GL_STENCIL_ATTACHMENT_EXT,
-                                         GL_RENDERBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                                         GL_STENCIL_ATTACHMENT,
+                                         GL_RENDERBUFFER,
                                          0);
         }
 
@@ -918,7 +918,7 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
     {
         GLuint uiFBOId = win->getGLObjectId(osgid);
 
-        if(win->hasExtOrVersion(_uiFramebufferObjectExt, 
+        if(win->hasExtOrVersion(_uiFramebufferObjectArb, 
                                 0x0300, 
                                 0x0200                 ) != false)
         {
@@ -975,7 +975,7 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
                                 _uiFuncFramebufferRenderbuffer,
                                  win);
 
-        osgGlBindFramebuffer(GL_FRAMEBUFFER_EXT, uiFBOId);
+        osgGlBindFramebuffer(GL_FRAMEBUFFER, uiFBOId);
 
         MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  = 
             _mfMsaaColorAttachments.begin();
@@ -984,11 +984,11 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
 
         GLint iMaxColorAttachments;
 
-        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &iMaxColorAttachments);
+        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &iMaxColorAttachments);
 
-        Int32 index = GL_COLOR_ATTACHMENT0_EXT;
+        Int32 index = GL_COLOR_ATTACHMENT0;
         
-        iMaxColorAttachments += GL_COLOR_ATTACHMENT0_EXT;
+        iMaxColorAttachments += GL_COLOR_ATTACHMENT0;
 
         while(attIt != attEnd && index < iMaxColorAttachments)
         {
@@ -998,9 +998,9 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
             }
             else
             {
-                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+                osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                              index,
-                                             GL_RENDERBUFFER_EXT,
+                                             GL_RENDERBUFFER,
                                              0);
             }
 
@@ -1012,9 +1012,9 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
 
         while(index < iMaxColorAttachments)
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                          index,
-                                         GL_RENDERBUFFER_EXT,
+                                         GL_RENDERBUFFER,
                                          0);
             
             glErr("FrameBufferObject::coloroff");
@@ -1025,13 +1025,13 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
         if(_sfMsaaDepthAttachment.getValue() != NULL)
         {
             _sfMsaaDepthAttachment.getValue()->bind(pEnv, 
-                                                    GL_DEPTH_ATTACHMENT_EXT);
+                                                    GL_DEPTH_ATTACHMENT);
         }
         else
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
-                                         GL_DEPTH_ATTACHMENT_EXT,
-                                         GL_RENDERBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                                         GL_DEPTH_ATTACHMENT,
+                                         GL_RENDERBUFFER,
                                          0);
         }
 
@@ -1041,13 +1041,13 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
         {
             _sfMsaaStencilAttachment.getValue()->bind(
                 pEnv, 
-                GL_STENCIL_ATTACHMENT_EXT);
+                GL_STENCIL_ATTACHMENT);
         }
         else
         {
-            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
-                                         GL_STENCIL_ATTACHMENT_EXT,
-                                         GL_RENDERBUFFER_EXT,
+            osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
+                                         GL_STENCIL_ATTACHMENT,
+                                         GL_RENDERBUFFER,
                                          0);
         }
 

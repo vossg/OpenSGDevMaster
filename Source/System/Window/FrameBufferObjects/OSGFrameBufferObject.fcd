@@ -42,7 +42,7 @@
         visibility="external"
         access="public"
         >
-        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+        GL_COLOR_ATTACHMENTX slots, position defines X. 
         This defines the target buffers for color attachments.
     </Field>
     <Field
@@ -53,7 +53,7 @@
         access="public"
         defaultValue="0"
         >
-        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.
+        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0.
         These are used to call DrawBuffers to tell OpenGL what targets
         to render into.
     </Field>
@@ -64,7 +64,7 @@
         visibility="external"
         access="public"
         >
-        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+        GL_DEPTH_ATTACHMENT slot. The target for depth values.
     </Field>
     <Field
         name="stencilAttachment"
@@ -73,7 +73,7 @@
         visibility="external"
         access="public"
         >
-        GL_STENCIL_ATTACHMENT_EXT slot.
+        GL_STENCIL_ATTACHMENT slot.
     </Field>
     <Field
         name="width"
@@ -156,7 +156,7 @@
         access="protected"
         fieldFlags="FClusterLocal,FThreadLocal"
         >
-        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+        GL_COLOR_ATTACHMENTX slots, position defines X. 
         This defines the target buffers for color attachments.
     </Field>
     <Field
@@ -167,7 +167,7 @@
         access="protected"
         fieldFlags="FClusterLocal,FThreadLocal"
         >
-        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+        GL_DEPTH_ATTACHMENT slot. The target for depth values.
     </Field>
     <Field
         name="msaaStencilAttachment"
@@ -177,7 +177,7 @@
         access="protected"
         fieldFlags="FClusterLocal,FThreadLocal"
         >
-        GL_STENCIL_ATTACHMENT_EXT slot.
+        GL_STENCIL_ATTACHMENT slot.
     </Field>
 
 </FieldContainer>

@@ -299,6 +299,31 @@ void ComplexSceneManagerBase::setWebServiceRoot(const std::string &value)
 
     _sfWebServiceRoot.setValue(value);
 }
+//! Get the value of the ComplexSceneManager::_sfWaitKeyAfterFrame field.
+
+inline
+bool &ComplexSceneManagerBase::editWaitKeyAfterFrame(void)
+{
+    editSField(WaitKeyAfterFrameFieldMask);
+
+    return _sfWaitKeyAfterFrame.getValue();
+}
+
+//! Get the value of the ComplexSceneManager::_sfWaitKeyAfterFrame field.
+inline
+      bool  ComplexSceneManagerBase::getWaitKeyAfterFrame(void) const
+{
+    return _sfWaitKeyAfterFrame.getValue();
+}
+
+//! Set the value of the ComplexSceneManager::_sfWaitKeyAfterFrame field.
+inline
+void ComplexSceneManagerBase::setWaitKeyAfterFrame(const bool value)
+{
+    editSField(WaitKeyAfterFrameFieldMask);
+
+    _sfWaitKeyAfterFrame.setValue(value);
+}
 
 
 
@@ -347,6 +372,9 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 
     if(FieldBits::NoField != (WebServiceRootFieldMask & whichField))
         _sfWebServiceRoot.syncWith(pFrom->_sfWebServiceRoot);
+
+    if(FieldBits::NoField != (WaitKeyAfterFrameFieldMask & whichField))
+        _sfWaitKeyAfterFrame.syncWith(pFrom->_sfWaitKeyAfterFrame);
 }
 #endif
 

@@ -1089,6 +1089,11 @@ void ComplexSceneManager::frame(void)
         _sfDrawManager.getValue()->frame(FrameHandler::the()->getTimeStamp(), 
                                          FrameHandler::the()->getFrameCount());
     }
+
+    if(this->getWaitKeyAfterFrame() == true)
+    {
+        getchar();
+    }
 }
 
 void ComplexSceneManager::resetScene(void)

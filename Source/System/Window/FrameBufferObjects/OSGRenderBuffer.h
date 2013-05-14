@@ -137,7 +137,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _uiFramebufferObjectExt;
+    static UInt32 _uiFramebufferObjectArb;
     static UInt32 _uiFramebufferMultiSampleExt;
     static UInt32 _uiFramebufferMultiSampleCoverageNV;
 

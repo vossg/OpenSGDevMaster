@@ -11,7 +11,7 @@
     decoratable="false"
     docGroupBase="GrpSystemWindowFBO"
     >
-    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
+    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER
     A renderbuffer is a data storage object containing a single image of a renderable internal format.
     
     \see TextureBuffer

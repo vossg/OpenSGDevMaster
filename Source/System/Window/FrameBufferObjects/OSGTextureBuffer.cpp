@@ -99,7 +99,7 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                                       pWindow);
 
                 osgGlFramebufferTexture1D(
-                    GL_FRAMEBUFFER_EXT, 
+                    GL_FRAMEBUFFER, 
                     index,
                     target,
                     pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
@@ -123,7 +123,7 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                                          pWindow);
 
                 osgGlFramebufferTexture2D(
-                    GL_FRAMEBUFFER_EXT, 
+                    GL_FRAMEBUFFER, 
                     index,
                     target,
                     pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
@@ -139,7 +139,7 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                                       pWindow);
 
                 osgGlFramebufferTexture3D(
-                    GL_FRAMEBUFFER_EXT, 
+                    GL_FRAMEBUFFER, 
                     index,
                     target,
                     pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
@@ -344,26 +344,26 @@ void TextureBuffer::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         _uiFramebuffer_object_extension = 
-            Window::registerExtension("GL_EXT_framebuffer_object");
+            Window::registerExtension("GL_ARB_framebuffer_object");
 
         _uiFuncFramebufferTexture1D =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture1DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture1D", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncFramebufferTexture2D =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture2DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture2D", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncFramebufferTexture3D =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture3DEXT", 
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTexture3D", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncGenerateMipmap =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glGenerateMipmapEXT",
+                 OSG_DLSYM_UNDERSCORE"glGenerateMipmap",
                 _uiFramebuffer_object_extension);
     }
 

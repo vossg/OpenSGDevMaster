@@ -633,8 +633,9 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
 
         UInt32 uiDep = ShaderProcVariable::SHDObject;
 
-        if(uiProgId != pEnv->getActiveShader() || uiProgId == 0)
+        if(uiProgId != pEnv->getActiveShader())
         {
+#if 0
             FragmentShaderIt fIt  = _mfFragmentShader.begin();
             FragmentShaderIt fEnd = _mfFragmentShader.end  ();
 
@@ -658,11 +659,13 @@ void SimpleSHLChunk::changeFrom(DrawEnv    *pEnv,
             {
                 (*vIt)->validate(pEnv);
             }
+#endif
 
             UInt32 uiValRes = pWin->validateGLObject(getGLId(),
                                                      pEnv,
                                                      KeepProgActive);
 
+            uiProgId = GLuint(pWin->getGLObjectId(getGLId()));
 
             if(uiProgId == 0)
                 return;

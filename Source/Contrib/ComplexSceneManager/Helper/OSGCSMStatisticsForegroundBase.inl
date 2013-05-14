@@ -124,6 +124,31 @@ void CSMStatisticsForegroundBase::setColor(const Color4f &value)
 
     _sfColor.setValue(value);
 }
+//! Get the value of the CSMStatisticsForeground::_sfBgColor field.
+
+inline
+Color4f &CSMStatisticsForegroundBase::editBgColor(void)
+{
+    editSField(BgColorFieldMask);
+
+    return _sfBgColor.getValue();
+}
+
+//! Get the value of the CSMStatisticsForeground::_sfBgColor field.
+inline
+const Color4f &CSMStatisticsForegroundBase::getBgColor(void) const
+{
+    return _sfBgColor.getValue();
+}
+
+//! Set the value of the CSMStatisticsForeground::_sfBgColor field.
+inline
+void CSMStatisticsForegroundBase::setBgColor(const Color4f &value)
+{
+    editSField(BgColorFieldMask);
+
+    _sfBgColor.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMStatisticsForeground::_mfElements field.
 inline
@@ -156,6 +181,9 @@ void CSMStatisticsForegroundBase::execSync (      CSMStatisticsForegroundBase *p
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+        _sfBgColor.syncWith(pFrom->_sfBgColor);
 
     if(FieldBits::NoField != (ElementsFieldMask & whichField))
         _mfElements.syncWith(pFrom->_mfElements,

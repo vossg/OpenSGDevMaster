@@ -129,5 +129,14 @@
         defaultValue='"RootNode"'
 	>
 	</Field>
+	<Field
+		name="waitKeyAfterFrame"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="false"
+	>
+	</Field>
 
 </FieldContainer>

@@ -74,30 +74,55 @@ OSG::UInt16 TextureObjRefChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the TextureObjRefChunk::_sfGLId field.
+//! Get the value of the TextureObjRefChunk::_sfOsgGLId field.
 
 inline
-GLenum &TextureObjRefChunkBase::editGLId(void)
+GLenum &TextureObjRefChunkBase::editOsgGLId(void)
 {
-    editSField(GLIdFieldMask);
+    editSField(OsgGLIdFieldMask);
 
-    return _sfGLId.getValue();
+    return _sfOsgGLId.getValue();
 }
 
-//! Get the value of the TextureObjRefChunk::_sfGLId field.
+//! Get the value of the TextureObjRefChunk::_sfOsgGLId field.
 inline
-const GLenum &TextureObjRefChunkBase::getGLId(void) const
+const GLenum &TextureObjRefChunkBase::getOsgGLId(void) const
 {
-    return _sfGLId.getValue();
+    return _sfOsgGLId.getValue();
 }
 
-//! Set the value of the TextureObjRefChunk::_sfGLId field.
+//! Set the value of the TextureObjRefChunk::_sfOsgGLId field.
 inline
-void TextureObjRefChunkBase::setGLId(const GLenum &value)
+void TextureObjRefChunkBase::setOsgGLId(const GLenum &value)
 {
-    editSField(GLIdFieldMask);
+    editSField(OsgGLIdFieldMask);
 
-    _sfGLId.setValue(value);
+    _sfOsgGLId.setValue(value);
+}
+//! Get the value of the TextureObjRefChunk::_sfOglGLId field.
+
+inline
+GLenum &TextureObjRefChunkBase::editOglGLId(void)
+{
+    editSField(OglGLIdFieldMask);
+
+    return _sfOglGLId.getValue();
+}
+
+//! Get the value of the TextureObjRefChunk::_sfOglGLId field.
+inline
+const GLenum &TextureObjRefChunkBase::getOglGLId(void) const
+{
+    return _sfOglGLId.getValue();
+}
+
+//! Set the value of the TextureObjRefChunk::_sfOglGLId field.
+inline
+void TextureObjRefChunkBase::setOglGLId(const GLenum &value)
+{
+    editSField(OglGLIdFieldMask);
+
+    _sfOglGLId.setValue(value);
 }
 
 
@@ -111,8 +136,11 @@ void TextureObjRefChunkBase::execSync (      TextureObjRefChunkBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pFrom->_sfGLId);
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
+        _sfOsgGLId.syncWith(pFrom->_sfOsgGLId);
+
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
+        _sfOglGLId.syncWith(pFrom->_sfOglGLId);
 }
 #endif
 

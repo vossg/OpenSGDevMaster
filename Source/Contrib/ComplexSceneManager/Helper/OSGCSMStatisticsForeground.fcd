@@ -33,6 +33,15 @@
     >
     </Field>
     <Field
+       name="bgColor"
+       type="Color4f"
+       cardinality="single"
+       visibility="external"
+       access="public"
+       defaultValue="0.0, 0.0, 0.0, 0.0"
+    >
+    </Field>
+    <Field
        name="elements"
        type="std::string"
        cardinality="multi"

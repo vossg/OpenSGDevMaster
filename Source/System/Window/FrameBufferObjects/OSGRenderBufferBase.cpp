@@ -75,7 +75,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::RenderBuffer
-    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
+    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER
     A renderbuffer is a data storage object containing a single image of a renderable internal format.
 
     \see TextureBuffer
@@ -239,7 +239,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     "    decoratable=\"false\"\n"
     "    docGroupBase=\"GrpSystemWindowFBO\"\n"
     "    >\n"
-    "    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
+    "    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER\n"
     "    A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
     "    \n"
     "    \\see TextureBuffer\n"
@@ -304,7 +304,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     "    </Field>\n"
     "\n"
     "</FieldContainer>\n",
-    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
+    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER\n"
     "A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
     "\n"
     "\\see TextureBuffer\n"

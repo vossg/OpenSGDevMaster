@@ -136,7 +136,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _uiFramebufferObjectExt;
+    static UInt32 _uiFramebufferObjectArb;
     static UInt32 _uiFramebufferBlitExt;
     static UInt32 _uiPackedDepthStencilExt;
 

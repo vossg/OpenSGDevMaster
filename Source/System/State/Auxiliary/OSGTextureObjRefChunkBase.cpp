@@ -81,8 +81,12 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var GLenum          TextureObjRefChunkBase::_sfGLId
+/*! \var GLenum          TextureObjRefChunkBase::_sfOsgGLId
     OpenSG-OpenGL id of texture object.
+*/
+
+/*! \var GLenum          TextureObjRefChunkBase::_sfOglGLId
+    Native OpenGL id of texture object.
 */
 
 
@@ -119,13 +123,25 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
-        "GLId",
+        "osgGLId",
         "OpenSG-OpenGL id of texture object.\n",
-        GLIdFieldId, GLIdFieldMask,
+        OsgGLIdFieldId, OsgGLIdFieldMask,
         false,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TextureObjRefChunk::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&TextureObjRefChunk::editHandleOsgGLId),
+        static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleOsgGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "oglGLId",
+        "Native OpenGL id of texture object.\n",
+        OglGLIdFieldId, OglGLIdFieldMask,
+        false,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&TextureObjRefChunk::editHandleOglGLId),
+        static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleOglGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -156,7 +172,7 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     "    docGroupBase=\"GrpStateAuxiliary\"\n"
     "    >\n"
     "    <Field\n"
-    "        name=\"GLId\"\n"
+    "        name=\"osgGLId\"\n"
     "        type=\"GLenum\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
@@ -165,6 +181,17 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     "        fieldFlags=\"FClusterLocal\"\n"
     "        >\n"
     "        OpenSG-OpenGL id of texture object.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"oglGLId\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "        Native OpenGL id of texture object.\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -190,16 +217,29 @@ UInt32 TextureObjRefChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFGLenum *TextureObjRefChunkBase::editSFGLId(void)
+SFGLenum *TextureObjRefChunkBase::editSFOsgGLId(void)
 {
-    editSField(GLIdFieldMask);
+    editSField(OsgGLIdFieldMask);
 
-    return &_sfGLId;
+    return &_sfOsgGLId;
 }
 
-const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
+const SFGLenum *TextureObjRefChunkBase::getSFOsgGLId(void) const
 {
-    return &_sfGLId;
+    return &_sfOsgGLId;
+}
+
+
+SFGLenum *TextureObjRefChunkBase::editSFOglGLId(void)
+{
+    editSField(OglGLIdFieldMask);
+
+    return &_sfOglGLId;
+}
+
+const SFGLenum *TextureObjRefChunkBase::getSFOglGLId(void) const
+{
+    return &_sfOglGLId;
 }
 
 
@@ -213,9 +253,13 @@ SizeT TextureObjRefChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
     {
-        returnValue += _sfGLId.getBinSize();
+        returnValue += _sfOsgGLId.getBinSize();
+    }
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
+    {
+        returnValue += _sfOglGLId.getBinSize();
     }
 
     return returnValue;
@@ -226,9 +270,13 @@ void TextureObjRefChunkBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
     {
-        _sfGLId.copyToBin(pMem);
+        _sfOsgGLId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
+    {
+        _sfOglGLId.copyToBin(pMem);
     }
 }
 
@@ -237,10 +285,15 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
     {
-        editSField(GLIdFieldMask);
-        _sfGLId.copyFromBin(pMem);
+        editSField(OsgGLIdFieldMask);
+        _sfOsgGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
+    {
+        editSField(OglGLIdFieldMask);
+        _sfOglGLId.copyFromBin(pMem);
     }
 }
 
@@ -367,13 +420,15 @@ FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopy(void) const
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(void) :
     Inherited(),
-    _sfGLId                   (GLenum(0))
+    _sfOsgGLId                (GLenum(0)),
+    _sfOglGLId                (GLenum(0))
 {
 }
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &source) :
     Inherited(source),
-    _sfGLId                   (source._sfGLId                   )
+    _sfOsgGLId                (source._sfOsgGLId                ),
+    _sfOglGLId                (source._sfOglGLId                )
 {
 }
 
@@ -385,27 +440,52 @@ TextureObjRefChunkBase::~TextureObjRefChunkBase(void)
 }
 
 
-GetFieldHandlePtr TextureObjRefChunkBase::getHandleGLId            (void) const
+GetFieldHandlePtr TextureObjRefChunkBase::getHandleOsgGLId         (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
+             &_sfOsgGLId,
+             this->getType().getFieldDesc(OsgGLIdFieldId),
              const_cast<TextureObjRefChunkBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
+EditFieldHandlePtr TextureObjRefChunkBase::editHandleOsgGLId        (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
+             &_sfOsgGLId,
+             this->getType().getFieldDesc(OsgGLIdFieldId),
              this));
 
 
-    editSField(GLIdFieldMask);
+    editSField(OsgGLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TextureObjRefChunkBase::getHandleOglGLId         (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfOglGLId,
+             this->getType().getFieldDesc(OglGLIdFieldId),
+             const_cast<TextureObjRefChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TextureObjRefChunkBase::editHandleOglGLId        (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfOglGLId,
+             this->getType().getFieldDesc(OglGLIdFieldId),
+             this));
+
+
+    editSField(OglGLIdFieldMask);
 
     return returnValue;
 }

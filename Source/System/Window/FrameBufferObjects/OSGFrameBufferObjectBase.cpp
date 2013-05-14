@@ -92,22 +92,22 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_mfColorAttachments
-    GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+    GL_COLOR_ATTACHMENTX slots, position defines X. 
     This defines the target buffers for color attachments.
 */
 
 /*! \var GLenum          FrameBufferObjectBase::_mfDrawBuffers
-    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.
+    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0.
     These are used to call DrawBuffers to tell OpenGL what targets
     to render into.
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfDepthAttachment
-    GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+    GL_DEPTH_ATTACHMENT slot. The target for depth values.
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfStencilAttachment
-    GL_STENCIL_ATTACHMENT_EXT slot.
+    GL_STENCIL_ATTACHMENT slot.
 */
 
 /*! \var UInt16          FrameBufferObjectBase::_sfWidth
@@ -140,16 +140,16 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_mfMsaaColorAttachments
-    GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+    GL_COLOR_ATTACHMENTX slots, position defines X. 
     This defines the target buffers for color attachments.
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfMsaaDepthAttachment
-    GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
+    GL_DEPTH_ATTACHMENT slot. The target for depth values.
 */
 
 /*! \var FrameBufferAttachment * FrameBufferObjectBase::_sfMsaaStencilAttachment
-    GL_STENCIL_ATTACHMENT_EXT slot.
+    GL_STENCIL_ATTACHMENT slot.
 */
 
 
@@ -211,7 +211,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUnrecFrameBufferAttachmentPtr::Description(
         MFUnrecFrameBufferAttachmentPtr::getClassType(),
         "colorAttachments",
-        "GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+        "GL_COLOR_ATTACHMENTX slots, position defines X. \n"
         "This defines the target buffers for color attachments.\n",
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
@@ -224,7 +224,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(),
         "drawBuffers",
-        "The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.\n"
+        "The target draw buffers.  ex: GL_COLOR_ATTACHMENT0.\n"
         "These are used to call DrawBuffers to tell OpenGL what targets\n"
         "to render into.\n",
         DrawBuffersFieldId, DrawBuffersFieldMask,
@@ -238,7 +238,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
         SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "depthAttachment",
-        "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
+        "GL_DEPTH_ATTACHMENT slot. The target for depth values.\n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -250,7 +250,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
         SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "stencilAttachment",
-        "GL_STENCIL_ATTACHMENT_EXT slot.\n",
+        "GL_STENCIL_ATTACHMENT slot.\n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -347,7 +347,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUnrecFrameBufferAttachmentPtr::Description(
         MFUnrecFrameBufferAttachmentPtr::getClassType(),
         "msaaColorAttachments",
-        "GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+        "GL_COLOR_ATTACHMENTX slots, position defines X. \n"
         "This defines the target buffers for color attachments.\n",
         MsaaColorAttachmentsFieldId, MsaaColorAttachmentsFieldMask,
         true,
@@ -360,7 +360,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
         SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "msaaDepthAttachment",
-        "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
+        "GL_DEPTH_ATTACHMENT slot. The target for depth values.\n",
         MsaaDepthAttachmentFieldId, MsaaDepthAttachmentFieldMask,
         true,
         (Field::FClusterLocal | Field::FThreadLocal),
@@ -372,7 +372,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecFrameBufferAttachmentPtr::Description(
         SFUnrecFrameBufferAttachmentPtr::getClassType(),
         "msaaStencilAttachment",
-        "GL_STENCIL_ATTACHMENT_EXT slot.\n",
+        "GL_STENCIL_ATTACHMENT slot.\n",
         MsaaStencilAttachmentFieldId, MsaaStencilAttachmentFieldMask,
         true,
         (Field::FClusterLocal | Field::FThreadLocal),
@@ -438,7 +438,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
     "        >\n"
-    "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+    "        GL_COLOR_ATTACHMENTX slots, position defines X. \n"
     "        This defines the target buffers for color attachments.\n"
     "    </Field>\n"
     "    <Field\n"
@@ -449,7 +449,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        access=\"public\"\n"
     "        defaultValue=\"0\"\n"
     "        >\n"
-    "        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.\n"
+    "        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0.\n"
     "        These are used to call DrawBuffers to tell OpenGL what targets\n"
     "        to render into.\n"
     "    </Field>\n"
@@ -460,7 +460,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
     "        >\n"
-    "        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n"
+    "        GL_DEPTH_ATTACHMENT slot. The target for depth values.\n"
     "    </Field>\n"
     "    <Field\n"
     "        name=\"stencilAttachment\"\n"
@@ -469,7 +469,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
     "        >\n"
-    "        GL_STENCIL_ATTACHMENT_EXT slot.\n"
+    "        GL_STENCIL_ATTACHMENT slot.\n"
     "    </Field>\n"
     "    <Field\n"
     "        name=\"width\"\n"
@@ -552,7 +552,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        access=\"protected\"\n"
     "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "        >\n"
-    "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+    "        GL_COLOR_ATTACHMENTX slots, position defines X. \n"
     "        This defines the target buffers for color attachments.\n"
     "    </Field>\n"
     "    <Field\n"
@@ -563,7 +563,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        access=\"protected\"\n"
     "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "        >\n"
-    "        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n"
+    "        GL_DEPTH_ATTACHMENT slot. The target for depth values.\n"
     "    </Field>\n"
     "    <Field\n"
     "        name=\"msaaStencilAttachment\"\n"
@@ -573,7 +573,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     "        access=\"protected\"\n"
     "        fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "        >\n"
-    "        GL_STENCIL_ATTACHMENT_EXT slot.\n"
+    "        GL_STENCIL_ATTACHMENT slot.\n"
     "    </Field>\n"
     "\n"
     "</FieldContainer>\n",

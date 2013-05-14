@@ -108,7 +108,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         EnableWebServiceFieldId = DumpFrameStartFieldId + 1,
         WebServicePortFieldId = EnableWebServiceFieldId + 1,
         WebServiceRootFieldId = WebServicePortFieldId + 1,
-        NextFieldId = WebServiceRootFieldId + 1
+        WaitKeyAfterFrameFieldId = WebServiceRootFieldId + 1,
+        NextFieldId = WaitKeyAfterFrameFieldId + 1
     };
 
     static const OSG::BitVector GlobalsFieldMask =
@@ -133,6 +134,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         (TypeTraits<BitVector>::One << WebServicePortFieldId);
     static const OSG::BitVector WebServiceRootFieldMask =
         (TypeTraits<BitVector>::One << WebServiceRootFieldId);
+    static const OSG::BitVector WaitKeyAfterFrameFieldMask =
+        (TypeTraits<BitVector>::One << WaitKeyAfterFrameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -147,6 +150,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     typedef SFBool            SFEnableWebServiceType;
     typedef SFUInt32          SFWebServicePortType;
     typedef SFString          SFWebServiceRootType;
+    typedef SFBool            SFWaitKeyAfterFrameType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -203,6 +207,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   SFString            *editSFWebServiceRoot (void);
             const SFString            *getSFWebServiceRoot  (void) const;
 
+                  SFBool              *editSFWaitKeyAfterFrame(void);
+            const SFBool              *getSFWaitKeyAfterFrame (void) const;
+
 
                   FieldContainer * getGlobals        (const UInt32 index) const;
 
@@ -235,6 +242,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                   std::string         &editWebServiceRoot (void);
             const std::string         &getWebServiceRoot  (void) const;
 
+                  bool                &editWaitKeyAfterFrame(void);
+                  bool                 getWaitKeyAfterFrame (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -250,6 +260,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
             void setEnableWebService(const bool value);
             void setWebServicePort (const UInt32 value);
             void setWebServiceRoot (const std::string &value);
+            void setWaitKeyAfterFrame(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -331,6 +342,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     SFBool            _sfEnableWebService;
     SFUInt32          _sfWebServicePort;
     SFString          _sfWebServiceRoot;
+    SFBool            _sfWaitKeyAfterFrame;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -381,6 +393,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     EditFieldHandlePtr editHandleWebServicePort (void);
     GetFieldHandlePtr  getHandleWebServiceRoot  (void) const;
     EditFieldHandlePtr editHandleWebServiceRoot (void);
+    GetFieldHandlePtr  getHandleWaitKeyAfterFrame (void) const;
+    EditFieldHandlePtr editHandleWaitKeyAfterFrame(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

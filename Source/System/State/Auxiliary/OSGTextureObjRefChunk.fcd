@@ -12,7 +12,7 @@
     docGroupBase="GrpStateAuxiliary"
     >
     <Field
-        name="GLId"
+        name="osgGLId"
         type="GLenum"
         cardinality="single"
         visibility="external"
@@ -21,5 +21,16 @@
         fieldFlags="FClusterLocal"
         >
         OpenSG-OpenGL id of texture object.
+    </Field>
+    <Field
+        name="oglGLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+        >
+        Native OpenGL id of texture object.
     </Field>
 </FieldContainer>

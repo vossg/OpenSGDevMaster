@@ -65,7 +65,7 @@
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGBaseFields.h"              // GLId type
+#include "OSGBaseFields.h"              // OsgGLId type
 
 #include "OSGTextureObjRefChunkFields.h"
 
@@ -94,16 +94,20 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
 
     enum
     {
-        GLIdFieldId = Inherited::NextFieldId,
-        NextFieldId = GLIdFieldId + 1
+        OsgGLIdFieldId = Inherited::NextFieldId,
+        OglGLIdFieldId = OsgGLIdFieldId + 1,
+        NextFieldId = OglGLIdFieldId + 1
     };
 
-    static const OSG::BitVector GLIdFieldMask =
-        (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector OsgGLIdFieldMask =
+        (TypeTraits<BitVector>::One << OsgGLIdFieldId);
+    static const OSG::BitVector OglGLIdFieldMask =
+        (TypeTraits<BitVector>::One << OglGLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFGLenum          SFGLIdType;
+    typedef SFGLenum          SFOsgGLIdType;
+    typedef SFGLenum          SFOglGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -129,19 +133,26 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 
-                  SFGLenum            *editSFGLId           (void);
-            const SFGLenum            *getSFGLId            (void) const;
+                  SFGLenum            *editSFOsgGLId        (void);
+            const SFGLenum            *getSFOsgGLId         (void) const;
+
+                  SFGLenum            *editSFOglGLId        (void);
+            const SFGLenum            *getSFOglGLId         (void) const;
 
 
-                  GLenum              &editGLId           (void);
-            const GLenum              &getGLId            (void) const;
+                  GLenum              &editOsgGLId        (void);
+            const GLenum              &getOsgGLId         (void) const;
+
+                  GLenum              &editOglGLId        (void);
+            const GLenum              &getOglGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGLId           (const GLenum &value);
+            void setOsgGLId        (const GLenum &value);
+            void setOglGLId        (const GLenum &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,7 +212,8 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum          _sfGLId;
+    SFGLenum          _sfOsgGLId;
+    SFGLenum          _sfOglGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,8 +241,10 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
+    GetFieldHandlePtr  getHandleOsgGLId         (void) const;
+    EditFieldHandlePtr editHandleOsgGLId        (void);
+    GetFieldHandlePtr  getHandleOglGLId         (void) const;
+    EditFieldHandlePtr editHandleOglGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -56,7 +56,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-UInt32 RenderBuffer::_uiFramebufferObjectExt             =     
+UInt32 RenderBuffer::_uiFramebufferObjectArb             =     
     Window::invalidExtensionID;
 
 UInt32 RenderBuffer::_uiFramebufferMultiSampleExt        =
@@ -103,9 +103,9 @@ void RenderBuffer::bind(DrawEnv *pEnv, UInt32 index)
                             _uiFuncFramebufferRenderbuffer,
                              pWindow);
 
-    osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT,
+    osgGlFramebufferRenderbuffer(GL_FRAMEBUFFER,
                                  index,
-                                 GL_RENDERBUFFER_EXT, 
+                                 GL_RENDERBUFFER, 
                                  pWindow->getGLObjectId(getGLId()));
 }
 
@@ -143,8 +143,8 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
    if(ePhase == TypeObject::SystemPost)
     {
-        _uiFramebufferObjectExt         = 
-            Window::registerExtension("GL_EXT_framebuffer_object");
+        _uiFramebufferObjectArb         = 
+            Window::registerExtension("GL_ARB_framebuffer_object");
 
         _uiFramebufferMultiSampleExt    =
             Window::registerExtension("GL_EXT_framebuffer_multisample");
@@ -154,29 +154,29 @@ void RenderBuffer::initMethod(InitPhase ePhase)
 
         _uiFuncFramebufferRenderbuffer  =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbufferEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glFramebufferRenderbuffer", 
+                _uiFramebufferObjectArb);
 
         _uiFuncGenRenderbuffers         =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glGenRenderbuffersEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glGenRenderbuffers", 
+                _uiFramebufferObjectArb);
 
         _uiFuncDeleteRenderbuffers      =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glDeleteRenderbuffersEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glDeleteRenderbuffers", 
+                _uiFramebufferObjectArb);
 
         _uiFuncRenderbufferStorage      =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glRenderbufferStorageEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glRenderbufferStorage", 
+                _uiFramebufferObjectArb);
 
 
         _uiFuncBindRenderbuffer         =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glBindRenderbufferEXT", 
-                _uiFramebufferObjectExt);
+                 OSG_DLSYM_UNDERSCORE"glBindRenderbuffer", 
+                _uiFramebufferObjectArb);
 
 
         _uiFuncRenderbufferStorageMultiSample          =
@@ -272,7 +272,7 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
                                 _uiFuncRenderbufferStorage,
                                  pWindow);
 
-        osgGlBindRenderbuffer(GL_RENDERBUFFER_EXT, uiBufferId);
+        osgGlBindRenderbuffer(GL_RENDERBUFFER, uiBufferId);
 
         GLenum internalFormat = getInternalFormat();
 
@@ -294,7 +294,7 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
                  pWindow);
 
             osgGlRenderbufferStorageMultisampleCoverage(
-                GL_RENDERBUFFER_EXT,
+                GL_RENDERBUFFER,
                 _sfCoverageSamples.getValue(),
                 _sfColorSamples   .getValue(),
                 internalFormat,
@@ -313,7 +313,7 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
                                   pWindow                             );
 
             osgGlRenderbufferStorageMultisample(
-                 GL_RENDERBUFFER_EXT,
+                 GL_RENDERBUFFER,
                 _sfColorSamples.getValue(),
                  internalFormat,
                  getWidth(), 
@@ -321,7 +321,7 @@ UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv,
         }
         else
         {
-            osgGlRenderbufferStorage(GL_RENDERBUFFER_EXT,
+            osgGlRenderbufferStorage(GL_RENDERBUFFER,
                                      internalFormat,
                                      getWidth(), 
                                      getHeight());
