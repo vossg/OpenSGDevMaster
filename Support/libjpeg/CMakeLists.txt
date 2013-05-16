@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGJpegLibSrcDir)
 
+  MESSAGE(STATUS "adding jpeglib from : ${OSGJpegLibSrcDir}")
+
   PROJECT(OSGJpegLib)
 
   SET(${PROJECT_NAME}SharedTarget osgjpg)
@@ -106,5 +108,7 @@ IF(OSGJpegLibSrcDir)
   SET(OSG_JPEG_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGJpegLibSrcDir)
+  MESSAGE(STATUS "ignoring jpglib")
+
   SET(OSGJpegLibSrcDir "" CACHE PATH "")
 ENDIF(OSGJpegLibSrcDir)

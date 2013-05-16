@@ -753,7 +753,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     pData->getHBlurShader()->activate(pEnv);
 #endif
 
-    aDrawBuffers[0] = { GL_COLOR_ATTACHMENT1_EXT };
+    aDrawBuffers[0] = GL_COLOR_ATTACHMENT1_EXT;
 
     osgGlDrawBuffers(1, aDrawBuffers);
 

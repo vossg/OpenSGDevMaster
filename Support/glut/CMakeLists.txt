@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGGlutSrcDir)
 
+  MESSAGE(STATUS "adding glut from : ${OSGGlutSrcDir}")
+
   PROJECT(OSGGlut)
 
   SET(${PROJECT_NAME}SharedTarget osgglut)
@@ -97,5 +99,7 @@ IF(OSGGlutSrcDir)
   SET(OSG_GLUT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGGlutSrcDir)
+  MESSAGE(STATUS "ignoring glut")
+
   SET(OSGGlutSrcDir "" CACHE PATH "")
 ENDIF(OSGGlutSrcDir)

@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
 
+  MESSAGE(STATUS "adding libtiff from : ${OSGTiffLibSrcDir}")
+
   PROJECT(OSGTiffLib)
 
   SET(${PROJECT_NAME}SharedTarget osgtiff)
@@ -129,5 +131,7 @@ IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
                       WORLD_READ)
 
 ELSE(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
+  MESSAGE(STATUS "ignoring libtiff")
+
   SET(OSGTiffLibSrcDir "" CACHE PATH "")
 ENDIF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)

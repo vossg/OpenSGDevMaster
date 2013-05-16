@@ -4,12 +4,16 @@ CMAKE_POLICY(SET CMP0011 OLD)
 
 IF(OSGGdalSrcDir)
 
-IF(OSGGdalSrcDir MATCHES "1.5.4$")
-  INCLUDE("CMakeLists_154.txt")
-ELSE()
-  INCLUDE("CMakeLists_current.txt")
-ENDIF()
+  MESSAGE(STATUS "adding gdal from : ${OSGGdalSrcDir}")
+
+  IF(OSGGdalSrcDir MATCHES "1.5.4$")
+    INCLUDE("CMakeLists_154.txt")
+  ELSE()
+    INCLUDE("CMakeLists_current.txt")
+  ENDIF()
 
 ELSE(OSGGdalSrcDir)
+  MESSAGE(STATUS "ignoring gdal")
+
   SET(OSGGdalSrcDir "" CACHE PATH "")
 ENDIF(OSGGdalSrcDir)

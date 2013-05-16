@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGLibPNGSrcDir AND OSGZLibSrcDir)
 
+  MESSAGE(STATUS "adding libpng from : ${OSGLibPNGSrcDir}")
+
   PROJECT(OSGLibPNG)
 
   SET(${PROJECT_NAME}SharedTarget osgpng)
@@ -107,7 +109,7 @@ IF(OSGLibPNGSrcDir AND OSGZLibSrcDir)
   SET(OSG_PNG_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGLibPNGSrcDir AND OSGZLibSrcDir)
+  MESSAGE(STATUS "ignoring libpng")
 
   SET(OSGLibPNGSrcDir "" CACHE PATH "")
-
 ENDIF(OSGLibPNGSrcDir AND OSGZLibSrcDir)

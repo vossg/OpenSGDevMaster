@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGPcreSrcDir)
 
+  MESSAGE(STATUS "adding pcre from : ${OSGPcreSrcDir}")
+
   PROJECT(OSGPcre)
 
   SET(${PROJECT_NAME}SharedTargetPcre    osgpcre)
@@ -159,5 +161,7 @@ IF(OSGPcreSrcDir)
 #  SET(OSG_PCRE_SHARED_LIBRARY ${${PROJECT_NAME}SharedTargetPcre} CACHE STRING "")
 
 ELSE(OSGPcreSrcDir)
+  MESSAGE(STATUS "ignoring pcre")
+
   SET(OSGPcreSrcDir "" CACHE PATH "")
 ENDIF(OSGPcreSrcDir)

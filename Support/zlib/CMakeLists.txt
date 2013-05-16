@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGZLibSrcDir)
 
+  MESSAGE(STATUS "adding zlib from : ${OSGZLibSrcDir}")
+
   PROJECT(OSGZLib)
 
   SET(${PROJECT_NAME}SharedTarget osgzlib)
@@ -95,5 +97,7 @@ IF(OSGZLibSrcDir)
   SET(OSG_ZLIB_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGZLibSrcDir)
+  MESSAGE(STATUS "ignoring zlib")
+
   SET(OSGZLibSrcDir "" CACHE PATH "")
 ENDIF(OSGZLibSrcDir)

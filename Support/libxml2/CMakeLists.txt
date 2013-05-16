@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
 
+  MESSAGE(STATUS "adding libxml2 from : ${OSGLibXml2SrcDir}")
+
   PROJECT(OSGLibXml2)
 
   SET(${PROJECT_NAME}SharedTarget osgxml2)
@@ -229,5 +231,7 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir)
 #  SET(OSG_LIBXML2_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGLibXml2SrcDir AND OSGZLibSrcDir)
+  MESSAGE(STATUS "ignoring libxml2")
+
   SET(OSGLibXml2SrcDir "" CACHE PATH "")
 ENDIF(OSGLibXml2SrcDir AND OSGZLibSrcDir)

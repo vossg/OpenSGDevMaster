@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGFreeGlutSrcDir)
 
+  MESSAGE(STATUS "adding freeglut from : ${OSGFreeGlutSrcDir}")
+
   PROJECT(OSGFreeGlut)
 
   SET(${PROJECT_NAME}SharedTarget osgglut)
@@ -74,5 +76,7 @@ IF(OSGFreeGlutSrcDir)
   SET(OSG_GLUT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "" FORCE)
 
 ELSE(OSGFreeGlutSrcDir)
+  MESSAGE(STATUS "ignoring freeglut")
+
   SET(OSGFreeGlutSrcDir "" CACHE PATH "")
 ENDIF(OSGFreeGlutSrcDir)

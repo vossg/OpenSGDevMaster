@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 IF(OSGExpatSrcDir)
 
+  MESSAGE(STATUS "adding expat from : ${OSGExpatSrcDir}")
+
   PROJECT(OSGExpat)
 
   SET(${PROJECT_NAME}SharedTarget osgexpat)
@@ -90,5 +92,7 @@ IF(OSGExpatSrcDir)
   SET(OSG_EXPAT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGExpatSrcDir)
+  MESSAGE(STATUS "ignoring expat")
+
   SET(OSGExpatSrcDir "" CACHE PATH "")
 ENDIF(OSGExpatSrcDir)
