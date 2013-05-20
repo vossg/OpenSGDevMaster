@@ -216,6 +216,10 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     void           setRenderProperties  (RenderPropType oProp);
     void           resetRenderProperties(void                );
 
+    void           addRenderProperties  (RenderPropType oProp);
+    void           subRenderProperties  (RenderPropType oProp);
+
+
     void           setDrawPartPar       (bool           bVal );
     bool           getDrawPartPar       (void                );
 

@@ -147,7 +147,7 @@ void RenderOptions::activate(RenderActionBase *pAction)
     fprintf(stderr, "ac:pro : %016llx\n",
             this->getRenderProperties());
  */
-    pAction->setRenderProperties(this->getRenderProperties());
+    pAction->addRenderProperties(this->getRenderProperties());
     pAction->setUseGLFinish     (this->getUseGLFinish     ());
 }
 
@@ -156,8 +156,8 @@ void RenderOptions::deactivate(RenderActionBase *pAction)
     if(pAction == NULL)
         return;
 
-    pAction->resetRenderProperties(     );
-    pAction->setUseGLFinish       (false);
+    pAction->subRenderProperties(this->getRenderProperties());
+    pAction->setUseGLFinish     (false                      );
 }
 
 

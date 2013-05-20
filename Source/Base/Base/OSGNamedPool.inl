@@ -105,5 +105,22 @@ void NamedPool<ValueT>::printStat(void)
             _elementStore.size());
 }
 
+template <class ValueT> inline
+void NamedPool<ValueT>::dump(void)
+{
+    ValueStoreConstIt eIt  = _elementStore.begin();
+    ValueStoreConstIt eEnd = _elementStore.end  ();
+
+    for(; eIt != eEnd; ++eIt)
+    {
+        fprintf(stderr, "[key/value] : %s / ", 
+                eIt->first.c_str());
+
+        this->dumpValue(eIt->second);
+
+        fprintf(stderr, "\n");
+    }
+}
+
 OSG_END_NAMESPACE
 

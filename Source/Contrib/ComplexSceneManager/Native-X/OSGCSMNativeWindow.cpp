@@ -58,6 +58,9 @@
 
 #include "OSGDotFileGeneratorGraphOp.h"
 
+#include "OSGPassMaskPool.h"
+#include "OSGRenderPropertiesPool.h"
+
 #include <X11/keysym.h>
 
 OSG_BEGIN_NAMESPACE
@@ -227,6 +230,18 @@ void CSMNativeWindow::xMainLoop(void)
                             {
                                 fprintf(stderr, "win NULL\n");
                             }
+                        }
+                        else if(keysym == XK_F8) 
+                        {
+                            fprintf(stderr, "pass mask pool\n");
+                            fprintf(stderr, "================\n");
+
+                            PassMaskPool::the()->dump();
+
+                            fprintf(stderr, "render prop pool\n");
+                            fprintf(stderr, "================\n");
+
+                            RenderPropertiesPool::the()->dump();
                         }
                         else if(keysym == XK_Home) 
                         {

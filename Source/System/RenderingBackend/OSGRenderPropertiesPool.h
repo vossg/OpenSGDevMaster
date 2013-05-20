@@ -42,6 +42,7 @@
 #pragma once
 #endif
 
+#include "OSGSystemDef.h"
 #include "OSGTaggedSingletonHolder.h"
 #include "OSGNamedSplitFinitePool.h"
 
@@ -54,9 +55,52 @@ struct RenderPropertiesPoolTag;
 
 struct RenderPropertiesSplitInfo
 {
+    // Unique lower Splitpoint bits / store 1
+
     static const UInt32 NumBits    = RenderPropertyBits;
     static const UInt32 SplitPoint = RenderPropertyUniqueBits;
+
+    template<UInt32 SplitPoint>
+    struct SplitMaskImpl;
+
+    typedef SplitMaskImpl<SplitPoint> SplitMask;
+
+    static void dump(void)
+    {
+        fprintf(stderr, "num bits    : %d\n", NumBits);
+        fprintf(stderr, "split point : %d\n", SplitPoint);
+    }
 };
+
+template<>
+struct RenderPropertiesSplitInfo::SplitMaskImpl<8>
+{
+    static const RenderPropBitVector Lower = 0x00000000000000FF;
+    static const RenderPropBitVector Upper = 0xFFFFFFFFFFFFFF00;
+};
+
+template<>
+struct RenderPropertiesSplitInfo::SplitMaskImpl<16>
+{
+    static const RenderPropBitVector Lower = 0x000000000000FFFF;
+    static const RenderPropBitVector Upper = 0xFFFFFFFFFFFF0000;
+};
+
+template<>
+struct RenderPropertiesSplitInfo::SplitMaskImpl<24>
+{
+    static const RenderPropBitVector Lower = 0x0000000000FFFFFF;
+    static const RenderPropBitVector Upper = 0xFFFFFFFFFF000000;
+};
+
+template<>
+struct RenderPropertiesSplitInfo::SplitMaskImpl<32>
+{
+    static const RenderPropBitVector Lower  = 0x00000000FFFFFFFF;
+    static const RenderPropBitVector Uppper = 0xFFFFFFFF00000000;
+};
+    
+
 
 /*! \ingroup GrpSystemRenderingBackendPools
  */
@@ -72,6 +116,21 @@ typedef NamedSplitFinitePool<RenderPropBitVector,
 
 typedef TaggedSingletonHolder<RenderPropertiesPoolBase, 
                               RenderPropertiesPoolTag> RenderPropertiesPool;
+
+
+struct RenderPropertiesStruct
+{
+    const BitVector ColorBuffer;
+    const BitVector DepthBuffer;
+
+    const BitVector GBuffer;
+
+    const BitVector ShadowFactor;
+
+    RenderPropertiesStruct(void);
+};
+
+extern OSG_SYSTEM_DLLMAPPING RenderPropertiesStruct SystemRenderProperties;
 
 OSG_END_NAMESPACE
 

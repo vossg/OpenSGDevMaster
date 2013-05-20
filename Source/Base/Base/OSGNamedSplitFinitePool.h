@@ -119,6 +119,7 @@ class NamedSplitFinitePool
     /*! \name                       stat                                   */
     /*! \{                                                                 */
     
+    void dump     (void);
     void printStat(void);
 
     /*! \}                                                                 */
@@ -130,6 +131,9 @@ class NamedSplitFinitePool
 
     typedef          std::map<std::string, ValueT> NameValueMap;
     typedef          std::map<ValueT, std::string> ValueNameMap;
+
+    typedef typename ValueStore ::iterator         ValStoreIt;
+    typedef typename ValueStore ::const_iterator   ValStoreConstIt;
 
     typedef typename NameValueMap::iterator        NameValueMapIt;
     typedef typename NameValueMap::const_iterator  NameValueMapConstIt;
@@ -154,6 +158,13 @@ class NamedSplitFinitePool
     /*! \{                                                                 */
 
     void initialize(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       stat                                   */
+    /*! \{                                                                 */
+
+    void dumpValue(const StoredType &val);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

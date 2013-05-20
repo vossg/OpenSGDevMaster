@@ -222,4 +222,15 @@
     Use blending when writing the combined scene and shadow images to the
     target framebuffer.
     </Field>
+  <Field
+    name="renderPropertyMask"
+    type="RenderPropBitVector"
+    cardinality="single"
+    visibility="external"
+    defaultValue="SystemRenderProperties.ColorBuffer"
+    access="public"
+    >
+    Use blending when writing the combined scene and shadow images to the
+    target framebuffer.
+    </Field>
 </FieldContainer>

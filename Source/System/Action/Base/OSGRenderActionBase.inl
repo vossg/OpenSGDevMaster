@@ -224,6 +224,18 @@ void RenderActionBase::resetRenderProperties(void)
 }
 
 inline
+void RenderActionBase::addRenderProperties(RenderPropType oProp)
+{
+    _oCurrentRenderProp |= oProp;
+}
+
+inline
+void RenderActionBase::subRenderProperties(RenderPropType oProp)
+{
+    _oCurrentRenderProp &= ~oProp;
+}
+
+inline
 void RenderActionBase::setDrawPartPar(bool bVal)
 {
     _bDrawPartPar = bVal;

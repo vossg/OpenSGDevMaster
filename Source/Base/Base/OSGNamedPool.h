@@ -95,15 +95,20 @@ class NamedPool
     /*! \{                                                                 */
     
     void printStat(void);
+    void dump     (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef          std::map<std::string, ValueT>           ValueStore;
+    typedef          std::map<std::string, 
+                              ValueT     >                 ValueStore;
 
-    typedef typename std::map<std::string, ValueT>::iterator ValueStoreIt;
+    typedef typename std::map<std::string, 
+                              ValueT     >::iterator       ValueStoreIt;
+    typedef typename std::map<std::string, 
+                              ValueT     >::const_iterator ValueStoreConstIt;
 
     
     /*---------------------------------------------------------------------*/
@@ -113,6 +118,13 @@ class NamedPool
     void   initCurrentValue(void);
     ValueT getNextValue    (void);
     ValueT getInvalidValue (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    void dumpValue(const ValueT &val);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,6 +166,11 @@ Int32 NamedPool<Int32>::getInvalidValue(void)
 }
 
 template <> inline
+void NamedPool<Int32>::dumpValue(const Int32 &val)
+{
+}
+
+template <> inline
 void NamedPool<BitVector>::initCurrentValue(void)
 {
     _currentValue = 1;
@@ -173,6 +190,12 @@ template <> inline
 BitVector NamedPool<BitVector>::getInvalidValue(void)
 {
     return 0;
+}
+
+template <> inline
+void NamedPool<BitVector>::dumpValue(const BitVector &val)
+{
+    fprintf(stderr, "0x%016" PRIx64 , val);
 }
 
 OSG_END_NAMESPACE

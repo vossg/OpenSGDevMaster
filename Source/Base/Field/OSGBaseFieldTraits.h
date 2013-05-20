@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGFieldTraits.h"
+#include "OSGSysFieldTraits.h"
 #include "OSGDataType.h"
 
 #include "OSGColor.h"
@@ -712,6 +712,48 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
         {
             copyFromBin(pMem, pObjectStore[i]);
         }
+    }
+};
+
+
+/*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
+ */
+
+template <>
+struct FieldTraits<RenderPropBitVector, 3> : 
+    public FieldTraitsPODTemplateBase<RenderPropBitVector, 3>
+{
+  private:
+
+    static  DataType               _type;
+
+  public:
+
+    typedef FieldTraits<RenderPropBitVector, 3>  Self;
+
+    enum             { Convertible = (Self::ToStreamConvertible  |
+                                      Self::FromStringConvertible)     };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType &getType   (void);
+
+    static const Char8    *getSName  (void) { return "SFRenderPropBitVector"; }
+    static const Char8    *getMName  (void) { return "MFRenderPropBitVector"; }
+
+    static       RenderPropBitVector getDefault(void) { return 0;             }
+
+    static void putToStream(const RenderPropBitVector &val,
+                                  OutStream           &str)
+    {
+        FieldTraits<RenderPropBitVector, 0>::putToStream(val, str);
+    }
+
+    static bool getFromCString(      RenderPropBitVector  &outVal,
+                               const Char8               *&inVal )
+    {
+        return FieldTraits<RenderPropBitVector, 0>::getFromCString(outVal, 
+                                                                   inVal);
     }
 };
 

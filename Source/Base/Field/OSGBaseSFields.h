@@ -96,6 +96,9 @@ typedef SField<GLenum, 1>  SFGLenum;
 /*! \ingroup GrpBaseFieldSingle */
 typedef SField<Plane> SFPlane;
 
+/*! \ingroup GrpBaseFieldSingle */
+typedef SField<RenderPropBitVector, 3>  SFRenderPropBitVector;
+
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
@@ -122,6 +125,8 @@ struct SFBitVector : public SField<BitVector, 1>  {};
 struct SFGLenum : public SField<GLenum, 1> {};
 /*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPlane : public SField<Plane> {};
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
+struct SFRenderPropBitVector : public SField<RenderPropBitVector, 3> {};
 
 #endif // these are the doxygen hacks
 

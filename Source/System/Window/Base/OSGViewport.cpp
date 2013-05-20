@@ -354,6 +354,9 @@ void Viewport::render(RenderActionBase *action)
     action->setTraversalRoot(this->getRoot());
     action->setTravMask     (getTravMask()  );
 
+    action->setRenderProperties(SystemRenderProperties.ColorBuffer |
+                                SystemRenderProperties.DepthBuffer );
+
     action->apply(this->getRoot());
 
     Window  *pWin = action->getWindow();

@@ -269,6 +269,60 @@ typename NamedSplitFinitePool<ValueT,
     return _oDefaultElement;
 }
 
+template <class    ValueT, 
+          typename SplitInfo, 
+          class    PoolTag, 
+          class    LockPolicy> inline
+void NamedSplitFinitePool<ValueT, 
+                         SplitInfo, 
+                         PoolTag, 
+                         LockPolicy>::dump(void)
+{
+    fprintf(stderr, "split  \n");
+    fprintf(stderr, "=======\n");
+
+    SplitInfo::dump();
+
+    fprintf(stderr, "store 1\n");
+    fprintf(stderr, "=======\n");
+
+    ValueNameMapConstIt vnIt  = _mValueNameMap.begin();
+    ValueNameMapConstIt vnEnd = _mValueNameMap.end  ();
+
+    for(; vnIt != vnEnd; ++vnIt)
+    {
+        if(0x0000 != (vnIt->first & SplitInfo::SplitMask::Lower))
+        {
+            fprintf(stderr, "[key/value] : %s / ",
+                    vnIt->second.c_str());
+            
+            this->dumpValue(vnIt->first);
+            
+            fprintf(stderr, "\n");
+        }
+    }
+
+
+    fprintf(stderr, "store 2\n");
+    fprintf(stderr, "=======\n");
+
+    vnIt  = _mValueNameMap.begin();
+    vnEnd = _mValueNameMap.end  ();
+
+    for(; vnIt != vnEnd; ++vnIt)
+    {
+        if(0x0000 != (vnIt->first & SplitInfo::SplitMask::Upper))
+        {
+            fprintf(stderr, "[key/value] : %s / ",
+                    vnIt->second.c_str());
+            
+            this->dumpValue(vnIt->first);
+            
+            fprintf(stderr, "\n");
+        }
+    }
+}
+
 OSG_END_NAMESPACE
 
 

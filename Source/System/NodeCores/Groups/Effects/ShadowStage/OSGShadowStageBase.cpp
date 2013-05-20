@@ -175,6 +175,11 @@ OSG_BEGIN_NAMESPACE
     target framebuffer.
 */
 
+/*! \var RenderPropBitVector ShadowStageBase::_sfRenderPropertyMask
+    Use blending when writing the combined scene and shadow images to the
+    target framebuffer.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -460,6 +465,19 @@ void ShadowStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShadowStage::getHandleCombineBlend));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFRenderPropBitVector::Description(
+        SFRenderPropBitVector::getClassType(),
+        "renderPropertyMask",
+        "Use blending when writing the combined scene and shadow images to the\n"
+        "target framebuffer.\n",
+        RenderPropertyMaskFieldId, RenderPropertyMaskFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleRenderPropertyMask),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleRenderPropertyMask));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -693,6 +711,17 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "    cardinality=\"single\"\n"
     "    visibility=\"external\"\n"
     "    defaultValue=\"false\"\n"
+    "    access=\"public\"\n"
+    "    >\n"
+    "    Use blending when writing the combined scene and shadow images to the\n"
+    "    target framebuffer.\n"
+    "    </Field>\n"
+    "  <Field\n"
+    "    name=\"renderPropertyMask\"\n"
+    "    type=\"RenderPropBitVector\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    defaultValue=\"SystemRenderProperties.ColorBuffer\"\n"
     "    access=\"public\"\n"
     "    >\n"
     "    Use blending when writing the combined scene and shadow images to the\n"
@@ -1005,6 +1034,19 @@ const SFBool *ShadowStageBase::getSFCombineBlend(void) const
 }
 
 
+SFRenderPropBitVector *ShadowStageBase::editSFRenderPropertyMask(void)
+{
+    editSField(RenderPropertyMaskFieldMask);
+
+    return &_sfRenderPropertyMask;
+}
+
+const SFRenderPropBitVector *ShadowStageBase::getSFRenderPropertyMask(void) const
+{
+    return &_sfRenderPropertyMask;
+}
+
+
 
 
 void ShadowStageBase::pushToLightNodes(Node * const value)
@@ -1205,6 +1247,10 @@ SizeT ShadowStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfCombineBlend.getBinSize();
     }
+    if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
+    {
+        returnValue += _sfRenderPropertyMask.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1297,6 +1343,10 @@ void ShadowStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
     {
         _sfCombineBlend.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
+    {
+        _sfRenderPropertyMask.copyToBin(pMem);
     }
 }
 
@@ -1409,6 +1459,11 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(CombineBlendFieldMask);
         _sfCombineBlend.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
+    {
+        editSField(RenderPropertyMaskFieldMask);
+        _sfRenderPropertyMask.copyFromBin(pMem);
     }
 }
 
@@ -1555,7 +1610,8 @@ ShadowStageBase::ShadowStageBase(void) :
     _sfGreen                  (bool(GL_TRUE)),
     _sfAlpha                  (bool(GL_TRUE)),
     _sfBlitZBuffer            (bool(false)),
-    _sfCombineBlend           (bool(false))
+    _sfCombineBlend           (bool(false)),
+    _sfRenderPropertyMask     (RenderPropBitVector(SystemRenderProperties.ColorBuffer))
 {
 }
 
@@ -1581,7 +1637,8 @@ ShadowStageBase::ShadowStageBase(const ShadowStageBase &source) :
     _sfGreen                  (source._sfGreen                  ),
     _sfAlpha                  (source._sfAlpha                  ),
     _sfBlitZBuffer            (source._sfBlitZBuffer            ),
-    _sfCombineBlend           (source._sfCombineBlend           )
+    _sfCombineBlend           (source._sfCombineBlend           ),
+    _sfRenderPropertyMask     (source._sfRenderPropertyMask     )
 {
 }
 
@@ -2171,6 +2228,31 @@ EditFieldHandlePtr ShadowStageBase::editHandleCombineBlend   (void)
 
 
     editSField(CombineBlendFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleRenderPropertyMask (void) const
+{
+    SFRenderPropBitVector::GetHandlePtr returnValue(
+        new  SFRenderPropBitVector::GetHandle(
+             &_sfRenderPropertyMask,
+             this->getType().getFieldDesc(RenderPropertyMaskFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleRenderPropertyMask(void)
+{
+    SFRenderPropBitVector::EditHandlePtr returnValue(
+        new  SFRenderPropBitVector::EditHandle(
+             &_sfRenderPropertyMask,
+             this->getType().getFieldDesc(RenderPropertyMaskFieldId),
+             this));
+
+
+    editSField(RenderPropertyMaskFieldMask);
 
     return returnValue;
 }

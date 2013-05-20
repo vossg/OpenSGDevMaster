@@ -131,4 +131,74 @@ void NamedSplitFinitePool<RenderPropBitVector,
 
 }
 
+template<>
+void NamedSplitFinitePool<RenderPropBitVector, 
+                          RenderPropertiesSplitInfo,
+                          RenderPropertiesPoolTag, 
+                          SingleLockPolicy         >::dumpValue(
+                              const StoredType &val)
+{
+    fprintf(stderr, "0x%016" PRIx64 , val);
+}
+
+
+RenderPropertiesStruct SystemRenderProperties;
+
+RenderPropertiesStruct::RenderPropertiesStruct(void) :
+    ColorBuffer (0),
+    DepthBuffer (0),
+    GBuffer     (0),
+    ShadowFactor(0)
+{
+}
+
+namespace
+{
+    bool initRenderProperties(void)
+    {
+        BitVector *bv = NULL;
+
+
+         bv = const_cast<BitVector *>(&SystemRenderProperties.ColorBuffer);
+
+        *bv = RenderPropertiesPool::the()->getFrom1("ColorBuffer");
+
+
+         bv = const_cast<BitVector *>(&SystemRenderProperties.DepthBuffer);
+
+        *bv = RenderPropertiesPool::the()->getFrom1("DepthBuffer");
+
+ 
+         bv = const_cast<BitVector *>(&SystemRenderProperties.GBuffer);
+
+        *bv = RenderPropertiesPool::the()->getFrom1("GBuffer");
+
+
+         bv = const_cast<BitVector *>(&SystemRenderProperties.ShadowFactor);
+
+        *bv = RenderPropertiesPool::the()->getFrom1("ShadowFactor");
+
+        fprintf(stderr,
+                "ColorBuffer : 0x%016" PRIx64 " \n"
+                "DepthBuffer : 0x%016" PRIx64 " \n"
+                "GBuffer     : 0x%016" PRIx64 " \n"
+                "ShadowFactor: 0x%016" PRIx64 " \n",
+                SystemRenderProperties.ColorBuffer,
+                SystemRenderProperties.DepthBuffer,
+                SystemRenderProperties.GBuffer,
+                SystemRenderProperties.ShadowFactor);
+
+        return true;
+    }
+    
+    bool registerInitRenderProps(void)
+    {
+        addPreFactoryInitFunction(initRenderProperties);
+
+        return true;
+    }
+
+    StaticInitFuncWrapper initRenderPropWrapper(registerInitRenderProps);
+}
+
 OSG_END_NAMESPACE

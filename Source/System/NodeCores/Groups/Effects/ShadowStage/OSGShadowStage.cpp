@@ -305,6 +305,19 @@ Action::ResultE ShadowStage::renderEnter(Action *action)
         return returnValue;
     }
        
+    if(0x0000 == ( ract                ->getRenderProperties() & 
+                  _sfRenderPropertyMask. getValue           ()))
+    {
+#if 0
+        fprintf(stderr,
+                "action      : 0x%016" PRIx64 " \n"
+                "shadowstage : 0x%016" PRIx64 " \n",
+                 ract                ->getRenderProperties(),
+                _sfRenderPropertyMask. getValue           ());
+#endif
+
+        return returnValue;
+    }
 
     ShadowStageData *pData = ract->getData<ShadowStageData *>(_iDataSlotId);
 

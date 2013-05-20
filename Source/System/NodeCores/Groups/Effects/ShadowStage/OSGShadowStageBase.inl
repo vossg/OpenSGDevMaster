@@ -549,6 +549,31 @@ void ShadowStageBase::setCombineBlend(const bool value)
 
     _sfCombineBlend.setValue(value);
 }
+//! Get the value of the ShadowStage::_sfRenderPropertyMask field.
+
+inline
+RenderPropBitVector &ShadowStageBase::editRenderPropertyMask(void)
+{
+    editSField(RenderPropertyMaskFieldMask);
+
+    return _sfRenderPropertyMask.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfRenderPropertyMask field.
+inline
+const RenderPropBitVector &ShadowStageBase::getRenderPropertyMask(void) const
+{
+    return _sfRenderPropertyMask.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfRenderPropertyMask field.
+inline
+void ShadowStageBase::setRenderPropertyMask(const RenderPropBitVector &value)
+{
+    editSField(RenderPropertyMaskFieldMask);
+
+    _sfRenderPropertyMask.setValue(value);
+}
 
 
 
@@ -631,6 +656,9 @@ void ShadowStageBase::execSync (      ShadowStageBase *pFrom,
 
     if(FieldBits::NoField != (CombineBlendFieldMask & whichField))
         _sfCombineBlend.syncWith(pFrom->_sfCombineBlend);
+
+    if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
+        _sfRenderPropertyMask.syncWith(pFrom->_sfRenderPropertyMask);
 }
 #endif
 

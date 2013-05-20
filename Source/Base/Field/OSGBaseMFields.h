@@ -96,6 +96,9 @@ typedef MField<GLenum, 1>  MFGLenum;
 /*! \ingroup GrpBaseFieldMulti */
 typedef MField<Plane> MFPlane;
 
+/*! \ingroup GrpBaseFieldMulti */
+typedef MField<RenderPropBitVector, 3> MFRenderPropBitVector;
+
 #else // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
@@ -122,6 +125,8 @@ struct MFBitVector : public MField<BitVector, 1> {};
 struct MFGLenum : public MField<GLenum, 1> {};
 /*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPlane : public MField<Plane> {};
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
+struct MFRenderPropBitVector : public MField<RenderPropBitVector, 3> {};
 
 #endif // these are the doxygen hacks
 
