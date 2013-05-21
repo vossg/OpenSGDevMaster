@@ -111,6 +111,14 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     virtual void deactivate (DrawEnv *pEnv);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    static void activateFBOById  (DrawEnv *pEnv, UInt32 uiOSGId);
+    static void deactivateFBOById(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

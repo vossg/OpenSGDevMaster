@@ -1110,5 +1110,55 @@ FrameBufferAttachmentTransitPtr
     return FrameBufferAttachmentTransitPtr(returnValue);
 }
 
+void FrameBufferObject::activateFBOById(DrawEnv *pEnv, UInt32 uiOSGId)
+{
+    if(pEnv ==  NULL)
+        return;
+
+    Window *win = pEnv->getWindow();
+
+    if(win->hasExtOrVersion(_uiFramebufferObjectArb, 0x0300, 0x0200) == false)
+    {
+        FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
+        return;        
+    }
+
+    OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
+                             osgGlBindFramebuffer,
+                            _uiFuncBindFramebuffer,
+                             win                  );
+
+    win->validateGLObject(uiOSGId, pEnv);
+
+    osgGlBindFramebuffer(GL_FRAMEBUFFER, 
+                         win->getGLObjectId(uiOSGId));
+
+    pEnv->setActiveFBO(uiOSGId);
+}
+
+void FrameBufferObject::deactivateFBOById(DrawEnv *pEnv)
+{
+    Window *win = pEnv->getWindow();
+
+    if(win->hasExtOrVersion(_uiFramebufferObjectArb, 0x0300, 0x0200) == false)
+    {
+        FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
+        return;        
+    }
+
+    OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
+                             osgGlBindFramebuffer,
+                            _uiFuncBindFramebuffer,
+                             win);
+
+    osgGlBindFramebuffer(GL_FRAMEBUFFER, 
+                         0             );
+
+    pEnv->setActiveFBO(0);
+
+    if(pEnv ==  NULL)
+        return;
+}
+
 OSG_END_NAMESPACE
 

@@ -228,10 +228,13 @@ Action::ResultE HDRStage::renderEnter(Action *action)
             this->recurseFromThis(a);
         }
         this->popPartition(a);
-        
+
+        a->getActivePartition()->disable();
+
         this->pushPartition(a,
-                            (RenderPartition::CopyWindow      |
-                             RenderPartition::CopyViewportSize),
+                            (RenderPartition::CopyWindow       |
+                             RenderPartition::CopyViewportSize |
+                             RenderPartition::CopyTarget       ),
                             RenderPartition::SimpleCallback    );
         {
             RenderPartition *pPart  = a->getActivePartition();
@@ -646,7 +649,8 @@ void HDRStage::resizeStageData(HDRStageData *pData,
 
 void HDRStage::postProcess(DrawEnv *pEnv)
 {
-    Window *win = pEnv->getWindow();
+    UInt32  uiActiveFBO = pEnv->getActiveFBO();
+    Window *win         = pEnv->getWindow();
 
     if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
     {
@@ -787,9 +791,14 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     pData->getVBlurShader()->deactivate(pEnv);
 #endif
     
-    pBlurTarget->deactivate(pEnv);
-
-
+    if(uiActiveFBO == 0)
+    {
+        pBlurTarget->deactivate(pEnv);
+    }
+    else
+    {
+        FrameBufferObject::activateFBOById(pEnv, uiActiveFBO);
+    }
 
     // Tonemap pass
 
@@ -811,7 +820,6 @@ void HDRStage::postProcess(DrawEnv *pEnv)
     glEnable(GL_DEPTH_TEST);
             
     pEnv->deactivateState();
-
 
     glPopMatrix();
 }
