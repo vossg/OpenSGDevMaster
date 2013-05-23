@@ -422,7 +422,6 @@ OSBCommonElement::readFieldsContinue(const std::string &fieldName,
                                      const std::string &excludeFields,
                                      const std::string &endMarkers    )
 {
-//    BinaryReadHandler  *rh         = editRoot()->getReadHandler();
     PtrFieldListIt      ptrFieldIt;
     std::string         fieldName2;
     std::string         fieldTypeName;
@@ -477,7 +476,7 @@ OSBCommonElement::skipFields(void)
         if(fieldName.empty())
         {
             OSG_OSB_LOG(("OSBCommonElement::skipFields: "
-                    "Found field end marker.\n"      ));
+                         "Found field end marker.\n"      ));
             break;
         }
 
@@ -485,8 +484,9 @@ OSBCommonElement::skipFields(void)
         rh->getValue(fieldSize    );
         rh->skip    (fieldSize    );
 
-        OSG_OSB_LOG(("OSBCommonElement::skipFields: fieldTypeName [%s] fieldSize [%u]\n",
-                fieldTypeName.c_str(), fieldSize));
+        OSG_OSB_LOG(("OSBCommonElement::skipFields: "
+                     "name [%s] type [%s] size [%u]\n",
+                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
     }
 }
 
