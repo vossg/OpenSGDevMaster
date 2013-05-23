@@ -818,6 +818,7 @@ void SimpleSHLChunk::addProgramParameter(GLenum name, UInt32 value)
             break;
 
         default:
+            FWARNING(("Invalid program paramter '%d'.\n", name));
             break;
     }
 }
@@ -839,6 +840,7 @@ void SimpleSHLChunk::subProgramParameter(GLenum name)
             break;
 
         default:
+            FWARNING(("Invalid program paramter '%d'.\n", name));
             break;
     }
 }
@@ -861,6 +863,7 @@ void SimpleSHLChunk::setProgramParameter(GLenum name, UInt32 value)
             break;
 
         default:
+            FWARNING(("Invalid program paramter '%d'.\n", name));
             break;
     }
 }
@@ -882,6 +885,7 @@ UInt32 SimpleSHLChunk::getProgramParameter(GLenum name)
             break;
 
         default:
+            FWARNING(("Invalid program paramter '%d'.\n", name));
             return 0;
             break;
     }
