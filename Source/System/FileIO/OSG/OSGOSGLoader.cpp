@@ -76,12 +76,8 @@
 
 #include "OSGAttachmentMapSFields.h"
 #include "OSGNameAttachment.h"
-
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderParameterFields.h"
 #include "OSGShaderAttributeFields.h"
-#endif
-
 #include "OSGFieldConnector.h"
 #include "OSGMaterialMapFields.h"
 #include "OSGChunkBlockMapFields.h"
@@ -277,13 +273,11 @@ void OSGLoader::initFieldTypeMapper(void)
 //    setIntExtMapping(MFGLenum::getClassType().getId(),
 //                     ScanParseSkel::OSGmfString);
 
-#ifdef OSG_NEW_SHADER
     setIntExtMapping(MFShaderParameter::getClassType().getId(),
                      ScanParseSkel::OSGmfString);
 
     setIntExtMapping(MFShaderAttribute::getClassType().getId(),
                      ScanParseSkel::OSGmfString);
-#endif
 
     /* To Node Mappings */
 

@@ -65,12 +65,10 @@
 #include "OSGDrawableStatsAttachment.h"
 #include "OSGDrawable.h"
 
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
 #include "OSGShaderExecutableChunk.h"
 #include "OSGShaderCache.h"
-#endif
 
 #ifdef OSG_DEBUG
 #define OSG_TRACE_PARTITION
@@ -381,9 +379,7 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
         }
     }
 
-#ifdef OSG_NEW_SHADER
     bOverrodeState = pushShaderState(pState);
-#endif // OSG_NEW_SHADER
 
     if(_sStateOverrides.top()->empty() == false &&
        bIgnoreOverrides                == false   )
@@ -487,12 +483,10 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
                            pStateOverride);
     }
 
-#ifdef OSG_NEW_SHADER
     if(bOverrodeState == true)
     {
         this->popState();
     }
-#endif
 }
 
 void RenderPartition::pushState(void)
@@ -944,7 +938,6 @@ bool RenderPartition::pushShaderState(State *pState)
 {
     bool statePushed = false;
 
-#ifdef OSG_NEW_SHADER
     if(pState != NULL)
     {
         ShaderProgramChunk *pSPChunk =
@@ -1051,7 +1044,6 @@ bool RenderPartition::pushShaderState(State *pState)
                    pShaderVar->getClassId()                       );
 
     }
-#endif // OSG_NEW_SHADER
 
     return statePushed;
 }

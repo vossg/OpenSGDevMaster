@@ -50,9 +50,7 @@
 #include "OSGGeoIntegralProperty.h"
 #include "OSGWindow.h"
 
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderAttribute.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -112,7 +110,6 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     static const UInt16 TexCoords6Index      = 14;
     static const UInt16 TexCoords7Index      = 15;
 
-#ifdef OSG_NEW_SHADER
     static const UInt16 Attribute0Index     = ShaderConstants::Attribute0Index;
     static const UInt16 Attribute1Index     = ShaderConstants::Attribute1Index;
     static const UInt16 Attribute2Index     = ShaderConstants::Attribute2Index;
@@ -129,9 +126,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     static const UInt16 Attribute13Index    = ShaderConstants::Attribute13Index;
     static const UInt16 Attribute14Index    = ShaderConstants::Attribute14Index;
     static const UInt16 Attribute15Index    = ShaderConstants::Attribute15Index;
-#endif
 
-    static const UInt16 LastIndex            = 15;
+    static const UInt16 LastIndex           = 15;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -237,10 +237,6 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                 {
                     _vDepthSHLVar.push_back(
                         SimpleSHLVariableChunk::createLocal());
-                    
-#ifndef OSG_NEW_SHADER
-                    _vDepthSHLVar[uiActiveLightCount]->setSHLChunk(_depthSHL);
-#endif
                 }
 
                 OSG_ASSERT(uiActiveLightCount < _vDepthSHLVar.size());
@@ -615,18 +611,14 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
         {
             _vShadowCmat.push_back(ChunkMaterial::createLocal());
         }
-        
+
         OSG_ASSERT( uiActiveLightCount < _vShadowCmat.size());
 
         if(_vShadowSHLVar.size() == uiActiveLightCount)
         {
             _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
-
-#ifndef OSG_NEW_SHADER
-            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
-#endif
         }
-        
+
         OSG_ASSERT(uiActiveLightCount < _vShadowSHLVar.size());
 
         _shadowSHL->addUniformVariable("shadowMap",    0);

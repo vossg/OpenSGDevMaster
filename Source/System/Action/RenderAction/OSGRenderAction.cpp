@@ -58,12 +58,8 @@
 
 #include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderExecutableChunk.h"
 #include "OSGShaderExecutableVarChunk.h"
-#else
-#include "OSGSimpleSHLChunk.h"
-#endif
 #include "OSGVolumeDraw.h"
 #include "OSGTreeBuilderBase.h"
 #include "OSGPrimeMaterial.h"
@@ -724,15 +720,9 @@ RenderAction::RenderAction(void) :
 
     setNumBuffers(1);
 
-    UInt32 uiTId = TextureBaseChunk         ::getStaticClassId() & 0x000003FF;
-    UInt32 uiMId = MaterialChunk            ::getStaticClassId() & 0x000003FF;
-
-#ifdef OSG_NEW_SHADER
+    UInt32 uiTId  = TextureBaseChunk        ::getStaticClassId() & 0x000003FF;
     UInt32 uiShId = ShaderExecutableChunk   ::getStaticClassId() & 0x000003FF;
-           uiMId  = ShaderExecutableVarChunk::getStaticClassId() & 0x000003FF;
-#else
-    UInt32 uiShId = SimpleSHLChunk          ::getStaticClassId() & 0x000003FF;
-#endif
+    UInt32 uiMId  = ShaderExecutableVarChunk::getStaticClassId() & 0x000003FF;
 
     _uiKeyGen = ( (uiShId) | (uiTId << 10) | (uiMId      << 20) );
 

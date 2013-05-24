@@ -49,9 +49,7 @@
 #include "OSGCSMDrawManager.h"
 #include "OSGCSMDrawer.h"
 #include "OSGComplexSceneManager.h"
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
-#endif
 #include "OSGSceneFileHandler.h"
 #include "OSGGLFuncProtos.h"
 #include "OSGGLXFuncProtos.h"
@@ -161,11 +159,9 @@ void CSMNativeWindow::xMainLoop(void)
                         }
                         else if(keysym == XK_End)
                         {
-#ifdef OSG_NEW_SHADER
                             fprintf(stderr, "Dump\n");
 
                             (*winIt)->getWindow()->getShaderCache()->dump();
-#endif
                         }
                         else if(keysym == XK_F12) 
                         {

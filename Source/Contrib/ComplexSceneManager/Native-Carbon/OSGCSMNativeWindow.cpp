@@ -50,9 +50,7 @@
 #include "OSGCSMDrawManager.h"
 #include "OSGCSMDrawer.h"
 #include "OSGComplexSceneManager.h"
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
-#endif
 #include "OSGGLFuncProtos.h"
 
 OSG_BEGIN_NAMESPACE

@@ -71,8 +71,6 @@
 
 #cmakedefine OSG_WITH_FONTCONFIG 1
 
-#cmakedefine OSG_NEW_SHADER 1
-
 #define OSG_MT_CPTR_ASPECT 1
 
 #cmakedefine OSG_1_COMPAT 1

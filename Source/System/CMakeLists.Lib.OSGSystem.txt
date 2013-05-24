@@ -87,16 +87,13 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Base")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Geometry/PropertiesBase")
 OSG_ADD_DIRECTORY("Source/System/RenderingBackend")
 OSG_ADD_DIRECTORY("Source/System/State/Base")
+OSG_ADD_DIRECTORY("Source/System/State/Shader/Base")
+OSG_ADD_DIRECTORY("Source/System/State/Shader/Chunks")
+OSG_ADD_DIRECTORY("Source/System/State/Shader/SHL")
+OSG_ADD_DIRECTORY("Source/System/State/Shader/Variables")
 OSG_ADD_DIRECTORY("Source/System/Statistics/Base")
 OSG_ADD_DIRECTORY("Source/System/Window/Base")
 OSG_ADD_DIRECTORY("Source/System/Window/FrameBufferObjects")
-
-IF(OSG_ENABLE_NEW_SHADER)
-    OSG_ADD_DIRECTORY("Source/System/State/Shader/Base")
-    OSG_ADD_DIRECTORY("Source/System/State/Shader/Chunks")
-    OSG_ADD_DIRECTORY("Source/System/State/Shader/SHL")
-    OSG_ADD_DIRECTORY("Source/System/State/Shader/Variables")
-ENDIF(OSG_ENABLE_NEW_SHADER)
 
 IF(OSGCOMPAT_ENABLE_DEPRECATED)
     OSG_ADD_DIRECTORY("Source/System/Depreciated")
@@ -109,9 +106,7 @@ IF(OSGCOMPAT_ENABLE_DEPRECATED)
 
     ENDIF()
 
-    IF(OSG_ENABLE_NEW_SHADER)
-        OSG_ADD_DIRECTORY("Source/System/Depreciated/State/Shader")
-    ENDIF(OSG_ENABLE_NEW_SHADER)
+    OSG_ADD_DIRECTORY("Source/System/Depreciated/State/Shader")
 ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
 

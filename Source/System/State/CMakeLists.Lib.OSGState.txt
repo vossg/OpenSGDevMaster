@@ -39,11 +39,6 @@ OSG_ADD_DIRECTORY("Source/System/State/OpenGL")
 OSG_ADD_DIRECTORY("Source/System/State/NVidia")
 OSG_ADD_DIRECTORY("Source/System/State/Auxiliary")
 
-IF(NOT OSG_ENABLE_NEW_SHADER)
-    OSG_ADD_DIRECTORY("Source/System/State/SHL")
-    OSG_ADD_DIRECTORY("Source/System/State/SHL/Parameter")
-ENDIF(NOT OSG_ENABLE_NEW_SHADER)
-
 ##############################################################################
 # setup python bindings
 ##############################################################################

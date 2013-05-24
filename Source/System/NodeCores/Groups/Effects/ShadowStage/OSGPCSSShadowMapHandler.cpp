@@ -392,10 +392,6 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
         if(_vShadowSHLVar.size() == uiActiveLightCount)
         {
             _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
-
-#ifndef OSG_NEW_SHADER
-            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
-#endif
         }
 
         _shadowSHL->addUniformVariable("shadowMap",    0);

@@ -89,10 +89,7 @@
 #include "OSGRenderActionTask.h"
 
 #include "OSGTraversalValidator.h"
-
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
-#endif
 
 //#define OSG_WIN_QUEUE_ALL 1
 
@@ -357,9 +354,7 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
     }
 
     _pTravValidator = new TraversalValidator;
-#ifdef OSG_NEW_SHADER
     _pShaderCache   = new ShaderCache;
-#endif
 }
 
 /*! instance deletion
@@ -411,9 +406,7 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
                                   UInt32  uiAspect     )
 {
     delete _pTravValidator;
-#ifdef OSG_NEW_SHADER
     delete _pShaderCache;
-#endif
 
     _pTravValidator = NULL;
     _pShaderCache   = NULL;

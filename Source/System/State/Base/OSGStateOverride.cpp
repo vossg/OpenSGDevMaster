@@ -44,11 +44,9 @@
 #include "OSGBaseFunctions.h"
 #include "OSGFieldContainer.h"
 #include "OSGStateOverride.h"
-#ifdef OSG_NEW_SHADER
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"
 #include "OSGSimpleSHLChunk.h"
-#endif
 
 OSG_USING_NAMESPACE
 
@@ -91,7 +89,6 @@ void StateOverride::addOverride(UInt32 uiSlot, ShaderProgramChunk *pChunk)
         return;
     }
 
-#ifdef OSG_NEW_SHADER
     ShaderProgramChunk::MFVertexShaderType::const_iterator sIt  = 
         pChunk->getMFVertexShader()->begin();
 
@@ -161,7 +158,6 @@ void StateOverride::addOverride(UInt32 uiSlot, ShaderProgramChunk *pChunk)
     }
 
     _vProgChunks.push_back(pChunk);
-#endif
 
     _pShader = NULL;
 }
@@ -174,7 +170,6 @@ void StateOverride::addOverride(UInt32                      uiSlot,
         return;
     }
 
-#ifdef OSG_NEW_SHADER
     UInt16    uiVarId = pChunk->getVariableId();
 
     IdStoreIt iIt      = std::lower_bound(_vProgVarIds.begin(),
@@ -191,7 +186,6 @@ void StateOverride::addOverride(UInt32                      uiSlot,
     }
 
     _vProgVarChunks.push_back(pChunk);
-#endif
 
     _pShaderVar = NULL;
 }
@@ -199,9 +193,7 @@ void StateOverride::addOverride(UInt32                      uiSlot,
 void StateOverride::addOverride(UInt32          uiSlot, 
                                 SimpleSHLChunk *pChunk)
 {
-#ifdef OSG_NEW_SHADER
     insertOverride(uiSlot, pChunk);
-#endif
 }
 
 void StateOverride::insertOverride(UInt32      uiSlot, 
@@ -282,19 +274,16 @@ void StateOverride::insertOverride(UInt32      uiSlot,
 
 void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
 {
-#ifdef OSG_NEW_SHADER
     ShaderProgramChunk *pSPChunk = dynamic_cast<ShaderProgramChunk *>(pChunk);
 
     if(pSPChunk == NULL)
     {
         ShaderProgramVariableChunk *pSPVChunk = 
             dynamic_cast<ShaderProgramVariableChunk *>(pChunk);
-        
+
         if(pSPVChunk == NULL)
         {
-#endif
             insertOverride(uiSlot, pChunk);
-#ifdef OSG_NEW_SHADER
         }
         else
         {
@@ -305,5 +294,4 @@ void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
     {
         this->addOverride(uiSlot, pSPChunk);
     }
-#endif
 }
