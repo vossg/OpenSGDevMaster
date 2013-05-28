@@ -1468,8 +1468,11 @@ INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGCommonSupportConfig.cmake"
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin
 #        COMPONENT development_tools
+        PATTERN "*/fcd2code/fcd2code" EXCLUDE
         PATTERN "*.pyc" EXCLUDE
         PATTERN ".svn"  EXCLUDE)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code"
+        DESTINATION bin/fcd2code)
 
 ##################
 # Global Python
