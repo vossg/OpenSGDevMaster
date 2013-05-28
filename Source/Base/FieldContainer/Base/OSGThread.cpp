@@ -123,7 +123,7 @@ void PThreadBase::autoCleanup(void *pData)
 
     delete pUInt;
 
-    ThreadRefPtr pThread = Thread::getCurrent();
+    ThreadBaseRefPtr pThread = Thread::getCurrent();
 
     if(pThread != NULL)
     {
