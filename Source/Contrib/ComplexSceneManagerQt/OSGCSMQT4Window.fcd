@@ -21,4 +21,13 @@
 	  access="public"
 	  >
   </Field>
+  <Field
+	  name="privateContext"
+	  type="bool"
+	  cardinality="single"
+	  visibility="internal"
+	  access="public"
+      defaultValue="false"
+	  >
+  </Field>
 </FieldContainer>

@@ -711,16 +711,17 @@ void Node::invalidateVolume(void)
 {
     BoxVolume &vol = _sfVolume.getValue();
 
-    if(vol.isValid() == true && vol.isStatic() == false)
+    if(vol.isInvalidated() == false && vol.isStatic() == false)
     {
         editSField(VolumeFieldMask);
 
-        vol.setValid(false);
+        vol.invalidate();
 
         if(getParent() != NULL)
         {
             getParent()->invalidateVolume();
         }
+        
     }
 }
 
@@ -763,7 +764,7 @@ void Node::dump(      UInt32    uiIndent,
          << " children | "
 //         << _attachmentMap.getValue().size()
          << " attachments | "
-         << "Parent : " << std::hex;
+         << "Parent : ";
 
     if(_sfParent.getValue() != NULL)
     {
@@ -774,11 +775,15 @@ void Node::dump(      UInt32    uiIndent,
         PLOG << "NULL | ";
     }
 
-    PLOG << this << std::dec << std::endl;
+    PLOG << std::hex << this << std::dec << std::endl;
 
     indentLog(uiIndent, PLOG);
 
     PLOG << "[" << std::endl;
+
+    indentLog(uiIndent + 4, PLOG);
+
+    PLOG << "Box : " << _sfVolume.getValue() << std::endl;
 
     if(_sfCore.getValue() != NULL)
     {

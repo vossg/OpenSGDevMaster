@@ -66,6 +66,7 @@
 #include "OSGCSMWindow.h" // Parent
 
 #include "OSGBaseFields.h"              // PrimaryDisplayString type
+#include "OSGSysFields.h"               // PrivateContext type
 
 #include "OSGCSMQT4WindowFields.h"
 
@@ -95,15 +96,19 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     enum
     {
         PrimaryDisplayStringFieldId = Inherited::NextFieldId,
-        NextFieldId = PrimaryDisplayStringFieldId + 1
+        PrivateContextFieldId = PrimaryDisplayStringFieldId + 1,
+        NextFieldId = PrivateContextFieldId + 1
     };
 
     static const OSG::BitVector PrimaryDisplayStringFieldMask =
         (TypeTraits<BitVector>::One << PrimaryDisplayStringFieldId);
+    static const OSG::BitVector PrivateContextFieldMask =
+        (TypeTraits<BitVector>::One << PrivateContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFString          SFPrimaryDisplayStringType;
+    typedef SFBool            SFPrivateContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -132,9 +137,15 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
                   SFString            *editSFPrimaryDisplayString(void);
             const SFString            *getSFPrimaryDisplayString (void) const;
 
+                  SFBool              *editSFPrivateContext (void);
+            const SFBool              *getSFPrivateContext  (void) const;
+
 
                   std::string         &editPrimaryDisplayString(void);
             const std::string         &getPrimaryDisplayString (void) const;
+
+                  bool                &editPrivateContext (void);
+                  bool                 getPrivateContext  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,6 +153,7 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     /*! \{                                                                 */
 
             void setPrimaryDisplayString(const std::string &value);
+            void setPrivateContext (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,6 +214,7 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     /*! \{                                                                 */
 
     SFString          _sfPrimaryDisplayString;
+    SFBool            _sfPrivateContext;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -231,6 +244,8 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
 
     GetFieldHandlePtr  getHandlePrimaryDisplayString (void) const;
     EditFieldHandlePtr editHandlePrimaryDisplayString(void);
+    GetFieldHandlePtr  getHandlePrivateContext  (void) const;
+    EditFieldHandlePtr editHandlePrivateContext (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

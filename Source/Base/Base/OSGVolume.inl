@@ -75,9 +75,14 @@ void Volume::setValid(const bool value)
     if(!isStatic())
     {
         if(value == true)
+        {
             _state |=  OSGVALID;
+            _state &= ~OSGINVALIDATED;
+        }
         else
+        {
             _state &= ~OSGVALID;
+        }
     }
 }
 
@@ -99,6 +104,7 @@ void Volume::setEmpty(const bool value)
         _state |=  OSGEMPTY;
         _state |=  OSGVALID;
         _state &= ~OSGINFINITE;
+        _state &= ~OSGINVALIDATED;
     }
     else
     {
@@ -124,6 +130,7 @@ void Volume::setInfinite(const bool value)
         _state |=  OSGINFINITE;
         _state |=  OSGVALID;
         _state &= ~OSGEMPTY;
+        _state &= ~OSGINVALIDATED;
     }
     else
     {
@@ -165,6 +172,23 @@ inline
 void Volume::setState(UInt16 val)
 {
     _state = val;
+}
+
+/*! mark invalided during changed up tree traversal */
+
+inline
+void Volume::invalidate(void)
+{
+    _state &= ~OSGVALID;
+    _state |= OSGINVALIDATED;
+}
+
+/*! was invalidated during changed up tree traversal */
+
+inline
+bool Volume::isInvalidated(void) const
+{
+    return _state & OSGINVALIDATED;
 }
 
 /*!  Return the lowest point of the volume. Just a convience wrapper for

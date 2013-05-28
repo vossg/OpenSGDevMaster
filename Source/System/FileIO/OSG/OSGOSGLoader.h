@@ -108,7 +108,7 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
 
     typedef ScanParseFieldTypeMapper<ScanParseSkel   >       Inherited;
     typedef std::map                <std::string,
-                                     FieldContainer *>       NamedFCMap;
+                                     FieldContainerUnrecPtr> NamedFCMap;
     typedef OSGLoader                                        Self;
 
     typedef boost::function<FieldContainer *(const Char8 *,

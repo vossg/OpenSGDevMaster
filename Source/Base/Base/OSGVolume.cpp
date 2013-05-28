@@ -63,11 +63,20 @@ bool Volume::operator !=(const Volume &other) const
 void Volume::printState(std::ostream &os) const
 {
     os << "("
-       << ((_state & OSGVALID)    ? "V" : "_")
-       << ((_state & OSGEMPTY)    ? "E" : "_")
-       << ((_state & OSGSTATIC)   ? "S" : "_")
-       << ((_state & OSGINFINITE) ? "I" : "_")
+       << ((_state & OSGVALID)       ? "V" : "_")
+       << ((_state & OSGEMPTY)       ? "E" : "_")
+       << ((_state & OSGSTATIC)      ? "S" : "_")
+       << ((_state & OSGINFINITE)    ? "I" : "_")
+       << ((_state & OSGINVALIDATED) ? "D" : "_")
        << ")";
+
+    std::ios_base::fmtflags originalFormat = os.flags();
+
+    os << std::showbase << std::hex;
+
+    os << "(" << _state << ")";
+
+    os.flags(originalFormat);
 }
 
 std::ostream &operator<<(std::ostream &os, const Volume& vol)

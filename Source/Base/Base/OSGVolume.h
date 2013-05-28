@@ -89,6 +89,9 @@ class OSG_BASE_DLLMAPPING Volume
     UInt16 getState     (      void               ) const;
     void   setState     (      UInt16 state       );
 
+    void   invalidate   (      void               );
+    bool   isInvalidated(      void               ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Get Values                                 */
@@ -174,10 +177,11 @@ class OSG_BASE_DLLMAPPING Volume
 
     enum State
     {
-        OSGVALID    = 1,
-        OSGEMPTY    = 2,
-        OSGSTATIC   = 4,
-        OSGINFINITE = 8
+        OSGVALID       = 0x0001,
+        OSGEMPTY       = 0x0002,
+        OSGSTATIC      = 0x0004,
+        OSGINFINITE    = 0x0008,
+        OSGINVALIDATED = 0x0010
     };
 };
 

@@ -85,6 +85,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            CSMQT4WindowBase::_sfPrivateContext
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -128,6 +132,18 @@ void CSMQT4WindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMQT4Window::getHandlePrimaryDisplayString));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "privateContext",
+        "",
+        PrivateContextFieldId, PrivateContextFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMQT4Window::editHandlePrivateContext),
+        static_cast<FieldGetMethodSig >(&CSMQT4Window::getHandlePrivateContext));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -163,6 +179,15 @@ CSMQT4WindowBase::TypeObject CSMQT4WindowBase::_type(
     "\t  cardinality=\"single\"\n"
     "\t  visibility=\"internal\"\n"
     "\t  access=\"public\"\n"
+    "\t  >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t  name=\"privateContext\"\n"
+    "\t  type=\"bool\"\n"
+    "\t  cardinality=\"single\"\n"
+    "\t  visibility=\"internal\"\n"
+    "\t  access=\"public\"\n"
+    "      defaultValue=\"false\"\n"
     "\t  >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
@@ -202,6 +227,19 @@ const SFString *CSMQT4WindowBase::getSFPrimaryDisplayString(void) const
 }
 
 
+SFBool *CSMQT4WindowBase::editSFPrivateContext(void)
+{
+    editSField(PrivateContextFieldMask);
+
+    return &_sfPrivateContext;
+}
+
+const SFBool *CSMQT4WindowBase::getSFPrivateContext(void) const
+{
+    return &_sfPrivateContext;
+}
+
+
 
 
 
@@ -216,6 +254,10 @@ SizeT CSMQT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPrimaryDisplayString.getBinSize();
     }
+    if(FieldBits::NoField != (PrivateContextFieldMask & whichField))
+    {
+        returnValue += _sfPrivateContext.getBinSize();
+    }
 
     return returnValue;
 }
@@ -229,6 +271,10 @@ void CSMQT4WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfPrimaryDisplayString.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PrivateContextFieldMask & whichField))
+    {
+        _sfPrivateContext.copyToBin(pMem);
+    }
 }
 
 void CSMQT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -240,6 +286,11 @@ void CSMQT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(PrimaryDisplayStringFieldMask);
         _sfPrimaryDisplayString.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PrivateContextFieldMask & whichField))
+    {
+        editSField(PrivateContextFieldMask);
+        _sfPrivateContext.copyFromBin(pMem);
     }
 }
 
@@ -339,13 +390,15 @@ FieldContainerTransitPtr CSMQT4WindowBase::shallowCopy(void) const
 
 CSMQT4WindowBase::CSMQT4WindowBase(void) :
     Inherited(),
-    _sfPrimaryDisplayString   ()
+    _sfPrimaryDisplayString   (),
+    _sfPrivateContext         (bool(false))
 {
 }
 
 CSMQT4WindowBase::CSMQT4WindowBase(const CSMQT4WindowBase &source) :
     Inherited(source),
-    _sfPrimaryDisplayString   (source._sfPrimaryDisplayString   )
+    _sfPrimaryDisplayString   (source._sfPrimaryDisplayString   ),
+    _sfPrivateContext         (source._sfPrivateContext         )
 {
 }
 
@@ -378,6 +431,31 @@ EditFieldHandlePtr CSMQT4WindowBase::editHandlePrimaryDisplayString(void)
 
 
     editSField(PrimaryDisplayStringFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMQT4WindowBase::getHandlePrivateContext  (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPrivateContext,
+             this->getType().getFieldDesc(PrivateContextFieldId),
+             const_cast<CSMQT4WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMQT4WindowBase::editHandlePrivateContext (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPrivateContext,
+             this->getType().getFieldDesc(PrivateContextFieldId),
+             this));
+
+
+    editSField(PrivateContextFieldMask);
 
     return returnValue;
 }

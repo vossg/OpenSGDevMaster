@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2008 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,132 +36,88 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGINLINE_H_
-#define _OSGINLINE_H_
+#ifndef _OSGCONVERTINLINEGRAPHOP_H_
+#define _OSGCONVERTINLINEGRAPHOP_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-#include "OSGAction.h"
-
-#include "OSGInlineBase.h"
-#include "OSGFileContextHandlerMixin.h"
+#include "OSGUtilDef.h"
+#include "OSGGraphOp.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Inline
-    \ingroup GrpGroupMiscObj
-    \ingroup GrpLibOSGGroup
-    \includebasedoc
+/*! \ingroup GrpUtilGraphOp
+    \ingroup GrpLibOSGUtil
  */
 
-class OSG_GROUP_DLLMAPPING Inline : 
-    public FileContextHandlerMixin<InlineBase, Inline>
+class OSG_UTIL_DLLMAPPING ConvertInlineGraphOp : public GraphOp
 {
-    /*==========================  PUBLIC  =================================*/  
+    /*==========================  PUBLIC  =================================*/
 
   public:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                    Sync                                      */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
-
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         detail);
- 
+    
+    typedef GraphOp              Inherited;
+    typedef ConvertInlineGraphOp Self;
+    
+    OSG_GEN_INTERNAL_MEMOBJPTR(ConvertInlineGraphOp);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name Classname                                                    */
     /*! \{                                                                 */
+    
+    static const char *getClassname(void);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors                                                 */
+    /*! \{                                                                 */
+    
+    static  ObjTransitPtr     create(void);
 
-    void postOSGLoading(FileContextAttachment * const pContext);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                    Parameters                                */
     /*! \{                                                                 */
 
-            void  moveRootTo(Node *pTarget);
-    virtual Node *getRoot   (void         ) const;
+    void        setParams(const std::string params);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32    uiIndent = 0, 
-                      const BitVector bvFlags  = 0) const;
+    std::string usage    (void                    );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
-  protected:
+  protected:    
 
-    typedef FileContextHandlerMixin<InlineBase, Inline> Inherited;
+    bool _bTreeCloneShared;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    Inline(void);
-    Inline(const Inline &source);
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-    
-    virtual ~Inline(void); 
+             ConvertInlineGraphOp(const char* name = "ConvertInline");
+    virtual ~ConvertInlineGraphOp(void                              );
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter (Action *action);
-
-    void            adjustVolume(Volume &volume);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    void rootChanged(FieldContainer    *pFC,
-                     ConstFieldMaskArg  whichField,
-                     UInt32             origin    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-    
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class InlineBase;
+    typedef std::vector<Node *> PushTargetStore;
 
-    /*---------------------------------------------------------------------*/
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const Inline &source);
+    Action::ResultE traverseEnter(Node * const node                     );
+    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
-typedef Inline              *InlineP;
+OSG_GEN_MEMOBJPTR(ConvertInlineGraphOp);
 
 OSG_END_NAMESPACE
 
-#include "OSGInlineBase.inl"
-#include "OSGInline.inl"
-
-#endif /* _OSGINLINE_H_ */
+#endif // _OSGCONVERTINLINEGRAPHOP_H_

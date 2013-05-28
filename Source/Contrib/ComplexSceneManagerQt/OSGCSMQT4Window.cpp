@@ -224,6 +224,8 @@ bool CSMQT4Window::init(void)
 
     QT4WindowUnrecPtr pQT4Window = QT4Window::create();
 
+    pQT4Window->setPrivateOSGContext(this->getPrivateContext());
+
     _pQTWidget = 
         new CSMQT4GLWidget(
             new OSGQGLWidget::GLContext(QGLFormat::defaultFormat()), 

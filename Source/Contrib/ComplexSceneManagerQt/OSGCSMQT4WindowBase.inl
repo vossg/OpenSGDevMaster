@@ -99,6 +99,31 @@ void CSMQT4WindowBase::setPrimaryDisplayString(const std::string &value)
 
     _sfPrimaryDisplayString.setValue(value);
 }
+//! Get the value of the CSMQT4Window::_sfPrivateContext field.
+
+inline
+bool &CSMQT4WindowBase::editPrivateContext(void)
+{
+    editSField(PrivateContextFieldMask);
+
+    return _sfPrivateContext.getValue();
+}
+
+//! Get the value of the CSMQT4Window::_sfPrivateContext field.
+inline
+      bool  CSMQT4WindowBase::getPrivateContext(void) const
+{
+    return _sfPrivateContext.getValue();
+}
+
+//! Set the value of the CSMQT4Window::_sfPrivateContext field.
+inline
+void CSMQT4WindowBase::setPrivateContext(const bool value)
+{
+    editSField(PrivateContextFieldMask);
+
+    _sfPrivateContext.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -113,6 +138,9 @@ void CSMQT4WindowBase::execSync (      CSMQT4WindowBase *pFrom,
 
     if(FieldBits::NoField != (PrimaryDisplayStringFieldMask & whichField))
         _sfPrimaryDisplayString.syncWith(pFrom->_sfPrimaryDisplayString);
+
+    if(FieldBits::NoField != (PrivateContextFieldMask & whichField))
+        _sfPrivateContext.syncWith(pFrom->_sfPrivateContext);
 }
 #endif
 

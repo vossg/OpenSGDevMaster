@@ -356,7 +356,6 @@ void OSGWriter::writeContainer(FieldContainer * const pFC,
 
 void OSGWriter::writeField(GetFieldHandlePtr hF)
 {
-
     if(hF->isValid() == false)
     {
         return;

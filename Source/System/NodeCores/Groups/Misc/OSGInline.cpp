@@ -254,6 +254,11 @@ void Inline::moveRootTo(Node *pTarget)
 
 }
 
+Node *Inline::getRoot(void) const
+{
+    return Inherited::getRoot();
+}
+
 Action::ResultE Inline::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
