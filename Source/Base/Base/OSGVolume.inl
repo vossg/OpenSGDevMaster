@@ -188,7 +188,7 @@ void Volume::invalidate(void)
 inline
 bool Volume::isInvalidated(void) const
 {
-    return _state & OSGINVALIDATED;
+    return (_state & OSGINVALIDATED) != 0x0000;
 }
 
 /*!  Return the lowest point of the volume. Just a convience wrapper for
