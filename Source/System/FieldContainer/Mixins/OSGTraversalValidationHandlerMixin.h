@@ -49,6 +49,7 @@
 #include "OSGWindow.h"
 #include "OSGTraversalValidator.h"
 #include "OSGRenderActionBase.h"
+#include "OSGViewarea.h"
 
 OSG_BEGIN_NAMESPACE
 
