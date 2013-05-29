@@ -131,11 +131,17 @@ class OSG_SYSTEM_DLLMAPPING ShaderValueVariable : public ShaderValueVariableBase
     /*! \name                     Init                                     */
     /*! \{                                                                 */
 
-    void addParent(FieldContainer * const pParent,
-                   UInt16                 uiParentFieldId,
-                   UInt16                 uiVarIdx       );
+    void addParent   (FieldContainer * const pParent,
+                      UInt16                 uiParentFieldId,
+                      UInt16                 uiVarIdx       );
 
-    void subParent(FieldContainer * const pParent        );
+    void subParent   (FieldContainer * const pParent        );
+
+    void addExeParent(FieldContainer * const pParent,
+                      UInt16                 uiParentFieldId,
+                      UInt16                 uiVarIdx       );
+
+    void subExeParent(FieldContainer * const pParent        );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

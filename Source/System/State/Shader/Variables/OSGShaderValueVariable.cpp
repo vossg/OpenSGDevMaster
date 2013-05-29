@@ -100,12 +100,32 @@ void ShaderValueVariable::changed(ConstFieldMaskArg whichField,
                                   BitVector         details)
 {
     MFParentFieldContainerPtr::const_iterator parentsIt  = 
-        this->_mfParents.begin();
+        this->_mfExeParents.begin();
 
     MFParentFieldContainerPtr::const_iterator parentsEnd = 
-        this->_mfParents.end();
+        this->_mfExeParents.end();
     
-    MFUInt16::const_iterator idxIt = _mfVariableIdx.begin();
+    MFUInt16::const_iterator idxIt = _mfExeVariableIdx.begin();
+
+    OSG_ASSERT(_mfExeParents.size() == _mfExeVariableIdx.size());
+
+    while(parentsIt != parentsEnd)
+    {
+        (*parentsIt)->changed(
+            TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
+            ChangedOrigin::Child,
+            *idxIt);
+        
+        ++parentsIt;
+        ++idxIt;
+    }
+
+
+
+    parentsIt  = this->_mfParents.begin();
+    parentsEnd = this->_mfParents.end();
+    
+    idxIt      = _mfVariableIdx.begin();
 
     OSG_ASSERT(_mfParents.size() == _mfVariableIdx.size());
 
@@ -119,6 +139,7 @@ void ShaderValueVariable::changed(ConstFieldMaskArg whichField,
         ++parentsIt;
         ++idxIt;
     }
+
 
     Inherited::changed(whichField, origin, details);
 }
@@ -169,5 +190,31 @@ void ShaderValueVariable::subParent(FieldContainer * const pParent)
 
         _mfParents    .erase(iParentIdx);
         _mfVariableIdx.erase(iParentIdx);
+    }
+}
+
+void ShaderValueVariable::addExeParent(FieldContainer * const pParent,
+                                       UInt16                 uiParentFieldId,
+                                       UInt16                 uiVarIdx       )
+{
+    editMField(ExeParentsFieldMask,     _mfExeParents    );
+    editMField(ExeVariableIdxFieldMask, _mfExeVariableIdx);
+
+    _mfExeParents    .push_back(pParent, uiParentFieldId);
+    _mfExeVariableIdx.push_back(uiVarIdx                );
+    
+}
+
+void ShaderValueVariable::subExeParent(FieldContainer * const pParent)
+{
+    Int32 iParentIdx = _mfExeParents.findIndex(pParent);
+
+    if(iParentIdx != -1)
+    {
+        editMField(ExeParentsFieldMask,     _mfExeParents    );
+        editMField(ExeVariableIdxFieldMask, _mfExeVariableIdx);
+
+        _mfExeParents    .erase(iParentIdx);
+        _mfExeVariableIdx.erase(iParentIdx);
     }
 }

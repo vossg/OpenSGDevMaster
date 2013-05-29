@@ -66,6 +66,7 @@
 #include "OSGShaderVariable.h" // Parent
 
 #include "OSGSysFields.h"               // Dependency type
+#include "OSGFieldContainerFields.h"    // Parents type
 
 #include "OSGShaderProcVariableFields.h"
 
@@ -95,15 +96,19 @@ class OSG_SYSTEM_DLLMAPPING ShaderProcVariableBase : public ShaderVariable
     enum
     {
         DependencyFieldId = Inherited::NextFieldId,
-        NextFieldId = DependencyFieldId + 1
+        ParentsFieldId = DependencyFieldId + 1,
+        NextFieldId = ParentsFieldId + 1
     };
 
     static const OSG::BitVector DependencyFieldMask =
         (TypeTraits<BitVector>::One << DependencyFieldId);
+    static const OSG::BitVector ParentsFieldMask =
+        (TypeTraits<BitVector>::One << ParentsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUInt32          SFDependencyType;
+    typedef MFParentFieldContainerPtr MFParentsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -175,6 +180,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProcVariableBase : public ShaderVariable
     /*! \{                                                                 */
 
     SFUInt32          _sfDependency;
+    MFParentFieldContainerPtr _mfParents;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,11 +205,24 @@ class OSG_SYSTEM_DLLMAPPING ShaderProcVariableBase : public ShaderVariable
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Parent linking                                               */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
     GetFieldHandlePtr  getHandleDependency      (void) const;
     EditFieldHandlePtr editHandleDependency     (void);
+    GetFieldHandlePtr  getHandleParents         (void) const;
+    EditFieldHandlePtr editHandleParents        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

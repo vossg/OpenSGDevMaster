@@ -323,6 +323,7 @@ CSMClusterWindowBase::TypeObject CSMClusterWindowBase::_type(
     "       cardinality=\"single\"\n"
     "       visibility=\"external\"\n"
     "       access=\"public\"\n"
+    "       defaultValue=\"true\"\n"
     "    >\n"
     "    </Field>\n"
     "\n"
@@ -819,7 +820,7 @@ CSMClusterWindowBase::CSMClusterWindowBase(void) :
     _sfClientWindow           (this,
                           ClientWindowFieldId,
                           CSMWindow::ParentFieldId),
-    _sfRenderClient           (),
+    _sfRenderClient           (bool(true)),
     _mfServers                (),
     _mfServerIds              (),
     _sfServerRows             (),

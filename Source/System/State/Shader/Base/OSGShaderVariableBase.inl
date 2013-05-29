@@ -113,12 +113,6 @@ void ShaderVariableBase::execSync (      ShaderVariableBase *pFrom,
 
     if(FieldBits::NoField != (NameFieldMask & whichField))
         _sfName.syncWith(pFrom->_sfName);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-        _mfParents.syncWith(pFrom->_mfParents,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 }
 #endif
 

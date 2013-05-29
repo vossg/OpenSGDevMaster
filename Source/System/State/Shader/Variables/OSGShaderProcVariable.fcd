@@ -23,4 +23,15 @@
 	 >
 	scope
   </Field>
+    <Field
+        name="parents"
+        type="FieldContainer"
+        cardinality="multi"
+        visibility="internal"
+        access="none"
+        category="parentpointer"
+        fieldFlags="FStdAccess, FClusterLocal"
+        >
+    </Field>
+<!---        fieldFlags="FStdAccess, FClusterLocal" -->
 </FieldContainer>

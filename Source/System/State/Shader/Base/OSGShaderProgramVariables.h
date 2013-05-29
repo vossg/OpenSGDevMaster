@@ -49,6 +49,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+class ShaderExecutableChunk;
+class ShaderExecutableVarChunk;
+
 /*! \brief ShaderProgramVariables class. See \ref
            PageSystemShaderProgramVariables for a description.
     \ingroup GrpSystemShaderBase
@@ -334,10 +337,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void merge(ShaderProgramVariables *pVars,
-               MFInt32                *pVarLoc,
-               MFInt32                *pProcVarLoc);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -380,6 +379,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \{                                                                 */
 
     virtual ~ShaderProgramVariables(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void merge(ShaderProgramVariables *pVars,
+               MFInt32                *pVarLoc,
+               MFInt32                *pProcVarLoc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -481,6 +489,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
 
     friend class FieldContainer;
     friend class ShaderProgramVariablesBase;
+    friend class ShaderExecutableChunk;
+    friend class ShaderExecutableVarChunk;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderProgramVariables &source);

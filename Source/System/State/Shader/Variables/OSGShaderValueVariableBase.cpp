@@ -57,6 +57,7 @@
 
 
 
+#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGShaderValueVariableBase.h"
 #include "OSGShaderValueVariable.h"
@@ -82,6 +83,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var UInt16          ShaderValueVariableBase::_mfVariableIdx
+    
+*/
+
+/*! \var FieldContainer * ShaderValueVariableBase::_mfParents
+    
+*/
+
+/*! \var UInt16          ShaderValueVariableBase::_mfExeVariableIdx
+    
+*/
+
+/*! \var FieldContainer * ShaderValueVariableBase::_mfExeParents
     
 */
 
@@ -123,7 +136,43 @@ void ShaderValueVariableBase::classDescInserter(TypeObject &oType)
         "",
         VariableIdxFieldId, VariableIdxFieldMask,
         true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&ShaderValueVariable::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderValueVariable::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFParentFieldContainerPtr::Description(
+        MFParentFieldContainerPtr::getClassType(),
+        "parents",
+        "",
+        ParentsFieldId, ParentsFieldMask,
+        true,
+        (Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&ShaderValueVariable::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderValueVariable::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUInt16::Description(
+        MFUInt16::getClassType(),
+        "exeVariableIdx",
+        "",
+        ExeVariableIdxFieldId, ExeVariableIdxFieldMask,
+        true,
         (Field::FClusterLocal),
+        static_cast     <FieldEditMethodSig>(&ShaderValueVariable::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderValueVariable::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFParentFieldContainerPtr::Description(
+        MFParentFieldContainerPtr::getClassType(),
+        "exeParents",
+        "",
+        ExeParentsFieldId, ExeParentsFieldMask,
+        true,
+        (Field::FStdAccess | Field::FClusterLocal),
         static_cast     <FieldEditMethodSig>(&ShaderValueVariable::invalidEditField),
         static_cast     <FieldGetMethodSig >(&ShaderValueVariable::invalidGetField));
 
@@ -162,9 +211,40 @@ ShaderValueVariableBase::TypeObject ShaderValueVariableBase::_type(
     "        cardinality=\"multi\"\n"
     "        visibility=\"internal\"\n"
     "        access=\"none\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"parents\"\n"
+    "        type=\"FieldContainer\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "        fieldFlags=\"FStdAccess\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"exeVariableIdx\"\n"
+    "        type=\"UInt16\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
     "        fieldFlags=\"FClusterLocal\"\n"
     "        >\n"
     "    </Field>\n"
+    "    <Field\n"
+    "        name=\"exeParents\"\n"
+    "        type=\"FieldContainer\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "<!---        fieldFlags=\"FStdAccess, FClusterLocal\" -->\n"
     "</FieldContainer>\n",
     ""
     );
@@ -194,6 +274,9 @@ UInt32 ShaderValueVariableBase::getContainerSize(void) const
 
 
 
+
+
+
 /*------------------------------ access -----------------------------------*/
 
 SizeT ShaderValueVariableBase::getBinSize(ConstFieldMaskArg whichField)
@@ -203,6 +286,18 @@ SizeT ShaderValueVariableBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (VariableIdxFieldMask & whichField))
     {
         returnValue += _mfVariableIdx.getBinSize();
+    }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
+    }
+    if(FieldBits::NoField != (ExeVariableIdxFieldMask & whichField))
+    {
+        returnValue += _mfExeVariableIdx.getBinSize();
+    }
+    if(FieldBits::NoField != (ExeParentsFieldMask & whichField))
+    {
+        returnValue += _mfExeParents.getBinSize();
     }
 
     return returnValue;
@@ -217,6 +312,18 @@ void ShaderValueVariableBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfVariableIdx.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ExeVariableIdxFieldMask & whichField))
+    {
+        _mfExeVariableIdx.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ExeParentsFieldMask & whichField))
+    {
+        _mfExeParents.copyToBin(pMem);
+    }
 }
 
 void ShaderValueVariableBase::copyFromBin(BinaryDataHandler &pMem,
@@ -229,6 +336,21 @@ void ShaderValueVariableBase::copyFromBin(BinaryDataHandler &pMem,
         editMField(VariableIdxFieldMask, _mfVariableIdx);
         _mfVariableIdx.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        editMField(ParentsFieldMask, _mfParents);
+        _mfParents.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ExeVariableIdxFieldMask & whichField))
+    {
+        editMField(ExeVariableIdxFieldMask, _mfExeVariableIdx);
+        _mfExeVariableIdx.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ExeParentsFieldMask & whichField))
+    {
+        editMField(ExeParentsFieldMask, _mfExeParents);
+        _mfExeParents.copyFromBin(pMem);
+    }
 }
 
 
@@ -238,13 +360,19 @@ void ShaderValueVariableBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderValueVariableBase::ShaderValueVariableBase(void) :
     Inherited(),
-    _mfVariableIdx            ()
+    _mfVariableIdx            (),
+    _mfParents                (),
+    _mfExeVariableIdx         (),
+    _mfExeParents             ()
 {
 }
 
 ShaderValueVariableBase::ShaderValueVariableBase(const ShaderValueVariableBase &source) :
     Inherited(source),
-    _mfVariableIdx            (source._mfVariableIdx            )
+    _mfVariableIdx            (source._mfVariableIdx            ),
+    _mfParents                (),
+    _mfExeVariableIdx         (source._mfExeVariableIdx         ),
+    _mfExeParents             ()
 {
 }
 
@@ -254,6 +382,126 @@ ShaderValueVariableBase::ShaderValueVariableBase(const ShaderValueVariableBase &
 ShaderValueVariableBase::~ShaderValueVariableBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool ShaderValueVariableBase::linkParent(
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            editMField(ParentsFieldMask, _mfParents);
+
+            _mfParents.push_back(pTypedParent, childFieldId);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    if(parentFieldId == ExeParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            editMField(ExeParentsFieldMask, _mfExeParents);
+
+            _mfExeParents.push_back(pTypedParent, childFieldId);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool ShaderValueVariableBase::unlinkParent(
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            Int32 iParentIdx = _mfParents.findIndex(pTypedParent);
+
+            if(iParentIdx != -1)
+            {
+                editMField(ParentsFieldMask, _mfParents);
+
+                _mfParents.erase(iParentIdx);
+
+                return true;
+            }
+
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
+
+            return false;
+        }
+
+        return false;
+    }
+
+    if(parentFieldId == ExeParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            Int32 iParentIdx = _mfExeParents.findIndex(pTypedParent);
+
+            if(iParentIdx != -1)
+            {
+                editMField(ExeParentsFieldMask, _mfExeParents);
+
+                _mfExeParents.erase(iParentIdx);
+
+                return true;
+            }
+
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
+
+            return false;
+        }
+
+        return false;
+    }
+
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 
 GetFieldHandlePtr ShaderValueVariableBase::getHandleVariableIdx     (void) const
@@ -264,6 +512,48 @@ GetFieldHandlePtr ShaderValueVariableBase::getHandleVariableIdx     (void) const
 }
 
 EditFieldHandlePtr ShaderValueVariableBase::editHandleVariableIdx    (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderValueVariableBase::getHandleParents         (void) const
+{
+    MFParentFieldContainerPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderValueVariableBase::editHandleParents        (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderValueVariableBase::getHandleExeVariableIdx  (void) const
+{
+    MFUInt16::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderValueVariableBase::editHandleExeVariableIdx (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderValueVariableBase::getHandleExeParents      (void) const
+{
+    MFParentFieldContainerPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderValueVariableBase::editHandleExeParents     (void)
 {
     EditFieldHandlePtr returnValue;
 
@@ -302,6 +592,10 @@ void ShaderValueVariableBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfVariableIdx.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfExeVariableIdx.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

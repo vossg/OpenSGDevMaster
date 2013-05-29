@@ -809,9 +809,9 @@ void ShaderProgramVariables::merge(ShaderProgramVariables *pVars,
     {
         if(*vIt != NULL)
         {
-            (*vIt)->addParent(this,
-                              ShaderProgramVariables::VariablesFieldId,
-                              uiPos);
+            (*vIt)->addExeParent(this,
+                                 ShaderProgramVariables::VariablesFieldId,
+                                 uiPos);
             
             _mfVariables      .push_back(*vIt);
             _mfVariableChanged.push_back(true);

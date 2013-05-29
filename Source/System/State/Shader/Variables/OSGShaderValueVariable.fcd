@@ -18,7 +18,38 @@
         cardinality="multi"
         visibility="internal"
         access="none"
+        >
+    </Field>
+    <Field
+        name="parents"
+        type="FieldContainer"
+        cardinality="multi"
+        visibility="internal"
+        access="none"
+        category="parentpointer"
+        fieldFlags="FStdAccess"
+        >
+    </Field>
+
+
+    <Field
+        name="exeVariableIdx"
+        type="UInt16"
+        cardinality="multi"
+        visibility="internal"
+        access="none"
         fieldFlags="FClusterLocal"
         >
     </Field>
+    <Field
+        name="exeParents"
+        type="FieldContainer"
+        cardinality="multi"
+        visibility="internal"
+        access="none"
+        category="parentpointer"
+        fieldFlags="FStdAccess, FClusterLocal"
+        >
+    </Field>
+<!---        fieldFlags="FStdAccess, FClusterLocal" -->
 </FieldContainer>

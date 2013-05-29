@@ -91,6 +91,24 @@ void ShaderValueVariableBase::execSync (      ShaderValueVariableBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+        _mfParents.syncWith(pFrom->_mfParents,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ExeVariableIdxFieldMask & whichField))
+        _mfExeVariableIdx.syncWith(pFrom->_mfExeVariableIdx,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ExeParentsFieldMask & whichField))
+        _mfExeParents.syncWith(pFrom->_mfExeParents,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

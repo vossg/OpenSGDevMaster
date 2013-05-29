@@ -31,6 +31,7 @@
        cardinality="single"
        visibility="external"
        access="public"
+       defaultValue="true"
     >
     </Field>
 

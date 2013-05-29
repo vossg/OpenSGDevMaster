@@ -57,7 +57,6 @@
 
 
 
-#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGShaderVariableBase.h"
 #include "OSGShaderVariable.h"
@@ -84,10 +83,6 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var std::string     ShaderVariableBase::_sfName
     Uniform name.
-*/
-
-/*! \var FieldContainer * ShaderVariableBase::_mfParents
-    
 */
 
 
@@ -145,18 +140,6 @@ void ShaderVariableBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShaderVariable::getHandleName));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new MFParentFieldContainerPtr::Description(
-        MFParentFieldContainerPtr::getClassType(),
-        "parents",
-        "",
-        ParentsFieldId, ParentsFieldMask,
-        true,
-        (Field::FStdAccess | Field::FClusterLocal),
-        static_cast     <FieldEditMethodSig>(&ShaderVariable::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&ShaderVariable::invalidGetField));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -194,17 +177,6 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     "        access=\"protected\"\n"
     "        >\n"
     "        Uniform name.\n"
-    "    </Field>\n"
-    "\n"
-    "    <Field\n"
-    "        name=\"parents\"\n"
-    "        type=\"FieldContainer\"\n"
-    "        cardinality=\"multi\"\n"
-    "        visibility=\"internal\"\n"
-    "        access=\"none\"\n"
-    "        category=\"parentpointer\"\n"
-    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
-    "        >\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -247,7 +219,6 @@ const SFString *ShaderVariableBase::getSFName(void) const
 
 
 
-
 /*------------------------------ access -----------------------------------*/
 
 SizeT ShaderVariableBase::getBinSize(ConstFieldMaskArg whichField)
@@ -257,10 +228,6 @@ SizeT ShaderVariableBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (NameFieldMask & whichField))
     {
         returnValue += _sfName.getBinSize();
-    }
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        returnValue += _mfParents.getBinSize();
     }
 
     return returnValue;
@@ -275,10 +242,6 @@ void ShaderVariableBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfName.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        _mfParents.copyToBin(pMem);
-    }
 }
 
 void ShaderVariableBase::copyFromBin(BinaryDataHandler &pMem,
@@ -291,11 +254,6 @@ void ShaderVariableBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(NameFieldMask);
         _sfName.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        editMField(ParentsFieldMask, _mfParents);
-        _mfParents.copyFromBin(pMem);
-    }
 }
 
 
@@ -305,15 +263,13 @@ void ShaderVariableBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderVariableBase::ShaderVariableBase(void) :
     Inherited(),
-    _sfName                   (),
-    _mfParents                ()
+    _sfName                   ()
 {
 }
 
 ShaderVariableBase::ShaderVariableBase(const ShaderVariableBase &source) :
     Inherited(source),
-    _sfName                   (source._sfName                   ),
-    _mfParents                ()
+    _sfName                   (source._sfName                   )
 {
 }
 
@@ -323,75 +279,6 @@ ShaderVariableBase::ShaderVariableBase(const ShaderVariableBase &source) :
 ShaderVariableBase::~ShaderVariableBase(void)
 {
 }
-/*-------------------------------------------------------------------------*/
-/* Parent linking                                                          */
-
-bool ShaderVariableBase::linkParent(
-    FieldContainer * const pParent,
-    UInt16           const childFieldId,
-    UInt16           const parentFieldId )
-{
-    if(parentFieldId == ParentsFieldId)
-    {
-        FieldContainer * pTypedParent =
-            dynamic_cast< FieldContainer * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            editMField(ParentsFieldMask, _mfParents);
-
-            _mfParents.push_back(pTypedParent, childFieldId);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
-}
-
-bool ShaderVariableBase::unlinkParent(
-    FieldContainer * const pParent,
-    UInt16           const parentFieldId)
-{
-    if(parentFieldId == ParentsFieldId)
-    {
-        FieldContainer * pTypedParent =
-            dynamic_cast< FieldContainer * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            Int32 iParentIdx = _mfParents.findIndex(pTypedParent);
-
-            if(iParentIdx != -1)
-            {
-                editMField(ParentsFieldMask, _mfParents);
-
-                _mfParents.erase(iParentIdx);
-
-                return true;
-            }
-
-            SWARNING << "Child (["          << this
-                     << "] id ["            << this->getId()
-                     << "] type ["          << this->getType().getCName()
-                     << "] parentFieldId [" << parentFieldId
-                     << "]) - Parent (["    << pParent
-                     << "] id ["            << pParent->getId()
-                     << "] type ["          << pParent->getType().getCName()
-                     << "]): link inconsistent!"
-                     << std::endl;
-
-            return false;
-        }
-
-        return false;
-    }
-
-    return Inherited::unlinkParent(pParent, parentFieldId);
-}
-
 
 
 GetFieldHandlePtr ShaderVariableBase::getHandleName            (void) const
@@ -415,20 +302,6 @@ EditFieldHandlePtr ShaderVariableBase::editHandleName           (void)
 
 
     editSField(NameFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ShaderVariableBase::getHandleParents         (void) const
-{
-    MFParentFieldContainerPtr::GetHandlePtr returnValue;
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ShaderVariableBase::editHandleParents        (void)
-{
-    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }

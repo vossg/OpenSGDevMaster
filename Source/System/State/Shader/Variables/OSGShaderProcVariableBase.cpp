@@ -57,6 +57,7 @@
 
 
 
+#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGShaderProcVariableBase.h"
 #include "OSGShaderProcVariable.h"
@@ -83,6 +84,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var UInt32          ShaderProcVariableBase::_sfDependency
     scope
+*/
+
+/*! \var FieldContainer * ShaderProcVariableBase::_mfParents
+    
 */
 
 
@@ -140,6 +145,18 @@ void ShaderProcVariableBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShaderProcVariable::getHandleDependency));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFParentFieldContainerPtr::Description(
+        MFParentFieldContainerPtr::getClassType(),
+        "parents",
+        "",
+        ParentsFieldId, ParentsFieldMask,
+        true,
+        (Field::FStdAccess | Field::FClusterLocal),
+        static_cast     <FieldEditMethodSig>(&ShaderProcVariable::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderProcVariable::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -179,6 +196,17 @@ ShaderProcVariableBase::TypeObject ShaderProcVariableBase::_type(
     "\t >\n"
     "\tscope\n"
     "  </Field>\n"
+    "    <Field\n"
+    "        name=\"parents\"\n"
+    "        type=\"FieldContainer\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"none\"\n"
+    "        category=\"parentpointer\"\n"
+    "        fieldFlags=\"FStdAccess, FClusterLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "<!---        fieldFlags=\"FStdAccess, FClusterLocal\" -->\n"
     "</FieldContainer>\n",
     ""
     );
@@ -220,6 +248,7 @@ const SFUInt32 *ShaderProcVariableBase::getSFDependency(void) const
 
 
 
+
 /*------------------------------ access -----------------------------------*/
 
 SizeT ShaderProcVariableBase::getBinSize(ConstFieldMaskArg whichField)
@@ -229,6 +258,10 @@ SizeT ShaderProcVariableBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (DependencyFieldMask & whichField))
     {
         returnValue += _sfDependency.getBinSize();
+    }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
     }
 
     return returnValue;
@@ -243,6 +276,10 @@ void ShaderProcVariableBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDependency.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
 }
 
 void ShaderProcVariableBase::copyFromBin(BinaryDataHandler &pMem,
@@ -255,6 +292,11 @@ void ShaderProcVariableBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(DependencyFieldMask);
         _sfDependency.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        editMField(ParentsFieldMask, _mfParents);
+        _mfParents.copyFromBin(pMem);
+    }
 }
 
 
@@ -264,13 +306,15 @@ void ShaderProcVariableBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderProcVariableBase::ShaderProcVariableBase(void) :
     Inherited(),
-    _sfDependency             (UInt32(ShaderProcVariable::SHDObject))
+    _sfDependency             (UInt32(ShaderProcVariable::SHDObject)),
+    _mfParents                ()
 {
 }
 
 ShaderProcVariableBase::ShaderProcVariableBase(const ShaderProcVariableBase &source) :
     Inherited(source),
-    _sfDependency             (source._sfDependency             )
+    _sfDependency             (source._sfDependency             ),
+    _mfParents                ()
 {
 }
 
@@ -280,6 +324,75 @@ ShaderProcVariableBase::ShaderProcVariableBase(const ShaderProcVariableBase &sou
 ShaderProcVariableBase::~ShaderProcVariableBase(void)
 {
 }
+/*-------------------------------------------------------------------------*/
+/* Parent linking                                                          */
+
+bool ShaderProcVariableBase::linkParent(
+    FieldContainer * const pParent,
+    UInt16           const childFieldId,
+    UInt16           const parentFieldId )
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            editMField(ParentsFieldMask, _mfParents);
+
+            _mfParents.push_back(pTypedParent, childFieldId);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
+}
+
+bool ShaderProcVariableBase::unlinkParent(
+    FieldContainer * const pParent,
+    UInt16           const parentFieldId)
+{
+    if(parentFieldId == ParentsFieldId)
+    {
+        FieldContainer * pTypedParent =
+            dynamic_cast< FieldContainer * >(pParent);
+
+        if(pTypedParent != NULL)
+        {
+            Int32 iParentIdx = _mfParents.findIndex(pTypedParent);
+
+            if(iParentIdx != -1)
+            {
+                editMField(ParentsFieldMask, _mfParents);
+
+                _mfParents.erase(iParentIdx);
+
+                return true;
+            }
+
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
+
+            return false;
+        }
+
+        return false;
+    }
+
+    return Inherited::unlinkParent(pParent, parentFieldId);
+}
+
 
 
 GetFieldHandlePtr ShaderProcVariableBase::getHandleDependency      (void) const
@@ -303,6 +416,20 @@ EditFieldHandlePtr ShaderProcVariableBase::editHandleDependency     (void)
 
 
     editSField(DependencyFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderProcVariableBase::getHandleParents         (void) const
+{
+    MFParentFieldContainerPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProcVariableBase::editHandleParents        (void)
+{
+    EditFieldHandlePtr returnValue;
 
     return returnValue;
 }
