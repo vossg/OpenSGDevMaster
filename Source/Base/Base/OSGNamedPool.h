@@ -195,7 +195,9 @@ BitVector NamedPool<BitVector>::getInvalidValue(void)
 template <> inline
 void NamedPool<BitVector>::dumpValue(const BitVector &val)
 {
+#if !defined(__GCCXML__)
     fprintf(stderr, "0x%016" PRIx64 , val);
+#endif
 }
 
 OSG_END_NAMESPACE
