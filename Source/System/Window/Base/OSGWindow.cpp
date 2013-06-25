@@ -336,7 +336,10 @@ void OSG::Window::onCreate(const Window *source)
 
     staticRelease();
 
-    _pContextThread = WindowDrawThread::get(NULL, false);
+    char buffer[50];
+    sprintf(buffer, "Window(%d)::_pContextThread", _windowId);
+
+    _pContextThread = WindowDrawThread::get(buffer, false);
 }
 
 void OSG::Window::onCreateAspect(const Window *createAspect, 
