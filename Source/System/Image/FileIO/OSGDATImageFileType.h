@@ -85,11 +85,12 @@ class OSG_IMGFILEIO_DLLMAPPING DATImageFileType : public ImageFileType
 
     virtual UInt64 restoreData(      Image            *pImage, 
                                const UChar8           *buffer,
-                                     Int32             memSize = -1);
+                                     Int32             memSize = -1) const;
 
     virtual UInt64 storeData  (const Image            *pImage, 
                                      UChar8           *buffer,
-                                     Int32             memSize = -1);
+                                     Int32             memSize = -1) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

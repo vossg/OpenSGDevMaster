@@ -558,7 +558,7 @@ bool DATImageFileType::write(const Image *image,
 
 UInt64 DATImageFileType::restoreData(      Image  *image,
                                      const UChar8 *buffer,
-                                           Int32   OSG_CHECK_ARG(memSize))
+                                           Int32   OSG_CHECK_ARG(memSize)) const
 {
     image->setData(buffer);
 
@@ -572,7 +572,7 @@ UInt64 DATImageFileType::restoreData(      Image  *image,
 
 UInt64 DATImageFileType::storeData(const Image  *image,
                                          UChar8 *buffer,
-                                         Int32   OSG_CHECK_ARG(memSize))
+                                         Int32   OSG_CHECK_ARG(memSize)) const
 {
           UInt32  dataSize = image->getSize();
     const UChar8 *src      = image->getData();

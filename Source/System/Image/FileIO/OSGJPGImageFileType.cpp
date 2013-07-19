@@ -636,7 +636,7 @@ bool JPGImageFileType::validateHeader(const Char8 *fileName,
 
 UInt64 JPGImageFileType::restoreData(      Image  *OSG_JPG_ARG(pImage ), 
                                      const UChar8 *OSG_JPG_ARG(buffer ),
-                                           Int32   OSG_JPG_ARG(memSize))
+                                           Int32   OSG_JPG_ARG(memSize)) const
 {
 #ifdef OSG_WITH_JPG
     UInt64 retCode = 0;
@@ -733,7 +733,7 @@ Returns the amount of data read.
 */
 UInt64 JPGImageFileType::storeData(const Image  *OSG_JPG_ARG(pImage ), 
                                          UChar8 *OSG_JPG_ARG(buffer ),
-                                         Int32   OSG_JPG_ARG(memSize))
+                                         Int32   OSG_JPG_ARG(memSize)) const
 {
 #ifdef OSG_WITH_JPG
     if((pImage->getBpp  () != 1 && pImage->getBpp() != 3) ||

@@ -243,7 +243,7 @@ bool HDRImageFileType::write(const Image        *image,
 
 UInt64 HDRImageFileType::restoreData(      Image  *image, 
                                      const UChar8 *buffer,
-                                           Int32         )
+                                           Int32         ) const
 {
     image->setData(buffer);
 
@@ -258,7 +258,7 @@ UInt64 HDRImageFileType::restoreData(      Image  *image,
 
 UInt64 HDRImageFileType::storeData(const Image  *image, 
                                          UChar8 *buffer,
-                                         Int32   OSG_CHECK_ARG(memSize))
+                                         Int32   OSG_CHECK_ARG(memSize)) const
 {
     UInt32 dataSize = image->getSize();
 

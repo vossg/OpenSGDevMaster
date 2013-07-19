@@ -622,7 +622,7 @@ static void user_read_data(png_structp png_ptr,
 /* */
 UInt64 PNGImageFileType::restoreData(      Image  *OSG_PNG_ARG  (pImage ),
                                      const UChar8 *OSG_PNG_ARG  (buffer ),
-                                           Int32   OSG_CHECK_ARG(memSize))
+                                           Int32   OSG_CHECK_ARG(memSize)) const
 {
 #ifdef OSG_WITH_PNG
 
@@ -794,7 +794,7 @@ static void user_flush_data(png_structp OSG_CHECK_ARG(png_ptr))
 
 UInt64 PNGImageFileType::storeData(const Image  *OSG_PNG_ARG  (pImage  ), 
                                          UChar8 *OSG_PNG_ARG  (buffer ),
-                                         Int32   OSG_CHECK_ARG(memSize))
+                                         Int32   OSG_CHECK_ARG(memSize)) const
 {
 #ifdef OSG_WITH_PNG
 
@@ -969,6 +969,11 @@ UInt64 PNGImageFileType::storeData(const Image  *OSG_PNG_ARG  (pImage  ),
     return 0;
 #endif
 }
+
+const PNGImageFileType &PNGImageFileType::the(void) 
+{
+    return _the; 
+};
 
 //-------------------------------------------------------------------------
 /*! Constructor used for the singleton object

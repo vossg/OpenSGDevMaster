@@ -164,7 +164,7 @@ Returns the amount of data read.
 */
 UInt64 MTDImageFileType::restoreData(      Image  *pImage, 
                                      const UChar8 *buffer,
-                                           Int32         )
+                                           Int32         ) const
 {
     pImage->setData(buffer);
 
@@ -178,7 +178,7 @@ UInt64 MTDImageFileType::restoreData(      Image  *pImage,
 
 UInt64 MTDImageFileType::storeData(const Image  *pImage, 
                                          UChar8 *buffer,
-                                         Int32         )
+                                         Int32         ) const
 {
     unsigned dataSize = pImage->getSize();
     const UChar8 *src = pImage->getData();

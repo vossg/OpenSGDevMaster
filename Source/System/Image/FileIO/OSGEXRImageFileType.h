@@ -106,11 +106,11 @@ class OSG_IMGFILEIO_DLLMAPPING EXRImageFileType : public ImageFileType
 
     virtual UInt64 restoreData(      Image  *image, 
                                const UChar8 *buffer,
-                                     Int32   memSize = -1);
+                                     Int32   memSize = -1) const;
 
     virtual UInt64 storeData  (const Image  *image, 
                                      UChar8 *buffer,
-                                     Int32   memSize = -1);
+                                     Int32   memSize = -1) const;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     File I/O                                 */

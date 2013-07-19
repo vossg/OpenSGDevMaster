@@ -405,6 +405,7 @@ Action::ResultE PostShaderStage::renderEnter(Action *action)
                 
                 if(pTarget != NULL)
                 {
+#if 0
                     pPart->calcViewportDimension(pArea->getLeft  (),
                                                  pArea->getBottom(),
                                                  pArea->getRight (),
@@ -412,6 +413,16 @@ Action::ResultE PostShaderStage::renderEnter(Action *action)
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());
+#endif
+
+                    pPart->calcViewportDimension(0.f,
+                                                 0.f,
+                                                 1.f,
+                                                 1.f,
+                                                 
+                                                 pTarget->getWidth    (),
+                                                 pTarget->getHeight   ());
+
                 }
                 else
                 {

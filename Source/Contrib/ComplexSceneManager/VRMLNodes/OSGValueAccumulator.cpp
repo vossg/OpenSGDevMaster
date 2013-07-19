@@ -36,29 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGValueEmitter.h"
+#include "OSGValueAccumulator.h"
 
 OSG_BEGIN_NAMESPACE
 
-#define OSGSVALUEEMITTER_IMPL(DESC)                                     \
+#define OSGSVALUEACCUMULATOR_IMPL(DESC)                                 \
                                                                         \
 template<>                                                              \
-void SValueEmitter<DESC>::classDescInserter(TypeObject &oType)          \
+void SValueAccumulator<DESC>::classDescInserter(TypeObject &oType)      \
 {                                                                       \
     FieldDescriptionBase *pDesc = NULL;                                 \
                                                                         \
-                                                                        \
-    pDesc = new SFOSGAny::Description(                                  \
-        SFOSGAny::getClassType(),                                       \
-        "trigger",                                                      \
-        "",                                                             \
-        TriggerFieldId, TriggerFieldMask,                               \
-        true,                                                           \
-        (Field::FThreadLocal),                                          \
-        static_cast<FieldEditMethodSig>(&Self::editHandleTrigger),      \
-        static_cast<FieldGetMethodSig >(&Self::getHandleTrigger));      \
-                                                                        \
-    oType.addInitialDesc(pDesc);                                        \
                                                                         \
     pDesc = new SFValueType::Description(                               \
         SFValueType::getClassType(),                                    \
@@ -72,25 +60,24 @@ void SValueEmitter<DESC>::classDescInserter(TypeObject &oType)          \
                                                                         \
     oType.addInitialDesc(pDesc);                                        \
                                                                         \
-    pDesc = new SFBool::Description(                                    \
-        SFBool::getClassType(),                                         \
-        "ignoreNextChange",                                             \
+    pDesc = new SFValueType::Description(                               \
+        SFValueType::getClassType(),                                    \
+        "rhs",                                                          \
         "",                                                             \
-        IgnoreNextChangeFieldId, IgnoreNextChangeFieldMask,             \
+        RhsFieldId, RhsFieldMask,                                       \
         true,                                                           \
         (Field::FThreadLocal),                                          \
-        static_cast<FieldEditMethodSig>(                                \
-            &Self::editHandleIgnoreNextChange),                         \
-        static_cast<FieldGetMethodSig >(                                \
-            &Self::getHandleIgnoreNextChange));                         \
+        static_cast<FieldEditMethodSig>(&Self::editHandleRhs),          \
+        static_cast<FieldGetMethodSig >(&Self::getHandleRhs));          \
                                                                         \
     oType.addInitialDesc(pDesc);                                        \
+                                                                        \
 }                                                                       \
                                                                         \
                                                                         \
 template<>                                                              \
-SValueEmitter<DESC>::TypeObject                                         \
-    SValueEmitter<DESC>::_type(                                         \
+SValueAccumulator<DESC>::TypeObject                                     \
+    SValueAccumulator<DESC>::_type(                                     \
         Self::getClassname(),                                           \
         Inherited::getClassname(),                                      \
         "NULL",                                                         \
@@ -101,51 +88,47 @@ SValueEmitter<DESC>::TypeObject                                         \
         reinterpret_cast<InitalInsertDescFunc>(                         \
             &Self::classDescInserter),                                  \
         false,                                                          \
-        (Self::TriggerFieldMask         |                               \
-         Self::ValueFieldMask           |                               \
-         Self::IgnoreNextChangeFieldMask),                              \
+        (Self::ValueFieldMask         |                                 \
+         Self::RhsFieldMask           ),                                \
         "",                                                             \
         ""                                                              \
                             );                                          \
                                                                         \
                                                                         \
 template<>                                                              \
-FieldContainerType &SValueEmitter<DESC>::getClassType(void)             \
+FieldContainerType &SValueAccumulator<DESC>::getClassType(void)         \
 {                                                                       \
     return _type;                                                       \
 }                                                                       \
                                                                         \
 template<>                                                              \
-UInt32 SValueEmitter<DESC>::getClassTypeId(void)                        \
+UInt32 SValueAccumulator<DESC>::getClassTypeId(void)                    \
 {                                                                       \
     return _type.getId();                                               \
 }                                                                       \
                                                                         \
 template<>                                                              \
-UInt16 SValueEmitter<DESC>::getClassGroupId(void)                       \
+UInt16 SValueAccumulator<DESC>::getClassGroupId(void)                   \
 {                                                                       \
     return _type.getGroupId();                                          \
 }                                                                       \
                                                                         \
 template<>                                                              \
-FieldContainerType &SValueEmitter<DESC>::getType(void)                  \
+FieldContainerType &SValueAccumulator<DESC>::getType(void)              \
 {                                                                       \
     return _type;                                                       \
 }                                                                       \
                                                                         \
                                                                         \
 template<>                                                              \
-const FieldContainerType &SValueEmitter<DESC>::getType(void) const      \
+const FieldContainerType &SValueAccumulator<DESC>::getType(void) const  \
 {                                                                       \
     return _type;                                                       \
 }
 
-OSGSVALUEEMITTER_IMPL(BoolEmitterDesc  )
-OSGSVALUEEMITTER_IMPL(Int32EmitterDesc )
-OSGSVALUEEMITTER_IMPL(UInt32EmitterDesc)
-OSGSVALUEEMITTER_IMPL(Real32EmitterDesc)
-OSGSVALUEEMITTER_IMPL(Vec2fEmitterDesc )
-OSGSVALUEEMITTER_IMPL(StringEmitterDesc)
-OSGSVALUEEMITTER_IMPL(MatrixEmitterDesc)
+//OSGSVALUEEMITTER_IMPL(Int32EmitterDesc )
+OSGSVALUEACCUMULATOR_IMPL(Real32AccumulatorDesc)
+OSGSVALUEACCUMULATOR_IMPL(Vec2fAccumulatorDesc)
+OSGSVALUEACCUMULATOR_IMPL(MatrixAccumulatorDesc)
 
 OSG_END_NAMESPACE

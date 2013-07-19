@@ -191,7 +191,7 @@ bool CHDRImageFileType::write(const Image        *image,
 
 UInt64 CHDRImageFileType::restoreData(      Image  *image, 
                                       const UChar8 *buffer,
-                                            Int32         )
+                                            Int32         ) const
 {
     image->setData(buffer);
 
@@ -206,7 +206,7 @@ UInt64 CHDRImageFileType::restoreData(      Image  *image,
 
 UInt64 CHDRImageFileType::storeData(const Image  *image, 
                                           UChar8 *buffer,
-                                          Int32   OSG_CHECK_ARG(memSize))
+                                          Int32   OSG_CHECK_ARG(memSize)) const
 {
     UInt32 dataSize = image->getSize();
 

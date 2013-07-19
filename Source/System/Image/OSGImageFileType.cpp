@@ -462,7 +462,7 @@ ImageFileType::~ImageFileType(void)
 
 UInt64 ImageFileType::restoreData(      Image  * , 
                                   const UChar8 *OSG_CHECK_ARG(buffer ),
-                                        Int32   OSG_CHECK_ARG(memSize))
+                                        Int32   OSG_CHECK_ARG(memSize)) const
 {
     FWARNING(("ImageXFileType::restoreData() not impl. for mimeType %s\n",
               getMimeType()));
@@ -477,7 +477,7 @@ UInt64 ImageFileType::restoreData(      Image  * ,
 
 UInt64 ImageFileType::storeData(Image  const * , 
                                 UChar8       *OSG_CHECK_ARG(buffer ),
-                                Int32         OSG_CHECK_ARG(memSize))
+                                Int32         OSG_CHECK_ARG(memSize)) const
 {
     FWARNING(("ImageXFileType::storeData() not impl. for mimeType %s\n",
               getMimeType()));

@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGVALUEEMITTER_H_
-#define _OSGVALUEEMITTER_H_
+#ifndef _OSGVALUEACCUMULATOR_H_
+#define _OSGVALUEACCUMULATOR_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -58,13 +58,13 @@ OSG_BEGIN_NAMESPACE
 //! \brief Real32Counter Base Class.
 
 template<class Desc>
-class SValueEmitter : public NodeCore
+class SValueAccumulator : public NodeCore
 {
   public:
 
-    typedef NodeCore      Inherited;
-    typedef NodeCore      ParentContainer;
-    typedef SValueEmitter Self;
+    typedef NodeCore          Inherited;
+    typedef NodeCore          ParentContainer;
+    typedef SValueAccumulator Self;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -77,20 +77,16 @@ class SValueEmitter : public NodeCore
 
     enum
     {
-        TriggerFieldId          = Inherited::NextFieldId,
-        ValueFieldId            = TriggerFieldId + 1,
-        IgnoreNextChangeFieldId = ValueFieldId + 1,
-        NextFieldId             = IgnoreNextChangeFieldId + 1
+        ValueFieldId        = Inherited::NextFieldId,
+        RhsFieldId          = ValueFieldId + 1,
+        NextFieldId         = RhsFieldId + 1
     };
-
-    static const OSG::BitVector TriggerFieldMask =
-        (TypeTraits<BitVector>::One << TriggerFieldId);
 
     static const OSG::BitVector ValueFieldMask =
         (TypeTraits<BitVector>::One << ValueFieldId);
 
-    static const OSG::BitVector IgnoreNextChangeFieldMask =
-        (TypeTraits<BitVector>::One << IgnoreNextChangeFieldId);
+    static const OSG::BitVector RhsFieldMask =
+        (TypeTraits<BitVector>::One << RhsFieldId);
 
     typedef typename Desc::SFValueType       SFValueType;
     typedef typename SFValueType::StoredType ValueType;
@@ -120,14 +116,17 @@ class SValueEmitter : public NodeCore
     /*! \{                                                                 */
 
 
-          SFValueType *editSFValue           (void);
-    const SFValueType *getSFValue            (void) const;
+          SFValueType *editSFValue         (void);
+    const SFValueType *getSFValue          (void) const;
 
-          ValueType   &editValue             (void);
-          ValueType    getValue              (void) const;
+          ValueType   &editValue           (void);
+          ValueType    getValue            (void) const;
 
-          SFBool      *editSFIgnoreNextChange(void);
-    const SFBool      *getSFIgnoreNextChange (void) const;
+          SFValueType *editSFRhs           (void);
+    const SFValueType *getSFRhs            (void) const;
+
+          ValueType   &editRhs             (void);
+          ValueType    getRhs              (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -135,6 +134,7 @@ class SValueEmitter : public NodeCore
     /*! \{                                                                 */
 
     void setValue(const ValueType value);
+    void setRhs  (const ValueType value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -194,24 +194,23 @@ class SValueEmitter : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFOSGAny    _sfTrigger;
     SFValueType _sfValue;
-    SFBool      _sfIgnoreNextChange;
+    SFValueType _sfRhs;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SValueEmitter(void);
-    SValueEmitter(const SValueEmitter &source);
+    SValueAccumulator(void);
+    SValueAccumulator(const SValueAccumulator &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SValueEmitter(void);
+    virtual ~SValueAccumulator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,14 +222,12 @@ class SValueEmitter : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTrigger          (void) const;
-    EditFieldHandlePtr editHandleTrigger         (void);
+    GetFieldHandlePtr  getHandleValue          (void) const;
+    EditFieldHandlePtr editHandleValue         (void);
 
-    GetFieldHandlePtr  getHandleValue            (void) const;
-    EditFieldHandlePtr editHandleValue           (void);
+    GetFieldHandlePtr  getHandleRhs            (void) const;
+    EditFieldHandlePtr editHandleRhs           (void);
 
-    GetFieldHandlePtr  getHandleIgnoreNextChange (void) const;
-    EditFieldHandlePtr editHandleIgnoreNextChange(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -294,24 +291,10 @@ class SValueEmitter : public NodeCore
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SValueEmitter &source);
+    void operator =(const SValueAccumulator &source);
 };
 
-struct BoolEmitterDesc
-{
-    typedef SFBool SFValueType;
-
-    static const Char8 *getClassname(void)
-    {
-        return "BoolEmitter";
-    }
-
-    static bool getDefault(void)
-    {
-        return true;
-    }
-};
-
+#if 0
 struct Int32EmitterDesc
 {
     typedef SFInt32 SFValueType;
@@ -326,74 +309,63 @@ struct Int32EmitterDesc
         return 0;
     }
 };
+#endif
 
-struct UInt32EmitterDesc
-{
-    typedef SFUInt32 SFValueType;
-
-    static const Char8 *getClassname(void)
-    {
-        return "UInt32Emitter";
-    }
-
-    static UInt32 getDefault(void)
-    {
-        return 0;
-    }
-};
-
-struct Real32EmitterDesc
+struct Real32AccumulatorDesc
 {
     typedef SFReal32 SFValueType;
 
     static const Char8 *getClassname(void)
     {
-        return "Real32Emitter";
+        return "Real32Accumulator";
     }
 
     static Real32 getDefault(void)
     {
         return 0.f;
     }
+
+    static void accumulate(      Real32 &result,
+                           const Real32  rhs   )
+    {
+        result += rhs;
+    }
 };
 
-struct Vec2fEmitterDesc
+struct Vec2fAccumulatorDesc
 {
     typedef SFVec2f SFValueType;
 
     static const Char8 *getClassname(void)
     {
-        return "Vec2fEmitter";
+        return "Vec2fAccumulator";
     }
 
     static Vec2f getDefault(void)
     {
-        return 0.f;
+        return Vec2f(0.f, 0.f);
+    }
+
+    static void accumulate(      Vec2f &result,
+                           const Vec2f  rhs   )
+    {
+        result += rhs;
+
+        fprintf(stderr, "step : %f %f, res : %f %f\n",
+                rhs[0],
+                rhs[1],
+                result[0],
+                result[1]);
     }
 };
 
-struct StringEmitterDesc
-{
-    typedef SFString SFValueType;
-
-    static const Char8 *getClassname(void)
-    {
-        return "StringEmitter";
-    }
-
-    static std::string getDefault(void)
-    {
-        return std::string();
-    }
-};
-
-struct MatrixEmitterDesc
+struct MatrixAccumulatorDesc
 {
     typedef SFMatrix SFValueType;
 
     static const Char8 *getClassname(void)
     {
-        return "MatrixEmitter";
+        return "MatrixAccumulator";
     }
 
     static Matrix getDefault(void)
@@ -404,18 +376,21 @@ struct MatrixEmitterDesc
 
         return m;
     }
+
+    static void accumulate(      Matrix &result,
+                           const Matrix &rhs   )
+    {
+        result.add(rhs);
+    }
 };
 
-typedef SValueEmitter<BoolEmitterDesc  > BoolEmitter;
-typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
-typedef SValueEmitter<UInt32EmitterDesc> UInt32Emitter;
-typedef SValueEmitter<Real32EmitterDesc> Real32Emitter;
-typedef SValueEmitter<Vec2fEmitterDesc > Vec2fEmitter;
-typedef SValueEmitter<StringEmitterDesc> StringEmitter;
-typedef SValueEmitter<MatrixEmitterDesc> MatrixEmitter;
+//typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
+typedef SValueAccumulator<Real32AccumulatorDesc> Real32Accumulator;
+typedef SValueAccumulator<Vec2fAccumulatorDesc > Vec2fAccumulator;
+typedef SValueAccumulator<MatrixAccumulatorDesc> MatrixAccumulator;
 
 OSG_END_NAMESPACE
 
-#include "OSGValueEmitter.inl"
+#include "OSGValueAccumulator.inl"
 
-#endif /* _OSGVALUEEMITTER_H_ */
+#endif /* _OSGVALUEACCUMULATOR_H_ */

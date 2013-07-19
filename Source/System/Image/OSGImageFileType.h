@@ -322,11 +322,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
 
     virtual UInt64 restoreData(      Image            *pImage, 
                                const UChar8           *buffer,
-                                     Int32             memSize = -1);
+                                     Int32             memSize = -1) const;
 
     virtual UInt64 storeData  (      Image const      *pImage, 
                                      UChar8           *buffer,
-                                     Int32             memSize = -1);
+                                     Int32             memSize = -1) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

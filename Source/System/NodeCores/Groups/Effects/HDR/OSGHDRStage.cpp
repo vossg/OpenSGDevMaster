@@ -175,6 +175,7 @@ Action::ResultE HDRStage::renderEnter(Action *action)
                 
                 if(pTarget != NULL)
                 {
+#if 0
                     pPart->calcViewportDimension(pArea->getLeft  (),
                                                  pArea->getBottom(),
                                                  pArea->getRight (),
@@ -182,6 +183,15 @@ Action::ResultE HDRStage::renderEnter(Action *action)
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());
+#endif
+                    pPart->calcViewportDimension(0.f,
+                                                 0.f,
+                                                 1.f,
+                                                 1.f,
+                                                 
+                                                 pTarget->getWidth    (),
+                                                 pTarget->getHeight   ());
+
                 }
                 else
                 {
@@ -193,7 +203,7 @@ Action::ResultE HDRStage::renderEnter(Action *action)
                                                  a->getWindow()->getWidth (),
                                                  a->getWindow()->getHeight());
                 }
-                
+
                 if(pCam != NULL)
                 {
                     Matrix m, t;
@@ -243,7 +253,7 @@ Action::ResultE HDRStage::renderEnter(Action *action)
             std::string szMessage("HDR: PostProcessPartition\n");
             pPart->setDebugString(szMessage          );
 #endif
-           
+
             Matrix m, t;
                 
             m.setIdentity();
