@@ -81,6 +81,83 @@ OSG_USING_NAMESPACE
    </pre>
  */
 
+std::vector<InitFuncF> *ClusterServer::osgInitFunctions = NULL;
+std::vector<ExitFuncF> *ClusterServer::osgExitFunctions = NULL;
+
+void ClusterServer::addInitFunction(InitFuncF initFunc)
+{
+    if(osgInitFunctions == NULL)
+    {
+        osgInitFunctions = new std::vector<InitFuncF>(0);
+    }
+
+    osgInitFunctions->push_back(initFunc);
+}
+
+void ClusterServer::addExitFunction(ExitFuncF exitFunc)
+{
+    if(osgExitFunctions == NULL)
+    {
+        osgExitFunctions = new std::vector<ExitFuncF>(0);
+    }
+
+    osgExitFunctions->push_back(exitFunc);
+}
+
+bool ClusterServer::init(Int32, 
+                         Char8 **)
+{
+    bool returnValue = true;
+
+    if(GlobalSystemState != Running)
+    {
+        FFATAL(("ClusterServer::init: System not initialized; calls is "
+                "NOT allowed.\n"));
+                
+        returnValue = false;
+    }
+
+    if(osgInitFunctions != NULL)
+    {
+        for(UInt32 i = 0; i < osgInitFunctions->size(); i++)
+        {
+            returnValue &= (*osgInitFunctions)[i]();
+
+            if(returnValue == false)
+                break;
+        }
+
+        osgInitFunctions->clear();
+    }
+
+    return returnValue;
+}
+
+bool ClusterServer::exit(void)
+{
+    bool returnValue = true;
+
+    if(GlobalSystemState != Running)
+    {
+         return true;
+    }
+
+    if(osgExitFunctions != NULL)
+    {
+        for(PtrDiffT i = osgExitFunctions->size() - 1; i >= 0; i--)
+        {
+            returnValue &= (*osgExitFunctions)[i]();
+
+            if(returnValue == false)
+                break;
+        }
+    }
+
+    delete osgExitFunctions;
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 

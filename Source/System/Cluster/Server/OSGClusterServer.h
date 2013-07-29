@@ -119,9 +119,23 @@ class OSG_CLUSTER_DLLMAPPING ClusterServer
     void setInterface(const std::string &interf);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name               cluster server app init                        */
+    /*! \{                                                                 */
+
+    static void addInitFunction      (InitFuncF initFunc);
+    static void addExitFunction      (ExitFuncF exitFunc);
+    static bool init                 (Int32    argc, 
+                                      Char8  **argv     );
+    static bool exit                 (void              );
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    static std::vector<InitFuncF> *osgInitFunctions;
+    static std::vector<ExitFuncF> *osgExitFunctions;
 
     /*---------------------------------------------------------------------*/
     /*! \name            ClusterWindow changed function                    */

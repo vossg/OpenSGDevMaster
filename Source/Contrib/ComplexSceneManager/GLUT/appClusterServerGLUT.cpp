@@ -7,6 +7,7 @@
 #include "OSGRenderAction.h"
 #include "OSGSceneFileHandler.h"
 #include "OSGViewport.h"
+#include "OSGFrameHandler.h"
 
 int                 winid;
 OSG::ClusterServer      *server;
@@ -44,6 +45,7 @@ void display()
         return;
     try
     {                                                       
+        OSG::FrameHandler::the()->frame();
         OSG::commitChanges();
         server->render(ract);
         // clear changelist from prototypes
@@ -199,8 +201,11 @@ int main(int argc,char **argv)
 
     try
     {
-        OSG::osgInit(argc, argv);
+        OSG::osgInit            (argc, argv);
+        OSG::ClusterServer::init(argc, argv);
+
         glutInit(&argc, argv);
+
         if(doStereo)
             glutInitDisplayMode( GLUT_STEREO | 
                                  GLUT_RGB | 

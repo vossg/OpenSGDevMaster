@@ -25,6 +25,7 @@
 // Render action definition. 
 #include "OSGRenderAction.h"
 #include "OSGGeoFunctions.h"
+#include "OSGFrameHandler.h"
 
 // local glut window
 OSG::XWindowRefPtr       window      = NULL;
@@ -217,7 +218,8 @@ int main(int argc,char **argv)
     try
     {
         // init OpenSG
-        OSG::osgInit(argc, argv);
+        OSG::osgInit            (argc, argv);
+        OSG::ClusterServer::init(argc, argv);
 
         OSG::setVBOUsageOnPropertyProtos(true);
 
@@ -466,6 +468,8 @@ void display(void)
 
             ract->setFrustumCulling(false);
         }
+
+        OSG::FrameHandler::the()->frame();
 
         // receive scenegraph and do rendering
         server->render(ract);
