@@ -521,9 +521,43 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     SET(_OSG_ADD_SRC_LOOKUP)
     SET(_OSG_ADD_HDR_LOOKUP)
     SET(_OSG_ADD_INL_LOOKUP)
+    SET(_OSG_ADD_INS_LOOKUP)
+    SET(_OSG_ADD_LL_LOOKUP)
+    SET(_OSG_ADD_YY_LOOKUP)
+    SET(_OSG_ADD_QTH_LOOKUP)
 
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
         SET(_OSG_CURR_DIRNAME "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.cpp")
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.mm")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.h")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.inl")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INS_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.ins")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_LL_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.ll")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_YY_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.yy")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_QTH_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*_qt.h")
+        ENDFOREACH()
+
 
         FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
           LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
@@ -537,18 +571,23 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
           LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
         ENDFOREACH()
 
-        FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
-                                     "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
-                                      ${_OSG_ADD_SRC_LOOKUP}                )
-        FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h"
-                                      ${_OSG_ADD_HDR_LOOKUP}               )
-        FILE(GLOB LOCAL_INL          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
-                                      ${_OSG_ADD_INL_LOOKUP}                 )
-        FILE(GLOB LOCAL_INS          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
+        FILE(GLOB LOCAL_SRC          #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
+                                     #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
+                                      ${_OSG_ADD_SRC_LOOKUP}                  )
+        FILE(GLOB LOCAL_HDR          #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h"
+                                      ${_OSG_ADD_HDR_LOOKUP}                  )
+        FILE(GLOB LOCAL_INL          #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
+                                      ${_OSG_ADD_INL_LOOKUP}                  )
+        FILE(GLOB LOCAL_INS          #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ins"
+                                      ${_OSG_ADD_INS_LOOKUP}                  )
+        FILE(GLOB LOCAL_LL           #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ll"
+                                      ${_OSG_ADD_LL_LOOKUP}                   )
+        FILE(GLOB LOCAL_YY           #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.yy"
+                                      ${_OSG_ADD_YY_LOOKUP}                   )
+        FILE(GLOB LOCAL_MOC          #"${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h"
+                                      ${_OSG_ADD_QTH_LOOKUP}                  )
+
         FILE(GLOB LOCAL_FCD          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
-        FILE(GLOB LOCAL_LL           "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
-        FILE(GLOB LOCAL_YY           "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.yy")
-        FILE(GLOB LOCAL_MOC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
@@ -556,6 +595,36 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB BASE_MM            "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSEIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
         SET(_OSG_CURR_DIRNAME "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}")
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.cpp"
+                                          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.mm")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.h")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.inl")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INS_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.ins")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_LL_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.ll")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_YY_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*.yy")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_QTH_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PREFIX}*_qt.h")
+        ENDFOREACH()
+
 
         FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
           LIST(APPEND _OSG_ADD_SRC_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
@@ -569,18 +638,23 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
           LIST(APPEND _OSG_ADD_INL_LOOKUP "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/${_OSG_FILE_PATTERN}")
         ENDFOREACH()
 
-        FILE(GLOB LOCAL_SRC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
-                                     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
-                                      ${_OSG_ADD_SRC_LOOKUP}                        )
-        FILE(GLOB LOCAL_HDR          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h"
-                                     ${_OSG_ADD_HDR_LOOKUP}                        )
-        FILE(GLOB LOCAL_INL          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
-                                     ${_OSG_ADD_INL_LOOKUP}                          )
-        FILE(GLOB LOCAL_INS          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
+        FILE(GLOB LOCAL_SRC          #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
+                                     #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.mm"
+                                      ${_OSG_ADD_SRC_LOOKUP}                          )
+        FILE(GLOB LOCAL_HDR          #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.h"
+                                     ${_OSG_ADD_HDR_LOOKUP}                           )
+        FILE(GLOB LOCAL_INL          #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.inl"
+                                     ${_OSG_ADD_INL_LOOKUP}                           )
+        FILE(GLOB LOCAL_INS          #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ins"
+                                      ${_OSG_ADD_INS_LOOKUP}                          )
+        FILE(GLOB LOCAL_LL           #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ll"
+                                      ${_OSG_ADD_LL_LOOKUP}                           )
+        FILE(GLOB LOCAL_YY           #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.yy"
+                                      ${_OSG_ADD_YY_LOOKUP}                           )
+        FILE(GLOB LOCAL_MOC          #"${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h"
+                                      ${_OSG_ADD_QTH_LOOKUP}                          )
+
         FILE(GLOB LOCAL_FCD          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
-        FILE(GLOB LOCAL_LL           "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
-        FILE(GLOB LOCAL_YY           "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*.yy")
-        FILE(GLOB LOCAL_MOC          "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/test*.mm")
@@ -588,6 +662,36 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB BASE_MM            "${CMAKE_CURRENT_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSE()
         SET(_OSG_CURR_DIRNAME "${DIRNAME}")
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_SRC_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.cpp"
+                                          "${DIRNAME}/${_OSG_FILE_PREFIX}*.mm")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_HDR_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.h")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INL_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.inl")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_INS_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.ins")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_LL_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.ll")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_YY_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*.yy")
+        ENDFOREACH()
+
+        FOREACH(_OSG_FILE_PREFIX ${OSGPREFIX})
+          LIST(APPEND _OSG_ADD_QTH_LOOKUP "${DIRNAME}/${_OSG_FILE_PREFIX}*_qt.h")
+        ENDFOREACH()
+
 
         FOREACH(_OSG_FILE_PATTERN ${${PROJECT_NAME}_SRC_PATTERNS})
           LIST(APPEND _OSG_ADD_SRC_LOOKUP "${DIRNAME}/${_OSG_FILE_PATTERN}")
@@ -602,18 +706,23 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         ENDFOREACH()
 
         # Guess it's an absolute dir we got as the rel one is not there
-        FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" 
-                                     "${DIRNAME}/OSG*.mm"
+        FILE(GLOB LOCAL_SRC          #"${DIRNAME}/OSG*.cpp" 
+                                     #"${DIRNAME}/OSG*.mm"
                                       ${_OSG_ADD_SRC_LOOKUP})
-        FILE(GLOB LOCAL_HDR          "${DIRNAME}/OSG*.h"
+        FILE(GLOB LOCAL_HDR          #"${DIRNAME}/OSG*.h"
                                       ${_OSG_ADD_HDR_LOOKUP})
-        FILE(GLOB LOCAL_INL          "${DIRNAME}/OSG*.inl"
+        FILE(GLOB LOCAL_INL          #"${DIRNAME}/OSG*.inl"
                                       ${_OSG_ADD_INL_LOOKUP})
-        FILE(GLOB LOCAL_INS          "${DIRNAME}/OSG*.ins")
+        FILE(GLOB LOCAL_INS          #"${DIRNAME}/OSG*.ins"
+                                      ${_OSG_ADD_INS_LOOKUP})
+        FILE(GLOB LOCAL_LL           #"${DIRNAME}/OSG*.ll"
+                                      ${_OSG_ADD_LL_LOOKUP} )
+        FILE(GLOB LOCAL_YY           #"${DIRNAME}/OSG*.yy"
+                                      ${_OSG_ADD_YY_LOOKUP} )
+        FILE(GLOB LOCAL_MOC          #"${DIRNAME}/OSG*_qt.h"
+                                      ${_OSG_ADD_QTH_LOOKUP})
+
         FILE(GLOB LOCAL_FCD          "${DIRNAME}/OSG*.fcd")
-        FILE(GLOB LOCAL_LL           "${DIRNAME}/OSG*.ll")
-        FILE(GLOB LOCAL_YY           "${DIRNAME}/OSG*.yy")
-        FILE(GLOB LOCAL_MOC          "${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${DIRNAME}/test*.cpp"
                                      "${DIRNAME}/test*.mm")
