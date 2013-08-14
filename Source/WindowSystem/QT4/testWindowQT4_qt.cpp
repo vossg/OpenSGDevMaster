@@ -10,7 +10,12 @@
 
 #include <OSGGL.h>
 
+#ifdef OSG_WITH_QT5
+#include <QtWidgets/QApplication>
+#else
 #include <QtGui/qapplication.h>
+#endif
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QKeyEvent>
 #include <QtOpenGL/QGLContext>

@@ -15,7 +15,12 @@
 
 #include <math.h>
 
+#ifdef OSG_WITH_QT5
+#include <QtWidgets/QApplication>
+#else
 #include <QtGui/qapplication.h>
+#endif
+
 #include <QtOpenGL/QGLWidget>
 #include <QtGui/QMouseEvent>
 
