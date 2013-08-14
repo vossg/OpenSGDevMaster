@@ -13,6 +13,18 @@ OSG_BEGIN_NAMESPACE
  * More info on the following parameters can be found in the zlib documentation.
  */
 
+#ifdef OSG_DEBUG_OLD_C_CASTS
+# if ZLIB_VERNUM >= 0x1270
+#  ifdef deflateInit2
+#   undef deflateInit2
+#   define deflateInit2(strm, level, method, windowBits, memLevel, strategy) \
+           deflateInit2_((strm),(level),(method),(windowBits),(memLevel),\
+                         (strategy), ZLIB_VERSION, int(sizeof(z_stream)))
+
+#  endif
+# endif
+#endif
+
 template <class charT, class traits> inline
 basic_zip_streambuf<charT, 
                     traits>::basic_zip_streambuf(ostream_reference ostream,
@@ -46,6 +58,17 @@ basic_zip_streambuf<charT,
 
     this->setp( &(_buffer[0]), &(_buffer[_buffer.size()-1]));
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+# if ZLIB_VERNUM >= 0x1270
+#  ifdef deflateInit2
+#   undef deflateInit2
+#   define deflateInit2(strm, level, method, windowBits, memLevel, strategy) \
+           deflateInit2_((strm),(level),(method),(windowBits),(memLevel),\
+                         (strategy), ZLIB_VERSION, (int)sizeof(z_stream))
+#  endif
+# endif
+#endif
 
 /* Destructor
  */
@@ -267,6 +290,19 @@ bool basic_zip_streambuf<charT, traits>::zip_to_stream(
 
 /* Constructor
  */
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+# if ZLIB_VERNUM >= 0x1270
+#  ifdef inflateInit2
+#   undef inflateInit2
+#   define inflateInit2(strm, windowBits) \
+           inflateInit2_((strm), (windowBits), ZLIB_VERSION, \
+                         int(sizeof(z_stream)))
+
+#  endif
+# endif
+#endif
+
 template <class charT, class traits> inline
 basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference istream,
                                                             int window_size,
@@ -293,6 +329,18 @@ basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference is
                &_buffer[0] + 4,     // read position
                &_buffer[0] + 4);    // end position    
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+# if ZLIB_VERNUM >= 0x1270
+#  ifdef inflateInit2
+#   undef inflateInit2
+#   define inflateInit2(strm, windowBits) \
+           inflateInit2_((strm), (windowBits), ZLIB_VERSION, \
+                        (int)sizeof(z_stream))
+
+#  endif
+# endif
+#endif
 
 /*
  * @todo document!
