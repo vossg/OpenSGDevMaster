@@ -1111,6 +1111,60 @@ MACRO(OSG_CONFIGURE_VTK)
 ENDMACRO(OSG_CONFIGURE_VTK)
 
 ##############################################################################
+# EXPAT
+##############################################################################
+
+MACRO(OSG_CONFIGURE_EXPAT)
+
+    IF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
+
+      IF(EXISTS ${OSG_SUPPORT_ROOT}/include${OSG_SUPPORT_INC_SUBDIR}/expat.h)
+        SET(EXPAT_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include${OSG_SUPPORT_INC_SUBDIR} CACHE PATH "" FORCE)
+      ENDIF()
+
+      IF(OSG_USE_STATIC_SUPPORT_LIBS)
+        IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgexpat.lib)
+          SET(EXPAT_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/libosgexpat.lib)
+        ENDIF()
+          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/libosgexpatD.lib)
+            SET(EXPAT_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/libosgexpatD.lib)
+          ENDIF()
+        ELSE()
+          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgexpat.lib)
+            SET(EXPAT_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib/osgexpat.lib)
+          ENDIF()
+          IF(EXISTS ${OSG_SUPPORT_ROOT}/lib/osgexpatD.lib)
+            SET(EXPAT_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib/osgexpatD.lib)
+          ENDIF()
+        ENDIF()
+
+        IF(EXPAT_INCLUDE_DIR)
+          IF(EXPAT_LIBRARY_DEBUG OR EXPAT_LIBRARY_RELEASE)
+            SET(EXPAT_FOUND TRUE)
+          ENDIF()
+        ENDIF()
+
+        IF(EXPAT_FOUND)
+          OSG_ADD_IMPORT_LIB(OSG_EXPAT_TARGETS EXPAT_LIBRARY)
+          SET(EXPAT_LIBRARIES ${OSG_EXPAT_TARGETS} CACHE STRING "" FORCE)
+        ENDIF(EXPAT_FOUND)
+
+    ENDIF(OSG_USE_OSGSUPPORT_LIBS AND WIN32)
+
+    IF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT EXPAT_FOUND)
+        OSG_FIND_PACKAGE(Expat_OpenSG)
+
+        IF(EXPAT_FOUND)
+          OSG_ADD_IMPORT_LIB(OSG_EXPAT_TARGETS EXPAT_LIBRARY)
+
+          SET(EXPAT_LIBRARIES ${OSG_EXPAT_TARGETS} CACHE STRING "" FORCE)
+        ENDIF(EXPAT_FOUND)
+    ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT EXPAT_FOUND)
+
+ENDMACRO(OSG_CONFIGURE_EXPAT)
+
+
+##############################################################################
 # OSG_ADD_GLUTPACKAGE
 ##############################################################################
 

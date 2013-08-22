@@ -1,0 +1,38 @@
+# - Find expat library
+# Find the native expat includes and library
+# This module defines
+#  EXPAT_INCLUDE_DIR, where to find expat.h, etc.
+#  EXPAT_LIBRARIES, libraries to link against to use expat.
+#  EXPAT_FOUND, If false, do not try to use expat.
+# also defined, but not for general use are
+#  EXPAT_LIBRARY, where to find the expat library.
+
+FIND_PATH(EXPAT_INCLUDE_DIR expat.h)
+
+SET(EXPAT_NAMES_RELEASE ${EXPAT_NAMES_RELEASE} expat libexpat )
+FIND_LIBRARY(EXPAT_LIBRARY_RELEASE NAMES ${EXPAT_NAMES_RELEASE} )
+
+SET(EXPAT_NAMES_DEBUG ${EXPAT_NAMES_DEBUG} expatd libexpatd )
+FIND_LIBRARY(EXPAT_LIBRARY_DEBUG NAMES ${EXPAT_NAMES_DEBUG} )
+
+IF(EXPAT_LIBRARY_DEBUG)
+  SET(EXPAT_LIBRARIES_FOUND TRUE)
+  MARK_AS_ADVANCED(EXPAT_LIBRARY_DEBUG)
+ENDIF(EXPAT_LIBRARY_DEBUG)
+
+IF(EXPAT_LIBRARY_RELEASE)
+  SET(EXPAT_LIBRARIES_FOUND TRUE)
+  MARK_AS_ADVANCED(EXPAT_LIBRARY_RELEASE)
+ENDIF(EXPAT_LIBRARY_RELEASE)
+
+# handle the QUIETLY and REQUIRED arguments and set EXPAT_FOUND to TRUE if 
+# all listed variables are TRUE
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(EXPAT DEFAULT_MSG  
+                                  EXPAT_LIBRARIES_FOUND  EXPAT_INCLUDE_DIR)
+
+#IF(TIFF_FOUND)
+#  SET( TIFF_LIBRARIES ${TIFF_LIBRARY} )
+#ENDIF(TIFF_FOUND)
+
+MARK_AS_ADVANCED(EXPAT_INCLUDE_DIR EXPAT_LIBRARIES_FOUND)
