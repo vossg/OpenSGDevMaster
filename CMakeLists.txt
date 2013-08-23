@@ -1431,6 +1431,9 @@ INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
         DESTINATION share/OpenSG/cmake)
 #        COMPONENT development_configuration)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindExpat_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
+#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindGLUT_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
 #        COMPONENT development_configuration)
