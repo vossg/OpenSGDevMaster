@@ -94,6 +94,9 @@ struct Vertex {
     float x;
     float y;
     float z;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
 };
 
 struct Face {
@@ -105,6 +108,9 @@ static PlyProperty vert_props[] = { /* list of property information for a vertex
   {"x", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,x), 0, 0, 0, 0},
   {"y", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,y), 0, 0, 0, 0},
   {"z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,z), 0, 0, 0, 0},
+  {"red",   PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,r), 0, 0, 0, 0},
+  {"green", PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,g), 0, 0, 0, 0},
+  {"blue",  PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,b), 0, 0, 0, 0},
 };
 
 static PlyProperty face_props[] = { /* list of property information for a vertex */
@@ -128,6 +134,9 @@ NodeTransitPtr PLYSceneFileType::read(
     GeoPnt3fPropertyUnrecPtr  pos3f;
     GeoUInt32PropertyUnrecPtr indices;
 
+    GeoColor3fPropertyUnrecPtr col3f;
+    bool has_colors = false;
+
     for (size_t i = 0; i < elems.size(); ++i)
     {
         const std::string& elem_name = elems[i];
@@ -141,21 +150,62 @@ NodeTransitPtr PLYSceneFileType::read(
 
         if ("vertex" == elem_name)
         {
+
+           // check for colors:  
+           int color_components=0;
+			  for (unsigned int j=0; j<props.size(); j++) {
+               if ("x" == props[j].name) {
+					   ply_get_property (ply, elem_name, &vert_props[0]);  // x 					  
+				   }
+				   else if ("y" == props[j].name)	{
+					   ply_get_property (ply, elem_name, &vert_props[1]);  // y 					   
+				   }
+				   else if ("z" == props[j].name)	{
+					   ply_get_property (ply, elem_name, &vert_props[2]);  // z 					   
+				   }
+				   else if ("red" == props[j].name) {
+					   ply_get_property (ply, elem_name, &vert_props[3]);  // r 
+					   color_components++;
+				   }
+				   else if ("green" == props[j].name) {
+					   ply_get_property (ply, elem_name, &vert_props[4]);  // g 
+					   color_components++;
+				   }
+				   else if ("blue" == props[j].name) {
+					   ply_get_property (ply, elem_name, &vert_props[5]);  // b 
+					   color_components++;
+				   }
+			   }         
+
+		      has_colors = color_components == 3;
+
             pos3f = GeoPnt3fProperty::create();
 
             MFPnt3f &data = pos3f->editField();
 
             data.resize(num_elems);
 
-            ply_get_property(ply, elem_name, &vert_props[0]);
+            /*ply_get_property(ply, elem_name, &vert_props[0]);
             ply_get_property(ply, elem_name, &vert_props[1]);
-            ply_get_property(ply, elem_name, &vert_props[2]);
+            ply_get_property(ply, elem_name, &vert_props[2]);*/
+
+            col3f = GeoColor3fProperty::create();
+            MFColor3f &dataCol = col3f->editField();
+            if (has_colors) {               
+               dataCol.resize(num_elems);
+               /*ply_get_property(ply, elem_name, &vert_props[3]);
+               ply_get_property(ply, elem_name, &vert_props[4]);
+               ply_get_property(ply, elem_name, &vert_props[5]);*/
+            }
 
             for (int j = 0; j < num_elems; ++j)
             {
-                Vertex vertex = { 0, 0, 0 };
+                Vertex vertex = { 0, 0, 0, 128 ,128 ,128 };
                 ply_get_element(ply, &vertex);
                 data[j] = Pnt3f(vertex.x, vertex.y, vertex.z);
+                if (has_colors) {
+                  dataCol[j] = Color3f(vertex.r/256.f, vertex.g/256.f, vertex.b/256.f);
+                }
             }
         }
         else if ("face" == elem_name)
@@ -214,6 +264,7 @@ NodeTransitPtr PLYSceneFileType::read(
         geo->setTypes    (types  );
         geo->setLengths  (lengths);
         geo->setPositions(pos3f  );
+        if (has_colors) { geo->setColors(col3f); }
         geo->setIndices  (indices);
 
         calcVertexNormals(geo);

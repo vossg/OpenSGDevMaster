@@ -1622,11 +1622,18 @@ const char **get_words(std::istream *fp, int *nwords, char **orig_line)
       *ptr = ' ';
       *ptr2 = ' ';
     }
-    else if (*ptr == '\n') {
-      *ptr = ' ';
-      *ptr2 = '\0';
-      break;
-    }
+#if 1
+	else if(*ptr == '\r') {
+	  *ptr = ' ';
+	  *ptr2 = '\0';
+	  break;
+	}
+#endif
+	else if (*ptr == '\n') {
+	  *ptr = ' ';
+	  *ptr2 = '\0';
+	  break;
+	}
   }
 
   /* find the words in the line */
