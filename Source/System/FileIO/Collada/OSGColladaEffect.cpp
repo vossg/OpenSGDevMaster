@@ -1322,8 +1322,10 @@ void ColladaEffect::handleProfileCommonSpecular(
     domCommon_color_or_texture_type *specular,
     MaterialChunk                   *matChunk )
 {
-    if(specular == NULL)
+    if(specular == NULL) {
+        matChunk->setSpecular(Color4f(0.0f,0.0f,0.0f,0.0f));   // set specular color to black if there is no specular value defined!
         return;
+    }
 
     domCommon_color_or_texture_type::domColorRef   color;
     domCommon_color_or_texture_type::domParamRef   param;
