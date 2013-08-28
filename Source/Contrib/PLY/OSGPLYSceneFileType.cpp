@@ -153,31 +153,31 @@ NodeTransitPtr PLYSceneFileType::read(
 
            // check for colors:  
            int color_components=0;
-			  for (unsigned int j=0; j<props.size(); j++) {
+              for (unsigned int j=0; j<props.size(); j++) {
                if ("x" == props[j].name) {
-					   ply_get_property (ply, elem_name, &vert_props[0]);  // x 					  
-				   }
-				   else if ("y" == props[j].name)	{
-					   ply_get_property (ply, elem_name, &vert_props[1]);  // y 					   
-				   }
-				   else if ("z" == props[j].name)	{
-					   ply_get_property (ply, elem_name, &vert_props[2]);  // z 					   
-				   }
-				   else if ("red" == props[j].name) {
-					   ply_get_property (ply, elem_name, &vert_props[3]);  // r 
-					   color_components++;
-				   }
-				   else if ("green" == props[j].name) {
-					   ply_get_property (ply, elem_name, &vert_props[4]);  // g 
-					   color_components++;
-				   }
-				   else if ("blue" == props[j].name) {
-					   ply_get_property (ply, elem_name, &vert_props[5]);  // b 
-					   color_components++;
-				   }
-			   }         
+                       ply_get_property (ply, elem_name, &vert_props[0]);  // x                       
+                   }
+                   else if ("y" == props[j].name)    {
+                       ply_get_property (ply, elem_name, &vert_props[1]);  // y                        
+                   }
+                   else if ("z" == props[j].name)    {
+                       ply_get_property (ply, elem_name, &vert_props[2]);  // z                        
+                   }
+                   else if ("red" == props[j].name) {
+                       ply_get_property (ply, elem_name, &vert_props[3]);  // r 
+                       color_components++;
+                   }
+                   else if ("green" == props[j].name) {
+                       ply_get_property (ply, elem_name, &vert_props[4]);  // g 
+                       color_components++;
+                   }
+                   else if ("blue" == props[j].name) {
+                       ply_get_property (ply, elem_name, &vert_props[5]);  // b 
+                       color_components++;
+                   }
+               }         
 
-		      has_colors = color_components == 3;
+              has_colors = color_components == 3;
 
             pos3f = GeoPnt3fProperty::create();
 
