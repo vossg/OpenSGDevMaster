@@ -117,8 +117,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
     {
         StateSorting     = 0x0001,
         TransformSorting = 0x0002,
-        SimpleCallback   = 0x0003,
-        OcclusionCulling = 0x0004
+        SimpleCallback   = 0x0003
     };
 
     enum SetupMode

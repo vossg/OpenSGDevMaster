@@ -342,8 +342,9 @@ void RenderPartition::dropFunctor(DrawFunctor &drawFunc,
 
     StatCollector *pStatColl      = _oDrawEnv.getStatCollector();
 
-    if(pStatColl != NULL             ||
-       _eMode    == OcclusionCulling   )
+    if(pStatColl != NULL                       ||
+       (ract                        != NULL &&
+        ract->getOcclusionCulling() == true      ))
     {
         DrawableStatsAttachment *st = DrawableStatsAttachment::get(actCore);
 
