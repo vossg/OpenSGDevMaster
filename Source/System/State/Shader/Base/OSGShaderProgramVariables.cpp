@@ -736,7 +736,7 @@ void ShaderProgramVariables::clearVariables(void)
     for(; mVarIt != mVarEnd; ++mVarIt)
     {
         if(*mVarIt != NULL)
-            (*mVarIt)->subParent(this);
+            (*mVarIt)->subExeParent(this);
     }
 
 
@@ -1569,8 +1569,8 @@ void ShaderProgramVariables::addMapVariable(ShaderVariable *pVar)
 }
 
 bool ShaderProgramVariables::subMapVariable(const Char8   *name,
-                                             MFInt32 *pVarLoc,
-                                             MFInt32 *pProcVarLoc)
+                                                  MFInt32 *pVarLoc,
+                                                  MFInt32 *pProcVarLoc)
 {
     if(name == NULL)
         return false;
@@ -1586,7 +1586,7 @@ bool ShaderProgramVariables::subMapVariable(const Char8   *name,
             static_cast<ShaderValueVariable *>(
                 this->getVariables((*it).second.first));
 
-        pVar->subParent(this);
+        pVar->subExeParent(this);
 
 #if 0
         this->editMFVariables      ()->erase((*it).second.first);
