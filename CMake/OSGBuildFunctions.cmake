@@ -2627,6 +2627,24 @@ MACRO(OSG_BOOST_DEP_SETUP)
     SET(Boost_USE_MULTITHREAD ON )
     SET(Boost_USE_STATIC_LIBS OFF)
 
+    SET(Boost_NO_BOOST_CMAKE TRUE CACHE INTERNAL "" FORCE)
+    SET(Boost_ADDITIONAL_VERSIONS "1.54.0" 
+                                  "1.54"
+                                  "1.53.0" 
+                                  "1.53"
+                                  "1.52.0" 
+                                  "1.52"
+                                  "1.51.0" 
+                                  "1.51"
+                                  "1.50.0"
+                                  "1.50"
+                                  "1.49.0" 
+                                  "1.49"
+                                  "1.48.0"
+                                  "1.48"
+                                  "1.47.0"
+                                  "1.47.0")
+
     FIND_PACKAGE(Boost COMPONENTS filesystem system)
 
     IF(Boost_FOUND)
