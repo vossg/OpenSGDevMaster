@@ -73,11 +73,16 @@ ColladaInstanceVisualScene::read(ColladaElement *colElemParent)
 
     if(colVisScene == NULL)
     {
-        colVisScene = dynamic_pointer_cast<ColladaVisualScene>(
-            ColladaElementFactory::the()->create(
-                getTargetDOMElem(), getGlobal()));
+        daeElement *daeElem = getTargetDOMElem();
 
-        colVisScene->read(this);
+        if(daeElem != NULL)
+        {
+            colVisScene = dynamic_pointer_cast<ColladaVisualScene>(
+                ColladaElementFactory::the()->create(
+                    daeElem, getGlobal()));
+
+            colVisScene->read(this);
+        }
     }
 }
 

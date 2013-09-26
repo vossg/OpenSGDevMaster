@@ -105,20 +105,23 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \name Options                                                      */
     /*! \{                                                                 */
 
-    bool getInvertTransparency   (void      ) const;
-    void setInvertTransparency   (bool value);
+    bool getInvertTransparency    (void      ) const;
+    void setInvertTransparency    (bool value);
 
-    bool getMergeTransforms      (void      ) const;
-    void setMergeTransforms      (bool value);
+    bool getMergeTransforms       (void      ) const;
+    void setMergeTransforms       (bool value);
 
-    bool getCreateNameAttachments(void      ) const;
-    void setCreateNameAttachments(bool value);
+    bool getCreateNameAttachments (void      ) const;
+    void setCreateNameAttachments (bool value);
 
-    bool getLoadAnimations       (void      ) const;
-    void setLoadAnimations       (bool value);   
+    bool getLoadAnimations        (void      ) const;
+    void setLoadAnimations        (bool value);   
 
-    bool getLoadLights           (void      ) const;
-    void setLoadLights           (bool value);
+    bool getLoadLights            (void      ) const;
+    void setLoadLights            (bool value);
+
+    bool getTryMergeInvalidIndices(void      ) const;
+    void setTryMergeInvalidIndices(bool value);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -140,6 +143,7 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     bool      _createNameAttachments;
     bool      _loadAnimations;
     bool      _loadLights;
+    bool      _tryMergeInvalidIndices;
 
     // remaining options
     OptionSet _oOptions;

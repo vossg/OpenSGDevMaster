@@ -300,6 +300,10 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 
     UInt16 findFreePropertyIndex(UInt32 geoIdx);
 
+    void   validateIndices      (      UInt32             geoIdx,
+                                 const std::vector<bool> &vIdxValid,
+                                 const IndexStore         idxStore );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 

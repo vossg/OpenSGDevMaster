@@ -95,7 +95,11 @@ ColladaScene::read(ColladaElement *colElemParent)
     }
 
     OSG_ASSERT(colInstVisScene                  != NULL);
-    OSG_ASSERT(colInstVisScene->getTargetElem() != NULL);
+
+//    OSG_ASSERT(colInstVisScene->getTargetElem() != NULL);
+    
+    if(colInstVisScene->getTargetElem() == NULL)
+        return;
 
     ColladaInstInfoRefPtr colInstInfo =
         ColladaVisualScene::ColladaVisualSceneInstInfo::create(

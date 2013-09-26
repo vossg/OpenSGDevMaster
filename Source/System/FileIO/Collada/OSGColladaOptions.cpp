@@ -64,6 +64,8 @@ ColladaOptions::parseOptions(const OptionSet &optSet)
         optSet, "loadAnimations", _loadAnimations);
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "loadLights", _loadLights);
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "tryMergeInvalidIndices", _tryMergeInvalidIndices);
 
     _oOptions = optSet;
 }
@@ -150,14 +152,25 @@ ColladaOptions::setLoadLights(bool value)
     _loadLights = value;
 }
 
-ColladaOptions::ColladaOptions(void)
-    : Inherited             ()
-    , _invertTransparency   (false)
-    , _mergeTransforms      (true)
-    , _createNameAttachments(true)
-    , _loadAnimations       (true)
-    , _loadLights           (true)
-    , _oOptions             (    )
+bool ColladaOptions::getTryMergeInvalidIndices(void) const
+{
+    return _tryMergeInvalidIndices;
+}
+
+void ColladaOptions::setTryMergeInvalidIndices(bool value)
+{
+    _tryMergeInvalidIndices = value;
+}
+
+ColladaOptions::ColladaOptions(void) :
+     Inherited             (     ),
+    _invertTransparency    (false),
+    _mergeTransforms       (true ),
+    _createNameAttachments (true ),
+    _loadAnimations        (true ),
+    _loadLights            (true ),
+    _tryMergeInvalidIndices(false),
+    _oOptions              (     )
 {
 }
 

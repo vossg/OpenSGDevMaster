@@ -617,6 +617,10 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
     UInt32                prims    = 0;
     bool                  useQuads = true;
 
+    std::vector<bool>     vIdxValid;
+
+    vIdxValid.resize(idxStore.size(), true);
+
     // check if all polys are quads
     for(UInt32 i = 0; i < vList.getCount(); ++i)
     {
@@ -637,6 +641,11 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
             for(UInt32 k = 0; k < idxStore.size(); ++k)
             {
                 idxStore[k]->push_back(pList[currIdx]);
+
+                if(pList[currIdx] == domUint(-1))
+                {
+                    vIdxValid[k] = false;
+                }
 
                 ++currIdx;
             }
@@ -662,6 +671,11 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
                 {
                     idxStore[k]->push_back(pList[currIdx]);
 
+                    if(pList[currIdx] == domUint(-1))
+                    {
+                        vIdxValid[k] = false;
+                    }
+
                     ++currIdx;
                 }
             }
@@ -677,6 +691,8 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
             prims += 1;
         }
     }
+
+    this->validateIndices(geoIdx, vIdxValid, idxStore);
 
     OSG_COLLADA_LOG(("ColladaGeometry::readPolyList: material symbol [%s] "
                      "vertices [%d] %s [%d]\n",
@@ -695,6 +711,130 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
                  << "]." << std::endl;
 
         _geoStore.erase(_geoStore.begin() + geoIdx);
+    }
+}
+
+void ColladaGeometry::validateIndices(      UInt32             geoIdx,
+                                      const std::vector<bool> &vIdxValid,
+                                      const IndexStore         idxStore)
+{
+    if(getGlobal()->getOptions()->getTryMergeInvalidIndices() == false)
+    {
+        for(SizeT i = 0; i < vIdxValid.size(); ++i)
+        {
+            if(vIdxValid[i] == false)
+                idxStore[i]->clear();
+        }
+
+        return;
+    }
+
+
+    typedef std::pair<GeoIntegralProperty         *, 
+                      GeoIntegralPropertyUnrecPtr *> IndexPair;
+
+    std::vector<IndexPair> vIdxPairs;
+
+    bool hasInvalidIndices = false;
+    bool bMergable         = true;
+
+    for(SizeT i = 0; i < vIdxValid.size(); ++i)
+    {
+        if(vIdxValid[i] == false)
+        {
+            vIdxPairs.push_back({idxStore[i], NULL});
+
+            if(vIdxPairs[0].first->size() != idxStore[i]->size())
+            {
+                bMergable = false;
+            }
+
+            hasInvalidIndices = true;
+        }
+    }
+
+    if(hasInvalidIndices == false)
+        return;
+
+    if(bMergable == false)
+    {
+        for(SizeT i = 0; i < vIdxValid.size(); ++i)
+        {
+            if(vIdxValid[i] == false)
+                idxStore[i]->clear();
+        }
+
+        return;
+    }
+        
+
+    for(SizeT i = 0; i < vIdxPairs.size(); ++i)
+    {
+        for(SizeT j = 0; j < _geoStore[geoIdx]._indexStore.size(); ++j)
+        {
+            if(vIdxPairs[i].first == _geoStore[geoIdx]._indexStore[j])
+            {
+                vIdxPairs[i].second = &_geoStore[geoIdx]._indexStore[j];
+                break;
+            }
+        }
+    }
+
+    GeoUInt32PropertyUnrecPtr pMergedIdx = GeoUInt32Property::create();
+
+    pMergedIdx->resize(vIdxPairs[0].first->size());
+
+    bool bMergeSucceeded = true;
+
+    for(SizeT i = 0; i < pMergedIdx->size(); ++i)
+    {
+        UInt32 iVal = UInt32(domUint(-1));
+
+        for(SizeT j = 0; j < vIdxPairs.size(); ++j)
+        {
+            if(vIdxPairs[j].first->getValue(i) != UInt32(-1))
+            {
+                if(iVal == UInt32(-1))
+                {
+                    iVal = vIdxPairs[j].first->getValue(i);
+                }
+                else
+                {
+                    if(iVal != vIdxPairs[j].first->getValue(i))
+                    {
+                        bMergeSucceeded = false;
+                    }
+                }
+            }
+        }
+        
+        if(iVal == UInt32(-1))
+        {
+            bMergeSucceeded = false;
+        }
+        else
+        {
+            pMergedIdx->setValue(iVal, i);
+        }
+
+        if(bMergeSucceeded == false)
+            break;
+    }
+
+    if(bMergeSucceeded == true)
+    {
+        for(SizeT i = 0; i < vIdxPairs.size(); ++i)
+        {
+            (*(vIdxPairs[i].second)) = pMergedIdx;
+        }
+
+        return;
+    }
+
+    for(SizeT i = 0; i < vIdxValid.size(); ++i)
+    {
+        if(vIdxValid[i] == false)
+            idxStore[i]->clear();
     }
 }
 
@@ -722,9 +862,9 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
 
     for(UInt32 i = 0; i < pList.getCount(); ++i)
     {
-        UInt32 uiIdx = pList[i];
+        domUint uiIdx = pList[i];
 
-        if(uiIdx == UInt32(-1))
+        if(uiIdx == domUint(-1))
         {
             vIdxValid[currIdx] = false;
         }
@@ -740,11 +880,7 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
         }
     }
 
-    for(SizeT i = 0; i < vIdxValid.size(); ++i)
-    {
-        if(vIdxValid[i] == false)
-            idxStore[i]->clear();
-    }
+    this->validateIndices(geoIdx, vIdxValid, idxStore);
 
     _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLES);
     _geoStore[geoIdx]._lengths->push_back(length      );
