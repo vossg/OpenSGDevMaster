@@ -109,7 +109,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<Material *, nsOSG>::_type(
     "MaterialPtr", 
-    "AttachmentContainerPtr", 
+    "AttachmentPtr", 
     Material::getClassType(),
     nsOSG);
 #endif
@@ -163,7 +163,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
 MaterialBase::TypeObject MaterialBase::_type(
     MaterialBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "Material",
     nsOSG, //Namespace
     NULL,
     Material::initMethod,
@@ -175,7 +175,7 @@ MaterialBase::TypeObject MaterialBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Material\"\n"
-    "   parent=\"AttachmentContainer\"\n"
+    "   parent=\"Attachment\"\n"
     "   library=\"System\"\n"
     "   structure=\"abstract\"\n"
     "   pointerfieldtypes=\"both\"\n"

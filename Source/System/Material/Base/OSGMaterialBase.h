@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 #include "OSGSysFields.h"               // SortKey type
 
@@ -76,12 +76,12 @@ class Material;
 
 //! \brief Material Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
+class OSG_SYSTEM_DLLMAPPING MaterialBase : public Attachment
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

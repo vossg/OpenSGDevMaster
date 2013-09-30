@@ -1107,6 +1107,58 @@ void makeIndexedTriangles(Geometry *geo,
 #endif
 }
 
+/* checks and creates explicit index properties if not present */
+
+void createExplicitIndex(Geometry *geo)
+{
+    bool hasIndex = false;
+
+    for(UInt16 i = 0; i <= Geometry::LastIndex; ++i)
+    {
+        if(geo->getIndex(i) != NULL)
+        {
+            hasIndex = true;
+            break;
+        }
+    }
+
+    if(hasIndex == false)
+    {
+        GeoVectorProperty *pPos = geo->getProperty(Geometry::PositionsIndex);
+
+        if(pPos == NULL)
+        {
+            fprintf(stderr, "no positions, abort\n");
+            return;
+        }
+
+        GeoUInt32PropertyUnrecPtr pNewIdx = GeoUInt32Property::create();
+
+        pNewIdx->editField().reserve(pPos->size());
+
+        for(SizeT i = 0; i < pPos->size(); ++i)
+        {
+            pNewIdx->push_back(i);
+        }
+        
+        for(UInt16 i = 0; i <= Geometry::LastIndex; ++i)
+        {
+            if(geo->getProperty(i) != NULL)
+            {
+                if(geo->getProperty(i)->size() != pPos->size())
+                {
+                    SWARNING << "inconsitent property sizes, interesting "
+                             << "things might happen ;)" 
+                             << std::endl;
+                }
+
+                geo->setIndex(pNewIdx, i);
+            }
+        }
+    }
+
+}
+
 /*! Converts all "face" primitives (triangles strips/fans, quads, quad strips,
     polygons) to triangle lists. 
 
@@ -1133,6 +1185,8 @@ void makeIndexedTrianglesConcave(Geometry *geo,
     PropIndexStore oldIdx;
     PropIndexStore newIdx;
 
+    createExplicitIndex(geo);
+
     for(UInt16 i = 0; i <= Geometry::LastIndex; ++i)
     {
         if(geo->getIndex(i) != NULL)
@@ -1153,11 +1207,18 @@ void makeIndexedTrianglesConcave(Geometry *geo,
                 newIdx.back()->resize(oldIdx.back()->size());
             }
         }
-    }
+    }                
 
     GeoIntegralProperty *oldTypes   = geo->getTypes  ();
     GeoIntegralProperty *oldLengths = geo->getLengths();
     
+    if(oldTypes == NULL || oldLengths == NULL)
+    {
+        SWARNING << "Either no Types and Lengths, aborting."
+                 << std::endl;
+        return;
+    }
+
     if(oldTypes->size() != oldLengths->size())
     {
         SWARNING << "Types and Lengths have inconsistent size, aborting."
