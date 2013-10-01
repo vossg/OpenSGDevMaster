@@ -63,6 +63,15 @@
     The number of triangles in the subtree.
   </Field>
   <Field
+	 name="patches"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+    The number of lines in the subtree.
+  </Field>
+  <Field
 	 name="processedAttributeBytes"
 	 type="UInt32"
 	 cardinality="single"

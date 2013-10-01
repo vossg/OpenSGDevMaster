@@ -174,6 +174,31 @@ void DrawableStatsAttachmentBase::setTriangles(const UInt32 value)
 
     _sfTriangles.setValue(value);
 }
+//! Get the value of the DrawableStatsAttachment::_sfPatches field.
+
+inline
+UInt32 &DrawableStatsAttachmentBase::editPatches(void)
+{
+    editSField(PatchesFieldMask);
+
+    return _sfPatches.getValue();
+}
+
+//! Get the value of the DrawableStatsAttachment::_sfPatches field.
+inline
+      UInt32  DrawableStatsAttachmentBase::getPatches(void) const
+{
+    return _sfPatches.getValue();
+}
+
+//! Set the value of the DrawableStatsAttachment::_sfPatches field.
+inline
+void DrawableStatsAttachmentBase::setPatches(const UInt32 value)
+{
+    editSField(PatchesFieldMask);
+
+    _sfPatches.setValue(value);
+}
 //! Get the value of the DrawableStatsAttachment::_sfProcessedAttributeBytes field.
 
 inline
@@ -272,6 +297,9 @@ void DrawableStatsAttachmentBase::execSync (      DrawableStatsAttachmentBase *p
 
     if(FieldBits::NoField != (TrianglesFieldMask & whichField))
         _sfTriangles.syncWith(pFrom->_sfTriangles);
+
+    if(FieldBits::NoField != (PatchesFieldMask & whichField))
+        _sfPatches.syncWith(pFrom->_sfPatches);
 
     if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
         _sfProcessedAttributeBytes.syncWith(pFrom->_sfProcessedAttributeBytes);

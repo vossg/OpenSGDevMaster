@@ -141,7 +141,8 @@ OSG_DRAWABLE_DLLMAPPING
 UInt32  calcPrimitiveCount       (Geometry       *geo,
                                   UInt32         &triangle,
                                   UInt32         &line,
-                                  UInt32         &point);
+                                  UInt32         &point,
+                                  UInt32         &patches);
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

@@ -89,6 +89,14 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+/*! \var ShaderProgram * ShaderExecutableChunkBase::_mfTessControlShader
+    fragment program object
+*/
+
+/*! \var ShaderProgram * ShaderExecutableChunkBase::_mfTessEvaluationShader
+    fragment program object
+*/
+
 /*! \var ShaderProgram * ShaderExecutableChunkBase::_mfGeometryShader
     fragment program object
 */
@@ -170,6 +178,30 @@ void ShaderExecutableChunkBase::classDescInserter(TypeObject &oType)
         "vertexShader",
         "fragment program object\n",
         VertexShaderFieldId, VertexShaderFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&ShaderExecutableChunk::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderExecutableChunk::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUncountedShaderProgramPtr::Description(
+        MFUncountedShaderProgramPtr::getClassType(),
+        "tessControlShader",
+        "fragment program object\n",
+        TessControlShaderFieldId, TessControlShaderFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&ShaderExecutableChunk::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&ShaderExecutableChunk::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUncountedShaderProgramPtr::Description(
+        MFUncountedShaderProgramPtr::getClassType(),
+        "tessEvaluationShader",
+        "fragment program object\n",
+        TessEvaluationShaderFieldId, TessEvaluationShaderFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast     <FieldEditMethodSig>(&ShaderExecutableChunk::invalidEditField),
@@ -352,6 +384,36 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     "\tfragment program object\n"
     "    </Field>\n"
     "    <Field\n"
+    "        name=\"tessControlShader\"\n"
+    "        type=\"ShaderProgram\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"none\"\n"
+    "        category=\"uncountedpointer\"\n"
+    "        >\n"
+    "\n"
+    "        <!--     \n"
+    "             pushToFieldAs=\"addGeometryShader\"\n"
+    "             removeFromMFieldIndexAs=\"subGeometryShader\"\n"
+    "             clearFieldAs=\"clearGeometryShaders\" -->\n"
+    "\tfragment program object\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"tessEvaluationShader\"\n"
+    "        type=\"ShaderProgram\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"none\"\n"
+    "        category=\"uncountedpointer\"\n"
+    "        >\n"
+    "\n"
+    "        <!--     \n"
+    "             pushToFieldAs=\"addGeometryShader\"\n"
+    "             removeFromMFieldIndexAs=\"subGeometryShader\"\n"
+    "             clearFieldAs=\"clearGeometryShaders\" -->\n"
+    "\tfragment program object\n"
+    "    </Field>\n"
+    "    <Field\n"
     "        name=\"geometryShader\"\n"
     "        type=\"ShaderProgram\"\n"
     "        cardinality=\"multi\"\n"
@@ -493,6 +555,8 @@ UInt32 ShaderExecutableChunkBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 
@@ -644,6 +708,14 @@ SizeT ShaderExecutableChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfVertexShader.getBinSize();
     }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        returnValue += _mfTessControlShader.getBinSize();
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        returnValue += _mfTessEvaluationShader.getBinSize();
+    }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
         returnValue += _mfGeometryShader.getBinSize();
@@ -701,6 +773,14 @@ void ShaderExecutableChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfVertexShader.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        _mfTessControlShader.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        _mfTessEvaluationShader.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
         _mfGeometryShader.copyToBin(pMem);
@@ -756,6 +836,16 @@ void ShaderExecutableChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(VertexShaderFieldMask, _mfVertexShader);
         _mfVertexShader.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        editMField(TessControlShaderFieldMask, _mfTessControlShader);
+        _mfTessControlShader.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+        _mfTessEvaluationShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
@@ -938,6 +1028,8 @@ FieldContainerTransitPtr ShaderExecutableChunkBase::shallowCopy(void) const
 ShaderExecutableChunkBase::ShaderExecutableChunkBase(void) :
     Inherited(),
     _mfVertexShader           (),
+    _mfTessControlShader      (),
+    _mfTessEvaluationShader   (),
     _mfGeometryShader         (),
     _mfFragmentShader         (),
     _sfVariables              (this,
@@ -957,6 +1049,8 @@ ShaderExecutableChunkBase::ShaderExecutableChunkBase(void) :
 ShaderExecutableChunkBase::ShaderExecutableChunkBase(const ShaderExecutableChunkBase &source) :
     Inherited(source),
     _mfVertexShader           (),
+    _mfTessControlShader      (),
+    _mfTessEvaluationShader   (),
     _mfGeometryShader         (),
     _mfFragmentShader         (),
     _sfVariables              (this,
@@ -1043,6 +1137,34 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleVertexShader    (void) con
 }
 
 EditFieldHandlePtr ShaderExecutableChunkBase::editHandleVertexShader   (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderExecutableChunkBase::getHandleTessControlShader (void) const
+{
+    MFUncountedShaderProgramPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderExecutableChunkBase::editHandleTessControlShader(void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderExecutableChunkBase::getHandleTessEvaluationShader (void) const
+{
+    MFUncountedShaderProgramPtr::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderExecutableChunkBase::editHandleTessEvaluationShader(void)
 {
     EditFieldHandlePtr returnValue;
 

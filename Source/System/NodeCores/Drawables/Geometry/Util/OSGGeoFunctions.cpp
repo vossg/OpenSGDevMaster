@@ -2221,6 +2221,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     UInt32 triN            = 0;
     UInt32 lineN           = 0;
     UInt32 pointN          = 0;
+    UInt32 patchesN        = 0;
     Int32  invalidTriCount = 0;
 
     Time time;
@@ -2238,7 +2239,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     IndexDic indexDic;
 
 
-    calcPrimitiveCount(geo, triN, lineN, pointN);
+    calcPrimitiveCount(geo, triN, lineN, pointN, patchesN);
 
     GeoVectorProperty *posPtr = geo->getPositions();
 
@@ -2947,7 +2948,8 @@ Int32 createSingleIndex(Geometry *geo)
 UInt32 calcPrimitiveCount(Geometry *geo,
                           UInt32   &triangle,
                           UInt32   &line,
-                          UInt32   &point)
+                          UInt32   &point,
+                          UInt32   &patches)
 {
     GeoIntegralProperty *geoTypePtr;
     GeoIntegralProperty *lensPtr;
@@ -2955,7 +2957,7 @@ UInt32 calcPrimitiveCount(Geometry *geo,
     UInt32 lN, tN, len, type;
 
     // TODO; should we really reset the values ?
-    triangle = line = point = 0;
+    triangle = line = point = patches = 0;
 
     if(geo == NULL)
     {
@@ -3029,6 +3031,9 @@ UInt32 calcPrimitiveCount(Geometry *geo,
                 break;
             case GL_POLYGON:
                 triangle += len - 2;
+                break;
+            case GL_PATCHES:
+                patches += 1;
                 break;
             default:
                 FWARNING(("calcPrimitiveCount(): Invalid geoType: %d\n", 

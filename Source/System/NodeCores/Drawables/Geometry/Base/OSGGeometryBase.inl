@@ -74,6 +74,31 @@ OSG::UInt16 GeometryBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the Geometry::_sfPatchVertices field.
+
+inline
+UInt32 &GeometryBase::editPatchVertices(void)
+{
+    editSField(PatchVerticesFieldMask);
+
+    return _sfPatchVertices.getValue();
+}
+
+//! Get the value of the Geometry::_sfPatchVertices field.
+inline
+      UInt32  GeometryBase::getPatchVertices(void) const
+{
+    return _sfPatchVertices.getValue();
+}
+
+//! Set the value of the Geometry::_sfPatchVertices field.
+inline
+void GeometryBase::setPatchVertices(const UInt32 value)
+{
+    editSField(PatchVerticesFieldMask);
+
+    _sfPatchVertices.setValue(value);
+}
 //! Get the value of the Geometry::_sfDlistCache field.
 
 inline
@@ -255,6 +280,9 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (PatchVerticesFieldMask & whichField))
+        _sfPatchVertices.syncWith(pFrom->_sfPatchVertices);
 
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
         _sfDlistCache.syncWith(pFrom->_sfDlistCache);

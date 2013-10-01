@@ -1,0 +1,137 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF CSUp KeySensor
+    {
+      key "S"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CSDown KeySensor
+    {
+      key "s"
+      stateFlipFlop TRUE
+    }       
+
+    DEF ShrinkCounter LimitedReal32Counter
+    {
+      value 1.0
+      step  0.01
+
+      upperLimit  1.0
+      lowerLimit  0.1
+    }
+
+
+
+    DEF CUUp KeySensor
+    {
+      key "U"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CUDown KeySensor
+    {
+      key "u"
+      stateFlipFlop TRUE
+    }       
+
+    DEF InnerUCounter LimitedInt32Counter
+    {
+      value 10
+      step   1
+
+      upperLimit  50
+      lowerLimit   2
+    }
+
+    DEF CVUp KeySensor
+    {
+      key "V"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CVDown KeySensor
+    {
+      key "v"
+      stateFlipFlop TRUE
+    }       
+
+    DEF InnerVCounter LimitedInt32Counter
+    {
+      value 10
+      step   1
+
+      upperLimit  50
+      lowerLimit   2
+    }
+
+
+
+    DEF COUp KeySensor
+    {
+      key "O"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CODown KeySensor
+    {
+      key "o"
+      stateFlipFlop TRUE
+    }       
+
+    DEF OuterUCounter LimitedInt32Counter
+    {
+      value 10
+      step   1
+
+      upperLimit  50
+      lowerLimit   2
+    }
+
+    DEF CPUp KeySensor
+    {
+      key "P"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CPDown KeySensor
+    {
+      key "p"
+      stateFlipFlop TRUE
+    }       
+
+    DEF OuterVCounter LimitedInt32Counter
+    {
+      value 10
+      step   1
+
+      upperLimit  50
+      lowerLimit   2
+    }
+  ]
+}
+
+ROUTE CSUp  .signalPressed  TO ShrinkCounter.incTrigger
+ROUTE CSDown.signalPressed  TO ShrinkCounter.decTrigger
+
+
+ROUTE CUUp  .signalPressed  TO InnerUCounter.incTrigger
+ROUTE CUDown.signalPressed  TO InnerUCounter.decTrigger
+
+ROUTE CVUp  .signalPressed  TO InnerVCounter.incTrigger
+ROUTE CVDown.signalPressed  TO InnerVCounter.decTrigger
+
+
+ROUTE COUp  .signalPressed  TO OuterUCounter.incTrigger
+ROUTE CODown.signalPressed  TO OuterUCounter.decTrigger
+
+ROUTE CPUp  .signalPressed  TO OuterVCounter.incTrigger
+ROUTE CPDown.signalPressed  TO OuterVCounter.decTrigger
+
+
+
+

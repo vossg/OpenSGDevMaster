@@ -98,7 +98,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
         PointsFieldId = VerticesFieldId + 1,
         LinesFieldId = PointsFieldId + 1,
         TrianglesFieldId = LinesFieldId + 1,
-        ProcessedAttributeBytesFieldId = TrianglesFieldId + 1,
+        PatchesFieldId = TrianglesFieldId + 1,
+        ProcessedAttributeBytesFieldId = PatchesFieldId + 1,
         StoredAttributeBytesFieldId = ProcessedAttributeBytesFieldId + 1,
         ValidFieldId = StoredAttributeBytesFieldId + 1,
         NextFieldId = ValidFieldId + 1
@@ -112,6 +113,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
         (TypeTraits<BitVector>::One << LinesFieldId);
     static const OSG::BitVector TrianglesFieldMask =
         (TypeTraits<BitVector>::One << TrianglesFieldId);
+    static const OSG::BitVector PatchesFieldMask =
+        (TypeTraits<BitVector>::One << PatchesFieldId);
     static const OSG::BitVector ProcessedAttributeBytesFieldMask =
         (TypeTraits<BitVector>::One << ProcessedAttributeBytesFieldId);
     static const OSG::BitVector StoredAttributeBytesFieldMask =
@@ -125,6 +128,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     typedef SFUInt32          SFPointsType;
     typedef SFUInt32          SFLinesType;
     typedef SFUInt32          SFTrianglesType;
+    typedef SFUInt32          SFPatchesType;
     typedef SFUInt32          SFProcessedAttributeBytesType;
     typedef SFUInt32          SFStoredAttributeBytesType;
     typedef SFBool            SFValidType;
@@ -165,6 +169,9 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
                   SFUInt32            *editSFTriangles      (void);
             const SFUInt32            *getSFTriangles       (void) const;
 
+                  SFUInt32            *editSFPatches        (void);
+            const SFUInt32            *getSFPatches         (void) const;
+
                   SFUInt32            *editSFProcessedAttributeBytes(void);
             const SFUInt32            *getSFProcessedAttributeBytes (void) const;
 
@@ -187,6 +194,9 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
                   UInt32              &editTriangles      (void);
                   UInt32               getTriangles       (void) const;
 
+                  UInt32              &editPatches        (void);
+                  UInt32               getPatches         (void) const;
+
                   UInt32              &editProcessedAttributeBytes(void);
                   UInt32               getProcessedAttributeBytes (void) const;
 
@@ -205,6 +215,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
             void setPoints         (const UInt32 value);
             void setLines          (const UInt32 value);
             void setTriangles      (const UInt32 value);
+            void setPatches        (const UInt32 value);
             void setProcessedAttributeBytes(const UInt32 value);
             void setStoredAttributeBytes(const UInt32 value);
             void setValid          (const bool value);
@@ -271,6 +282,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     SFUInt32          _sfPoints;
     SFUInt32          _sfLines;
     SFUInt32          _sfTriangles;
+    SFUInt32          _sfPatches;
     SFUInt32          _sfProcessedAttributeBytes;
     SFUInt32          _sfStoredAttributeBytes;
     SFBool            _sfValid;
@@ -309,6 +321,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     EditFieldHandlePtr editHandleLines          (void);
     GetFieldHandlePtr  getHandleTriangles       (void) const;
     EditFieldHandlePtr editHandleTriangles      (void);
+    GetFieldHandlePtr  getHandlePatches         (void) const;
+    EditFieldHandlePtr editHandlePatches        (void);
     GetFieldHandlePtr  getHandleProcessedAttributeBytes (void) const;
     EditFieldHandlePtr editHandleProcessedAttributeBytes(void);
     GetFieldHandlePtr  getHandleStoredAttributeBytes (void) const;

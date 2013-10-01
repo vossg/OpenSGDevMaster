@@ -99,6 +99,56 @@ void SimpleSHLChunkBase::setVertexProgram(const std::string &value)
 
     _sfVertexProgram.setValue(value);
 }
+//! Get the value of the SimpleSHLChunk::_sfTessControlProgram field.
+
+inline
+std::string &SimpleSHLChunkBase::editTessControlProgram(void)
+{
+    editSField(TessControlProgramFieldMask);
+
+    return _sfTessControlProgram.getValue();
+}
+
+//! Get the value of the SimpleSHLChunk::_sfTessControlProgram field.
+inline
+const std::string &SimpleSHLChunkBase::getTessControlProgram(void) const
+{
+    return _sfTessControlProgram.getValue();
+}
+
+//! Set the value of the SimpleSHLChunk::_sfTessControlProgram field.
+inline
+void SimpleSHLChunkBase::setTessControlProgram(const std::string &value)
+{
+    editSField(TessControlProgramFieldMask);
+
+    _sfTessControlProgram.setValue(value);
+}
+//! Get the value of the SimpleSHLChunk::_sfTessEvaluationProgram field.
+
+inline
+std::string &SimpleSHLChunkBase::editTessEvaluationProgram(void)
+{
+    editSField(TessEvaluationProgramFieldMask);
+
+    return _sfTessEvaluationProgram.getValue();
+}
+
+//! Get the value of the SimpleSHLChunk::_sfTessEvaluationProgram field.
+inline
+const std::string &SimpleSHLChunkBase::getTessEvaluationProgram(void) const
+{
+    return _sfTessEvaluationProgram.getValue();
+}
+
+//! Set the value of the SimpleSHLChunk::_sfTessEvaluationProgram field.
+inline
+void SimpleSHLChunkBase::setTessEvaluationProgram(const std::string &value)
+{
+    editSField(TessEvaluationProgramFieldMask);
+
+    _sfTessEvaluationProgram.setValue(value);
+}
 //! Get the value of the SimpleSHLChunk::_sfGeometryProgram field.
 
 inline
@@ -268,6 +318,12 @@ void SimpleSHLChunkBase::execSync (      SimpleSHLChunkBase *pFrom,
 
     if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
         _sfVertexProgram.syncWith(pFrom->_sfVertexProgram);
+
+    if(FieldBits::NoField != (TessControlProgramFieldMask & whichField))
+        _sfTessControlProgram.syncWith(pFrom->_sfTessControlProgram);
+
+    if(FieldBits::NoField != (TessEvaluationProgramFieldMask & whichField))
+        _sfTessEvaluationProgram.syncWith(pFrom->_sfTessEvaluationProgram);
 
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
         _sfGeometryProgram.syncWith(pFrom->_sfGeometryProgram);

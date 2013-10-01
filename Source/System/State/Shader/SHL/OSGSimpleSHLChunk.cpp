@@ -53,6 +53,11 @@
 
 #include <boost/bind.hpp>
 
+extern "C"
+{
+void glPatchParameteri(GLenum pname, GLint value);
+}
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -157,6 +162,34 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
 
                 GLuint uiShader = 
                     GLuint(pWin->getGLObjectId((*gIt)->getGLId()));
+
+                if(uiShader != 0)
+                    osgGlAttachShader(uiProgram, uiShader);
+            }
+
+            TessEvalShaderIt teIt  = _mfTessEvaluationShader.begin();
+            TessEvalShaderIt teEnd = _mfTessEvaluationShader.end  ();
+            
+            for(; teIt != teEnd; ++teIt)
+            {
+                (*teIt)->validate(pEnv);
+
+                GLuint uiShader = 
+                    GLuint(pWin->getGLObjectId((*teIt)->getGLId()));
+
+                if(uiShader != 0)
+                    osgGlAttachShader(uiProgram, uiShader);
+            }
+
+            TessControlShaderIt tcIt  = _mfTessControlShader.begin();
+            TessControlShaderIt tcEnd = _mfTessControlShader.end  ();
+            
+            for(; tcIt != tcEnd; ++tcIt)
+            {
+                (*tcIt)->validate(pEnv);
+
+                GLuint uiShader = 
+                    GLuint(pWin->getGLObjectId((*tcIt)->getGLId()));
 
                 if(uiShader != 0)
                     osgGlAttachShader(uiProgram, uiShader);
@@ -439,7 +472,59 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
 
         Window::reinitializeGLObject(this->getGLId());
     }
-   
+
+    if(0x0000 != (whichField & TessControlProgramFieldMask) &&
+       0      != _sfTessControlProgram.getValue().size()     )
+    {
+        if(_mfTessControlShader.size() == 0)
+        {
+            ShaderProgramUnrecPtr pProg = ShaderProgram::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+            pProg->setShaderType(GL_TESS_CONTROL_SHADER);
+
+            addTessControlShader(pProg);
+        }
+        else if(_mfTessControlShader.size() > 1)
+        {
+            editMFTessControlShader()->resize(1);
+        }
+
+        _mfTessControlShader[0]->setProgram   (_sfGeometryProgram.getValue());
+        _mfTessControlShader[0]->setCgFrontEnd(_sfCgFrontEnd     .getValue());
+
+        bMarkChanged = true;
+
+        Window::reinitializeGLObject(this->getGLId());
+    }
+
+    if(0x0000 != (whichField & TessEvaluationProgramFieldMask) &&
+       0      != _sfTessEvaluationProgram.getValue().size()     )
+    {
+        if(_mfTessEvaluationShader.size() == 0)
+        {
+            ShaderProgramUnrecPtr pProg = ShaderProgram::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+            pProg->setShaderType(GL_TESS_EVALUATION_SHADER);
+
+            addTessEvaluationShader(pProg);
+        }
+        else if(_mfTessEvaluationShader.size() > 1)
+        {
+            editMFTessEvaluationShader()->resize(1);
+        }
+
+        _mfTessEvaluationShader[0]->setProgram   (
+            _sfGeometryProgram.getValue());
+        _mfTessEvaluationShader[0]->setCgFrontEnd(
+            _sfCgFrontEnd     .getValue());
+
+        bMarkChanged = true;
+
+        Window::reinitializeGLObject(this->getGLId());
+    }
+
     if(0x0000 != (whichField & VertexProgramFieldMask) &&
        0      != _sfVertexProgram.getValue().size()     )
     {
@@ -606,6 +691,8 @@ void SimpleSHLChunk::activate(DrawEnv    *pEnv,
 
         osgGlUseProgram(uiProgId);
     }
+
+//	glPatchParameteri(GL_PATCH_VERTICES, 16);
 
     pEnv->incNumShaderChanges();
         

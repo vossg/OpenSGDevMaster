@@ -1,0 +1,147 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      slots #0
+      [
+      ]
+      chunks
+      [
+        SimpleSHLChunk
+        {
+          vertexShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_VERTEX_SHADER
+
+              programUrl "../Shader/beziersurface.vert"
+            }
+          ]
+
+          tessControlShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType 0x8E88
+
+              programUrl "../Shader/beziersurface.tcs"
+            }
+          ]
+
+          tessEvaluationShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType 0x8E87
+
+              programUrl "../Shader/beziersurface.tes"
+            }
+          ]
+
+          geometryShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_GEOMETRY_SHADER_EXT
+
+              programUrl "../Shader/beziersurface.geom"
+            }
+          ]
+
+          fragmentShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_FRAGMENT_SHADER
+
+              programUrl "../Shader/beziersurface.frag"
+            }
+          ]
+
+          variables ShaderProgramVariables
+          {
+            variables
+            [
+              DEF OuterVVar ShaderVariableInt
+              {
+                name "iOuterSubDivV"
+                value 10
+              }
+
+              DEF OuterUVar ShaderVariableInt
+              {
+                name "iOuterSubDivU"
+                value 10
+              }
+
+              DEF InnerUVar ShaderVariableInt
+              {
+                name "iInnerSubDivU"
+                value 10
+              }
+
+              DEF InnerVVar ShaderVariableInt
+              {
+                name "iInnerSubDivV"
+                value 10
+              }
+
+              DEF ShrinkVar ShaderVariableReal
+              {
+                name "fShrink"
+                value 1.0
+              }
+ 
+              ShaderVariableReal
+              {
+                name "uLightX"
+                value -10.0
+              }
+
+              ShaderVariableReal
+              {
+                name "uLightY"
+                value 5.0
+              }
+
+              ShaderVariableReal
+              {
+                name "uLightZ"
+                value 0.0
+              }
+            ]
+          }
+        }
+
+        MaterialChunk
+        {
+          diffuse 1.0 0.7 0.7 1.0
+        }
+      ]
+    }
+  }
+
+  children
+  [
+    Node 
+    {
+      core Inline
+      {
+        url "../ShaderProg/plane_ndl_vbo_att_vao.osg"
+      }
+    }
+  ]
+}
+
+ROUTE ShrinkCounter.value TO ShrinkVar.value
+
+ROUTE InnerUCounter.value TO InnerUVar.value
+ROUTE InnerVCounter.value TO InnerVVar.value
+
+ROUTE OuterUCounter.value TO OuterUVar.value
+ROUTE OuterVCounter.value TO OuterVVar.value

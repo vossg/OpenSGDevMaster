@@ -154,6 +154,8 @@ void ShaderProgramChunkBase::setGeometryOutputType(const GLenum &value)
 
 
 
+
+
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ShaderProgramChunkBase::execSync (      ShaderProgramChunkBase *pFrom,
@@ -166,6 +168,18 @@ void ShaderProgramChunkBase::execSync (      ShaderProgramChunkBase *pFrom,
 
     if(FieldBits::NoField != (VertexShaderFieldMask & whichField))
         _mfVertexShader.syncWith(pFrom->_mfVertexShader,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+        _mfTessControlShader.syncWith(pFrom->_mfTessControlShader,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+        _mfTessEvaluationShader.syncWith(pFrom->_mfTessEvaluationShader,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

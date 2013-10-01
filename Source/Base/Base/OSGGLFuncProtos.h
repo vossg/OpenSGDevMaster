@@ -851,6 +851,17 @@ typedef void (OSG_APIENTRY *osgGlResumeTransformFeedbackProc  )(      void    );
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name tesselation shader                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlPatchParameteriProc )(      GLenum pname, 
+                                                             GLint  value   );
+
+typedef void (OSG_APIENTRY *osgGlPatchParameterfvProc)(      GLenum   pname, 
+                                                       const GLfloat *values);
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

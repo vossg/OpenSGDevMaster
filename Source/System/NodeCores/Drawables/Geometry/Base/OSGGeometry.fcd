@@ -66,6 +66,17 @@
         PageSystemGeoIndexing for a description of the indexing options.
     </Field>
     <Field
+        name="patchVertices"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+        >
+	if primitives are patches set the number of vertices per patch. Evaluated
+    if value != 0.
+    </Field>
+    <Field
         name="dlistCache"
         type="bool"
         cardinality="single"

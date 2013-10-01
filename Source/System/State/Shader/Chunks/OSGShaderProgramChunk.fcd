@@ -27,6 +27,34 @@
 	fragment program object
   </Field>
   <Field
+	 name="tessControlShader"
+	 type="ShaderProgram"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+
+     pushToFieldAs="addTessControlShader"
+     removeFromMFieldIndexAs="subTessControlShader"
+     clearFieldAs="clearTessControlShaders"        
+	 >
+	fragment program object
+  </Field>
+  <Field
+	 name="tessEvaluationShader"
+	 type="ShaderProgram"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+
+     pushToFieldAs="addTessEvaluationShader"
+     removeFromMFieldIndexAs="subTessEvaluationShader"
+     clearFieldAs="clearTessEvaluationShaders"        
+	 >
+	fragment program object
+  </Field>
+  <Field
 	 name="geometryShader"
 	 type="ShaderProgram"
 	 cardinality="multi"

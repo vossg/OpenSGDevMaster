@@ -85,11 +85,13 @@ OSG_BEGIN_NAMESPACE
 
 Geometry::PumpGroupStorage Geometry::_pumps;
 
- UInt32 Geometry::_arbVertexArrayObject    = Window::invalidExtensionID;
+UInt32 Geometry::_arbVertexArrayObject    = Window::invalidExtensionID;
+UInt32 Geometry::_arbTessellationShader   = Window::invalidExtensionID;
 
- UInt32 Geometry::FuncIdBindVertexArray    = Window::invalidFunctionID;
- UInt32 Geometry::FuncIdDeleteVertexArrays = Window::invalidFunctionID;
- UInt32 Geometry::FuncIdGenVertexArrays    = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdBindVertexArray    = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdDeleteVertexArrays = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdGenVertexArrays    = Window::invalidFunctionID;
+UInt32 Geometry::FuncPatchParameterI      = Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -152,6 +154,15 @@ void Geometry::initMethod(InitPhase ePhase)
             (OSG_DLSYM_UNDERSCORE"glGenVertexArraysAPPLE",
              _arbVertexArrayObject);
 #endif
+
+        _arbTessellationShader = 
+            Window::registerExtension("GL_ARB_tessellation_shader");
+
+        FuncPatchParameterI   = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glPatchParameteri",
+             _arbTessellationShader);
+
     }
 }
 
@@ -162,16 +173,17 @@ const char *Geometry::mapType(UInt8 type)
 {
     switch(type)
     {
-    case GL_POINTS:         return "Points";
-    case GL_LINES:          return "Lines";
-    case GL_LINE_LOOP:      return "LineLoop";
-    case GL_LINE_STRIP:     return "LineStrip";
-    case GL_TRIANGLES:      return "Triangles";
-    case GL_TRIANGLE_STRIP: return "TriangleStrip";
-    case GL_TRIANGLE_FAN:   return "TriangleFan";
-    case GL_QUADS:          return "Quads";
-    case GL_QUAD_STRIP:     return "QuadStrip";
-    case GL_POLYGON:        return "Polygon";
+        case GL_POINTS:         return "Points";
+        case GL_LINES:          return "Lines";
+        case GL_LINE_LOOP:      return "LineLoop";
+        case GL_LINE_STRIP:     return "LineStrip";
+        case GL_TRIANGLES:      return "Triangles";
+        case GL_TRIANGLE_STRIP: return "TriangleStrip";
+        case GL_TRIANGLE_FAN:   return "TriangleFan";
+        case GL_QUADS:          return "Quads";
+        case GL_QUAD_STRIP:     return "QuadStrip";
+        case GL_POLYGON:        return "Polygon";
+        case GL_PATCHES:        return "Patches";
     }
 
     return "Unknown Primitive";
@@ -485,6 +497,16 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     if(getColors() != NULL)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
 #endif
+
+    if(_sfPatchVertices.getValue() != 0)
+    {
+        OSGGETGLFUNCBYID_GL3(glPatchParameteri,
+                             osgGlPatchParameteri,
+                             Geometry::FuncPatchParameterI,
+                             pWin                         );
+
+        osgGlPatchParameteri(GL_PATCH_VERTICES, _sfPatchVertices.getValue());
+    }
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     if(getDlistCache() == true)
@@ -870,7 +892,7 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
         return;
     }
 
-    UInt32 triangle = 0, line = 0, point = 0, vertices = 0,
+    UInt32 triangle = 0, line = 0, point = 0, vertices = 0, patches = 0,
            procAttBytes = 0;
 
     for(UInt32 i = 0; i < tN; ++i)
@@ -929,6 +951,9 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
             case GL_POLYGON:
                 triangle += len - 2;
                 break;
+            case GL_PATCHES:
+                patches += 1;
+                break;
             default:
                 FWARNING(("GeoStatsAttachment::calc: Invalid geoType: %d\n",
                           type));
@@ -940,6 +965,7 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
     pStat->setPoints(point);
     pStat->setLines(line);
     pStat->setTriangles(triangle);
+    pStat->setPatches(patches);
     pStat->setStoredAttributeBytes(storedAttBytes);
     pStat->setProcessedAttributeBytes(procAttBytes);
     pStat->setValid(true);

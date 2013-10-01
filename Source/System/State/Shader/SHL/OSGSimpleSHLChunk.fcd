@@ -22,6 +22,24 @@
 	vertex program source
     </Field>
     <Field
+        name="tessControlProgram"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        >
+	tessalation control program source
+    </Field>
+    <Field
+        name="tessEvaluationProgram"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        >
+	tessalation eval program source
+    </Field>
+    <Field
         name="geometryProgram"
         type="std::string"
         cardinality="single"

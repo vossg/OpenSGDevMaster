@@ -86,6 +86,14 @@ OSG_BEGIN_NAMESPACE
     vertex program source
 */
 
+/*! \var std::string     SimpleSHLChunkBase::_sfTessControlProgram
+    tessalation control program source
+*/
+
+/*! \var std::string     SimpleSHLChunkBase::_sfTessEvaluationProgram
+    tessalation eval program source
+*/
+
 /*! \var std::string     SimpleSHLChunkBase::_sfGeometryProgram
     geometry program source
 */
@@ -159,6 +167,30 @@ void SimpleSHLChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SimpleSHLChunk::editHandleVertexProgram),
         static_cast<FieldGetMethodSig >(&SimpleSHLChunk::getHandleVertexProgram));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "tessControlProgram",
+        "tessalation control program source\n",
+        TessControlProgramFieldId, TessControlProgramFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SimpleSHLChunk::editHandleTessControlProgram),
+        static_cast<FieldGetMethodSig >(&SimpleSHLChunk::getHandleTessControlProgram));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "tessEvaluationProgram",
+        "tessalation eval program source\n",
+        TessEvaluationProgramFieldId, TessEvaluationProgramFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SimpleSHLChunk::editHandleTessEvaluationProgram),
+        static_cast<FieldGetMethodSig >(&SimpleSHLChunk::getHandleTessEvaluationProgram));
 
     oType.addInitialDesc(pDesc);
 
@@ -295,6 +327,24 @@ SimpleSHLChunkBase::TypeObject SimpleSHLChunkBase::_type(
     "\tvertex program source\n"
     "    </Field>\n"
     "    <Field\n"
+    "        name=\"tessControlProgram\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "\ttessalation control program source\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"tessEvaluationProgram\"\n"
+    "        type=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "\ttessalation eval program source\n"
+    "    </Field>\n"
+    "    <Field\n"
     "        name=\"geometryProgram\"\n"
     "        type=\"std::string\"\n"
     "        cardinality=\"single\"\n"
@@ -410,6 +460,32 @@ SFString *SimpleSHLChunkBase::editSFVertexProgram(void)
 const SFString *SimpleSHLChunkBase::getSFVertexProgram(void) const
 {
     return &_sfVertexProgram;
+}
+
+
+SFString *SimpleSHLChunkBase::editSFTessControlProgram(void)
+{
+    editSField(TessControlProgramFieldMask);
+
+    return &_sfTessControlProgram;
+}
+
+const SFString *SimpleSHLChunkBase::getSFTessControlProgram(void) const
+{
+    return &_sfTessControlProgram;
+}
+
+
+SFString *SimpleSHLChunkBase::editSFTessEvaluationProgram(void)
+{
+    editSField(TessEvaluationProgramFieldMask);
+
+    return &_sfTessEvaluationProgram;
+}
+
+const SFString *SimpleSHLChunkBase::getSFTessEvaluationProgram(void) const
+{
+    return &_sfTessEvaluationProgram;
 }
 
 
@@ -546,6 +622,14 @@ SizeT SimpleSHLChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfVertexProgram.getBinSize();
     }
+    if(FieldBits::NoField != (TessControlProgramFieldMask & whichField))
+    {
+        returnValue += _sfTessControlProgram.getBinSize();
+    }
+    if(FieldBits::NoField != (TessEvaluationProgramFieldMask & whichField))
+    {
+        returnValue += _sfTessEvaluationProgram.getBinSize();
+    }
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
     {
         returnValue += _sfGeometryProgram.getBinSize();
@@ -591,6 +675,14 @@ void SimpleSHLChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfVertexProgram.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (TessControlProgramFieldMask & whichField))
+    {
+        _sfTessControlProgram.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationProgramFieldMask & whichField))
+    {
+        _sfTessEvaluationProgram.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
     {
         _sfGeometryProgram.copyToBin(pMem);
@@ -634,6 +726,16 @@ void SimpleSHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(VertexProgramFieldMask);
         _sfVertexProgram.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessControlProgramFieldMask & whichField))
+    {
+        editSField(TessControlProgramFieldMask);
+        _sfTessControlProgram.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationProgramFieldMask & whichField))
+    {
+        editSField(TessEvaluationProgramFieldMask);
+        _sfTessEvaluationProgram.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
     {
@@ -801,6 +903,8 @@ FieldContainerTransitPtr SimpleSHLChunkBase::shallowCopy(void) const
 SimpleSHLChunkBase::SimpleSHLChunkBase(void) :
     Inherited(),
     _sfVertexProgram          (),
+    _sfTessControlProgram     (),
+    _sfTessEvaluationProgram  (),
     _sfGeometryProgram        (),
     _sfFragmentProgram        (),
     _sfCgFrontEnd             (bool(false)),
@@ -817,6 +921,8 @@ SimpleSHLChunkBase::SimpleSHLChunkBase(void) :
 SimpleSHLChunkBase::SimpleSHLChunkBase(const SimpleSHLChunkBase &source) :
     Inherited(source),
     _sfVertexProgram          (source._sfVertexProgram          ),
+    _sfTessControlProgram     (source._sfTessControlProgram     ),
+    _sfTessEvaluationProgram  (source._sfTessEvaluationProgram  ),
     _sfGeometryProgram        (source._sfGeometryProgram        ),
     _sfFragmentProgram        (source._sfFragmentProgram        ),
     _sfCgFrontEnd             (source._sfCgFrontEnd             ),
@@ -913,6 +1019,56 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleVertexProgram  (void)
 
 
     editSField(VertexProgramFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SimpleSHLChunkBase::getHandleTessControlProgram (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfTessControlProgram,
+             this->getType().getFieldDesc(TessControlProgramFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SimpleSHLChunkBase::editHandleTessControlProgram(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfTessControlProgram,
+             this->getType().getFieldDesc(TessControlProgramFieldId),
+             this));
+
+
+    editSField(TessControlProgramFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SimpleSHLChunkBase::getHandleTessEvaluationProgram (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfTessEvaluationProgram,
+             this->getType().getFieldDesc(TessEvaluationProgramFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SimpleSHLChunkBase::editHandleTessEvaluationProgram(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfTessEvaluationProgram,
+             this->getType().getFieldDesc(TessEvaluationProgramFieldId),
+             this));
+
+
+    editSField(TessEvaluationProgramFieldMask);
 
     return returnValue;
 }

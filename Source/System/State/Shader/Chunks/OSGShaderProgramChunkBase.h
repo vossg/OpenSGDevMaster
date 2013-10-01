@@ -97,7 +97,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
     enum
     {
         VertexShaderFieldId = Inherited::NextFieldId,
-        GeometryShaderFieldId = VertexShaderFieldId + 1,
+        TessControlShaderFieldId = VertexShaderFieldId + 1,
+        TessEvaluationShaderFieldId = TessControlShaderFieldId + 1,
+        GeometryShaderFieldId = TessEvaluationShaderFieldId + 1,
         FragmentShaderFieldId = GeometryShaderFieldId + 1,
         GeometryVerticesOutFieldId = FragmentShaderFieldId + 1,
         GeometryInputTypeFieldId = GeometryVerticesOutFieldId + 1,
@@ -107,6 +109,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
 
     static const OSG::BitVector VertexShaderFieldMask =
         (TypeTraits<BitVector>::One << VertexShaderFieldId);
+    static const OSG::BitVector TessControlShaderFieldMask =
+        (TypeTraits<BitVector>::One << TessControlShaderFieldId);
+    static const OSG::BitVector TessEvaluationShaderFieldMask =
+        (TypeTraits<BitVector>::One << TessEvaluationShaderFieldId);
     static const OSG::BitVector GeometryShaderFieldMask =
         (TypeTraits<BitVector>::One << GeometryShaderFieldId);
     static const OSG::BitVector FragmentShaderFieldMask =
@@ -121,6 +127,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUnrecShaderProgramPtr MFVertexShaderType;
+    typedef MFUnrecShaderProgramPtr MFTessControlShaderType;
+    typedef MFUnrecShaderProgramPtr MFTessEvaluationShaderType;
     typedef MFUnrecShaderProgramPtr MFGeometryShaderType;
     typedef MFUnrecShaderProgramPtr MFFragmentShaderType;
     typedef SFUInt32          SFGeometryVerticesOutType;
@@ -152,6 +160,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
 
             const MFUnrecShaderProgramPtr *getMFVertexShader   (void) const;
                   MFUnrecShaderProgramPtr *editMFVertexShader   (void);
+            const MFUnrecShaderProgramPtr *getMFTessControlShader(void) const;
+                  MFUnrecShaderProgramPtr *editMFTessControlShader(void);
+            const MFUnrecShaderProgramPtr *getMFTessEvaluationShader(void) const;
+                  MFUnrecShaderProgramPtr *editMFTessEvaluationShader(void);
             const MFUnrecShaderProgramPtr *getMFGeometryShader (void) const;
                   MFUnrecShaderProgramPtr *editMFGeometryShader (void);
             const MFUnrecShaderProgramPtr *getMFFragmentShader (void) const;
@@ -168,6 +180,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
 
 
                   ShaderProgram * getVertexShader   (const UInt32 index) const;
+
+                  ShaderProgram * getTessControlShader(const UInt32 index) const;
+
+                  ShaderProgram * getTessEvaluationShader(const UInt32 index) const;
 
                   ShaderProgram * getGeometryShader (const UInt32 index) const;
 
@@ -206,6 +222,18 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
     void subVertexShader (UInt32               uiIndex );
     void removeObjFromVertexShader(ShaderProgram * const value   );
     void clearVertexShaders            (void                         );
+
+    void addTessControlShader           (ShaderProgram * const value   );
+    void assignTessControlShader          (const MFUnrecShaderProgramPtr &value);
+    void subTessControlShader (UInt32               uiIndex );
+    void removeObjFromTessControlShader(ShaderProgram * const value   );
+    void clearTessControlShaders            (void                         );
+
+    void addTessEvaluationShader           (ShaderProgram * const value   );
+    void assignTessEvaluationShader          (const MFUnrecShaderProgramPtr &value);
+    void subTessEvaluationShader (UInt32               uiIndex );
+    void removeObjFromTessEvaluationShader(ShaderProgram * const value   );
+    void clearTessEvaluationShaders            (void                         );
 
     void addGeometryShader           (ShaderProgram * const value   );
     void assignGeometryShader          (const MFUnrecShaderProgramPtr &value);
@@ -273,6 +301,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
     MFUnrecShaderProgramPtr _mfVertexShader;
+    MFUnrecShaderProgramPtr _mfTessControlShader;
+    MFUnrecShaderProgramPtr _mfTessEvaluationShader;
     MFUnrecShaderProgramPtr _mfGeometryShader;
     MFUnrecShaderProgramPtr _mfFragmentShader;
     SFUInt32          _sfGeometryVerticesOut;
@@ -308,6 +338,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
 
     GetFieldHandlePtr  getHandleVertexShader    (void) const;
     EditFieldHandlePtr editHandleVertexShader   (void);
+    GetFieldHandlePtr  getHandleTessControlShader (void) const;
+    EditFieldHandlePtr editHandleTessControlShader(void);
+    GetFieldHandlePtr  getHandleTessEvaluationShader (void) const;
+    EditFieldHandlePtr editHandleTessEvaluationShader(void);
     GetFieldHandlePtr  getHandleGeometryShader  (void) const;
     EditFieldHandlePtr editHandleGeometryShader (void);
     GetFieldHandlePtr  getHandleFragmentShader  (void) const;

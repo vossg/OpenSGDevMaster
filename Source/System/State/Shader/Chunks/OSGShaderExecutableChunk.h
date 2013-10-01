@@ -145,9 +145,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
 
     UInt16 _uiChunkId;
 
-    typedef MFFragmentShaderType::const_iterator FragmentShaderIt;
-    typedef MFGeometryShaderType::const_iterator GeometryShaderIt;
-    typedef MFVertexShaderType  ::const_iterator VertexShaderIt;
+    typedef MFFragmentShaderType      ::const_iterator FragmentShaderIt;
+    typedef MFGeometryShaderType      ::const_iterator GeometryShaderIt;
+    typedef MFTessEvaluationShaderType::const_iterator TessEvalShaderIt;
+    typedef MFTessControlShaderType   ::const_iterator TessControlShaderIt;
+    typedef MFVertexShaderType        ::const_iterator VertexShaderIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -224,9 +226,11 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    const MFFragmentShaderType *getMFFragmentShader(void);
-    const MFGeometryShaderType *getMFGeometryShader(void);
-    const MFVertexShaderType   *getMFVertexShader  (void);
+    const MFFragmentShaderType       *getMFFragmentShader      (void);
+    const MFGeometryShaderType       *getMFGeometryShader      (void);
+    const MFTessEvaluationShaderType *getMFTessEvaluationShader(void);
+    const MFTessControlShaderType    *getMFTessControlShader   (void);
+    const MFVertexShaderType         *getMFVertexShader        (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

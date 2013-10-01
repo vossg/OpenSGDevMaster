@@ -97,7 +97,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
     enum
     {
         VertexProgramFieldId = Inherited::NextFieldId,
-        GeometryProgramFieldId = VertexProgramFieldId + 1,
+        TessControlProgramFieldId = VertexProgramFieldId + 1,
+        TessEvaluationProgramFieldId = TessControlProgramFieldId + 1,
+        GeometryProgramFieldId = TessEvaluationProgramFieldId + 1,
         FragmentProgramFieldId = GeometryProgramFieldId + 1,
         CgFrontEndFieldId = FragmentProgramFieldId + 1,
         VariablesFieldId = CgFrontEndFieldId + 1,
@@ -110,6 +112,10 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
 
     static const OSG::BitVector VertexProgramFieldMask =
         (TypeTraits<BitVector>::One << VertexProgramFieldId);
+    static const OSG::BitVector TessControlProgramFieldMask =
+        (TypeTraits<BitVector>::One << TessControlProgramFieldId);
+    static const OSG::BitVector TessEvaluationProgramFieldMask =
+        (TypeTraits<BitVector>::One << TessEvaluationProgramFieldId);
     static const OSG::BitVector GeometryProgramFieldMask =
         (TypeTraits<BitVector>::One << GeometryProgramFieldId);
     static const OSG::BitVector FragmentProgramFieldMask =
@@ -130,6 +136,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFString          SFVertexProgramType;
+    typedef SFString          SFTessControlProgramType;
+    typedef SFString          SFTessEvaluationProgramType;
     typedef SFString          SFGeometryProgramType;
     typedef SFString          SFFragmentProgramType;
     typedef SFBool            SFCgFrontEndType;
@@ -166,6 +174,12 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
                   SFString            *editSFVertexProgram  (void);
             const SFString            *getSFVertexProgram   (void) const;
 
+                  SFString            *editSFTessControlProgram(void);
+            const SFString            *getSFTessControlProgram (void) const;
+
+                  SFString            *editSFTessEvaluationProgram(void);
+            const SFString            *getSFTessEvaluationProgram (void) const;
+
                   SFString            *editSFGeometryProgram(void);
             const SFString            *getSFGeometryProgram (void) const;
 
@@ -186,6 +200,12 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
 
                   std::string         &editVertexProgram  (void);
             const std::string         &getVertexProgram   (void) const;
+
+                  std::string         &editTessControlProgram(void);
+            const std::string         &getTessControlProgram (void) const;
+
+                  std::string         &editTessEvaluationProgram(void);
+            const std::string         &getTessEvaluationProgram (void) const;
 
                   std::string         &editGeometryProgram(void);
             const std::string         &getGeometryProgram (void) const;
@@ -210,6 +230,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
     /*! \{                                                                 */
 
             void setVertexProgram  (const std::string &value);
+            void setTessControlProgram(const std::string &value);
+            void setTessEvaluationProgram(const std::string &value);
             void setGeometryProgram(const std::string &value);
             void setFragmentProgram(const std::string &value);
             void setCgFrontEnd     (const bool value);
@@ -281,6 +303,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
     /*! \{                                                                 */
 
     SFString          _sfVertexProgram;
+    SFString          _sfTessControlProgram;
+    SFString          _sfTessEvaluationProgram;
     SFString          _sfGeometryProgram;
     SFString          _sfFragmentProgram;
     SFBool            _sfCgFrontEnd;
@@ -327,6 +351,10 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
 
     GetFieldHandlePtr  getHandleVertexProgram   (void) const;
     EditFieldHandlePtr editHandleVertexProgram  (void);
+    GetFieldHandlePtr  getHandleTessControlProgram (void) const;
+    EditFieldHandlePtr editHandleTessControlProgram(void);
+    GetFieldHandlePtr  getHandleTessEvaluationProgram (void) const;
+    EditFieldHandlePtr editHandleTessEvaluationProgram(void);
     GetFieldHandlePtr  getHandleGeometryProgram (void) const;
     EditFieldHandlePtr editHandleGeometryProgram(void);
     GetFieldHandlePtr  getHandleFragmentProgram (void) const;

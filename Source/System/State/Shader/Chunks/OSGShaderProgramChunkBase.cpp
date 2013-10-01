@@ -88,6 +88,14 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+/*! \var ShaderProgram * ShaderProgramChunkBase::_mfTessControlShader
+    fragment program object
+*/
+
+/*! \var ShaderProgram * ShaderProgramChunkBase::_mfTessEvaluationShader
+    fragment program object
+*/
+
 /*! \var ShaderProgram * ShaderProgramChunkBase::_mfGeometryShader
     fragment program object
 */
@@ -149,6 +157,30 @@ void ShaderProgramChunkBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShaderProgramChunk::editHandleVertexShader),
         static_cast<FieldGetMethodSig >(&ShaderProgramChunk::getHandleVertexShader));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecShaderProgramPtr::Description(
+        MFUnrecShaderProgramPtr::getClassType(),
+        "tessControlShader",
+        "fragment program object\n",
+        TessControlShaderFieldId, TessControlShaderFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderProgramChunk::editHandleTessControlShader),
+        static_cast<FieldGetMethodSig >(&ShaderProgramChunk::getHandleTessControlShader));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecShaderProgramPtr::Description(
+        MFUnrecShaderProgramPtr::getClassType(),
+        "tessEvaluationShader",
+        "fragment program object\n",
+        TessEvaluationShaderFieldId, TessEvaluationShaderFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShaderProgramChunk::editHandleTessEvaluationShader),
+        static_cast<FieldGetMethodSig >(&ShaderProgramChunk::getHandleTessEvaluationShader));
 
     oType.addInitialDesc(pDesc);
 
@@ -254,6 +286,34 @@ ShaderProgramChunkBase::TypeObject ShaderProgramChunkBase::_type(
     "\tfragment program object\n"
     "  </Field>\n"
     "  <Field\n"
+    "\t name=\"tessControlShader\"\n"
+    "\t type=\"ShaderProgram\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "\n"
+    "     pushToFieldAs=\"addTessControlShader\"\n"
+    "     removeFromMFieldIndexAs=\"subTessControlShader\"\n"
+    "     clearFieldAs=\"clearTessControlShaders\"        \n"
+    "\t >\n"
+    "\tfragment program object\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"tessEvaluationShader\"\n"
+    "\t type=\"ShaderProgram\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "     category=\"pointer\"\n"
+    "\n"
+    "     pushToFieldAs=\"addTessEvaluationShader\"\n"
+    "     removeFromMFieldIndexAs=\"subTessEvaluationShader\"\n"
+    "     clearFieldAs=\"clearTessEvaluationShaders\"        \n"
+    "\t >\n"
+    "\tfragment program object\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"geometryShader\"\n"
     "\t type=\"ShaderProgram\"\n"
     "\t cardinality=\"multi\"\n"
@@ -348,6 +408,40 @@ MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFVertexShader   (void)
 ShaderProgram * ShaderProgramChunkBase::getVertexShader(const UInt32 index) const
 {
     return _mfVertexShader[index];
+}
+
+//! Get the ShaderProgramChunk::_mfTessControlShader field.
+const MFUnrecShaderProgramPtr *ShaderProgramChunkBase::getMFTessControlShader(void) const
+{
+    return &_mfTessControlShader;
+}
+
+MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFTessControlShader(void)
+{
+    editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+    return &_mfTessControlShader;
+}
+ShaderProgram * ShaderProgramChunkBase::getTessControlShader(const UInt32 index) const
+{
+    return _mfTessControlShader[index];
+}
+
+//! Get the ShaderProgramChunk::_mfTessEvaluationShader field.
+const MFUnrecShaderProgramPtr *ShaderProgramChunkBase::getMFTessEvaluationShader(void) const
+{
+    return &_mfTessEvaluationShader;
+}
+
+MFUnrecShaderProgramPtr *ShaderProgramChunkBase::editMFTessEvaluationShader(void)
+{
+    editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+
+    return &_mfTessEvaluationShader;
+}
+ShaderProgram * ShaderProgramChunkBase::getTessEvaluationShader(const UInt32 index) const
+{
+    return _mfTessEvaluationShader[index];
 }
 
 //! Get the ShaderProgramChunk::_mfGeometryShader field.
@@ -478,6 +572,112 @@ void ShaderProgramChunkBase::clearVertexShaders(void)
     _mfVertexShader.clear();
 }
 
+void ShaderProgramChunkBase::addTessControlShader(ShaderProgram * const value)
+{
+    editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+    _mfTessControlShader.push_back(value);
+}
+
+void ShaderProgramChunkBase::assignTessControlShader(const MFUnrecShaderProgramPtr &value)
+{
+    MFUnrecShaderProgramPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecShaderProgramPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<ShaderProgramChunk *>(this)->clearTessControlShaders();
+
+    while(elemIt != elemEnd)
+    {
+        this->addTessControlShader(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+void ShaderProgramChunkBase::subTessControlShader(UInt32 uiIndex)
+{
+    if(uiIndex < _mfTessControlShader.size())
+    {
+        editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+        _mfTessControlShader.erase(uiIndex);
+    }
+}
+
+void ShaderProgramChunkBase::removeObjFromTessControlShader(ShaderProgram * const value)
+{
+    Int32 iElemIdx = _mfTessControlShader.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+        _mfTessControlShader.erase(iElemIdx);
+    }
+}
+void ShaderProgramChunkBase::clearTessControlShaders(void)
+{
+    editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+
+    _mfTessControlShader.clear();
+}
+
+void ShaderProgramChunkBase::addTessEvaluationShader(ShaderProgram * const value)
+{
+    editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+
+    _mfTessEvaluationShader.push_back(value);
+}
+
+void ShaderProgramChunkBase::assignTessEvaluationShader(const MFUnrecShaderProgramPtr &value)
+{
+    MFUnrecShaderProgramPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecShaderProgramPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<ShaderProgramChunk *>(this)->clearTessEvaluationShaders();
+
+    while(elemIt != elemEnd)
+    {
+        this->addTessEvaluationShader(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+void ShaderProgramChunkBase::subTessEvaluationShader(UInt32 uiIndex)
+{
+    if(uiIndex < _mfTessEvaluationShader.size())
+    {
+        editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+
+        _mfTessEvaluationShader.erase(uiIndex);
+    }
+}
+
+void ShaderProgramChunkBase::removeObjFromTessEvaluationShader(ShaderProgram * const value)
+{
+    Int32 iElemIdx = _mfTessEvaluationShader.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+
+        _mfTessEvaluationShader.erase(iElemIdx);
+    }
+}
+void ShaderProgramChunkBase::clearTessEvaluationShaders(void)
+{
+    editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+
+
+    _mfTessEvaluationShader.clear();
+}
+
 void ShaderProgramChunkBase::addGeometryShader(ShaderProgram * const value)
 {
     editMField(GeometryShaderFieldMask, _mfGeometryShader);
@@ -596,6 +796,14 @@ SizeT ShaderProgramChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfVertexShader.getBinSize();
     }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        returnValue += _mfTessControlShader.getBinSize();
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        returnValue += _mfTessEvaluationShader.getBinSize();
+    }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
         returnValue += _mfGeometryShader.getBinSize();
@@ -629,6 +837,14 @@ void ShaderProgramChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfVertexShader.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        _mfTessControlShader.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        _mfTessEvaluationShader.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
         _mfGeometryShader.copyToBin(pMem);
@@ -660,6 +876,16 @@ void ShaderProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(VertexShaderFieldMask, _mfVertexShader);
         _mfVertexShader.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+    {
+        editMField(TessControlShaderFieldMask, _mfTessControlShader);
+        _mfTessControlShader.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+    {
+        editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+        _mfTessEvaluationShader.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
     {
@@ -812,6 +1038,8 @@ FieldContainerTransitPtr ShaderProgramChunkBase::shallowCopy(void) const
 ShaderProgramChunkBase::ShaderProgramChunkBase(void) :
     Inherited(),
     _mfVertexShader           (),
+    _mfTessControlShader      (),
+    _mfTessEvaluationShader   (),
     _mfGeometryShader         (),
     _mfFragmentShader         (),
     _sfGeometryVerticesOut    (UInt32(0)),
@@ -823,6 +1051,8 @@ ShaderProgramChunkBase::ShaderProgramChunkBase(void) :
 ShaderProgramChunkBase::ShaderProgramChunkBase(const ShaderProgramChunkBase &source) :
     Inherited(source),
     _mfVertexShader           (),
+    _mfTessControlShader      (),
+    _mfTessEvaluationShader   (),
     _mfGeometryShader         (),
     _mfFragmentShader         (),
     _sfGeometryVerticesOut    (source._sfGeometryVerticesOut    ),
@@ -856,6 +1086,30 @@ void ShaderProgramChunkBase::onCreate(const ShaderProgramChunk *source)
             pThis->addVertexShader(*VertexShaderIt);
 
             ++VertexShaderIt;
+        }
+
+        MFUnrecShaderProgramPtr::const_iterator TessControlShaderIt  =
+            source->_mfTessControlShader.begin();
+        MFUnrecShaderProgramPtr::const_iterator TessControlShaderEnd =
+            source->_mfTessControlShader.end  ();
+
+        while(TessControlShaderIt != TessControlShaderEnd)
+        {
+            pThis->addTessControlShader(*TessControlShaderIt);
+
+            ++TessControlShaderIt;
+        }
+
+        MFUnrecShaderProgramPtr::const_iterator TessEvaluationShaderIt  =
+            source->_mfTessEvaluationShader.begin();
+        MFUnrecShaderProgramPtr::const_iterator TessEvaluationShaderEnd =
+            source->_mfTessEvaluationShader.end  ();
+
+        while(TessEvaluationShaderIt != TessEvaluationShaderEnd)
+        {
+            pThis->addTessEvaluationShader(*TessEvaluationShaderIt);
+
+            ++TessEvaluationShaderIt;
         }
 
         MFUnrecShaderProgramPtr::const_iterator GeometryShaderIt  =
@@ -917,6 +1171,80 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleVertexShader   (void)
                     static_cast<ShaderProgramChunk *>(this)));
 
     editMField(VertexShaderFieldMask, _mfVertexShader);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderProgramChunkBase::getHandleTessControlShader (void) const
+{
+    MFUnrecShaderProgramPtr::GetHandlePtr returnValue(
+        new  MFUnrecShaderProgramPtr::GetHandle(
+             &_mfTessControlShader,
+             this->getType().getFieldDesc(TessControlShaderFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProgramChunkBase::editHandleTessControlShader(void)
+{
+    MFUnrecShaderProgramPtr::EditHandlePtr returnValue(
+        new  MFUnrecShaderProgramPtr::EditHandle(
+             &_mfTessControlShader,
+             this->getType().getFieldDesc(TessControlShaderFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&ShaderProgramChunk::addTessControlShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ShaderProgramChunk::subTessControlShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ShaderProgramChunk::removeObjFromTessControlShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ShaderProgramChunk::clearTessControlShaders,
+                    static_cast<ShaderProgramChunk *>(this)));
+
+    editMField(TessControlShaderFieldMask, _mfTessControlShader);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderProgramChunkBase::getHandleTessEvaluationShader (void) const
+{
+    MFUnrecShaderProgramPtr::GetHandlePtr returnValue(
+        new  MFUnrecShaderProgramPtr::GetHandle(
+             &_mfTessEvaluationShader,
+             this->getType().getFieldDesc(TessEvaluationShaderFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderProgramChunkBase::editHandleTessEvaluationShader(void)
+{
+    MFUnrecShaderProgramPtr::EditHandlePtr returnValue(
+        new  MFUnrecShaderProgramPtr::EditHandle(
+             &_mfTessEvaluationShader,
+             this->getType().getFieldDesc(TessEvaluationShaderFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&ShaderProgramChunk::addTessEvaluationShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&ShaderProgramChunk::subTessEvaluationShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&ShaderProgramChunk::removeObjFromTessEvaluationShader,
+                    static_cast<ShaderProgramChunk *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&ShaderProgramChunk::clearTessEvaluationShaders,
+                    static_cast<ShaderProgramChunk *>(this)));
+
+    editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
 
     return returnValue;
 }
@@ -1108,6 +1436,10 @@ void ShaderProgramChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<ShaderProgramChunk *>(this)->clearVertexShaders();
+
+    static_cast<ShaderProgramChunk *>(this)->clearTessControlShaders();
+
+    static_cast<ShaderProgramChunk *>(this)->clearTessEvaluationShaders();
 
     static_cast<ShaderProgramChunk *>(this)->clearGeometryShaders();
 

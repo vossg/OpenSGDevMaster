@@ -67,7 +67,7 @@
 
 #include "OSGGeoIntegralPropertyFields.h" // Types type
 #include "OSGGeoVectorPropertyFields.h" // Properties type
-#include "OSGSysFields.h"               // DlistCache type
+#include "OSGSysFields.h"               // PatchVertices type
 
 #include "OSGGeometryFields.h"
 
@@ -100,7 +100,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         LengthsFieldId = TypesFieldId + 1,
         PropertiesFieldId = LengthsFieldId + 1,
         PropIndicesFieldId = PropertiesFieldId + 1,
-        DlistCacheFieldId = PropIndicesFieldId + 1,
+        PatchVerticesFieldId = PropIndicesFieldId + 1,
+        DlistCacheFieldId = PatchVerticesFieldId + 1,
         UseVAOFieldId = DlistCacheFieldId + 1,
         UseAttribCallsFieldId = UseVAOFieldId + 1,
         ClassicGLIdFieldId = UseAttribCallsFieldId + 1,
@@ -117,6 +118,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         (TypeTraits<BitVector>::One << PropertiesFieldId);
     static const OSG::BitVector PropIndicesFieldMask =
         (TypeTraits<BitVector>::One << PropIndicesFieldId);
+    static const OSG::BitVector PatchVerticesFieldMask =
+        (TypeTraits<BitVector>::One << PatchVerticesFieldId);
     static const OSG::BitVector DlistCacheFieldMask =
         (TypeTraits<BitVector>::One << DlistCacheFieldId);
     static const OSG::BitVector UseVAOFieldMask =
@@ -136,6 +139,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     typedef SFUnrecChildGeoIntegralPropertyPtr SFLengthsType;
     typedef MFUnrecChildGeoVectorPropertyPtr MFPropertiesType;
     typedef MFUnrecChildGeoIntegralPropertyPtr MFPropIndicesType;
+    typedef SFUInt32          SFPatchVerticesType;
     typedef SFBool            SFDlistCacheType;
     typedef SFBool            SFUseVAOType;
     typedef SFBool            SFUseAttribCallsType;
@@ -175,6 +179,9 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
             const MFUnrecChildGeoIntegralPropertyPtr *getMFPropIndices    (void) const;
                   MFUnrecChildGeoIntegralPropertyPtr *editMFPropIndices    (void);
 
+                  SFUInt32            *editSFPatchVertices  (void);
+            const SFUInt32            *getSFPatchVertices   (void) const;
+
                   SFBool              *editSFDlistCache     (void);
             const SFBool              *getSFDlistCache      (void) const;
 
@@ -193,6 +200,9 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
                   GeoIntegralProperty * getPropIndices    (const UInt32 index) const;
 
+                  UInt32              &editPatchVertices  (void);
+                  UInt32               getPatchVertices   (void) const;
+
                   bool                &editDlistCache     (void);
                   bool                 getDlistCache      (void) const;
 
@@ -209,6 +219,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
             void setTypes          (GeoIntegralProperty * const value);
             void setLengths        (GeoIntegralProperty * const value);
+            void setPatchVertices  (const UInt32 value);
             void setDlistCache     (const bool value);
             void setUseVAO         (const bool value);
             void setUseAttribCalls (const bool value);
@@ -292,6 +303,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     SFUnrecChildGeoIntegralPropertyPtr _sfLengths;
     MFUnrecChildGeoVectorPropertyPtr _mfProperties;
     MFUnrecChildGeoIntegralPropertyPtr _mfPropIndices;
+    SFUInt32          _sfPatchVertices;
     SFBool            _sfDlistCache;
     SFBool            _sfUseVAO;
     SFBool            _sfUseAttribCalls;
@@ -342,6 +354,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     EditFieldHandlePtr editHandleProperties     (void);
     GetFieldHandlePtr  getHandlePropIndices     (void) const;
     EditFieldHandlePtr editHandlePropIndices    (void);
+    GetFieldHandlePtr  getHandlePatchVertices   (void) const;
+    EditFieldHandlePtr editHandlePatchVertices  (void);
     GetFieldHandlePtr  getHandleDlistCache      (void) const;
     EditFieldHandlePtr editHandleDlistCache     (void);
     GetFieldHandlePtr  getHandleUseVAO          (void) const;

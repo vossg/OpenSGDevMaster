@@ -104,6 +104,11 @@ OSG_BEGIN_NAMESPACE
     PageSystemGeoIndexing for a description of the indexing options.
 */
 
+/*! \var UInt32          GeometryBase::_sfPatchVertices
+    if primitives are patches set the number of vertices per patch. Evaluated
+    if value != 0.
+*/
+
 /*! \var bool            GeometryBase::_sfDlistCache
     Flag to activate caching the geometry inside a display list.
 */
@@ -210,6 +215,19 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Geometry::editHandlePropIndices),
         static_cast<FieldGetMethodSig >(&Geometry::getHandlePropIndices));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "patchVertices",
+        "if primitives are patches set the number of vertices per patch. Evaluated\n"
+        "if value != 0.\n",
+        PatchVerticesFieldId, PatchVerticesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Geometry::editHandlePatchVertices),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandlePatchVertices));
 
     oType.addInitialDesc(pDesc);
 
@@ -364,6 +382,17 @@ GeometryBase::TypeObject GeometryBase::_type(
     "        >\n"
     "        The indices property contains the index data. See \\ref \n"
     "        PageSystemGeoIndexing for a description of the indexing options.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"patchVertices\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "\tif primitives are patches set the number of vertices per patch. Evaluated\n"
+    "    if value != 0.\n"
     "    </Field>\n"
     "    <Field\n"
     "        name=\"dlistCache\"\n"
@@ -541,6 +570,19 @@ GeoIntegralProperty * GeometryBase::getPropIndices(const UInt32 index) const
 {
     return _mfPropIndices[index];
 }
+
+SFUInt32 *GeometryBase::editSFPatchVertices(void)
+{
+    editSField(PatchVerticesFieldMask);
+
+    return &_sfPatchVertices;
+}
+
+const SFUInt32 *GeometryBase::getSFPatchVertices(void) const
+{
+    return &_sfPatchVertices;
+}
+
 
 SFBool *GeometryBase::editSFDlistCache(void)
 {
@@ -752,6 +794,10 @@ SizeT GeometryBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfPropIndices.getBinSize();
     }
+    if(FieldBits::NoField != (PatchVerticesFieldMask & whichField))
+    {
+        returnValue += _sfPatchVertices.getBinSize();
+    }
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
     {
         returnValue += _sfDlistCache.getBinSize();
@@ -800,6 +846,10 @@ void GeometryBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
     {
         _mfPropIndices.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (PatchVerticesFieldMask & whichField))
+    {
+        _sfPatchVertices.copyToBin(pMem);
     }
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
     {
@@ -851,6 +901,11 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editMField(PropIndicesFieldMask, _mfPropIndices);
         _mfPropIndices.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PatchVerticesFieldMask & whichField))
+    {
+        editSField(PatchVerticesFieldMask);
+        _sfPatchVertices.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
     {
@@ -1019,6 +1074,7 @@ GeometryBase::GeometryBase(void) :
     _mfPropIndices            (this,
                           PropIndicesFieldId,
                           GeoIntegralProperty::ParentsFieldId),
+    _sfPatchVertices          (UInt32(0)),
     _sfDlistCache             (bool(true)),
     _sfUseVAO                 (bool(true)),
     _sfUseAttribCalls         (bool(false)),
@@ -1042,6 +1098,7 @@ GeometryBase::GeometryBase(const GeometryBase &source) :
     _mfPropIndices            (this,
                           PropIndicesFieldId,
                           GeoIntegralProperty::ParentsFieldId),
+    _sfPatchVertices          (source._sfPatchVertices          ),
     _sfDlistCache             (source._sfDlistCache             ),
     _sfUseVAO                 (source._sfUseVAO                 ),
     _sfUseAttribCalls         (source._sfUseAttribCalls         ),
@@ -1365,6 +1422,31 @@ EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
                     static_cast<Geometry *>(this)));
 
     editMField(PropIndicesFieldMask, _mfPropIndices);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GeometryBase::getHandlePatchVertices   (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPatchVertices,
+             this->getType().getFieldDesc(PatchVerticesFieldId),
+             const_cast<GeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeometryBase::editHandlePatchVertices  (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPatchVertices,
+             this->getType().getFieldDesc(PatchVerticesFieldId),
+             this));
+
+
+    editSField(PatchVerticesFieldMask);
 
     return returnValue;
 }

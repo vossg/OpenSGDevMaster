@@ -124,6 +124,7 @@ void DrawableStatsAttachment::reset(void)
     setPoints                 (0);
     setLines                  (0);
     setTriangles              (0);
+    setPatches                (0);
     setProcessedAttributeBytes(0);
     setStoredAttributeBytes   (0);
 
@@ -259,6 +260,7 @@ void DrawableStatsAttachment::operator +=(DrawableStatsAttachment *arg)
     setPoints                 (getPoints()    + arg->getPoints());
     setLines                  (getLines()     + arg->getLines());
     setTriangles              (getTriangles() + arg->getTriangles());
+    setPatches                (getPatches  () + arg->getPatches  ());
     setProcessedAttributeBytes(getProcessedAttributeBytes() +
                                    arg->getProcessedAttributeBytes());
     setStoredAttributeBytes   (getStoredAttributeBytes() +
@@ -272,6 +274,7 @@ void DrawableStatsAttachment::operator -=(DrawableStatsAttachment *arg)
     setPoints                 (getPoints()    - arg->getPoints());
     setLines                  (getLines()     - arg->getLines());
     setTriangles              (getTriangles() - arg->getTriangles());
+    setPatches                (getPatches  () - arg->getPatches  ());
     setProcessedAttributeBytes(getProcessedAttributeBytes() -
                                    arg->getProcessedAttributeBytes());
     setStoredAttributeBytes   (getStoredAttributeBytes() -

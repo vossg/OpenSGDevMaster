@@ -294,9 +294,11 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
 
     // Variables should all be in SimpleSHLChunkBase.
 
-    typedef MFFragmentShaderType::const_iterator FragmentShaderIt;
-    typedef MFGeometryShaderType::const_iterator GeometryShaderIt;
-    typedef MFVertexShaderType  ::const_iterator VertexShaderIt;
+    typedef MFFragmentShaderType      ::const_iterator FragmentShaderIt;
+    typedef MFGeometryShaderType      ::const_iterator GeometryShaderIt;
+    typedef MFTessControlShaderType   ::const_iterator TessControlShaderIt;
+    typedef MFTessEvaluationShaderType::const_iterator TessEvalShaderIt;
+    typedef MFVertexShaderType        ::const_iterator VertexShaderIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

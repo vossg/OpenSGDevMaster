@@ -492,6 +492,16 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         glGetFloatv(GL_CURRENT_COLOR, color.getValuesRGBA());
 #endif
 
+    if(_sfPatchVertices.getValue() != 0)
+    {
+        OSGGETGLFUNCBYID_GL3(glPatchParameteri,
+                             osgGlPatchParameteri,
+                             Geometry::FuncPatchParameterI,
+                             pWin                         );
+
+        osgGlPatchParameteri(GL_PATCH_VERTICES, _sfPatchVertices.getValue());
+    }
+
     if(((prop & (GeoPumpGroup::SingleIndexed | 
                  GeoPumpGroup::NonIndexed    )) == 0x0000))
     {

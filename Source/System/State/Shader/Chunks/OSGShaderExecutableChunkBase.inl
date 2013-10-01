@@ -262,6 +262,18 @@ void ShaderExecutableChunkBase::execSync (      ShaderExecutableChunkBase *pFrom
                                 uiSyncInfo,
                                 oOffsets);
 
+    if(FieldBits::NoField != (TessControlShaderFieldMask & whichField))
+        _mfTessControlShader.syncWith(pFrom->_mfTessControlShader,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TessEvaluationShaderFieldMask & whichField))
+        _mfTessEvaluationShader.syncWith(pFrom->_mfTessEvaluationShader,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
     if(FieldBits::NoField != (GeometryShaderFieldMask & whichField))
         _mfGeometryShader.syncWith(pFrom->_mfGeometryShader,
                                 syncMode,

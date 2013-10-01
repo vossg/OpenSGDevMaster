@@ -67,10 +67,25 @@ const ShaderExecutableChunk::MFGeometryShaderType *
 }
 
 inline
+const ShaderExecutableChunk::MFTessEvaluationShaderType *
+    ShaderExecutableChunk::getMFTessEvaluationShader(void)
+{
+    return &_mfTessEvaluationShader;
+}
+
+inline
+const ShaderExecutableChunk::MFTessControlShaderType *
+    ShaderExecutableChunk::getMFTessControlShader(void)
+{
+    return &_mfTessControlShader;
+}
+
+inline
 const ShaderExecutableChunk::MFVertexShaderType *
     ShaderExecutableChunk::getMFVertexShader(void)
 {
     return &_mfVertexShader;
 }
+
 
 OSG_END_NAMESPACE

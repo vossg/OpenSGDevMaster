@@ -104,6 +104,24 @@ void ShaderExecutableChunk::resolveLinks(void)
             (*gIt)->subParent(this);
     }
 
+    TessEvalShaderIt teIt  = _mfTessEvaluationShader.begin();
+    TessEvalShaderIt teEnd = _mfTessEvaluationShader.end  ();
+
+    for(; teIt != teEnd; ++teIt)
+    {
+        if(*teIt != NULL)
+            (*teIt)->subParent(this);
+    }
+
+    TessControlShaderIt tcIt  = _mfTessControlShader.begin();
+    TessControlShaderIt tcEnd = _mfTessControlShader.end  ();
+
+    for(; tcIt != tcEnd; ++tcIt)
+    {
+        if(*tcIt != NULL)
+            (*tcIt)->subParent(this);
+    }
+
     VertexShaderIt vIt  = _mfVertexShader.begin();
     VertexShaderIt vEnd = _mfVertexShader.end  ();
 
@@ -279,6 +297,36 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                 }
             }
         
+            TessEvalShaderIt teIt  = _mfTessEvaluationShader.begin();
+            TessEvalShaderIt teEnd = _mfTessEvaluationShader.end  ();
+            
+            for(; teIt != teEnd; ++teIt)
+            {
+                (*teIt)->validate(pEnv);
+
+                GLuint uiShader = 
+                    GLuint(pWin->getGLObjectId((*teIt)->getGLId()));
+
+                if(uiShader != 0)
+                    osgGlAttachShader(uiProgram, uiShader);
+            }
+
+
+            TessControlShaderIt tcIt  = _mfTessControlShader.begin();
+            TessControlShaderIt tcEnd = _mfTessControlShader.end  ();
+            
+            for(; tcIt != tcEnd; ++tcIt)
+            {
+                (*tcIt)->validate(pEnv);
+
+                GLuint uiShader = 
+                    GLuint(pWin->getGLObjectId((*tcIt)->getGLId()));
+
+                if(uiShader != 0)
+                    osgGlAttachShader(uiProgram, uiShader);
+            }
+
+
             VertexShaderIt vIt  = _mfVertexShader.begin();
             VertexShaderIt vEnd = _mfVertexShader.end  ();
             
@@ -360,8 +408,10 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "Vertex Shader Code:\n";
 
-                        MFVertexShaderType::const_iterator vIt  = getMFVertexShader()->begin();
-                        MFVertexShaderType::const_iterator vEnd = getMFVertexShader()->end  ();
+                        MFVertexShaderType::const_iterator vIt  = 
+                            getMFVertexShader()->begin();
+                        MFVertexShaderType::const_iterator vEnd = 
+                            getMFVertexShader()->end  ();
 
                         for(; vIt != vEnd; ++vIt)
                         {
@@ -370,12 +420,46 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                         }
                     }
 
+                    if(!getMFTessControlShader()->empty())
+                    {
+                        SINFO << "TessControl Shader Code:\n";
+
+                        MFTessControlShaderType::const_iterator tcIt  = 
+                            getMFTessControlShader()->begin();
+                        MFTessControlShaderType::const_iterator tcEnd = 
+                            getMFTessControlShader()->end  ();
+
+                        for(; tcIt != tcEnd; ++tcIt)
+                        {
+                            PINFO << (*tcIt)->getProgram()
+                                  << "\n";
+                        }
+                    }
+
+                    if(!getMFTessEvaluationShader()->empty())
+                    {
+                        SINFO << "TessEvaluation Shader Code:\n";
+
+                        MFTessEvaluationShaderType::const_iterator teIt  = 
+                            getMFTessEvaluationShader()->begin();
+                        MFTessEvaluationShaderType::const_iterator teEnd = 
+                            getMFTessEvaluationShader()->end  ();
+
+                        for(; teIt != teEnd; ++teIt)
+                        {
+                            PINFO << (*teIt)->getProgram()
+                                  << "\n";
+                        }
+                    }
+
                     if(!getMFGeometryShader()->empty())
                     {
                         SINFO << "Geometry Shader Code:\n";
 
-                        MFGeometryShaderType::const_iterator gIt  = getMFGeometryShader()->begin();
-                        MFGeometryShaderType::const_iterator gEnd = getMFGeometryShader()->end  ();
+                        MFGeometryShaderType::const_iterator gIt  = 
+                            getMFGeometryShader()->begin();
+                        MFGeometryShaderType::const_iterator gEnd = 
+                            getMFGeometryShader()->end  ();
 
                         for(; gIt != gEnd; ++gIt)
                         {
@@ -388,8 +472,10 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "Fragment Shader Code:\n";
 
-                        MFFragmentShaderType::const_iterator fIt  = getMFFragmentShader()->begin();
-                        MFFragmentShaderType::const_iterator fEnd = getMFFragmentShader()->end  ();
+                        MFFragmentShaderType::const_iterator fIt  = 
+                            getMFFragmentShader()->begin();
+                        MFFragmentShaderType::const_iterator fEnd = 
+                            getMFFragmentShader()->end  ();
 
                         for(; fIt != fEnd; ++fIt)
                         {
@@ -681,7 +767,8 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
                 if(_mfAttributes.size() == 0)
                 {
-                    pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
+                    pEnv->addRequiredOGLFeature(
+                        HardwareContext::HasAttribAliasing);
                 }
             }
 
@@ -752,10 +839,12 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
 
 void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
 {
-    editMField(VertexShaderFieldMask,   _mfVertexShader  );
-    editMField(GeometryShaderFieldMask, _mfGeometryShader);
-    editMField(FragmentShaderFieldMask, _mfFragmentShader);
-    editMField(AttributesFieldMask,     _mfAttributes    );
+    editMField(VertexShaderFieldMask,         _mfVertexShader        );
+    editMField(TessControlShaderFieldMask,    _mfTessControlShader   );
+    editMField(TessEvaluationShaderFieldMask, _mfTessEvaluationShader);
+    editMField(GeometryShaderFieldMask,       _mfGeometryShader      );
+    editMField(FragmentShaderFieldMask,       _mfFragmentShader      );
+    editMField(AttributesFieldMask,           _mfAttributes          );
 
     if(_sfVariables.getValue() == NULL)
     {
@@ -807,6 +896,46 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
     {
         this->setPointSize(bPointSize);
     }
+
+
+    _mfTessControlShader.reserve(_mfTessControlShader.size() + 
+                                  pChunk->getMFTessControlShader()->size());
+
+    sIt  = pChunk->getMFTessControlShader()->begin();
+    sEnd = pChunk->getMFTessControlShader()->end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        (*sIt)->addParent(this, TessControlShaderFieldId);
+
+        _mfTessControlShader.push_back(*sIt);
+        
+        _sfVariables.getValue()->merge(
+            (*sIt)->getVariables(),
+            this->editMFVariableLocations(),
+            this->editMFProceduralVariableLocations());
+    }
+
+    _mfTessEvaluationShader.reserve(
+        _mfTessEvaluationShader.size() + 
+         pChunk->getMFTessEvaluationShader()->size());
+
+    sIt  = pChunk->getMFTessEvaluationShader()->begin();
+    sEnd = pChunk->getMFTessEvaluationShader()->end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        (*sIt)->addParent(this, TessEvaluationShaderFieldId);
+
+        _mfTessEvaluationShader.push_back(*sIt);
+        
+        _sfVariables.getValue()->merge(
+            (*sIt)->getVariables(),
+            this->editMFVariableLocations(),
+            this->editMFProceduralVariableLocations());
+    }
+
+
 
     _mfGeometryShader.reserve(_mfGeometryShader.size() + 
                                pChunk->getMFGeometryShader()->size());
@@ -900,6 +1029,38 @@ void ShaderExecutableChunk::remergeVariables(void)
             _sfVariables.getValue()->merge(
                 (*sIt)->getVariables(),
                 this->editMFVariableLocations(),
+                this->editMFProceduralVariableLocations());
+        }
+    }
+
+
+
+    sIt  = _mfTessControlShader.begin();
+    sEnd = _mfTessControlShader.end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        if(*sIt != NULL)
+        {
+            _sfVariables.getValue()->merge(
+                (*sIt)->getVariables(),
+                this->editMFVariableLocations          (),
+                this->editMFProceduralVariableLocations());
+        }
+    }
+
+
+
+    sIt  = _mfTessEvaluationShader.begin();
+    sEnd = _mfTessEvaluationShader.end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        if(*sIt != NULL)
+        {
+            _sfVariables.getValue()->merge(
+                (*sIt)->getVariables(),
+                this->editMFVariableLocations          (),
                 this->editMFProceduralVariableLocations());
         }
     }

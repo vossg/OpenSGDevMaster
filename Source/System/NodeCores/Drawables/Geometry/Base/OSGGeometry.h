@@ -318,10 +318,12 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
            BoxVolume _volumeCache;
 
     static UInt32    _arbVertexArrayObject;
+    static UInt32    _arbTessellationShader;
 
     static UInt32     FuncIdBindVertexArray;
     static UInt32     FuncIdDeleteVertexArrays;
     static UInt32     FuncIdGenVertexArrays;
+    static UInt32     FuncPatchParameterI;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

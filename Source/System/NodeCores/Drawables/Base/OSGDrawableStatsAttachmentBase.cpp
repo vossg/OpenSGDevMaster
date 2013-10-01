@@ -109,6 +109,10 @@ OSG_BEGIN_NAMESPACE
     The number of triangles in the subtree.
 */
 
+/*! \var UInt32          DrawableStatsAttachmentBase::_sfPatches
+    The number of lines in the subtree.
+*/
+
 /*! \var UInt32          DrawableStatsAttachmentBase::_sfProcessedAttributeBytes
     The number of bytes in vertex attribute data that are processed while rendering.
 */
@@ -198,6 +202,18 @@ void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandleTriangles),
         static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandleTriangles));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "patches",
+        "The number of lines in the subtree.\n",
+        PatchesFieldId, PatchesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&DrawableStatsAttachment::editHandlePatches),
+        static_cast<FieldGetMethodSig >(&DrawableStatsAttachment::getHandlePatches));
 
     oType.addInitialDesc(pDesc);
 
@@ -315,6 +331,15 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     "    The number of triangles in the subtree.\n"
     "  </Field>\n"
     "  <Field\n"
+    "\t name=\"patches\"\n"
+    "\t type=\"UInt32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
+    "    The number of lines in the subtree.\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"processedAttributeBytes\"\n"
     "\t type=\"UInt32\"\n"
     "\t cardinality=\"single\"\n"
@@ -430,6 +455,19 @@ const SFUInt32 *DrawableStatsAttachmentBase::getSFTriangles(void) const
 }
 
 
+SFUInt32 *DrawableStatsAttachmentBase::editSFPatches(void)
+{
+    editSField(PatchesFieldMask);
+
+    return &_sfPatches;
+}
+
+const SFUInt32 *DrawableStatsAttachmentBase::getSFPatches(void) const
+{
+    return &_sfPatches;
+}
+
+
 SFUInt32 *DrawableStatsAttachmentBase::editSFProcessedAttributeBytes(void)
 {
     editSField(ProcessedAttributeBytesFieldMask);
@@ -495,6 +533,10 @@ SizeT DrawableStatsAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfTriangles.getBinSize();
     }
+    if(FieldBits::NoField != (PatchesFieldMask & whichField))
+    {
+        returnValue += _sfPatches.getBinSize();
+    }
     if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
     {
         returnValue += _sfProcessedAttributeBytes.getBinSize();
@@ -531,6 +573,10 @@ void DrawableStatsAttachmentBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (TrianglesFieldMask & whichField))
     {
         _sfTriangles.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (PatchesFieldMask & whichField))
+    {
+        _sfPatches.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
     {
@@ -570,6 +616,11 @@ void DrawableStatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(TrianglesFieldMask);
         _sfTriangles.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PatchesFieldMask & whichField))
+    {
+        editSField(PatchesFieldMask);
+        _sfPatches.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ProcessedAttributeBytesFieldMask & whichField))
     {
@@ -715,6 +766,7 @@ DrawableStatsAttachmentBase::DrawableStatsAttachmentBase(void) :
     _sfPoints                 (),
     _sfLines                  (),
     _sfTriangles              (),
+    _sfPatches                (),
     _sfProcessedAttributeBytes(),
     _sfStoredAttributeBytes   (),
     _sfValid                  (bool(false))
@@ -727,6 +779,7 @@ DrawableStatsAttachmentBase::DrawableStatsAttachmentBase(const DrawableStatsAtta
     _sfPoints                 (source._sfPoints                 ),
     _sfLines                  (source._sfLines                  ),
     _sfTriangles              (source._sfTriangles              ),
+    _sfPatches                (source._sfPatches                ),
     _sfProcessedAttributeBytes(source._sfProcessedAttributeBytes),
     _sfStoredAttributeBytes   (source._sfStoredAttributeBytes   ),
     _sfValid                  (source._sfValid                  )
@@ -837,6 +890,31 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleTriangles      (void)
 
 
     editSField(TrianglesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr DrawableStatsAttachmentBase::getHandlePatches         (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPatches,
+             this->getType().getFieldDesc(PatchesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr DrawableStatsAttachmentBase::editHandlePatches        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPatches,
+             this->getType().getFieldDesc(PatchesFieldId),
+             this));
+
+
+    editSField(PatchesFieldMask);
 
     return returnValue;
 }
