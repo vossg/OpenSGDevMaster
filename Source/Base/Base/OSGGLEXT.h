@@ -2255,7 +2255,8 @@ typedef ptrdiff_t GLsizeiptrARB;
 /*  \{                                                                 */
 
 #ifndef GL_ARB_tessalation_shader
-#define GL_PATCHES                                             0xE
+#define GL_ARB_tessalation_shader                              1
+#define GL_PATCHES                                             0x000E
 #define GL_PATCH_VERTICES                                      0x8E72
 #define GL_PATCH_DEFAULT_INNER_LEVEL                           0x8E73
 #define GL_PATCH_DEFAULT_OUTER_LEVEL                           0x8E74

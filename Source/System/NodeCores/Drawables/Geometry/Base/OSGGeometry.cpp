@@ -503,7 +503,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         OSGGETGLFUNCBYID_GL3(glPatchParameteri,
                              osgGlPatchParameteri,
                              Geometry::FuncPatchParameterI,
-                             pWin                         );
+                             pEnv->getWindow()            );
 
         osgGlPatchParameteri(GL_PATCH_VERTICES, _sfPatchVertices.getValue());
     }
