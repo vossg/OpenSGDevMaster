@@ -53,11 +53,6 @@
 
 #include <boost/bind.hpp>
 
-extern "C"
-{
-void glPatchParameteri(GLenum pname, GLint value);
-}
-
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -691,8 +686,6 @@ void SimpleSHLChunk::activate(DrawEnv    *pEnv,
 
         osgGlUseProgram(uiProgId);
     }
-
-//	glPatchParameteri(GL_PATCH_VERTICES, 16);
 
     pEnv->incNumShaderChanges();
         
