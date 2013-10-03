@@ -195,7 +195,7 @@ void displayInfo(int x, int y)
 
   glColor3f(1.0, 1.0, 0.0);
   glRasterPos2f(x, y);
-  len = (int) strlen(text);
+  len = int(strlen(text));
   for (i = 0; i < len; i++) {
       if(text[i] == '\n')
       {
@@ -311,10 +311,10 @@ void display(void)
 
     if(animate && animPos.size()>1)
     {
-        OSG::UInt32 i=(OSG::UInt32)animTime;
+        OSG::UInt32 i= OSG::UInt32(animTime);
         OSG::Real32 a=animTime-i;
 
-        printf("%d %d\n",i,animPos.size());
+        printf("%d %" PRISize "\n",i,animPos.size());
         OSG::Vec3f v=animPos[i] + (animPos[i+1] - animPos[i]) * a; 
 
         cam_trans->editMatrix().setTranslate(v[0],v[1],v[2]);
@@ -373,15 +373,15 @@ void display(void)
 
     if(animate)
     {
-        OSG::Real32 a;
+//        OSG::Real32 a;
         OSG::Vec3f v;
 
         printf("Frame %8.3f %8.5f %8.3f\n",
                animTime,
                t,1/t);
 
-        animTime += (animPos.size()/(float)animLength);
-        if(int(animTime)+1 >= animPos.size())
+        animTime += (animPos.size()/float(animLength));
+        if(OSG::SizeT(animTime)+1 >= animPos.size())
         {
             animTime = 0;
 
@@ -521,9 +521,9 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             std::vector<OSG::Quaternion>::iterator qit;
             
             fprintf(file,"DEF OriInter OrientationInterpolator {\n\tkey [");
-            for(int i = 0; i < animOri.size(); ++i)
+            for(OSG::SizeT i = 0; i < animOri.size(); ++i)
             {               
-                fprintf(file, "%f", i / (OSG::Real32)(animOri.size() - 1) );
+                fprintf(file, "%f", i / OSG::Real32(animOri.size() - 1) );
                 if(i < animOri.size() - 1)
                     fprintf(file,", ");
             }
@@ -542,9 +542,9 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             std::vector<OSG::Vec3f>::iterator vit;
             
             fprintf(file,"DEF PosInter PositionInterpolator {\n\tkey [");
-            for(int i = 0; i < animPos.size(); ++i)
+            for(OSG::SizeT i = 0; i < animPos.size(); ++i)
             {               
-                fprintf(file, "%f", i / (OSG::Real32)(animPos.size() - 1) );
+                fprintf(file, "%f", i / OSG::Real32(animPos.size() - 1) );
                 if(i < animPos.size() - 1)
                     fprintf(file,", ");
             }
@@ -685,13 +685,14 @@ OSG::NodeTransitPtr initVTK(void)
     reader->SetFileName(szFilename.c_str());
     reader->Update();
 
+#if 0
     OSG::Real64 length = reader->GetOutput()->GetLength();
 
     OSG::Real64 maxVelocity = 
         reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
 
     OSG::Real64 maxTime = 35.0 * length / maxVelocity;
-
+#endif
 
 
     returnValue = OSG::Node::create();
@@ -1136,7 +1137,7 @@ OSG::NodeTransitPtr initVTK(void)
 
 void init(std::vector<std::string> &filenames)
 {
-    int i;
+    OSG::SizeT i;
     OSG::DirectionalLightUnrecPtr dl;
     OSG::Real32 x,y,z;
     OSG::BoxVolume volume;
@@ -1253,9 +1254,9 @@ void init(std::vector<std::string> &filenames)
 
     if(ca>0)
     {
-        sum_geometries*=(OSG::UInt32)(ca*cb*cc);
-        sum_triangles *=(OSG::UInt32)(ca*cb*cc);
-        sum_positions *=(OSG::UInt32)(ca*cb*cc);
+        sum_geometries*= OSG::UInt32(ca*cb*cc);
+        sum_triangles *= OSG::UInt32(ca*cb*cc);
+        sum_positions *= OSG::UInt32(ca*cb*cc);
     }
 //    dlight->invalidateVolume();
 
@@ -1445,10 +1446,14 @@ int doMain(int argc,char **argv)
     int                      rows=1;
     char                     type='M';
     bool                     clientRendering=true;
+#ifdef HAVE_SORT
     bool                     compose=false;
+#endif
 
     std::string              composerType="";
+#ifdef HAVE_SORT
     OSG::ImageComposer           *composer=NULL;
+#endif
     std::string              autostart;
     
     for(i=1;i<argc;i++)
@@ -1458,16 +1463,16 @@ int doMain(int argc,char **argv)
             switch(argv[i][1])
             {
                 case 'o':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     connectionParameters = opt;
                     printf("connectionParameters: '%s'\n", connectionParameters.c_str());
                     break;
                 case 'A':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     autostart = opt;
                     break;
                 case 'D':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     if(sscanf(opt,"%f,%f,%f",&ca,&cb,&cc)!=3)
                     {
                         std::cout << "Copy opton -D x,y,z" << std::endl;
@@ -1475,12 +1480,12 @@ int doMain(int argc,char **argv)
                     }
                     break;
                 case 'b':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     serviceAddress.assign(opt);
                     serviceAddressValid = true;
                     break;
                 case 'f':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     filenames.push_back(opt);
                     printf("<%s>\n",opt);
                     break;
@@ -1488,22 +1493,24 @@ int doMain(int argc,char **argv)
                     connectionType="Multicast";
                     break;
                 case 'r':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     rows=atoi(opt);
                     break;
                 case 't':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     subtilesize=atoi(opt);
                     break;
 #ifdef FRAMEINTERLEAVE
                 case 'i':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     interleave=atoi(opt);
                     break;
 #endif
+#ifdef HAVE_SORT
                 case 'C':
                     compose=true;
                     break;
+#endif
                 case 'F':
                     type='F';
                     break;
@@ -1542,11 +1549,11 @@ int doMain(int argc,char **argv)
                     info=true;
                     break;
                 case 'e':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     sscanf(opt,"%f",&eyedistance);
                     break;
                 case 'z':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     sscanf(opt,"%f",&zeroparallax);
                     break;
                 case 'd':
@@ -1556,22 +1563,22 @@ int doMain(int argc,char **argv)
                     multiport=true;
                     break;
                 case 'x':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     sscanf(opt,"%d",&serverx);
                     break;
                 case 'y':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     sscanf(opt,"%d",&servery);
                     break;
                 case 'a':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     animName=opt;
                     loadAnim();
                     glutIdleFunc(display);       
                     animate=true;
                     break;
                 case 'l':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     if(sscanf(opt,"%d,%d",&animLoops,&animLength) != 2)
                     {
                         animLength = 30;
@@ -1582,15 +1589,15 @@ int doMain(int argc,char **argv)
                     }
                     break;
                 case 'g':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     sscanf(opt,"%d,%d",&winwidth,&winheight);
                     break;
                 case 'G':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     connectionDestination = opt;
                     break;
                 case 'i':
-                    opt = argv[i][2] ? opt=argv[i]+2 : opt=argv[++i];
+                    argv[i][2] != '\0' ? opt=argv[i]+2 : opt=argv[++i];
                     connectionInterface = opt;
                     break;
                 case 'h':
@@ -1717,7 +1724,7 @@ int doMain(int argc,char **argv)
     if(!autostart.empty())
         clusterWindow->editMFAutostart()->push_back(autostart);
     
-    for(i=0 ; i<servers.size() ; ++i)
+    for(i=0 ; OSG::SizeT(i)<servers.size() ; ++i)
         clusterWindow->editMFServers()->push_back(servers[i]);
     switch(type)
     {

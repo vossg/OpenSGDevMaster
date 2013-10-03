@@ -73,24 +73,24 @@ void addActor(OSG::Node *pRoot,
     pTmpNode  ->setCore (pTmpMapper);
     pRoot     ->addChild(pTmpNode  );
 
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::ChangedCallbacksFieldMask);
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::AttachmentsFieldMask);
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::ParentsFieldMask);
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::RootFieldMask);
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::GeoRootsFieldMask);
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             OSG::VTKPolyDataMapper::NormalsFieldMask);
 
-    fprintf(stderr, "%016llx %016llx\n",
+    fprintf(stderr, "%016" PRIX64 "%016" PRIX64 "\n",
             (OSG::VTKPolyDataMapper::GeoRootsFieldMask),
            ~(OSG::VTKPolyDataMapper::GeoRootsFieldMask));
 
-    fprintf(stderr, "%016llx\n",
+    fprintf(stderr, "%016" PRIX64 "\n",
             pTmpMapper->getFieldFlags()->_bClusterLocalFlags);
 
 //    pTmpMapper->execute();
@@ -118,13 +118,14 @@ OSG::NodeTransitPtr initVTK(void)
     reader->SetFileName(szFilename.c_str());
     reader->Update();
 
+#if 0
     OSG::Real64 length = reader->GetOutput()->GetLength();
 
     OSG::Real64 maxVelocity = 
         reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
 
     OSG::Real64 maxTime = 35.0 * length / maxVelocity;
-
+#endif
 
 
     returnValue = OSG::Node::create();
@@ -597,7 +598,7 @@ int doMain(int argc, char **argv)
     _client_win->init();
     _client_win->setSize(300,300);
     
-    for(OSG::UInt32 i=0;i<argc-1;++i)
+    for(OSG::Int32 i=0;i<argc-1;++i)
     {
         if(argv[i+1] != NULL)
             _pipenames.push_back(argv[i+1]);

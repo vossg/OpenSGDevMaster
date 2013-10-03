@@ -226,7 +226,8 @@ void prepareSceneGraph(OSG::Node * const node)
             OSG::UInt32 triangle=0;
             OSG::UInt32 line=0;
             OSG::UInt32 point=0;
-            calcPrimitiveCount(geo,triangle,line,point);
+            OSG::UInt32 patches=0;
+            calcPrimitiveCount(geo,triangle,line,point, patches);
             sum_triangles += triangle;
             // sum of geometry nodes
             ++sum_geometries;
