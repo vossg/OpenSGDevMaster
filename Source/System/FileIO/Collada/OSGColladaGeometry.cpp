@@ -742,10 +742,9 @@ void ColladaGeometry::validateIndices(      UInt32             geoIdx,
     {
         if(vIdxValid[i] == false)
         {
-#if 0            
-            vIdxPairs.push_back({idxStore[i], NULL});
-#endif
-            vIdxPairs.push_back(std::make_pair(idxStore[i], (GeoIntegralPropertyUnrecPtr *)NULL));
+            vIdxPairs.push_back({
+                    idxStore[i], 
+                    static_cast<GeoIntegralPropertyUnrecPtr *>(NULL)});
 
             if(vIdxPairs[0].first->size() != idxStore[i]->size())
             {
