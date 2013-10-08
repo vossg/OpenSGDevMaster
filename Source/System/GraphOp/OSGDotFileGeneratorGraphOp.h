@@ -252,9 +252,13 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
                               const Info                &       info    );
     void HandleLight         (      NodeCore            * const core, 
                               const Info                &       info    );
+    void HandleVisitSubTree  (      NodeCore            * const core,
+                              const Info                &       info    );
     void HandleChunkMaterial (      Material            * const material, 
                               const Info                &       info    );
     void HandleSwitchMaterial(      Material            * const material, 
+                              const Info                &       info    );
+    void HandleMultiPassMaterial(   Material            * const material, 
                               const Info                &       info    );
     void HandleTextureChunk  (      StateChunk          * const chunk, 
                               const Info                &       info    );

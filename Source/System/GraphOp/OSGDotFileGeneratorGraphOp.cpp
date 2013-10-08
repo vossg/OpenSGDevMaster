@@ -57,6 +57,7 @@
 #include "OSGLightChunk.h"
 #include "OSGChunkMaterial.h"
 #include "OSGSwitchMaterial.h"
+#include "OSGMultiPassMaterial.h"
 #include "OSGGeometry.h"
 
 /*! \class OSG::DotFileGeneratorGraphOp
@@ -278,8 +279,10 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
     Node*     parent = node->getParent();
     NodeCore* core   = node->getCore();
     
-    if(_max_node_children > 0 && parent && 
-       parent->findChild(node) >= Int32(_max_node_children)) 
+    if(_max_node_children > 0 &&
+       parent                 &&
+       _node_cnt > 0          &&
+       parent->findChild(node) >= Int32(_max_node_children))
     {
         Info& parent_info = NodeInfo(parent);
 
@@ -317,11 +320,12 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
     {
         CloseGroup();
     
-        HandleMaterial  (core, core_info);
-        HandleLight     (core, core_info);
-        HandleTransform (core, core_info);
-        HandleGeometry  (core, core_info);
-        HandleAttachment(core, core_info);
+        HandleMaterial    (core, core_info);
+        HandleLight       (core, core_info);
+        HandleVisitSubTree(core, core_info);
+        HandleTransform   (core, core_info);
+        HandleGeometry    (core, core_info);
+        HandleAttachment  (core, core_info);
     }
     
     HandleAttachment(node, node_info);
@@ -380,8 +384,9 @@ void DotFileGeneratorGraphOp::HandleMaterial(      NodeCore * const core,
 
         CloseGroup();
         
-        HandleChunkMaterial(mat, mat_info);
-        HandleSwitchMaterial(mat, mat_info);
+        HandleChunkMaterial    (mat, mat_info);
+        HandleSwitchMaterial   (mat, mat_info);
+        HandleMultiPassMaterial(mat, mat_info);
     }
 }
 
@@ -582,6 +587,30 @@ void DotFileGeneratorGraphOp::HandleLight(      NodeCore * const core,
     }
 }
 
+void DotFileGeneratorGraphOp::HandleVisitSubTree(      NodeCore * const core,
+                                                 const Info     &       info)
+{
+    VisitSubTree *visitSubTree = dynamic_cast<VisitSubTree*>(core);
+
+    if(visitSubTree) 
+    {
+        Node *subTreeRoot = visitSubTree->getSubTreeRoot();
+
+        if(subTreeRoot) 
+        {
+            OpenGroup(true);
+
+            const Info& visit_sub_tree_info = CoreInfo(visitSubTree);
+            const Info& sub_tree_root_info  = NodeInfo(subTreeRoot);
+
+            DefineSimpleEdge(visit_sub_tree_info, sub_tree_root_info);
+
+            CloseGroup();
+        }
+    }
+}
+
+
 void DotFileGeneratorGraphOp::HandleBeaconedChunk(
           StateChunk * const chunk, 
     const Info       &       info )
@@ -650,8 +679,9 @@ void DotFileGeneratorGraphOp::HandleSwitchMaterial(
 
                 CloseGroup();
             
-                HandleChunkMaterial(mat, mat_info);
-                HandleSwitchMaterial(mat, mat_info);
+                HandleChunkMaterial    (mat, mat_info);
+                HandleSwitchMaterial   (mat, mat_info);
+                HandleMultiPassMaterial(mat, mat_info);
             }
         }
     }
@@ -696,6 +726,49 @@ void DotFileGeneratorGraphOp::HandleChunkMaterial(
         CloseGroup();
     }
 }
+
+void DotFileGeneratorGraphOp::HandleMultiPassMaterial(
+          Material * const material,
+    const Info     &       info    )
+{
+    MultiPassMaterial *multiPassMat =
+      dynamic_cast<MultiPassMaterial*>(material);
+
+    if(multiPassMat) 
+    {
+        UInt32 num = multiPassMat->editMFMaterials()->size();
+
+        for(UInt32 i = 0; i < num; ++i) 
+        {
+            Material *mat = multiPassMat->getMaterials(i);
+
+            if(mat) 
+            {
+                bool suppressed = isSuppressed(mat->getType());
+
+                if(suppressed) 
+                    continue;
+
+                OpenGroup(true);
+
+                std::stringstream label;
+                label << "label=" << i;
+
+                const Info &mat_info = MaterialInfo(mat);
+
+                DefineMaterial(mat_info);
+                DefineSimpleEdge(info, mat_info, true, label.str());
+
+                CloseGroup();
+
+                HandleChunkMaterial(mat, mat_info);
+                HandleSwitchMaterial(mat, mat_info);
+                HandleMultiPassMaterial(mat, mat_info);
+            }
+        }
+    }
+}
+
 
 void DotFileGeneratorGraphOp::HandleAttachment(
           AttachmentContainer * const fc, 
