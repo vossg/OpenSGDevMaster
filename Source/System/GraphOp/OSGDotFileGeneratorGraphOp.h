@@ -43,6 +43,7 @@
 #endif
 
 #include <boost/scoped_ptr.hpp>
+#include <set>
 
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
@@ -138,6 +139,7 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
         std::string name;
         std::string id;
         std::string fontcolor;
+        void*       obj_id;
         bool        finished;
     };
     
@@ -203,6 +205,8 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     /*! \{                                                                 */
     
     bool hasInfo   (void *handler) const;
+    bool hasEdge   (const Info& src, const Info& dst) const;
+    bool makeEdge  (const Info& src, const Info& dst);
     
     void OpenGroup (bool  rank   );
     void CloseGroup(void         );
@@ -222,6 +226,8 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     void DefineProperty      (const Info        &info             );
     void DefineEtceteraNode  (const Info        &info             );
     
+    void DefineHoldingEdge   (const Info        &src_info,
+                              const Info        &dst_info         );
     void DefineNodeEdge      (const Info        &parent_info, 
                               const Info        &node_info        );
     void DefineCoreEdge      (const Info        &node_info,   
@@ -278,6 +284,20 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     typedef std::vector<const TypeBase    *             > VecTypesT;
     typedef std::pair  <      Info,          Info       > PairInfoT;
     typedef std::vector<      PairInfoT                 > VecEdgesT;
+    typedef std::pair  <      const void*,   const void*> PairObjIdsT;
+
+    struct lessPairObjIdsT : public std::binary_function<const PairObjIdsT,
+                                                         const PairObjIdsT,
+                                                         bool              >
+    {
+        bool operator()(const PairObjIdsT& lhs, const PairObjIdsT& rhs) const
+        {
+            return (lhs.first <  rhs.first) ||
+                   (lhs.first == rhs.first && lhs.second < rhs.second);
+        }
+    };
+
+    typedef std::set<PairObjIdsT, lessPairObjIdsT>        SetObjIdsT;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -328,6 +348,7 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     VecTypesT                           _suppressed;
     VecTypesT                           _suppressed_derived;
     VecEdgesT                           _dotted_edges;
+    SetObjIdsT                          _edges;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

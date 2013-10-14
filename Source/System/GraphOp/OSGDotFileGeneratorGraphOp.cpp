@@ -39,12 +39,13 @@
 #include <sstream>
 #include <boost/foreach.hpp>
 
-#include <OSGNameAttachment.h>
 #include "OSGDotFileGeneratorGraphOp.h"
+#include "OSGContainerCollection.h"
 #include "OSGGraphOpFactory.h"
 #include "OSGGroup.h"
 #include "OSGMaterialGroup.h"
 #include "OSGMaterialChunkOverrideGroup.h"
+#include "OSGNameAttachment.h"
 #include "OSGDistanceLOD.h"
 #include "OSGScreenLOD.h"
 #include "OSGLight.h"
@@ -88,6 +89,7 @@ DotFileGeneratorGraphOp::Info::Info(void) :
     name     (     ), 
     id       (     ), 
     fontcolor(     ), 
+    obj_id   (NULL ),
     finished (false) 
 {
 }
@@ -173,7 +175,8 @@ DotFileGeneratorGraphOp::DotFileGeneratorGraphOp(const char* name) :
     _usedColors(),
     _suppressed(),
     _suppressed_derived(),
-    _dotted_edges()
+    _dotted_edges(),
+    _edges()
 {
     // nothing to do
 }
@@ -606,6 +609,8 @@ void DotFileGeneratorGraphOp::HandleVisitSubTree(      NodeCore * const core,
             DefineSimpleEdge(visit_sub_tree_info, sub_tree_root_info);
 
             CloseGroup();
+
+            traverse(subTreeRoot);
         }
     }
 }
@@ -794,16 +799,37 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 
                 if(att != NULL)
                 {
-//                    FieldContainerType& attType = att->getType();
-
                     if (_no_name_attachments && 
                         Name::getClassType().getGroupId() == att->getGroupId())
                     {
                         continue;
                     }
 
+                    if(ContainerCollection::getClassType().getGroupId() ==
+                       att->getGroupId()                                   )
+                    {
+                        ContainerCollectionUnrecPtr cc =
+                            dynamic_pointer_cast<ContainerCollection>(att);
+                        OSG_ASSERT(cc != NULL);
+
+                        const MFUnrecFieldContainerPtr* field =
+                          cc->getMFContainers();
+                        MFUnrecFieldContainerPtr::const_iterator fIt  =
+                            field->begin();
+                        MFUnrecFieldContainerPtr::const_iterator fEnd =
+                            field->end  ();
+
+                        for(; fIt != fEnd; ++fIt)
+                        {
+                            // ToDo: Currently only Nodes are handled!
+                            // Note: Endless loop might be possible?
+                            Node* node = dynamic_cast<Node*>(*fIt);
+                            if(node)
+                                traverse(node);
+                        }
+                    }
+
                     flag = true;
-                    break;
                 }
             }
 
@@ -820,8 +846,6 @@ void DotFileGeneratorGraphOp::HandleAttachment(
                 AttachmentUnrecPtr att = mapIt->second;
                 if(att != NULL)
                 {
-//                    FieldContainerType& attType = att->getType();
-
                     if(_no_name_attachments && 
                        Name::getClassType().getGroupId() == att->getGroupId())
                     {
@@ -832,6 +856,33 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 
                     DefineAttachment(attachment_info);
                     DefineAttachmentEdge(info, attachment_info);
+
+                    if(ContainerCollection::getClassType().getGroupId() ==
+                       att->getGroupId()                                   )
+                    {
+                        ContainerCollectionUnrecPtr cc =
+                            dynamic_pointer_cast<ContainerCollection>(att);
+                        OSG_ASSERT(cc != NULL);
+
+                        const MFUnrecFieldContainerPtr* field =
+                          cc->getMFContainers();
+                        MFUnrecFieldContainerPtr::const_iterator fIt  =
+                            field->begin();
+                        MFUnrecFieldContainerPtr::const_iterator fEnd =
+                            field->end  ();
+
+                        for(; fIt != fEnd; ++fIt)
+                        {
+                            // ToDo: Currently only Nodes are handled!
+                            // Note: Endless loop might be possible?
+                            Node* node = dynamic_cast<Node*>(*fIt);
+                            if(node)
+                            {
+                                const Info& node_info = NodeInfo(node);
+                                DefineHoldingEdge(attachment_info, node_info);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -874,6 +925,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::NodeInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = node->getTypeName();
+        info.obj_id  = node;
         
         return _mapInfo.insert(
             MapInfoT::value_type(node, info)).first->second;
@@ -909,6 +961,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::CoreInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = core_name;
+        info.obj_id  = core;
         
         Light *light = dynamic_cast<Light*>(core);
 
@@ -950,6 +1003,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::AttachmentInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = attachment_name;
+        info.obj_id  = att;
         
         return _mapInfo.insert(
             MapInfoT::value_type(att, info)).first->second;
@@ -985,6 +1039,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::MaterialInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = material_name;
+        info.obj_id  = material;
         
         return _mapInfo.insert(
             MapInfoT::value_type(material, info)).first->second;
@@ -1016,6 +1071,7 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::MatrixInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = "Matrix";
+        info.obj_id  = handler;
     
         return _mapInfo.insert(
             MapInfoT::value_type(handler, info)).first->second;
@@ -1037,6 +1093,7 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::EtceteraInfo(
     info.name    = name.str();
     info.label   = label.str();
     info.id      = "Etcetera";
+    info.obj_id  = 0;
     
     return info;
 }
@@ -1067,6 +1124,7 @@ DotFileGeneratorGraphOp::Info& DotFileGeneratorGraphOp::ImageInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = "Image";
+        info.obj_id  = image;
         
         return _mapInfo.insert(
             MapInfoT::value_type(image, info)).first->second;
@@ -1102,6 +1160,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::StateChunkInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = chunk_name;
+        info.obj_id  = chunk;
         
         return _mapInfo.insert(
             MapInfoT::value_type(chunk, info)).first->second;
@@ -1137,6 +1196,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::IntegralPropInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = property_name+context;
+        info.obj_id  = property;
         
         return _mapInfo.insert(
             MapInfoT::value_type(property, info)).first->second;
@@ -1172,6 +1232,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::VectorPropInfo(
         info.name    = name.str();
         info.label   = label.str();
         info.id      = property_name+context;
+        info.obj_id  = property;
         
         return _mapInfo.insert(
             MapInfoT::value_type(property, info)).first->second;
@@ -1183,6 +1244,20 @@ bool DotFileGeneratorGraphOp::hasInfo(void * handler) const
     MapInfoT::const_iterator iter = _mapInfo.find(handler);
 
     return iter != _mapInfo.end();
+}
+
+bool DotFileGeneratorGraphOp::hasEdge(const Info& src, const Info& dst) const
+{
+    PairObjIdsT edge = std::make_pair(src.obj_id, dst.obj_id);
+
+    return _edges.find(edge) != _edges.end();
+}
+
+bool DotFileGeneratorGraphOp::makeEdge(const Info& src, const Info& dst)
+{
+    PairObjIdsT edge = std::make_pair(src.obj_id, dst.obj_id);
+
+    return !_edges.insert(edge).second;
 }
 
 std::ofstream &DotFileGeneratorGraphOp::initialize()
@@ -1475,9 +1550,32 @@ void DotFileGeneratorGraphOp::DefineEtceteraNode(const Info &info)
            << std::endl;
 }
 
+void DotFileGeneratorGraphOp::DefineHoldingEdge(const Info &src_info, 
+                                                const Info &dst_info)
+{
+    if(makeEdge(src_info, dst_info))
+        return;
+
+    std::ofstream &stream = initialize();
+
+    stream << space()
+           << src_info.name << " "
+           << "->" << " "
+           << dst_info.name << " "
+           << "["
+           << "dir=both" << ","
+           << "arrowtail=diamond" << ","
+           << "weight=2"
+           << "];"
+           << std::endl;
+}
+
 void DotFileGeneratorGraphOp::DefineNodeEdge(const Info &parent_info, 
                                              const Info &node_info  )
 {
+    if(makeEdge(parent_info, node_info))
+        return;
+
     std::ofstream &stream = initialize();
     
     stream << space()
@@ -1495,6 +1593,9 @@ void DotFileGeneratorGraphOp::DefineNodeEdge(const Info &parent_info,
 void DotFileGeneratorGraphOp::DefineCoreEdge(const Info &node_info, 
                                              const Info &core_info)
 {
+    if(makeEdge(node_info, core_info))
+        return;
+
     std::ofstream &stream = initialize();
     
     stream << space()
@@ -1510,14 +1611,17 @@ void DotFileGeneratorGraphOp::DefineCoreEdge(const Info &node_info,
 }
 
 void DotFileGeneratorGraphOp::DefineAttachmentEdge(const Info &node_info, 
-                                                   const Info &core_info)
+                                                   const Info &att_info)
 {
+    if(makeEdge(node_info, att_info))
+        return;
+
     std::ofstream &stream = initialize();
     
     stream << space()
            << node_info.name << " "
            << "->" << " "
-           << core_info.name << " "
+           << att_info.name << " "
            << "["
            << "style=dotted" << ","
            << "arrowhead=vee" << ","
@@ -1532,6 +1636,9 @@ void DotFileGeneratorGraphOp::DefineSimpleEdge(
           bool         constraint, 
           std::string  attribute )
 {
+    if(makeEdge(src_info, dst_info))
+        return;
+
     std::ofstream &stream = initialize();
     
     stream << space()
@@ -1558,6 +1665,9 @@ void DotFileGeneratorGraphOp::DefineDottedEdge(
           bool         constraint, 
           std::string  attribute )
 {
+    if(makeEdge(src_info, dst_info))
+        return;
+
     std::ofstream &stream = initialize();
     
     stream << space()
