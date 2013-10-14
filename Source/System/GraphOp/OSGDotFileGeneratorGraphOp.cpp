@@ -63,7 +63,7 @@
 
 /*! \class OSG::DotFileGeneratorGraphOp
     \ingroup GrpContribDataSolidGraphOp
-    
+
     Writes a Graphviz dot file representation of the graph.
 */
 
@@ -78,30 +78,30 @@ namespace
         GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
-    
+
     static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 } // namespace
 
 
-DotFileGeneratorGraphOp::Info::Info(void) : 
-    cnt      (    0), 
-    label    (     ), 
-    name     (     ), 
-    id       (     ), 
-    fontcolor(     ), 
+DotFileGeneratorGraphOp::Info::Info(void) :
+    cnt      (    0),
+    label    (     ),
+    name     (     ),
+    id       (     ),
+    fontcolor(     ),
     obj_id   (NULL ),
-    finished (false) 
+    finished (false)
 {
 }
 
 DotFileGeneratorGraphOp::Info::~Info(void)
 {
 }
-  
-DotFileGeneratorGraphOp::BrewerColor::BrewerColor(const std::string &scheme, 
+
+DotFileGeneratorGraphOp::BrewerColor::BrewerColor(const std::string &scheme,
                                                   const std::string &number) :
-  scheme(scheme), 
-  number(number) 
+  scheme(scheme),
+  number(number)
 {
 }
 
@@ -117,15 +117,15 @@ const DotFileGeneratorGraphOp::BrewerColor &
 
     if (_current >= _colors.size())
         throw std::out_of_range("no color available");
-    
+
     return _colors[_current++];
 }
-    
-void DotFileGeneratorGraphOp::Colors::add(const std::string &scheme, 
-                                                UInt32       start, 
+
+void DotFileGeneratorGraphOp::Colors::add(const std::string &scheme,
+                                                UInt32       start,
                                                 UInt32       end   )
 {
-    for (UInt32 i = start; i <= end; ++i) 
+    for (UInt32 i = start; i <= end; ++i)
     {
         std::stringstream number;
         number << i;
@@ -133,7 +133,7 @@ void DotFileGeneratorGraphOp::Colors::add(const std::string &scheme,
     }
 }
 
-DotFileGeneratorGraphOp::Colors::Colors(void) : 
+DotFileGeneratorGraphOp::Colors::Colors(void) :
     _colors ( ),
     _current(0)
 {
@@ -194,8 +194,8 @@ GraphOpTransitPtr DotFileGeneratorGraphOp::clone(void)
 
 void DotFileGeneratorGraphOp::setParams(const std::string params)
 {
-    ParamSet ps(params);   
-    
+    ParamSet ps(params);
+
     ps("filename",              _filename);
     ps("include_attachment",    _include_attachment);
     ps("no_name_attachments",   _no_name_attachments);
@@ -205,7 +205,7 @@ void DotFileGeneratorGraphOp::setParams(const std::string params)
     ps("ranksep",               _ranksep);
     ps("nodesep",               _nodesep);
     ps("graph_attributes",      _graph_attributes);
-    
+
     std::string out = ps.getUnusedParams();
     if(out.length())
     {
@@ -216,7 +216,7 @@ void DotFileGeneratorGraphOp::setParams(const std::string params)
 
 std::string DotFileGeneratorGraphOp::usage(void)
 {
-    return 
+    return
     "DotFileGenerator: Writes Graphiz dot file of graph\n"
     "Params: name (type, default)\n"
     "  filename                 (std::string, \"out.dot\"): output file name\n"
@@ -245,27 +245,27 @@ void DotFileGeneratorGraphOp::insert(const TypeBase* t, bool derived_from)
 bool DotFileGeneratorGraphOp::isSuppressed(const TypeBase& t)
 {
     VecTypesT::const_iterator iter, end;
-    
+
     iter = _suppressed.begin();
     end  = _suppressed.end();
 
-    for(; iter != end; ++iter) 
+    for(; iter != end; ++iter)
     {
         if ((*iter)->getId() == t.getId())
             return true;
     }
-    
+
     iter = _suppressed_derived.begin();
     end  = _suppressed_derived.end();
 
-    for (; iter != end; ++iter) 
+    for (; iter != end; ++iter)
     {
         const TypeBase& other = *(*iter);
 
         if (t.isDerivedFrom(other))
             return true;
     }
-    
+
     return false;
 }
 
@@ -278,10 +278,10 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
 {
     if(isInExcludeList(node))
         return Action::Skip;
-    
+
     Node*     parent = node->getParent();
     NodeCore* core   = node->getCore();
-    
+
     if(_max_node_children > 0 &&
        parent                 &&
        _node_cnt > 0          &&
@@ -289,11 +289,11 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
     {
         Info& parent_info = NodeInfo(parent);
 
-        if(!parent_info.finished) 
+        if(!parent_info.finished)
         {
             parent_info.finished = true;
 
-            Info node_info = 
+            Info node_info =
                 EtceteraInfo(parent->getNChildren() - _max_node_children);
 
             DefineEtceteraNode(node_info);
@@ -302,27 +302,27 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
 
         return Action::Skip;
     }
-    
+
     const Info &node_info = NodeInfo(node);
     const Info &core_info = CoreInfo(core);
-    
+
     bool suppressed = isSuppressed(core->getType());
-    
+
     if (!suppressed)
         OpenGroup(true);
 
     DefineNode(node_info);
 
-    if(!suppressed) 
+    if(!suppressed)
     {
         DefineCore(core_info);
         DefineCoreEdge(node_info, core_info);
     }
 
-    if(!suppressed) 
+    if(!suppressed)
     {
         CloseGroup();
-    
+
         HandleMaterial    (core, core_info);
         HandleLight       (core, core_info);
         HandleVisitSubTree(core, core_info);
@@ -330,54 +330,54 @@ Action::ResultE DotFileGeneratorGraphOp::traverseEnter(Node * const node)
         HandleGeometry    (core, core_info);
         HandleAttachment  (core, core_info);
     }
-    
+
     HandleAttachment(node, node_info);
-    
-    if(parent) 
+
+    if(parent)
     {
         DefineNodeEdge(NodeInfo(parent), node_info);
     }
-        
+
     return Action::Continue;
 }
 
-void DotFileGeneratorGraphOp::HandleMaterial(      NodeCore * const core, 
+void DotFileGeneratorGraphOp::HandleMaterial(      NodeCore * const core,
                                              const Info     &       info)
 {
     Material      *mat  = NULL;
     MaterialGroup *mgrp = dynamic_cast<MaterialGroup*>(core);
 
-    if(mgrp) 
+    if(mgrp)
     {
         mat = mgrp->getMaterial();
-    } 
-    else 
+    }
+    else
     {
-        MaterialChunkOverrideGroup *mcogrp = 
+        MaterialChunkOverrideGroup *mcogrp =
             dynamic_cast<MaterialChunkOverrideGroup*>(core);
 
-        if(mcogrp) 
+        if(mcogrp)
         {
             mat = mcogrp->getMaterial();
         }
-        else 
+        else
         {
             Geometry *geom = dynamic_cast<Geometry*>(core);
 
-            if(geom) 
+            if(geom)
             {
                 mat = geom->getMaterial();
             }
         }
     }
-    
-    if(mat) 
+
+    if(mat)
     {
         bool suppressed = isSuppressed(mat->getType());
 
-        if(suppressed) 
+        if(suppressed)
             return;
-        
+
         OpenGroup(true);
 
         const Info &mat_info = MaterialInfo(mat);
@@ -386,23 +386,23 @@ void DotFileGeneratorGraphOp::HandleMaterial(      NodeCore * const core,
         DefineSimpleEdge(info, mat_info);
 
         CloseGroup();
-        
+
         HandleChunkMaterial    (mat, mat_info);
         HandleSwitchMaterial   (mat, mat_info);
         HandleMultiPassMaterial(mat, mat_info);
     }
 }
 
-void DotFileGeneratorGraphOp::HandleTransform(      NodeCore * const core, 
+void DotFileGeneratorGraphOp::HandleTransform(      NodeCore * const core,
                                               const Info     &       info)
 {
     Transform *trafo = dynamic_cast<Transform*>(core);
 
-    if(trafo) 
+    if(trafo)
     {
         void *handler = trafo + 1;
-        
-        if(!hasInfo(handler)) 
+
+        if(!hasInfo(handler))
         {
             OpenGroup(true);
 
@@ -416,15 +416,15 @@ void DotFileGeneratorGraphOp::HandleTransform(      NodeCore * const core,
     }
 }
 
-void DotFileGeneratorGraphOp::HandleGeometry(      NodeCore * const core, 
+void DotFileGeneratorGraphOp::HandleGeometry(      NodeCore * const core,
                                              const Info     &       info)
 {
     Geometry *geom = dynamic_cast<Geometry*>(core);
 
-    if(geom) 
+    if(geom)
     {
         OpenGroup(false);
-    
+
         GeoIntegralProperty *types       = geom->getTypes();
         GeoIntegralProperty *length      = geom->getLengths();
         GeoVectorProperty   *vertices    = geom->getPositions();
@@ -439,99 +439,99 @@ void DotFileGeneratorGraphOp::HandleGeometry(      NodeCore * const core,
         GeoVectorProperty   *tex5_coords = geom->getTexCoords5();
         GeoVectorProperty   *tex6_coords = geom->getTexCoords6();
         GeoVectorProperty   *tex7_coords = geom->getTexCoords7();
-        
-        if(types && types->size() > 0) 
+
+        if(types && types->size() > 0)
         {
             Info prop_info = IntegralPropInfo(types, "types");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(length && length->size() > 0) 
+        if(length && length->size() > 0)
         {
             Info prop_info = IntegralPropInfo(length, "length");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(vertices && vertices->size() > 0) 
+        if(vertices && vertices->size() > 0)
         {
             Info prop_info = VectorPropInfo(vertices, "vertices");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(normales && normales->size() > 0) 
+        if(normales && normales->size() > 0)
         {
             Info prop_info = VectorPropInfo(normales, "normales");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(colors && colors->size() > 0) 
+        if(colors && colors->size() > 0)
         {
             Info prop_info = VectorPropInfo(colors, "colors");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(sec_colors && sec_colors->size() > 0) 
+        if(sec_colors && sec_colors->size() > 0)
         {
             Info prop_info = VectorPropInfo(sec_colors, "sec_colors");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex_coords && tex_coords->size() > 0) 
+        if(tex_coords && tex_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex_coords, "tex_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
-        
-        if(tex1_coords && tex1_coords->size() > 0) 
+
+        if(tex1_coords && tex1_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex1_coords, "tex1_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex2_coords && tex2_coords->size() > 0) 
+        if(tex2_coords && tex2_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex2_coords, "tex2_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex3_coords && tex3_coords->size() > 0) 
+        if(tex3_coords && tex3_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex3_coords, "tex3_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex4_coords && tex4_coords->size() > 0) 
+        if(tex4_coords && tex4_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex4_coords, "tex4_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex5_coords && tex5_coords->size() > 0) 
+        if(tex5_coords && tex5_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex5_coords, "tex5_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex6_coords && tex6_coords->size() > 0) 
+        if(tex6_coords && tex6_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex6_coords, "tex6_coords");
             DefineProperty(prop_info);
             DefineSimpleEdge(info, prop_info);
         }
 
-        if(tex7_coords && tex7_coords->size() > 0) 
+        if(tex7_coords && tex7_coords->size() > 0)
         {
             Info prop_info = VectorPropInfo(tex7_coords, "tex7_coords");
             DefineProperty(prop_info);
@@ -542,23 +542,23 @@ void DotFileGeneratorGraphOp::HandleGeometry(      NodeCore * const core,
     }
 }
 
-void DotFileGeneratorGraphOp::HandleTextureChunk(       
-          StateChunk * const chunk, 
+void DotFileGeneratorGraphOp::HandleTextureChunk(
+          StateChunk * const chunk,
     const Info       &       info)
 {
     TextureObjChunk *textureobjchunk = dynamic_cast<TextureObjChunk*>(chunk);
 
-    if(textureobjchunk) 
+    if(textureobjchunk)
     {
         Image *image = textureobjchunk->getImage();
 
-        if(image) 
+        if(image)
         {
             bool suppressed = isSuppressed(image->getType());
 
-            if(suppressed) 
+            if(suppressed)
                 return;
-            
+
             OpenGroup(true);
 
             const Info &image_info = ImageInfo(image);
@@ -571,16 +571,16 @@ void DotFileGeneratorGraphOp::HandleTextureChunk(
     }
 }
 
-void DotFileGeneratorGraphOp::HandleLight(      NodeCore * const core, 
+void DotFileGeneratorGraphOp::HandleLight(      NodeCore * const core,
                                           const Info     &       info)
 {
     Light *light = dynamic_cast<Light*>(core);
 
-    if(light) 
+    if(light)
     {
         Node *beacon = light->getBeacon();
 
-        if(beacon) 
+        if(beacon)
         {
             const Info& light_info  = CoreInfo(light);
             const Info& beacon_info = NodeInfo(beacon);
@@ -595,11 +595,11 @@ void DotFileGeneratorGraphOp::HandleVisitSubTree(      NodeCore * const core,
 {
     VisitSubTree *visitSubTree = dynamic_cast<VisitSubTree*>(core);
 
-    if(visitSubTree) 
+    if(visitSubTree)
     {
         Node *subTreeRoot = visitSubTree->getSubTreeRoot();
 
-        if(subTreeRoot) 
+        if(subTreeRoot)
         {
             OpenGroup(true);
 
@@ -617,16 +617,16 @@ void DotFileGeneratorGraphOp::HandleVisitSubTree(      NodeCore * const core,
 
 
 void DotFileGeneratorGraphOp::HandleBeaconedChunk(
-          StateChunk * const chunk, 
+          StateChunk * const chunk,
     const Info       &       info )
 {
     ClipPlaneChunk *clippl = dynamic_cast<ClipPlaneChunk*>(chunk);
 
-    if(clippl) 
+    if(clippl)
     {
         Node *beacon = clippl->getBeacon();
 
-        if(beacon) 
+        if(beacon)
         {
             const Info& clippl_info = StateChunkInfo(clippl);
             const Info& beacon_info = NodeInfo(beacon);
@@ -637,11 +637,11 @@ void DotFileGeneratorGraphOp::HandleBeaconedChunk(
 
     LightChunk *light = dynamic_cast<LightChunk*>(chunk);
 
-    if(light) 
+    if(light)
     {
         Node *beacon = light->getBeacon();
 
-        if(beacon) 
+        if(beacon)
         {
             const Info& light_info = StateChunkInfo(light);
             const Info& beacon_info = NodeInfo(beacon);
@@ -652,38 +652,38 @@ void DotFileGeneratorGraphOp::HandleBeaconedChunk(
 }
 
 void DotFileGeneratorGraphOp::HandleSwitchMaterial(
-          Material * const material, 
+          Material * const material,
     const Info     &       info    )
 {
     SwitchMaterial *switchMat = dynamic_cast<SwitchMaterial*>(material);
 
-    if(switchMat) 
+    if(switchMat)
     {
         UInt32 num = switchMat->editMFMaterials()->size();
 
-        for(UInt32 i = 0; i < num; ++i) 
+        for(UInt32 i = 0; i < num; ++i)
         {
             Material *mat = switchMat->getMaterial(i);
 
-            if(mat) 
+            if(mat)
             {
                 bool suppressed = isSuppressed(mat->getType());
 
-                if(suppressed) 
+                if(suppressed)
                     continue;
-                
+
                 OpenGroup(true);
 
                 std::stringstream label;
                 label << "label=" << i;
-            
+
                 const Info &mat_info = MaterialInfo(mat);
 
                 DefineMaterial(mat_info);
                 DefineSimpleEdge(info, mat_info, true, label.str());
 
                 CloseGroup();
-            
+
                 HandleChunkMaterial    (mat, mat_info);
                 HandleSwitchMaterial   (mat, mat_info);
                 HandleMultiPassMaterial(mat, mat_info);
@@ -693,12 +693,12 @@ void DotFileGeneratorGraphOp::HandleSwitchMaterial(
 }
 
 void DotFileGeneratorGraphOp::HandleChunkMaterial(
-          Material * const material, 
+          Material * const material,
     const Info     &       info    )
 {
     ChunkMaterial *chunkMat = dynamic_cast<ChunkMaterial*>(material);
 
-    if(chunkMat) 
+    if(chunkMat)
     {
         OpenGroup(false);
         {
@@ -713,17 +713,17 @@ void DotFileGeneratorGraphOp::HandleChunkMaterial(
 
                 if(!statechunk)
                     continue;
-                
+
                 bool suppressed = isSuppressed(statechunk->getType());
 
-                if(suppressed) 
+                if(suppressed)
                     continue;
-            
+
                 const Info &chunk_info = StateChunkInfo(statechunk);
 
                 DefineStateChunk(chunk_info);
                 DefineSimpleEdge(info, chunk_info);
-            
+
                 HandleTextureChunk(statechunk, chunk_info);
                 HandleBeaconedChunk(statechunk, chunk_info);
             }
@@ -739,19 +739,19 @@ void DotFileGeneratorGraphOp::HandleMultiPassMaterial(
     MultiPassMaterial *multiPassMat =
       dynamic_cast<MultiPassMaterial*>(material);
 
-    if(multiPassMat) 
+    if(multiPassMat)
     {
         UInt32 num = multiPassMat->editMFMaterials()->size();
 
-        for(UInt32 i = 0; i < num; ++i) 
+        for(UInt32 i = 0; i < num; ++i)
         {
             Material *mat = multiPassMat->getMaterials(i);
 
-            if(mat) 
+            if(mat)
             {
                 bool suppressed = isSuppressed(mat->getType());
 
-                if(suppressed) 
+                if(suppressed)
                     continue;
 
                 OpenGroup(true);
@@ -776,7 +776,7 @@ void DotFileGeneratorGraphOp::HandleMultiPassMaterial(
 
 
 void DotFileGeneratorGraphOp::HandleAttachment(
-          AttachmentContainer * const fc, 
+          AttachmentContainer * const fc,
     const Info                &       info)
 {
     if(_include_attachment)
@@ -787,7 +787,7 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 
             AttachmentMap::const_iterator mapIt;
             AttachmentMap::const_iterator mapEnd;
-            
+
             bool flag = false;
 
             mapIt  = pAttMap->getValue().begin();
@@ -799,7 +799,7 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 
                 if(att != NULL)
                 {
-                    if (_no_name_attachments && 
+                    if (_no_name_attachments &&
                         Name::getClassType().getGroupId() == att->getGroupId())
                     {
                         continue;
@@ -835,9 +835,9 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 
             if(!flag)
                 return;
-            
+
             OpenGroup(true);
-            
+
             mapIt  = pAttMap->getValue().begin();
             mapEnd = pAttMap->getValue().end();
 
@@ -846,7 +846,7 @@ void DotFileGeneratorGraphOp::HandleAttachment(
                 AttachmentUnrecPtr att = mapIt->second;
                 if(att != NULL)
                 {
-                    if(_no_name_attachments && 
+                    if(_no_name_attachments &&
                        Name::getClassType().getGroupId() == att->getGroupId())
                     {
                         continue;
@@ -892,7 +892,7 @@ void DotFileGeneratorGraphOp::HandleAttachment(
 }
 
 Action::ResultE DotFileGeneratorGraphOp::traverseLeave(
-    Node            * const node, 
+    Node            * const node,
     Action::ResultE         res )
 {
     return res;
@@ -915,10 +915,10 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::NodeInfo(
 
         name  << "Node_" << _node_cnt;
         label << "Node " << _node_cnt;
-        
+
         if(OSG::getName(node))
             label << "\\n" << OSG::getName(node);
-        
+
         Info info;
 
         info.cnt     = _node_cnt;
@@ -926,7 +926,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::NodeInfo(
         info.label   = label.str();
         info.id      = node->getTypeName();
         info.obj_id  = node;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(node, info)).first->second;
     }
@@ -944,7 +944,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::CoreInfo(
     else
     {
         _core_cnt++;
-        
+
         std::string core_name = core->getTypeName();
 
         std::stringstream name, label;
@@ -962,12 +962,12 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::CoreInfo(
         info.label   = label.str();
         info.id      = core_name;
         info.obj_id  = core;
-        
+
         Light *light = dynamic_cast<Light*>(core);
 
         if(light && light->getOn())
             info.fontcolor="0.000 1.000 1.000";
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(core, info)).first->second;
     }
@@ -985,9 +985,9 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::AttachmentInfo(
     else
     {
         _attachment_cnt++;
-        
+
         std::string attachment_name = att->getTypeName();
-       
+
         std::stringstream name, label;
 
         name  << "Attachment_" << _attachment_cnt;
@@ -1004,7 +1004,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::AttachmentInfo(
         info.label   = label.str();
         info.id      = attachment_name;
         info.obj_id  = att;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(att, info)).first->second;
     }
@@ -1022,9 +1022,9 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::MaterialInfo(
     else
     {
         _material_cnt++;
-        
+
         std::string material_name = material->getTypeName();
-       
+
         std::stringstream name, label;
 
         name  << "Material_" << _material_cnt;
@@ -1040,14 +1040,14 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::MaterialInfo(
         info.label   = label.str();
         info.id      = material_name;
         info.obj_id  = material;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(material, info)).first->second;
     }
 }
 
 DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::MatrixInfo(
-    const Matrix & matrix, 
+    const Matrix & matrix,
           void   * handler)
 {
     MapInfoT::iterator iter = _mapInfo.find(handler);
@@ -1059,12 +1059,12 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::MatrixInfo(
     else
     {
         _matrix_cnt++;
-        
+
         std::stringstream name, label;
 
         name  << "Matrix_" << _matrix_cnt;
         label << "Matrix" << " " << _matrix_cnt;
-        
+
         Info info;
 
         info.cnt     = _matrix_cnt;
@@ -1072,7 +1072,7 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::MatrixInfo(
         info.label   = label.str();
         info.id      = "Matrix";
         info.obj_id  = handler;
-    
+
         return _mapInfo.insert(
             MapInfoT::value_type(handler, info)).first->second;
     }
@@ -1086,7 +1086,7 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::EtceteraInfo(
     name  << "Etcetera";
     label << "Etcetera";
     label << "\\n" << "number = " << number;
-    
+
     Info info;
 
     info.cnt     = 0;
@@ -1094,7 +1094,7 @@ DotFileGeneratorGraphOp::Info DotFileGeneratorGraphOp::EtceteraInfo(
     info.label   = label.str();
     info.id      = "Etcetera";
     info.obj_id  = 0;
-    
+
     return info;
 }
 
@@ -1110,14 +1110,14 @@ DotFileGeneratorGraphOp::Info& DotFileGeneratorGraphOp::ImageInfo(
     else
     {
         _image_cnt++;
-        
+
         std::string image_name = image->getName();
-        
+
         std::stringstream name, label;
 
         name  << "Image_" << _image_cnt;
         label << "Image"  << " " << _image_cnt;
-        
+
         Info info;
 
         info.cnt     = _image_cnt;
@@ -1125,7 +1125,7 @@ DotFileGeneratorGraphOp::Info& DotFileGeneratorGraphOp::ImageInfo(
         info.label   = label.str();
         info.id      = "Image";
         info.obj_id  = image;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(image, info)).first->second;
     }
@@ -1143,9 +1143,9 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::StateChunkInfo(
     else
     {
         _chunk_cnt++;
-        
+
         std::string chunk_name = chunk->getTypeName();
-       
+
         std::stringstream name, label;
 
         name  << "StateChunk_" << _chunk_cnt;
@@ -1161,14 +1161,14 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::StateChunkInfo(
         info.label   = label.str();
         info.id      = chunk_name;
         info.obj_id  = chunk;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(chunk, info)).first->second;
     }
 }
 
 DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::IntegralPropInfo(
-          GeoIntegralProperty * const property, 
+          GeoIntegralProperty * const property,
     const char                *       context )
 {
     MapInfoT::iterator iter = _mapInfo.find(property);
@@ -1177,19 +1177,19 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::IntegralPropInfo(
     {
         return iter->second;
     }
-    else 
+    else
     {
         _integral_prop_cnt++;
-        
+
         std::string property_name = property->getTypeName();
-       
+
         std::stringstream name, label;
 
         name  << "GeoIntegralProperty_" << _integral_prop_cnt;
         label << context;
         label << "\\n" << property_name << " " << _integral_prop_cnt;
         label << "\\n" << "size = " << property->size();
-        
+
         Info info;
 
         info.cnt     = _integral_prop_cnt;
@@ -1197,14 +1197,14 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::IntegralPropInfo(
         info.label   = label.str();
         info.id      = property_name+context;
         info.obj_id  = property;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(property, info)).first->second;
     }
 }
 
 DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::VectorPropInfo(
-          GeoVectorProperty * const property, 
+          GeoVectorProperty * const property,
     const char              *       context )
 {
     MapInfoT::iterator iter = _mapInfo.find(property);
@@ -1213,19 +1213,19 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::VectorPropInfo(
     {
         return iter->second;
     }
-    else 
+    else
     {
         _vector_prop_cnt++;
-        
+
         std::string property_name = property->getTypeName();
-       
+
         std::stringstream name, label;
 
         name  << "GeoVectorProperty_" << _vector_prop_cnt;
         label << context;
         label << "\\n" << property_name << " " << _vector_prop_cnt;
         label << "\\n" << "size = " << property->size();
-        
+
         Info info;
 
         info.cnt     = _vector_prop_cnt;
@@ -1233,7 +1233,7 @@ DotFileGeneratorGraphOp::Info &DotFileGeneratorGraphOp::VectorPropInfo(
         info.label   = label.str();
         info.id      = property_name+context;
         info.obj_id  = property;
-        
+
         return _mapInfo.insert(
             MapInfoT::value_type(property, info)).first->second;
     }
@@ -1262,45 +1262,45 @@ bool DotFileGeneratorGraphOp::makeEdge(const Info& src, const Info& dst)
 
 std::ofstream &DotFileGeneratorGraphOp::initialize()
 {
-    if(!_spStream) 
+    if(!_spStream)
     {
         _spStream.reset(new std::ofstream(_filename.c_str()));
-        
+
         std::ofstream& stream = *_spStream;
-        
+
         Colors core_colors, attachment_colors, material_colors;
         Colors state_chunk_colors, property_colors;
-        
+
         core_colors       .add("set312", 1, 12);
         core_colors       .add("spectral11", 1, 11);
         attachment_colors .add("blues9", 3, 6);
         material_colors   .add("purd9", 5, 7);
         state_chunk_colors.add("greens9", 1, 8);
         property_colors   .add("oranges9", 1, 9);
-        
+
         _colors["Core"]       = core_colors;
         _colors["Attachment"] = attachment_colors;
         _colors["Material"]   = material_colors;
         _colors["StateChunk"] = state_chunk_colors;
         _colors["Property"]   = property_colors;
-        
+
         stream << "digraph G {" << std::endl;
 
         _space++;
 
         if(_size.length() > 0)
             stream << space() << "Size=" << "\"" << _size << "\";" << std::endl;
-        
+
         if(_ranksep.length() > 0)
             stream << space() << "ranksep=" << _ranksep << ";" << std::endl;
-        
+
         if(_nodesep.length() > 0)
             stream << space() << "nodesep=" << _nodesep << ";" << std::endl;
-        
+
         if(_graph_attributes.length() > 0)
             stream << space() << _graph_attributes << std::endl;
     }
-    
+
     return *_spStream;
 }
 
@@ -1310,11 +1310,11 @@ void DotFileGeneratorGraphOp::deinitialize(void)
     {
         DefineDottedEdge(edge.first, edge.second, false);
     }
-    
-    if(_spStream) 
+
+    if(_spStream)
     {
         std::ofstream& stream = *_spStream;
-        
+
         stream << "}" << std::endl;
         stream << std::flush;
         stream.close();
@@ -1332,7 +1332,7 @@ std::string DotFileGeneratorGraphOp::space(void)
 }
 
 const DotFileGeneratorGraphOp::BrewerColor& DotFileGeneratorGraphOp::getColor(
-    const std::string &domain, 
+    const std::string &domain,
     const std::string &name)
 {
     MapUsedColorsT::const_iterator iter = _usedColors.find(name);
@@ -1341,12 +1341,12 @@ const DotFileGeneratorGraphOp::BrewerColor& DotFileGeneratorGraphOp::getColor(
     {
         return iter->second;
     }
-    else 
+    else
     {
-        return 
+        return
             _usedColors.insert(
                 MapUsedColorsT::value_type(
-                    name, 
+                    name,
                     _colors[domain].color())).first->second;
     }
 }
@@ -1354,12 +1354,12 @@ const DotFileGeneratorGraphOp::BrewerColor& DotFileGeneratorGraphOp::getColor(
 void DotFileGeneratorGraphOp::OpenGroup(bool rank)
 {
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << "{" << std::endl;
-    
+
     _space++;
-    
+
     if(!_no_ranks && rank)
     {
         stream << space()
@@ -1371,9 +1371,9 @@ void DotFileGeneratorGraphOp::OpenGroup(bool rank)
 void DotFileGeneratorGraphOp::CloseGroup(void)
 {
     std::ofstream& stream = initialize();
-    
+
     _space--;
-    
+
     stream << space()
            << "}" << std::endl;
 }
@@ -1381,7 +1381,7 @@ void DotFileGeneratorGraphOp::CloseGroup(void)
 void DotFileGeneratorGraphOp::DefineNode(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1398,9 +1398,9 @@ void DotFileGeneratorGraphOp::DefineNode(const Info &info)
 void DotFileGeneratorGraphOp::DefineCore(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     const BrewerColor &color = getColor("Core", info.id);
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1422,9 +1422,9 @@ void DotFileGeneratorGraphOp::DefineCore(const Info &info)
 void DotFileGeneratorGraphOp::DefineAttachment(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     const BrewerColor &color = getColor("Attachment", info.id);
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1442,9 +1442,9 @@ void DotFileGeneratorGraphOp::DefineAttachment(const Info &info)
 void DotFileGeneratorGraphOp::DefineMaterial(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     const BrewerColor &color = getColor("Material", info.id);
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1462,7 +1462,7 @@ void DotFileGeneratorGraphOp::DefineMaterial(const Info &info)
 void DotFileGeneratorGraphOp::DefineMatrix(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1479,7 +1479,7 @@ void DotFileGeneratorGraphOp::DefineMatrix(const Info &info)
 void DotFileGeneratorGraphOp::DefineImage(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1496,9 +1496,9 @@ void DotFileGeneratorGraphOp::DefineImage(const Info &info)
 void DotFileGeneratorGraphOp::DefineStateChunk(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     const BrewerColor &color = getColor("StateChunk", info.id);
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1516,9 +1516,9 @@ void DotFileGeneratorGraphOp::DefineStateChunk(const Info &info)
 void DotFileGeneratorGraphOp::DefineProperty(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     const BrewerColor &color = getColor("Property", info.id);
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1536,7 +1536,7 @@ void DotFileGeneratorGraphOp::DefineProperty(const Info &info)
 void DotFileGeneratorGraphOp::DefineEtceteraNode(const Info &info)
 {
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << info.name << " "
            << "["
@@ -1550,7 +1550,7 @@ void DotFileGeneratorGraphOp::DefineEtceteraNode(const Info &info)
            << std::endl;
 }
 
-void DotFileGeneratorGraphOp::DefineHoldingEdge(const Info &src_info, 
+void DotFileGeneratorGraphOp::DefineHoldingEdge(const Info &src_info,
                                                 const Info &dst_info)
 {
     if(makeEdge(src_info, dst_info))
@@ -1570,14 +1570,14 @@ void DotFileGeneratorGraphOp::DefineHoldingEdge(const Info &src_info,
            << std::endl;
 }
 
-void DotFileGeneratorGraphOp::DefineNodeEdge(const Info &parent_info, 
+void DotFileGeneratorGraphOp::DefineNodeEdge(const Info &parent_info,
                                              const Info &node_info  )
 {
     if(makeEdge(parent_info, node_info))
         return;
 
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << parent_info.name << " "
            << "->" << " "
@@ -1590,14 +1590,14 @@ void DotFileGeneratorGraphOp::DefineNodeEdge(const Info &parent_info,
            << std::endl;
 }
 
-void DotFileGeneratorGraphOp::DefineCoreEdge(const Info &node_info, 
+void DotFileGeneratorGraphOp::DefineCoreEdge(const Info &node_info,
                                              const Info &core_info)
 {
     if(makeEdge(node_info, core_info))
         return;
 
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << node_info.name << " "
            << "->" << " "
@@ -1610,14 +1610,14 @@ void DotFileGeneratorGraphOp::DefineCoreEdge(const Info &node_info,
            << std::endl;
 }
 
-void DotFileGeneratorGraphOp::DefineAttachmentEdge(const Info &node_info, 
+void DotFileGeneratorGraphOp::DefineAttachmentEdge(const Info &node_info,
                                                    const Info &att_info)
 {
     if(makeEdge(node_info, att_info))
         return;
 
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << node_info.name << " "
            << "->" << " "
@@ -1631,16 +1631,16 @@ void DotFileGeneratorGraphOp::DefineAttachmentEdge(const Info &node_info,
 }
 
 void DotFileGeneratorGraphOp::DefineSimpleEdge(
-    const Info        &src_info, 
-    const Info        &dst_info, 
-          bool         constraint, 
+    const Info        &src_info,
+    const Info        &dst_info,
+          bool         constraint,
           std::string  attribute )
 {
     if(makeEdge(src_info, dst_info))
         return;
 
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << src_info.name << " "
            << "->" << " "
@@ -1660,16 +1660,16 @@ void DotFileGeneratorGraphOp::DefineSimpleEdge(
 }
 
 void DotFileGeneratorGraphOp::DefineDottedEdge(
-    const Info        &src_info, 
-    const Info        &dst_info, 
-          bool         constraint, 
+    const Info        &src_info,
+    const Info        &dst_info,
+          bool         constraint,
           std::string  attribute )
 {
     if(makeEdge(src_info, dst_info))
         return;
 
     std::ofstream &stream = initialize();
-    
+
     stream << space()
            << src_info.name << " "
            << "->" << " "

@@ -69,24 +69,24 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
-    
+
     typedef GraphOp           Inherited;
     typedef DotFileGeneratorGraphOp Self;
-    
+
     OSG_GEN_INTERNAL_MEMOBJPTR(DotFileGeneratorGraphOp);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Classname                                                    */
     /*! \{                                                                 */
-    
+
     static const char *getClassname(void);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
-    
+
     static  ObjTransitPtr     create(void);
 
     virtual GraphOpTransitPtr clone (void);
@@ -99,8 +99,8 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     void        setParams(const std::string  params              );
 
     std::string usage    (      void                             );
-    
-    void        insert   (const TypeBase    *t, 
+
+    void        insert   (const TypeBase    *t,
                                 bool         derived_from = false);
 
     /*! \}                                                                 */
@@ -121,14 +121,14 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
   private:
 
     Action::ResultE  traverseEnter(Node            * const node);
-    Action::ResultE  traverseLeave(Node            * const node, 
+    Action::ResultE  traverseLeave(Node            * const node,
                                    Action::ResultE         res );
-  
+
     std::ofstream   &initialize   (void                        );
     void             deinitialize (void                        );
-  
+
     std::string      space        (void                        );
-  
+
     struct Info
     {
         Info(void);
@@ -142,8 +142,8 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
         void*       obj_id;
         bool        finished;
     };
-    
-    struct BrewerColor 
+
+    struct BrewerColor
     {
         BrewerColor(const std::string &scheme, const std::string &number);
         ~BrewerColor(void);
@@ -151,51 +151,51 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
         std::string scheme;
         std::string number;
     };
-    
+
     class Colors
     {
       public:
 
         const BrewerColor &color(      void               ) const;
-        
-              void         add  (const std::string &scheme, 
-                                       UInt32       start, 
+
+              void         add  (const std::string &scheme,
+                                       UInt32       start,
                                        UInt32       end   );
-    
+
         Colors(void);
         ~Colors(void);
 
     private:
 
         typedef std::vector<BrewerColor> VecColorsT;
-    
+
                 VecColorsT  _colors;
         mutable std::size_t _current;
     };
-    
+
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructors                                     */
     /*! \{                                                                 */
 
-    const BrewerColor &getColor(const std::string& domain, 
+    const BrewerColor &getColor(const std::string& domain,
                                 const std::string& name);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
+
     Info &NodeInfo        (      Node                * const node          );
     Info &CoreInfo        (      NodeCore            * const core          );
     Info &AttachmentInfo  (      Attachment          * const node          );
     Info &MaterialInfo    (      Material            * const material      );
     Info &ImageInfo       (      Image               * const image         );
     Info &StateChunkInfo  (      StateChunk          * const chunk         );
-    Info &IntegralPropInfo(      GeoIntegralProperty * const property, 
+    Info &IntegralPropInfo(      GeoIntegralProperty * const property,
                            const char                *       context = NULL);
-    Info &VectorPropInfo  (      GeoVectorProperty   * const property, 
+    Info &VectorPropInfo  (      GeoVectorProperty   * const property,
                            const char                *       context = NULL);
-    Info  MatrixInfo      (const Matrix              &       matrix, 
+    Info  MatrixInfo      (const Matrix              &       matrix,
                                  void                *       handler       );
     Info  EtceteraInfo    (      UInt32                      number        );
 
@@ -203,11 +203,11 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
+
     bool hasInfo   (void *handler) const;
     bool hasEdge   (const Info& src, const Info& dst) const;
     bool makeEdge  (const Info& src, const Info& dst);
-    
+
     void OpenGroup (bool  rank   );
     void CloseGroup(void         );
 
@@ -215,7 +215,7 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
+
     void DefineNode          (const Info        &info             );
     void DefineCore          (const Info        &info             );
     void DefineAttachment    (const Info        &info             );
@@ -225,59 +225,59 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     void DefineStateChunk    (const Info        &info             );
     void DefineProperty      (const Info        &info             );
     void DefineEtceteraNode  (const Info        &info             );
-    
+
     void DefineHoldingEdge   (const Info        &src_info,
                               const Info        &dst_info         );
-    void DefineNodeEdge      (const Info        &parent_info, 
+    void DefineNodeEdge      (const Info        &parent_info,
                               const Info        &node_info        );
-    void DefineCoreEdge      (const Info        &node_info,   
+    void DefineCoreEdge      (const Info        &node_info,
                               const Info        &core_info        );
-    void DefineAttachmentEdge(const Info        &node_info,   
+    void DefineAttachmentEdge(const Info        &node_info,
                               const Info        &att_info         );
-    void DefineSimpleEdge    (const Info        &src_info,    
-                              const Info        &dst_info, 
-                                    bool         constraint = true, 
+    void DefineSimpleEdge    (const Info        &src_info,
+                              const Info        &dst_info,
+                                    bool         constraint = true,
                                     std::string  attribute  = ""  );
-    void DefineDottedEdge    (const Info        &src_info,    
-                              const Info        &dst_info, 
-                                    bool         constraint = true, 
+    void DefineDottedEdge    (const Info        &src_info,
+                              const Info        &dst_info,
+                                    bool         constraint = true,
                                     std::string  attribute  = ""  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
-    void HandleAttachment    (      AttachmentContainer * const fc, 
+
+    void HandleAttachment    (      AttachmentContainer * const fc,
                               const Info                &       info    );
-    void HandleMaterial      (      NodeCore            * const core, 
+    void HandleMaterial      (      NodeCore            * const core,
                               const Info                &       info    );
-    void HandleTransform     (      NodeCore            * const core, 
+    void HandleTransform     (      NodeCore            * const core,
                               const Info                &       info    );
-    void HandleGeometry      (      NodeCore            * const core, 
+    void HandleGeometry      (      NodeCore            * const core,
                               const Info                &       info    );
-    void HandleLight         (      NodeCore            * const core, 
+    void HandleLight         (      NodeCore            * const core,
                               const Info                &       info    );
     void HandleVisitSubTree  (      NodeCore            * const core,
                               const Info                &       info    );
-    void HandleChunkMaterial (      Material            * const material, 
+    void HandleChunkMaterial (      Material            * const material,
                               const Info                &       info    );
-    void HandleSwitchMaterial(      Material            * const material, 
+    void HandleSwitchMaterial(      Material            * const material,
                               const Info                &       info    );
-    void HandleMultiPassMaterial(   Material            * const material, 
+    void HandleMultiPassMaterial(   Material            * const material,
                               const Info                &       info    );
-    void HandleTextureChunk  (      StateChunk          * const chunk, 
+    void HandleTextureChunk  (      StateChunk          * const chunk,
                               const Info                &       info    );
-    void HandleBeaconedChunk (      StateChunk          * const chunk, 
+    void HandleBeaconedChunk (      StateChunk          * const chunk,
                               const Info                &       info    );
-    
+
     bool isSuppressed        (const TypeBase            &t              );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
+
     typedef std::map   <const void        *, Info       > MapInfoT;
     typedef std::map   <      std::string,   Colors     > MapColorsT;
     typedef std::map   <      std::string,   BrewerColor> MapUsedColorsT;
@@ -303,35 +303,35 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
     /*---------------------------------------------------------------------*/
     /*! \name                    Parameters                                */
     /*! \{                                                                 */
-    
-    // The output dot file name
-    std::string                         _filename;           
 
-    // Include attechments in the graph separately           
-    bool                                _include_attachment; 
+    // The output dot file name
+    std::string                         _filename;
+
+    // Include attechments in the graph separately
+    bool                                _include_attachment;
 
     // Do not include name attachments
-    bool                                _no_name_attachments;           
+    bool                                _no_name_attachments;
 
     // Do not use rank statement
     bool                                _no_ranks;
 
     // Maximal number of children of a node included in the graph
-    Int32                               _max_node_children; 
+    Int32                               _max_node_children;
 
     // size attribute of graph
-    std::string                         _size;                   
+    std::string                         _size;
 
     // ranksep attribute of graph
-    std::string                         _ranksep; 
+    std::string                         _ranksep;
 
     // nodesep attribute of graph
-    std::string                         _nodesep;           
+    std::string                         _nodesep;
 
-    // arbitrary graph attribute entry            
-    std::string                         _graph_attributes; 
+    // arbitrary graph attribute entry
+    std::string                         _graph_attributes;
 
-    boost::scoped_ptr<std::ofstream>    _spStream;       
+    boost::scoped_ptr<std::ofstream>    _spStream;
     MapInfoT                            _mapInfo;
     UInt32                              _node_cnt;
     UInt32                              _core_cnt;
