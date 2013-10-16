@@ -50,6 +50,7 @@
 
 #include "OSGSysFields.h" // Step type
 #include "OSGVecFields.h"
+#include "OSGMathSFields.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -364,10 +365,38 @@ struct Vec2fCounterDesc
     static Vec2f getOneElement (void); 
 };
 
+struct Vec3fCounterDesc
+{
+    typedef SFVec3f SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Vec3fCounter";
+    }
+
+    static Vec3f getZeroElement(void);
+    static Vec3f getOneElement (void); 
+};
+
+struct Vec4fCounterDesc
+{
+    typedef SFVec4f SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Vec4fCounter";
+    }
+
+    static Vec4f getZeroElement(void);
+    static Vec4f getOneElement (void); 
+};
+
 typedef CounterImpl<Int32CounterDesc > Int32Counter;
 typedef CounterImpl<UInt32CounterDesc> UInt32Counter;
 typedef CounterImpl<Real32CounterDesc> Real32Counter;
 typedef CounterImpl<Vec2fCounterDesc > Vec2fCounter;
+typedef CounterImpl<Vec3fCounterDesc > Vec3fCounter;
+typedef CounterImpl<Vec4fCounterDesc > Vec4fCounter;
 
 OSG_END_NAMESPACE
 

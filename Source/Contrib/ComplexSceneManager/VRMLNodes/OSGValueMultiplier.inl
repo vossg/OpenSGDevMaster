@@ -478,7 +478,7 @@ EditFieldHandlePtr SValueMultiplier<Desc>::editHandleRhs(void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfRhs,
-             this->getType().getFieldDesc(ValueFieldId),
+             this->getType().getFieldDesc(RhsFieldId),
              this));
 
 

@@ -166,6 +166,8 @@ void CounterImpl<UInt32CounterDesc>::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+
+
 Vec2f Vec2fCounterDesc::getZeroElement(void)
 {
     return Vec2f(0.f, 0.f);
@@ -176,9 +178,34 @@ Vec2f Vec2fCounterDesc::getOneElement(void)
     return Vec2f(1.f, 1.f);
 }
 
+
+Vec3f Vec3fCounterDesc::getZeroElement(void)
+{
+    return Vec3f(0.f, 0.f, 0.f);
+}
+
+Vec3f Vec3fCounterDesc::getOneElement(void)
+{
+    return Vec3f(1.f, 1.f, 1.f);
+}
+
+
+Vec4f Vec4fCounterDesc::getZeroElement(void)
+{
+    return Vec4f(0.f, 0.f, 0.f);
+}
+
+Vec4f Vec4fCounterDesc::getOneElement(void)
+{
+    return Vec4f(1.f, 1.f, 1.f);
+}
+
+
 OSGCOUNTER_IMPL(Int32CounterDesc )
 OSGCOUNTER_IMPL(UInt32CounterDesc)
 OSGCOUNTER_IMPL(Real32CounterDesc)
 OSGCOUNTER_IMPL(Vec2fCounterDesc)
+OSGCOUNTER_IMPL(Vec3fCounterDesc)
+OSGCOUNTER_IMPL(Vec4fCounterDesc)
 
 OSG_END_NAMESPACE

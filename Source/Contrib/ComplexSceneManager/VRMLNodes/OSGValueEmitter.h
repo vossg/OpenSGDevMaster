@@ -368,7 +368,22 @@ struct Vec2fEmitterDesc
 
     static Vec2f getDefault(void)
     {
-        return 0.f;
+        return Vec2f(0.f, 0.f);
+    }
+};
+
+struct Vec3fEmitterDesc
+{
+    typedef SFVec3f SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "Vec3fEmitter";
+    }
+
+    static Vec3f getDefault(void)
+    {
+        return Vec3f(0.f, 0.f, 0.f);
     }
 };
 
@@ -411,6 +426,7 @@ typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
 typedef SValueEmitter<UInt32EmitterDesc> UInt32Emitter;
 typedef SValueEmitter<Real32EmitterDesc> Real32Emitter;
 typedef SValueEmitter<Vec2fEmitterDesc > Vec2fEmitter;
+typedef SValueEmitter<Vec3fEmitterDesc > Vec3fEmitter;
 typedef SValueEmitter<StringEmitterDesc> StringEmitter;
 typedef SValueEmitter<MatrixEmitterDesc> MatrixEmitter;
 
