@@ -47,13 +47,13 @@ OSG_BEGIN_NAMESPACE
 inline
 UInt32 Dgram::getCapacity(void) const
 {
-    return sizeof(_buffer) - sizeof(_buffer._id);
+    return sizeof(DgramBuffer) - sizeof(_buffer->_id);
 }
 
 inline
 UInt16 Dgram::getId(void) const
 {
-    return osgNetToHost<UInt16>(_buffer._id);
+    return osgNetToHost<UInt16>(_buffer->_id);
 }
 
 inline
@@ -65,37 +65,37 @@ UInt32 Dgram::getSize(void) const
 inline
 UChar8 *Dgram::getData(void)
 {
-    return _buffer._data;
+    return _buffer->_data;
 }
 
 inline
 const UChar8 *Dgram::getData(void) const
 {
-    return _buffer._data;
+    return _buffer->_data;
 }
 
 inline
 UChar8 *Dgram::getBuffer(void)
 {
-    return reinterpret_cast<UChar8 *>(&_buffer);
+    return reinterpret_cast<UChar8 *>(_buffer);
 }
 
 inline
 UInt32 Dgram::getBufferSize(void) const
 {
-    return _size + sizeof(_buffer._id);
+    return _size + sizeof(_buffer->_id);
 }
 
 inline
 UInt32 Dgram::getBufferCapacity(void) const
 {
-    return sizeof(_buffer);
+    return sizeof(DgramBuffer);
 }
 
 inline
 bool Dgram::getResponseAck(void) const
 {
-    return (_buffer._data[0] != 0);
+    return (_buffer->_data[0] != 0);
 }
 
 inline
@@ -122,25 +122,54 @@ void Dgram::setResponseSize(void)
 inline 
 void Dgram::setId(UInt16 id)
 {
-    _buffer._id = osgHostToNet<UInt16>(id);
+    _buffer->_id = osgHostToNet<UInt16>(id);
 }
 
 inline
 void Dgram::setBufferSize(UInt32 size)
 {
-    _size = size - sizeof(_buffer._id);
+    _size = size - sizeof(_buffer->_id);
 }
 
 inline 
 void Dgram::setResponseAck(bool value)
 {
-    _buffer._data[0] = value;
+    _buffer->_data[0] = value;
 }
 
 inline 
 void Dgram::setEarlySend(bool value)
 {
     _earlySend = value;
+}
+
+#ifdef OSG_DEBUG
+inline 
+void Dgram::incUsageCounter(void)
+{
+    ++_uiUsageCounter;
+}
+
+inline
+UInt32 Dgram::getUsageCounter(void)
+{
+    return _uiUsageCounter;
+}
+#endif
+
+inline
+void Dgram::reallocateBuffer(void)
+{
+    
+    delete _buffer;
+
+    _buffer = new DgramBuffer;
+
+    memset(_buffer, 0, sizeof(DgramBuffer));
+
+#ifdef OSG_DEBUG
+    _uiUsageCounter = 0;
+#endif
 }
 
 /*---------------------------------------------------------------------*/

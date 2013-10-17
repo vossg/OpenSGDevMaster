@@ -60,9 +60,15 @@ OSG_USING_NAMESPACE
  */
 
 Dgram::Dgram():
-    _earlySend(false),
-    _size     (    0)
+#ifdef OSG_DEBUG
+    _uiUsageCounter(    0),
+#endif
+    _earlySend     (false),
+    _size          (    0)
 {
+    _buffer = new DgramBuffer;
+
+    memset(_buffer, 0, sizeof(DgramBuffer));
 }
 
 /*! destructor. Use Dgram::release to free dgrams
@@ -70,4 +76,5 @@ Dgram::Dgram():
 
 Dgram::~Dgram()
 {
+    delete _buffer;
 }

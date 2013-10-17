@@ -53,6 +53,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class Dgram;
+
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
     \ingroup GrpLibOSGBase
@@ -83,8 +85,13 @@ class OSG_BASE_DLLMAPPING DgramSocket:public Socket
     /*! \name                   read, write                                */
     /*! \{                                                                 */
 
+#if 0
     int recvFrom(      void           *buf ,
                        int             size,
+                       SocketAddress  &from );
+#endif
+
+    int recvFrom(      Dgram          &buf ,
                        SocketAddress  &from );
     int peekFrom(      void           *buf ,
                        int             size,
@@ -125,6 +132,10 @@ class OSG_BASE_DLLMAPPING DgramSocket:public Socket
 
     /*==========================  PRIVATE  ================================*/
   private:
+
+    int recvFromInternal(void           *buf ,
+                         int             size,
+                         SocketAddress  &from );
 
     typedef Socket Inherited;
 };

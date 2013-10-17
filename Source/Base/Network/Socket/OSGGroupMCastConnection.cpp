@@ -483,8 +483,12 @@ bool GroupMCastConnection::sendQueue(void)
             }
 
             // read response
+#if 0
             len = _mcastSocket.recvFrom(response.getBuffer(),
                                         response.getBufferCapacity(),
+                                        fromAddress);
+#endif
+            len = _mcastSocket.recvFrom(response,
                                         fromAddress);
             lastAckTime = getSystemTime();
 

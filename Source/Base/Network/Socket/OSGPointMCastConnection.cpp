@@ -76,7 +76,11 @@ PointMCastConnection::PointMCastConnection():
 
     // fill dgramqueue
     for(UInt32 dI = 0 ; dI < OSG_DGRAM_QUEUE_LEN ; ++dI)
-        _free.put(new Dgram());
+    {
+        Dgram *pNew = new Dgram();
+
+        _free.put(pNew);
+    }
 
     _acceptSocket.open();
     _acceptSocket.setReusePort(true);
@@ -386,9 +390,14 @@ bool PointMCastConnection::recvNextDgram(Dgram *dgram)
         return false;
     if(selection.isSetRead(_responseSocket))
     {
+#if 0
         length = _responseSocket.recvFrom(dgram->getBuffer(),
                                           dgram->getBufferCapacity(),
                                           from);
+#endif
+        length = _responseSocket.recvFrom(*dgram,
+                                          from);
+
         dgram->setBufferSize(length);
 #if 0
 // ????
@@ -423,9 +432,13 @@ bool PointMCastConnection::recvNextDgram(Dgram *dgram)
     } 
     if(selection.isSetRead(_mcastSocket))
     {
+#if 0
         length = _mcastSocket.recvFrom(dgram->getBuffer(),
                                        dgram->getBufferCapacity(),
                                        from);
+#endif
+        length = _mcastSocket.recvFrom(*dgram,
+                                        from);
         dgram->setBufferSize(length);
         // ignore packages from wrong destination
         if(from != _sender)

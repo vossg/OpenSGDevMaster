@@ -119,6 +119,18 @@ class OSG_BASE_DLLMAPPING Dgram
 
     void setEarlySend    (bool value     );
 
+    void reallocateBuffer(void           );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name               compare                                        */
+    /*! \{                                                                 */
+
+#ifdef OSG_DEBUG
+    void   incUsageCounter(void);
+    UInt32 getUsageCounter(void);
+#endif    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               compare                                        */
@@ -136,16 +148,22 @@ class OSG_BASE_DLLMAPPING Dgram
     /*! \name               member                                         */
     /*! \{                                                                 */
 
+#ifdef OSG_DEBUG
+    UInt32 _uiUsageCounter;
+#endif
+
     bool   _earlySend;
     UInt32 _size;
 
     /*! \nohierarchy 
      */
-    struct 
+    struct DgramBuffer
     {
         UInt16 _id;
         UChar8 _data[OSG_DGRAM_LEN-2];
-    } _buffer;
+    };
+
+    DgramBuffer *_buffer;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

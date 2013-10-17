@@ -64,6 +64,7 @@
 #include "OSGDgramSocket.h"
 #include "OSGNetworkMessage.h"
 #include "OSGTime.h"
+#include "OSGDgram.h"
 
 #include "OSGBaseFunctions.h"
 
@@ -153,7 +154,7 @@ void DgramSocket::close(void)
     This situation will not be treated as an error.
     \see Socket::recvAvailable Socket::recv
  */
-int DgramSocket::recvFrom(void *buf,int size,SocketAddress &from)
+int DgramSocket::recvFrom(Dgram &dgram, SocketAddress &from)
 {
     int len;
     SocketLenT addrLen=from.getSockAddrSize();
@@ -163,14 +164,30 @@ int DgramSocket::recvFrom(void *buf,int size,SocketAddress &from)
     {
 #endif
         len=recvfrom(_sd,
-                     static_cast<char*>(buf),
-                     size,
+                     dgram.getBuffer(),
+                     dgram.getBufferCapacity(),
                      0,
                      from.getSockAddr(),
                      &addrLen);
+
 #ifndef WIN32
+        if(len < 0 && errno == EFAULT)
+        {
+#ifdef OSG_DEBUG
+            fprintf(stderr, "efault at : %p %p (%d)\n", 
+                    &dgram, 
+                    dgram.getBuffer(),
+                    dgram.getUsageCounter());
+#endif
+
+            dgram.reallocateBuffer();
+
+#ifdef OSG_DEBUG
+            fprintf(stderr, "change to : %p %p\n", &dgram, dgram.getBuffer());
+#endif
+        }
     } 
-    while(len < 0 && errno == EAGAIN);
+    while(len < 0 && (errno == EAGAIN || errno == EFAULT));
 #endif
 
     if(len < 0)
@@ -186,8 +203,16 @@ int DgramSocket::recvFrom(void *buf,int size,SocketAddress &from)
         }
         else
 #endif
+
+        abort();
+
         throw SocketError("recvfrom()");
     }
+
+#ifdef OSG_DEBUG
+    dgram.incUsageCounter();
+#endif
+
     return len;
 }
 
@@ -236,7 +261,7 @@ int DgramSocket::recvFrom(NetworkMessage &msg,SocketAddress &from)
     NetworkMessage::Header hdr;
     peek(&hdr,sizeof(hdr));
     msg.setSize(osgNetToHost<UInt32>(hdr.size));
-    return recvFrom(msg.getBuffer(),msg.getSize(),from);
+    return recvFromInternal(msg.getBuffer(),msg.getSize(),from);
 }
 
 /*! Write size bytes to the socket. This method maight block, if the
@@ -385,4 +410,52 @@ const DgramSocket & DgramSocket::operator =(const DgramSocket &source)
 {
     _sd=source._sd;
     return *this;
+}
+
+
+
+int DgramSocket::recvFromInternal(void *buf,int size,SocketAddress &from)
+{
+    int len;
+    SocketLenT addrLen=from.getSockAddrSize();
+
+#ifndef WIN32
+    do
+    {
+#endif
+        len=recvfrom(_sd,
+                     static_cast<char*>(buf),
+                     size,
+                     0,
+                     from.getSockAddr(),
+                     &addrLen);
+
+        if(len < 0 && errno == EFAULT)
+        {
+            fprintf(stderr, "efault at : %p\n", buf);
+        }
+#ifndef WIN32        
+    } 
+    while(len < 0 && (errno == EAGAIN));
+#endif
+
+    if(len < 0)
+    {
+#if defined WIN32
+        if(getError() == WSAECONNRESET)
+        {
+            throw SocketConnReset("recvfrom");
+        }
+        if(getError() == WSAEMSGSIZE)
+        {
+            len=size;
+        }
+        else
+#endif
+
+        abort();
+
+        throw SocketError("recvfrom_internal()");
+    }
+    return len;
 }
