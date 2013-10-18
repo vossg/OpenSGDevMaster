@@ -261,7 +261,7 @@ int DgramSocket::recvFrom(NetworkMessage &msg,SocketAddress &from)
     NetworkMessage::Header hdr;
     peek(&hdr,sizeof(hdr));
     msg.setSize(osgNetToHost<UInt32>(hdr.size));
-    return recvFromInternal(msg.getBuffer(),msg.getSize(),from);
+    return recvFromRaw(msg.getBuffer(),msg.getSize(),from);
 }
 
 /*! Write size bytes to the socket. This method maight block, if the
@@ -414,7 +414,7 @@ const DgramSocket & DgramSocket::operator =(const DgramSocket &source)
 
 
 
-int DgramSocket::recvFromInternal(void *buf,int size,SocketAddress &from)
+int DgramSocket::recvFromRaw(void *buf,int size,SocketAddress &from)
 {
     int len;
     SocketLenT addrLen=from.getSockAddrSize();
