@@ -164,7 +164,7 @@ int DgramSocket::recvFrom(Dgram &dgram, SocketAddress &from)
     {
 #endif
         len=recvfrom(_sd,
-                     dgram.getBuffer(),
+                     reinterpret_cast<char*>(dgram.getBuffer()),
                      dgram.getBufferCapacity(),
                      0,
                      from.getSockAddr(),
@@ -199,14 +199,11 @@ int DgramSocket::recvFrom(Dgram &dgram, SocketAddress &from)
         }
         if(getError() == WSAEMSGSIZE)
         {
-            len=size;
+            len=dgram.getBufferCapacity();
         }
         else
 #endif
-
-        abort();
-
-        throw SocketError("recvfrom()");
+            throw SocketError("recvfrom()");
     }
 
 #ifdef OSG_DEBUG
