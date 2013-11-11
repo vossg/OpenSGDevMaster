@@ -62,6 +62,14 @@ void ComputeElementHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField,
 }
 
 template <class ParentT> inline
+void ComputeElementHandlerMixin<ParentT>::setData(TraversalData    *pData, 
+                                                  Int32             iDataSlotId,
+                                                  RenderActionBase *pAction    )
+{
+    Inherited::setData(pData, iDataSlotId, pAction);
+}
+
+template <class ParentT> inline
 void ComputeElementHandlerMixin<ParentT>::setData(
     HardwareContextData *pData, 
     Int32                iDataSlotId,

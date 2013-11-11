@@ -143,7 +143,13 @@ class ComputeElementHandlerMixin  :
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
+#ifndef WIN32
     using Inherited::setData;
+#else
+    void setData(TraversalData       *pData, 
+                 Int32                iDataSlotId,
+                 RenderActionBase    *pAction    );
+#endif
 
     void setData(HardwareContextData *pData, 
                  Int32                iDataSlotId,
