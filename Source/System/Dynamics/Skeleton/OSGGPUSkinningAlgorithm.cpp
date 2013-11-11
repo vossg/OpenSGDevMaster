@@ -335,7 +335,7 @@ GPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
     // the data - it either is updated by the same sync or
     // the sync marks it as invalid.
 
-    if(origin != ChangedOrigin::Sync  &&
+    if(//origin != ChangedOrigin::Sync  &&
        ((Skeleton::JointMatricesFieldMask      |
          Skeleton::JointsChangedFieldMask      |
          Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
