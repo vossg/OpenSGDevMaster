@@ -51,6 +51,7 @@
 #include "OSGVolumeDraw.h"
 
 #include "OSGAlgorithmComputeElement.h"
+#include "OSGAlgorithmComputeElementData.h"
 
 #include "OSGComputeAlgorithm.h"
 
@@ -118,9 +119,30 @@ Action::ResultE AlgorithmComputeElement::renderEnter(Action *action)
 
     if(pAlgo != NULL)
     {
-        ComputeAlgorithmDrawTask *pTask = 
-            new ComputeAlgorithmDrawTask(pAlgo,
-                                         ComputeAlgorithmDrawTask::Algorithm);
+        AlgorithmComputeElementData *pData    = 
+            a->getData<AlgorithmComputeElementData *>(_iDataSlotId);
+
+        if(pData == NULL)
+        {
+            AlgorithmComputeElementDataUnrecPtr pDataNew = 
+                AlgorithmComputeElementData::create();
+        
+            this->setData(pDataNew.get(), _iDataSlotId, a);
+            
+            pData = pDataNew;
+        }
+
+        ComputeAlgorithmDrawTask *pTask = pData->getTask();
+
+        if(pTask == NULL)
+        {
+            pTask = new ComputeAlgorithmDrawTask(
+                pAlgo,
+                ComputeAlgorithmDrawTask::Algorithm);
+
+            pData->setTask(pTask);
+        }
+
 
         a->getWindow()->queueTaskFromDrawer(pTask);
     }

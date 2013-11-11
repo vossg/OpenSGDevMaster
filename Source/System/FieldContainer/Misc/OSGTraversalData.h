@@ -36,24 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTAGEDATA_H_
-#define _OSGSTAGEDATA_H_
+#ifndef _OSGTRAVERSALDATA_H_
+#define _OSGTRAVERSALDATA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGStageDataBase.h"
+#include "OSGTraversalDataBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief StageData class. See \ref
-           PageGroupStageData for a description.
-    \ingroup GrpGroupStageObj
+/*! \brief TraversalData class. See \ref
+           PageGroupTraversalData for a description.
+    \ingroup GrpGroupTraversalObj
     \ingroup GrpLibOSGGroup
     \includebasedoc
  */
 
-class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
+class OSG_SYSTEM_DLLMAPPING TraversalData : public TraversalDataBase
 {
   protected:
 
@@ -61,8 +61,8 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 
   public:
 
-    typedef StageDataBase Inherited;
-    typedef StageData     Self;
+    typedef TraversalDataBase Inherited;
+    typedef TraversalData     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
@@ -101,21 +101,21 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 
   protected:
 
-    // Variables should all be in StageDataBase.
+    // Variables should all be in TraversalDataBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    StageData(void);
-    StageData(const StageData &source);
+    TraversalData(void);
+    TraversalData(const TraversalData &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StageData(void);
+    virtual ~TraversalData(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -130,15 +130,15 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
   private:
 
     friend class FieldContainer;
-    friend class StageDataBase;
+    friend class TraversalDataBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const StageData &source);
+    void operator =(const TraversalData &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGStageDataBase.inl"
-#include "OSGStageData.inl"
+#include "OSGTraversalDataBase.inl"
+#include "OSGTraversalData.inl"
 
-#endif /* _OSGSTAGEDATA_H_ */
+#endif /* _OSGTRAVERSALDATA_H_ */

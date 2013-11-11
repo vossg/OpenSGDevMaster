@@ -2,7 +2,7 @@
 
 <FieldContainer
    name="StageData"
-   parent="FieldContainer"
+   parent="TraversalData"
    library="Group"
    pointerfieldtypes="none"
    structure="concrete"

@@ -55,7 +55,8 @@ struct ComputeElementDesc
     typedef FieldContainer::TypeObject            TypeObject;
     typedef ComputeElementIdPool                  ElementIdPool;
 
-    typedef HardwareContext::Inherited::Inherited DataSlotHandler;
+    typedef RenderActionBase::Inherited           DataSlotHandler;
+    typedef HardwareContext::Inherited::Inherited ContextDataSlotHandler;
 };
 
 typedef ComputeElementHandlerMixin< 

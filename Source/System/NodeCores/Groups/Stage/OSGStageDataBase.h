@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGTraversalData.h" // Parent
 
 #include "OSGSysFields.h"               // PartitionRangeBegin type
 
@@ -76,12 +76,12 @@ class StageData;
 
 //! \brief StageData Base Class.
 
-class OSG_GROUP_DLLMAPPING StageDataBase : public FieldContainer
+class OSG_GROUP_DLLMAPPING StageDataBase : public TraversalData
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef TraversalData Inherited;
+    typedef TraversalData ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

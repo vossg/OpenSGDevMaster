@@ -39,66 +39,100 @@
 OSG_BEGIN_NAMESPACE
 
 template <class ParentT> inline
-bool ComputeElementHandlerMixin<ParentT>::requestRun(void)
+void TraversalDataHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
+                                                 UInt32            origin,
+                                                 BitVector         details)
 {
-    Self::editSField(Self::RequestRunFieldMask);
-
-    return true;
-}
-
-template <class ParentT> inline
-void ComputeElementHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
-                                                  UInt32            origin,
-                                                  BitVector         details)
-{
-#if 0
-    if(0x0000 != (whichField & RequestRunFieldMask))
-    {
-        Window::requestStageRun(_iStageId);
-    }
-#endif
-
     Inherited::changed(whichField, origin, details);
 }
 
 template <class ParentT> inline
-void ComputeElementHandlerMixin<ParentT>::setData(
-    HardwareContextData *pData, 
-    Int32                iDataSlotId,
-    HardwareContext     *pContext   )
+void TraversalDataHandlerMixin<ParentT>::setData(
+    TraversalData    *pData, 
+    Int32             iDataSlotId,
+    RenderActionBase *pAction)
 {
-    HardwareContextData *pStoredData = 
-        pContext->template getData<HardwareContextData *>(this->_iDataSlotId);
+    TraversalData *pStoredData = 
+        pAction->template getData<TraversalData *>(this->_iDataSlotId);
+
+    bool bCheckCallback = false;
 
     OSG_ASSERT(iDataSlotId == this->_iDataSlotId);
 
     if(pStoredData == NULL)
     {
-        pContext->setData(pData, this->_iDataSlotId);
+        pAction->setData(pData, this->_iDataSlotId);
+        bCheckCallback = true;
+    }
+    else if(pStoredData != pData)
+    {
+        pData->copyFrom(pStoredData);
 
+        pAction->setData(pData, this->_iDataSlotId);
+        bCheckCallback = true;
+    }
+
+    if(bCheckCallback == true)
+    {
         if(this->hasDestroyedFunctor(
-               boost::bind(&ContextDataSlotHandler::clearData,
-                           pContext,
+               boost::bind(&DataSlotHandler::clearData,
+                           pAction,
                            _1,
                            _2,
                            this->_iDataSlotId)) == false)
         {
             this->addDestroyedFunctor(
-                boost::bind(&ContextDataSlotHandler::clearData,
-                            static_cast<ContextDataSlotHandler *>(pContext),
+                boost::bind(&DataSlotHandler::clearData,
+                            static_cast<DataSlotHandler *>(pAction),
                             _1,
                             _2,
                             this->_iDataSlotId), "");
 
-            pContext->addDestroyedFunctorFor(
-                boost::bind(&Self::template clearDestroyedFunctorFor<
-                                ContextDataSlotHandler>,
-                            this,
-                            _1),
+            pAction->addDestroyedFunctorFor(
+                boost::bind(
+                    &Self::template clearDestroyedFunctorFor<DataSlotHandler>,
+                    this,
+                    _1),
                 this);
         }
+
+        if(pData != NULL)
+        {
+            this->addChangedFunctor(
+                boost::bind(&TraversalData::updateData, 
+                            pData, 
+                            _1, 
+                            _2,
+                            _3),
+                "");
+
+            pData->addChangedFunctor(
+                boost::bind(&Self::dataDestroyed, 
+                            this, 
+                            _1, 
+                            _2,
+                            _3),
+                "");
+        }
+        if(pStoredData != NULL)
+        {
+            this->subChangedFunctor(
+                boost::bind(&TraversalData::updateData, 
+                            pStoredData, 
+                            _1, 
+                            _2,
+                            _3));
+            
+            pStoredData->subChangedFunctor(
+                boost::bind(&Self::dataDestroyed, 
+                            this, 
+                            _1, 
+                            _2,
+                            _3));
+         }
     }
 }
+
 
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
@@ -114,33 +148,44 @@ void ComputeElementHandlerMixin<ParentT>::setData(
 /*                            Constructors                                 */
 
 template <class ParentT> inline
-ComputeElementHandlerMixin<ParentT>::ComputeElementHandlerMixin(void) :
+TraversalDataHandlerMixin<ParentT>::TraversalDataHandlerMixin(void) :
     Inherited()
 {
-#if 0
-    _tmpStatus = StageValidator::Finished;
-#endif
 }
 
 template <class ParentT> inline
-ComputeElementHandlerMixin<ParentT>::ComputeElementHandlerMixin(
-    const ComputeElementHandlerMixin &source) :
+TraversalDataHandlerMixin<ParentT>::TraversalDataHandlerMixin(
+    const TraversalDataHandlerMixin &source) :
 
     Inherited(source)
 {
-#if 0
-    _tmpStatus = StageValidator::Finished;
-#endif
 }
 
 template <class ParentT> inline
-ComputeElementHandlerMixin<ParentT>::~ComputeElementHandlerMixin(void)
+TraversalDataHandlerMixin<ParentT>::~TraversalDataHandlerMixin(void)
 {
 }
 
 template <class ParentT> inline
-void ComputeElementHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
-                                               const BitVector bvFlags ) const
+void TraversalDataHandlerMixin<ParentT>::dataDestroyed(
+    FieldContainer *pCore,
+    BitVector       whichField,
+    UInt32          origin    )
+{
+    if(whichField == 0x0000)
+    {
+        this->subChangedFunctor(
+            boost::bind(&TraversalData::updateData, 
+                        dynamic_cast<TraversalData *>(pCore), 
+                        _1, 
+                        _2,
+                        _3));
+    }
+}
+
+template <class ParentT> inline
+void TraversalDataHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
+                                              const BitVector bvFlags ) const
 {
 }
 
@@ -154,4 +199,5 @@ void ComputeElementHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
 /*                             Comparison                                  */
 
 OSG_END_NAMESPACE
+
 

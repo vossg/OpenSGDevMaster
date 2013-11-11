@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="TraversalData"
+   parent="FieldContainer"
+   library="System"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   isBundle="true"
+   docGroupBase="GrpGroupStage"
+   >
+  Data use for rendering by the any stage, holds bookkeeping data
+</FieldContainer>

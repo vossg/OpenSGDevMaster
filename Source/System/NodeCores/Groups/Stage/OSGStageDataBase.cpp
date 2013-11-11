@@ -101,7 +101,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<StageData *, nsOSG>::_type(
     "StageDataPtr", 
-    "FieldContainerPtr", 
+    "TraversalDataPtr", 
     StageData::getClassType(),
     nsOSG);
 #endif
@@ -170,7 +170,7 @@ StageDataBase::TypeObject StageDataBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"StageData\"\n"
-    "   parent=\"FieldContainer\"\n"
+    "   parent=\"TraversalData\"\n"
     "   library=\"Group\"\n"
     "   pointerfieldtypes=\"none\"\n"
     "   structure=\"concrete\"\n"

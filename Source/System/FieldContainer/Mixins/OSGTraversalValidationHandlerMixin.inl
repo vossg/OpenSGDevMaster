@@ -210,11 +210,12 @@ void TraversalValidationHandlerMixin<ParentT>::clearDestroyedFunctors(void)
     _mfDestroyedFunctors.clear();
 }
 
-template <class ParentT> inline 
+template <class ParentT> 
+template<class DataSlotHandlerT> inline
 void TraversalValidationHandlerMixin<ParentT>::clearDestroyedFunctorFor(
-    DataSlotHandler *pHandler)
+    DataSlotHandlerT *pHandler)
 {
-    this->subDestroyedFunctor(boost::bind(&DataSlotHandler::clearData,
+    this->subDestroyedFunctor(boost::bind(&DataSlotHandlerT::clearData,
                                             pHandler,
                                            _1,
                                            _2,

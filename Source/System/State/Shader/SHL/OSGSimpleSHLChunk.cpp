@@ -89,7 +89,7 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
     UInt32  returnValue = 0;
     Window *pWin        = pEnv->getWindow();
 
-    if(!pWin->hasExtOrVersion(_extSHL, 0x02000, 0x0200))
+    if(!pWin->hasExtOrVersion(_extSHL, 0x0200, 0x0200))
     {
         FWARNING(("OpenGL Shading Language is not supported, couldn't find "
                   "extension 'GL_ARB_shading_language_100'!\n"));

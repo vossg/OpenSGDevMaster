@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGTraversalValidationHandlerMixin.h"
+#include "OSGTraversalDataHandlerMixin.h"
 
 #include "OSGStageData.h"
 
@@ -56,14 +56,14 @@ OSG_BEGIN_NAMESPACE
  */
 
 template <class ParentT>
-class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
+class StageHandlerMixin  : public TraversalDataHandlerMixin<ParentT>
 {
     /*==========================  PRIVATE  ================================*/
 
   protected:
 
-    typedef          TraversalValidationHandlerMixin<ParentT> Inherited;
-    typedef typename Inherited::DataSlotHandler               DataSlotHandler;
+    typedef          TraversalDataHandlerMixin<ParentT> Inherited;
+    typedef typename Inherited::DataSlotHandler         DataSlotHandler;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -156,10 +156,6 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
-    void setData(StageData        *pData, 
-                 Int32             iDataSlotId,
-                 RenderActionBase *pAction    );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Assignment                                */
@@ -188,10 +184,6 @@ class StageHandlerMixin  : public TraversalValidationHandlerMixin<ParentT>
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
-
-    virtual void dataDestroyed(FieldContainer *pCore,
-                               BitVector       whichField,
-                               UInt32          origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

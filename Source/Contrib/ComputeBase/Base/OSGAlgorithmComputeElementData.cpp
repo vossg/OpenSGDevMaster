@@ -43,16 +43,20 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include "OSGExtensionsConfig.h"
 
-#include "OSGStageData.h"
+#include "OSGChunkMaterial.h"
+#include "OSGFrameBufferObject.h"
+#include "OSGSimpleSHLChunk.h"
+#include "OSGAlgorithmComputeElementData.h"
+#include "OSGAlgorithmComputeElement.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGStageDataBase.cpp file.
-// To modify it, please change the .fcd file (OSGStageData.fcd) and
-// regenerate the base file.
+// OSGAlgorithmComputeElementDataBase.cpp file.
+// To modify it, please change the .fcd file
+// (OSGAlgorithmComputeElementData.fcd) and regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -62,7 +66,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void StageData::initMethod(InitPhase ePhase)
+void AlgorithmComputeElementData::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,53 +86,62 @@ void StageData::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-StageData::StageData(void) :
-    Inherited()
+AlgorithmComputeElementData::AlgorithmComputeElementData(void) :
+     Inherited(    ),
+    _pTask    (NULL)
 {
 }
 
-StageData::StageData(const StageData &source) :
-    Inherited(source)
+AlgorithmComputeElementData::AlgorithmComputeElementData(
+    const AlgorithmComputeElementData &source) :
+
+     Inherited(source),
+    _pTask    (NULL  )
 {
 }
 
-StageData::~StageData(void)
+AlgorithmComputeElementData::~AlgorithmComputeElementData(void)
 {
+}
+
+void AlgorithmComputeElementData::setTask(ComputeAlgorithmDrawTask *pTask)
+{
+    _pTask = pTask;
+}
+
+ComputeAlgorithmDrawTask *AlgorithmComputeElementData::getTask(void)
+{
+    return _pTask;
+}
+
+void AlgorithmComputeElementData::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    _pTask = NULL;
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void StageData::changed(ConstFieldMaskArg whichField, 
-                        UInt32            origin,
-                        BitVector         details)
+void AlgorithmComputeElementData::changed(ConstFieldMaskArg whichField, 
+                                          UInt32            origin,
+                                          BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void StageData::dump(      UInt32    ,
-                         const BitVector ) const
+void AlgorithmComputeElementData::dump(      UInt32    ,
+                                       const BitVector ) const
 {
-    SLOG << "Dump StageData NI" << std::endl;
+    SLOG << "Dump AlgorithmComputeElementData NI" << std::endl;
 }
 
-void StageData::updateData(FieldContainer *pStageCore,
-                           BitVector       whichField,
-                           UInt32          origin    )
+#if 0
+void VolumeCoreData::updateData(FieldContainer *pCore,
+                                BitVector       whichField,
+                                UInt32          origin    )
 {
 }
-
-void StageData::copyFrom(TraversalData *pIn)
-{
-    Inherited::copyFrom(pIn);
-
-    StageData *pData = dynamic_cast<StageData *>(pIn);
-
-    if(pData != NULL)
-    {        
-        this->_sfPartitionRangeBegin = pData->_sfPartitionRangeBegin;
-        this->_sfPartitionRangeEnd   = pData->_sfPartitionRangeEnd;
-        this->_sfGroupMode           = pData->_sfGroupMode;
-    }
-}
+#endif
 
 OSG_END_NAMESPACE

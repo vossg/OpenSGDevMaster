@@ -36,73 +36,54 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_
-#define _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_
+#ifndef _OSGTRAVERSALDATAHANDLERMIXIN_H_
+#define _OSGTRAVERSALDATAHANDLERMIXIN_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGOSGAnyFields.h"
+#include "OSGTraversalValidationHandlerMixin.h"
 
-#include <boost/bind.hpp>
-
-#include "OSGWindow.h"
-#include "OSGTraversalValidator.h"
-#include "OSGRenderActionBase.h"
-#include "OSGViewarea.h"
+#include "OSGTraversalData.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpSystemFieldContainerMixins
-    \ingroup GrpLibOSGSystem
+    \ingroup GrpLibOSGBase
  */
+
 template <class ParentT>
-class TraversalValidationHandlerMixin  : public ParentT
+class TraversalDataHandlerMixin  : 
+    public TraversalValidationHandlerMixin<ParentT>
 {
-    /*==========================  PUBLIC  =================================*/
-
-  public:
-
-    typedef          TraversalValidationHandlerMixin<ParentT> Self;
-
-    typedef typename ParentT::Desc                            Desc;
-    typedef typename Desc::TypeObject                         TypeObject;
-
     /*==========================  PRIVATE  ================================*/
 
   protected:
 
-    typedef ParentT                                  Inherited;
-    typedef typename Desc::DataSlotHandler           DataSlotHandler;
-    typedef typename DataSlotHandler::DataSlotIdPool DataSlotIdPool;
-    typedef typename Desc::ElementIdPool             ElementIdPool;
+    typedef          TraversalValidationHandlerMixin<ParentT> Inherited;
+    typedef typename Inherited::DataSlotHandler               DataSlotHandler;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef TraversalValidator::ValidationStatus  ValidationStatus;
+    typedef          TraversalDataHandlerMixin<ParentT>   Self;
 
-    enum UpdateMode
+    typedef typename ParentT::Desc                        Desc;
+    typedef typename Desc::TypeObject                     TypeObject;
+
+    typedef typename Inherited::ValidationStatus          ValidationStatus;
+
+    enum GroupMode 
     {
-        PerWindow    = 0x0001,
-        PerViewport  = 0x0002,
-        PerTraversal = 0x0003,
-
-        PerVisit     = 0x0004,
-
-        OnRequest    = 0x0005
+        NoPartitionGroup = 0x0000,
+        InPartitionGroup = 0x0001,
+        InPartitionList  = 0x0002
     };
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
-
-    OSG_RC_FIRST_FIELD_DECL(UpdateMode                   );
-
-    OSG_RC_FIELD_DECL      (RequestRun,        UpdateMode);
-    OSG_RC_FIELD_DECL      (DestroyedFunctors, RequestRun);
-    OSG_RC_LAST_FIELD_DECL (DestroyedFunctors            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -114,26 +95,10 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    void   addDestroyedFunctor     (ChangedFunctor    func,
-                                    std::string       createSymbol);
-
-    template<class FunctorT>
-    void   subDestroyedFunctor     (FunctorT          func        );
-
-    template<class FunctorT>
-    bool   hasDestroyedFunctor     (FunctorT          func        );
-
-    void   clearDestroyedFunctors  (void                          );
-
-    template<class DataSlotHandlerT>
-    void   clearDestroyedFunctorFor(DataSlotHandlerT  *pHandler    );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-
-    bool requestRun(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,12 +124,6 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-          void      setUpdateMode   (UpdateMode eMode);
-          UInt32    getUpdateMode   (void            ) const;
-
-          SFUInt32 *editSFUpdateMode(void            );
-    const SFUInt32 *getSFUpdateMode (void            ) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
@@ -175,16 +134,14 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual SizeT  getBinSize (ConstFieldMaskArg   whichField);
-    virtual void   copyToBin  (BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-    virtual void   copyFromBin(BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
+
+    void setData(TraversalData    *pData, 
+                 Int32             iDataSlotId,
+                 RenderActionBase *pAction    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -209,55 +166,39 @@ class TraversalValidationHandlerMixin  : public ParentT
 
   protected:
 
-    Int32  _iDataSlotId;
-    Int32  _iElementId;
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    ValidationStatus validate(RenderActionBase *pAction);
+    virtual void dataDestroyed(FieldContainer *pCore,
+                               BitVector       whichField,
+                               UInt32          origin    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32                 _sfUpdateMode;
-    SFOSGAny                 _sfRequestRun;
-    MFChangedFunctorCallback _mfDestroyedFunctors;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TraversalValidationHandlerMixin(void);
-    TraversalValidationHandlerMixin(const Self &source);
+    TraversalDataHandlerMixin(void);
+    TraversalDataHandlerMixin(const TraversalDataHandlerMixin &source);
 
-    virtual ~TraversalValidationHandlerMixin(void);
+    virtual ~TraversalDataHandlerMixin(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    static void classDescInserter(TypeObject &oType);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    void execSync  (      Self              *pFrom,
-                          ConstFieldMaskArg  whichField,
-                          AspectOffsetStore &oOffsets,
-                          ConstFieldMaskArg  syncMode  ,
-                    const UInt32             uiSyncInfo);
-#endif
-
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -267,29 +208,11 @@ class TraversalValidationHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    EditFieldHandlePtr editHandleUpdateMode       (void);
-    GetFieldHandlePtr  getHandleUpdateMode        (void) const;
-
-    GetFieldHandlePtr  getHandleRequestRun        (void) const;
-
-    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
-    EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
-
-            void onCreateAspect (const Self   *createAspect,
-                                 const Self   *source      = NULL);
-
-            void onCreate       (const Self   *source      = NULL);
-
-    virtual void onDestroy      (      UInt32  uiContainerId     );
-
-    virtual void onDestroyAspect(      UInt32  uiContainerId,
-                                       UInt32  uiAspect          );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -297,11 +220,11 @@ class TraversalValidationHandlerMixin  : public ParentT
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TraversalValidationHandlerMixin &source);
+    void operator =(const TraversalDataHandlerMixin &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGTraversalValidationHandlerMixin.inl"
+#include "OSGTraversalDataHandlerMixin.inl"
 
-#endif /* _OSGTRAVERSALVALIDATIONHANDLERMIXIN_H_ */
+#endif /* _OSGTRAVERSALDATAHANDLERMIXIN_H_ */

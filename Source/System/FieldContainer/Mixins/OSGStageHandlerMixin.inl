@@ -197,92 +197,6 @@ void StageHandlerMixin<ParentT>::endPartitions(
     }
 }
 
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::setData(
-    StageData        *pData, 
-    Int32             iDataSlotId,
-    RenderActionBase *pAction)
-{
-    StageData *pStoredData = 
-        pAction->template getData<StageData *>(this->_iDataSlotId);
-
-    bool bCheckCallback = false;
-
-    OSG_ASSERT(iDataSlotId == this->_iDataSlotId);
-
-    if(pStoredData == NULL)
-    {
-        pAction->setData(pData, this->_iDataSlotId);
-        bCheckCallback = true;
-    }
-    else if(pStoredData != pData)
-    {
-        pData->copyFrom(pStoredData);
-
-        pAction->setData(pData, this->_iDataSlotId);
-        bCheckCallback = true;
-    }
-
-    if(bCheckCallback == true)
-    {
-        if(this->hasDestroyedFunctor(
-               boost::bind(&DataSlotHandler::clearData,
-                           pAction,
-                           _1,
-                           _2,
-                           this->_iDataSlotId)) == false)
-        {
-            this->addDestroyedFunctor(
-                boost::bind(&DataSlotHandler::clearData,
-                            static_cast<DataSlotHandler *>(pAction),
-                            _1,
-                            _2,
-                            this->_iDataSlotId), "");
-
-            pAction->addDestroyedFunctorFor(
-                boost::bind(&Self::clearDestroyedFunctorFor,
-                            this,
-                            _1),
-                this);
-        }
-
-        if(pData != NULL)
-        {
-            this->addChangedFunctor(
-                boost::bind(&StageData::updateData, 
-                            pData, 
-                            _1, 
-                            _2,
-                            _3),
-                "");
-
-            pData->addChangedFunctor(
-                boost::bind(&Self::dataDestroyed, 
-                            this, 
-                            _1, 
-                            _2,
-                            _3),
-                "");
-        }
-        if(pStoredData != NULL)
-        {
-            this->subChangedFunctor(
-                boost::bind(&StageData::updateData, 
-                            pStoredData, 
-                            _1, 
-                            _2,
-                            _3));
-            
-            pStoredData->subChangedFunctor(
-                boost::bind(&Self::dataDestroyed, 
-                            this, 
-                            _1, 
-                            _2,
-                            _3));
-         }
-    }
-}
-
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
@@ -315,22 +229,6 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::~StageHandlerMixin(void)
 {
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::dataDestroyed(FieldContainer *pCore,
-                                               BitVector       whichField,
-                                               UInt32          origin    )
-{
-    if(whichField == 0x0000)
-    {
-        this->subChangedFunctor(
-            boost::bind(&StageData::updateData, 
-                        dynamic_cast<StageData *>(pCore), 
-                        _1, 
-                        _2,
-                        _3));
-    }
 }
 
 template <class ParentT> inline

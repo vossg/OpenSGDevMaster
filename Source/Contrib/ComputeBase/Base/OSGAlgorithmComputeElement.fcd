@@ -13,12 +13,13 @@
    isNodeCore="true"
    >
   <Field
-	 name="algorithm"
-	 type="ComputeAlgorithmPtr"
-	 cardinality="single"
-	 visibility="external"
-	 defaultValue="NULL"
-	 access="public"
-	 >
+     name="algorithm"
+     type="ComputeAlgorithm"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="public"
+     >
   </Field>
 </FieldContainer>

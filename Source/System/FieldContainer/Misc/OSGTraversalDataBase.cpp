@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class AlgorithmComputeElement!
+ **     class TraversalData!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -57,10 +57,9 @@
 
 
 
-#include "OSGComputeAlgorithm.h"        // Algorithm Class
 
-#include "OSGAlgorithmComputeElementBase.h"
-#include "OSGAlgorithmComputeElement.h"
+#include "OSGTraversalDataBase.h"
+#include "OSGTraversalData.h"
 
 #include <boost/bind.hpp>
 
@@ -74,17 +73,13 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::AlgorithmComputeElement
-    
+/*! \class OSG::TraversalData
+    Data use for rendering by the any stage, holds bookkeeping data
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
-
-/*! \var ComputeAlgorithm * AlgorithmComputeElementBase::_sfAlgorithm
-    
-*/
 
 
 /***************************************************************************\
@@ -92,123 +87,74 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<AlgorithmComputeElement *, nsOSG>::_type(
-    "AlgorithmComputeElementPtr", 
-    "ComputeElementPtr", 
-    AlgorithmComputeElement::getClassType(),
+PointerType FieldTraits<TraversalData *, nsOSG>::_type(
+    "TraversalDataPtr", 
+    "FieldContainerPtr", 
+    TraversalData::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(AlgorithmComputeElement *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(TraversalData *, nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void AlgorithmComputeElementBase::classDescInserter(TypeObject &oType)
+void TraversalDataBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL;
-
-
-    pDesc = new SFUnrecComputeAlgorithmPtr::Description(
-        SFUnrecComputeAlgorithmPtr::getClassType(),
-        "algorithm",
-        "",
-        AlgorithmFieldId, AlgorithmFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&AlgorithmComputeElement::editHandleAlgorithm),
-        static_cast<FieldGetMethodSig >(&AlgorithmComputeElement::getHandleAlgorithm));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
-AlgorithmComputeElementBase::TypeObject AlgorithmComputeElementBase::_type(
-    AlgorithmComputeElementBase::getClassname(),
+TraversalDataBase::TypeObject TraversalDataBase::_type(
+    TraversalDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&AlgorithmComputeElementBase::createEmptyLocal),
-    AlgorithmComputeElement::initMethod,
-    AlgorithmComputeElement::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmComputeElement::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&TraversalDataBase::createEmptyLocal),
+    TraversalData::initMethod,
+    TraversalData::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&TraversalData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"AlgorithmComputeElement\"\n"
-    "   parent=\"ComputeElement\"\n"
-    "   library=\"ContribComputeBase\"\n"
+    "   name=\"TraversalData\"\n"
+    "   parent=\"FieldContainer\"\n"
+    "   library=\"System\"\n"
     "   pointerfieldtypes=\"none\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
-    "   isNodeCore=\"true\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   isBundle=\"true\"\n"
+    "   docGroupBase=\"GrpGroupStage\"\n"
     "   >\n"
-    "  <Field\n"
-    "     name=\"algorithm\"\n"
-    "     type=\"ComputeAlgorithm\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     defaultValue=\"NULL\"\n"
-    "     access=\"public\"\n"
-    "     >\n"
-    "  </Field>\n"
+    "  Data use for rendering by the any stage, holds bookkeeping data\n"
     "</FieldContainer>\n",
-    ""
+    "Data use for rendering by the any stage, holds bookkeeping data\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &AlgorithmComputeElementBase::getType(void)
+FieldContainerType &TraversalDataBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &AlgorithmComputeElementBase::getType(void) const
+const FieldContainerType &TraversalDataBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 AlgorithmComputeElementBase::getContainerSize(void) const
+UInt32 TraversalDataBase::getContainerSize(void) const
 {
-    return sizeof(AlgorithmComputeElement);
+    return sizeof(TraversalData);
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-//! Get the AlgorithmComputeElement::_sfAlgorithm field.
-const SFUnrecComputeAlgorithmPtr *AlgorithmComputeElementBase::getSFAlgorithm(void) const
-{
-    return &_sfAlgorithm;
-}
-
-SFUnrecComputeAlgorithmPtr *AlgorithmComputeElementBase::editSFAlgorithm      (void)
-{
-    editSField(AlgorithmFieldMask);
-
-    return &_sfAlgorithm;
-}
-
-//! Get the value of the AlgorithmComputeElement::_sfAlgorithm field.
-ComputeAlgorithm * AlgorithmComputeElementBase::getAlgorithm(void) const
-{
-    return _sfAlgorithm.getValue();
-}
-
-//! Set the value of the AlgorithmComputeElement::_sfAlgorithm field.
-void AlgorithmComputeElementBase::setAlgorithm(ComputeAlgorithm * const value)
-{
-    editSField(AlgorithmFieldMask);
-
-    _sfAlgorithm.setValue(value);
-}
 
 
 
@@ -217,94 +163,71 @@ void AlgorithmComputeElementBase::setAlgorithm(ComputeAlgorithm * const value)
 
 /*------------------------------ access -----------------------------------*/
 
-SizeT AlgorithmComputeElementBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TraversalDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
-    {
-        returnValue += _sfAlgorithm.getBinSize();
-    }
 
     return returnValue;
 }
 
-void AlgorithmComputeElementBase::copyToBin(BinaryDataHandler &pMem,
+void TraversalDataBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
-    {
-        _sfAlgorithm.copyToBin(pMem);
-    }
 }
 
-void AlgorithmComputeElementBase::copyFromBin(BinaryDataHandler &pMem,
+void TraversalDataBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
-    {
-        editSField(AlgorithmFieldMask);
-        _sfAlgorithm.copyFromBin(pMem);
-    }
 }
 
 //! create a new instance of the class
-AlgorithmComputeElementTransitPtr AlgorithmComputeElementBase::createLocal(BitVector bFlags)
+TraversalDataTransitPtr TraversalDataBase::createLocal(BitVector bFlags)
 {
-    AlgorithmComputeElementTransitPtr fc;
+    TraversalDataTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<AlgorithmComputeElement>(tmpPtr);
+        fc = dynamic_pointer_cast<TraversalData>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-AlgorithmComputeElementTransitPtr AlgorithmComputeElementBase::createDependent(BitVector bFlags)
+TraversalDataTransitPtr TraversalDataBase::createDependent(BitVector bFlags)
 {
-    AlgorithmComputeElementTransitPtr fc;
+    TraversalDataTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<AlgorithmComputeElement>(tmpPtr);
+        fc = dynamic_pointer_cast<TraversalData>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-AlgorithmComputeElementTransitPtr AlgorithmComputeElementBase::create(void)
+TraversalDataTransitPtr TraversalDataBase::create(void)
 {
-    AlgorithmComputeElementTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<AlgorithmComputeElement>(tmpPtr);
-    }
-
-    return fc;
+    return createLocal();
 }
 
-AlgorithmComputeElement *AlgorithmComputeElementBase::createEmptyLocal(BitVector bFlags)
+TraversalData *TraversalDataBase::createEmptyLocal(BitVector bFlags)
 {
-    AlgorithmComputeElement *returnValue;
+    TraversalData *returnValue;
 
-    newPtr<AlgorithmComputeElement>(returnValue, bFlags);
+    newPtr<TraversalData>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -312,25 +235,18 @@ AlgorithmComputeElement *AlgorithmComputeElementBase::createEmptyLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-AlgorithmComputeElement *AlgorithmComputeElementBase::createEmpty(void)
+TraversalData *TraversalDataBase::createEmpty(void)
 {
-    AlgorithmComputeElement *returnValue;
-
-    newPtr<AlgorithmComputeElement>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
+    return createEmptyLocal();
 }
 
 
-FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopyLocal(
+FieldContainerTransitPtr TraversalDataBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    AlgorithmComputeElement *tmpPtr;
+    TraversalData *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const AlgorithmComputeElement *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TraversalData *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -339,12 +255,12 @@ FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopyDependent(
+FieldContainerTransitPtr TraversalDataBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    AlgorithmComputeElement *tmpPtr;
+    TraversalData *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const AlgorithmComputeElement *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TraversalData *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -353,19 +269,9 @@ FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopy(void) const
+FieldContainerTransitPtr TraversalDataBase::shallowCopy(void) const
 {
-    AlgorithmComputeElement *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const AlgorithmComputeElement *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
+    return shallowCopyLocal();
 }
 
 
@@ -373,76 +279,35 @@ FieldContainerTransitPtr AlgorithmComputeElementBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-AlgorithmComputeElementBase::AlgorithmComputeElementBase(void) :
-    Inherited(),
-    _sfAlgorithm              (NULL)
+TraversalDataBase::TraversalDataBase(void) :
+    Inherited()
 {
 }
 
-AlgorithmComputeElementBase::AlgorithmComputeElementBase(const AlgorithmComputeElementBase &source) :
-    Inherited(source),
-    _sfAlgorithm              (NULL)
+TraversalDataBase::TraversalDataBase(const TraversalDataBase &source) :
+    Inherited(source)
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-AlgorithmComputeElementBase::~AlgorithmComputeElementBase(void)
+TraversalDataBase::~TraversalDataBase(void)
 {
 }
 
-void AlgorithmComputeElementBase::onCreate(const AlgorithmComputeElement *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        AlgorithmComputeElement *pThis = static_cast<AlgorithmComputeElement *>(this);
-
-        pThis->setAlgorithm(source->getAlgorithm());
-    }
-}
-
-GetFieldHandlePtr AlgorithmComputeElementBase::getHandleAlgorithm       (void) const
-{
-    SFUnrecComputeAlgorithmPtr::GetHandlePtr returnValue(
-        new  SFUnrecComputeAlgorithmPtr::GetHandle(
-             &_sfAlgorithm,
-             this->getType().getFieldDesc(AlgorithmFieldId),
-             const_cast<AlgorithmComputeElementBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr AlgorithmComputeElementBase::editHandleAlgorithm      (void)
-{
-    SFUnrecComputeAlgorithmPtr::EditHandlePtr returnValue(
-        new  SFUnrecComputeAlgorithmPtr::EditHandle(
-             &_sfAlgorithm,
-             this->getType().getFieldDesc(AlgorithmFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&AlgorithmComputeElement::setAlgorithm,
-                    static_cast<AlgorithmComputeElement *>(this), _1));
-
-    editSField(AlgorithmFieldMask);
-
-    return returnValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void AlgorithmComputeElementBase::execSyncV(      FieldContainer    &oFrom,
+void TraversalDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    AlgorithmComputeElement *pThis = static_cast<AlgorithmComputeElement *>(this);
+    TraversalData *pThis = static_cast<TraversalData *>(this);
 
-    pThis->execSync(static_cast<AlgorithmComputeElement *>(&oFrom),
+    pThis->execSync(static_cast<TraversalData *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -452,24 +317,22 @@ void AlgorithmComputeElementBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *AlgorithmComputeElementBase::createAspectCopy(
+FieldContainer *TraversalDataBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    AlgorithmComputeElement *returnValue;
+    TraversalData *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const AlgorithmComputeElement *>(pRefAspect),
-                  dynamic_cast<const AlgorithmComputeElement *>(this));
+                  dynamic_cast<const TraversalData *>(pRefAspect),
+                  dynamic_cast<const TraversalData *>(this));
 
     return returnValue;
 }
 #endif
 
-void AlgorithmComputeElementBase::resolveLinks(void)
+void TraversalDataBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<AlgorithmComputeElement *>(this)->setAlgorithm(NULL);
 
 
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="AlgorithmComputeElementData"
+    parent="TraversalData"
+    library="ContribComputeBase"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    docGroupBase="GrpEffectsGroupsHDR"
+    >
+  Data use for rendering by the HDR stage
+
+</FieldContainer>

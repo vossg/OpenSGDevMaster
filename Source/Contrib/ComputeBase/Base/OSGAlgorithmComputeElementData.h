@@ -36,41 +36,39 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTAGEDATA_H_
-#define _OSGSTAGEDATA_H_
+#ifndef _OSGALGORITHMCOMPUTEELEMENTDATA_H_
+#define _OSGALGORITHMCOMPUTEELEMENTDATA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGStageDataBase.h"
+#include "OSGAlgorithmComputeElementDataBase.h"
+#include "OSGComputeAlgorithm.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief StageData class. See \ref
-           PageGroupStageData for a description.
-    \ingroup GrpGroupStageObj
-    \ingroup GrpLibOSGGroup
+class AlgorithmComputeElement;
+
+/*! \brief AlgorithmComputeElementData class. See \ref
+           PageGroupAlgorithmComputeElementData for a description.
+
+    \ingroup GrpEffectsGroupsHDRObj
+    \ingroup GrpLibOSGEffectsGroups
     \includebasedoc
  */
 
-class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
+class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING AlgorithmComputeElementData : 
+    public AlgorithmComputeElementDataBase
 {
   protected:
 
     /*==========================  PUBLIC  =================================*/
-
+    
   public:
 
-    typedef StageDataBase Inherited;
-    typedef StageData     Self;
+    typedef AlgorithmComputeElementDataBase Inherited;
+    typedef AlgorithmComputeElementData     Self;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void copyFrom(TraversalData *pIn);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -81,13 +79,18 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void updateData(FieldContainer *pStageCore,
-                            BitVector       whichField,
-                            UInt32          origin    );
+    void setTask(ComputeAlgorithmDrawTask *pTask);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    ComputeAlgorithmDrawTask *getTask(void);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
@@ -100,22 +103,42 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+    
+    // Variables should all be in AlgorithmComputeElementDataBase.
 
-    // Variables should all be in StageDataBase.
+    ComputeAlgorithmDrawTaskRefPtr _pTask;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    StageData(void);
-    StageData(const StageData &source);
+    AlgorithmComputeElementData(void);
+    AlgorithmComputeElementData(const AlgorithmComputeElementData &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StageData(void);
+    virtual ~AlgorithmComputeElementData(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+#if 0
+    virtual void updateData(FieldContainer *pCore,
+                            BitVector       whichField,
+                            UInt32          origin    );
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -130,15 +153,15 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
   private:
 
     friend class FieldContainer;
-    friend class StageDataBase;
+    friend class AlgorithmComputeElementDataBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const StageData &source);
+    void operator =(const AlgorithmComputeElementData &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGStageDataBase.inl"
-#include "OSGStageData.inl"
+#include "OSGAlgorithmComputeElementDataBase.inl"
+#include "OSGAlgorithmComputeElementData.inl"
 
-#endif /* _OSGSTAGEDATA_H_ */
+#endif /* _OSGALGORITHMCOMPUTEELEEDATA_H_ */
