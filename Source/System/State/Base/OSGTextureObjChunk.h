@@ -158,6 +158,9 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \name             Multitexture handling                            */
     /*! \{                                                                 */
 
+    virtual void  validate   (DrawEnv *pEnv);
+    virtual Int32 getOpenGLId(DrawEnv *pEnv);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

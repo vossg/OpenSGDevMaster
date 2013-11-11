@@ -36,28 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTEXTUREBASECHUNK_H_
-#define _OSGTEXTUREBASECHUNK_H_
+#ifndef _OSGTEXTUREIMAGECHUNK_H_
+#define _OSGTEXTUREIMAGECHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
-#include "OSGTextureBaseChunkBase.h"
-#include "OSGGLFuncProtos.h"
+#include "OSGTextureImageChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for textures. See \ref PageSystemTextureBaseChunk 
+/*! \brief State chunk for textures. See \ref PageSystemTextureImageChunk 
            for a description.
-    \ingroup GrpSystemStateBaseChunks
-    \ingroup GrpLibOSGSystem
+    \ingroup GrpStateAuxiliaryObj
+    \ingroup GrpLibOSGState
     \includebasedoc
  */
 
-class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
+class OSG_STATE_DLLMAPPING TextureImageChunk : public TextureImageChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -82,8 +78,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name                    Chunk Id                                  */
     /*! \{                                                                 */
 
-    virtual UInt16 getChunkId(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -106,64 +100,82 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    virtual bool isCubeTexture(void);
+    virtual void activate   (DrawEnv    *pEnv, 
+                             UInt32      index = 0);
+
+    virtual void changeFrom (DrawEnv    *pEnv, 
+                             StateChunk *pOld,
+                             UInt32      index = 0);
+
+    virtual void deactivate (DrawEnv    *pEnv, 
+                             UInt32      index = 0);
+
+    virtual bool isTransparent (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       query                                  */
     /*! \{                                                                 */
 
-    virtual void  validate   (DrawEnv *pEnv) = 0;
-    virtual Int32 getOpenGLId(DrawEnv *pEnv) = 0;
+    //GLenum determineTextureTarget(Window *pWindow) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
+    virtual Real32 switchCost(StateChunk * chunk);
+
+    virtual bool   operator <  (const StateChunk &other) const;
+
+    virtual bool   operator == (const StateChunk &other) const;
+    virtual bool   operator != (const StateChunk &other) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
+
+#if 0
+    virtual void validate(DrawEnv *pEnv);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name             Multitexture handling                            */
     /*! \{                                                                 */
 
-    static bool hasMultiTexture(Window *win);
-    static void activeTexture  (Window *win, UInt16 texture);
-    static bool activateTexture(Window *win, UInt16 texture);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    UInt16 _uiChunkId;
+    // class. Used for indexing in State
+    // protected to give CubeTextureChunk access
+    static StateChunkClass _class;
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate      (const TextureBaseChunk *source      = NULL);
-    void onCreateAspect(const TextureBaseChunk *createAspect,
-                        const TextureBaseChunk *source      = NULL);
+    void onCreate      (const TextureImageChunk *source      = NULL);
+    void onCreateAspect(const TextureImageChunk *createAspect,
+                        const TextureImageChunk *source      = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TextureBaseChunk(void);
-    TextureBaseChunk(const TextureBaseChunk &source);
+    TextureImageChunk(void);
+    TextureImageChunk(const TextureImageChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureBaseChunk(void);
+    virtual ~TextureImageChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -177,44 +189,27 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    static UInt32 _arbMultiTex;
-
-    static UInt32 _funcActiveTexture;
-
     /*! \}                                                                 */ 
     /*---------------------------------------------------------------------*/
-
-    // class. Used for indexing in State
-    // protected to give CubeTextureChunk access
-    static StateChunkClass _class;
-
-    static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef TextureBaseChunkBase Inherited;
+    typedef TextureImageChunkBase Inherited;
 
     friend class FieldContainer;
-    friend class TextureBaseChunkBase;
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
+    friend class TextureImageChunkBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TextureBaseChunk &source);
+    void operator =(const TextureImageChunk &source);
 };
 
-typedef TextureBaseChunk *TextureBaseChunkP;
+typedef TextureImageChunk *TextureImageChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTextureBaseChunkBase.inl"
-#include "OSGTextureBaseChunk.inl"
+#include "OSGTextureImageChunkBase.inl"
+#include "OSGTextureImageChunk.inl"
 
-#endif /* _OSGTEXTUREBASECHUNK_H_ */
+#endif /* _OSGTEXTUREIMAGECHUNK_H_ */

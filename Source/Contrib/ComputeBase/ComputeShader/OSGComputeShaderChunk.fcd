@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ComputeShaderChunk"
+    parent="StateChunk"
+    library="ContribComputeBase"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    fieldsUnmarkedOnCreate="ComputeProgramFieldMask"
+    docGroupBase="GrpSystemShader"
+    >
+  <Field
+	  name="computeShader"
+	  type="ShaderProgram"
+	  cardinality="multi"
+	  visibility="external"
+	  access="public"
+      category="pointer"
+      
+      pushToFieldAs="addComputeShader"
+      removeFromMFieldIndexAs="subComputeShader"
+      clearFieldAs="clearComputeShaders"        
+	  >
+	fragment program object
+  </Field>
+  <Field
+      name="computeProgram"
+      type="std::string"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+	vertex program source
+  </Field>
+
+  <Field
+      name="variables"
+      type="ShaderProgramVariables"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      category="childpointer"
+      childParentType="FieldContainer"
+      linkParentField="Parents"
+      >
+	fragment program object
+  </Field>
+  <Field
+      name="variableLocations"
+      type="Int32"
+      cardinality="multi"
+      visibility="internal"
+      access="protected"
+      >
+	fragment program object
+  </Field>
+  <Field
+      name="proceduralVariableLocations"
+      type="Int32"
+      cardinality="multi"
+      visibility="internal"
+      access="protected"
+      >
+	fragment program object
+  </Field>
+  
+  <Field
+      name="GLId"
+      type="UInt32"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      defaultValue="0"
+      fieldFlags="FClusterLocal"
+      >
+  </Field>
+
+</FieldContainer>

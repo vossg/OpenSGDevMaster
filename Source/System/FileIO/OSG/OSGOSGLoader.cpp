@@ -170,10 +170,16 @@ void OSGLoader::initFieldTypeMapper(void)
     setIntExtMapping(SFVec2s::getClassType().getId(),
                      ScanParseSkel::OSGsfVec2i);
 
+    setIntExtMapping(SFVec2i::getClassType().getId(),
+                     ScanParseSkel::OSGsfVec2i);
+
     setIntExtMapping(SFVec3f::getClassType().getId(),
                      ScanParseSkel::OSGsfVec3f);
     setIntExtMapping(SFVec3d::getClassType().getId(),
                      ScanParseSkel::OSGsfVec3f);
+
+    setIntExtMapping(SFVec3i::getClassType().getId(),
+                     ScanParseSkel::OSGsfVec3i);
 
     setIntExtMapping(SFVec4f::getClassType().getId(),
                      ScanParseSkel::OSGsfVec4f);

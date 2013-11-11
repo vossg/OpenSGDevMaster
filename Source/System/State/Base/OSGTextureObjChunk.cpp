@@ -2286,3 +2286,13 @@ bool TextureObjChunk::operator != (const StateChunk &other) const
     return ! (*this == other);
 }
 
+void TextureObjChunk::validate(DrawEnv *pEnv)
+{
+    pEnv->getWindow()->validateGLObject(this->getGLId(),
+                                        pEnv           );
+}
+
+Int32 TextureObjChunk::getOpenGLId(DrawEnv *pEnv)
+{
+    return pEnv->getWindow()->getGLObjectId(this->getGLId());
+}

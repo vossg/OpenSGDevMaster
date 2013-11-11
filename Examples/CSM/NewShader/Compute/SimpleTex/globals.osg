@@ -1,0 +1,28 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF RollInter VRMLScalarInterpolator 
+    {   
+      key 
+      [   
+        0, 
+        1.0
+      ]
+
+      keyValue 
+      [
+         0.0,
+         10.24
+      ]
+    }
+
+    DEF SceneTimer TimeSensor
+    {
+      loop TRUE 
+      cycleInterval 10 
+    }
+  ]
+}

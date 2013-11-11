@@ -1,0 +1,81 @@
+#OSG V1.0 
+
+Node
+{
+  core Group
+  {
+  }
+
+  children
+  [
+    DEF ComputeNode Node 
+    {
+      core AlgorithmComputeElement
+      {
+        algorithm ComputeShaderAlgorithm
+        {
+          textureImages
+          [
+            TextureImageChunk
+            {
+              texture USE Tex0
+              format  GL_RGBA32F
+              access  GL_WRITE_ONLY
+            }
+          ]  
+
+          computeShader ComputeShaderChunk
+          {
+            computeProgram "
+              #version 430
+              uniform float roll;
+              uniform writeonly image2D destTex;
+
+              layout (local_size_x = 16, local_size_y = 16) in;
+ 
+              void main() 
+              {
+                ivec2 storePos = ivec2(gl_GlobalInvocationID.xy);
+                float localCoef = length(vec2(ivec2(gl_LocalInvocationID.xy)-8)/8.0);
+                float globalCoef = sin(float(gl_WorkGroupID.x+gl_WorkGroupID.y)*0.1 + roll)*0.5;
+                imageStore(destTex, storePos, vec4(1.0-globalCoef*localCoef, 0.0, 0.0, 0.0));
+              }"
+
+            variables ShaderProgramVariables
+            {
+              variables
+              [
+                ShaderVariableInt
+                {
+                  name "destTex"
+                  value 0
+                }
+
+                DEF Roll ShaderVariableReal
+                {
+                  name "roll"
+                  value 0.0
+                }
+              ]
+            }
+          }
+
+          dispatchConfig 32 32 1
+        }
+      }
+    }
+
+    DEF PlaneNode Node 
+    {
+      core Inline
+      {
+        url "./plane_ndl_vbo_att_vao.osg"
+      }
+    }
+  ]
+}
+
+ROUTE SceneTimer.fraction TO RollInter.inValue
+ROUTE RollInter .outValue TO Roll.value
+
+ROUTE PlaneNode.volume TO ComputeNode.volume

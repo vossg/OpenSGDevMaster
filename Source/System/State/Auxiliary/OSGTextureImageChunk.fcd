@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="TextureImageChunk"
+    parent="StateChunk"
+    library="State"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    docGroupBase="GrpStateAuxiliary"
+    >
+
+  uses glBindTextureImage
+
+  <Field
+	  name="texture"
+	  type="TextureBaseChunk"
+      category="pointer"
+	  cardinality="single"
+	  visibility="external"
+	  access="public"
+      defaultValue="NULL"
+	  >
+	Texture chunks to choose from 
+  </Field>
+
+  <Field
+      name="level"
+      type="Int32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="0"
+      access="public"
+      >
+  </Field>
+
+  <Field
+      name="layer"
+      type="Int32"
+      cardinality="single"
+      visibility="external"
+      defaultValue="-1"
+      access="public"
+      >
+  </Field>
+
+  <Field
+      name="access"
+      type="GLenum"
+      cardinality="single"
+      visibility="external"
+      defaultValue="GL_READ_ONLY"
+      defaultHeader="&quot;OSGGL.h&quot;"
+      access="public"
+      potential_values="GL_READ_ONLY, GL_WRITE_ONLY, GL_READ_WRITE"
+	  >
+  </Field>
+
+  <Field
+      name="format"
+      type="GLenum"
+      cardinality="single"
+      visibility="external"
+      defaultValue="GL_NONE"
+      defaultHeader="&quot;OSGGL.h&quot;"
+      access="public"
+	  >
+  </Field>
+
+</FieldContainer>

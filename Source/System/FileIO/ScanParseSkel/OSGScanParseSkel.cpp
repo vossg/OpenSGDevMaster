@@ -471,6 +471,11 @@ void ScanParseSkel::addVec2dValue(const Vec2d &v)
     addFieldValue(_tmpString1.c_str());
 }
 
+void ScanParseSkel::addVec3iValue(const Vec3i &v)
+{
+    addFieldValue(_tmpString1.c_str());
+}
+
 void ScanParseSkel::addVec2fValue(const Vec2f &v)
 {
     addFieldValue(_tmpString1.c_str());

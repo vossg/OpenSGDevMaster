@@ -169,9 +169,7 @@ void TextureSelectChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    const TextureSelectChunk *pThis = this;
-
-    pThis->_mfTextures[_sfChoice.getValue()]->activate(pEnv, idx);
+    this->_mfTextures[_sfChoice.getValue()]->activate(pEnv, idx);
 }
 
 
@@ -195,9 +193,7 @@ void TextureSelectChunk::changeFrom(DrawEnv    *pEnv,
         return;        
     }
 
-    const TextureSelectChunk *pThis = this;
-
-    pThis->_mfTextures[_sfChoice.getValue()]->changeFrom(pEnv, old, idx);
+    this->_mfTextures[_sfChoice.getValue()]->changeFrom(pEnv, old, idx);
 }
 
 void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx) 
@@ -212,9 +208,7 @@ void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    const TextureSelectChunk *pThis = this;
-
-    pThis->_mfTextures[_sfChoice.getValue()]->deactivate(pEnv, idx);
+    this->_mfTextures[_sfChoice.getValue()]->deactivate(pEnv, idx);
 }
 
 /*-------------------------- Comparison -----------------------------------*/
@@ -241,3 +235,32 @@ bool TextureSelectChunk::operator != (const StateChunk &other) const
     return ! (*this == other);
 }
 
+void TextureSelectChunk::validate(DrawEnv *pEnv)
+{
+    if(_sfChoice.getValue() >= _mfTextures.size())
+    {
+        FWARNING(
+            ("TextureSelect::validate choice beyond size %d %" PRISize "!\n",
+             _sfChoice.getValue(), 
+             _mfTextures.size  ()));
+
+        return;        
+    }
+
+    this->_mfTextures[_sfChoice.getValue()]->validate(pEnv);
+}
+
+Int32 TextureSelectChunk::getOpenGLId(DrawEnv *pEnv)
+{
+    if(_sfChoice.getValue() >= _mfTextures.size())
+    {
+        FWARNING(
+            ("TextureSelect::validate choice beyond size %d %" PRISize "!\n",
+             _sfChoice.getValue(), 
+             _mfTextures.size  ()));
+
+        return -1;        
+    }
+
+    return this->_mfTextures[_sfChoice.getValue()]->getOpenGLId(pEnv);
+}

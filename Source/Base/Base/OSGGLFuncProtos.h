@@ -860,6 +860,21 @@ typedef void (OSG_APIENTRY *osgGlPatchParameteriProc )(      GLenum pname,
 
 typedef void (OSG_APIENTRY *osgGlPatchParameterfvProc)(      GLenum   pname, 
                                                        const GLfloat *values);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name compute shader                                                     */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlDispatchComputeProc        )(
+    GLuint   num_groups_x, 
+    GLuint   num_groups_y, 
+    GLuint   num_groups_z);
+
+typedef void (OSG_APIENTRY *osgGlDispatchComputeIndirectProc)(
+    GLintptr indirect);
+
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */

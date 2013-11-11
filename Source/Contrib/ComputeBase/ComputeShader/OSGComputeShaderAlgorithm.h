@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zghdv.de          *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,185 +36,125 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTEXTUREBASECHUNK_H_
-#define _OSGTEXTUREBASECHUNK_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOMPUTESHADERALGORITHM_H_
+#define _OSGCOMPUTESHADERALGORITHM_H_
 
-#include "OSGConfig.h"
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
-#include "OSGTextureBaseChunkBase.h"
-#include "OSGGLFuncProtos.h"
+#include <queue>
+
+#include "OSGComputeShaderAlgorithmBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for textures. See \ref PageSystemTextureBaseChunk 
-           for a description.
-    \ingroup GrpSystemStateBaseChunks
-    \ingroup GrpLibOSGSystem
-    \includebasedoc
- */
+class DrawEnv;
+class Action;
 
-class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
+//! Stage
+//! \ingroup GrpSystemNodeCoresMisc
+
+class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeShaderAlgorithm : 
+    public ComputeShaderAlgorithmBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         details);
+                         BitVector         detail);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Output                                  */
+    /*! \name                      Execute                                 */
+    /*! \{                                                                 */
+
+    virtual Action::ResultE renderEnter(Action          *pAction );
+    virtual Action::ResultE renderLeave(Action          *pAction );
+
+    virtual void            execute    (HardwareContext *pContext, 
+                                        DrawEnv         *pEnv    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Execute                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
     virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       State                                  */
-    /*! \{                                                                 */
-
-    virtual bool isCubeTexture(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       query                                  */
-    /*! \{                                                                 */
-
-    virtual void  validate   (DrawEnv *pEnv) = 0;
-    virtual Int32 getOpenGLId(DrawEnv *pEnv) = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Comparison                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Texture specific                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name             Multitexture handling                            */
-    /*! \{                                                                 */
-
-    static bool hasMultiTexture(Window *win);
-    static void activeTexture  (Window *win, UInt16 texture);
-    static bool activateTexture(Window *win, UInt16 texture);
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    UInt16 _uiChunkId;
+    static  UInt32                     _arbComputeShader;
+    static  UInt32                      FuncIdDispatchCompute;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
+    typedef ComputeShaderAlgorithmBase  Inherited;
 
-    void onCreate      (const TextureBaseChunk *source      = NULL);
-    void onCreateAspect(const TextureBaseChunk *createAspect,
-                        const TextureBaseChunk *source      = NULL);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TextureBaseChunk(void);
-    TextureBaseChunk(const TextureBaseChunk &source);
+    ComputeShaderAlgorithm(void);
+    ComputeShaderAlgorithm(const ComputeShaderAlgorithm &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureBaseChunk(void);
+    virtual ~ComputeShaderAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-    static UInt32 _arbMultiTex;
-
-    static UInt32 _funcActiveTexture;
-
-    /*! \}                                                                 */ 
-    /*---------------------------------------------------------------------*/
-
-    // class. Used for indexing in State
-    // protected to give CubeTextureChunk access
-    static StateChunkClass _class;
-
-    static volatile UInt16 _uiChunkCounter;
-
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    typedef TextureBaseChunkBase Inherited;
-
     friend class FieldContainer;
-    friend class TextureBaseChunkBase;
+    friend class ComputeShaderAlgorithmBase;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
+    /*! \name                   thread local                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    load thread                               */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TextureBaseChunk &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const ComputeShaderAlgorithm &source);
 };
 
-typedef TextureBaseChunk *TextureBaseChunkP;
+typedef ComputeShaderAlgorithm *ComputeShaderAlgorithmP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTextureBaseChunkBase.inl"
-#include "OSGTextureBaseChunk.inl"
+#include "OSGComputeShaderAlgorithmBase.inl"
+#include "OSGComputeShaderAlgorithm.inl"
 
-#endif /* _OSGTEXTUREBASECHUNK_H_ */
+#endif /* _OSGCOMPUTESHADERALGORITHM_H_ */

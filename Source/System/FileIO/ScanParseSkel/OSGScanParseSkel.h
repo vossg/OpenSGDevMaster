@@ -143,6 +143,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
         OSGsfPnt3f     = TOK_SFPnt3f,
         OSGsfPnt4f     = TOK_SFPnt4f,
         OSGsfVec2i     = TOK_SFVec2i,
+        OSGsfVec3i     = TOK_SFVec3i,
         OSGmfVec2i     = TOK_MFVec2i,
         OSGsfPlane     = TOK_SFPlane,
         OSGsfVolume    = TOK_SFVolume
@@ -328,6 +329,8 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     virtual void addPnt4fValue(const Pnt4f &p);
 
     virtual void addVec2iValue(const Vec2i &v);
+
+    virtual void addVec3iValue(const Vec3i &v);
 
     virtual void addPlaneValue(const Plane &p);
 

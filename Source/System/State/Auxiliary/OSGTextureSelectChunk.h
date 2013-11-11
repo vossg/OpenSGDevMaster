@@ -131,6 +131,9 @@ class OSG_STATE_DLLMAPPING TextureSelectChunk : public TextureSelectChunkBase
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
 
+    virtual void  validate   (DrawEnv *pEnv);
+    virtual Int32 getOpenGLId(DrawEnv *pEnv);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name             Multitexture handling                            */

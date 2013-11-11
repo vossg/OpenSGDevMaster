@@ -11,7 +11,7 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGSystem)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGGroup OSGState)
 # SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
 
 # dependencies - External
@@ -37,6 +37,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("Source/Contrib/ComputeBase/Base")
+OSG_ADD_DIRECTORY("Source/Contrib/ComputeBase/ComputeShader")
 OSG_ADD_DIRECTORY("Source/Contrib/ComputeBase/Cuda")
 
 ##############################################################################

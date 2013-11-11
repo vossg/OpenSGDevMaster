@@ -40,6 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#define GL_GLEXT_PROTOTYPES
+
 #include <cstdlib>
 #include <cstdio>
 
@@ -54,20 +56,30 @@
 
 #include "OSGDrawEnv.h"
 
-#include "OSGTextureObjRefChunk.h"
+#include "OSGTextureImageChunk.h"
+#include "OSGTextureBaseChunk.h"
 
 //#define OSG_DUMP_TEX
+
+extern "C"
+{
+GLAPI void APIENTRY glBindImageTexture (GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
+
+}
+
 
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
-// OSGTextureObjRefChunkBase.cpp file.
-// To modify it, please change the .fcd file (OSGTextureObjRefChunk.fcd) and
+// OSGTextureImageChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureImageChunk.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
+StateChunkClass TextureImageChunk::_class("TextureImage", osgMaxTexImages, 30);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -77,7 +89,7 @@ OSG_USING_NAMESPACE
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-void TextureObjRefChunk::initMethod(InitPhase ePhase)
+void TextureImageChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 }
@@ -93,21 +105,26 @@ void TextureObjRefChunk::initMethod(InitPhase ePhase)
 
 /*------------- constructors & destructors --------------------------------*/
 
-TextureObjRefChunk::TextureObjRefChunk(void) :
+TextureImageChunk::TextureImageChunk(void) :
     Inherited()
 {
 }
 
-TextureObjRefChunk::TextureObjRefChunk(const TextureObjRefChunk &source) :
+TextureImageChunk::TextureImageChunk(const TextureImageChunk &source) :
     Inherited(source)
 {
 }
 
-TextureObjRefChunk::~TextureObjRefChunk(void)
+TextureImageChunk::~TextureImageChunk(void)
 {
 }
 
 /*------------------------- Chunk Class Access ---------------------------*/
+
+const StateChunkClass *TextureImageChunk::getClass(void) const
+{
+    return &_class;
+}
 
 /*------------------------------- Sync -----------------------------------*/
 
@@ -116,14 +133,14 @@ TextureObjRefChunk::~TextureObjRefChunk(void)
     it consistent with the cubeTexture specifics
 */
 
-void TextureObjRefChunk::changed(ConstFieldMaskArg whichField, 
-                                 UInt32            origin,
-                                 BitVector         details)
+void TextureImageChunk::changed(ConstFieldMaskArg whichField, 
+                                UInt32            origin,
+                                BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-bool TextureObjRefChunk::isTransparent(void) const
+bool TextureImageChunk::isTransparent(void) const
 {
     // Even if the texture has alpha, the Blending is makes the sorting
     // important, thus textures per se are not transparent
@@ -133,136 +150,134 @@ bool TextureObjRefChunk::isTransparent(void) const
 
 /*----------------------------- onCreate --------------------------------*/
 
-void TextureObjRefChunk::onCreate(const TextureObjRefChunk *source)
+void TextureImageChunk::onCreate(const TextureImageChunk *source)
 {
     Inherited::onCreate(source);
 }
 
-void TextureObjRefChunk::onCreateAspect(const TextureObjRefChunk *createAspect,
-                                        const TextureObjRefChunk *source      )
+void TextureImageChunk::onCreateAspect(const TextureImageChunk *createAspect,
+                                       const TextureImageChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
 }
 
 /*------------------------------ Output ----------------------------------*/
 
-void TextureObjRefChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                              const BitVector OSG_CHECK_ARG(bvFlags )) const
+void TextureImageChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
+                             const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
-    SLOG << "Dump TextureObjRefChunk NI" << std::endl;
+    SLOG << "Dump TextureImageChunk NI" << std::endl;
 }
 
 
 /*------------------------------ State ------------------------------------*/
 
 
-void TextureObjRefChunk::activate(DrawEnv *pEnv, UInt32 idx)
+void TextureImageChunk::activate(DrawEnv *pEnv, UInt32 idx) 
 {    
-    Window *pWin = pEnv->getWindow();
+    if(this->_sfTexture.getValue() == NULL)
+        return;
 
-    pEnv->incNumChunkChanges();
+    this->_sfTexture.getValue()->validate(pEnv);
 
-    if(activateTexture(pWin, idx))
-        return; // trying to access too many textures
-
-    if(this->getOsgGLId() != 0)
+    GLint  iTexGLId = this->_sfTexture.getValue()->getOpenGLId(pEnv);
+    GLenum eFormat  = this->getFormat();
+    
+    if(eFormat == GL_NONE)
     {
-        glBindTexture(this->getTarget(), 
-                      pWin->getGLObjectId(this->getOsgGLId()));
     }
-    else
-    {
-        glBindTexture(this->getTarget(), 
-                      this->getOglGLId());
-    }
-
-    pEnv->setActiveTexTarget(idx, this->getTarget());
-
-    glEnable(this->getTarget());
+    
+    glBindImageTexture(idx,  
+                       iTexGLId,  
+                       this->getLevel (),  
+                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                       this->getLayer () != -1 ? this->getLayer() : 0,  
+                       this->getAccess(),  
+                       eFormat); 
 }
 
 
-void TextureObjRefChunk::changeFrom(DrawEnv    *pEnv,
-                                    StateChunk *old   ,
-                                    UInt32      idx )
+void TextureImageChunk::changeFrom(DrawEnv    *pEnv,
+                                   StateChunk *old   ,
+                                   UInt32      idx ) 
 {
+    if(this->_sfTexture.getValue() == NULL)
+        return;
+
     // change from me to me?
     // this assumes I haven't changed in the meantime.
     // is that a valid assumption?
     if(old == this)
         return;
 
-    pEnv->incNumChunkChanges();
+    this->_sfTexture.getValue()->validate(pEnv);
 
-    Window *pWin = pEnv->getWindow();
-
-    if(activateTexture(pWin, idx))
-        return; // trying to access too many textures
-
-    if(this->getOsgGLId() != 0)
+    GLint  iTexGLId = 0;
+    GLenum eFormat  = this->getFormat();
+    
+    if(eFormat == GL_NONE)
     {
-        glBindTexture(this->getTarget(), 
-                      pWin->getGLObjectId(this->getOsgGLId()));
     }
-    else
-    {
-        glBindTexture(this->getTarget(), 
-                      this->getOglGLId());
-    }
-
-    pEnv->setActiveTexTarget(idx, this->getTarget());
-
-    glEnable(this->getTarget());
+    
+    glBindImageTexture(idx,  
+                       iTexGLId,  
+                       this->getLevel (),  
+                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                       this->getLayer () != -1 ? this->getLayer() : 0,  
+                       this->getAccess(),  
+                       eFormat); 
 }
 
-void TextureObjRefChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void TextureImageChunk::deactivate(DrawEnv *pEnv, UInt32 idx) 
 {
-    Window *pWin = pEnv->getWindow();
+    if(this->_sfTexture.getValue() == NULL)
+        return;
 
-    if(activateTexture(pWin, idx))
-        return; // trying to access too many textures
+    GLenum eFormat = this->getFormat();
 
-    glDisable(this->getTarget());
-
-    pEnv->setActiveTexTarget(idx, GL_NONE);
+    if(eFormat == GL_NONE)
+    {
+    }
+    
+    glBindImageTexture(idx,  
+                       0,  
+                       this->getLevel (),  
+                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                       this->getLayer () != -1 ? this->getLayer() : 0,  
+                       this->getAccess(),  
+                       eFormat); 
 }
 
 /*-------------------------- Comparison -----------------------------------*/
 
-Real32 TextureObjRefChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
+Real32 TextureImageChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
 {
     return 0;
 }
 
-bool TextureObjRefChunk::operator < (const StateChunk &other) const
+bool TextureImageChunk::operator < (const StateChunk &other) const
 {
     return this < &other;
 }
 
-bool TextureObjRefChunk::operator == (const StateChunk &other) const
+bool TextureImageChunk::operator == (const StateChunk &other) const
 {
     bool returnValue = false;
 
     return returnValue;
 }
 
-bool TextureObjRefChunk::operator != (const StateChunk &other) const
+bool TextureImageChunk::operator != (const StateChunk &other) const
 {
     return ! (*this == other);
 }
 
-void TextureObjRefChunk::validate(DrawEnv *)
+#if 0
+void TextureImageChunk::validate(DrawEnv *pEnv)
 {
-}
+    if(this->_sfTexture.getValue() == NULL)
+        return;
 
-Int32 TextureObjRefChunk::getOpenGLId(DrawEnv *pEnv)
-{
-    if(this->getOsgGLId() != 0)
-    {
-        return pEnv->getWindow()->getGLObjectId(this->getOsgGLId());
-    }
-    else
-    {
-        return this->getOglGLId();
-    }
+    this->_sfTexture.getValue()->validate(pEnv);
 }
+#endif

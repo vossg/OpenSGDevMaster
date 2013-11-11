@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ComputeShaderAlgorithm"
+	parent="ComputeAlgorithm"
+	library="ContribComputeBase"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+    isNodeCore="false"
+    >
+  <Field
+      name="textureImages"
+      type="TextureImageChunk"
+      category="pointer"
+      cardinality="multi"
+      visibility="external"
+      access="public"
+      >
+  </Field>
+  <Field
+      name="computeShader"
+      type="ComputeShaderChunk"
+      category="pointer"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+  </Field>
+  <Field
+      name="dispatchConfig"
+      type="Vec3i"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1, 0, 0"
+      >
+  </Field>
+
+</FieldContainer>
