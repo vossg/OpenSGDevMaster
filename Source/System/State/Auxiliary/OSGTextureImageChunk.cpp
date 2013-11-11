@@ -59,13 +59,9 @@
 #include "OSGTextureImageChunk.h"
 #include "OSGTextureBaseChunk.h"
 
+#include "OSGGLFuncProtos.h"
+
 //#define OSG_DUMP_TEX
-
-extern "C"
-{
-GLAPI void APIENTRY glBindImageTexture (GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
-
-}
 
 
 OSG_USING_NAMESPACE
@@ -81,6 +77,9 @@ OSG_USING_NAMESPACE
 
 StateChunkClass TextureImageChunk::_class("TextureImage", osgMaxTexImages, 30);
 
+UInt32 TextureImageChunk::_arbShaderImageLS      = Window::invalidExtensionID;
+UInt32 TextureImageChunk::FuncIdBindImageTexture = Window::invalidFunctionID;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -92,6 +91,18 @@ StateChunkClass TextureImageChunk::_class("TextureImage", osgMaxTexImages, 30);
 void TextureImageChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+        _arbShaderImageLS = 
+            Window::registerExtension("GL_ARB_shader_image_load_store");
+
+        FuncIdBindImageTexture =
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glBindImageTexture",
+             _arbShaderImageLS);
+
+    }
 }
 
 /***************************************************************************\
@@ -178,6 +189,16 @@ void TextureImageChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(this->_sfTexture.getValue() == NULL)
         return;
 
+    Window *pWin = pEnv->getWindow();
+
+    if(!pWin->hasExtOrVersion(_arbShaderImageLS, 0x0402, 0xFFFF))
+    {
+        FWARNING(("OpenGL shader image load store is not supported, couldn't "
+                  "find extension 'GL_ARB_shader_image_load_store'!\n"));
+
+        return;
+    }
+
     this->_sfTexture.getValue()->validate(pEnv);
 
     GLint  iTexGLId = this->_sfTexture.getValue()->getOpenGLId(pEnv);
@@ -186,14 +207,19 @@ void TextureImageChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(eFormat == GL_NONE)
     {
     }
-    
-    glBindImageTexture(idx,  
-                       iTexGLId,  
-                       this->getLevel (),  
-                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
-                       this->getLayer () != -1 ? this->getLayer() : 0,  
-                       this->getAccess(),  
-                       eFormat); 
+
+    OSGGETGLFUNCBYID_GL4(glBindImageTexture,
+                         osgGlBindImageTexture,
+                         TextureImageChunk::FuncIdBindImageTexture,
+                         pWin);
+
+    osgGlBindImageTexture(idx,  
+                          iTexGLId,  
+                          this->getLevel (),  
+                          this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                          this->getLayer () != -1 ? this->getLayer() : 0,  
+                          this->getAccess(),  
+                          eFormat                                            ); 
 }
 
 
@@ -203,6 +229,16 @@ void TextureImageChunk::changeFrom(DrawEnv    *pEnv,
 {
     if(this->_sfTexture.getValue() == NULL)
         return;
+
+    Window *pWin = pEnv->getWindow();
+
+    if(!pWin->hasExtOrVersion(_arbShaderImageLS, 0x0402, 0xFFFF))
+    {
+        FWARNING(("OpenGL shader image load store is not supported, couldn't "
+                  "find extension 'GL_ARB_shader_image_load_store'!\n"));
+
+        return;
+    }
 
     // change from me to me?
     // this assumes I haven't changed in the meantime.
@@ -219,13 +255,18 @@ void TextureImageChunk::changeFrom(DrawEnv    *pEnv,
     {
     }
     
-    glBindImageTexture(idx,  
-                       iTexGLId,  
-                       this->getLevel (),  
-                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
-                       this->getLayer () != -1 ? this->getLayer() : 0,  
-                       this->getAccess(),  
-                       eFormat); 
+    OSGGETGLFUNCBYID_GL4(glBindImageTexture,
+                         osgGlBindImageTexture,
+                         TextureImageChunk::FuncIdBindImageTexture,
+                         pWin);
+
+    osgGlBindImageTexture(idx,  
+                          iTexGLId,  
+                          this->getLevel (),  
+                          this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                          this->getLayer () != -1 ? this->getLayer() : 0,  
+                          this->getAccess(),  
+                          eFormat); 
 }
 
 void TextureImageChunk::deactivate(DrawEnv *pEnv, UInt32 idx) 
@@ -233,19 +274,34 @@ void TextureImageChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     if(this->_sfTexture.getValue() == NULL)
         return;
 
+    Window *pWin = pEnv->getWindow();
+
+    if(!pWin->hasExtOrVersion(_arbShaderImageLS, 0x0402, 0xFFFF))
+    {
+        FWARNING(("OpenGL shader image load store is not supported, couldn't "
+                  "find extension 'GL_ARB_shader_image_load_store'!\n"));
+
+        return;
+    }
+
     GLenum eFormat = this->getFormat();
 
     if(eFormat == GL_NONE)
     {
     }
     
-    glBindImageTexture(idx,  
-                       0,  
-                       this->getLevel (),  
-                       this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
-                       this->getLayer () != -1 ? this->getLayer() : 0,  
-                       this->getAccess(),  
-                       eFormat); 
+    OSGGETGLFUNCBYID_GL4(glBindImageTexture,
+                         osgGlBindImageTexture,
+                         TextureImageChunk::FuncIdBindImageTexture,
+                         pWin);
+
+    osgGlBindImageTexture(idx,  
+                          0,  
+                          this->getLevel (),  
+                          this->getLayer () != -1 ? GL_FALSE         : GL_TRUE, 
+                          this->getLayer () != -1 ? this->getLayer() : 0,  
+                          this->getAccess(),  
+                          eFormat); 
 }
 
 /*-------------------------- Comparison -----------------------------------*/

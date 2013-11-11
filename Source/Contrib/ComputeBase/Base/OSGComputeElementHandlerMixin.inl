@@ -61,6 +61,7 @@ void ComputeElementHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+#ifdef WIN32
 template <class ParentT> inline
 void ComputeElementHandlerMixin<ParentT>::setData(TraversalData    *pData, 
                                                   Int32             iDataSlotId,
@@ -68,6 +69,7 @@ void ComputeElementHandlerMixin<ParentT>::setData(TraversalData    *pData,
 {
     Inherited::setData(pData, iDataSlotId, pAction);
 }
+#endif
 
 template <class ParentT> inline
 void ComputeElementHandlerMixin<ParentT>::setData(

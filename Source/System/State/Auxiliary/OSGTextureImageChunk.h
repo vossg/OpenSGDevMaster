@@ -150,9 +150,12 @@ class OSG_STATE_DLLMAPPING TextureImageChunk : public TextureImageChunkBase
 
   protected:
 
+    static  UInt32                     _arbShaderImageLS;
+    static  UInt32                      FuncIdBindImageTexture;
+
     // class. Used for indexing in State
     // protected to give CubeTextureChunk access
-    static StateChunkClass _class;
+    static  StateChunkClass            _class;
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */

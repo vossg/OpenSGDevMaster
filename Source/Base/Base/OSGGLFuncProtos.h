@@ -877,6 +877,21 @@ typedef void (OSG_APIENTRY *osgGlDispatchComputeIndirectProc)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name shader image load/store                                            */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlBindImageTextureProc)(GLuint     index, 
+                                                       GLuint     texture, 
+                                                       GLint      level, 
+                                                       GLboolean  layered, 
+                                                       GLint      layer, 
+                                                       GLenum     access, 
+                                                       GLint      format  );
+typedef void (OSG_APIENTRY *osgGlMemoryBarrierProc   )(GLbitfield barriers);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
