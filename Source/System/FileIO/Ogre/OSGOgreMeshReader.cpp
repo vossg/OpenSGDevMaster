@@ -1193,7 +1193,7 @@ OgreMeshReader::verifyBoneAssignment(VertexElementStore &vertexElements,
 
         if(osgAbs(sumWeights - 1.f) > 1e-6f)
         {
-            SWARNING << "OgreMeshReader::verifyBoneAssignment: "
+            SINFO    << "OgreMeshReader::verifyBoneAssignment: "
                      << "Vertex '" << vertIdx << "' influences not normalized,"
                      << " sumWeights " << sumWeights
                      << " numWeights " << numWeights

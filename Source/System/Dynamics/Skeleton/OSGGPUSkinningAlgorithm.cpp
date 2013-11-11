@@ -256,6 +256,7 @@ GPUSkinningAlgorithm::renderEnter(Action *action)
             "matBindShape", skinGeo->getBindShapeMatrix());
 
         data->setDataValid(true);
+        commitChanges(); 
     }
 
     ract->pushState();
@@ -336,6 +337,7 @@ GPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
 
     if(origin != ChangedOrigin::Sync  &&
        ((Skeleton::JointMatricesFieldMask      |
+         Skeleton::JointsChangedFieldMask      |
          Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
     {
         OSG_ASSERT(fc == _sfSkeleton.getValue());

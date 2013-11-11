@@ -344,6 +344,7 @@ CPUSkinningAlgorithm::renderEnter(Action *action)
         transformGeometry(skinGeo, skel, data);
 
         data->setDataValid(true);
+        commitChanges();
     }
 
     renderGeometry(ract, skinGeo, data);
@@ -896,6 +897,7 @@ void CPUSkinningAlgorithm::skeletonChanged(FieldContainer    *fc,
                                            ConstFieldMaskArg  whichField)
 {
     if(((Skeleton::JointMatricesFieldMask      |
+         Skeleton::JointsChangedFieldMask      |
          Skeleton::JointNormalMatricesFieldMask) & whichField) != 0)
     {
         OSG_ASSERT(fc == _sfSkeleton.getValue());
