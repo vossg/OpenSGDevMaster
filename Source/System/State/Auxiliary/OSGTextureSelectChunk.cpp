@@ -264,3 +264,18 @@ Int32 TextureSelectChunk::getOpenGLId(DrawEnv *pEnv)
 
     return this->_mfTextures[_sfChoice.getValue()]->getOpenGLId(pEnv);
 }
+
+GLenum TextureSelectChunk::determineInternalFormat(void)
+{
+    if(_sfChoice.getValue() >= _mfTextures.size())
+    {
+        FWARNING(
+            ("TextureSelect::validate choice beyond size %d %" PRISize "!\n",
+             _sfChoice.getValue(), 
+             _mfTextures.size  ()));
+
+        return -1;        
+    }
+
+    return this->_mfTextures[_sfChoice.getValue()]->determineInternalFormat();
+}

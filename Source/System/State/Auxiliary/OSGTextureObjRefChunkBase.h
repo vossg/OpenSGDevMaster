@@ -96,18 +96,22 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     {
         OsgGLIdFieldId = Inherited::NextFieldId,
         OglGLIdFieldId = OsgGLIdFieldId + 1,
-        NextFieldId = OglGLIdFieldId + 1
+        InternalFormatFieldId = OglGLIdFieldId + 1,
+        NextFieldId = InternalFormatFieldId + 1
     };
 
     static const OSG::BitVector OsgGLIdFieldMask =
         (TypeTraits<BitVector>::One << OsgGLIdFieldId);
     static const OSG::BitVector OglGLIdFieldMask =
         (TypeTraits<BitVector>::One << OglGLIdFieldId);
+    static const OSG::BitVector InternalFormatFieldMask =
+        (TypeTraits<BitVector>::One << InternalFormatFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFGLenum          SFOsgGLIdType;
     typedef SFGLenum          SFOglGLIdType;
+    typedef SFGLenum          SFInternalFormatType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -139,12 +143,18 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
                   SFGLenum            *editSFOglGLId        (void);
             const SFGLenum            *getSFOglGLId         (void) const;
 
+                  SFGLenum            *editSFInternalFormat (void);
+            const SFGLenum            *getSFInternalFormat  (void) const;
+
 
                   GLenum              &editOsgGLId        (void);
             const GLenum              &getOsgGLId         (void) const;
 
                   GLenum              &editOglGLId        (void);
             const GLenum              &getOglGLId         (void) const;
+
+                  GLenum              &editInternalFormat (void);
+            const GLenum              &getInternalFormat  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,6 +163,7 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
 
             void setOsgGLId        (const GLenum &value);
             void setOglGLId        (const GLenum &value);
+            void setInternalFormat (const GLenum &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,6 +225,7 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
 
     SFGLenum          _sfOsgGLId;
     SFGLenum          _sfOglGLId;
+    SFGLenum          _sfInternalFormat;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -245,6 +257,8 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     EditFieldHandlePtr editHandleOsgGLId        (void);
     GetFieldHandlePtr  getHandleOglGLId         (void) const;
     EditFieldHandlePtr editHandleOglGLId        (void);
+    GetFieldHandlePtr  getHandleInternalFormat  (void) const;
+    EditFieldHandlePtr editHandleInternalFormat (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

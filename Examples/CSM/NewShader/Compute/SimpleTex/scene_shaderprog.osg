@@ -19,7 +19,7 @@ Node
             TextureImageChunk
             {
               texture USE Tex0
-              format  GL_RGBA32F
+#              format  GL_RGBA32F
               access  GL_WRITE_ONLY
             }
           ]  

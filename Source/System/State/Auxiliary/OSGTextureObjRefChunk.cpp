@@ -266,3 +266,8 @@ Int32 TextureObjRefChunk::getOpenGLId(DrawEnv *pEnv)
         return this->getOglGLId();
     }
 }
+
+GLenum TextureObjRefChunk::determineInternalFormat(void)
+{
+    return _sfInternalFormat.getValue();
+}

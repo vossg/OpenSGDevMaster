@@ -33,4 +33,17 @@
         >
         Native OpenGL id of texture object.
     </Field>
+    <Field
+        name="internalFormat"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_NONE"
+        defaultHeader="&quot;OSGGL.h&quot;"
+        access="public"
+        potential_values="GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA"
+	>
+	The internal texture format, needed if the texture is bound to an image
+    unit
+    </Field>
 </FieldContainer>

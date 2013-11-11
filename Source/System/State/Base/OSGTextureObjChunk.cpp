@@ -2296,3 +2296,90 @@ Int32 TextureObjChunk::getOpenGLId(DrawEnv *pEnv)
 {
     return pEnv->getWindow()->getGLObjectId(this->getGLId());
 }
+
+GLenum TextureObjChunk::determineInternalFormat(void)
+{
+    Image  *img            = getImage         ();
+    GLenum  internalFormat = getInternalFormat();
+
+    if(img != NULL)
+    {
+        GLenum externalFormat = img->getPixelFormat();
+        GLenum type           = img->getDataType   ();
+
+        if(internalFormat == GL_NONE)
+        {
+            switch(externalFormat)
+            {
+#if defined(GL_BGR) && defined(GL_BGR_EXT)
+            case GL_BGR:
+#else
+#  if defined(GL_BGR)
+            case GL_BGR:
+#  endif
+#  if defined(GL_BGR_EXT)
+            case GL_BGR_EXT:
+#  endif
+#endif
+            case GL_RGB:
+            {
+                switch(type)
+                {
+#if defined(GL_ARB_texture_float)
+                case GL_FLOAT:
+                    internalFormat = GL_RGB32F;
+                    break;
+
+                case GL_HALF_FLOAT_NV:
+                    internalFormat = GL_RGB16F;
+                    break;
+#endif
+
+                default:
+                    internalFormat = GL_RGB;
+                }
+            }
+            break;
+
+#if defined(GL_BGRA) && defined(GL_BGRA_EXT)
+            case GL_BGRA:
+#else
+#  if defined(GL_BGRA)
+            case GL_BGRA:
+#  endif
+#  if defined(GL_BGRA_EXT)
+            case GL_BGRA_EXT:
+#  endif
+#endif
+            case GL_RGBA:
+            {
+                switch(type)
+                {
+#if defined(GL_ARB_texture_float)
+                case GL_FLOAT:
+                    internalFormat = GL_RGBA32F;
+                    break;
+
+                case GL_HALF_FLOAT_NV:
+                    internalFormat = GL_RGBA16F;
+                    break;
+#endif
+                default:
+                    internalFormat = GL_RGBA;
+                }
+            }
+            break;
+
+            case GL_INTENSITY:
+                internalFormat = GL_INTENSITY;
+                break;
+
+            default:
+                internalFormat = externalFormat;
+                break;
+            }
+        }
+    }
+
+    return internalFormat;
+}

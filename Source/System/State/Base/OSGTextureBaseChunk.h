@@ -113,8 +113,9 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name                       query                                  */
     /*! \{                                                                 */
 
-    virtual void  validate   (DrawEnv *pEnv) = 0;
-    virtual Int32 getOpenGLId(DrawEnv *pEnv) = 0;
+    virtual void   validate               (DrawEnv *pEnv) = 0;
+    virtual Int32  getOpenGLId            (DrawEnv *pEnv) = 0;
+    virtual GLenum determineInternalFormat(void         ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

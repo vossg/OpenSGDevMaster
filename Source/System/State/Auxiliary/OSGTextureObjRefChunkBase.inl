@@ -124,6 +124,31 @@ void TextureObjRefChunkBase::setOglGLId(const GLenum &value)
 
     _sfOglGLId.setValue(value);
 }
+//! Get the value of the TextureObjRefChunk::_sfInternalFormat field.
+
+inline
+GLenum &TextureObjRefChunkBase::editInternalFormat(void)
+{
+    editSField(InternalFormatFieldMask);
+
+    return _sfInternalFormat.getValue();
+}
+
+//! Get the value of the TextureObjRefChunk::_sfInternalFormat field.
+inline
+const GLenum &TextureObjRefChunkBase::getInternalFormat(void) const
+{
+    return _sfInternalFormat.getValue();
+}
+
+//! Set the value of the TextureObjRefChunk::_sfInternalFormat field.
+inline
+void TextureObjRefChunkBase::setInternalFormat(const GLenum &value)
+{
+    editSField(InternalFormatFieldMask);
+
+    _sfInternalFormat.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -141,6 +166,9 @@ void TextureObjRefChunkBase::execSync (      TextureObjRefChunkBase *pFrom,
 
     if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
         _sfOglGLId.syncWith(pFrom->_sfOglGLId);
+
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+        _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
 }
 #endif
 

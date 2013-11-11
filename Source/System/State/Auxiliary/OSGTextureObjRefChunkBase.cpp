@@ -56,6 +56,7 @@
 #include "OSGConfig.h"
 
 
+#include "OSGGL.h"                        // InternalFormat default header
 
 
 #include "OSGTextureObjRefChunkBase.h"
@@ -87,6 +88,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var GLenum          TextureObjRefChunkBase::_sfOglGLId
     Native OpenGL id of texture object.
+*/
+
+/*! \var GLenum          TextureObjRefChunkBase::_sfInternalFormat
+    The internal texture format, needed if the texture is bound to an image
+    unit
 */
 
 
@@ -144,6 +150,19 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleOglGLId));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "internalFormat",
+        "The internal texture format, needed if the texture is bound to an image\n"
+        "unit\n",
+        InternalFormatFieldId, InternalFormatFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TextureObjRefChunk::editHandleInternalFormat),
+        static_cast<FieldGetMethodSig >(&TextureObjRefChunk::getHandleInternalFormat));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -192,6 +211,19 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     "        fieldFlags=\"FClusterLocal\"\n"
     "        >\n"
     "        Native OpenGL id of texture object.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"internalFormat\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"GL_NONE\"\n"
+    "        defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
+    "        access=\"public\"\n"
+    "        potential_values=\"GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA\"\n"
+    "\t>\n"
+    "\tThe internal texture format, needed if the texture is bound to an image\n"
+    "    unit\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     ""
@@ -243,6 +275,19 @@ const SFGLenum *TextureObjRefChunkBase::getSFOglGLId(void) const
 }
 
 
+SFGLenum *TextureObjRefChunkBase::editSFInternalFormat(void)
+{
+    editSField(InternalFormatFieldMask);
+
+    return &_sfInternalFormat;
+}
+
+const SFGLenum *TextureObjRefChunkBase::getSFInternalFormat(void) const
+{
+    return &_sfInternalFormat;
+}
+
+
 
 
 
@@ -261,6 +306,10 @@ SizeT TextureObjRefChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfOglGLId.getBinSize();
     }
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+    {
+        returnValue += _sfInternalFormat.getBinSize();
+    }
 
     return returnValue;
 }
@@ -278,6 +327,10 @@ void TextureObjRefChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfOglGLId.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+    {
+        _sfInternalFormat.copyToBin(pMem);
+    }
 }
 
 void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -294,6 +347,11 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(OglGLIdFieldMask);
         _sfOglGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+    {
+        editSField(InternalFormatFieldMask);
+        _sfInternalFormat.copyFromBin(pMem);
     }
 }
 
@@ -421,14 +479,16 @@ FieldContainerTransitPtr TextureObjRefChunkBase::shallowCopy(void) const
 TextureObjRefChunkBase::TextureObjRefChunkBase(void) :
     Inherited(),
     _sfOsgGLId                (GLenum(0)),
-    _sfOglGLId                (GLenum(0))
+    _sfOglGLId                (GLenum(0)),
+    _sfInternalFormat         (GLenum(GL_NONE))
 {
 }
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &source) :
     Inherited(source),
     _sfOsgGLId                (source._sfOsgGLId                ),
-    _sfOglGLId                (source._sfOglGLId                )
+    _sfOglGLId                (source._sfOglGLId                ),
+    _sfInternalFormat         (source._sfInternalFormat         )
 {
 }
 
@@ -486,6 +546,31 @@ EditFieldHandlePtr TextureObjRefChunkBase::editHandleOglGLId        (void)
 
 
     editSField(OglGLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TextureObjRefChunkBase::getHandleInternalFormat  (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfInternalFormat,
+             this->getType().getFieldDesc(InternalFormatFieldId),
+             const_cast<TextureObjRefChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TextureObjRefChunkBase::editHandleInternalFormat (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfInternalFormat,
+             this->getType().getFieldDesc(InternalFormatFieldId),
+             this));
+
+
+    editSField(InternalFormatFieldMask);
 
     return returnValue;
 }

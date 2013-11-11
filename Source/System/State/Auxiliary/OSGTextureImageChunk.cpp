@@ -206,6 +206,7 @@ void TextureImageChunk::activate(DrawEnv *pEnv, UInt32 idx)
     
     if(eFormat == GL_NONE)
     {
+        eFormat = this->_sfTexture.getValue()->determineInternalFormat();
     }
 
     OSGGETGLFUNCBYID_GL4(glBindImageTexture,
@@ -253,6 +254,7 @@ void TextureImageChunk::changeFrom(DrawEnv    *pEnv,
     
     if(eFormat == GL_NONE)
     {
+        eFormat = this->_sfTexture.getValue()->determineInternalFormat();
     }
     
     OSGGETGLFUNCBYID_GL4(glBindImageTexture,
@@ -288,6 +290,7 @@ void TextureImageChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     if(eFormat == GL_NONE)
     {
+        eFormat = this->_sfTexture.getValue()->determineInternalFormat();
     }
     
     OSGGETGLFUNCBYID_GL4(glBindImageTexture,
