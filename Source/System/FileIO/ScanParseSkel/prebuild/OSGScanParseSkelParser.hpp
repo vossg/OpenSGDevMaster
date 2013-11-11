@@ -1,9 +1,8 @@
-/* A Bison parser, made by GNU Bison 2.4.3.  */
+/* A Bison parser, made by GNU Bison 2.6.1.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-   2009, 2010 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,6 +30,15 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+#ifndef OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP
+# define OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP
+/* Enabling traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int OSGScanParseSkel_debug;
+#endif
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -110,28 +118,27 @@
      TOK_SFPlane = 327,
      TOK_SFVolume = 328,
      TOK_SFVec2i = 329,
-     TOK_MFVec2i = 330,
-     TOK_hex = 331,
-     TOK_int32 = 332,
-     TOK_double = 333,
-     TOK_string = 334,
-     TOK_bool = 335,
-     TOK_NULL = 336,
-     TOK_Id = 337,
-     TOK_ImageFinished = 338,
-     TOK_Error = 339,
-     TOK_ClusterLocal = 340,
-     TOK_ThreadLocal = 341
+     TOK_SFVec3i = 330,
+     TOK_MFVec2i = 331,
+     TOK_hex = 332,
+     TOK_int32 = 333,
+     TOK_double = 334,
+     TOK_string = 335,
+     TOK_bool = 336,
+     TOK_NULL = 337,
+     TOK_Id = 338,
+     TOK_ImageFinished = 339,
+     TOK_Error = 340,
+     TOK_ClusterLocal = 341,
+     TOK_ThreadLocal = 342
    };
 #endif
-
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
 {
-
-/* Line 1685 of yacc.c  */
+/* Line 2049 of yacc.c  */
 #line 41 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
 
     long intVal;
@@ -141,9 +148,8 @@ typedef union YYSTYPE
     bool boolVal;
 
 
-
-/* Line 1685 of yacc.c  */
-#line 147 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.hpp"
+/* Line 2049 of yacc.c  */
+#line 153 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.hpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -151,5 +157,18 @@ typedef union YYSTYPE
 #endif
 
 
+#ifdef YYPARSE_PARAM
+#if defined __STDC__ || defined __cplusplus
+int OSGScanParseSkel_parse (void *YYPARSE_PARAM);
+#else
+int OSGScanParseSkel_parse ();
+#endif
+#else /* ! YYPARSE_PARAM */
+#if defined __STDC__ || defined __cplusplus
+int OSGScanParseSkel_parse (void);
+#else
+int OSGScanParseSkel_parse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
 
-
+#endif /* !OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP  */
