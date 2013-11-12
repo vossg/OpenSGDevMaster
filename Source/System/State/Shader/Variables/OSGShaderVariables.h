@@ -73,6 +73,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+OSG_SYSTEM_DLLMAPPING
 void osgUniformShaderVariableSwitch  (DrawEnv        *pEnv,      
                                       ShaderVariable *pVar,       
                                       Int32          &loc,
