@@ -306,7 +306,7 @@ private:
     
     OSG::ChunkMaterialTransitPtr    material_1                  (int i) const;
     OSG::ChunkMaterialTransitPtr    material_2                  (int i) const;
-    OSG::ChunkMaterialTransitPtr    material_3                  (int i) const;
+    OSG::ChunkMaterialTransitPtr    material_3                  (std::size_t i) const;
 
     OSG::NodeTransitPtr             create_plane_node           (OSG::MaterialGroup* mgrp_sec, int i) const;
 
@@ -545,7 +545,7 @@ void ClippingSceneManager::updateClipPlanes(const VecCPData& vec)
     bool update = _vecClipPlaneDataLast.size() != sz;
 
     if (!update) {
-        for (int i = 0; i < sz; ++i) {
+        for (std::size_t i = 0; i < sz; ++i) {
             if (_vecClipPlaneDataLast[i]._enabled != vec[i]._enabled) {
                 update = true;
                 break;
@@ -790,7 +790,7 @@ OSG::ChunkMaterialTransitPtr ClippingSceneManager::material_2(int i) const
 
 //----- material_3 ------------------------------------------------------------
 
-OSG::ChunkMaterialTransitPtr ClippingSceneManager::material_3(int i) const
+OSG::ChunkMaterialTransitPtr ClippingSceneManager::material_3(std::size_t i) const
 {
     using namespace OSG;
 
