@@ -225,8 +225,10 @@ IntersectAction::IntersectAction(void) :
     _hit            (false),
     _enterT         (   -1),
     _leaveT         (   -1),
+    _path           (     ),
     _hitT           (   -1),
     _hitObject      (     ),
+    _hitPath        (     ),
     _hitTriangle    (   -1),
     _hitNormal      (     ),
     _hitLine        (   -1),
@@ -240,6 +242,7 @@ IntersectAction::IntersectAction(void) :
         _leaveFunctors = *_defaultLeaveFunctors;
 
     _nodeEnterCB = boost::bind(&IntersectAction::onEnterNode, this, _1, _2);
+    _nodeLeaveCB = boost::bind(&IntersectAction::onLeaveNode, this, _1, _2);
 }
 
 
@@ -252,8 +255,10 @@ IntersectAction::IntersectAction(const IntersectAction& source) :
     _hit            (source._hit            ),
     _enterT         (source._enterT         ),
     _leaveT         (source._leaveT         ),
+    _path           (source._path           ),
     _hitT           (source._hitT           ),
     _hitObject      (source._hitObject      ),
+    _hitPath        (source._hitPath        ),
     _hitTriangle    (source._hitTriangle    ),
     _hitNormal      (source._hitNormal      ),
     _hitLine        (source._hitLine        ),
@@ -261,6 +266,7 @@ IntersectAction::IntersectAction(const IntersectAction& source) :
     _resetStatistics(source._resetStatistics)
 {
     _nodeEnterCB = boost::bind(&IntersectAction::onEnterNode, this, _1, _2);
+    _nodeLeaveCB = boost::bind(&IntersectAction::onLeaveNode, this, _1, _2);
 }
 
 
@@ -333,12 +339,6 @@ void IntersectAction::setTestLineWidth(Real32 width)
     _lineTestWidth = width;
 }
 
-Int32 IntersectAction::getHitLine() const
-{
-   return _hitLine;
-}
-
-    
 Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
 {
     if(leave < 0 || enter > _maxdist ||
@@ -366,9 +366,10 @@ void IntersectAction::setHit(      Real32  t,
 {
     if(t < 0 || t > _hitT || t > _maxdist)
         return;
-        
+
     _hitT        = t;
     _hitObject   = obj;
+    _hitPath     = _path;
     _hitTriangle = triIndex;
     _hitNormal   = normal;
     _hitLine     = lineIndex;
@@ -391,6 +392,13 @@ Action::ResultE IntersectAction::start(void)
     _hitTriangle = -1;
     _hitLine     = -1;
     _hit         = false;
+    _hitPath.clear();
+    _path.clear();
+
+    // reserve some memory for a scene depth of 20
+    // TODO: is this a sensible number?
+    _hitPath.reserve(20);
+    _path.reserve(20);
 
     if(_statistics == NULL)
         _statistics = new StatCollector;
@@ -466,6 +474,8 @@ Action::ResultE IntersectAction::onEnterNode(Node* node, Action* action)
 
     ResultE result = Continue;
 
+    _path.push_back(node);
+
     _statistics->getElem(statNNodes)->inc();
 
     IntersectProxyAttachment* ipa = dynamic_cast<IntersectProxyAttachment*>(
@@ -475,6 +485,17 @@ Action::ResultE IntersectAction::onEnterNode(Node* node, Action* action)
     {
         result = ipa->intersectEnter(node, this);
     }
+
+    return result;
+}
+
+Action::ResultE IntersectAction::onLeaveNode(Node* node, Action* action)
+{
+    OSG_ASSERT(this == action && node == _actNode);
+
+    ResultE result = Continue;
+
+    _path.pop_back();
 
     return result;
 }

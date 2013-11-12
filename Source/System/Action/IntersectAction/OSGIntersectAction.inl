@@ -163,6 +163,12 @@ Node *IntersectAction::getHitObject(void) const
     return _hitObject;
 }
 
+inline
+const IntersectAction::NodeStore& IntersectAction::getHitPath(void) const
+{
+    return _hitPath;
+}
+
 inline 
 Int32 IntersectAction::getHitTriangle(void) const
 {
@@ -170,6 +176,12 @@ Int32 IntersectAction::getHitTriangle(void) const
         return -1;
 
     return _hitTriangle;
+}
+
+inline
+Int32 IntersectAction::getHitLine() const
+{
+    return _hitLine;
 }
 
 /*---------------------------- properties ---------------------------------*/

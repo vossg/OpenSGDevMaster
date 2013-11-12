@@ -85,6 +85,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     static StatElemDesc<StatIntElem >  statNNodes;
     static StatElemDesc<StatIntElem >  statNTriangles;
 
+    typedef std::vector<Node*>         NodeStore;
+
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
@@ -130,26 +132,20 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 
 
     // get input data
-    const Line    &getLine       (      void                 ) const;
-          Real32   getMaxDist    (      void                 ) const;
-          bool     getTestLines  (      void                 ) const;
-          Real32   getTestLineWidth (   void                 ) const;
-          
-    
-    // get result data
-          bool     didHit        (      void                 ) const;
-    
-          Real32   getHitT       (      void                 ) const;
-    
-          Pnt3f    getHitPoint   (      void                 ) const;
-    
-    const Vec3f   &getHitNormal  (      void                 ) const;
-    
-          Node    *getHitObject  (      void                 ) const;
-    
-          Int32    getHitTriangle(      void                 ) const;
+    const Line    &getLine         (      void                 ) const;
+          Real32   getMaxDist      (      void                 ) const;
+          bool     getTestLines    (      void                 ) const;
+          Real32   getTestLineWidth(   void                 ) const;
 
-          Int32    getHitLine    (      void                 ) const;
+    // get result data
+          bool       didHit        (void) const;
+          Real32     getHitT       (void) const;
+          Pnt3f      getHitPoint   (void) const;
+    const Vec3f     &getHitNormal  (void) const;
+          Node      *getHitObject  (void) const;
+    const NodeStore &getHitPath    (void) const;
+          Int32      getHitTriangle(void) const;
+          Int32      getHitLine    (void) const;
 
     /*------------------------- access ------------------------------*/
 
@@ -229,6 +225,7 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     virtual FunctorStore *getDefaultLeaveFunctors(void);
 
     ResultE onEnterNode(Node* node, Action* action);
+    ResultE onLeaveNode(Node* node, Action* action);
 
   private:
 
@@ -279,26 +276,28 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     
     // Results (also intermediate)
     // hit at all (either bv or face)
-    bool    _hit;
+    bool       _hit;
     // enter leave distance for bounding volume
-    Real32  _enterT;
-    Real32  _leaveT;
-    
+    Real32     _enterT;
+    Real32     _leaveT;
+    NodeStore  _path;
+
     // Hit distance
-    Real32  _hitT;
+    Real32     _hitT;
 
     // Hit object   
-    Node   *_hitObject;
+    Node      *_hitObject;
+    NodeStore  _hitPath;
 
     // Index of the hit triangle ( from TriangleIterator::getIndex() )
-    Int32   _hitTriangle;
+    Int32      _hitTriangle;
 
     // Normal of the hit triangle
-    Vec3f   _hitNormal;
+    Vec3f      _hitNormal;
 
     // Index of the hit line ( from LineInterator::getIndex() )
-    Int32   _hitLine;
-    
+    Int32      _hitLine;
+
     StatCollectorRefPtr _statistics;
     bool                _resetStatistics;
 
