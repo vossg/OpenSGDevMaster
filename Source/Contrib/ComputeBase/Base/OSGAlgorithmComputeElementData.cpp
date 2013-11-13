@@ -43,7 +43,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGExtensionsConfig.h"
+#include "OSGConfig.h"
 
 #include "OSGChunkMaterial.h"
 #include "OSGFrameBufferObject.h"
