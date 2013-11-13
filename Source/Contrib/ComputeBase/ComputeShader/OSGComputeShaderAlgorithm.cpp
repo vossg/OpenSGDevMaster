@@ -42,7 +42,7 @@
 #include <sstream>
 #include <fstream>
 
-#include "OSGAddOnsConfig.h"
+#include "OSGConfig.h"
 
 #include "OSGAction.h"
 #include "OSGCamera.h"
