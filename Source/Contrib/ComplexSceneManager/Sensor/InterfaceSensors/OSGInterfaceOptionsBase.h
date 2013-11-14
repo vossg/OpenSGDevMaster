@@ -97,18 +97,22 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
     {
         ParentFieldId = Inherited::NextFieldId,
         NapTimeFieldId = ParentFieldId + 1,
-        NextFieldId = NapTimeFieldId + 1
+        BufferSizeFieldId = NapTimeFieldId + 1,
+        NextFieldId = BufferSizeFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
         (TypeTraits<BitVector>::One << ParentFieldId);
     static const OSG::BitVector NapTimeFieldMask =
         (TypeTraits<BitVector>::One << NapTimeFieldId);
+    static const OSG::BitVector BufferSizeFieldMask =
+        (TypeTraits<BitVector>::One << BufferSizeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFParentDeviceInterfaceSensorPtr SFParentType;
     typedef SFUInt32          SFNapTimeType;
+    typedef SFUInt32          SFBufferSizeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -137,9 +141,15 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
                   SFUInt32            *editSFNapTime        (void);
             const SFUInt32            *getSFNapTime         (void) const;
 
+                  SFUInt32            *editSFBufferSize     (void);
+            const SFUInt32            *getSFBufferSize      (void) const;
+
 
                   UInt32              &editNapTime        (void);
                   UInt32               getNapTime         (void) const;
+
+                  UInt32              &editBufferSize     (void);
+                  UInt32               getBufferSize      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,6 +157,7 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
     /*! \{                                                                 */
 
             void setNapTime        (const UInt32 value);
+            void setBufferSize     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -208,6 +219,7 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
 
     SFParentDeviceInterfaceSensorPtr _sfParent;
     SFUInt32          _sfNapTime;
+    SFUInt32          _sfBufferSize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -250,6 +262,8 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
     EditFieldHandlePtr editHandleParent         (void);
     GetFieldHandlePtr  getHandleNapTime         (void) const;
     EditFieldHandlePtr editHandleNapTime        (void);
+    GetFieldHandlePtr  getHandleBufferSize      (void) const;
+    EditFieldHandlePtr editHandleBufferSize     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

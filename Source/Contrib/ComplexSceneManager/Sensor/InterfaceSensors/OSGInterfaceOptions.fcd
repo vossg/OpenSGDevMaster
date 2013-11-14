@@ -36,4 +36,14 @@
         >
     </Field>
 
+    <Field
+        name="bufferSize"
+        type="UInt32"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="128"
+        fieldFlags="FStdAccess, FThreadLocal"
+        >
+    </Field>
 </FieldContainer>

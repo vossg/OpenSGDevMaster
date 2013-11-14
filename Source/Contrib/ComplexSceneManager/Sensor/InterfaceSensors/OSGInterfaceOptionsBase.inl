@@ -99,6 +99,31 @@ void InterfaceOptionsBase::setNapTime(const UInt32 value)
 
     _sfNapTime.setValue(value);
 }
+//! Get the value of the InterfaceOptions::_sfBufferSize field.
+
+inline
+UInt32 &InterfaceOptionsBase::editBufferSize(void)
+{
+    editSField(BufferSizeFieldMask);
+
+    return _sfBufferSize.getValue();
+}
+
+//! Get the value of the InterfaceOptions::_sfBufferSize field.
+inline
+      UInt32  InterfaceOptionsBase::getBufferSize(void) const
+{
+    return _sfBufferSize.getValue();
+}
+
+//! Set the value of the InterfaceOptions::_sfBufferSize field.
+inline
+void InterfaceOptionsBase::setBufferSize(const UInt32 value)
+{
+    editSField(BufferSizeFieldMask);
+
+    _sfBufferSize.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -116,6 +141,9 @@ void InterfaceOptionsBase::execSync (      InterfaceOptionsBase *pFrom,
 
     if(FieldBits::NoField != (NapTimeFieldMask & whichField))
         _sfNapTime.syncWith(pFrom->_sfNapTime);
+
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+        _sfBufferSize.syncWith(pFrom->_sfBufferSize);
 }
 #endif
 

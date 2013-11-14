@@ -149,31 +149,6 @@ void LinuxEventOptionsBase::setRRange(const Vec3f &value)
 
     _sfRRange.setValue(value);
 }
-//! Get the value of the LinuxEventOptions::_sfBufferSize field.
-
-inline
-UInt32 &LinuxEventOptionsBase::editBufferSize(void)
-{
-    editSField(BufferSizeFieldMask);
-
-    return _sfBufferSize.getValue();
-}
-
-//! Get the value of the LinuxEventOptions::_sfBufferSize field.
-inline
-      UInt32  LinuxEventOptionsBase::getBufferSize(void) const
-{
-    return _sfBufferSize.getValue();
-}
-
-//! Set the value of the LinuxEventOptions::_sfBufferSize field.
-inline
-void LinuxEventOptionsBase::setBufferSize(const UInt32 value)
-{
-    editSField(BufferSizeFieldMask);
-
-    _sfBufferSize.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -194,9 +169,6 @@ void LinuxEventOptionsBase::execSync (      LinuxEventOptionsBase *pFrom,
 
     if(FieldBits::NoField != (RRangeFieldMask & whichField))
         _sfRRange.syncWith(pFrom->_sfRRange);
-
-    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
-        _sfBufferSize.syncWith(pFrom->_sfBufferSize);
 }
 #endif
 

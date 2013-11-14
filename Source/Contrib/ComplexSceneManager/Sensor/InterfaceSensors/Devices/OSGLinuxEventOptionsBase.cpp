@@ -93,10 +93,6 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var UInt32          LinuxEventOptionsBase::_sfBufferSize
-    
-*/
-
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -173,18 +169,6 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleRRange));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
-        "bufferSize",
-        "",
-        BufferSizeFieldId, BufferSizeFieldMask,
-        true,
-        (Field::FStdAccess | Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleBufferSize),
-        static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleBufferSize));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -243,16 +227,6 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     "        visibility=\"internal\"\n"
     "        access=\"public\"\n"
     "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
-    "        >\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "        name=\"bufferSize\"\n"
-    "        type=\"UInt32\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"internal\"\n"
-    "        access=\"public\"\n"
-    "        defaultValue=\"128\"\n"
     "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "        >\n"
     "    </Field>\n"
@@ -319,19 +293,6 @@ const SFVec3f *LinuxEventOptionsBase::getSFRRange(void) const
 }
 
 
-SFUInt32 *LinuxEventOptionsBase::editSFBufferSize(void)
-{
-    editSField(BufferSizeFieldMask);
-
-    return &_sfBufferSize;
-}
-
-const SFUInt32 *LinuxEventOptionsBase::getSFBufferSize(void) const
-{
-    return &_sfBufferSize;
-}
-
-
 
 
 
@@ -354,10 +315,6 @@ SizeT LinuxEventOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRRange.getBinSize();
     }
-    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
-    {
-        returnValue += _sfBufferSize.getBinSize();
-    }
 
     return returnValue;
 }
@@ -378,10 +335,6 @@ void LinuxEventOptionsBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RRangeFieldMask & whichField))
     {
         _sfRRange.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
-    {
-        _sfBufferSize.copyToBin(pMem);
     }
 }
 
@@ -404,11 +357,6 @@ void LinuxEventOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(RRangeFieldMask);
         _sfRRange.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
-    {
-        editSField(BufferSizeFieldMask);
-        _sfBufferSize.copyFromBin(pMem);
     }
 }
 
@@ -510,8 +458,7 @@ LinuxEventOptionsBase::LinuxEventOptionsBase(void) :
     Inherited(),
     _sfDevice                 (),
     _sfTRange                 (),
-    _sfRRange                 (),
-    _sfBufferSize             (UInt32(128))
+    _sfRRange                 ()
 {
 }
 
@@ -519,8 +466,7 @@ LinuxEventOptionsBase::LinuxEventOptionsBase(const LinuxEventOptionsBase &source
     Inherited(source),
     _sfDevice                 (source._sfDevice                 ),
     _sfTRange                 (source._sfTRange                 ),
-    _sfRRange                 (source._sfRRange                 ),
-    _sfBufferSize             (source._sfBufferSize             )
+    _sfRRange                 (source._sfRRange                 )
 {
 }
 
@@ -603,31 +549,6 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleRRange         (void)
 
 
     editSField(RRangeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr LinuxEventOptionsBase::getHandleBufferSize      (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfBufferSize,
-             this->getType().getFieldDesc(BufferSizeFieldId),
-             const_cast<LinuxEventOptionsBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr LinuxEventOptionsBase::editHandleBufferSize     (void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfBufferSize,
-             this->getType().getFieldDesc(BufferSizeFieldId),
-             this));
-
-
-    editSField(BufferSizeFieldMask);
 
     return returnValue;
 }

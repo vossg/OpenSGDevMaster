@@ -90,6 +90,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          InterfaceOptionsBase::_sfBufferSize
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -154,6 +158,18 @@ void InterfaceOptionsBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&InterfaceOptions::getHandleNapTime));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "bufferSize",
+        "",
+        BufferSizeFieldId, BufferSizeFieldMask,
+        true,
+        (Field::FStdAccess | Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&InterfaceOptions::editHandleBufferSize),
+        static_cast<FieldGetMethodSig >(&InterfaceOptions::getHandleBufferSize));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -206,6 +222,16 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     "        >\n"
     "    </Field>\n"
     "\n"
+    "    <Field\n"
+    "        name=\"bufferSize\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"128\"\n"
+    "        fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "        >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -244,6 +270,19 @@ const SFUInt32 *InterfaceOptionsBase::getSFNapTime(void) const
 }
 
 
+SFUInt32 *InterfaceOptionsBase::editSFBufferSize(void)
+{
+    editSField(BufferSizeFieldMask);
+
+    return &_sfBufferSize;
+}
+
+const SFUInt32 *InterfaceOptionsBase::getSFBufferSize(void) const
+{
+    return &_sfBufferSize;
+}
+
+
 
 
 
@@ -262,6 +301,10 @@ SizeT InterfaceOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfNapTime.getBinSize();
     }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        returnValue += _sfBufferSize.getBinSize();
+    }
 
     return returnValue;
 }
@@ -279,6 +322,10 @@ void InterfaceOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfNapTime.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        _sfBufferSize.copyToBin(pMem);
+    }
 }
 
 void InterfaceOptionsBase::copyFromBin(BinaryDataHandler &pMem,
@@ -295,6 +342,11 @@ void InterfaceOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(NapTimeFieldMask);
         _sfNapTime.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        editSField(BufferSizeFieldMask);
+        _sfBufferSize.copyFromBin(pMem);
     }
 }
 
@@ -395,14 +447,16 @@ FieldContainerTransitPtr InterfaceOptionsBase::shallowCopy(void) const
 InterfaceOptionsBase::InterfaceOptionsBase(void) :
     Inherited(),
     _sfParent                 (NULL),
-    _sfNapTime                (UInt32(10))
+    _sfNapTime                (UInt32(10)),
+    _sfBufferSize             (UInt32(128))
 {
 }
 
 InterfaceOptionsBase::InterfaceOptionsBase(const InterfaceOptionsBase &source) :
     Inherited(source),
     _sfParent                 (NULL),
-    _sfNapTime                (source._sfNapTime                )
+    _sfNapTime                (source._sfNapTime                ),
+    _sfBufferSize             (source._sfBufferSize             )
 {
 }
 
@@ -527,6 +581,31 @@ EditFieldHandlePtr InterfaceOptionsBase::editHandleNapTime        (void)
 
 
     editSField(NapTimeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr InterfaceOptionsBase::getHandleBufferSize      (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfBufferSize,
+             this->getType().getFieldDesc(BufferSizeFieldId),
+             const_cast<InterfaceOptionsBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr InterfaceOptionsBase::editHandleBufferSize     (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfBufferSize,
+             this->getType().getFieldDesc(BufferSizeFieldId),
+             this));
+
+
+    editSField(BufferSizeFieldMask);
 
     return returnValue;
 }
