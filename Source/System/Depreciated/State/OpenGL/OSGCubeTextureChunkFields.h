@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CubeTextureChunk;
 
 OSG_GEN_CONTAINERPTR(CubeTextureChunk);
-
 /*! \ingroup GrpSystemFieldTraits
     \ingroup GrpLibOSGSystem
  */
 template <>
-struct FieldTraits<CubeTextureChunk *> :
-    public FieldTraitsFCPtrBase<CubeTextureChunk *>
+struct FieldTraits<CubeTextureChunk *, nsOSG> :
+    public FieldTraitsFCPtrBase<CubeTextureChunk *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<CubeTextureChunk *>  Self;
+    typedef FieldTraits<CubeTextureChunk *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,57 +90,55 @@ struct FieldTraits<CubeTextureChunk *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCubeTextureChunkPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCubeTextureChunkPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCubeTextureChunkPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CubeTextureChunk *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCubeTextureChunkPtr"; 
 }
@@ -149,30 +147,30 @@ const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<NoRefCountPolicy>(void
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
-                      RecordedRefCountPolicy  > SFRecCubeTextureChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > SFRecCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
-                      UnrecordedRefCountPolicy> SFUnrecCubeTextureChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
-                      WeakRefCountPolicy      > SFWeakCubeTextureChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > SFWeakCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
-                      NoRefCountPolicy        > SFUncountedCubeTextureChunkPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCubeTextureChunkPtr;
 
 
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
-                      RecordedRefCountPolicy  > MFRecCubeTextureChunkPtr;
+                      RecordedRefCountPolicy, nsOSG  > MFRecCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
-                      UnrecordedRefCountPolicy> MFUnrecCubeTextureChunkPtr;
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
-                      WeakRefCountPolicy      > MFWeakCubeTextureChunkPtr;
+                      WeakRefCountPolicy, nsOSG      > MFWeakCubeTextureChunkPtr;
 /*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
-                      NoRefCountPolicy        > MFUncountedCubeTextureChunkPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCubeTextureChunkPtr;
 
 
 

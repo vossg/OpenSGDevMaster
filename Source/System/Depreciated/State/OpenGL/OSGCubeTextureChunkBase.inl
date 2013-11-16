@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,6 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 
+
 //! access the type of the class
 inline
 OSG::FieldContainerType &CubeTextureChunkBase::getClassType(void)
@@ -73,86 +74,6 @@ OSG::UInt16 CubeTextureChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the CubeTextureChunk::_sfPosZImage field.
-inline
-Image * CubeTextureChunkBase::getPosZImage(void) const
-{
-    return _sfPosZImage.getValue();
-}
-
-//! Set the value of the CubeTextureChunk::_sfPosZImage field.
-inline
-void CubeTextureChunkBase::setPosZImage(Image * const value)
-{
-    editSField(PosZImageFieldMask);
-
-    _sfPosZImage.setValue(value);
-}
-
-//! Get the value of the CubeTextureChunk::_sfPosXImage field.
-inline
-Image * CubeTextureChunkBase::getPosXImage(void) const
-{
-    return _sfPosXImage.getValue();
-}
-
-//! Set the value of the CubeTextureChunk::_sfPosXImage field.
-inline
-void CubeTextureChunkBase::setPosXImage(Image * const value)
-{
-    editSField(PosXImageFieldMask);
-
-    _sfPosXImage.setValue(value);
-}
-
-//! Get the value of the CubeTextureChunk::_sfNegXImage field.
-inline
-Image * CubeTextureChunkBase::getNegXImage(void) const
-{
-    return _sfNegXImage.getValue();
-}
-
-//! Set the value of the CubeTextureChunk::_sfNegXImage field.
-inline
-void CubeTextureChunkBase::setNegXImage(Image * const value)
-{
-    editSField(NegXImageFieldMask);
-
-    _sfNegXImage.setValue(value);
-}
-
-//! Get the value of the CubeTextureChunk::_sfPosYImage field.
-inline
-Image * CubeTextureChunkBase::getPosYImage(void) const
-{
-    return _sfPosYImage.getValue();
-}
-
-//! Set the value of the CubeTextureChunk::_sfPosYImage field.
-inline
-void CubeTextureChunkBase::setPosYImage(Image * const value)
-{
-    editSField(PosYImageFieldMask);
-
-    _sfPosYImage.setValue(value);
-}
-
-//! Get the value of the CubeTextureChunk::_sfNegYImage field.
-inline
-Image * CubeTextureChunkBase::getNegYImage(void) const
-{
-    return _sfNegYImage.getValue();
-}
-
-//! Set the value of the CubeTextureChunk::_sfNegYImage field.
-inline
-void CubeTextureChunkBase::setNegYImage(Image * const value)
-{
-    editSField(NegYImageFieldMask);
-
-    _sfNegYImage.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

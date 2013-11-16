@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -119,18 +119,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureChunk *>::_type("CubeTextureChunkPtr", "TextureChunkPtr");
+PointerType FieldTraits<CubeTextureChunk *, nsOSG>::_type(
+    "CubeTextureChunkPtr", 
+    "TextureChunkPtr", 
+    CubeTextureChunk::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CubeTextureChunk *)
+OSG_FIELDTRAITS_GETTYPE_NS(CubeTextureChunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CubeTextureChunk *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CubeTextureChunk *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -207,7 +211,7 @@ CubeTextureChunkBase::TypeObject CubeTextureChunkBase::_type(
     CubeTextureChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CubeTextureChunkBase::createEmptyLocal),
     CubeTextureChunk::initMethod,
     CubeTextureChunk::exitMethod,
@@ -331,6 +335,21 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosZImage      (void)
     return &_sfPosZImage;
 }
 
+//! Get the value of the CubeTextureChunk::_sfPosZImage field.
+Image * CubeTextureChunkBase::getPosZImage(void) const
+{
+    return _sfPosZImage.getValue();
+}
+
+//! Set the value of the CubeTextureChunk::_sfPosZImage field.
+void CubeTextureChunkBase::setPosZImage(Image * const value)
+{
+    editSField(PosZImageFieldMask);
+
+    _sfPosZImage.setValue(value);
+}
+
+
 //! Get the CubeTextureChunk::_sfPosXImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFPosXImage(void) const
 {
@@ -343,6 +362,21 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosXImage      (void)
 
     return &_sfPosXImage;
 }
+
+//! Get the value of the CubeTextureChunk::_sfPosXImage field.
+Image * CubeTextureChunkBase::getPosXImage(void) const
+{
+    return _sfPosXImage.getValue();
+}
+
+//! Set the value of the CubeTextureChunk::_sfPosXImage field.
+void CubeTextureChunkBase::setPosXImage(Image * const value)
+{
+    editSField(PosXImageFieldMask);
+
+    _sfPosXImage.setValue(value);
+}
+
 
 //! Get the CubeTextureChunk::_sfNegXImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFNegXImage(void) const
@@ -357,6 +391,21 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFNegXImage      (void)
     return &_sfNegXImage;
 }
 
+//! Get the value of the CubeTextureChunk::_sfNegXImage field.
+Image * CubeTextureChunkBase::getNegXImage(void) const
+{
+    return _sfNegXImage.getValue();
+}
+
+//! Set the value of the CubeTextureChunk::_sfNegXImage field.
+void CubeTextureChunkBase::setNegXImage(Image * const value)
+{
+    editSField(NegXImageFieldMask);
+
+    _sfNegXImage.setValue(value);
+}
+
+
 //! Get the CubeTextureChunk::_sfPosYImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFPosYImage(void) const
 {
@@ -369,6 +418,21 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFPosYImage      (void)
 
     return &_sfPosYImage;
 }
+
+//! Get the value of the CubeTextureChunk::_sfPosYImage field.
+Image * CubeTextureChunkBase::getPosYImage(void) const
+{
+    return _sfPosYImage.getValue();
+}
+
+//! Set the value of the CubeTextureChunk::_sfPosYImage field.
+void CubeTextureChunkBase::setPosYImage(Image * const value)
+{
+    editSField(PosYImageFieldMask);
+
+    _sfPosYImage.setValue(value);
+}
+
 
 //! Get the CubeTextureChunk::_sfNegYImage field.
 const SFUnrecImagePtr *CubeTextureChunkBase::getSFNegYImage(void) const
@@ -383,15 +447,30 @@ SFUnrecImagePtr     *CubeTextureChunkBase::editSFNegYImage      (void)
     return &_sfNegYImage;
 }
 
+//! Get the value of the CubeTextureChunk::_sfNegYImage field.
+Image * CubeTextureChunkBase::getNegYImage(void) const
+{
+    return _sfNegYImage.getValue();
+}
+
+//! Set the value of the CubeTextureChunk::_sfNegYImage field.
+void CubeTextureChunkBase::setNegYImage(Image * const value)
+{
+    editSField(NegYImageFieldMask);
+
+    _sfNegYImage.setValue(value);
+}
+
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CubeTextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CubeTextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (PosZImageFieldMask & whichField))
     {
