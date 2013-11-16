@@ -890,7 +890,7 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FASSERT(condition, doExit)                              \
 {                                                               \
-    if (!condition)                                             \
+    if (!(condition))                                           \
     {                                                           \
         OSG::osgLog().lock();                                   \
         OSG::osgLog().stream(OSG::LOG_FATAL)                    \
@@ -913,7 +913,7 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FFASSERT(condition, doExit, par)                        \
 {                                                               \
-    if(!condition)                                              \
+    if(!(condition))                                            \
     {                                                           \
         OSG::osgLog().lock();                                   \
         OSG::osgLog().stream(OSG::LOG_FATAL)                    \
