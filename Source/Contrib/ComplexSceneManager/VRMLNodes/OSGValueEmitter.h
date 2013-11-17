@@ -357,6 +357,21 @@ struct Real32EmitterDesc
     }
 };
 
+struct TimeEmitterDesc
+{
+    typedef SFTime SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "TimeEmitter";
+    }
+
+    static Time getDefault(void)
+    {
+        return 0.f;
+    }
+};
+
 struct Vec2fEmitterDesc
 {
     typedef SFVec2f SFValueType;
@@ -425,6 +440,7 @@ typedef SValueEmitter<BoolEmitterDesc  > BoolEmitter;
 typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
 typedef SValueEmitter<UInt32EmitterDesc> UInt32Emitter;
 typedef SValueEmitter<Real32EmitterDesc> Real32Emitter;
+typedef SValueEmitter<TimeEmitterDesc  > TimeEmitter;
 typedef SValueEmitter<Vec2fEmitterDesc > Vec2fEmitter;
 typedef SValueEmitter<Vec3fEmitterDesc > Vec3fEmitter;
 typedef SValueEmitter<StringEmitterDesc> StringEmitter;

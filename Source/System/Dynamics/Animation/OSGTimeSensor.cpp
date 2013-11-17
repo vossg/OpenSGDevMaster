@@ -102,6 +102,27 @@ void TimeSensor::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
+    if(0x0000 != (whichField & ChangeFractionByFieldMask))
+    {
+        if(_sfEnabled         .getValue() ==  false && 
+           _sfChangeFractionBy.getValue() >= -1.0   &&
+           _sfChangeFractionBy.getValue() <=  1.0    ) 
+        {
+            Time tVal = _sfFraction.getValue();
+
+            tVal += _sfChangeFractionBy.getValue();
+
+            if(tVal > 1.0)
+                tVal -= 1.0;
+
+            if(tVal < 0.0)
+                tVal += 1.0;
+
+            this->setFraction(tVal);
+        }
+    }
+
+
     Inherited::changed(whichField, origin, details);
 }
 

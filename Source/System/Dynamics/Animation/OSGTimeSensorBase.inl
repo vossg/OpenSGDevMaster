@@ -299,6 +299,31 @@ void TimeSensorBase::setCycleInterval(const Time &value)
 
     _sfCycleInterval.setValue(value);
 }
+//! Get the value of the TimeSensor::_sfChangeFractionBy field.
+
+inline
+Time &TimeSensorBase::editChangeFractionBy(void)
+{
+    editSField(ChangeFractionByFieldMask);
+
+    return _sfChangeFractionBy.getValue();
+}
+
+//! Get the value of the TimeSensor::_sfChangeFractionBy field.
+inline
+const Time &TimeSensorBase::getChangeFractionBy(void) const
+{
+    return _sfChangeFractionBy.getValue();
+}
+
+//! Set the value of the TimeSensor::_sfChangeFractionBy field.
+inline
+void TimeSensorBase::setChangeFractionBy(const Time &value)
+{
+    editSField(ChangeFractionByFieldMask);
+
+    _sfChangeFractionBy.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -337,6 +362,9 @@ void TimeSensorBase::execSync (      TimeSensorBase *pFrom,
 
     if(FieldBits::NoField != (CycleIntervalFieldMask & whichField))
         _sfCycleInterval.syncWith(pFrom->_sfCycleInterval);
+
+    if(FieldBits::NoField != (ChangeFractionByFieldMask & whichField))
+        _sfChangeFractionBy.syncWith(pFrom->_sfChangeFractionBy);
 }
 #endif
 

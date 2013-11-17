@@ -117,6 +117,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Time            TimeSensorBase::_sfChangeFractionBy
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -258,6 +262,18 @@ void TimeSensorBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&TimeSensor::getHandleCycleInterval));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFTime::Description(
+        SFTime::getClassType(),
+        "changeFractionBy",
+        "",
+        ChangeFractionByFieldId, ChangeFractionByFieldMask,
+        true,
+        (Field::FStdAccess | Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&TimeSensor::editHandleChangeFractionBy),
+        static_cast<FieldGetMethodSig >(&TimeSensor::getHandleChangeFractionBy));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -377,6 +393,15 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"1.0\"\n"
+    "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"changeFractionBy\"\n"
+    "     type=\"Time\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"public\"\n"
     "     fieldFlags=\"FStdAccess, FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -521,6 +546,19 @@ const SFTime *TimeSensorBase::getSFCycleInterval(void) const
 }
 
 
+SFTime *TimeSensorBase::editSFChangeFractionBy(void)
+{
+    editSField(ChangeFractionByFieldMask);
+
+    return &_sfChangeFractionBy;
+}
+
+const SFTime *TimeSensorBase::getSFChangeFractionBy(void) const
+{
+    return &_sfChangeFractionBy;
+}
+
+
 
 
 
@@ -567,6 +605,10 @@ SizeT TimeSensorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfCycleInterval.getBinSize();
     }
+    if(FieldBits::NoField != (ChangeFractionByFieldMask & whichField))
+    {
+        returnValue += _sfChangeFractionBy.getBinSize();
+    }
 
     return returnValue;
 }
@@ -611,6 +653,10 @@ void TimeSensorBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CycleIntervalFieldMask & whichField))
     {
         _sfCycleInterval.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ChangeFractionByFieldMask & whichField))
+    {
+        _sfChangeFractionBy.copyToBin(pMem);
     }
 }
 
@@ -663,6 +709,11 @@ void TimeSensorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(CycleIntervalFieldMask);
         _sfCycleInterval.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ChangeFractionByFieldMask & whichField))
+    {
+        editSField(ChangeFractionByFieldMask);
+        _sfChangeFractionBy.copyFromBin(pMem);
     }
 }
 
@@ -797,7 +848,8 @@ TimeSensorBase::TimeSensorBase(void) :
     _sfStopTime               (Time(0.0)),
     _sfCycleTime              (Time(0.0)),
     _sfTime                   (Time(0.0)),
-    _sfCycleInterval          (Time(1.0))
+    _sfCycleInterval          (Time(1.0)),
+    _sfChangeFractionBy       ()
 {
 }
 
@@ -811,7 +863,8 @@ TimeSensorBase::TimeSensorBase(const TimeSensorBase &source) :
     _sfStopTime               (source._sfStopTime               ),
     _sfCycleTime              (source._sfCycleTime              ),
     _sfTime                   (source._sfTime                   ),
-    _sfCycleInterval          (source._sfCycleInterval          )
+    _sfCycleInterval          (source._sfCycleInterval          ),
+    _sfChangeFractionBy       (source._sfChangeFractionBy       )
 {
 }
 
@@ -1044,6 +1097,31 @@ EditFieldHandlePtr TimeSensorBase::editHandleCycleInterval  (void)
 
 
     editSField(CycleIntervalFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr TimeSensorBase::getHandleChangeFractionBy (void) const
+{
+    SFTime::GetHandlePtr returnValue(
+        new  SFTime::GetHandle(
+             &_sfChangeFractionBy,
+             this->getType().getFieldDesc(ChangeFractionByFieldId),
+             const_cast<TimeSensorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr TimeSensorBase::editHandleChangeFractionBy(void)
+{
+    SFTime::EditHandlePtr returnValue(
+        new  SFTime::EditHandle(
+             &_sfChangeFractionBy,
+             this->getType().getFieldDesc(ChangeFractionByFieldId),
+             this));
+
+
+    editSField(ChangeFractionByFieldMask);
 
     return returnValue;
 }

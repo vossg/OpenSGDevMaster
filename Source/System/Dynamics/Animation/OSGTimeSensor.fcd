@@ -106,4 +106,13 @@
      fieldFlags="FStdAccess, FThreadLocal"
      >
   </Field>
+  <Field
+     name="changeFractionBy"
+     type="Time"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     fieldFlags="FStdAccess, FThreadLocal"
+     >
+  </Field>
 </FieldContainer>

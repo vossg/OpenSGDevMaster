@@ -106,7 +106,8 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
         CycleTimeFieldId = StopTimeFieldId + 1,
         TimeFieldId = CycleTimeFieldId + 1,
         CycleIntervalFieldId = TimeFieldId + 1,
-        NextFieldId = CycleIntervalFieldId + 1
+        ChangeFractionByFieldId = CycleIntervalFieldId + 1,
+        NextFieldId = ChangeFractionByFieldId + 1
     };
 
     static const OSG::BitVector EnabledFieldMask =
@@ -127,6 +128,8 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
         (TypeTraits<BitVector>::One << TimeFieldId);
     static const OSG::BitVector CycleIntervalFieldMask =
         (TypeTraits<BitVector>::One << CycleIntervalFieldId);
+    static const OSG::BitVector ChangeFractionByFieldMask =
+        (TypeTraits<BitVector>::One << ChangeFractionByFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -139,6 +142,7 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
     typedef SFTime            SFCycleTimeType;
     typedef SFTime            SFTimeType;
     typedef SFTime            SFCycleIntervalType;
+    typedef SFTime            SFChangeFractionByType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -191,6 +195,9 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
                   SFTime              *editSFCycleInterval  (void);
             const SFTime              *getSFCycleInterval   (void) const;
 
+                  SFTime              *editSFChangeFractionBy(void);
+            const SFTime              *getSFChangeFractionBy (void) const;
+
 
                   bool                &editEnabled        (void);
                   bool                 getEnabled         (void) const;
@@ -219,6 +226,9 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
                   Time                &editCycleInterval  (void);
             const Time                &getCycleInterval   (void) const;
 
+                  Time                &editChangeFractionBy(void);
+            const Time                &getChangeFractionBy (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -233,6 +243,7 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
             void setCycleTime      (const Time &value);
             void setTime           (const Time &value);
             void setCycleInterval  (const Time &value);
+            void setChangeFractionBy(const Time &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -301,6 +312,7 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
     SFTime            _sfCycleTime;
     SFTime            _sfTime;
     SFTime            _sfCycleInterval;
+    SFTime            _sfChangeFractionBy;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -346,6 +358,8 @@ class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
     EditFieldHandlePtr editHandleTime           (void);
     GetFieldHandlePtr  getHandleCycleInterval   (void) const;
     EditFieldHandlePtr editHandleCycleInterval  (void);
+    GetFieldHandlePtr  getHandleChangeFractionBy (void) const;
+    EditFieldHandlePtr editHandleChangeFractionBy(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
