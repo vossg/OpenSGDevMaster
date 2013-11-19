@@ -180,6 +180,19 @@ MACRO(OSG_INIT)
   OSG_ADD_OPT(OPENGL_glu_LIBRARY)
 
   #############
+  #### X11
+  #############
+
+  FIND_PACKAGE(X11)
+
+  IF(X11_FOUND)
+    OSG_SET(OSG_X_LIBS ${X11_X11_LIB})
+    OSG_SET(OSG_X_INC_DIR ${X11_X11_INCLUDE_PATH})
+  ENDIF(X11_FOUND)
+
+  OSG_ADD_OPT(X11_FOUND)
+
+  #############
   #### GLUT
   #############
 
