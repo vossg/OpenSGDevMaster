@@ -6,7 +6,7 @@ Node
   [
     Node
     {
-      core Geometry
+      core DEF BaseGeometry Geometry
       {
         dlistCache     TRUE
         useVAO         TRUE
@@ -68,7 +68,7 @@ Node
           {
             values #4
             [
-              -1 -1 -1, 1 -1 -1, 1 1 -3, -1 1 -3
+              -1 -1 0, 1 -1 0, 1 1 0, -1 1 0
             ]
             usage 268435457
             useVBO TRUE
@@ -154,6 +154,7 @@ Node
         material NULL
       }
       travMask 4294967295
+      volume 5 -5 -5 -5  5 5 5  
     }
   ]
   core MaterialGroup
@@ -183,4 +184,5 @@ Node
       ]
     }
   }
+  volume 5 -5 -5 -5  5 5 5  
 }
