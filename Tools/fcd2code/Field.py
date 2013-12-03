@@ -173,9 +173,9 @@ class Field(FCDElement):
         self.setFCD("removeTo",                       "",         True);
         self.setFCD("removeToSet",                    "false",    True);
         self.setFCD("pod",                            "(AUTO)",   True);
-        self.setFCD("storeless",                      "False",    True);
-
-        self.setFCD("publicRead",                     "false",   True);
+        self.setFCD("storeless",                      "false",    True);
+        self.setFCD("virtual",                        "false",    True);
+        self.setFCD("publicRead",                     "false",    True);
 
         self.setFCD("clearMField",                    "true",     True);
       
@@ -530,9 +530,13 @@ class Field(FCDElement):
 #         self["TypeInclude"] = typeInclude;
 
         
-        if self.getFieldContainer().isDecoratable():
+        if self.getFieldContainer().isDecoratable() or \
+           self.getFCD("virtual") == "true":
+
             self["MethodType"] = "virtual";
+
         else:
+
             self["MethodType"] = "";
         
 

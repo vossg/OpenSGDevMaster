@@ -456,8 +456,8 @@ class @!Classname!@Base : public @!Parent!@
 
 @@endif // isDecorator
 @@BeginFieldLoop@@
-    GetFieldHandlePtr  getHandle@!field.Name:15!@ (void) const;
-    EditFieldHandlePtr editHandle@!field.Name:15!@(void);
+    @!field.MethodType!@ GetFieldHandlePtr  getHandle@!field.Name:15!@ (void) const;
+    @!field.MethodType!@ EditFieldHandlePtr editHandle@!field.Name:15!@(void);
 @@EndFieldLoop@@
 
     /*! \}                                                                 */
