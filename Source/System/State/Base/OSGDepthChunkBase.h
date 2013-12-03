@@ -278,16 +278,16 @@ class OSG_SYSTEM_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnable          (void) const;
-    EditFieldHandlePtr editHandleEnable         (void);
-    GetFieldHandlePtr  getHandleFunc            (void) const;
-    EditFieldHandlePtr editHandleFunc           (void);
-    GetFieldHandlePtr  getHandleNear            (void) const;
-    EditFieldHandlePtr editHandleNear           (void);
-    GetFieldHandlePtr  getHandleFar             (void) const;
-    EditFieldHandlePtr editHandleFar            (void);
-    GetFieldHandlePtr  getHandleReadOnly        (void) const;
-    EditFieldHandlePtr editHandleReadOnly       (void);
+     GetFieldHandlePtr  getHandleEnable          (void) const;
+     EditFieldHandlePtr editHandleEnable         (void);
+     GetFieldHandlePtr  getHandleFunc            (void) const;
+     EditFieldHandlePtr editHandleFunc           (void);
+     GetFieldHandlePtr  getHandleNear            (void) const;
+     EditFieldHandlePtr editHandleNear           (void);
+     GetFieldHandlePtr  getHandleFar             (void) const;
+     EditFieldHandlePtr editHandleFar            (void);
+     GetFieldHandlePtr  getHandleReadOnly        (void) const;
+     EditFieldHandlePtr editHandleReadOnly       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

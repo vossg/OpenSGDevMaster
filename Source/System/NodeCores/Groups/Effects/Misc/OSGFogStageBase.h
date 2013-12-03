@@ -290,18 +290,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING FogStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleBufferFormat    (void) const;
-    EditFieldHandlePtr editHandleBufferFormat   (void);
-    GetFieldHandlePtr  getHandleFogColor        (void) const;
-    EditFieldHandlePtr editHandleFogColor       (void);
-    GetFieldHandlePtr  getHandleFogMode         (void) const;
-    EditFieldHandlePtr editHandleFogMode        (void);
-    GetFieldHandlePtr  getHandleFogStart        (void) const;
-    EditFieldHandlePtr editHandleFogStart       (void);
-    GetFieldHandlePtr  getHandleFogEnd          (void) const;
-    EditFieldHandlePtr editHandleFogEnd         (void);
-    GetFieldHandlePtr  getHandleFogDensity      (void) const;
-    EditFieldHandlePtr editHandleFogDensity     (void);
+     GetFieldHandlePtr  getHandleBufferFormat    (void) const;
+     EditFieldHandlePtr editHandleBufferFormat   (void);
+     GetFieldHandlePtr  getHandleFogColor        (void) const;
+     EditFieldHandlePtr editHandleFogColor       (void);
+     GetFieldHandlePtr  getHandleFogMode         (void) const;
+     EditFieldHandlePtr editHandleFogMode        (void);
+     GetFieldHandlePtr  getHandleFogStart        (void) const;
+     EditFieldHandlePtr editHandleFogStart       (void);
+     GetFieldHandlePtr  getHandleFogEnd          (void) const;
+     EditFieldHandlePtr editHandleFogEnd         (void);
+     GetFieldHandlePtr  getHandleFogDensity      (void) const;
+     EditFieldHandlePtr editHandleFogDensity     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -257,14 +257,14 @@ class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachmentBase : public Inters
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGeometry        (void) const;
-    EditFieldHandlePtr editHandleGeometry       (void);
-    GetFieldHandlePtr  getHandleMaxDepth        (void) const;
-    EditFieldHandlePtr editHandleMaxDepth       (void);
-    GetFieldHandlePtr  getHandleTreeNodes       (void) const;
-    EditFieldHandlePtr editHandleTreeNodes      (void);
-    GetFieldHandlePtr  getHandleTriIndices      (void) const;
-    EditFieldHandlePtr editHandleTriIndices     (void);
+     GetFieldHandlePtr  getHandleGeometry        (void) const;
+     EditFieldHandlePtr editHandleGeometry       (void);
+     GetFieldHandlePtr  getHandleMaxDepth        (void) const;
+     EditFieldHandlePtr editHandleMaxDepth       (void);
+     GetFieldHandlePtr  getHandleTreeNodes       (void) const;
+     EditFieldHandlePtr editHandleTreeNodes      (void);
+     GetFieldHandlePtr  getHandleTriIndices      (void) const;
+     EditFieldHandlePtr editHandleTriIndices     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

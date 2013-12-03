@@ -253,12 +253,12 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposerBase : public ImageComposer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShort           (void) const;
-    EditFieldHandlePtr editHandleShort          (void);
-    GetFieldHandlePtr  getHandleAlpha           (void) const;
-    EditFieldHandlePtr editHandleAlpha          (void);
-    GetFieldHandlePtr  getHandleTileSize        (void) const;
-    EditFieldHandlePtr editHandleTileSize       (void);
+     GetFieldHandlePtr  getHandleShort           (void) const;
+     EditFieldHandlePtr editHandleShort          (void);
+     GetFieldHandlePtr  getHandleAlpha           (void) const;
+     EditFieldHandlePtr editHandleAlpha          (void);
+     GetFieldHandlePtr  getHandleTileSize        (void) const;
+     EditFieldHandlePtr editHandleTileSize       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

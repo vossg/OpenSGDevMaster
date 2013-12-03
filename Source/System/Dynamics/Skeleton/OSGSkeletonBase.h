@@ -340,22 +340,22 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoots           (void) const;
-    EditFieldHandlePtr editHandleRoots          (void);
-    GetFieldHandlePtr  getHandleJoints          (void) const;
-    EditFieldHandlePtr editHandleJoints         (void);
-    GetFieldHandlePtr  getHandleParentJoints    (void) const;
-    EditFieldHandlePtr editHandleParentJoints   (void);
-    GetFieldHandlePtr  getHandleJointMatrices   (void) const;
-    EditFieldHandlePtr editHandleJointMatrices  (void);
-    GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
-    EditFieldHandlePtr editHandleJointNormalMatrices(void);
-    GetFieldHandlePtr  getHandleUseInvBindMatrix (void) const;
-    EditFieldHandlePtr editHandleUseInvBindMatrix(void);
-    GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;
-    EditFieldHandlePtr editHandleCalcNormalMatrices(void);
-    GetFieldHandlePtr  getHandleJointsChanged   (void) const;
-    EditFieldHandlePtr editHandleJointsChanged  (void);
+     GetFieldHandlePtr  getHandleRoots           (void) const;
+     EditFieldHandlePtr editHandleRoots          (void);
+     GetFieldHandlePtr  getHandleJoints          (void) const;
+     EditFieldHandlePtr editHandleJoints         (void);
+     GetFieldHandlePtr  getHandleParentJoints    (void) const;
+     EditFieldHandlePtr editHandleParentJoints   (void);
+     GetFieldHandlePtr  getHandleJointMatrices   (void) const;
+     EditFieldHandlePtr editHandleJointMatrices  (void);
+     GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
+     EditFieldHandlePtr editHandleJointNormalMatrices(void);
+     GetFieldHandlePtr  getHandleUseInvBindMatrix (void) const;
+     EditFieldHandlePtr editHandleUseInvBindMatrix(void);
+     GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;
+     EditFieldHandlePtr editHandleCalcNormalMatrices(void);
+     GetFieldHandlePtr  getHandleJointsChanged   (void) const;
+     EditFieldHandlePtr editHandleJointsChanged  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

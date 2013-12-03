@@ -212,10 +212,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInValues        (void) const;
-    EditFieldHandlePtr editHandleInValues       (void);
-    GetFieldHandlePtr  getHandleInterpolationModes (void) const;
-    EditFieldHandlePtr editHandleInterpolationModes(void);
+     GetFieldHandlePtr  getHandleInValues        (void) const;
+     EditFieldHandlePtr editHandleInValues       (void);
+     GetFieldHandlePtr  getHandleInterpolationModes (void) const;
+     EditFieldHandlePtr editHandleInterpolationModes(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

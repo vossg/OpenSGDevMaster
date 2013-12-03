@@ -326,24 +326,24 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFrameCount      (void) const;
-    EditFieldHandlePtr editHandleFrameCount     (void);
-    GetFieldHandlePtr  getHandleStartTime       (void) const;
-    EditFieldHandlePtr editHandleStartTime      (void);
-    GetFieldHandlePtr  getHandleLastTime        (void) const;
-    EditFieldHandlePtr editHandleLastTime       (void);
-    GetFieldHandlePtr  getHandleCurrTime        (void) const;
-    EditFieldHandlePtr editHandleCurrTime       (void);
-    GetFieldHandlePtr  getHandleTimeStamp       (void) const;
-    EditFieldHandlePtr editHandleTimeStamp      (void);
-    GetFieldHandlePtr  getHandleTimeScale       (void) const;
-    EditFieldHandlePtr editHandleTimeScale      (void);
-    GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
-    EditFieldHandlePtr editHandleConstantTimeStep(void);
-    GetFieldHandlePtr  getHandleConstantTime    (void) const;
-    EditFieldHandlePtr editHandleConstantTime   (void);
-    GetFieldHandlePtr  getHandlePaused          (void) const;
-    EditFieldHandlePtr editHandlePaused         (void);
+     GetFieldHandlePtr  getHandleFrameCount      (void) const;
+     EditFieldHandlePtr editHandleFrameCount     (void);
+     GetFieldHandlePtr  getHandleStartTime       (void) const;
+     EditFieldHandlePtr editHandleStartTime      (void);
+     GetFieldHandlePtr  getHandleLastTime        (void) const;
+     EditFieldHandlePtr editHandleLastTime       (void);
+     GetFieldHandlePtr  getHandleCurrTime        (void) const;
+     EditFieldHandlePtr editHandleCurrTime       (void);
+     GetFieldHandlePtr  getHandleTimeStamp       (void) const;
+     EditFieldHandlePtr editHandleTimeStamp      (void);
+     GetFieldHandlePtr  getHandleTimeScale       (void) const;
+     EditFieldHandlePtr editHandleTimeScale      (void);
+     GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
+     EditFieldHandlePtr editHandleConstantTimeStep(void);
+     GetFieldHandlePtr  getHandleConstantTime    (void) const;
+     EditFieldHandlePtr editHandleConstantTime   (void);
+     GetFieldHandlePtr  getHandlePaused          (void) const;
+     EditFieldHandlePtr editHandlePaused         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

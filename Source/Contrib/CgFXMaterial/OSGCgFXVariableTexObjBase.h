@@ -242,10 +242,10 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXVariableTexObjBase : public ShaderValueVari
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValue           (void) const;
-    EditFieldHandlePtr editHandleValue          (void);
-    GetFieldHandlePtr  getHandleFilePath        (void) const;
-    EditFieldHandlePtr editHandleFilePath       (void);
+     GetFieldHandlePtr  getHandleValue           (void) const;
+     EditFieldHandlePtr editHandleValue          (void);
+     GetFieldHandlePtr  getHandleFilePath        (void) const;
+     EditFieldHandlePtr editHandleFilePath       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

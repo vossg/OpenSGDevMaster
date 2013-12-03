@@ -322,22 +322,22 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameterBase : public AttachmentContain
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSceneRef        (void) const;
-    EditFieldHandlePtr editHandleSceneRef       (void);
-    GetFieldHandlePtr  getHandleDistScale       (void) const;
-    EditFieldHandlePtr editHandleDistScale      (void);
-    GetFieldHandlePtr  getHandleSceneDiag       (void) const;
-    EditFieldHandlePtr editHandleSceneDiag      (void);
-    GetFieldHandlePtr  getHandleInitViewPos     (void) const;
-    EditFieldHandlePtr editHandleInitViewPos    (void);
-    GetFieldHandlePtr  getHandleSceneCenter     (void) const;
-    EditFieldHandlePtr editHandleSceneCenter    (void);
-    GetFieldHandlePtr  getHandleSceneNear       (void) const;
-    EditFieldHandlePtr editHandleSceneNear      (void);
-    GetFieldHandlePtr  getHandleSceneFar        (void) const;
-    EditFieldHandlePtr editHandleSceneFar       (void);
-    GetFieldHandlePtr  getHandleReset           (void) const;
-    EditFieldHandlePtr editHandleReset          (void);
+     GetFieldHandlePtr  getHandleSceneRef        (void) const;
+     EditFieldHandlePtr editHandleSceneRef       (void);
+     GetFieldHandlePtr  getHandleDistScale       (void) const;
+     EditFieldHandlePtr editHandleDistScale      (void);
+     GetFieldHandlePtr  getHandleSceneDiag       (void) const;
+     EditFieldHandlePtr editHandleSceneDiag      (void);
+     GetFieldHandlePtr  getHandleInitViewPos     (void) const;
+     EditFieldHandlePtr editHandleInitViewPos    (void);
+     GetFieldHandlePtr  getHandleSceneCenter     (void) const;
+     EditFieldHandlePtr editHandleSceneCenter    (void);
+     GetFieldHandlePtr  getHandleSceneNear       (void) const;
+     EditFieldHandlePtr editHandleSceneNear      (void);
+     GetFieldHandlePtr  getHandleSceneFar        (void) const;
+     EditFieldHandlePtr editHandleSceneFar       (void);
+     GetFieldHandlePtr  getHandleReset           (void) const;
+     EditFieldHandlePtr editHandleReset          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

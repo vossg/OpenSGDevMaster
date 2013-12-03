@@ -295,18 +295,18 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleInternalFormat  (void) const;
-    EditFieldHandlePtr editHandleInternalFormat (void);
-    GetFieldHandlePtr  getHandleImage           (void) const;
-    EditFieldHandlePtr editHandleImage          (void);
-    GetFieldHandlePtr  getHandleColorSamples    (void) const;
-    EditFieldHandlePtr editHandleColorSamples   (void);
-    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
-    EditFieldHandlePtr editHandleCoverageSamples(void);
-    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
-    EditFieldHandlePtr editHandleFixedSampleLocation(void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleInternalFormat  (void) const;
+     EditFieldHandlePtr editHandleInternalFormat (void);
+     GetFieldHandlePtr  getHandleImage           (void) const;
+     EditFieldHandlePtr editHandleImage          (void);
+     GetFieldHandlePtr  getHandleColorSamples    (void) const;
+     EditFieldHandlePtr editHandleColorSamples   (void);
+     GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+     EditFieldHandlePtr editHandleCoverageSamples(void);
+     GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+     EditFieldHandlePtr editHandleFixedSampleLocation(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

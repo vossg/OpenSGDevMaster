@@ -253,12 +253,12 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVerticalSize    (void) const;
-    EditFieldHandlePtr editHandleVerticalSize   (void);
-    GetFieldHandlePtr  getHandleHorizontalSize  (void) const;
-    EditFieldHandlePtr editHandleHorizontalSize (void);
-    GetFieldHandlePtr  getHandleAspect          (void) const;
-    EditFieldHandlePtr editHandleAspect         (void);
+     GetFieldHandlePtr  getHandleVerticalSize    (void) const;
+     EditFieldHandlePtr editHandleVerticalSize   (void);
+     GetFieldHandlePtr  getHandleHorizontalSize  (void) const;
+     EditFieldHandlePtr editHandleHorizontalSize (void);
+     GetFieldHandlePtr  getHandleAspect          (void) const;
+     EditFieldHandlePtr editHandleAspect         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

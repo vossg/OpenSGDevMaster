@@ -246,10 +246,10 @@ class OSG_DYNAMICS_DLLMAPPING GPUSkinningDataAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderCode      (void) const;
-    EditFieldHandlePtr editHandleShaderCode     (void);
-    GetFieldHandlePtr  getHandleDataValid       (void) const;
-    EditFieldHandlePtr editHandleDataValid      (void);
+     GetFieldHandlePtr  getHandleShaderCode      (void) const;
+     EditFieldHandlePtr editHandleShaderCode     (void);
+     GetFieldHandlePtr  getHandleDataValid       (void) const;
+     EditFieldHandlePtr editHandleDataValid      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -329,24 +329,24 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterial        (void) const;
-    EditFieldHandlePtr editHandleMaterial       (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
-    GetFieldHandlePtr  getHandleTexCoords       (void) const;
-    EditFieldHandlePtr editHandleTexCoords      (void);
-    GetFieldHandlePtr  getHandleNormalizedX     (void) const;
-    EditFieldHandlePtr editHandleNormalizedX    (void);
-    GetFieldHandlePtr  getHandleNormalizedY     (void) const;
-    EditFieldHandlePtr editHandleNormalizedY    (void);
-    GetFieldHandlePtr  getHandleAspectHeight    (void) const;
-    EditFieldHandlePtr editHandleAspectHeight   (void);
-    GetFieldHandlePtr  getHandleAspectWidth     (void) const;
-    EditFieldHandlePtr editHandleAspectWidth    (void);
-    GetFieldHandlePtr  getHandleScale           (void) const;
-    EditFieldHandlePtr editHandleScale          (void);
-    GetFieldHandlePtr  getHandleTile            (void) const;
-    EditFieldHandlePtr editHandleTile           (void);
+     GetFieldHandlePtr  getHandleMaterial        (void) const;
+     EditFieldHandlePtr editHandleMaterial       (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleTexCoords       (void) const;
+     EditFieldHandlePtr editHandleTexCoords      (void);
+     GetFieldHandlePtr  getHandleNormalizedX     (void) const;
+     EditFieldHandlePtr editHandleNormalizedX    (void);
+     GetFieldHandlePtr  getHandleNormalizedY     (void) const;
+     EditFieldHandlePtr editHandleNormalizedY    (void);
+     GetFieldHandlePtr  getHandleAspectHeight    (void) const;
+     EditFieldHandlePtr editHandleAspectHeight   (void);
+     GetFieldHandlePtr  getHandleAspectWidth     (void) const;
+     EditFieldHandlePtr editHandleAspectWidth    (void);
+     GetFieldHandlePtr  getHandleScale           (void) const;
+     EditFieldHandlePtr editHandleScale          (void);
+     GetFieldHandlePtr  getHandleTile            (void) const;
+     EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

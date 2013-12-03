@@ -258,16 +258,16 @@ class OSG_CONTRIBCSM_DLLMAPPING KeySensorBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleKey             (void) const;
-    EditFieldHandlePtr editHandleKey            (void);
-    GetFieldHandlePtr  getHandleStateRaw        (void) const;
-    EditFieldHandlePtr editHandleStateRaw       (void);
-    GetFieldHandlePtr  getHandleStateFlipFlop   (void) const;
-    EditFieldHandlePtr editHandleStateFlipFlop  (void);
-    GetFieldHandlePtr  getHandleSignalPressed   (void) const;
-    EditFieldHandlePtr editHandleSignalPressed  (void);
-    GetFieldHandlePtr  getHandleSignalReleased  (void) const;
-    EditFieldHandlePtr editHandleSignalReleased (void);
+     GetFieldHandlePtr  getHandleKey             (void) const;
+     EditFieldHandlePtr editHandleKey            (void);
+     GetFieldHandlePtr  getHandleStateRaw        (void) const;
+     EditFieldHandlePtr editHandleStateRaw       (void);
+     GetFieldHandlePtr  getHandleStateFlipFlop   (void) const;
+     EditFieldHandlePtr editHandleStateFlipFlop  (void);
+     GetFieldHandlePtr  getHandleSignalPressed   (void) const;
+     EditFieldHandlePtr editHandleSignalPressed  (void);
+     GetFieldHandlePtr  getHandleSignalReleased  (void) const;
+     EditFieldHandlePtr editHandleSignalReleased (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

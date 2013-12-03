@@ -399,34 +399,34 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleHeightTiles     (void) const;
-    EditFieldHandlePtr editHandleHeightTiles    (void);
-    GetFieldHandlePtr  getHandleHeightTextures  (void) const;
-    EditFieldHandlePtr editHandleHeightTextures (void);
-    GetFieldHandlePtr  getHandleSizeX           (void) const;
-    EditFieldHandlePtr editHandleSizeX          (void);
-    GetFieldHandlePtr  getHandleSizeY           (void) const;
-    EditFieldHandlePtr editHandleSizeY          (void);
-    GetFieldHandlePtr  getHandleHeightScale     (void) const;
-    EditFieldHandlePtr editHandleHeightScale    (void);
-    GetFieldHandlePtr  getHandleVertexSpacing   (void) const;
-    EditFieldHandlePtr editHandleVertexSpacing  (void);
-    GetFieldHandlePtr  getHandleGeoMorphing     (void) const;
-    EditFieldHandlePtr editHandleGeoMorphing    (void);
-    GetFieldHandlePtr  getHandleDetail          (void) const;
-    EditFieldHandlePtr editHandleDetail         (void);
-    GetFieldHandlePtr  getHandleCurrentX        (void) const;
-    EditFieldHandlePtr editHandleCurrentX       (void);
-    GetFieldHandlePtr  getHandleCurrentY        (void) const;
-    EditFieldHandlePtr editHandleCurrentY       (void);
-    GetFieldHandlePtr  getHandleSizeROI         (void) const;
-    EditFieldHandlePtr editHandleSizeROI        (void);
-    GetFieldHandlePtr  getHandleUpdate          (void) const;
-    EditFieldHandlePtr editHandleUpdate         (void);
-    GetFieldHandlePtr  getHandleUpdateTerrain   (void) const;
-    EditFieldHandlePtr editHandleUpdateTerrain  (void);
-    GetFieldHandlePtr  getHandlePerPixelLighting (void) const;
-    EditFieldHandlePtr editHandlePerPixelLighting(void);
+     GetFieldHandlePtr  getHandleHeightTiles     (void) const;
+     EditFieldHandlePtr editHandleHeightTiles    (void);
+     GetFieldHandlePtr  getHandleHeightTextures  (void) const;
+     EditFieldHandlePtr editHandleHeightTextures (void);
+     GetFieldHandlePtr  getHandleSizeX           (void) const;
+     EditFieldHandlePtr editHandleSizeX          (void);
+     GetFieldHandlePtr  getHandleSizeY           (void) const;
+     EditFieldHandlePtr editHandleSizeY          (void);
+     GetFieldHandlePtr  getHandleHeightScale     (void) const;
+     EditFieldHandlePtr editHandleHeightScale    (void);
+     GetFieldHandlePtr  getHandleVertexSpacing   (void) const;
+     EditFieldHandlePtr editHandleVertexSpacing  (void);
+     GetFieldHandlePtr  getHandleGeoMorphing     (void) const;
+     EditFieldHandlePtr editHandleGeoMorphing    (void);
+     GetFieldHandlePtr  getHandleDetail          (void) const;
+     EditFieldHandlePtr editHandleDetail         (void);
+     GetFieldHandlePtr  getHandleCurrentX        (void) const;
+     EditFieldHandlePtr editHandleCurrentX       (void);
+     GetFieldHandlePtr  getHandleCurrentY        (void) const;
+     EditFieldHandlePtr editHandleCurrentY       (void);
+     GetFieldHandlePtr  getHandleSizeROI         (void) const;
+     EditFieldHandlePtr editHandleSizeROI        (void);
+     GetFieldHandlePtr  getHandleUpdate          (void) const;
+     EditFieldHandlePtr editHandleUpdate         (void);
+     GetFieldHandlePtr  getHandleUpdateTerrain   (void) const;
+     EditFieldHandlePtr editHandleUpdateTerrain  (void);
+     GetFieldHandlePtr  getHandlePerPixelLighting (void) const;
+     EditFieldHandlePtr editHandlePerPixelLighting(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

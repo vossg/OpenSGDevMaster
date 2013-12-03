@@ -291,18 +291,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterGroupBase : public AttachmentCont
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
-    EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
-    GetFieldHandlePtr  getHandleResolutionFilter (void) const;
-    EditFieldHandlePtr editHandleResolutionFilter(void);
-    GetFieldHandlePtr  getHandleColorFilter     (void) const;
-    EditFieldHandlePtr editHandleColorFilter    (void);
-    GetFieldHandlePtr  getHandleDistortionFilter (void) const;
-    EditFieldHandlePtr editHandleDistortionFilter(void);
-    GetFieldHandlePtr  getHandleDrawerId        (void) const;
-    EditFieldHandlePtr editHandleDrawerId       (void);
-    GetFieldHandlePtr  getHandleDrawableId      (void) const;
-    EditFieldHandlePtr editHandleDrawableId     (void);
+     GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
+     EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
+     GetFieldHandlePtr  getHandleResolutionFilter (void) const;
+     EditFieldHandlePtr editHandleResolutionFilter(void);
+     GetFieldHandlePtr  getHandleColorFilter     (void) const;
+     EditFieldHandlePtr editHandleColorFilter    (void);
+     GetFieldHandlePtr  getHandleDistortionFilter (void) const;
+     EditFieldHandlePtr editHandleDistortionFilter(void);
+     GetFieldHandlePtr  getHandleDrawerId        (void) const;
+     EditFieldHandlePtr editHandleDrawerId       (void);
+     GetFieldHandlePtr  getHandleDrawableId      (void) const;
+     EditFieldHandlePtr editHandleDrawableId     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

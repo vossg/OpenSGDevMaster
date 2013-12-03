@@ -229,8 +229,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ShaderProgramFileBase : public ShaderProgram
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleProgramUrl      (void) const;
-    EditFieldHandlePtr editHandleProgramUrl     (void);
+     GetFieldHandlePtr  getHandleProgramUrl      (void) const;
+     EditFieldHandlePtr editHandleProgramUrl     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

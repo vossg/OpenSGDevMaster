@@ -238,14 +238,14 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleClearStencilBit (void) const;
-    EditFieldHandlePtr editHandleClearStencilBit(void);
-    GetFieldHandlePtr  getHandleDepth           (void) const;
-    EditFieldHandlePtr editHandleDepth          (void);
-    GetFieldHandlePtr  getHandleClearDepth      (void) const;
-    EditFieldHandlePtr editHandleClearDepth     (void);
-    GetFieldHandlePtr  getHandleClearColor      (void) const;
-    EditFieldHandlePtr editHandleClearColor     (void);
+     GetFieldHandlePtr  getHandleClearStencilBit (void) const;
+     EditFieldHandlePtr editHandleClearStencilBit(void);
+     GetFieldHandlePtr  getHandleDepth           (void) const;
+     EditFieldHandlePtr editHandleDepth          (void);
+     GetFieldHandlePtr  getHandleClearDepth      (void) const;
+     EditFieldHandlePtr editHandleClearDepth     (void);
+     GetFieldHandlePtr  getHandleClearColor      (void) const;
+     EditFieldHandlePtr editHandleClearColor     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

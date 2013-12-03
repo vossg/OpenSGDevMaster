@@ -278,16 +278,16 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAxisOfRotation  (void) const;
-    EditFieldHandlePtr editHandleAxisOfRotation (void);
-    GetFieldHandlePtr  getHandleFocusOnCamera   (void) const;
-    EditFieldHandlePtr editHandleFocusOnCamera  (void);
-    GetFieldHandlePtr  getHandleAlignToScreen   (void) const;
-    EditFieldHandlePtr editHandleAlignToScreen  (void);
-    GetFieldHandlePtr  getHandleMinAngle        (void) const;
-    EditFieldHandlePtr editHandleMinAngle       (void);
-    GetFieldHandlePtr  getHandleMaxAngle        (void) const;
-    EditFieldHandlePtr editHandleMaxAngle       (void);
+     GetFieldHandlePtr  getHandleAxisOfRotation  (void) const;
+     EditFieldHandlePtr editHandleAxisOfRotation (void);
+     GetFieldHandlePtr  getHandleFocusOnCamera   (void) const;
+     EditFieldHandlePtr editHandleFocusOnCamera  (void);
+     GetFieldHandlePtr  getHandleAlignToScreen   (void) const;
+     EditFieldHandlePtr editHandleAlignToScreen  (void);
+     GetFieldHandlePtr  getHandleMinAngle        (void) const;
+     EditFieldHandlePtr editHandleMinAngle       (void);
+     GetFieldHandlePtr  getHandleMaxAngle        (void) const;
+     EditFieldHandlePtr editHandleMaxAngle       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

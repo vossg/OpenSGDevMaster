@@ -251,10 +251,10 @@ class OSG_SYSTEM_DLLMAPPING ContainerCollectionBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleName            (void) const;
-    EditFieldHandlePtr editHandleName           (void);
-    GetFieldHandlePtr  getHandleContainers      (void) const;
-    EditFieldHandlePtr editHandleContainers     (void);
+     GetFieldHandlePtr  getHandleName            (void) const;
+     EditFieldHandlePtr editHandleName           (void);
+     GetFieldHandlePtr  getHandleContainers      (void) const;
+     EditFieldHandlePtr editHandleContainers     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

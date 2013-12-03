@@ -265,14 +265,14 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposerBase : public ImageComposer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShort           (void) const;
-    EditFieldHandlePtr editHandleShort          (void);
-    GetFieldHandlePtr  getHandleAlpha           (void) const;
-    EditFieldHandlePtr editHandleAlpha          (void);
-    GetFieldHandlePtr  getHandleTileSize        (void) const;
-    EditFieldHandlePtr editHandleTileSize       (void);
-    GetFieldHandlePtr  getHandlePipelined       (void) const;
-    EditFieldHandlePtr editHandlePipelined      (void);
+     GetFieldHandlePtr  getHandleShort           (void) const;
+     EditFieldHandlePtr editHandleShort          (void);
+     GetFieldHandlePtr  getHandleAlpha           (void) const;
+     EditFieldHandlePtr editHandleAlpha          (void);
+     GetFieldHandlePtr  getHandleTileSize        (void) const;
+     EditFieldHandlePtr editHandleTileSize       (void);
+     GetFieldHandlePtr  getHandlePipelined       (void) const;
+     EditFieldHandlePtr editHandlePipelined      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

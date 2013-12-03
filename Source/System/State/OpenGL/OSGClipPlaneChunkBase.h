@@ -259,12 +259,12 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEquation        (void) const;
-    EditFieldHandlePtr editHandleEquation       (void);
-    GetFieldHandlePtr  getHandleEnable          (void) const;
-    EditFieldHandlePtr editHandleEnable         (void);
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
+     GetFieldHandlePtr  getHandleEquation        (void) const;
+     EditFieldHandlePtr editHandleEquation       (void);
+     GetFieldHandlePtr  getHandleEnable          (void) const;
+     EditFieldHandlePtr editHandleEnable         (void);
+     GetFieldHandlePtr  getHandleBeacon          (void) const;
+     EditFieldHandlePtr editHandleBeacon         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

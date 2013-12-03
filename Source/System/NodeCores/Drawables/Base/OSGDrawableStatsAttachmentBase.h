@@ -313,22 +313,22 @@ class OSG_SYSTEM_DLLMAPPING DrawableStatsAttachmentBase : public StatsAttachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVertices        (void) const;
-    EditFieldHandlePtr editHandleVertices       (void);
-    GetFieldHandlePtr  getHandlePoints          (void) const;
-    EditFieldHandlePtr editHandlePoints         (void);
-    GetFieldHandlePtr  getHandleLines           (void) const;
-    EditFieldHandlePtr editHandleLines          (void);
-    GetFieldHandlePtr  getHandleTriangles       (void) const;
-    EditFieldHandlePtr editHandleTriangles      (void);
-    GetFieldHandlePtr  getHandlePatches         (void) const;
-    EditFieldHandlePtr editHandlePatches        (void);
-    GetFieldHandlePtr  getHandleProcessedAttributeBytes (void) const;
-    EditFieldHandlePtr editHandleProcessedAttributeBytes(void);
-    GetFieldHandlePtr  getHandleStoredAttributeBytes (void) const;
-    EditFieldHandlePtr editHandleStoredAttributeBytes(void);
-    GetFieldHandlePtr  getHandleValid           (void) const;
-    EditFieldHandlePtr editHandleValid          (void);
+     GetFieldHandlePtr  getHandleVertices        (void) const;
+     EditFieldHandlePtr editHandleVertices       (void);
+     GetFieldHandlePtr  getHandlePoints          (void) const;
+     EditFieldHandlePtr editHandlePoints         (void);
+     GetFieldHandlePtr  getHandleLines           (void) const;
+     EditFieldHandlePtr editHandleLines          (void);
+     GetFieldHandlePtr  getHandleTriangles       (void) const;
+     EditFieldHandlePtr editHandleTriangles      (void);
+     GetFieldHandlePtr  getHandlePatches         (void) const;
+     EditFieldHandlePtr editHandlePatches        (void);
+     GetFieldHandlePtr  getHandleProcessedAttributeBytes (void) const;
+     EditFieldHandlePtr editHandleProcessedAttributeBytes(void);
+     GetFieldHandlePtr  getHandleStoredAttributeBytes (void) const;
+     EditFieldHandlePtr editHandleStoredAttributeBytes(void);
+     GetFieldHandlePtr  getHandleValid           (void) const;
+     EditFieldHandlePtr editHandleValid          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

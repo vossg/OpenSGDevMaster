@@ -297,18 +297,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStageBase : public SimpleStage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePixelFormats    (void) const;
-    EditFieldHandlePtr editHandlePixelFormats   (void);
-    GetFieldHandlePtr  getHandlePixelTypes      (void) const;
-    EditFieldHandlePtr editHandlePixelTypes     (void);
-    GetFieldHandlePtr  getHandleGBufferProgram  (void) const;
-    EditFieldHandlePtr editHandleGBufferProgram (void);
-    GetFieldHandlePtr  getHandleAmbientProgram  (void) const;
-    EditFieldHandlePtr editHandleAmbientProgram (void);
-    GetFieldHandlePtr  getHandleLightPrograms   (void) const;
-    EditFieldHandlePtr editHandleLightPrograms  (void);
-    GetFieldHandlePtr  getHandleLights          (void) const;
-    EditFieldHandlePtr editHandleLights         (void);
+     GetFieldHandlePtr  getHandlePixelFormats    (void) const;
+     EditFieldHandlePtr editHandlePixelFormats   (void);
+     GetFieldHandlePtr  getHandlePixelTypes      (void) const;
+     EditFieldHandlePtr editHandlePixelTypes     (void);
+     GetFieldHandlePtr  getHandleGBufferProgram  (void) const;
+     EditFieldHandlePtr editHandleGBufferProgram (void);
+     GetFieldHandlePtr  getHandleAmbientProgram  (void) const;
+     EditFieldHandlePtr editHandleAmbientProgram (void);
+     GetFieldHandlePtr  getHandleLightPrograms   (void) const;
+     EditFieldHandlePtr editHandleLightPrograms  (void);
+     GetFieldHandlePtr  getHandleLights          (void) const;
+     EditFieldHandlePtr editHandleLights         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -229,8 +229,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseDataInterfaceSensorBase : public DeviceInte
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMouseData       (void) const;
-    EditFieldHandlePtr editHandleMouseData      (void);
+     GetFieldHandlePtr  getHandleMouseData       (void) const;
+     EditFieldHandlePtr editHandleMouseData      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

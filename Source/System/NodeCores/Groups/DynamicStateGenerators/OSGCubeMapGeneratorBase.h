@@ -366,30 +366,30 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorBase : public DynamicStateGenerator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleExclude         (void) const;
-    EditFieldHandlePtr editHandleExclude        (void);
-    GetFieldHandlePtr  getHandleTexture         (void) const;
-    EditFieldHandlePtr editHandleTexture        (void);
-    GetFieldHandlePtr  getHandleTextureSize     (void) const;
-    EditFieldHandlePtr editHandleTextureSize    (void);
-    GetFieldHandlePtr  getHandleTextureFormat   (void) const;
-    EditFieldHandlePtr editHandleTextureFormat  (void);
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
-    GetFieldHandlePtr  getHandleOrigin          (void) const;
-    EditFieldHandlePtr editHandleOrigin         (void);
-    GetFieldHandlePtr  getHandleOriginMode      (void) const;
-    EditFieldHandlePtr editHandleOriginMode     (void);
-    GetFieldHandlePtr  getHandleTexUnit         (void) const;
-    EditFieldHandlePtr editHandleTexUnit        (void);
-    GetFieldHandlePtr  getHandleSetupMode       (void) const;
-    EditFieldHandlePtr editHandleSetupMode      (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleRoot            (void) const;
+     EditFieldHandlePtr editHandleRoot           (void);
+     GetFieldHandlePtr  getHandleExclude         (void) const;
+     EditFieldHandlePtr editHandleExclude        (void);
+     GetFieldHandlePtr  getHandleTexture         (void) const;
+     EditFieldHandlePtr editHandleTexture        (void);
+     GetFieldHandlePtr  getHandleTextureSize     (void) const;
+     EditFieldHandlePtr editHandleTextureSize    (void);
+     GetFieldHandlePtr  getHandleTextureFormat   (void) const;
+     EditFieldHandlePtr editHandleTextureFormat  (void);
+     GetFieldHandlePtr  getHandleBeacon          (void) const;
+     EditFieldHandlePtr editHandleBeacon         (void);
+     GetFieldHandlePtr  getHandleOrigin          (void) const;
+     EditFieldHandlePtr editHandleOrigin         (void);
+     GetFieldHandlePtr  getHandleOriginMode      (void) const;
+     EditFieldHandlePtr editHandleOriginMode     (void);
+     GetFieldHandlePtr  getHandleTexUnit         (void) const;
+     EditFieldHandlePtr editHandleTexUnit        (void);
+     GetFieldHandlePtr  getHandleSetupMode       (void) const;
+     EditFieldHandlePtr editHandleSetupMode      (void);
+     GetFieldHandlePtr  getHandleBackground      (void) const;
+     EditFieldHandlePtr editHandleBackground     (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

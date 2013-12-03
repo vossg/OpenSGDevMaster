@@ -271,14 +271,14 @@ class OSG_SYSTEM_DLLMAPPING LayeredTextureBufferBase : public FrameBufferAttachm
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTexture         (void) const;
-    EditFieldHandlePtr editHandleTexture        (void);
-    GetFieldHandlePtr  getHandleTexTarget       (void) const;
-    EditFieldHandlePtr editHandleTexTarget      (void);
-    GetFieldHandlePtr  getHandleLevel           (void) const;
-    EditFieldHandlePtr editHandleLevel          (void);
-    GetFieldHandlePtr  getHandleZoffset         (void) const;
-    EditFieldHandlePtr editHandleZoffset        (void);
+     GetFieldHandlePtr  getHandleTexture         (void) const;
+     EditFieldHandlePtr editHandleTexture        (void);
+     GetFieldHandlePtr  getHandleTexTarget       (void) const;
+     EditFieldHandlePtr editHandleTexTarget      (void);
+     GetFieldHandlePtr  getHandleLevel           (void) const;
+     EditFieldHandlePtr editHandleLevel          (void);
+     GetFieldHandlePtr  getHandleZoffset         (void) const;
+     EditFieldHandlePtr editHandleZoffset        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

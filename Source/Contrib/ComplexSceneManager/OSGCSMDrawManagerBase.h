@@ -286,16 +286,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAppDrawer       (void) const;
-    EditFieldHandlePtr editHandleAppDrawer      (void);
-    GetFieldHandlePtr  getHandleDrawer          (void) const;
-    EditFieldHandlePtr editHandleDrawer         (void);
-    GetFieldHandlePtr  getHandleParallel        (void) const;
-    EditFieldHandlePtr editHandleParallel       (void);
-    GetFieldHandlePtr  getHandleSyncBarrierName (void) const;
-    EditFieldHandlePtr editHandleSyncBarrierName(void);
-    GetFieldHandlePtr  getHandleSwapBarrierName (void) const;
-    EditFieldHandlePtr editHandleSwapBarrierName(void);
+     GetFieldHandlePtr  getHandleAppDrawer       (void) const;
+     EditFieldHandlePtr editHandleAppDrawer      (void);
+     GetFieldHandlePtr  getHandleDrawer          (void) const;
+     EditFieldHandlePtr editHandleDrawer         (void);
+     GetFieldHandlePtr  getHandleParallel        (void) const;
+     EditFieldHandlePtr editHandleParallel       (void);
+     GetFieldHandlePtr  getHandleSyncBarrierName (void) const;
+     EditFieldHandlePtr editHandleSyncBarrierName(void);
+     GetFieldHandlePtr  getHandleSwapBarrierName (void) const;
+     EditFieldHandlePtr editHandleSwapBarrierName(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

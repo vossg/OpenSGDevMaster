@@ -280,16 +280,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING FogStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFogMaterial     (void) const;
-    EditFieldHandlePtr editHandleFogMaterial    (void);
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleFogMaterial     (void) const;
+     EditFieldHandlePtr editHandleFogMaterial    (void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

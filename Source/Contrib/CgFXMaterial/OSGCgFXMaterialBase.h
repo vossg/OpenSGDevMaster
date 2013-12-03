@@ -331,28 +331,28 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTreatTechniquesAsVariants (void) const;
-    EditFieldHandlePtr editHandleTreatTechniquesAsVariants(void);
-    GetFieldHandlePtr  getHandleEffectFile      (void) const;
-    EditFieldHandlePtr editHandleEffectFile     (void);
-    GetFieldHandlePtr  getHandleParameterValueSource (void) const;
-    EditFieldHandlePtr editHandleParameterValueSource(void);
-    GetFieldHandlePtr  getHandleEffectString    (void) const;
-    EditFieldHandlePtr editHandleEffectString   (void);
-    GetFieldHandlePtr  getHandleCompilerOptions (void) const;
-    EditFieldHandlePtr editHandleCompilerOptions(void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleSelectedTechnique (void) const;
-    EditFieldHandlePtr editHandleSelectedTechnique(void);
-    GetFieldHandlePtr  getHandleStateVariables  (void) const;
-    EditFieldHandlePtr editHandleStateVariables (void);
-    GetFieldHandlePtr  getHandleTechniques      (void) const;
-    EditFieldHandlePtr editHandleTechniques     (void);
-    GetFieldHandlePtr  getHandleTextures        (void) const;
-    EditFieldHandlePtr editHandleTextures       (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleTreatTechniquesAsVariants (void) const;
+     EditFieldHandlePtr editHandleTreatTechniquesAsVariants(void);
+     GetFieldHandlePtr  getHandleEffectFile      (void) const;
+     EditFieldHandlePtr editHandleEffectFile     (void);
+     GetFieldHandlePtr  getHandleParameterValueSource (void) const;
+     EditFieldHandlePtr editHandleParameterValueSource(void);
+     GetFieldHandlePtr  getHandleEffectString    (void) const;
+     EditFieldHandlePtr editHandleEffectString   (void);
+     GetFieldHandlePtr  getHandleCompilerOptions (void) const;
+     EditFieldHandlePtr editHandleCompilerOptions(void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleSelectedTechnique (void) const;
+     EditFieldHandlePtr editHandleSelectedTechnique(void);
+     GetFieldHandlePtr  getHandleStateVariables  (void) const;
+     EditFieldHandlePtr editHandleStateVariables (void);
+     GetFieldHandlePtr  getHandleTechniques      (void) const;
+     EditFieldHandlePtr editHandleTechniques     (void);
+     GetFieldHandlePtr  getHandleTextures        (void) const;
+     EditFieldHandlePtr editHandleTextures       (void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

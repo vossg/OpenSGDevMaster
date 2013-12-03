@@ -326,24 +326,24 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonOgreJointBase : public BaseSkeletonJoint
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTranslate       (void) const;
-    EditFieldHandlePtr editHandleTranslate      (void);
-    GetFieldHandlePtr  getHandleRotate          (void) const;
-    EditFieldHandlePtr editHandleRotate         (void);
-    GetFieldHandlePtr  getHandleScale           (void) const;
-    EditFieldHandlePtr editHandleScale          (void);
-    GetFieldHandlePtr  getHandleInvBindTranslate (void) const;
-    EditFieldHandlePtr editHandleInvBindTranslate(void);
-    GetFieldHandlePtr  getHandleInvBindRotate   (void) const;
-    EditFieldHandlePtr editHandleInvBindRotate  (void);
-    GetFieldHandlePtr  getHandleInvBindScale    (void) const;
-    EditFieldHandlePtr editHandleInvBindScale   (void);
-    GetFieldHandlePtr  getHandleOffsetTranslate (void) const;
-    EditFieldHandlePtr editHandleOffsetTranslate(void);
-    GetFieldHandlePtr  getHandleOffsetRotate    (void) const;
-    EditFieldHandlePtr editHandleOffsetRotate   (void);
-    GetFieldHandlePtr  getHandleOffsetScale     (void) const;
-    EditFieldHandlePtr editHandleOffsetScale    (void);
+     GetFieldHandlePtr  getHandleTranslate       (void) const;
+     EditFieldHandlePtr editHandleTranslate      (void);
+     GetFieldHandlePtr  getHandleRotate          (void) const;
+     EditFieldHandlePtr editHandleRotate         (void);
+     GetFieldHandlePtr  getHandleScale           (void) const;
+     EditFieldHandlePtr editHandleScale          (void);
+     GetFieldHandlePtr  getHandleInvBindTranslate (void) const;
+     EditFieldHandlePtr editHandleInvBindTranslate(void);
+     GetFieldHandlePtr  getHandleInvBindRotate   (void) const;
+     EditFieldHandlePtr editHandleInvBindRotate  (void);
+     GetFieldHandlePtr  getHandleInvBindScale    (void) const;
+     EditFieldHandlePtr editHandleInvBindScale   (void);
+     GetFieldHandlePtr  getHandleOffsetTranslate (void) const;
+     EditFieldHandlePtr editHandleOffsetTranslate(void);
+     GetFieldHandlePtr  getHandleOffsetRotate    (void) const;
+     EditFieldHandlePtr editHandleOffsetRotate   (void);
+     GetFieldHandlePtr  getHandleOffsetScale     (void) const;
+     EditFieldHandlePtr editHandleOffsetScale    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

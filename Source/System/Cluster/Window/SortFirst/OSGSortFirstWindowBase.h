@@ -277,16 +277,16 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCompression     (void) const;
-    EditFieldHandlePtr editHandleCompression    (void);
-    GetFieldHandlePtr  getHandleSubtileSize     (void) const;
-    EditFieldHandlePtr editHandleSubtileSize    (void);
-    GetFieldHandlePtr  getHandleCompose         (void) const;
-    EditFieldHandlePtr editHandleCompose        (void);
-    GetFieldHandlePtr  getHandleRegion          (void) const;
-    EditFieldHandlePtr editHandleRegion         (void);
-    GetFieldHandlePtr  getHandleUseFaceDistribution (void) const;
-    EditFieldHandlePtr editHandleUseFaceDistribution(void);
+     GetFieldHandlePtr  getHandleCompression     (void) const;
+     EditFieldHandlePtr editHandleCompression    (void);
+     GetFieldHandlePtr  getHandleSubtileSize     (void) const;
+     EditFieldHandlePtr editHandleSubtileSize    (void);
+     GetFieldHandlePtr  getHandleCompose         (void) const;
+     EditFieldHandlePtr editHandleCompose        (void);
+     GetFieldHandlePtr  getHandleRegion          (void) const;
+     EditFieldHandlePtr editHandleRegion         (void);
+     GetFieldHandlePtr  getHandleUseFaceDistribution (void) const;
+     EditFieldHandlePtr editHandleUseFaceDistribution(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

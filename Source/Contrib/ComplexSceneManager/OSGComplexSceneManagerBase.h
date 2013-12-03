@@ -371,30 +371,30 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlobals         (void) const;
-    EditFieldHandlePtr editHandleGlobals        (void);
-    GetFieldHandlePtr  getHandleDrawManager     (void) const;
-    EditFieldHandlePtr editHandleDrawManager    (void);
-    GetFieldHandlePtr  getHandleStartTime       (void) const;
-    EditFieldHandlePtr editHandleStartTime      (void);
-    GetFieldHandlePtr  getHandleTimeScale       (void) const;
-    EditFieldHandlePtr editHandleTimeScale      (void);
-    GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
-    EditFieldHandlePtr editHandleConstantTimeStep(void);
-    GetFieldHandlePtr  getHandleConstantTime    (void) const;
-    EditFieldHandlePtr editHandleConstantTime   (void);
-    GetFieldHandlePtr  getHandlePaused          (void) const;
-    EditFieldHandlePtr editHandlePaused         (void);
-    GetFieldHandlePtr  getHandleDumpFrameStart  (void) const;
-    EditFieldHandlePtr editHandleDumpFrameStart (void);
-    GetFieldHandlePtr  getHandleEnableWebService (void) const;
-    EditFieldHandlePtr editHandleEnableWebService(void);
-    GetFieldHandlePtr  getHandleWebServicePort  (void) const;
-    EditFieldHandlePtr editHandleWebServicePort (void);
-    GetFieldHandlePtr  getHandleWebServiceRoot  (void) const;
-    EditFieldHandlePtr editHandleWebServiceRoot (void);
-    GetFieldHandlePtr  getHandleWaitKeyAfterFrame (void) const;
-    EditFieldHandlePtr editHandleWaitKeyAfterFrame(void);
+     GetFieldHandlePtr  getHandleGlobals         (void) const;
+     EditFieldHandlePtr editHandleGlobals        (void);
+     GetFieldHandlePtr  getHandleDrawManager     (void) const;
+     EditFieldHandlePtr editHandleDrawManager    (void);
+     GetFieldHandlePtr  getHandleStartTime       (void) const;
+     EditFieldHandlePtr editHandleStartTime      (void);
+     GetFieldHandlePtr  getHandleTimeScale       (void) const;
+     EditFieldHandlePtr editHandleTimeScale      (void);
+     GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
+     EditFieldHandlePtr editHandleConstantTimeStep(void);
+     GetFieldHandlePtr  getHandleConstantTime    (void) const;
+     EditFieldHandlePtr editHandleConstantTime   (void);
+     GetFieldHandlePtr  getHandlePaused          (void) const;
+     EditFieldHandlePtr editHandlePaused         (void);
+     GetFieldHandlePtr  getHandleDumpFrameStart  (void) const;
+     EditFieldHandlePtr editHandleDumpFrameStart (void);
+     GetFieldHandlePtr  getHandleEnableWebService (void) const;
+     EditFieldHandlePtr editHandleEnableWebService(void);
+     GetFieldHandlePtr  getHandleWebServicePort  (void) const;
+     EditFieldHandlePtr editHandleWebServicePort (void);
+     GetFieldHandlePtr  getHandleWebServiceRoot  (void) const;
+     EditFieldHandlePtr editHandleWebServiceRoot (void);
+     GetFieldHandlePtr  getHandleWaitKeyAfterFrame (void) const;
+     EditFieldHandlePtr editHandleWaitKeyAfterFrame(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

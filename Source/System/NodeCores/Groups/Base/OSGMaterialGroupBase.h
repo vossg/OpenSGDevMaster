@@ -233,8 +233,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterial        (void) const;
-    EditFieldHandlePtr editHandleMaterial       (void);
+     GetFieldHandlePtr  getHandleMaterial        (void) const;
+     EditFieldHandlePtr editHandleMaterial       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

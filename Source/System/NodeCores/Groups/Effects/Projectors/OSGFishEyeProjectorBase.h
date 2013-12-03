@@ -385,32 +385,32 @@ class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjectorBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMode            (void) const;
-    EditFieldHandlePtr editHandleMode           (void);
-    GetFieldHandlePtr  getHandleGeometries      (void) const;
-    EditFieldHandlePtr editHandleGeometries     (void);
-    GetFieldHandlePtr  getHandleShowDomeIntensity (void) const;
-    EditFieldHandlePtr editHandleShowDomeIntensity(void);
-    GetFieldHandlePtr  getHandleResolution      (void) const;
-    EditFieldHandlePtr editHandleResolution     (void);
-    GetFieldHandlePtr  getHandleMeshRefinementLevel (void) const;
-    EditFieldHandlePtr editHandleMeshRefinementLevel(void);
-    GetFieldHandlePtr  getHandleBufferFormat    (void) const;
-    EditFieldHandlePtr editHandleBufferFormat   (void);
-    GetFieldHandlePtr  getHandleDomeRadius      (void) const;
-    EditFieldHandlePtr editHandleDomeRadius     (void);
-    GetFieldHandlePtr  getHandleMirrorRadius    (void) const;
-    EditFieldHandlePtr editHandleMirrorRadius   (void);
-    GetFieldHandlePtr  getHandleMirrorPos       (void) const;
-    EditFieldHandlePtr editHandleMirrorPos      (void);
-    GetFieldHandlePtr  getHandleProjectorPos    (void) const;
-    EditFieldHandlePtr editHandleProjectorPos   (void);
-    GetFieldHandlePtr  getHandleAspectRatio     (void) const;
-    EditFieldHandlePtr editHandleAspectRatio    (void);
-    GetFieldHandlePtr  getHandleThrowDist       (void) const;
-    EditFieldHandlePtr editHandleThrowDist      (void);
-    GetFieldHandlePtr  getHandleShowMesh        (void) const;
-    EditFieldHandlePtr editHandleShowMesh       (void);
+     GetFieldHandlePtr  getHandleMode            (void) const;
+     EditFieldHandlePtr editHandleMode           (void);
+     GetFieldHandlePtr  getHandleGeometries      (void) const;
+     EditFieldHandlePtr editHandleGeometries     (void);
+     GetFieldHandlePtr  getHandleShowDomeIntensity (void) const;
+     EditFieldHandlePtr editHandleShowDomeIntensity(void);
+     GetFieldHandlePtr  getHandleResolution      (void) const;
+     EditFieldHandlePtr editHandleResolution     (void);
+     GetFieldHandlePtr  getHandleMeshRefinementLevel (void) const;
+     EditFieldHandlePtr editHandleMeshRefinementLevel(void);
+     GetFieldHandlePtr  getHandleBufferFormat    (void) const;
+     EditFieldHandlePtr editHandleBufferFormat   (void);
+     GetFieldHandlePtr  getHandleDomeRadius      (void) const;
+     EditFieldHandlePtr editHandleDomeRadius     (void);
+     GetFieldHandlePtr  getHandleMirrorRadius    (void) const;
+     EditFieldHandlePtr editHandleMirrorRadius   (void);
+     GetFieldHandlePtr  getHandleMirrorPos       (void) const;
+     EditFieldHandlePtr editHandleMirrorPos      (void);
+     GetFieldHandlePtr  getHandleProjectorPos    (void) const;
+     EditFieldHandlePtr editHandleProjectorPos   (void);
+     GetFieldHandlePtr  getHandleAspectRatio     (void) const;
+     EditFieldHandlePtr editHandleAspectRatio    (void);
+     GetFieldHandlePtr  getHandleThrowDist       (void) const;
+     EditFieldHandlePtr editHandleThrowDist      (void);
+     GetFieldHandlePtr  getHandleShowMesh        (void) const;
+     EditFieldHandlePtr editHandleShowMesh       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

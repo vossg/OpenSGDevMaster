@@ -386,34 +386,34 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDiffuse         (void) const;
-    EditFieldHandlePtr editHandleDiffuse        (void);
-    GetFieldHandlePtr  getHandleAmbient         (void) const;
-    EditFieldHandlePtr editHandleAmbient        (void);
-    GetFieldHandlePtr  getHandleSpecular        (void) const;
-    EditFieldHandlePtr editHandleSpecular       (void);
-    GetFieldHandlePtr  getHandleEmission        (void) const;
-    EditFieldHandlePtr editHandleEmission       (void);
-    GetFieldHandlePtr  getHandleShininess       (void) const;
-    EditFieldHandlePtr editHandleShininess      (void);
-    GetFieldHandlePtr  getHandleLit             (void) const;
-    EditFieldHandlePtr editHandleLit            (void);
-    GetFieldHandlePtr  getHandleColorMaterial   (void) const;
-    EditFieldHandlePtr editHandleColorMaterial  (void);
-    GetFieldHandlePtr  getHandleBackMaterial    (void) const;
-    EditFieldHandlePtr editHandleBackMaterial   (void);
-    GetFieldHandlePtr  getHandleBackDiffuse     (void) const;
-    EditFieldHandlePtr editHandleBackDiffuse    (void);
-    GetFieldHandlePtr  getHandleBackAmbient     (void) const;
-    EditFieldHandlePtr editHandleBackAmbient    (void);
-    GetFieldHandlePtr  getHandleBackSpecular    (void) const;
-    EditFieldHandlePtr editHandleBackSpecular   (void);
-    GetFieldHandlePtr  getHandleBackEmission    (void) const;
-    EditFieldHandlePtr editHandleBackEmission   (void);
-    GetFieldHandlePtr  getHandleBackShininess   (void) const;
-    EditFieldHandlePtr editHandleBackShininess  (void);
-    GetFieldHandlePtr  getHandleBackColorMaterial (void) const;
-    EditFieldHandlePtr editHandleBackColorMaterial(void);
+     GetFieldHandlePtr  getHandleDiffuse         (void) const;
+     EditFieldHandlePtr editHandleDiffuse        (void);
+     GetFieldHandlePtr  getHandleAmbient         (void) const;
+     EditFieldHandlePtr editHandleAmbient        (void);
+     GetFieldHandlePtr  getHandleSpecular        (void) const;
+     EditFieldHandlePtr editHandleSpecular       (void);
+     GetFieldHandlePtr  getHandleEmission        (void) const;
+     EditFieldHandlePtr editHandleEmission       (void);
+     GetFieldHandlePtr  getHandleShininess       (void) const;
+     EditFieldHandlePtr editHandleShininess      (void);
+     GetFieldHandlePtr  getHandleLit             (void) const;
+     EditFieldHandlePtr editHandleLit            (void);
+     GetFieldHandlePtr  getHandleColorMaterial   (void) const;
+     EditFieldHandlePtr editHandleColorMaterial  (void);
+     GetFieldHandlePtr  getHandleBackMaterial    (void) const;
+     EditFieldHandlePtr editHandleBackMaterial   (void);
+     GetFieldHandlePtr  getHandleBackDiffuse     (void) const;
+     EditFieldHandlePtr editHandleBackDiffuse    (void);
+     GetFieldHandlePtr  getHandleBackAmbient     (void) const;
+     EditFieldHandlePtr editHandleBackAmbient    (void);
+     GetFieldHandlePtr  getHandleBackSpecular    (void) const;
+     EditFieldHandlePtr editHandleBackSpecular   (void);
+     GetFieldHandlePtr  getHandleBackEmission    (void) const;
+     EditFieldHandlePtr editHandleBackEmission   (void);
+     GetFieldHandlePtr  getHandleBackShininess   (void) const;
+     EditFieldHandlePtr editHandleBackShininess  (void);
+     GetFieldHandlePtr  getHandleBackColorMaterial (void) const;
+     EditFieldHandlePtr editHandleBackColorMaterial(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

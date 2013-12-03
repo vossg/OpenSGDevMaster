@@ -254,12 +254,12 @@ class OSG_CLUSTER_DLLMAPPING ParallelComposerBase : public ImageComposer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShort           (void) const;
-    EditFieldHandlePtr editHandleShort          (void);
-    GetFieldHandlePtr  getHandleAlpha           (void) const;
-    EditFieldHandlePtr editHandleAlpha          (void);
-    GetFieldHandlePtr  getHandlePcLibPath       (void) const;
-    EditFieldHandlePtr editHandlePcLibPath      (void);
+     GetFieldHandlePtr  getHandleShort           (void) const;
+     EditFieldHandlePtr editHandleShort          (void);
+     GetFieldHandlePtr  getHandleAlpha           (void) const;
+     EditFieldHandlePtr editHandleAlpha          (void);
+     GetFieldHandlePtr  getHandlePcLibPath       (void) const;
+     EditFieldHandlePtr editHandlePcLibPath      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

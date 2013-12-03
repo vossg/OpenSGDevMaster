@@ -231,12 +231,12 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAnimation       (void) const;
-    EditFieldHandlePtr editHandleAnimation      (void);
-    GetFieldHandlePtr  getHandleWeight          (void) const;
-    EditFieldHandlePtr editHandleWeight         (void);
-    GetFieldHandlePtr  getHandleInValue         (void) const;
-    EditFieldHandlePtr editHandleInValue        (void);
+     GetFieldHandlePtr  getHandleAnimation       (void) const;
+     EditFieldHandlePtr editHandleAnimation      (void);
+     GetFieldHandlePtr  getHandleWeight          (void) const;
+     EditFieldHandlePtr editHandleWeight         (void);
+     GetFieldHandlePtr  getHandleInValue         (void) const;
+     EditFieldHandlePtr editHandleInValue        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

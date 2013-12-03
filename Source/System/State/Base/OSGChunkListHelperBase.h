@@ -246,10 +246,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkListHelperBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSlot            (void) const;
-    EditFieldHandlePtr editHandleSlot           (void);
-    GetFieldHandlePtr  getHandleChunk           (void) const;
-    EditFieldHandlePtr editHandleChunk          (void);
+     GetFieldHandlePtr  getHandleSlot            (void) const;
+     EditFieldHandlePtr editHandleSlot           (void);
+     GetFieldHandlePtr  getHandleChunk           (void) const;
+     EditFieldHandlePtr editHandleChunk          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -327,28 +327,28 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAmbient         (void) const;
-    EditFieldHandlePtr editHandleAmbient        (void);
-    GetFieldHandlePtr  getHandleDiffuse         (void) const;
-    EditFieldHandlePtr editHandleDiffuse        (void);
-    GetFieldHandlePtr  getHandleSpecular        (void) const;
-    EditFieldHandlePtr editHandleSpecular       (void);
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
-    GetFieldHandlePtr  getHandleOn              (void) const;
-    EditFieldHandlePtr editHandleOn             (void);
-    GetFieldHandlePtr  getHandleConstantAttenuation (void) const;
-    EditFieldHandlePtr editHandleConstantAttenuation(void);
-    GetFieldHandlePtr  getHandleLinearAttenuation (void) const;
-    EditFieldHandlePtr editHandleLinearAttenuation(void);
-    GetFieldHandlePtr  getHandleQuadraticAttenuation (void) const;
-    EditFieldHandlePtr editHandleQuadraticAttenuation(void);
-    GetFieldHandlePtr  getHandleLightEngine     (void) const;
-    EditFieldHandlePtr editHandleLightEngine    (void);
-    GetFieldHandlePtr  getHandleShadowIntensity (void) const;
-    EditFieldHandlePtr editHandleShadowIntensity(void);
-    GetFieldHandlePtr  getHandleShadowMode      (void) const;
-    EditFieldHandlePtr editHandleShadowMode     (void);
+     GetFieldHandlePtr  getHandleAmbient         (void) const;
+     EditFieldHandlePtr editHandleAmbient        (void);
+     GetFieldHandlePtr  getHandleDiffuse         (void) const;
+     EditFieldHandlePtr editHandleDiffuse        (void);
+     GetFieldHandlePtr  getHandleSpecular        (void) const;
+     EditFieldHandlePtr editHandleSpecular       (void);
+     GetFieldHandlePtr  getHandleBeacon          (void) const;
+     EditFieldHandlePtr editHandleBeacon         (void);
+     GetFieldHandlePtr  getHandleOn              (void) const;
+     EditFieldHandlePtr editHandleOn             (void);
+     GetFieldHandlePtr  getHandleConstantAttenuation (void) const;
+     EditFieldHandlePtr editHandleConstantAttenuation(void);
+     GetFieldHandlePtr  getHandleLinearAttenuation (void) const;
+     EditFieldHandlePtr editHandleLinearAttenuation(void);
+     GetFieldHandlePtr  getHandleQuadraticAttenuation (void) const;
+     EditFieldHandlePtr editHandleQuadraticAttenuation(void);
+     GetFieldHandlePtr  getHandleLightEngine     (void) const;
+     EditFieldHandlePtr editHandleLightEngine    (void);
+     GetFieldHandlePtr  getHandleShadowIntensity (void) const;
+     EditFieldHandlePtr editHandleShadowIntensity(void);
+     GetFieldHandlePtr  getHandleShadowMode      (void) const;
+     EditFieldHandlePtr editHandleShadowMode     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

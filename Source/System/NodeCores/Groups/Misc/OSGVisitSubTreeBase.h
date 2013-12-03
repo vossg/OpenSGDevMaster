@@ -253,12 +253,12 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSubTreeRoot     (void) const;
-    EditFieldHandlePtr editHandleSubTreeRoot    (void);
-    GetFieldHandlePtr  getHandleSubTreeTravMask (void) const;
-    EditFieldHandlePtr editHandleSubTreeTravMask(void);
-    GetFieldHandlePtr  getHandleTravMaskMode    (void) const;
-    EditFieldHandlePtr editHandleTravMaskMode   (void);
+     GetFieldHandlePtr  getHandleSubTreeRoot     (void) const;
+     EditFieldHandlePtr editHandleSubTreeRoot    (void);
+     GetFieldHandlePtr  getHandleSubTreeTravMask (void) const;
+     EditFieldHandlePtr editHandleSubTreeTravMask(void);
+     GetFieldHandlePtr  getHandleTravMaskMode    (void) const;
+     EditFieldHandlePtr editHandleTravMaskMode   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

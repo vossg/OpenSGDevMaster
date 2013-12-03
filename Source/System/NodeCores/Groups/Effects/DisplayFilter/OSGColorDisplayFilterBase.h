@@ -308,22 +308,22 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGamma           (void) const;
-    EditFieldHandlePtr editHandleGamma          (void);
-    GetFieldHandlePtr  getHandleMatrix          (void) const;
-    EditFieldHandlePtr editHandleMatrix         (void);
-    GetFieldHandlePtr  getHandleColorTableWidth (void) const;
-    EditFieldHandlePtr editHandleColorTableWidth(void);
-    GetFieldHandlePtr  getHandleColorTableHeight (void) const;
-    EditFieldHandlePtr editHandleColorTableHeight(void);
-    GetFieldHandlePtr  getHandleColorTableDepth (void) const;
-    EditFieldHandlePtr editHandleColorTableDepth(void);
-    GetFieldHandlePtr  getHandleColorTable      (void) const;
-    EditFieldHandlePtr editHandleColorTable     (void);
-    GetFieldHandlePtr  getHandleTableImage      (void) const;
-    EditFieldHandlePtr editHandleTableImage     (void);
-    GetFieldHandlePtr  getHandleFilterShader    (void) const;
-    EditFieldHandlePtr editHandleFilterShader   (void);
+     GetFieldHandlePtr  getHandleGamma           (void) const;
+     EditFieldHandlePtr editHandleGamma          (void);
+     GetFieldHandlePtr  getHandleMatrix          (void) const;
+     EditFieldHandlePtr editHandleMatrix         (void);
+     GetFieldHandlePtr  getHandleColorTableWidth (void) const;
+     EditFieldHandlePtr editHandleColorTableWidth(void);
+     GetFieldHandlePtr  getHandleColorTableHeight (void) const;
+     EditFieldHandlePtr editHandleColorTableHeight(void);
+     GetFieldHandlePtr  getHandleColorTableDepth (void) const;
+     EditFieldHandlePtr editHandleColorTableDepth(void);
+     GetFieldHandlePtr  getHandleColorTable      (void) const;
+     EditFieldHandlePtr editHandleColorTable     (void);
+     GetFieldHandlePtr  getHandleTableImage      (void) const;
+     EditFieldHandlePtr editHandleTableImage     (void);
+     GetFieldHandlePtr  getHandleFilterShader    (void) const;
+     EditFieldHandlePtr editHandleFilterShader   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

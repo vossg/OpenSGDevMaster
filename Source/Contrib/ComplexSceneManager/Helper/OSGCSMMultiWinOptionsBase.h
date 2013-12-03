@@ -289,18 +289,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMMultiWinOptionsBase : public CSMClusterWinOpt
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleXOverlap        (void) const;
-    EditFieldHandlePtr editHandleXOverlap       (void);
-    GetFieldHandlePtr  getHandleYOverlap        (void) const;
-    EditFieldHandlePtr editHandleYOverlap       (void);
-    GetFieldHandlePtr  getHandleManageClientViewports (void) const;
-    EditFieldHandlePtr editHandleManageClientViewports(void);
-    GetFieldHandlePtr  getHandleBalance         (void) const;
-    EditFieldHandlePtr editHandleBalance        (void);
-    GetFieldHandlePtr  getHandleBestCut         (void) const;
-    EditFieldHandlePtr editHandleBestCut        (void);
-    GetFieldHandlePtr  getHandleShowBalancing   (void) const;
-    EditFieldHandlePtr editHandleShowBalancing  (void);
+     GetFieldHandlePtr  getHandleXOverlap        (void) const;
+     EditFieldHandlePtr editHandleXOverlap       (void);
+     GetFieldHandlePtr  getHandleYOverlap        (void) const;
+     EditFieldHandlePtr editHandleYOverlap       (void);
+     GetFieldHandlePtr  getHandleManageClientViewports (void) const;
+     EditFieldHandlePtr editHandleManageClientViewports(void);
+     GetFieldHandlePtr  getHandleBalance         (void) const;
+     EditFieldHandlePtr editHandleBalance        (void);
+     GetFieldHandlePtr  getHandleBestCut         (void) const;
+     EditFieldHandlePtr editHandleBestCut        (void);
+     GetFieldHandlePtr  getHandleShowBalancing   (void) const;
+     EditFieldHandlePtr editHandleShowBalancing  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

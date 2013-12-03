@@ -241,10 +241,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING DepthPeelingStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleNumPasses       (void) const;
-    EditFieldHandlePtr editHandleNumPasses      (void);
-    GetFieldHandlePtr  getHandleDepthTexUnit    (void) const;
-    EditFieldHandlePtr editHandleDepthTexUnit   (void);
+     GetFieldHandlePtr  getHandleNumPasses       (void) const;
+     EditFieldHandlePtr editHandleNumPasses      (void);
+     GetFieldHandlePtr  getHandleDepthTexUnit    (void) const;
+     EditFieldHandlePtr editHandleDepthTexUnit   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

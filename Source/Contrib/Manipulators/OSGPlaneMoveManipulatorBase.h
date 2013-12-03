@@ -221,14 +221,14 @@ class OSG_CONTRIBGUI_DLLMAPPING PlaneMoveManipulatorBase : public Manipulator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAxis            (void) const;
-    EditFieldHandlePtr editHandleAxis           (void);
-    GetFieldHandlePtr  getHandleBaseTranslation (void) const;
-    EditFieldHandlePtr editHandleBaseTranslation(void);
-    GetFieldHandlePtr  getHandleBaseRotation    (void) const;
-    EditFieldHandlePtr editHandleBaseRotation   (void);
-    GetFieldHandlePtr  getHandleClickPoint      (void) const;
-    EditFieldHandlePtr editHandleClickPoint     (void);
+     GetFieldHandlePtr  getHandleAxis            (void) const;
+     EditFieldHandlePtr editHandleAxis           (void);
+     GetFieldHandlePtr  getHandleBaseTranslation (void) const;
+     EditFieldHandlePtr editHandleBaseTranslation(void);
+     GetFieldHandlePtr  getHandleBaseRotation    (void) const;
+     EditFieldHandlePtr editHandleBaseRotation   (void);
+     GetFieldHandlePtr  getHandleClickPoint      (void) const;
+     EditFieldHandlePtr editHandleClickPoint     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -335,24 +335,24 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleClientWindow    (void) const;
-    EditFieldHandlePtr editHandleClientWindow   (void);
-    GetFieldHandlePtr  getHandleRenderClient    (void) const;
-    EditFieldHandlePtr editHandleRenderClient   (void);
-    GetFieldHandlePtr  getHandleServers         (void) const;
-    EditFieldHandlePtr editHandleServers        (void);
-    GetFieldHandlePtr  getHandleServerIds       (void) const;
-    EditFieldHandlePtr editHandleServerIds      (void);
-    GetFieldHandlePtr  getHandleServerRows      (void) const;
-    EditFieldHandlePtr editHandleServerRows     (void);
-    GetFieldHandlePtr  getHandleConnectionType  (void) const;
-    EditFieldHandlePtr editHandleConnectionType (void);
-    GetFieldHandlePtr  getHandleClusterMode     (void) const;
-    EditFieldHandlePtr editHandleClusterMode    (void);
-    GetFieldHandlePtr  getHandleComposer        (void) const;
-    EditFieldHandlePtr editHandleComposer       (void);
-    GetFieldHandlePtr  getHandleOptions         (void) const;
-    EditFieldHandlePtr editHandleOptions        (void);
+     GetFieldHandlePtr  getHandleClientWindow    (void) const;
+     EditFieldHandlePtr editHandleClientWindow   (void);
+     GetFieldHandlePtr  getHandleRenderClient    (void) const;
+     EditFieldHandlePtr editHandleRenderClient   (void);
+     GetFieldHandlePtr  getHandleServers         (void) const;
+     EditFieldHandlePtr editHandleServers        (void);
+     GetFieldHandlePtr  getHandleServerIds       (void) const;
+     EditFieldHandlePtr editHandleServerIds      (void);
+     GetFieldHandlePtr  getHandleServerRows      (void) const;
+     EditFieldHandlePtr editHandleServerRows     (void);
+     GetFieldHandlePtr  getHandleConnectionType  (void) const;
+     EditFieldHandlePtr editHandleConnectionType (void);
+     GetFieldHandlePtr  getHandleClusterMode     (void) const;
+     EditFieldHandlePtr editHandleClusterMode    (void);
+     GetFieldHandlePtr  getHandleComposer        (void) const;
+     EditFieldHandlePtr editHandleComposer       (void);
+     GetFieldHandlePtr  getHandleOptions         (void) const;
+     EditFieldHandlePtr editHandleOptions        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

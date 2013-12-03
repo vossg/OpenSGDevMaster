@@ -362,32 +362,32 @@ class OSG_EFFECTGROUPS_DLLMAPPING DepthPeelingStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandlePeelPingFBO     (void) const;
-    EditFieldHandlePtr editHandlePeelPingFBO    (void);
-    GetFieldHandlePtr  getHandlePeelPongFBO     (void) const;
-    EditFieldHandlePtr editHandlePeelPongFBO    (void);
-    GetFieldHandlePtr  getHandleBlendFBO        (void) const;
-    EditFieldHandlePtr editHandleBlendFBO       (void);
-    GetFieldHandlePtr  getHandleBlendMaterial   (void) const;
-    EditFieldHandlePtr editHandleBlendMaterial  (void);
-    GetFieldHandlePtr  getHandleBlendFinalMaterial (void) const;
-    EditFieldHandlePtr editHandleBlendFinalMaterial(void);
-    GetFieldHandlePtr  getHandlePeelPingMaterial (void) const;
-    EditFieldHandlePtr editHandlePeelPingMaterial(void);
-    GetFieldHandlePtr  getHandlePeelPongMaterial (void) const;
-    EditFieldHandlePtr editHandlePeelPongMaterial(void);
-    GetFieldHandlePtr  getHandleDepthChunk      (void) const;
-    EditFieldHandlePtr editHandleDepthChunk     (void);
-    GetFieldHandlePtr  getHandleSpvIsPeelChunk  (void) const;
-    EditFieldHandlePtr editHandleSpvIsPeelChunk (void);
-    GetFieldHandlePtr  getHandleSpvIsInitialChunk (void) const;
-    EditFieldHandlePtr editHandleSpvIsInitialChunk(void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandleBackground      (void) const;
+     EditFieldHandlePtr editHandleBackground     (void);
+     GetFieldHandlePtr  getHandlePeelPingFBO     (void) const;
+     EditFieldHandlePtr editHandlePeelPingFBO    (void);
+     GetFieldHandlePtr  getHandlePeelPongFBO     (void) const;
+     EditFieldHandlePtr editHandlePeelPongFBO    (void);
+     GetFieldHandlePtr  getHandleBlendFBO        (void) const;
+     EditFieldHandlePtr editHandleBlendFBO       (void);
+     GetFieldHandlePtr  getHandleBlendMaterial   (void) const;
+     EditFieldHandlePtr editHandleBlendMaterial  (void);
+     GetFieldHandlePtr  getHandleBlendFinalMaterial (void) const;
+     EditFieldHandlePtr editHandleBlendFinalMaterial(void);
+     GetFieldHandlePtr  getHandlePeelPingMaterial (void) const;
+     EditFieldHandlePtr editHandlePeelPingMaterial(void);
+     GetFieldHandlePtr  getHandlePeelPongMaterial (void) const;
+     EditFieldHandlePtr editHandlePeelPongMaterial(void);
+     GetFieldHandlePtr  getHandleDepthChunk      (void) const;
+     EditFieldHandlePtr editHandleDepthChunk     (void);
+     GetFieldHandlePtr  getHandleSpvIsPeelChunk  (void) const;
+     EditFieldHandlePtr editHandleSpvIsPeelChunk (void);
+     GetFieldHandlePtr  getHandleSpvIsInitialChunk (void) const;
+     EditFieldHandlePtr editHandleSpvIsInitialChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

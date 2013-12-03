@@ -219,10 +219,10 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJointBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleJointId         (void) const;
-    EditFieldHandlePtr editHandleJointId        (void);
+     GetFieldHandlePtr  getHandleSkeleton        (void) const;
+     EditFieldHandlePtr editHandleSkeleton       (void);
+     GetFieldHandlePtr  getHandleJointId         (void) const;
+     EditFieldHandlePtr editHandleJointId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

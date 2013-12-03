@@ -278,16 +278,16 @@ class OSG_STATE_DLLMAPPING FogChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMode            (void) const;
-    EditFieldHandlePtr editHandleMode           (void);
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandleStart           (void) const;
-    EditFieldHandlePtr editHandleStart          (void);
-    GetFieldHandlePtr  getHandleEnd             (void) const;
-    EditFieldHandlePtr editHandleEnd            (void);
-    GetFieldHandlePtr  getHandleDensity         (void) const;
-    EditFieldHandlePtr editHandleDensity        (void);
+     GetFieldHandlePtr  getHandleMode            (void) const;
+     EditFieldHandlePtr editHandleMode           (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandleStart           (void) const;
+     EditFieldHandlePtr editHandleStart          (void);
+     GetFieldHandlePtr  getHandleEnd             (void) const;
+     EditFieldHandlePtr editHandleEnd            (void);
+     GetFieldHandlePtr  getHandleDensity         (void) const;
+     EditFieldHandlePtr editHandleDensity        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

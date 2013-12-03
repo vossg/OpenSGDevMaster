@@ -251,10 +251,10 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public CompositeMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterials       (void) const;
-    EditFieldHandlePtr editHandleMaterials      (void);
-    GetFieldHandlePtr  getHandleChoice          (void) const;
-    EditFieldHandlePtr editHandleChoice         (void);
+     GetFieldHandlePtr  getHandleMaterials       (void) const;
+     EditFieldHandlePtr editHandleMaterials      (void);
+     GetFieldHandlePtr  getHandleChoice          (void) const;
+     EditFieldHandlePtr editHandleChoice         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

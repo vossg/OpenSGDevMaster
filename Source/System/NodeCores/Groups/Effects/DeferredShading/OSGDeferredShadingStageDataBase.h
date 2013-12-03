@@ -313,20 +313,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStageDataBase : public StageDat
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGBufferTarget   (void) const;
-    EditFieldHandlePtr editHandleGBufferTarget  (void);
-    GetFieldHandlePtr  getHandleGBufferBackground (void) const;
-    EditFieldHandlePtr editHandleGBufferBackground(void);
-    GetFieldHandlePtr  getHandleShadingTarget   (void) const;
-    EditFieldHandlePtr editHandleShadingTarget  (void);
-    GetFieldHandlePtr  getHandleShadingStates   (void) const;
-    EditFieldHandlePtr editHandleShadingStates  (void);
-    GetFieldHandlePtr  getHandleShadingProgramChunks (void) const;
-    EditFieldHandlePtr editHandleShadingProgramChunks(void);
-    GetFieldHandlePtr  getHandleLightChunks     (void) const;
-    EditFieldHandlePtr editHandleLightChunks    (void);
-    GetFieldHandlePtr  getHandleBlendChunk      (void) const;
-    EditFieldHandlePtr editHandleBlendChunk     (void);
+     GetFieldHandlePtr  getHandleGBufferTarget   (void) const;
+     EditFieldHandlePtr editHandleGBufferTarget  (void);
+     GetFieldHandlePtr  getHandleGBufferBackground (void) const;
+     EditFieldHandlePtr editHandleGBufferBackground(void);
+     GetFieldHandlePtr  getHandleShadingTarget   (void) const;
+     EditFieldHandlePtr editHandleShadingTarget  (void);
+     GetFieldHandlePtr  getHandleShadingStates   (void) const;
+     EditFieldHandlePtr editHandleShadingStates  (void);
+     GetFieldHandlePtr  getHandleShadingProgramChunks (void) const;
+     EditFieldHandlePtr editHandleShadingProgramChunks(void);
+     GetFieldHandlePtr  getHandleLightChunks     (void) const;
+     EditFieldHandlePtr editHandleLightChunks    (void);
+     GetFieldHandlePtr  getHandleBlendChunk      (void) const;
+     EditFieldHandlePtr editHandleBlendChunk     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

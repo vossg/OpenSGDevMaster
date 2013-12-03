@@ -229,8 +229,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePosition        (void) const;
-    EditFieldHandlePtr editHandlePosition       (void);
+     GetFieldHandlePtr  getHandlePosition        (void) const;
+     EditFieldHandlePtr editHandlePosition       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

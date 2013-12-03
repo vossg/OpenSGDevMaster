@@ -251,10 +251,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixBlenderBase : public AnimBlender
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChannels        (void) const;
-    EditFieldHandlePtr editHandleChannels       (void);
-    GetFieldHandlePtr  getHandleOutValue        (void) const;
-    EditFieldHandlePtr editHandleOutValue       (void);
+     GetFieldHandlePtr  getHandleChannels        (void) const;
+     EditFieldHandlePtr editHandleChannels       (void);
+     GetFieldHandlePtr  getHandleOutValue        (void) const;
+     EditFieldHandlePtr editHandleOutValue       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

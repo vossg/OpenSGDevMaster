@@ -211,10 +211,10 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public PrimeMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChunks          (void) const;
-    EditFieldHandlePtr editHandleChunks         (void);
-    GetFieldHandlePtr  getHandleSlots           (void) const;
-    EditFieldHandlePtr editHandleSlots          (void);
+     GetFieldHandlePtr  getHandleChunks          (void) const;
+     EditFieldHandlePtr editHandleChunks         (void);
+     GetFieldHandlePtr  getHandleSlots           (void) const;
+     EditFieldHandlePtr editHandleSlots          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

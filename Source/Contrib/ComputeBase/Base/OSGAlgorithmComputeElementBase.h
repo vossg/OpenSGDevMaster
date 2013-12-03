@@ -233,8 +233,8 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING AlgorithmComputeElementBase : public Com
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAlgorithm       (void) const;
-    EditFieldHandlePtr editHandleAlgorithm      (void);
+     GetFieldHandlePtr  getHandleAlgorithm       (void) const;
+     EditFieldHandlePtr editHandleAlgorithm      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

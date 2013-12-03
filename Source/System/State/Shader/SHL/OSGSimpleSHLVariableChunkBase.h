@@ -247,10 +247,10 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLVariableChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableLocations (void) const;
-    EditFieldHandlePtr editHandleVariableLocations(void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleVariableLocations (void) const;
+     EditFieldHandlePtr editHandleVariableLocations(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

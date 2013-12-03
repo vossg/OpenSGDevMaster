@@ -214,12 +214,12 @@ class OSG_CONTRIBGUI_DLLMAPPING MoveManipulatorBase : public Manipulator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAxisBase        (void) const;
-    EditFieldHandlePtr editHandleAxisBase       (void);
-    GetFieldHandlePtr  getHandleAxisDirection   (void) const;
-    EditFieldHandlePtr editHandleAxisDirection  (void);
-    GetFieldHandlePtr  getHandleBaseTranslation (void) const;
-    EditFieldHandlePtr editHandleBaseTranslation(void);
+     GetFieldHandlePtr  getHandleAxisBase        (void) const;
+     EditFieldHandlePtr editHandleAxisBase       (void);
+     GetFieldHandlePtr  getHandleAxisDirection   (void) const;
+     EditFieldHandlePtr editHandleAxisDirection  (void);
+     GetFieldHandlePtr  getHandleBaseTranslation (void) const;
+     EditFieldHandlePtr editHandleBaseTranslation(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

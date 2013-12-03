@@ -283,16 +283,16 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleImage           (void) const;
-    EditFieldHandlePtr editHandleImage          (void);
-    GetFieldHandlePtr  getHandleMinFilter       (void) const;
-    EditFieldHandlePtr editHandleMinFilter      (void);
-    GetFieldHandlePtr  getHandleMagFilter       (void) const;
-    EditFieldHandlePtr editHandleMagFilter      (void);
-    GetFieldHandlePtr  getHandleEnvMode         (void) const;
-    EditFieldHandlePtr editHandleEnvMode        (void);
-    GetFieldHandlePtr  getHandleEnvMap          (void) const;
-    EditFieldHandlePtr editHandleEnvMap         (void);
+     GetFieldHandlePtr  getHandleImage           (void) const;
+     EditFieldHandlePtr editHandleImage          (void);
+     GetFieldHandlePtr  getHandleMinFilter       (void) const;
+     EditFieldHandlePtr editHandleMinFilter      (void);
+     GetFieldHandlePtr  getHandleMagFilter       (void) const;
+     EditFieldHandlePtr editHandleMagFilter      (void);
+     GetFieldHandlePtr  getHandleEnvMode         (void) const;
+     EditFieldHandlePtr editHandleEnvMode        (void);
+     GetFieldHandlePtr  getHandleEnvMap          (void) const;
+     EditFieldHandlePtr editHandleEnvMap         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

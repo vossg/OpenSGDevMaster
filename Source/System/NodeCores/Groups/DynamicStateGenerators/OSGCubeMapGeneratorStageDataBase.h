@@ -244,10 +244,10 @@ class OSG_GROUP_DLLMAPPING CubeMapGeneratorStageDataBase : public DynamicStateGe
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleTexTransform    (void) const;
-    EditFieldHandlePtr editHandleTexTransform   (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleTexTransform    (void) const;
+     EditFieldHandlePtr editHandleTexTransform   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

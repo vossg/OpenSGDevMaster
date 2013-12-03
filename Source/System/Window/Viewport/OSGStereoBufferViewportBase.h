@@ -241,10 +241,10 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeftBuffer      (void) const;
-    EditFieldHandlePtr editHandleLeftBuffer     (void);
-    GetFieldHandlePtr  getHandleRightBuffer     (void) const;
-    EditFieldHandlePtr editHandleRightBuffer    (void);
+     GetFieldHandlePtr  getHandleLeftBuffer      (void) const;
+     EditFieldHandlePtr editHandleLeftBuffer     (void);
+     GetFieldHandlePtr  getHandleRightBuffer     (void) const;
+     EditFieldHandlePtr editHandleRightBuffer    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

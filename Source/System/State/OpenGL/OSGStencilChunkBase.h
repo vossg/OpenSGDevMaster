@@ -314,22 +314,22 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleStencilFunc     (void) const;
-    EditFieldHandlePtr editHandleStencilFunc    (void);
-    GetFieldHandlePtr  getHandleStencilValue    (void) const;
-    EditFieldHandlePtr editHandleStencilValue   (void);
-    GetFieldHandlePtr  getHandleStencilMask     (void) const;
-    EditFieldHandlePtr editHandleStencilMask    (void);
-    GetFieldHandlePtr  getHandleStencilOpFail   (void) const;
-    EditFieldHandlePtr editHandleStencilOpFail  (void);
-    GetFieldHandlePtr  getHandleStencilOpZFail  (void) const;
-    EditFieldHandlePtr editHandleStencilOpZFail (void);
-    GetFieldHandlePtr  getHandleStencilOpZPass  (void) const;
-    EditFieldHandlePtr editHandleStencilOpZPass (void);
-    GetFieldHandlePtr  getHandleClearBuffer     (void) const;
-    EditFieldHandlePtr editHandleClearBuffer    (void);
-    GetFieldHandlePtr  getHandleBitMask         (void) const;
-    EditFieldHandlePtr editHandleBitMask        (void);
+     GetFieldHandlePtr  getHandleStencilFunc     (void) const;
+     EditFieldHandlePtr editHandleStencilFunc    (void);
+     GetFieldHandlePtr  getHandleStencilValue    (void) const;
+     EditFieldHandlePtr editHandleStencilValue   (void);
+     GetFieldHandlePtr  getHandleStencilMask     (void) const;
+     EditFieldHandlePtr editHandleStencilMask    (void);
+     GetFieldHandlePtr  getHandleStencilOpFail   (void) const;
+     EditFieldHandlePtr editHandleStencilOpFail  (void);
+     GetFieldHandlePtr  getHandleStencilOpZFail  (void) const;
+     EditFieldHandlePtr editHandleStencilOpZFail (void);
+     GetFieldHandlePtr  getHandleStencilOpZPass  (void) const;
+     EditFieldHandlePtr editHandleStencilOpZPass (void);
+     GetFieldHandlePtr  getHandleClearBuffer     (void) const;
+     EditFieldHandlePtr editHandleClearBuffer    (void);
+     GetFieldHandlePtr  getHandleBitMask         (void) const;
+     EditFieldHandlePtr editHandleBitMask        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -231,14 +231,14 @@ class OSG_SYSTEM_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUseVBO          (void) const;
-    EditFieldHandlePtr editHandleUseVBO         (void);
-    GetFieldHandlePtr  getHandleUsage           (void) const;
-    EditFieldHandlePtr editHandleUsage          (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleVboUsage        (void) const;
-    EditFieldHandlePtr editHandleVboUsage       (void);
+     GetFieldHandlePtr  getHandleUseVBO          (void) const;
+     EditFieldHandlePtr editHandleUseVBO         (void);
+     GetFieldHandlePtr  getHandleUsage           (void) const;
+     EditFieldHandlePtr editHandleUsage          (void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleVboUsage        (void) const;
+     EditFieldHandlePtr editHandleVboUsage       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

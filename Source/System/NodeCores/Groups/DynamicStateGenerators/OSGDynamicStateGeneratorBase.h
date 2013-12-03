@@ -207,8 +207,8 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorBase : public DynamicStateGenera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

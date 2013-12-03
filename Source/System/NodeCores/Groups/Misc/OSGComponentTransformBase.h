@@ -278,16 +278,16 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCenter          (void) const;
-    EditFieldHandlePtr editHandleCenter         (void);
-    GetFieldHandlePtr  getHandleRotation        (void) const;
-    EditFieldHandlePtr editHandleRotation       (void);
-    GetFieldHandlePtr  getHandleScale           (void) const;
-    EditFieldHandlePtr editHandleScale          (void);
-    GetFieldHandlePtr  getHandleScaleOrientation (void) const;
-    EditFieldHandlePtr editHandleScaleOrientation(void);
-    GetFieldHandlePtr  getHandleTranslation     (void) const;
-    EditFieldHandlePtr editHandleTranslation    (void);
+     GetFieldHandlePtr  getHandleCenter          (void) const;
+     EditFieldHandlePtr editHandleCenter         (void);
+     GetFieldHandlePtr  getHandleRotation        (void) const;
+     EditFieldHandlePtr editHandleRotation       (void);
+     GetFieldHandlePtr  getHandleScale           (void) const;
+     EditFieldHandlePtr editHandleScale          (void);
+     GetFieldHandlePtr  getHandleScaleOrientation (void) const;
+     EditFieldHandlePtr editHandleScaleOrientation(void);
+     GetFieldHandlePtr  getHandleTranslation     (void) const;
+     EditFieldHandlePtr editHandleTranslation    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -258,12 +258,12 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
-    GetFieldHandlePtr  getHandleNapTime         (void) const;
-    EditFieldHandlePtr editHandleNapTime        (void);
-    GetFieldHandlePtr  getHandleBufferSize      (void) const;
-    EditFieldHandlePtr editHandleBufferSize     (void);
+     GetFieldHandlePtr  getHandleParent          (void) const;
+     EditFieldHandlePtr editHandleParent         (void);
+     GetFieldHandlePtr  getHandleNapTime         (void) const;
+     EditFieldHandlePtr editHandleNapTime        (void);
+     GetFieldHandlePtr  getHandleBufferSize      (void) const;
+     EditFieldHandlePtr editHandleBufferSize     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

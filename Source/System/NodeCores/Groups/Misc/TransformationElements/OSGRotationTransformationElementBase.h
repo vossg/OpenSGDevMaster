@@ -242,10 +242,10 @@ class OSG_GROUP_DLLMAPPING RotationTransformationElementBase : public Transforma
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAxis            (void) const;
-    EditFieldHandlePtr editHandleAxis           (void);
-    GetFieldHandlePtr  getHandleAngle           (void) const;
-    EditFieldHandlePtr editHandleAngle          (void);
+     GetFieldHandlePtr  getHandleAxis            (void) const;
+     EditFieldHandlePtr editHandleAxis           (void);
+     GetFieldHandlePtr  getHandleAngle           (void) const;
+     EditFieldHandlePtr editHandleAngle          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

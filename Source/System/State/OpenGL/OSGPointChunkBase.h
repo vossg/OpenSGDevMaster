@@ -338,26 +338,26 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
-    GetFieldHandlePtr  getHandleSmooth          (void) const;
-    EditFieldHandlePtr editHandleSmooth         (void);
-    GetFieldHandlePtr  getHandleMinSize         (void) const;
-    EditFieldHandlePtr editHandleMinSize        (void);
-    GetFieldHandlePtr  getHandleMaxSize         (void) const;
-    EditFieldHandlePtr editHandleMaxSize        (void);
-    GetFieldHandlePtr  getHandleConstantAttenuation (void) const;
-    EditFieldHandlePtr editHandleConstantAttenuation(void);
-    GetFieldHandlePtr  getHandleLinearAttenuation (void) const;
-    EditFieldHandlePtr editHandleLinearAttenuation(void);
-    GetFieldHandlePtr  getHandleQuadraticAttenuation (void) const;
-    EditFieldHandlePtr editHandleQuadraticAttenuation(void);
-    GetFieldHandlePtr  getHandleFadeThreshold   (void) const;
-    EditFieldHandlePtr editHandleFadeThreshold  (void);
-    GetFieldHandlePtr  getHandleSprite          (void) const;
-    EditFieldHandlePtr editHandleSprite         (void);
-    GetFieldHandlePtr  getHandleRMode           (void) const;
-    EditFieldHandlePtr editHandleRMode          (void);
+     GetFieldHandlePtr  getHandleSize            (void) const;
+     EditFieldHandlePtr editHandleSize           (void);
+     GetFieldHandlePtr  getHandleSmooth          (void) const;
+     EditFieldHandlePtr editHandleSmooth         (void);
+     GetFieldHandlePtr  getHandleMinSize         (void) const;
+     EditFieldHandlePtr editHandleMinSize        (void);
+     GetFieldHandlePtr  getHandleMaxSize         (void) const;
+     EditFieldHandlePtr editHandleMaxSize        (void);
+     GetFieldHandlePtr  getHandleConstantAttenuation (void) const;
+     EditFieldHandlePtr editHandleConstantAttenuation(void);
+     GetFieldHandlePtr  getHandleLinearAttenuation (void) const;
+     EditFieldHandlePtr editHandleLinearAttenuation(void);
+     GetFieldHandlePtr  getHandleQuadraticAttenuation (void) const;
+     EditFieldHandlePtr editHandleQuadraticAttenuation(void);
+     GetFieldHandlePtr  getHandleFadeThreshold   (void) const;
+     EditFieldHandlePtr editHandleFadeThreshold  (void);
+     GetFieldHandlePtr  getHandleSprite          (void) const;
+     EditFieldHandlePtr editHandleSprite         (void);
+     GetFieldHandlePtr  getHandleRMode           (void) const;
+     EditFieldHandlePtr editHandleRMode          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

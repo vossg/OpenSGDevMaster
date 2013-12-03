@@ -202,8 +202,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

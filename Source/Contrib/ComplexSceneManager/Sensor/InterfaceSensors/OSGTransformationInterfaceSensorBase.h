@@ -272,16 +272,16 @@ class OSG_CONTRIBCSM_DLLMAPPING TransformationInterfaceSensorBase : public Devic
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTransformation  (void) const;
-    EditFieldHandlePtr editHandleTransformation (void);
-    GetFieldHandlePtr  getHandleTranslation     (void) const;
-    EditFieldHandlePtr editHandleTranslation    (void);
-    GetFieldHandlePtr  getHandleRotation        (void) const;
-    EditFieldHandlePtr editHandleRotation       (void);
-    GetFieldHandlePtr  getHandleRotationScale   (void) const;
-    EditFieldHandlePtr editHandleRotationScale  (void);
-    GetFieldHandlePtr  getHandleTranslationScale (void) const;
-    EditFieldHandlePtr editHandleTranslationScale(void);
+     GetFieldHandlePtr  getHandleTransformation  (void) const;
+     EditFieldHandlePtr editHandleTransformation (void);
+     GetFieldHandlePtr  getHandleTranslation     (void) const;
+     EditFieldHandlePtr editHandleTranslation    (void);
+     GetFieldHandlePtr  getHandleRotation        (void) const;
+     EditFieldHandlePtr editHandleRotation       (void);
+     GetFieldHandlePtr  getHandleRotationScale   (void) const;
+     EditFieldHandlePtr editHandleRotationScale  (void);
+     GetFieldHandlePtr  getHandleTranslationScale (void) const;
+     EditFieldHandlePtr editHandleTranslationScale(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

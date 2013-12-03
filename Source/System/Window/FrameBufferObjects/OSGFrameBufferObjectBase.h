@@ -394,38 +394,38 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleMultiSampleGLId (void) const;
-    EditFieldHandlePtr editHandleMultiSampleGLId(void);
-    GetFieldHandlePtr  getHandleColorAttachments (void) const;
-    EditFieldHandlePtr editHandleColorAttachments(void);
-    GetFieldHandlePtr  getHandleDrawBuffers     (void) const;
-    EditFieldHandlePtr editHandleDrawBuffers    (void);
-    GetFieldHandlePtr  getHandleDepthAttachment (void) const;
-    EditFieldHandlePtr editHandleDepthAttachment(void);
-    GetFieldHandlePtr  getHandleStencilAttachment (void) const;
-    EditFieldHandlePtr editHandleStencilAttachment(void);
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandlePostProcessOnDeactivate (void) const;
-    EditFieldHandlePtr editHandlePostProcessOnDeactivate(void);
-    GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
-    EditFieldHandlePtr editHandleEnableMultiSample(void);
-    GetFieldHandlePtr  getHandleColorSamples    (void) const;
-    EditFieldHandlePtr editHandleColorSamples   (void);
-    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
-    EditFieldHandlePtr editHandleCoverageSamples(void);
-    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
-    EditFieldHandlePtr editHandleFixedSampleLocation(void);
-    GetFieldHandlePtr  getHandleMsaaColorAttachments (void) const;
-    EditFieldHandlePtr editHandleMsaaColorAttachments(void);
-    GetFieldHandlePtr  getHandleMsaaDepthAttachment (void) const;
-    EditFieldHandlePtr editHandleMsaaDepthAttachment(void);
-    GetFieldHandlePtr  getHandleMsaaStencilAttachment (void) const;
-    EditFieldHandlePtr editHandleMsaaStencilAttachment(void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleMultiSampleGLId (void) const;
+     EditFieldHandlePtr editHandleMultiSampleGLId(void);
+     GetFieldHandlePtr  getHandleColorAttachments (void) const;
+     EditFieldHandlePtr editHandleColorAttachments(void);
+     GetFieldHandlePtr  getHandleDrawBuffers     (void) const;
+     EditFieldHandlePtr editHandleDrawBuffers    (void);
+     GetFieldHandlePtr  getHandleDepthAttachment (void) const;
+     EditFieldHandlePtr editHandleDepthAttachment(void);
+     GetFieldHandlePtr  getHandleStencilAttachment (void) const;
+     EditFieldHandlePtr editHandleStencilAttachment(void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandlePostProcessOnDeactivate (void) const;
+     EditFieldHandlePtr editHandlePostProcessOnDeactivate(void);
+     GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
+     EditFieldHandlePtr editHandleEnableMultiSample(void);
+     GetFieldHandlePtr  getHandleColorSamples    (void) const;
+     EditFieldHandlePtr editHandleColorSamples   (void);
+     GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+     EditFieldHandlePtr editHandleCoverageSamples(void);
+     GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+     EditFieldHandlePtr editHandleFixedSampleLocation(void);
+     GetFieldHandlePtr  getHandleMsaaColorAttachments (void) const;
+     EditFieldHandlePtr editHandleMsaaColorAttachments(void);
+     GetFieldHandlePtr  getHandleMsaaDepthAttachment (void) const;
+     EditFieldHandlePtr editHandleMsaaDepthAttachment(void);
+     GetFieldHandlePtr  getHandleMsaaStencilAttachment (void) const;
+     EditFieldHandlePtr editHandleMsaaStencilAttachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -254,12 +254,12 @@ class OSG_STATE_DLLMAPPING LightModelChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAmbient         (void) const;
-    EditFieldHandlePtr editHandleAmbient        (void);
-    GetFieldHandlePtr  getHandleColorControl    (void) const;
-    EditFieldHandlePtr editHandleColorControl   (void);
-    GetFieldHandlePtr  getHandleLocalViewer     (void) const;
-    EditFieldHandlePtr editHandleLocalViewer    (void);
+     GetFieldHandlePtr  getHandleAmbient         (void) const;
+     EditFieldHandlePtr editHandleAmbient        (void);
+     GetFieldHandlePtr  getHandleColorControl    (void) const;
+     EditFieldHandlePtr editHandleColorControl   (void);
+     GetFieldHandlePtr  getHandleLocalViewer     (void) const;
+     EditFieldHandlePtr editHandleLocalViewer    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

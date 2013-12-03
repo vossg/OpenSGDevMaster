@@ -254,12 +254,12 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDirection       (void) const;
-    EditFieldHandlePtr editHandleDirection      (void);
-    GetFieldHandlePtr  getHandleSpotExponent    (void) const;
-    EditFieldHandlePtr editHandleSpotExponent   (void);
-    GetFieldHandlePtr  getHandleSpotCutOff      (void) const;
-    EditFieldHandlePtr editHandleSpotCutOff     (void);
+     GetFieldHandlePtr  getHandleDirection       (void) const;
+     EditFieldHandlePtr editHandleDirection      (void);
+     GetFieldHandlePtr  getHandleSpotExponent    (void) const;
+     EditFieldHandlePtr editHandleSpotExponent   (void);
+     GetFieldHandlePtr  getHandleSpotCutOff      (void) const;
+     EditFieldHandlePtr editHandleSpotCutOff     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -235,12 +235,12 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleName            (void) const;
-    EditFieldHandlePtr editHandleName           (void);
-    GetFieldHandlePtr  getHandleSources         (void) const;
-    EditFieldHandlePtr editHandleSources        (void);
-    GetFieldHandlePtr  getHandleTargetIds       (void) const;
-    EditFieldHandlePtr editHandleTargetIds      (void);
+     GetFieldHandlePtr  getHandleName            (void) const;
+     EditFieldHandlePtr editHandleName           (void);
+     GetFieldHandlePtr  getHandleSources         (void) const;
+     EditFieldHandlePtr editHandleSources        (void);
+     GetFieldHandlePtr  getHandleTargetIds       (void) const;
+     EditFieldHandlePtr editHandleTargetIds      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

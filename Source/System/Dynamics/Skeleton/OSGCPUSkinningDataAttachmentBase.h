@@ -282,14 +282,14 @@ class OSG_DYNAMICS_DLLMAPPING CPUSkinningDataAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleProperties      (void) const;
-    EditFieldHandlePtr editHandleProperties     (void);
-    GetFieldHandlePtr  getHandleJointMatrices   (void) const;
-    EditFieldHandlePtr editHandleJointMatrices  (void);
-    GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
-    EditFieldHandlePtr editHandleJointNormalMatrices(void);
-    GetFieldHandlePtr  getHandleDataValid       (void) const;
-    EditFieldHandlePtr editHandleDataValid      (void);
+     GetFieldHandlePtr  getHandleProperties      (void) const;
+     EditFieldHandlePtr editHandleProperties     (void);
+     GetFieldHandlePtr  getHandleJointMatrices   (void) const;
+     EditFieldHandlePtr editHandleJointMatrices  (void);
+     GetFieldHandlePtr  getHandleJointNormalMatrices (void) const;
+     EditFieldHandlePtr editHandleJointNormalMatrices(void);
+     GetFieldHandlePtr  getHandleDataValid       (void) const;
+     EditFieldHandlePtr editHandleDataValid      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -205,8 +205,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXPassChunkBase : public FullStateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterial        (void) const;
-    EditFieldHandlePtr editHandleMaterial       (void);
+     GetFieldHandlePtr  getHandleMaterial        (void) const;
+     EditFieldHandlePtr editHandleMaterial       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

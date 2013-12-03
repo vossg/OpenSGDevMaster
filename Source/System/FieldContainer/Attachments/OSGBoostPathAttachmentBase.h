@@ -229,8 +229,8 @@ class OSG_SYSTEM_DLLMAPPING BoostPathAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePath            (void) const;
-    EditFieldHandlePtr editHandlePath           (void);
+     GetFieldHandlePtr  getHandlePath            (void) const;
+     EditFieldHandlePtr editHandlePath           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

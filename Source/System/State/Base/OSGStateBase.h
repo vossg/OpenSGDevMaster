@@ -235,10 +235,10 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTransparencyMode (void) const;
-    EditFieldHandlePtr editHandleTransparencyMode(void);
-    GetFieldHandlePtr  getHandleChunks          (void) const;
-    EditFieldHandlePtr editHandleChunks         (void);
+     GetFieldHandlePtr  getHandleTransparencyMode (void) const;
+     EditFieldHandlePtr editHandleTransparencyMode(void);
+     GetFieldHandlePtr  getHandleChunks          (void) const;
+     EditFieldHandlePtr editHandleChunks         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

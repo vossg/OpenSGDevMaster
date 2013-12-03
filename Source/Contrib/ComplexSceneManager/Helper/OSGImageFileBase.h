@@ -229,8 +229,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ImageFileBase : public Image
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUrl             (void) const;
-    EditFieldHandlePtr editHandleUrl            (void);
+     GetFieldHandlePtr  getHandleUrl             (void) const;
+     EditFieldHandlePtr editHandleUrl            (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

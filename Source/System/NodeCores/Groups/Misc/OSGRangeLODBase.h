@@ -254,12 +254,12 @@ class OSG_GROUP_DLLMAPPING RangeLODBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCenter          (void) const;
-    EditFieldHandlePtr editHandleCenter         (void);
-    GetFieldHandlePtr  getHandleSwitchIn        (void) const;
-    EditFieldHandlePtr editHandleSwitchIn       (void);
-    GetFieldHandlePtr  getHandleSwitchOut       (void) const;
-    EditFieldHandlePtr editHandleSwitchOut      (void);
+     GetFieldHandlePtr  getHandleCenter          (void) const;
+     EditFieldHandlePtr editHandleCenter         (void);
+     GetFieldHandlePtr  getHandleSwitchIn        (void) const;
+     EditFieldHandlePtr editHandleSwitchIn       (void);
+     GetFieldHandlePtr  getHandleSwitchOut       (void) const;
+     EditFieldHandlePtr editHandleSwitchOut      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleActive          (void) const;
-    EditFieldHandlePtr editHandleActive         (void);
+     GetFieldHandlePtr  getHandleActive          (void) const;
+     EditFieldHandlePtr editHandleActive         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleIgnore          (void) const;
-    EditFieldHandlePtr editHandleIgnore         (void);
+     GetFieldHandlePtr  getHandleIgnore          (void) const;
+     EditFieldHandlePtr editHandleIgnore         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

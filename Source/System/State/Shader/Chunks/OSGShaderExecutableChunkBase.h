@@ -351,34 +351,34 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVertexShader    (void) const;
-    EditFieldHandlePtr editHandleVertexShader   (void);
-    GetFieldHandlePtr  getHandleTessControlShader (void) const;
-    EditFieldHandlePtr editHandleTessControlShader(void);
-    GetFieldHandlePtr  getHandleTessEvaluationShader (void) const;
-    EditFieldHandlePtr editHandleTessEvaluationShader(void);
-    GetFieldHandlePtr  getHandleGeometryShader  (void) const;
-    EditFieldHandlePtr editHandleGeometryShader (void);
-    GetFieldHandlePtr  getHandleFragmentShader  (void) const;
-    EditFieldHandlePtr editHandleFragmentShader (void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableLocations (void) const;
-    EditFieldHandlePtr editHandleVariableLocations(void);
-    GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
-    EditFieldHandlePtr editHandleProceduralVariableLocations(void);
-    GetFieldHandlePtr  getHandleGeometryVerticesOut (void) const;
-    EditFieldHandlePtr editHandleGeometryVerticesOut(void);
-    GetFieldHandlePtr  getHandleGeometryInputType (void) const;
-    EditFieldHandlePtr editHandleGeometryInputType(void);
-    GetFieldHandlePtr  getHandleGeometryOutputType (void) const;
-    EditFieldHandlePtr editHandleGeometryOutputType(void);
-    GetFieldHandlePtr  getHandleAttributes      (void) const;
-    EditFieldHandlePtr editHandleAttributes     (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandlePointSize       (void) const;
-    EditFieldHandlePtr editHandlePointSize      (void);
+     GetFieldHandlePtr  getHandleVertexShader    (void) const;
+     EditFieldHandlePtr editHandleVertexShader   (void);
+     GetFieldHandlePtr  getHandleTessControlShader (void) const;
+     EditFieldHandlePtr editHandleTessControlShader(void);
+     GetFieldHandlePtr  getHandleTessEvaluationShader (void) const;
+     EditFieldHandlePtr editHandleTessEvaluationShader(void);
+     GetFieldHandlePtr  getHandleGeometryShader  (void) const;
+     EditFieldHandlePtr editHandleGeometryShader (void);
+     GetFieldHandlePtr  getHandleFragmentShader  (void) const;
+     EditFieldHandlePtr editHandleFragmentShader (void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleVariableLocations (void) const;
+     EditFieldHandlePtr editHandleVariableLocations(void);
+     GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
+     EditFieldHandlePtr editHandleProceduralVariableLocations(void);
+     GetFieldHandlePtr  getHandleGeometryVerticesOut (void) const;
+     EditFieldHandlePtr editHandleGeometryVerticesOut(void);
+     GetFieldHandlePtr  getHandleGeometryInputType (void) const;
+     EditFieldHandlePtr editHandleGeometryInputType(void);
+     GetFieldHandlePtr  getHandleGeometryOutputType (void) const;
+     EditFieldHandlePtr editHandleGeometryOutputType(void);
+     GetFieldHandlePtr  getHandleAttributes      (void) const;
+     EditFieldHandlePtr editHandleAttributes     (void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandlePointSize       (void) const;
+     EditFieldHandlePtr editHandlePointSize      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

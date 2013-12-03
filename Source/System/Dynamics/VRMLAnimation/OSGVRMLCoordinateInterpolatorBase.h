@@ -239,10 +239,10 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleKeyValue        (void) const;
-    EditFieldHandlePtr editHandleKeyValue       (void);
-    GetFieldHandlePtr  getHandleOutValue        (void) const;
-    EditFieldHandlePtr editHandleOutValue       (void);
+     GetFieldHandlePtr  getHandleKeyValue        (void) const;
+     EditFieldHandlePtr editHandleKeyValue       (void);
+     GetFieldHandlePtr  getHandleOutValue        (void) const;
+     EditFieldHandlePtr editHandleOutValue       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

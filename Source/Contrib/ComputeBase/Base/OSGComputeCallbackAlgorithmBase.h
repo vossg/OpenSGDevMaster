@@ -204,8 +204,8 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeCallbackAlgorithmBase : public Co
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCallback        (void) const;
-    EditFieldHandlePtr editHandleCallback       (void);
+     GetFieldHandlePtr  getHandleCallback        (void) const;
+     EditFieldHandlePtr editHandleCallback       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

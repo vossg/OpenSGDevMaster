@@ -229,8 +229,8 @@ class OSG_GROUP_DLLMAPPING DoubleTransformBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMatrix          (void) const;
-    EditFieldHandlePtr editHandleMatrix         (void);
+     GetFieldHandlePtr  getHandleMatrix          (void) const;
+     EditFieldHandlePtr editHandleMatrix         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

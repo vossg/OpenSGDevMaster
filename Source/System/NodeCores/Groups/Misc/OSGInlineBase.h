@@ -276,16 +276,16 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUrl             (void) const;
-    EditFieldHandlePtr editHandleUrl            (void);
-    GetFieldHandlePtr  getHandleLoaded          (void) const;
-    EditFieldHandlePtr editHandleLoaded         (void);
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleGraphOp         (void) const;
-    EditFieldHandlePtr editHandleGraphOp        (void);
-    GetFieldHandlePtr  getHandleOptions         (void) const;
-    EditFieldHandlePtr editHandleOptions        (void);
+     GetFieldHandlePtr  getHandleUrl             (void) const;
+     EditFieldHandlePtr editHandleUrl            (void);
+     GetFieldHandlePtr  getHandleLoaded          (void) const;
+     EditFieldHandlePtr editHandleLoaded         (void);
+     GetFieldHandlePtr  getHandleRoot            (void) const;
+     EditFieldHandlePtr editHandleRoot           (void);
+     GetFieldHandlePtr  getHandleGraphOp         (void) const;
+     EditFieldHandlePtr editHandleGraphOp        (void);
+     GetFieldHandlePtr  getHandleOptions         (void) const;
+     EditFieldHandlePtr editHandleOptions        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

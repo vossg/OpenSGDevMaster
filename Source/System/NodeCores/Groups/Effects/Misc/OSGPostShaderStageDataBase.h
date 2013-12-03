@@ -290,16 +290,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderMaterials (void) const;
-    EditFieldHandlePtr editHandleShaderMaterials(void);
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleRenderTargets   (void) const;
-    EditFieldHandlePtr editHandleRenderTargets  (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleShaderMaterials (void) const;
+     EditFieldHandlePtr editHandleShaderMaterials(void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandleRenderTargets   (void) const;
+     EditFieldHandlePtr editHandleRenderTargets  (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -188,8 +188,8 @@ class OSG_GROUP_DLLMAPPING TransformationElementBase : public AttachmentContaine
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParentStack     (void) const;
-    EditFieldHandlePtr editHandleParentStack    (void);
+     GetFieldHandlePtr  getHandleParentStack     (void) const;
+     EditFieldHandlePtr editHandleParentStack    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

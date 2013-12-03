@@ -261,12 +261,12 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleImages          (void) const;
-    EditFieldHandlePtr editHandleImages         (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
-    GetFieldHandlePtr  getHandleScales          (void) const;
-    EditFieldHandlePtr editHandleScales         (void);
+     GetFieldHandlePtr  getHandleImages          (void) const;
+     EditFieldHandlePtr editHandleImages         (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleScales          (void) const;
+     EditFieldHandlePtr editHandleScales         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

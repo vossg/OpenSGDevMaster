@@ -336,22 +336,22 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVertexShader    (void) const;
-    EditFieldHandlePtr editHandleVertexShader   (void);
-    GetFieldHandlePtr  getHandleTessControlShader (void) const;
-    EditFieldHandlePtr editHandleTessControlShader(void);
-    GetFieldHandlePtr  getHandleTessEvaluationShader (void) const;
-    EditFieldHandlePtr editHandleTessEvaluationShader(void);
-    GetFieldHandlePtr  getHandleGeometryShader  (void) const;
-    EditFieldHandlePtr editHandleGeometryShader (void);
-    GetFieldHandlePtr  getHandleFragmentShader  (void) const;
-    EditFieldHandlePtr editHandleFragmentShader (void);
-    GetFieldHandlePtr  getHandleGeometryVerticesOut (void) const;
-    EditFieldHandlePtr editHandleGeometryVerticesOut(void);
-    GetFieldHandlePtr  getHandleGeometryInputType (void) const;
-    EditFieldHandlePtr editHandleGeometryInputType(void);
-    GetFieldHandlePtr  getHandleGeometryOutputType (void) const;
-    EditFieldHandlePtr editHandleGeometryOutputType(void);
+     GetFieldHandlePtr  getHandleVertexShader    (void) const;
+     EditFieldHandlePtr editHandleVertexShader   (void);
+     GetFieldHandlePtr  getHandleTessControlShader (void) const;
+     EditFieldHandlePtr editHandleTessControlShader(void);
+     GetFieldHandlePtr  getHandleTessEvaluationShader (void) const;
+     EditFieldHandlePtr editHandleTessEvaluationShader(void);
+     GetFieldHandlePtr  getHandleGeometryShader  (void) const;
+     EditFieldHandlePtr editHandleGeometryShader (void);
+     GetFieldHandlePtr  getHandleFragmentShader  (void) const;
+     EditFieldHandlePtr editHandleFragmentShader (void);
+     GetFieldHandlePtr  getHandleGeometryVerticesOut (void) const;
+     EditFieldHandlePtr editHandleGeometryVerticesOut(void);
+     GetFieldHandlePtr  getHandleGeometryInputType (void) const;
+     EditFieldHandlePtr editHandleGeometryInputType(void);
+     GetFieldHandlePtr  getHandleGeometryOutputType (void) const;
+     EditFieldHandlePtr editHandleGeometryOutputType(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

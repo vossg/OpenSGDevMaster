@@ -209,10 +209,10 @@ class OSG_GROUP_DLLMAPPING RenderCallbackStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePreRenderCallbacks (void) const;
-    EditFieldHandlePtr editHandlePreRenderCallbacks(void);
-    GetFieldHandlePtr  getHandlePostRenderCallbacks (void) const;
-    EditFieldHandlePtr editHandlePostRenderCallbacks(void);
+     GetFieldHandlePtr  getHandlePreRenderCallbacks (void) const;
+     EditFieldHandlePtr editHandlePreRenderCallbacks(void);
+     GetFieldHandlePtr  getHandlePostRenderCallbacks (void) const;
+     EditFieldHandlePtr editHandlePostRenderCallbacks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

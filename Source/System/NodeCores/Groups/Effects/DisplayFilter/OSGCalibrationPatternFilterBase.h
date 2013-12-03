@@ -202,8 +202,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING CalibrationPatternFilterBase : public Attachme
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

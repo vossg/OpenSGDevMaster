@@ -238,8 +238,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public PrimeMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterials       (void) const;
-    EditFieldHandlePtr editHandleMaterials      (void);
+     GetFieldHandlePtr  getHandleMaterials       (void) const;
+     EditFieldHandlePtr editHandleMaterials      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

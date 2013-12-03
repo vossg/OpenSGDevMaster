@@ -310,22 +310,22 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
-    GetFieldHandlePtr  getHandleTexChunk        (void) const;
-    EditFieldHandlePtr editHandleTexChunk       (void);
-    GetFieldHandlePtr  getHandleTexBuffer       (void) const;
-    EditFieldHandlePtr editHandleTexBuffer      (void);
-    GetFieldHandlePtr  getHandleLightChunk      (void) const;
-    EditFieldHandlePtr editHandleLightChunk     (void);
-    GetFieldHandlePtr  getHandleBlendChunk      (void) const;
-    EditFieldHandlePtr editHandleBlendChunk     (void);
-    GetFieldHandlePtr  getHandleTexGenChunk     (void) const;
-    EditFieldHandlePtr editHandleTexGenChunk    (void);
-    GetFieldHandlePtr  getHandlePolyChunk       (void) const;
-    EditFieldHandlePtr editHandlePolyChunk      (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleTexChunk        (void) const;
+     EditFieldHandlePtr editHandleTexChunk       (void);
+     GetFieldHandlePtr  getHandleTexBuffer       (void) const;
+     EditFieldHandlePtr editHandleTexBuffer      (void);
+     GetFieldHandlePtr  getHandleLightChunk      (void) const;
+     EditFieldHandlePtr editHandleLightChunk     (void);
+     GetFieldHandlePtr  getHandleBlendChunk      (void) const;
+     EditFieldHandlePtr editHandleBlendChunk     (void);
+     GetFieldHandlePtr  getHandleTexGenChunk     (void) const;
+     EditFieldHandlePtr editHandleTexGenChunk    (void);
+     GetFieldHandlePtr  getHandlePolyChunk       (void) const;
+     EditFieldHandlePtr editHandlePolyChunk      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

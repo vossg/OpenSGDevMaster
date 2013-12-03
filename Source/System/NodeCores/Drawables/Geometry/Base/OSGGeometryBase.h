@@ -346,28 +346,28 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTypes           (void) const;
-    EditFieldHandlePtr editHandleTypes          (void);
-    GetFieldHandlePtr  getHandleLengths         (void) const;
-    EditFieldHandlePtr editHandleLengths        (void);
-    GetFieldHandlePtr  getHandleProperties      (void) const;
-    EditFieldHandlePtr editHandleProperties     (void);
-    GetFieldHandlePtr  getHandlePropIndices     (void) const;
-    EditFieldHandlePtr editHandlePropIndices    (void);
-    GetFieldHandlePtr  getHandlePatchVertices   (void) const;
-    EditFieldHandlePtr editHandlePatchVertices  (void);
-    GetFieldHandlePtr  getHandleDlistCache      (void) const;
-    EditFieldHandlePtr editHandleDlistCache     (void);
-    GetFieldHandlePtr  getHandleUseVAO          (void) const;
-    EditFieldHandlePtr editHandleUseVAO         (void);
-    GetFieldHandlePtr  getHandleUseAttribCalls  (void) const;
-    EditFieldHandlePtr editHandleUseAttribCalls (void);
-    GetFieldHandlePtr  getHandleClassicGLId     (void) const;
-    EditFieldHandlePtr editHandleClassicGLId    (void);
-    GetFieldHandlePtr  getHandleAttGLId         (void) const;
-    EditFieldHandlePtr editHandleAttGLId        (void);
-    GetFieldHandlePtr  getHandleVaoGLId         (void) const;
-    EditFieldHandlePtr editHandleVaoGLId        (void);
+     GetFieldHandlePtr  getHandleTypes           (void) const;
+     EditFieldHandlePtr editHandleTypes          (void);
+     GetFieldHandlePtr  getHandleLengths         (void) const;
+     EditFieldHandlePtr editHandleLengths        (void);
+     GetFieldHandlePtr  getHandleProperties      (void) const;
+     EditFieldHandlePtr editHandleProperties     (void);
+     GetFieldHandlePtr  getHandlePropIndices     (void) const;
+     EditFieldHandlePtr editHandlePropIndices    (void);
+     GetFieldHandlePtr  getHandlePatchVertices   (void) const;
+     EditFieldHandlePtr editHandlePatchVertices  (void);
+     GetFieldHandlePtr  getHandleDlistCache      (void) const;
+     EditFieldHandlePtr editHandleDlistCache     (void);
+     GetFieldHandlePtr  getHandleUseVAO          (void) const;
+     EditFieldHandlePtr editHandleUseVAO         (void);
+     GetFieldHandlePtr  getHandleUseAttribCalls  (void) const;
+     EditFieldHandlePtr editHandleUseAttribCalls (void);
+     GetFieldHandlePtr  getHandleClassicGLId     (void) const;
+     EditFieldHandlePtr editHandleClassicGLId    (void);
+     GetFieldHandlePtr  getHandleAttGLId         (void) const;
+     EditFieldHandlePtr editHandleAttGLId        (void);
+     GetFieldHandlePtr  getHandleVaoGLId         (void) const;
+     EditFieldHandlePtr editHandleVaoGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

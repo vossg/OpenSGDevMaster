@@ -202,8 +202,8 @@ class OSG_WINDOW_DLLMAPPING TileableBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTile            (void) const;
-    EditFieldHandlePtr editHandleTile           (void);
+     GetFieldHandlePtr  getHandleTile            (void) const;
+     EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

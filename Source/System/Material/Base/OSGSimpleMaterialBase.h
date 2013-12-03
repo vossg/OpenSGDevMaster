@@ -314,22 +314,22 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAmbient         (void) const;
-    EditFieldHandlePtr editHandleAmbient        (void);
-    GetFieldHandlePtr  getHandleDiffuse         (void) const;
-    EditFieldHandlePtr editHandleDiffuse        (void);
-    GetFieldHandlePtr  getHandleSpecular        (void) const;
-    EditFieldHandlePtr editHandleSpecular       (void);
-    GetFieldHandlePtr  getHandleShininess       (void) const;
-    EditFieldHandlePtr editHandleShininess      (void);
-    GetFieldHandlePtr  getHandleEmission        (void) const;
-    EditFieldHandlePtr editHandleEmission       (void);
-    GetFieldHandlePtr  getHandleTransparency    (void) const;
-    EditFieldHandlePtr editHandleTransparency   (void);
-    GetFieldHandlePtr  getHandleLit             (void) const;
-    EditFieldHandlePtr editHandleLit            (void);
-    GetFieldHandlePtr  getHandleColorMaterial   (void) const;
-    EditFieldHandlePtr editHandleColorMaterial  (void);
+     GetFieldHandlePtr  getHandleAmbient         (void) const;
+     EditFieldHandlePtr editHandleAmbient        (void);
+     GetFieldHandlePtr  getHandleDiffuse         (void) const;
+     EditFieldHandlePtr editHandleDiffuse        (void);
+     GetFieldHandlePtr  getHandleSpecular        (void) const;
+     EditFieldHandlePtr editHandleSpecular       (void);
+     GetFieldHandlePtr  getHandleShininess       (void) const;
+     EditFieldHandlePtr editHandleShininess      (void);
+     GetFieldHandlePtr  getHandleEmission        (void) const;
+     EditFieldHandlePtr editHandleEmission       (void);
+     GetFieldHandlePtr  getHandleTransparency    (void) const;
+     EditFieldHandlePtr editHandleTransparency   (void);
+     GetFieldHandlePtr  getHandleLit             (void) const;
+     EditFieldHandlePtr editHandleLit            (void);
+     GetFieldHandlePtr  getHandleColorMaterial   (void) const;
+     EditFieldHandlePtr editHandleColorMaterial  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

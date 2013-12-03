@@ -210,10 +210,10 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonSkinningAlgorithmBase : public SkinningAlg
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDrawPositions   (void) const;
-    EditFieldHandlePtr editHandleDrawPositions  (void);
-    GetFieldHandlePtr  getHandleDrawIndex       (void) const;
-    EditFieldHandlePtr editHandleDrawIndex      (void);
+     GetFieldHandlePtr  getHandleDrawPositions   (void) const;
+     EditFieldHandlePtr editHandleDrawPositions  (void);
+     GetFieldHandlePtr  getHandleDrawIndex       (void) const;
+     EditFieldHandlePtr editHandleDrawIndex      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

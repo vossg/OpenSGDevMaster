@@ -229,8 +229,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWinClearOpBase : public AttachmentCont
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

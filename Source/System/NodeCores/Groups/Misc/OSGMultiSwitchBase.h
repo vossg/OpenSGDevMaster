@@ -240,10 +240,10 @@ class OSG_GROUP_DLLMAPPING MultiSwitchBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChoices         (void) const;
-    EditFieldHandlePtr editHandleChoices        (void);
-    GetFieldHandlePtr  getHandleSwitchMode      (void) const;
-    EditFieldHandlePtr editHandleSwitchMode     (void);
+     GetFieldHandlePtr  getHandleChoices         (void) const;
+     EditFieldHandlePtr editHandleChoices        (void);
+     GetFieldHandlePtr  getHandleSwitchMode      (void) const;
+     EditFieldHandlePtr editHandleSwitchMode     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

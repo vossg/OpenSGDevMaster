@@ -233,8 +233,8 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterialBase : public CompositeMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFallbackMaterial (void) const;
-    EditFieldHandlePtr editHandleFallbackMaterial(void);
+     GetFieldHandlePtr  getHandleFallbackMaterial (void) const;
+     EditFieldHandlePtr editHandleFallbackMaterial(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

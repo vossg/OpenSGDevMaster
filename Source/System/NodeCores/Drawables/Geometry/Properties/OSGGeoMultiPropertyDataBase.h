@@ -240,10 +240,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleIData           (void) const;
-    EditFieldHandlePtr editHandleIData          (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleIData           (void) const;
+     EditFieldHandlePtr editHandleIData          (void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -247,10 +247,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariableChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
-    EditFieldHandlePtr editHandleDestroyedFunctors(void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
+     EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

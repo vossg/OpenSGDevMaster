@@ -229,8 +229,8 @@ class OSG_STATE_DLLMAPPING ShadeModelChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShadeModel      (void) const;
-    EditFieldHandlePtr editHandleShadeModel     (void);
+     GetFieldHandlePtr  getHandleShadeModel      (void) const;
+     EditFieldHandlePtr editHandleShadeModel     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

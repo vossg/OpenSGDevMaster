@@ -229,8 +229,8 @@ class OSG_GROUP_DLLMAPPING TranslationTransformationElementBase : public Transfo
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTranslation     (void) const;
-    EditFieldHandlePtr editHandleTranslation    (void);
+     GetFieldHandlePtr  getHandleTranslation     (void) const;
+     EditFieldHandlePtr editHandleTranslation    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

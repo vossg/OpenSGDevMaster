@@ -258,14 +258,14 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleProgramVarChunks (void) const;
-    EditFieldHandlePtr editHandleProgramVarChunks(void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableLocations (void) const;
-    EditFieldHandlePtr editHandleVariableLocations(void);
-    GetFieldHandlePtr  getHandleActiveShader    (void) const;
-    EditFieldHandlePtr editHandleActiveShader   (void);
+     GetFieldHandlePtr  getHandleProgramVarChunks (void) const;
+     EditFieldHandlePtr editHandleProgramVarChunks(void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleVariableLocations (void) const;
+     EditFieldHandlePtr editHandleVariableLocations(void);
+     GetFieldHandlePtr  getHandleActiveShader    (void) const;
+     EditFieldHandlePtr editHandleActiveShader   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

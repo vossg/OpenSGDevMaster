@@ -376,26 +376,26 @@ class OSG_CONTRIBVTK_DLLMAPPING VTKPolyDataMapperBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleGeoRoots        (void) const;
-    EditFieldHandlePtr editHandleGeoRoots       (void);
-    GetFieldHandlePtr  getHandleGeometries      (void) const;
-    EditFieldHandlePtr editHandleGeometries     (void);
-    GetFieldHandlePtr  getHandleMaterials       (void) const;
-    EditFieldHandlePtr editHandleMaterials      (void);
-    GetFieldHandlePtr  getHandleMaterialChunks  (void) const;
-    EditFieldHandlePtr editHandleMaterialChunks (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
-    GetFieldHandlePtr  getHandleLength          (void) const;
-    EditFieldHandlePtr editHandleLength         (void);
-    GetFieldHandlePtr  getHandleTypes           (void) const;
-    EditFieldHandlePtr editHandleTypes          (void);
-    GetFieldHandlePtr  getHandleColors          (void) const;
-    EditFieldHandlePtr editHandleColors         (void);
-    GetFieldHandlePtr  getHandleNormals         (void) const;
-    EditFieldHandlePtr editHandleNormals        (void);
+     GetFieldHandlePtr  getHandleRoot            (void) const;
+     EditFieldHandlePtr editHandleRoot           (void);
+     GetFieldHandlePtr  getHandleGeoRoots        (void) const;
+     EditFieldHandlePtr editHandleGeoRoots       (void);
+     GetFieldHandlePtr  getHandleGeometries      (void) const;
+     EditFieldHandlePtr editHandleGeometries     (void);
+     GetFieldHandlePtr  getHandleMaterials       (void) const;
+     EditFieldHandlePtr editHandleMaterials      (void);
+     GetFieldHandlePtr  getHandleMaterialChunks  (void) const;
+     EditFieldHandlePtr editHandleMaterialChunks (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleLength          (void) const;
+     EditFieldHandlePtr editHandleLength         (void);
+     GetFieldHandlePtr  getHandleTypes           (void) const;
+     EditFieldHandlePtr editHandleTypes          (void);
+     GetFieldHandlePtr  getHandleColors          (void) const;
+     EditFieldHandlePtr editHandleColors         (void);
+     GetFieldHandlePtr  getHandleNormals         (void) const;
+     EditFieldHandlePtr editHandleNormals        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

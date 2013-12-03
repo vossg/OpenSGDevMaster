@@ -366,36 +366,36 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandlePort            (void) const;
-    EditFieldHandlePtr editHandlePort           (void);
-    GetFieldHandlePtr  getHandleGlObjectEventCounter (void) const;
-    EditFieldHandlePtr editHandleGlObjectEventCounter(void);
-    GetFieldHandlePtr  getHandleGlObjectLastRefresh (void) const;
-    EditFieldHandlePtr editHandleGlObjectLastRefresh(void);
-    GetFieldHandlePtr  getHandleGlObjectLastReinitialize (void) const;
-    EditFieldHandlePtr editHandleGlObjectLastReinitialize(void);
-    GetFieldHandlePtr  getHandleDrawerId        (void) const;
-    EditFieldHandlePtr editHandleDrawerId       (void);
-    GetFieldHandlePtr  getHandleRequestMajor    (void) const;
-    EditFieldHandlePtr editHandleRequestMajor   (void);
-    GetFieldHandlePtr  getHandleRequestMinor    (void) const;
-    EditFieldHandlePtr editHandleRequestMinor   (void);
-    GetFieldHandlePtr  getHandleContextFlags    (void) const;
-    EditFieldHandlePtr editHandleContextFlags   (void);
-    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
-    EditFieldHandlePtr editHandleRenderOptions  (void);
-    GetFieldHandlePtr  getHandleIgnoreAllExtensions (void) const;
-    EditFieldHandlePtr editHandleIgnoreAllExtensions(void);
-    GetFieldHandlePtr  getHandleDrawMode        (void) const;
-    EditFieldHandlePtr editHandleDrawMode       (void);
-    GetFieldHandlePtr  getHandleRendererInfo    (void) const;
-    EditFieldHandlePtr editHandleRendererInfo   (void);
-    GetFieldHandlePtr  getHandleDrawTasks       (void) const;
-    EditFieldHandlePtr editHandleDrawTasks      (void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandlePort            (void) const;
+     EditFieldHandlePtr editHandlePort           (void);
+     GetFieldHandlePtr  getHandleGlObjectEventCounter (void) const;
+     EditFieldHandlePtr editHandleGlObjectEventCounter(void);
+     GetFieldHandlePtr  getHandleGlObjectLastRefresh (void) const;
+     EditFieldHandlePtr editHandleGlObjectLastRefresh(void);
+     GetFieldHandlePtr  getHandleGlObjectLastReinitialize (void) const;
+     EditFieldHandlePtr editHandleGlObjectLastReinitialize(void);
+     GetFieldHandlePtr  getHandleDrawerId        (void) const;
+     EditFieldHandlePtr editHandleDrawerId       (void);
+     GetFieldHandlePtr  getHandleRequestMajor    (void) const;
+     EditFieldHandlePtr editHandleRequestMajor   (void);
+     GetFieldHandlePtr  getHandleRequestMinor    (void) const;
+     EditFieldHandlePtr editHandleRequestMinor   (void);
+     GetFieldHandlePtr  getHandleContextFlags    (void) const;
+     EditFieldHandlePtr editHandleContextFlags   (void);
+     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
+     EditFieldHandlePtr editHandleRenderOptions  (void);
+     GetFieldHandlePtr  getHandleIgnoreAllExtensions (void) const;
+     EditFieldHandlePtr editHandleIgnoreAllExtensions(void);
+     GetFieldHandlePtr  getHandleDrawMode        (void) const;
+     EditFieldHandlePtr editHandleDrawMode       (void);
+     GetFieldHandlePtr  getHandleRendererInfo    (void) const;
+     EditFieldHandlePtr editHandleRendererInfo   (void);
+     GetFieldHandlePtr  getHandleDrawTasks       (void) const;
+     EditFieldHandlePtr editHandleDrawTasks      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

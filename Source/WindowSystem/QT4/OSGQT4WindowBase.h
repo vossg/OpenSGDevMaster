@@ -242,10 +242,10 @@ class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlWidget        (void) const;
-    EditFieldHandlePtr editHandleGlWidget       (void);
-    GetFieldHandlePtr  getHandlePrivateOSGContext (void) const;
-    EditFieldHandlePtr editHandlePrivateOSGContext(void);
+     GetFieldHandlePtr  getHandleGlWidget        (void) const;
+     EditFieldHandlePtr editHandleGlWidget       (void);
+     GetFieldHandlePtr  getHandlePrivateOSGContext (void) const;
+     EditFieldHandlePtr editHandlePrivateOSGContext(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

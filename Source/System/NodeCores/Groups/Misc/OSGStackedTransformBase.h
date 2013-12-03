@@ -251,8 +251,8 @@ class OSG_GROUP_DLLMAPPING StackedTransformBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTransformElements (void) const;
-    EditFieldHandlePtr editHandleTransformElements(void);
+     GetFieldHandlePtr  getHandleTransformElements (void) const;
+     EditFieldHandlePtr editHandleTransformElements(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

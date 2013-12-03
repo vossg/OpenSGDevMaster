@@ -223,10 +223,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinningAlgorithmBase : public Algorithm
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkin            (void) const;
-    EditFieldHandlePtr editHandleSkin           (void);
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
+     GetFieldHandlePtr  getHandleSkin            (void) const;
+     EditFieldHandlePtr editHandleSkin           (void);
+     GetFieldHandlePtr  getHandleSkeleton        (void) const;
+     EditFieldHandlePtr editHandleSkeleton       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

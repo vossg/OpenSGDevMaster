@@ -317,24 +317,24 @@ class OSG_DYNAMICS_DLLMAPPING AnimQuaternionDataSourceBase : public AnimKeyFrame
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValues          (void) const;
-    EditFieldHandlePtr editHandleValues         (void);
-    GetFieldHandlePtr  getHandleInTangentsX     (void) const;
-    EditFieldHandlePtr editHandleInTangentsX    (void);
-    GetFieldHandlePtr  getHandleInTangentsY     (void) const;
-    EditFieldHandlePtr editHandleInTangentsY    (void);
-    GetFieldHandlePtr  getHandleInTangentsZ     (void) const;
-    EditFieldHandlePtr editHandleInTangentsZ    (void);
-    GetFieldHandlePtr  getHandleInTangentsW     (void) const;
-    EditFieldHandlePtr editHandleInTangentsW    (void);
-    GetFieldHandlePtr  getHandleOutTangentsX    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsX   (void);
-    GetFieldHandlePtr  getHandleOutTangentsY    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsY   (void);
-    GetFieldHandlePtr  getHandleOutTangentsZ    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsZ   (void);
-    GetFieldHandlePtr  getHandleOutTangentsW    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsW   (void);
+     GetFieldHandlePtr  getHandleValues          (void) const;
+     EditFieldHandlePtr editHandleValues         (void);
+     GetFieldHandlePtr  getHandleInTangentsX     (void) const;
+     EditFieldHandlePtr editHandleInTangentsX    (void);
+     GetFieldHandlePtr  getHandleInTangentsY     (void) const;
+     EditFieldHandlePtr editHandleInTangentsY    (void);
+     GetFieldHandlePtr  getHandleInTangentsZ     (void) const;
+     EditFieldHandlePtr editHandleInTangentsZ    (void);
+     GetFieldHandlePtr  getHandleInTangentsW     (void) const;
+     EditFieldHandlePtr editHandleInTangentsW    (void);
+     GetFieldHandlePtr  getHandleOutTangentsX    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsX   (void);
+     GetFieldHandlePtr  getHandleOutTangentsY    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsY   (void);
+     GetFieldHandlePtr  getHandleOutTangentsZ    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsZ   (void);
+     GetFieldHandlePtr  getHandleOutTangentsW    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsW   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

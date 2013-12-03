@@ -229,8 +229,8 @@ class OSG_FILEIO_DLLMAPPING VRMLAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVrmlNodeTypename (void) const;
-    EditFieldHandlePtr editHandleVrmlNodeTypename(void);
+     GetFieldHandlePtr  getHandleVrmlNodeTypename (void) const;
+     EditFieldHandlePtr editHandleVrmlNodeTypename(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -229,8 +229,8 @@ class OSG_GROUP_DLLMAPPING ScaleTransformationElementBase : public Transformatio
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleScale           (void) const;
-    EditFieldHandlePtr editHandleScale          (void);
+     GetFieldHandlePtr  getHandleScale           (void) const;
+     EditFieldHandlePtr editHandleScale          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

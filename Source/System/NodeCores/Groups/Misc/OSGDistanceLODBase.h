@@ -241,10 +241,10 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCenter          (void) const;
-    EditFieldHandlePtr editHandleCenter         (void);
-    GetFieldHandlePtr  getHandleRange           (void) const;
-    EditFieldHandlePtr editHandleRange          (void);
+     GetFieldHandlePtr  getHandleCenter          (void) const;
+     EditFieldHandlePtr editHandleCenter         (void);
+     GetFieldHandlePtr  getHandleRange           (void) const;
+     EditFieldHandlePtr editHandleRange          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

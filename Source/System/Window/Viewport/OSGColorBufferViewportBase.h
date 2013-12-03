@@ -265,14 +265,14 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRed             (void) const;
-    EditFieldHandlePtr editHandleRed            (void);
-    GetFieldHandlePtr  getHandleBlue            (void) const;
-    EditFieldHandlePtr editHandleBlue           (void);
-    GetFieldHandlePtr  getHandleGreen           (void) const;
-    EditFieldHandlePtr editHandleGreen          (void);
-    GetFieldHandlePtr  getHandleAlpha           (void) const;
-    EditFieldHandlePtr editHandleAlpha          (void);
+     GetFieldHandlePtr  getHandleRed             (void) const;
+     EditFieldHandlePtr editHandleRed            (void);
+     GetFieldHandlePtr  getHandleBlue            (void) const;
+     EditFieldHandlePtr editHandleBlue           (void);
+     GetFieldHandlePtr  getHandleGreen           (void) const;
+     EditFieldHandlePtr editHandleGreen          (void);
+     GetFieldHandlePtr  getHandleAlpha           (void) const;
+     EditFieldHandlePtr editHandleAlpha          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

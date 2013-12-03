@@ -219,10 +219,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProcVariableBase : public ShaderVariable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDependency      (void) const;
-    EditFieldHandlePtr editHandleDependency     (void);
-    GetFieldHandlePtr  getHandleParents         (void) const;
-    EditFieldHandlePtr editHandleParents        (void);
+     GetFieldHandlePtr  getHandleDependency      (void) const;
+     EditFieldHandlePtr editHandleDependency     (void);
+     GetFieldHandlePtr  getHandleParents         (void) const;
+     EditFieldHandlePtr editHandleParents        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

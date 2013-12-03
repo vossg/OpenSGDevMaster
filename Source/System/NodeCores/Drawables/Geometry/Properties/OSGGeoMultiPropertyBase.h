@@ -307,20 +307,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleContainer       (void) const;
-    EditFieldHandlePtr editHandleContainer      (void);
-    GetFieldHandlePtr  getHandleOffset          (void) const;
-    EditFieldHandlePtr editHandleOffset         (void);
-    GetFieldHandlePtr  getHandleIFormat         (void) const;
-    EditFieldHandlePtr editHandleIFormat        (void);
-    GetFieldHandlePtr  getHandleIDimension      (void) const;
-    EditFieldHandlePtr editHandleIDimension     (void);
-    GetFieldHandlePtr  getHandleISize           (void) const;
-    EditFieldHandlePtr editHandleISize          (void);
-    GetFieldHandlePtr  getHandleINormalize      (void) const;
-    EditFieldHandlePtr editHandleINormalize     (void);
-    GetFieldHandlePtr  getHandleIStride         (void) const;
-    EditFieldHandlePtr editHandleIStride        (void);
+     GetFieldHandlePtr  getHandleContainer       (void) const;
+     EditFieldHandlePtr editHandleContainer      (void);
+     GetFieldHandlePtr  getHandleOffset          (void) const;
+     EditFieldHandlePtr editHandleOffset         (void);
+     GetFieldHandlePtr  getHandleIFormat         (void) const;
+     EditFieldHandlePtr editHandleIFormat        (void);
+     GetFieldHandlePtr  getHandleIDimension      (void) const;
+     EditFieldHandlePtr editHandleIDimension     (void);
+     GetFieldHandlePtr  getHandleISize           (void) const;
+     EditFieldHandlePtr editHandleISize          (void);
+     GetFieldHandlePtr  getHandleINormalize      (void) const;
+     EditFieldHandlePtr editHandleINormalize     (void);
+     GetFieldHandlePtr  getHandleIStride         (void) const;
+     EditFieldHandlePtr editHandleIStride        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

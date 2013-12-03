@@ -309,20 +309,20 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeft            (void) const;
-    EditFieldHandlePtr editHandleLeft           (void);
-    GetFieldHandlePtr  getHandleRight           (void) const;
-    EditFieldHandlePtr editHandleRight          (void);
-    GetFieldHandlePtr  getHandleBottom          (void) const;
-    EditFieldHandlePtr editHandleBottom         (void);
-    GetFieldHandlePtr  getHandleTop             (void) const;
-    EditFieldHandlePtr editHandleTop            (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleForegrounds     (void) const;
-    EditFieldHandlePtr editHandleForegrounds    (void);
+     GetFieldHandlePtr  getHandleLeft            (void) const;
+     EditFieldHandlePtr editHandleLeft           (void);
+     GetFieldHandlePtr  getHandleRight           (void) const;
+     EditFieldHandlePtr editHandleRight          (void);
+     GetFieldHandlePtr  getHandleBottom          (void) const;
+     EditFieldHandlePtr editHandleBottom         (void);
+     GetFieldHandlePtr  getHandleTop             (void) const;
+     EditFieldHandlePtr editHandleTop            (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleBackground      (void) const;
+     EditFieldHandlePtr editHandleBackground     (void);
+     GetFieldHandlePtr  getHandleForegrounds     (void) const;
+     EditFieldHandlePtr editHandleForegrounds    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

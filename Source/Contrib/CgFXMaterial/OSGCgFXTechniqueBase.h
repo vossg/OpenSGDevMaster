@@ -205,8 +205,8 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXTechniqueBase : public PrimeMaterial
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderPassStates (void) const;
-    EditFieldHandlePtr editHandleRenderPassStates(void);
+     GetFieldHandlePtr  getHandleRenderPassStates (void) const;
+     EditFieldHandlePtr editHandleRenderPassStates(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

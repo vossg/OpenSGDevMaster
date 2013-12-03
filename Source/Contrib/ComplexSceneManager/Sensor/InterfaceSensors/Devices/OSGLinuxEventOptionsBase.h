@@ -254,12 +254,12 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDevice          (void) const;
-    EditFieldHandlePtr editHandleDevice         (void);
-    GetFieldHandlePtr  getHandleTRange          (void) const;
-    EditFieldHandlePtr editHandleTRange         (void);
-    GetFieldHandlePtr  getHandleRRange          (void) const;
-    EditFieldHandlePtr editHandleRRange         (void);
+     GetFieldHandlePtr  getHandleDevice          (void) const;
+     EditFieldHandlePtr editHandleDevice         (void);
+     GetFieldHandlePtr  getHandleTRange          (void) const;
+     EditFieldHandlePtr editHandleTRange         (void);
+     GetFieldHandlePtr  getHandleRRange          (void) const;
+     EditFieldHandlePtr editHandleRRange         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

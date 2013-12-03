@@ -229,8 +229,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DSLightChunkBase : public LightChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEffectiveRange  (void) const;
-    EditFieldHandlePtr editHandleEffectiveRange (void);
+     GetFieldHandlePtr  getHandleEffectiveRange  (void) const;
+     EditFieldHandlePtr editHandleEffectiveRange (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

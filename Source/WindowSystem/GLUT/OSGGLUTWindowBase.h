@@ -229,8 +229,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public NativeWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlutId          (void) const;
-    EditFieldHandlePtr editHandleGlutId         (void);
+     GetFieldHandlePtr  getHandleGlutId          (void) const;
+     EditFieldHandlePtr editHandleGlutId         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

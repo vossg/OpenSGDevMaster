@@ -216,12 +216,12 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGroupNodes      (void) const;
-    EditFieldHandlePtr editHandleGroupNodes     (void);
-    GetFieldHandlePtr  getHandleGroupLengths    (void) const;
-    EditFieldHandlePtr editHandleGroupLengths   (void);
-    GetFieldHandlePtr  getHandleGroupsChanged   (void) const;
-    EditFieldHandlePtr editHandleGroupsChanged  (void);
+     GetFieldHandlePtr  getHandleGroupNodes      (void) const;
+     EditFieldHandlePtr editHandleGroupNodes     (void);
+     GetFieldHandlePtr  getHandleGroupLengths    (void) const;
+     EditFieldHandlePtr editHandleGroupLengths   (void);
+     GetFieldHandlePtr  getHandleGroupsChanged   (void) const;
+     EditFieldHandlePtr editHandleGroupsChanged  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

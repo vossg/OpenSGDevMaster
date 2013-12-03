@@ -289,18 +289,18 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeft            (void) const;
-    EditFieldHandlePtr editHandleLeft           (void);
-    GetFieldHandlePtr  getHandleRight           (void) const;
-    EditFieldHandlePtr editHandleRight          (void);
-    GetFieldHandlePtr  getHandleBottom          (void) const;
-    EditFieldHandlePtr editHandleBottom         (void);
-    GetFieldHandlePtr  getHandleTop             (void) const;
-    EditFieldHandlePtr editHandleTop            (void);
-    GetFieldHandlePtr  getHandleFullWidth       (void) const;
-    EditFieldHandlePtr editHandleFullWidth      (void);
-    GetFieldHandlePtr  getHandleFullHeight      (void) const;
-    EditFieldHandlePtr editHandleFullHeight     (void);
+     GetFieldHandlePtr  getHandleLeft            (void) const;
+     EditFieldHandlePtr editHandleLeft           (void);
+     GetFieldHandlePtr  getHandleRight           (void) const;
+     EditFieldHandlePtr editHandleRight          (void);
+     GetFieldHandlePtr  getHandleBottom          (void) const;
+     EditFieldHandlePtr editHandleBottom         (void);
+     GetFieldHandlePtr  getHandleTop             (void) const;
+     EditFieldHandlePtr editHandleTop            (void);
+     GetFieldHandlePtr  getHandleFullWidth       (void) const;
+     EditFieldHandlePtr editHandleFullWidth      (void);
+     GetFieldHandlePtr  getHandleFullHeight      (void) const;
+     EditFieldHandlePtr editHandleFullHeight     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

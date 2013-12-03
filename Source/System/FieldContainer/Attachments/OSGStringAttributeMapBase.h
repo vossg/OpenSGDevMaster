@@ -209,10 +209,10 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleKeys            (void) const;
-    EditFieldHandlePtr editHandleKeys           (void);
-    GetFieldHandlePtr  getHandleValues          (void) const;
-    EditFieldHandlePtr editHandleValues         (void);
+     GetFieldHandlePtr  getHandleKeys            (void) const;
+     EditFieldHandlePtr editHandleKeys           (void);
+     GetFieldHandlePtr  getHandleValues          (void) const;
+     EditFieldHandlePtr editHandleValues         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

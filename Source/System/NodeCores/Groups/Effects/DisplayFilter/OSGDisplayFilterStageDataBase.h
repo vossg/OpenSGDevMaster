@@ -291,18 +291,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleTarget          (void) const;
-    EditFieldHandlePtr editHandleTarget         (void);
-    GetFieldHandlePtr  getHandleBaseMaterial    (void) const;
-    EditFieldHandlePtr editHandleBaseMaterial   (void);
-    GetFieldHandlePtr  getHandleColorFilterShader (void) const;
-    EditFieldHandlePtr editHandleColorFilterShader(void);
-    GetFieldHandlePtr  getHandleColorFilterTexture (void) const;
-    EditFieldHandlePtr editHandleColorFilterTexture(void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandleTarget          (void) const;
+     EditFieldHandlePtr editHandleTarget         (void);
+     GetFieldHandlePtr  getHandleBaseMaterial    (void) const;
+     EditFieldHandlePtr editHandleBaseMaterial   (void);
+     GetFieldHandlePtr  getHandleColorFilterShader (void) const;
+     EditFieldHandlePtr editHandleColorFilterShader(void);
+     GetFieldHandlePtr  getHandleColorFilterTexture (void) const;
+     EditFieldHandlePtr editHandleColorFilterTexture(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

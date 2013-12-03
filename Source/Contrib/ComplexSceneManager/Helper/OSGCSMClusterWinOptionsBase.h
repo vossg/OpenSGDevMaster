@@ -215,8 +215,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWinOptionsBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
+     GetFieldHandlePtr  getHandleParent          (void) const;
+     EditFieldHandlePtr editHandleParent         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

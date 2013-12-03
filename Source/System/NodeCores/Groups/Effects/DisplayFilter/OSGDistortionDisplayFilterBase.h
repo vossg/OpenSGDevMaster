@@ -253,12 +253,12 @@ class OSG_EFFECTGROUPS_DLLMAPPING DistortionDisplayFilterBase : public DisplayFi
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRows            (void) const;
-    EditFieldHandlePtr editHandleRows           (void);
-    GetFieldHandlePtr  getHandleColumns         (void) const;
-    EditFieldHandlePtr editHandleColumns        (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleRows            (void) const;
+     EditFieldHandlePtr editHandleRows           (void);
+     GetFieldHandlePtr  getHandleColumns         (void) const;
+     EditFieldHandlePtr editHandleColumns        (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

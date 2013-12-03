@@ -288,16 +288,16 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTimeSensor      (void) const;
-    EditFieldHandlePtr editHandleTimeSensor     (void);
-    GetFieldHandlePtr  getHandleTemplate        (void) const;
-    EditFieldHandlePtr editHandleTemplate       (void);
-    GetFieldHandlePtr  getHandleChannels        (void) const;
-    EditFieldHandlePtr editHandleChannels       (void);
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
-    GetFieldHandlePtr  getHandleWeight          (void) const;
-    EditFieldHandlePtr editHandleWeight         (void);
+     GetFieldHandlePtr  getHandleTimeSensor      (void) const;
+     EditFieldHandlePtr editHandleTimeSensor     (void);
+     GetFieldHandlePtr  getHandleTemplate        (void) const;
+     EditFieldHandlePtr editHandleTemplate       (void);
+     GetFieldHandlePtr  getHandleChannels        (void) const;
+     EditFieldHandlePtr editHandleChannels       (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleWeight          (void) const;
+     EditFieldHandlePtr editHandleWeight         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

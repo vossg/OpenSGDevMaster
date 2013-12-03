@@ -303,18 +303,18 @@ class OSG_GROUP_DLLMAPPING ShaderShadowMapEngineDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTargets   (void) const;
-    EditFieldHandlePtr editHandleRenderTargets  (void);
-    GetFieldHandlePtr  getHandleShadowTexBuffers (void) const;
-    EditFieldHandlePtr editHandleShadowTexBuffers(void);
-    GetFieldHandlePtr  getHandleShadowTexChunk  (void) const;
-    EditFieldHandlePtr editHandleShadowTexChunk (void);
-    GetFieldHandlePtr  getHandleShadowTexImage  (void) const;
-    EditFieldHandlePtr editHandleShadowTexImage (void);
-    GetFieldHandlePtr  getHandleLightPassMaterials (void) const;
-    EditFieldHandlePtr editHandleLightPassMaterials(void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
+     GetFieldHandlePtr  getHandleRenderTargets   (void) const;
+     EditFieldHandlePtr editHandleRenderTargets  (void);
+     GetFieldHandlePtr  getHandleShadowTexBuffers (void) const;
+     EditFieldHandlePtr editHandleShadowTexBuffers(void);
+     GetFieldHandlePtr  getHandleShadowTexChunk  (void) const;
+     EditFieldHandlePtr editHandleShadowTexChunk (void);
+     GetFieldHandlePtr  getHandleShadowTexImage  (void) const;
+     EditFieldHandlePtr editHandleShadowTexImage (void);
+     GetFieldHandlePtr  getHandleLightPassMaterials (void) const;
+     EditFieldHandlePtr editHandleLightPassMaterials(void);
+     GetFieldHandlePtr  getHandleBackground      (void) const;
+     EditFieldHandlePtr editHandleBackground     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

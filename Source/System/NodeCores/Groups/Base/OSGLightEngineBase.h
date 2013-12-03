@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

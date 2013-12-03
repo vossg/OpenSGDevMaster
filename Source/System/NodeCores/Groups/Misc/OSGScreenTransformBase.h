@@ -295,18 +295,18 @@ class OSG_GROUP_DLLMAPPING ScreenTransformBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
-    GetFieldHandlePtr  getHandleInvertWorldTransform (void) const;
-    EditFieldHandlePtr editHandleInvertWorldTransform(void);
-    GetFieldHandlePtr  getHandleInvertViewTransform (void) const;
-    EditFieldHandlePtr editHandleInvertViewTransform(void);
-    GetFieldHandlePtr  getHandleApplyBeaconRotation (void) const;
-    EditFieldHandlePtr editHandleApplyBeaconRotation(void);
-    GetFieldHandlePtr  getHandleApplyBeaconScreenTranslation (void) const;
-    EditFieldHandlePtr editHandleApplyBeaconScreenTranslation(void);
-    GetFieldHandlePtr  getHandleView            (void) const;
-    EditFieldHandlePtr editHandleView           (void);
+     GetFieldHandlePtr  getHandleBeacon          (void) const;
+     EditFieldHandlePtr editHandleBeacon         (void);
+     GetFieldHandlePtr  getHandleInvertWorldTransform (void) const;
+     EditFieldHandlePtr editHandleInvertWorldTransform(void);
+     GetFieldHandlePtr  getHandleInvertViewTransform (void) const;
+     EditFieldHandlePtr editHandleInvertViewTransform(void);
+     GetFieldHandlePtr  getHandleApplyBeaconRotation (void) const;
+     EditFieldHandlePtr editHandleApplyBeaconRotation(void);
+     GetFieldHandlePtr  getHandleApplyBeaconScreenTranslation (void) const;
+     EditFieldHandlePtr editHandleApplyBeaconScreenTranslation(void);
+     GetFieldHandlePtr  getHandleView            (void) const;
+     EditFieldHandlePtr editHandleView           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -314,22 +314,22 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSrcFactor       (void) const;
-    EditFieldHandlePtr editHandleSrcFactor      (void);
-    GetFieldHandlePtr  getHandleDestFactor      (void) const;
-    EditFieldHandlePtr editHandleDestFactor     (void);
-    GetFieldHandlePtr  getHandleEquation        (void) const;
-    EditFieldHandlePtr editHandleEquation       (void);
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandleAlphaFunc       (void) const;
-    EditFieldHandlePtr editHandleAlphaFunc      (void);
-    GetFieldHandlePtr  getHandleAlphaValue      (void) const;
-    EditFieldHandlePtr editHandleAlphaValue     (void);
-    GetFieldHandlePtr  getHandleAlphaSrcFactor  (void) const;
-    EditFieldHandlePtr editHandleAlphaSrcFactor (void);
-    GetFieldHandlePtr  getHandleAlphaDestFactor (void) const;
-    EditFieldHandlePtr editHandleAlphaDestFactor(void);
+     GetFieldHandlePtr  getHandleSrcFactor       (void) const;
+     EditFieldHandlePtr editHandleSrcFactor      (void);
+     GetFieldHandlePtr  getHandleDestFactor      (void) const;
+     EditFieldHandlePtr editHandleDestFactor     (void);
+     GetFieldHandlePtr  getHandleEquation        (void) const;
+     EditFieldHandlePtr editHandleEquation       (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandleAlphaFunc       (void) const;
+     EditFieldHandlePtr editHandleAlphaFunc      (void);
+     GetFieldHandlePtr  getHandleAlphaValue      (void) const;
+     EditFieldHandlePtr editHandleAlphaValue     (void);
+     GetFieldHandlePtr  getHandleAlphaSrcFactor  (void) const;
+     EditFieldHandlePtr editHandleAlphaSrcFactor (void);
+     GetFieldHandlePtr  getHandleAlphaDestFactor (void) const;
+     EditFieldHandlePtr editHandleAlphaDestFactor(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

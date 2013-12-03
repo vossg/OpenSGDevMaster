@@ -214,10 +214,10 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleElementIDs      (void) const;
-    EditFieldHandlePtr editHandleElementIDs     (void);
-    GetFieldHandlePtr  getHandleCollector       (void) const;
-    EditFieldHandlePtr editHandleCollector      (void);
+     GetFieldHandlePtr  getHandleElementIDs      (void) const;
+     EditFieldHandlePtr editHandleElementIDs     (void);
+     GetFieldHandlePtr  getHandleCollector       (void) const;
+     EditFieldHandlePtr editHandleCollector      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

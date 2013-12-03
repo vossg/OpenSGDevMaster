@@ -228,8 +228,8 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCoverageOverride (void) const;
-    EditFieldHandlePtr editHandleCoverageOverride(void);
+     GetFieldHandlePtr  getHandleCoverageOverride (void) const;
+     EditFieldHandlePtr editHandleCoverageOverride(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

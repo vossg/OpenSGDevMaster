@@ -233,8 +233,8 @@ class OSG_GROUP_DLLMAPPING ReplicateTransformBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTarget          (void) const;
-    EditFieldHandlePtr editHandleTarget         (void);
+     GetFieldHandlePtr  getHandleTarget          (void) const;
+     EditFieldHandlePtr editHandleTarget         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

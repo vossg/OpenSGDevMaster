@@ -233,8 +233,8 @@ class OSG_GROUP_DLLMAPPING MaterialChunkOverrideGroupBase : public ChunkOverride
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterial        (void) const;
-    EditFieldHandlePtr editHandleMaterial       (void);
+     GetFieldHandlePtr  getHandleMaterial        (void) const;
+     EditFieldHandlePtr editHandleMaterial       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

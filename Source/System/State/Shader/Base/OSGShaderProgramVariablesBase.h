@@ -254,12 +254,12 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariablesBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleProceduralVariables (void) const;
-    EditFieldHandlePtr editHandleProceduralVariables(void);
-    GetFieldHandlePtr  getHandleVariableChanged (void) const;
-    EditFieldHandlePtr editHandleVariableChanged(void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleProceduralVariables (void) const;
+     EditFieldHandlePtr editHandleProceduralVariables(void);
+     GetFieldHandlePtr  getHandleVariableChanged (void) const;
+     EditFieldHandlePtr editHandleVariableChanged(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

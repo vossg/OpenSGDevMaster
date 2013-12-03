@@ -359,30 +359,30 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
-    GetFieldHandlePtr  getHandleUrl             (void) const;
-    EditFieldHandlePtr editHandleUrl            (void);
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleState           (void) const;
-    EditFieldHandlePtr editHandleState          (void);
-    GetFieldHandlePtr  getHandleConcurrentLoad  (void) const;
-    EditFieldHandlePtr editHandleConcurrentLoad (void);
-    GetFieldHandlePtr  getHandleVolume          (void) const;
-    EditFieldHandlePtr editHandleVolume         (void);
-    GetFieldHandlePtr  getHandleIndices         (void) const;
-    EditFieldHandlePtr editHandleIndices        (void);
-    GetFieldHandlePtr  getHandleTriangles       (void) const;
-    EditFieldHandlePtr editHandleTriangles      (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
-    GetFieldHandlePtr  getHandleGeometries      (void) const;
-    EditFieldHandlePtr editHandleGeometries     (void);
-    GetFieldHandlePtr  getHandleAbsoluteUrl     (void) const;
-    EditFieldHandlePtr editHandleAbsoluteUrl    (void);
-    GetFieldHandlePtr  getHandleInline          (void) const;
-    EditFieldHandlePtr editHandleInline         (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleUrl             (void) const;
+     EditFieldHandlePtr editHandleUrl            (void);
+     GetFieldHandlePtr  getHandleRoot            (void) const;
+     EditFieldHandlePtr editHandleRoot           (void);
+     GetFieldHandlePtr  getHandleState           (void) const;
+     EditFieldHandlePtr editHandleState          (void);
+     GetFieldHandlePtr  getHandleConcurrentLoad  (void) const;
+     EditFieldHandlePtr editHandleConcurrentLoad (void);
+     GetFieldHandlePtr  getHandleVolume          (void) const;
+     EditFieldHandlePtr editHandleVolume         (void);
+     GetFieldHandlePtr  getHandleIndices         (void) const;
+     EditFieldHandlePtr editHandleIndices        (void);
+     GetFieldHandlePtr  getHandleTriangles       (void) const;
+     EditFieldHandlePtr editHandleTriangles      (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleGeometries      (void) const;
+     EditFieldHandlePtr editHandleGeometries     (void);
+     GetFieldHandlePtr  getHandleAbsoluteUrl     (void) const;
+     EditFieldHandlePtr editHandleAbsoluteUrl    (void);
+     GetFieldHandlePtr  getHandleInline          (void) const;
+     EditFieldHandlePtr editHandleInline         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

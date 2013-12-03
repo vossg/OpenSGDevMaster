@@ -241,10 +241,10 @@ class OSG_EXGPUVOLRT_DLLMAPPING GPUVolRTV2Base : public Algorithm
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleStepsize        (void) const;
-    EditFieldHandlePtr editHandleStepsize       (void);
-    GetFieldHandlePtr  getHandleToggleVisuals   (void) const;
-    EditFieldHandlePtr editHandleToggleVisuals  (void);
+     GetFieldHandlePtr  getHandleStepsize        (void) const;
+     EditFieldHandlePtr editHandleStepsize       (void);
+     GetFieldHandlePtr  getHandleToggleVisuals   (void) const;
+     EditFieldHandlePtr editHandleToggleVisuals  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

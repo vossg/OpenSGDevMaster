@@ -258,12 +258,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPerspectiveCameraBase : public PerspectiveCam
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEyeSeparation   (void) const;
-    EditFieldHandlePtr editHandleEyeSeparation  (void);
-    GetFieldHandlePtr  getHandleZeroParallax    (void) const;
-    EditFieldHandlePtr editHandleZeroParallax   (void);
-    GetFieldHandlePtr  getHandleHeadBeacon      (void) const;
-    EditFieldHandlePtr editHandleHeadBeacon     (void);
+     GetFieldHandlePtr  getHandleEyeSeparation   (void) const;
+     EditFieldHandlePtr editHandleEyeSeparation  (void);
+     GetFieldHandlePtr  getHandleZeroParallax    (void) const;
+     EditFieldHandlePtr editHandleZeroParallax   (void);
+     GetFieldHandlePtr  getHandleHeadBeacon      (void) const;
+     EditFieldHandlePtr editHandleHeadBeacon     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

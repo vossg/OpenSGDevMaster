@@ -254,12 +254,12 @@ class OSG_SYSTEM_DLLMAPPING MatrixCameraBase : public Camera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleProjectionMatrix (void) const;
-    EditFieldHandlePtr editHandleProjectionMatrix(void);
-    GetFieldHandlePtr  getHandleModelviewMatrix (void) const;
-    EditFieldHandlePtr editHandleModelviewMatrix(void);
-    GetFieldHandlePtr  getHandleUseBeacon       (void) const;
-    EditFieldHandlePtr editHandleUseBeacon      (void);
+     GetFieldHandlePtr  getHandleProjectionMatrix (void) const;
+     EditFieldHandlePtr editHandleProjectionMatrix(void);
+     GetFieldHandlePtr  getHandleModelviewMatrix (void) const;
+     EditFieldHandlePtr editHandleModelviewMatrix(void);
+     GetFieldHandlePtr  getHandleUseBeacon       (void) const;
+     EditFieldHandlePtr editHandleUseBeacon      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

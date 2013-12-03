@@ -229,8 +229,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ResolutionDisplayFilterBase : public DisplayFi
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDownScale       (void) const;
-    EditFieldHandlePtr editHandleDownScale      (void);
+     GetFieldHandlePtr  getHandleDownScale       (void) const;
+     EditFieldHandlePtr editHandleDownScale      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

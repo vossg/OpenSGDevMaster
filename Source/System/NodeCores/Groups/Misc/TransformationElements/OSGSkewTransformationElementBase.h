@@ -254,12 +254,12 @@ class OSG_GROUP_DLLMAPPING SkewTransformationElementBase : public Transformation
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRotationAxis    (void) const;
-    EditFieldHandlePtr editHandleRotationAxis   (void);
-    GetFieldHandlePtr  getHandleTranslationAxis (void) const;
-    EditFieldHandlePtr editHandleTranslationAxis(void);
-    GetFieldHandlePtr  getHandleAngle           (void) const;
-    EditFieldHandlePtr editHandleAngle          (void);
+     GetFieldHandlePtr  getHandleRotationAxis    (void) const;
+     EditFieldHandlePtr editHandleRotationAxis   (void);
+     GetFieldHandlePtr  getHandleTranslationAxis (void) const;
+     EditFieldHandlePtr editHandleTranslationAxis(void);
+     GetFieldHandlePtr  getHandleAngle           (void) const;
+     EditFieldHandlePtr editHandleAngle          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

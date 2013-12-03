@@ -229,8 +229,8 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChoice          (void) const;
-    EditFieldHandlePtr editHandleChoice         (void);
+     GetFieldHandlePtr  getHandleChoice          (void) const;
+     EditFieldHandlePtr editHandleChoice         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

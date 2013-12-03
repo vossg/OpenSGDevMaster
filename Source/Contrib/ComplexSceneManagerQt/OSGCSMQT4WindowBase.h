@@ -242,10 +242,10 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4WindowBase : public CSMWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePrimaryDisplayString (void) const;
-    EditFieldHandlePtr editHandlePrimaryDisplayString(void);
-    GetFieldHandlePtr  getHandlePrivateContext  (void) const;
-    EditFieldHandlePtr editHandlePrivateContext (void);
+     GetFieldHandlePtr  getHandlePrimaryDisplayString (void) const;
+     EditFieldHandlePtr editHandlePrimaryDisplayString(void);
+     GetFieldHandlePtr  getHandlePrivateContext  (void) const;
+     EditFieldHandlePtr editHandlePrivateContext (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

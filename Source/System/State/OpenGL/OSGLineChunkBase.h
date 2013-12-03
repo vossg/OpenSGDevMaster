@@ -265,14 +265,14 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleStippleRepeat   (void) const;
-    EditFieldHandlePtr editHandleStippleRepeat  (void);
-    GetFieldHandlePtr  getHandleStipplePattern  (void) const;
-    EditFieldHandlePtr editHandleStipplePattern (void);
-    GetFieldHandlePtr  getHandleSmooth          (void) const;
-    EditFieldHandlePtr editHandleSmooth         (void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleStippleRepeat   (void) const;
+     EditFieldHandlePtr editHandleStippleRepeat  (void);
+     GetFieldHandlePtr  getHandleStipplePattern  (void) const;
+     EditFieldHandlePtr editHandleStipplePattern (void);
+     GetFieldHandlePtr  getHandleSmooth          (void) const;
+     EditFieldHandlePtr editHandleSmooth         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

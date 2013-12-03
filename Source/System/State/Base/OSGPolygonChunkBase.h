@@ -349,28 +349,28 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCullFace        (void) const;
-    EditFieldHandlePtr editHandleCullFace       (void);
-    GetFieldHandlePtr  getHandleFrontFace       (void) const;
-    EditFieldHandlePtr editHandleFrontFace      (void);
-    GetFieldHandlePtr  getHandleFrontMode       (void) const;
-    EditFieldHandlePtr editHandleFrontMode      (void);
-    GetFieldHandlePtr  getHandleBackMode        (void) const;
-    EditFieldHandlePtr editHandleBackMode       (void);
-    GetFieldHandlePtr  getHandleSmooth          (void) const;
-    EditFieldHandlePtr editHandleSmooth         (void);
-    GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
-    EditFieldHandlePtr editHandleOffsetFactor   (void);
-    GetFieldHandlePtr  getHandleOffsetBias      (void) const;
-    EditFieldHandlePtr editHandleOffsetBias     (void);
-    GetFieldHandlePtr  getHandleOffsetPoint     (void) const;
-    EditFieldHandlePtr editHandleOffsetPoint    (void);
-    GetFieldHandlePtr  getHandleOffsetLine      (void) const;
-    EditFieldHandlePtr editHandleOffsetLine     (void);
-    GetFieldHandlePtr  getHandleOffsetFill      (void) const;
-    EditFieldHandlePtr editHandleOffsetFill     (void);
-    GetFieldHandlePtr  getHandleStipple         (void) const;
-    EditFieldHandlePtr editHandleStipple        (void);
+     GetFieldHandlePtr  getHandleCullFace        (void) const;
+     EditFieldHandlePtr editHandleCullFace       (void);
+     GetFieldHandlePtr  getHandleFrontFace       (void) const;
+     EditFieldHandlePtr editHandleFrontFace      (void);
+     GetFieldHandlePtr  getHandleFrontMode       (void) const;
+     EditFieldHandlePtr editHandleFrontMode      (void);
+     GetFieldHandlePtr  getHandleBackMode        (void) const;
+     EditFieldHandlePtr editHandleBackMode       (void);
+     GetFieldHandlePtr  getHandleSmooth          (void) const;
+     EditFieldHandlePtr editHandleSmooth         (void);
+     GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
+     EditFieldHandlePtr editHandleOffsetFactor   (void);
+     GetFieldHandlePtr  getHandleOffsetBias      (void) const;
+     EditFieldHandlePtr editHandleOffsetBias     (void);
+     GetFieldHandlePtr  getHandleOffsetPoint     (void) const;
+     EditFieldHandlePtr editHandleOffsetPoint    (void);
+     GetFieldHandlePtr  getHandleOffsetLine      (void) const;
+     EditFieldHandlePtr editHandleOffsetLine     (void);
+     GetFieldHandlePtr  getHandleOffsetFill      (void) const;
+     EditFieldHandlePtr editHandleOffsetFill     (void);
+     GetFieldHandlePtr  getHandleStipple         (void) const;
+     EditFieldHandlePtr editHandleStipple        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -359,28 +359,28 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
-    EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
-    GetFieldHandlePtr  getHandleResolutionFilter (void) const;
-    EditFieldHandlePtr editHandleResolutionFilter(void);
-    GetFieldHandlePtr  getHandleColorFilter     (void) const;
-    EditFieldHandlePtr editHandleColorFilter    (void);
-    GetFieldHandlePtr  getHandleDistortionFilter (void) const;
-    EditFieldHandlePtr editHandleDistortionFilter(void);
-    GetFieldHandlePtr  getHandleFilterGroups    (void) const;
-    EditFieldHandlePtr editHandleFilterGroups   (void);
-    GetFieldHandlePtr  getHandleActiveGroup     (void) const;
-    EditFieldHandlePtr editHandleActiveGroup    (void);
-    GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
-    EditFieldHandlePtr editHandleEnableMultiSample(void);
-    GetFieldHandlePtr  getHandleColorSamples    (void) const;
-    EditFieldHandlePtr editHandleColorSamples   (void);
-    GetFieldHandlePtr  getHandleCoverageSamples (void) const;
-    EditFieldHandlePtr editHandleCoverageSamples(void);
-    GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
-    EditFieldHandlePtr editHandleFixedSampleLocation(void);
-    GetFieldHandlePtr  getHandleForegrounds     (void) const;
-    EditFieldHandlePtr editHandleForegrounds    (void);
+     GetFieldHandlePtr  getHandleCalibrationPatternFilter (void) const;
+     EditFieldHandlePtr editHandleCalibrationPatternFilter(void);
+     GetFieldHandlePtr  getHandleResolutionFilter (void) const;
+     EditFieldHandlePtr editHandleResolutionFilter(void);
+     GetFieldHandlePtr  getHandleColorFilter     (void) const;
+     EditFieldHandlePtr editHandleColorFilter    (void);
+     GetFieldHandlePtr  getHandleDistortionFilter (void) const;
+     EditFieldHandlePtr editHandleDistortionFilter(void);
+     GetFieldHandlePtr  getHandleFilterGroups    (void) const;
+     EditFieldHandlePtr editHandleFilterGroups   (void);
+     GetFieldHandlePtr  getHandleActiveGroup     (void) const;
+     EditFieldHandlePtr editHandleActiveGroup    (void);
+     GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
+     EditFieldHandlePtr editHandleEnableMultiSample(void);
+     GetFieldHandlePtr  getHandleColorSamples    (void) const;
+     EditFieldHandlePtr editHandleColorSamples   (void);
+     GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+     EditFieldHandlePtr editHandleCoverageSamples(void);
+     GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+     EditFieldHandlePtr editHandleFixedSampleLocation(void);
+     GetFieldHandlePtr  getHandleForegrounds     (void) const;
+     EditFieldHandlePtr editHandleForegrounds    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

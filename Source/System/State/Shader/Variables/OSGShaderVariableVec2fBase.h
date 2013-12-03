@@ -229,8 +229,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableVec2fBase : public ShaderValueVariable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValue           (void) const;
-    EditFieldHandlePtr editHandleValue          (void);
+     GetFieldHandlePtr  getHandleValue           (void) const;
+     EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -251,12 +251,12 @@ class OSG_DYNAMICS_DLLMAPPING VRMLInterpolatorBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInValue         (void) const;
-    EditFieldHandlePtr editHandleInValue        (void);
-    GetFieldHandlePtr  getHandleKey             (void) const;
-    EditFieldHandlePtr editHandleKey            (void);
-    GetFieldHandlePtr  getHandleResortIndex     (void) const;
-    EditFieldHandlePtr editHandleResortIndex    (void);
+     GetFieldHandlePtr  getHandleInValue         (void) const;
+     EditFieldHandlePtr editHandleInValue        (void);
+     GetFieldHandlePtr  getHandleKey             (void) const;
+     EditFieldHandlePtr editHandleKey            (void);
+     GetFieldHandlePtr  getHandleResortIndex     (void) const;
+     EditFieldHandlePtr editHandleResortIndex    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

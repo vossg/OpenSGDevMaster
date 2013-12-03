@@ -214,12 +214,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CounterBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleIncTrigger      (void) const;
-    EditFieldHandlePtr editHandleIncTrigger     (void);
-    GetFieldHandlePtr  getHandleDecTrigger      (void) const;
-    EditFieldHandlePtr editHandleDecTrigger     (void);
-    GetFieldHandlePtr  getHandleResetTrigger    (void) const;
-    EditFieldHandlePtr editHandleResetTrigger   (void);
+     GetFieldHandlePtr  getHandleIncTrigger      (void) const;
+     EditFieldHandlePtr editHandleIncTrigger     (void);
+     GetFieldHandlePtr  getHandleDecTrigger      (void) const;
+     EditFieldHandlePtr editHandleDecTrigger     (void);
+     GetFieldHandlePtr  getHandleResetTrigger    (void) const;
+     EditFieldHandlePtr editHandleResetTrigger   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

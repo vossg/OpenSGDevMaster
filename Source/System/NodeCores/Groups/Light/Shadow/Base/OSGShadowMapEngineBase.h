@@ -269,18 +269,18 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShadowTexChunk  (void) const;
-    EditFieldHandlePtr editHandleShadowTexChunk (void);
-    GetFieldHandlePtr  getHandleWidth           (void) const;
-    EditFieldHandlePtr editHandleWidth          (void);
-    GetFieldHandlePtr  getHandleHeight          (void) const;
-    EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleOffsetBias      (void) const;
-    EditFieldHandlePtr editHandleOffsetBias     (void);
-    GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
-    EditFieldHandlePtr editHandleOffsetFactor   (void);
-    GetFieldHandlePtr  getHandleShadowTravMask  (void) const;
-    EditFieldHandlePtr editHandleShadowTravMask (void);
+     GetFieldHandlePtr  getHandleShadowTexChunk  (void) const;
+     EditFieldHandlePtr editHandleShadowTexChunk (void);
+     GetFieldHandlePtr  getHandleWidth           (void) const;
+     EditFieldHandlePtr editHandleWidth          (void);
+     GetFieldHandlePtr  getHandleHeight          (void) const;
+     EditFieldHandlePtr editHandleHeight         (void);
+     GetFieldHandlePtr  getHandleOffsetBias      (void) const;
+     EditFieldHandlePtr editHandleOffsetBias     (void);
+     GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
+     EditFieldHandlePtr editHandleOffsetFactor   (void);
+     GetFieldHandlePtr  getHandleShadowTravMask  (void) const;
+     EditFieldHandlePtr editHandleShadowTravMask (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

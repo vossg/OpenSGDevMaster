@@ -265,14 +265,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandleBgColor         (void) const;
-    EditFieldHandlePtr editHandleBgColor        (void);
-    GetFieldHandlePtr  getHandleElements        (void) const;
-    EditFieldHandlePtr editHandleElements       (void);
+     GetFieldHandlePtr  getHandleSize            (void) const;
+     EditFieldHandlePtr editHandleSize           (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandleBgColor         (void) const;
+     EditFieldHandlePtr editHandleBgColor        (void);
+     GetFieldHandlePtr  getHandleElements        (void) const;
+     EditFieldHandlePtr editHandleElements       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

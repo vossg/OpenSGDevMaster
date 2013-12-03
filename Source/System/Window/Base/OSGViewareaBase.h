@@ -330,24 +330,24 @@ class OSG_SYSTEM_DLLMAPPING ViewareaBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeft            (void) const;
-    EditFieldHandlePtr editHandleLeft           (void);
-    GetFieldHandlePtr  getHandleRight           (void) const;
-    EditFieldHandlePtr editHandleRight          (void);
-    GetFieldHandlePtr  getHandleBottom          (void) const;
-    EditFieldHandlePtr editHandleBottom         (void);
-    GetFieldHandlePtr  getHandleTop             (void) const;
-    EditFieldHandlePtr editHandleTop            (void);
-    GetFieldHandlePtr  getHandleTravMask        (void) const;
-    EditFieldHandlePtr editHandleTravMask       (void);
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
-    GetFieldHandlePtr  getHandleDrawTime        (void) const;
-    EditFieldHandlePtr editHandleDrawTime       (void);
-    GetFieldHandlePtr  getHandleDrawableId      (void) const;
-    EditFieldHandlePtr editHandleDrawableId     (void);
-    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
-    EditFieldHandlePtr editHandleRenderOptions  (void);
+     GetFieldHandlePtr  getHandleLeft            (void) const;
+     EditFieldHandlePtr editHandleLeft           (void);
+     GetFieldHandlePtr  getHandleRight           (void) const;
+     EditFieldHandlePtr editHandleRight          (void);
+     GetFieldHandlePtr  getHandleBottom          (void) const;
+     EditFieldHandlePtr editHandleBottom         (void);
+     GetFieldHandlePtr  getHandleTop             (void) const;
+     EditFieldHandlePtr editHandleTop            (void);
+     GetFieldHandlePtr  getHandleTravMask        (void) const;
+     EditFieldHandlePtr editHandleTravMask       (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleDrawTime        (void) const;
+     EditFieldHandlePtr editHandleDrawTime       (void);
+     GetFieldHandlePtr  getHandleDrawableId      (void) const;
+     EditFieldHandlePtr editHandleDrawableId     (void);
+     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
+     EditFieldHandlePtr editHandleRenderOptions  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

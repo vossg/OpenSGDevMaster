@@ -262,12 +262,12 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeShaderAlgorithmBase : public Comp
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTextureImages   (void) const;
-    EditFieldHandlePtr editHandleTextureImages  (void);
-    GetFieldHandlePtr  getHandleComputeShader   (void) const;
-    EditFieldHandlePtr editHandleComputeShader  (void);
-    GetFieldHandlePtr  getHandleDispatchConfig  (void) const;
-    EditFieldHandlePtr editHandleDispatchConfig (void);
+     GetFieldHandlePtr  getHandleTextureImages   (void) const;
+     EditFieldHandlePtr editHandleTextureImages  (void);
+     GetFieldHandlePtr  getHandleComputeShader   (void) const;
+     EditFieldHandlePtr editHandleComputeShader  (void);
+     GetFieldHandlePtr  getHandleDispatchConfig  (void) const;
+     EditFieldHandlePtr editHandleDispatchConfig (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

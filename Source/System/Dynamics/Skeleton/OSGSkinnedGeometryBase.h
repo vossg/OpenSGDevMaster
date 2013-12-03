@@ -308,20 +308,20 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSkeleton        (void) const;
-    EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleBindShapeMatrix (void) const;
-    EditFieldHandlePtr editHandleBindShapeMatrix(void);
-    GetFieldHandlePtr  getHandleJointIds        (void) const;
-    EditFieldHandlePtr editHandleJointIds       (void);
-    GetFieldHandlePtr  getHandleJointIndexProperty (void) const;
-    EditFieldHandlePtr editHandleJointIndexProperty(void);
-    GetFieldHandlePtr  getHandleJointWeightProperty (void) const;
-    EditFieldHandlePtr editHandleJointWeightProperty(void);
-    GetFieldHandlePtr  getHandleRenderMode      (void) const;
-    EditFieldHandlePtr editHandleRenderMode     (void);
-    GetFieldHandlePtr  getHandleSkinningAlgorithm (void) const;
-    EditFieldHandlePtr editHandleSkinningAlgorithm(void);
+     GetFieldHandlePtr  getHandleSkeleton        (void) const;
+     EditFieldHandlePtr editHandleSkeleton       (void);
+     GetFieldHandlePtr  getHandleBindShapeMatrix (void) const;
+     EditFieldHandlePtr editHandleBindShapeMatrix(void);
+     GetFieldHandlePtr  getHandleJointIds        (void) const;
+     EditFieldHandlePtr editHandleJointIds       (void);
+     GetFieldHandlePtr  getHandleJointIndexProperty (void) const;
+     EditFieldHandlePtr editHandleJointIndexProperty(void);
+     GetFieldHandlePtr  getHandleJointWeightProperty (void) const;
+     EditFieldHandlePtr editHandleJointWeightProperty(void);
+     GetFieldHandlePtr  getHandleRenderMode      (void) const;
+     EditFieldHandlePtr editHandleRenderMode     (void);
+     GetFieldHandlePtr  getHandleSkinningAlgorithm (void) const;
+     EditFieldHandlePtr editHandleSkinningAlgorithm(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

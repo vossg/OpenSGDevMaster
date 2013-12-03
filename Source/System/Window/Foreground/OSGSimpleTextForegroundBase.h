@@ -374,32 +374,32 @@ class OSG_WINDOW_DLLMAPPING SimpleTextForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLines           (void) const;
-    EditFieldHandlePtr editHandleLines          (void);
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandleShadowColor     (void) const;
-    EditFieldHandlePtr editHandleShadowColor    (void);
-    GetFieldHandlePtr  getHandleBgColor         (void) const;
-    EditFieldHandlePtr editHandleBgColor        (void);
-    GetFieldHandlePtr  getHandleFamily          (void) const;
-    EditFieldHandlePtr editHandleFamily         (void);
-    GetFieldHandlePtr  getHandleShadowOffset    (void) const;
-    EditFieldHandlePtr editHandleShadowOffset   (void);
-    GetFieldHandlePtr  getHandleHorizontalAlign (void) const;
-    EditFieldHandlePtr editHandleHorizontalAlign(void);
-    GetFieldHandlePtr  getHandleVerticalAlign   (void) const;
-    EditFieldHandlePtr editHandleVerticalAlign  (void);
-    GetFieldHandlePtr  getHandleBorderColor     (void) const;
-    EditFieldHandlePtr editHandleBorderColor    (void);
-    GetFieldHandlePtr  getHandleBorderOffset    (void) const;
-    EditFieldHandlePtr editHandleBorderOffset   (void);
-    GetFieldHandlePtr  getHandleTextMargin      (void) const;
-    EditFieldHandlePtr editHandleTextMargin     (void);
-    GetFieldHandlePtr  getHandleTile            (void) const;
-    EditFieldHandlePtr editHandleTile           (void);
+     GetFieldHandlePtr  getHandleLines           (void) const;
+     EditFieldHandlePtr editHandleLines          (void);
+     GetFieldHandlePtr  getHandleSize            (void) const;
+     EditFieldHandlePtr editHandleSize           (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandleShadowColor     (void) const;
+     EditFieldHandlePtr editHandleShadowColor    (void);
+     GetFieldHandlePtr  getHandleBgColor         (void) const;
+     EditFieldHandlePtr editHandleBgColor        (void);
+     GetFieldHandlePtr  getHandleFamily          (void) const;
+     EditFieldHandlePtr editHandleFamily         (void);
+     GetFieldHandlePtr  getHandleShadowOffset    (void) const;
+     EditFieldHandlePtr editHandleShadowOffset   (void);
+     GetFieldHandlePtr  getHandleHorizontalAlign (void) const;
+     EditFieldHandlePtr editHandleHorizontalAlign(void);
+     GetFieldHandlePtr  getHandleVerticalAlign   (void) const;
+     EditFieldHandlePtr editHandleVerticalAlign  (void);
+     GetFieldHandlePtr  getHandleBorderColor     (void) const;
+     EditFieldHandlePtr editHandleBorderColor    (void);
+     GetFieldHandlePtr  getHandleBorderOffset    (void) const;
+     EditFieldHandlePtr editHandleBorderOffset   (void);
+     GetFieldHandlePtr  getHandleTextMargin      (void) const;
+     EditFieldHandlePtr editHandleTextMargin     (void);
+     GetFieldHandlePtr  getHandleTile            (void) const;
+     EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -270,18 +270,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleColorBufferFormat (void) const;
-    EditFieldHandlePtr editHandleColorBufferFormat(void);
-    GetFieldHandlePtr  getHandleUseColorTextureBuffer (void) const;
-    EditFieldHandlePtr editHandleUseColorTextureBuffer(void);
-    GetFieldHandlePtr  getHandleUseDepthTextureBuffer (void) const;
-    EditFieldHandlePtr editHandleUseDepthTextureBuffer(void);
-    GetFieldHandlePtr  getHandleVertexShaders   (void) const;
-    EditFieldHandlePtr editHandleVertexShaders  (void);
-    GetFieldHandlePtr  getHandleFragmentShaders (void) const;
-    EditFieldHandlePtr editHandleFragmentShaders(void);
-    GetFieldHandlePtr  getHandlePassSizes       (void) const;
-    EditFieldHandlePtr editHandlePassSizes      (void);
+     GetFieldHandlePtr  getHandleColorBufferFormat (void) const;
+     EditFieldHandlePtr editHandleColorBufferFormat(void);
+     GetFieldHandlePtr  getHandleUseColorTextureBuffer (void) const;
+     EditFieldHandlePtr editHandleUseColorTextureBuffer(void);
+     GetFieldHandlePtr  getHandleUseDepthTextureBuffer (void) const;
+     EditFieldHandlePtr editHandleUseDepthTextureBuffer(void);
+     GetFieldHandlePtr  getHandleVertexShaders   (void) const;
+     EditFieldHandlePtr editHandleVertexShaders  (void);
+     GetFieldHandlePtr  getHandleFragmentShaders (void) const;
+     EditFieldHandlePtr editHandleFragmentShaders(void);
+     GetFieldHandlePtr  getHandlePassSizes       (void) const;
+     EditFieldHandlePtr editHandlePassSizes      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

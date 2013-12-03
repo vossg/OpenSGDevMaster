@@ -372,32 +372,32 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMode            (void) const;
-    EditFieldHandlePtr editHandleMode           (void);
-    GetFieldHandlePtr  getHandlePositions       (void) const;
-    EditFieldHandlePtr editHandlePositions      (void);
-    GetFieldHandlePtr  getHandleSizes           (void) const;
-    EditFieldHandlePtr editHandleSizes          (void);
-    GetFieldHandlePtr  getHandleSecPositions    (void) const;
-    EditFieldHandlePtr editHandleSecPositions   (void);
-    GetFieldHandlePtr  getHandleColors          (void) const;
-    EditFieldHandlePtr editHandleColors         (void);
-    GetFieldHandlePtr  getHandleNormals         (void) const;
-    EditFieldHandlePtr editHandleNormals        (void);
-    GetFieldHandlePtr  getHandleIndices         (void) const;
-    EditFieldHandlePtr editHandleIndices        (void);
-    GetFieldHandlePtr  getHandleTextureZs       (void) const;
-    EditFieldHandlePtr editHandleTextureZs      (void);
-    GetFieldHandlePtr  getHandleDrawOrder       (void) const;
-    EditFieldHandlePtr editHandleDrawOrder      (void);
-    GetFieldHandlePtr  getHandleDynamic         (void) const;
-    EditFieldHandlePtr editHandleDynamic        (void);
-    GetFieldHandlePtr  getHandlePump            (void) const;
-    EditFieldHandlePtr editHandlePump           (void);
-    GetFieldHandlePtr  getHandleBsp             (void) const;
-    EditFieldHandlePtr editHandleBsp            (void);
-    GetFieldHandlePtr  getHandleNumParticles    (void) const;
-    EditFieldHandlePtr editHandleNumParticles   (void);
+     GetFieldHandlePtr  getHandleMode            (void) const;
+     EditFieldHandlePtr editHandleMode           (void);
+     GetFieldHandlePtr  getHandlePositions       (void) const;
+     EditFieldHandlePtr editHandlePositions      (void);
+     GetFieldHandlePtr  getHandleSizes           (void) const;
+     EditFieldHandlePtr editHandleSizes          (void);
+     GetFieldHandlePtr  getHandleSecPositions    (void) const;
+     EditFieldHandlePtr editHandleSecPositions   (void);
+     GetFieldHandlePtr  getHandleColors          (void) const;
+     EditFieldHandlePtr editHandleColors         (void);
+     GetFieldHandlePtr  getHandleNormals         (void) const;
+     EditFieldHandlePtr editHandleNormals        (void);
+     GetFieldHandlePtr  getHandleIndices         (void) const;
+     EditFieldHandlePtr editHandleIndices        (void);
+     GetFieldHandlePtr  getHandleTextureZs       (void) const;
+     EditFieldHandlePtr editHandleTextureZs      (void);
+     GetFieldHandlePtr  getHandleDrawOrder       (void) const;
+     EditFieldHandlePtr editHandleDrawOrder      (void);
+     GetFieldHandlePtr  getHandleDynamic         (void) const;
+     EditFieldHandlePtr editHandleDynamic        (void);
+     GetFieldHandlePtr  getHandlePump            (void) const;
+     EditFieldHandlePtr editHandlePump           (void);
+     GetFieldHandlePtr  getHandleBsp             (void) const;
+     EditFieldHandlePtr editHandleBsp            (void);
+     GetFieldHandlePtr  getHandleNumParticles    (void) const;
+     EditFieldHandlePtr editHandleNumParticles   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

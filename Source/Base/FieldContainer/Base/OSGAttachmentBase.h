@@ -219,10 +219,10 @@ class OSG_BASE_DLLMAPPING AttachmentBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParents         (void) const;
-    EditFieldHandlePtr editHandleParents        (void);
-    GetFieldHandlePtr  getHandleInternal        (void) const;
-    EditFieldHandlePtr editHandleInternal       (void);
+     GetFieldHandlePtr  getHandleParents         (void) const;
+     EditFieldHandlePtr editHandleParents        (void);
+     GetFieldHandlePtr  getHandleInternal        (void) const;
+     EditFieldHandlePtr editHandleInternal       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

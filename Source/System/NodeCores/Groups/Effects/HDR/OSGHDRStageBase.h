@@ -302,20 +302,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDRStageBase : public Stage
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleExposure        (void) const;
-    EditFieldHandlePtr editHandleExposure       (void);
-    GetFieldHandlePtr  getHandleBlurWidth       (void) const;
-    EditFieldHandlePtr editHandleBlurWidth      (void);
-    GetFieldHandlePtr  getHandleBlurAmount      (void) const;
-    EditFieldHandlePtr editHandleBlurAmount     (void);
-    GetFieldHandlePtr  getHandleEffectAmount    (void) const;
-    EditFieldHandlePtr editHandleEffectAmount   (void);
-    GetFieldHandlePtr  getHandleGamma           (void) const;
-    EditFieldHandlePtr editHandleGamma          (void);
-    GetFieldHandlePtr  getHandleBufferFormat    (void) const;
-    EditFieldHandlePtr editHandleBufferFormat   (void);
-    GetFieldHandlePtr  getHandleCombineBlend    (void) const;
-    EditFieldHandlePtr editHandleCombineBlend   (void);
+     GetFieldHandlePtr  getHandleExposure        (void) const;
+     EditFieldHandlePtr editHandleExposure       (void);
+     GetFieldHandlePtr  getHandleBlurWidth       (void) const;
+     EditFieldHandlePtr editHandleBlurWidth      (void);
+     GetFieldHandlePtr  getHandleBlurAmount      (void) const;
+     EditFieldHandlePtr editHandleBlurAmount     (void);
+     GetFieldHandlePtr  getHandleEffectAmount    (void) const;
+     EditFieldHandlePtr editHandleEffectAmount   (void);
+     GetFieldHandlePtr  getHandleGamma           (void) const;
+     EditFieldHandlePtr editHandleGamma          (void);
+     GetFieldHandlePtr  getHandleBufferFormat    (void) const;
+     EditFieldHandlePtr editHandleBufferFormat   (void);
+     GetFieldHandlePtr  getHandleCombineBlend    (void) const;
+     EditFieldHandlePtr editHandleCombineBlend   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

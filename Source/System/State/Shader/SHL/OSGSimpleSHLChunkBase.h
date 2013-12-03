@@ -349,28 +349,28 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVertexProgram   (void) const;
-    EditFieldHandlePtr editHandleVertexProgram  (void);
-    GetFieldHandlePtr  getHandleTessControlProgram (void) const;
-    EditFieldHandlePtr editHandleTessControlProgram(void);
-    GetFieldHandlePtr  getHandleTessEvaluationProgram (void) const;
-    EditFieldHandlePtr editHandleTessEvaluationProgram(void);
-    GetFieldHandlePtr  getHandleGeometryProgram (void) const;
-    EditFieldHandlePtr editHandleGeometryProgram(void);
-    GetFieldHandlePtr  getHandleFragmentProgram (void) const;
-    EditFieldHandlePtr editHandleFragmentProgram(void);
-    GetFieldHandlePtr  getHandleCgFrontEnd      (void) const;
-    EditFieldHandlePtr editHandleCgFrontEnd     (void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableLocations (void) const;
-    EditFieldHandlePtr editHandleVariableLocations(void);
-    GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
-    EditFieldHandlePtr editHandleProceduralVariableLocations(void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandlePointSize       (void) const;
-    EditFieldHandlePtr editHandlePointSize      (void);
+     GetFieldHandlePtr  getHandleVertexProgram   (void) const;
+     EditFieldHandlePtr editHandleVertexProgram  (void);
+     GetFieldHandlePtr  getHandleTessControlProgram (void) const;
+     EditFieldHandlePtr editHandleTessControlProgram(void);
+     GetFieldHandlePtr  getHandleTessEvaluationProgram (void) const;
+     EditFieldHandlePtr editHandleTessEvaluationProgram(void);
+     GetFieldHandlePtr  getHandleGeometryProgram (void) const;
+     EditFieldHandlePtr editHandleGeometryProgram(void);
+     GetFieldHandlePtr  getHandleFragmentProgram (void) const;
+     EditFieldHandlePtr editHandleFragmentProgram(void);
+     GetFieldHandlePtr  getHandleCgFrontEnd      (void) const;
+     EditFieldHandlePtr editHandleCgFrontEnd     (void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleVariableLocations (void) const;
+     EditFieldHandlePtr editHandleVariableLocations(void);
+     GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
+     EditFieldHandlePtr editHandleProceduralVariableLocations(void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandlePointSize       (void) const;
+     EditFieldHandlePtr editHandlePointSize      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

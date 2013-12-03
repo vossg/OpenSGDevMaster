@@ -246,10 +246,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleViewportScale   (void) const;
-    EditFieldHandlePtr editHandleViewportScale  (void);
-    GetFieldHandlePtr  getHandleClearOp         (void) const;
-    EditFieldHandlePtr editHandleClearOp        (void);
+     GetFieldHandlePtr  getHandleViewportScale   (void) const;
+     EditFieldHandlePtr editHandleViewportScale  (void);
+     GetFieldHandlePtr  getHandleClearOp         (void) const;
+     EditFieldHandlePtr editHandleClearOp        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

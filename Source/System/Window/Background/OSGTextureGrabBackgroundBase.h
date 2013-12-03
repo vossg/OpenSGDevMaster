@@ -271,14 +271,14 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTexture         (void) const;
-    EditFieldHandlePtr editHandleTexture        (void);
-    GetFieldHandlePtr  getHandleAutoResize      (void) const;
-    EditFieldHandlePtr editHandleAutoResize     (void);
-    GetFieldHandlePtr  getHandleBindTarget      (void) const;
-    EditFieldHandlePtr editHandleBindTarget     (void);
-    GetFieldHandlePtr  getHandleCopyTarget      (void) const;
-    EditFieldHandlePtr editHandleCopyTarget     (void);
+     GetFieldHandlePtr  getHandleTexture         (void) const;
+     EditFieldHandlePtr editHandleTexture        (void);
+     GetFieldHandlePtr  getHandleAutoResize      (void) const;
+     EditFieldHandlePtr editHandleAutoResize     (void);
+     GetFieldHandlePtr  getHandleBindTarget      (void) const;
+     EditFieldHandlePtr editHandleBindTarget     (void);
+     GetFieldHandlePtr  getHandleCopyTarget      (void) const;
+     EditFieldHandlePtr editHandleCopyTarget     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

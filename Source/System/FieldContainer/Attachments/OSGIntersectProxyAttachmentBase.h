@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectProxyAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVisitChildren   (void) const;
-    EditFieldHandlePtr editHandleVisitChildren  (void);
+     GetFieldHandlePtr  getHandleVisitChildren   (void) const;
+     EditFieldHandlePtr editHandleVisitChildren  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

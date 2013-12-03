@@ -233,8 +233,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFallbackChunkBlock (void) const;
-    EditFieldHandlePtr editHandleFallbackChunkBlock(void);
+     GetFieldHandlePtr  getHandleFallbackChunkBlock (void) const;
+     EditFieldHandlePtr editHandleFallbackChunkBlock(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

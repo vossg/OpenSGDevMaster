@@ -214,10 +214,10 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleSortKey         (void) const;
-    EditFieldHandlePtr editHandleSortKey        (void);
-    GetFieldHandlePtr  getHandleTransparencyMode (void) const;
-    EditFieldHandlePtr editHandleTransparencyMode(void);
+     GetFieldHandlePtr  getHandleSortKey         (void) const;
+     EditFieldHandlePtr editHandleSortKey        (void);
+     GetFieldHandlePtr  getHandleTransparencyMode (void) const;
+     EditFieldHandlePtr editHandleTransparencyMode(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

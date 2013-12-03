@@ -248,10 +248,10 @@ class OSG_GROUP_DLLMAPPING StageBase : public StageParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
-    GetFieldHandlePtr  getHandleInheritedTarget (void) const;
-    EditFieldHandlePtr editHandleInheritedTarget(void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleInheritedTarget (void) const;
+     EditFieldHandlePtr editHandleInheritedTarget(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

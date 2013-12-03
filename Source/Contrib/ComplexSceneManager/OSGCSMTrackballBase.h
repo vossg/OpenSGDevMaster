@@ -346,28 +346,28 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMTrackballBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleModifierMask    (void) const;
-    EditFieldHandlePtr editHandleModifierMask   (void);
-    GetFieldHandlePtr  getHandleProcessing      (void) const;
-    EditFieldHandlePtr editHandleProcessing     (void);
-    GetFieldHandlePtr  getHandleTranslationScaleFactor (void) const;
-    EditFieldHandlePtr editHandleTranslationScaleFactor(void);
-    GetFieldHandlePtr  getHandleMatrixResult    (void) const;
-    EditFieldHandlePtr editHandleMatrixResult   (void);
-    GetFieldHandlePtr  getHandleRotationMatrixResult (void) const;
-    EditFieldHandlePtr editHandleRotationMatrixResult(void);
-    GetFieldHandlePtr  getHandleReferencePosition (void) const;
-    EditFieldHandlePtr editHandleReferencePosition(void);
-    GetFieldHandlePtr  getHandleReferenceMatrix (void) const;
-    EditFieldHandlePtr editHandleReferenceMatrix(void);
-    GetFieldHandlePtr  getHandleTransformCenter (void) const;
-    EditFieldHandlePtr editHandleTransformCenter(void);
-    GetFieldHandlePtr  getHandleWorldDiag       (void) const;
-    EditFieldHandlePtr editHandleWorldDiag      (void);
-    GetFieldHandlePtr  getHandleMouseData       (void) const;
-    EditFieldHandlePtr editHandleMouseData      (void);
-    GetFieldHandlePtr  getHandleReset           (void) const;
-    EditFieldHandlePtr editHandleReset          (void);
+     GetFieldHandlePtr  getHandleModifierMask    (void) const;
+     EditFieldHandlePtr editHandleModifierMask   (void);
+     GetFieldHandlePtr  getHandleProcessing      (void) const;
+     EditFieldHandlePtr editHandleProcessing     (void);
+     GetFieldHandlePtr  getHandleTranslationScaleFactor (void) const;
+     EditFieldHandlePtr editHandleTranslationScaleFactor(void);
+     GetFieldHandlePtr  getHandleMatrixResult    (void) const;
+     EditFieldHandlePtr editHandleMatrixResult   (void);
+     GetFieldHandlePtr  getHandleRotationMatrixResult (void) const;
+     EditFieldHandlePtr editHandleRotationMatrixResult(void);
+     GetFieldHandlePtr  getHandleReferencePosition (void) const;
+     EditFieldHandlePtr editHandleReferencePosition(void);
+     GetFieldHandlePtr  getHandleReferenceMatrix (void) const;
+     EditFieldHandlePtr editHandleReferenceMatrix(void);
+     GetFieldHandlePtr  getHandleTransformCenter (void) const;
+     EditFieldHandlePtr editHandleTransformCenter(void);
+     GetFieldHandlePtr  getHandleWorldDiag       (void) const;
+     EditFieldHandlePtr editHandleWorldDiag      (void);
+     GetFieldHandlePtr  getHandleMouseData       (void) const;
+     EditFieldHandlePtr editHandleMouseData      (void);
+     GetFieldHandlePtr  getHandleReset           (void) const;
+     EditFieldHandlePtr editHandleReset          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

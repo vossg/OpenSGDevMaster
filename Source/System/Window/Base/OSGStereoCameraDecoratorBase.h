@@ -214,10 +214,10 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeftEye         (void) const;
-    EditFieldHandlePtr editHandleLeftEye        (void);
-    GetFieldHandlePtr  getHandleEyeSeparation   (void) const;
-    EditFieldHandlePtr editHandleEyeSeparation  (void);
+     GetFieldHandlePtr  getHandleLeftEye         (void) const;
+     EditFieldHandlePtr editHandleLeftEye        (void);
+     GetFieldHandlePtr  getHandleEyeSeparation   (void) const;
+     EditFieldHandlePtr editHandleEyeSeparation  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

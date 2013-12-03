@@ -253,12 +253,12 @@ class OSG_SYSTEM_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFov             (void) const;
-    EditFieldHandlePtr editHandleFov            (void);
-    GetFieldHandlePtr  getHandleFovMode         (void) const;
-    EditFieldHandlePtr editHandleFovMode        (void);
-    GetFieldHandlePtr  getHandleAspect          (void) const;
-    EditFieldHandlePtr editHandleAspect         (void);
+     GetFieldHandlePtr  getHandleFov             (void) const;
+     EditFieldHandlePtr editHandleFov            (void);
+     GetFieldHandlePtr  getHandleFovMode         (void) const;
+     EditFieldHandlePtr editHandleFovMode        (void);
+     GetFieldHandlePtr  getHandleAspect          (void) const;
+     EditFieldHandlePtr editHandleAspect         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

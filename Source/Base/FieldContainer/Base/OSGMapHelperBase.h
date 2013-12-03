@@ -245,10 +245,10 @@ class OSG_BASE_DLLMAPPING MapHelperBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleKeys            (void) const;
-    EditFieldHandlePtr editHandleKeys           (void);
-    GetFieldHandlePtr  getHandleContainer       (void) const;
-    EditFieldHandlePtr editHandleContainer      (void);
+     GetFieldHandlePtr  getHandleKeys            (void) const;
+     EditFieldHandlePtr editHandleKeys           (void);
+     GetFieldHandlePtr  getHandleContainer       (void) const;
+     EditFieldHandlePtr editHandleContainer      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

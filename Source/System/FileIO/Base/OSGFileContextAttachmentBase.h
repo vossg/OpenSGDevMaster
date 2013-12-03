@@ -229,8 +229,8 @@ class OSG_SYSTEM_DLLMAPPING FileContextAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleResolvedName    (void) const;
-    EditFieldHandlePtr editHandleResolvedName   (void);
+     GetFieldHandlePtr  getHandleResolvedName    (void) const;
+     EditFieldHandlePtr editHandleResolvedName   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

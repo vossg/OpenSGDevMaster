@@ -229,8 +229,8 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUseCameraBeacon (void) const;
-    EditFieldHandlePtr editHandleUseCameraBeacon(void);
+     GetFieldHandlePtr  getHandleUseCameraBeacon (void) const;
+     EditFieldHandlePtr editHandleUseCameraBeacon(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -266,14 +266,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING CheckerboardCalibFilterBase : public Calibrati
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleColorBlack      (void) const;
-    EditFieldHandlePtr editHandleColorBlack     (void);
-    GetFieldHandlePtr  getHandleColorWhite      (void) const;
-    EditFieldHandlePtr editHandleColorWhite     (void);
-    GetFieldHandlePtr  getHandleResolution      (void) const;
-    EditFieldHandlePtr editHandleResolution     (void);
-    GetFieldHandlePtr  getHandleCenter          (void) const;
-    EditFieldHandlePtr editHandleCenter         (void);
+     GetFieldHandlePtr  getHandleColorBlack      (void) const;
+     EditFieldHandlePtr editHandleColorBlack     (void);
+     GetFieldHandlePtr  getHandleColorWhite      (void) const;
+     EditFieldHandlePtr editHandleColorWhite     (void);
+     GetFieldHandlePtr  getHandleResolution      (void) const;
+     EditFieldHandlePtr editHandleResolution     (void);
+     GetFieldHandlePtr  getHandleCenter          (void) const;
+     EditFieldHandlePtr editHandleCenter         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

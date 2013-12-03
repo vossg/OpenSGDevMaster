@@ -228,8 +228,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableMRealBase : public ShaderValueVariable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValue           (void) const;
-    EditFieldHandlePtr editHandleValue          (void);
+     GetFieldHandlePtr  getHandleValue           (void) const;
+     EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

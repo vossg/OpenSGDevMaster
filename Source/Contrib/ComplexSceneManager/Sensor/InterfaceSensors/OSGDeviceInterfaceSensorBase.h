@@ -229,10 +229,10 @@ class OSG_CONTRIBCSM_DLLMAPPING DeviceInterfaceSensorBase : public NodeCoreSenso
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInterfaceName   (void) const;
-    EditFieldHandlePtr editHandleInterfaceName  (void);
-    GetFieldHandlePtr  getHandleOptions         (void) const;
-    EditFieldHandlePtr editHandleOptions        (void);
+     GetFieldHandlePtr  getHandleInterfaceName   (void) const;
+     EditFieldHandlePtr editHandleInterfaceName  (void);
+     GetFieldHandlePtr  getHandleOptions         (void) const;
+     EditFieldHandlePtr editHandleOptions        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

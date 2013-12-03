@@ -233,8 +233,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFrameBufferObject (void) const;
-    EditFieldHandlePtr editHandleFrameBufferObject(void);
+     GetFieldHandlePtr  getHandleFrameBufferObject (void) const;
+     EditFieldHandlePtr editHandleFrameBufferObject(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

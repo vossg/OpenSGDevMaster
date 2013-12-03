@@ -315,22 +315,22 @@ class OSG_UTIL_DLLMAPPING PerfMonitorForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMode            (void) const;
-    EditFieldHandlePtr editHandleMode           (void);
-    GetFieldHandlePtr  getHandleMaxSize         (void) const;
-    EditFieldHandlePtr editHandleMaxSize        (void);
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandleBgColor         (void) const;
-    EditFieldHandlePtr editHandleBgColor        (void);
-    GetFieldHandlePtr  getHandleFamily          (void) const;
-    EditFieldHandlePtr editHandleFamily         (void);
-    GetFieldHandlePtr  getHandleBorderColor     (void) const;
-    EditFieldHandlePtr editHandleBorderColor    (void);
-    GetFieldHandlePtr  getHandleBorderOffset    (void) const;
-    EditFieldHandlePtr editHandleBorderOffset   (void);
-    GetFieldHandlePtr  getHandleTextMargin      (void) const;
-    EditFieldHandlePtr editHandleTextMargin     (void);
+     GetFieldHandlePtr  getHandleMode            (void) const;
+     EditFieldHandlePtr editHandleMode           (void);
+     GetFieldHandlePtr  getHandleMaxSize         (void) const;
+     EditFieldHandlePtr editHandleMaxSize        (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandleBgColor         (void) const;
+     EditFieldHandlePtr editHandleBgColor        (void);
+     GetFieldHandlePtr  getHandleFamily          (void) const;
+     EditFieldHandlePtr editHandleFamily         (void);
+     GetFieldHandlePtr  getHandleBorderColor     (void) const;
+     EditFieldHandlePtr editHandleBorderColor    (void);
+     GetFieldHandlePtr  getHandleBorderOffset    (void) const;
+     EditFieldHandlePtr editHandleBorderOffset   (void);
+     GetFieldHandlePtr  getHandleTextMargin      (void) const;
+     EditFieldHandlePtr editHandleTextMargin     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

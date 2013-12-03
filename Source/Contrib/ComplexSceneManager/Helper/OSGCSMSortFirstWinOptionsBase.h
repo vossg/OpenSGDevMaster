@@ -266,14 +266,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSortFirstWinOptionsBase : public CSMClusterWi
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCompression     (void) const;
-    EditFieldHandlePtr editHandleCompression    (void);
-    GetFieldHandlePtr  getHandleSubtileSize     (void) const;
-    EditFieldHandlePtr editHandleSubtileSize    (void);
-    GetFieldHandlePtr  getHandleCompose         (void) const;
-    EditFieldHandlePtr editHandleCompose        (void);
-    GetFieldHandlePtr  getHandleUseFaceDistribution (void) const;
-    EditFieldHandlePtr editHandleUseFaceDistribution(void);
+     GetFieldHandlePtr  getHandleCompression     (void) const;
+     EditFieldHandlePtr editHandleCompression    (void);
+     GetFieldHandlePtr  getHandleSubtileSize     (void) const;
+     EditFieldHandlePtr editHandleSubtileSize    (void);
+     GetFieldHandlePtr  getHandleCompose         (void) const;
+     EditFieldHandlePtr editHandleCompose        (void);
+     GetFieldHandlePtr  getHandleUseFaceDistribution (void) const;
+     EditFieldHandlePtr editHandleUseFaceDistribution(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

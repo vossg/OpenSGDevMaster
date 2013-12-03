@@ -293,18 +293,18 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeShaderChunkBase : public StateChu
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleComputeShader   (void) const;
-    EditFieldHandlePtr editHandleComputeShader  (void);
-    GetFieldHandlePtr  getHandleComputeProgram  (void) const;
-    EditFieldHandlePtr editHandleComputeProgram (void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleVariableLocations (void) const;
-    EditFieldHandlePtr editHandleVariableLocations(void);
-    GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
-    EditFieldHandlePtr editHandleProceduralVariableLocations(void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleComputeShader   (void) const;
+     EditFieldHandlePtr editHandleComputeShader  (void);
+     GetFieldHandlePtr  getHandleComputeProgram  (void) const;
+     EditFieldHandlePtr editHandleComputeProgram (void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleVariableLocations (void) const;
+     EditFieldHandlePtr editHandleVariableLocations(void);
+     GetFieldHandlePtr  getHandleProceduralVariableLocations (void) const;
+     EditFieldHandlePtr editHandleProceduralVariableLocations(void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

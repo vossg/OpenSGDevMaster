@@ -229,8 +229,8 @@ class OSG_STATE_DLLMAPPING LogicOpChunkBase : public StateChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLogicOp         (void) const;
-    EditFieldHandlePtr editHandleLogicOp        (void);
+     GetFieldHandlePtr  getHandleLogicOp         (void) const;
+     EditFieldHandlePtr editHandleLogicOp        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

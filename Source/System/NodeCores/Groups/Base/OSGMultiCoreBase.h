@@ -249,10 +249,10 @@ class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCores           (void) const;
-    EditFieldHandlePtr editHandleCores          (void);
-    GetFieldHandlePtr  getHandleExitOnSkip      (void) const;
-    EditFieldHandlePtr editHandleExitOnSkip     (void);
+     GetFieldHandlePtr  getHandleCores           (void) const;
+     EditFieldHandlePtr editHandleCores          (void);
+     GetFieldHandlePtr  getHandleExitOnSkip      (void) const;
+     EditFieldHandlePtr editHandleExitOnSkip     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

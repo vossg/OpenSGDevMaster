@@ -235,10 +235,10 @@ class OSG_WINDOW_DLLMAPPING PassiveBackgroundBase : public Background
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleClearFrameBufferObject (void) const;
-    EditFieldHandlePtr editHandleClearFrameBufferObject(void);
-    GetFieldHandlePtr  getHandleClearCallback   (void) const;
-    EditFieldHandlePtr editHandleClearCallback  (void);
+     GetFieldHandlePtr  getHandleClearFrameBufferObject (void) const;
+     EditFieldHandlePtr editHandleClearFrameBufferObject(void);
+     GetFieldHandlePtr  getHandleClearCallback   (void) const;
+     EditFieldHandlePtr editHandleClearCallback  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -263,12 +263,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
-    GetFieldHandlePtr  getHandleContainers      (void) const;
-    EditFieldHandlePtr editHandleContainers     (void);
-    GetFieldHandlePtr  getHandleFields          (void) const;
-    EditFieldHandlePtr editHandleFields         (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleContainers      (void) const;
+     EditFieldHandlePtr editHandleContainers     (void);
+     GetFieldHandlePtr  getHandleFields          (void) const;
+     EditFieldHandlePtr editHandleFields         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

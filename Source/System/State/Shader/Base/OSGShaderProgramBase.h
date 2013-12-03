@@ -373,30 +373,30 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShaderType      (void) const;
-    EditFieldHandlePtr editHandleShaderType     (void);
-    GetFieldHandlePtr  getHandleProgram         (void) const;
-    EditFieldHandlePtr editHandleProgram        (void);
-    GetFieldHandlePtr  getHandleDefines         (void) const;
-    EditFieldHandlePtr editHandleDefines        (void);
-    GetFieldHandlePtr  getHandleGLId            (void) const;
-    EditFieldHandlePtr editHandleGLId           (void);
-    GetFieldHandlePtr  getHandleVariables       (void) const;
-    EditFieldHandlePtr editHandleVariables      (void);
-    GetFieldHandlePtr  getHandleFeedbackVaryings (void) const;
-    EditFieldHandlePtr editHandleFeedbackVaryings(void);
-    GetFieldHandlePtr  getHandleParameter       (void) const;
-    EditFieldHandlePtr editHandleParameter      (void);
-    GetFieldHandlePtr  getHandleAttributes      (void) const;
-    EditFieldHandlePtr editHandleAttributes     (void);
-    GetFieldHandlePtr  getHandleCgFrontEnd      (void) const;
-    EditFieldHandlePtr editHandleCgFrontEnd     (void);
-    GetFieldHandlePtr  getHandlePointSize       (void) const;
-    EditFieldHandlePtr editHandlePointSize      (void);
-    GetFieldHandlePtr  getHandleParents         (void) const;
-    EditFieldHandlePtr editHandleParents        (void);
-    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
-    EditFieldHandlePtr editHandleDestroyedFunctors(void);
+     GetFieldHandlePtr  getHandleShaderType      (void) const;
+     EditFieldHandlePtr editHandleShaderType     (void);
+     GetFieldHandlePtr  getHandleProgram         (void) const;
+     EditFieldHandlePtr editHandleProgram        (void);
+     GetFieldHandlePtr  getHandleDefines         (void) const;
+     EditFieldHandlePtr editHandleDefines        (void);
+     GetFieldHandlePtr  getHandleGLId            (void) const;
+     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleVariables       (void) const;
+     EditFieldHandlePtr editHandleVariables      (void);
+     GetFieldHandlePtr  getHandleFeedbackVaryings (void) const;
+     EditFieldHandlePtr editHandleFeedbackVaryings(void);
+     GetFieldHandlePtr  getHandleParameter       (void) const;
+     EditFieldHandlePtr editHandleParameter      (void);
+     GetFieldHandlePtr  getHandleAttributes      (void) const;
+     EditFieldHandlePtr editHandleAttributes     (void);
+     GetFieldHandlePtr  getHandleCgFrontEnd      (void) const;
+     EditFieldHandlePtr editHandleCgFrontEnd     (void);
+     GetFieldHandlePtr  getHandlePointSize       (void) const;
+     EditFieldHandlePtr editHandlePointSize      (void);
+     GetFieldHandlePtr  getHandleParents         (void) const;
+     EditFieldHandlePtr editHandleParents        (void);
+     GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
+     EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

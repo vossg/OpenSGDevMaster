@@ -266,14 +266,14 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDisplay         (void) const;
-    EditFieldHandlePtr editHandleDisplay        (void);
-    GetFieldHandlePtr  getHandleWindow          (void) const;
-    EditFieldHandlePtr editHandleWindow         (void);
-    GetFieldHandlePtr  getHandleContext         (void) const;
-    EditFieldHandlePtr editHandleContext        (void);
-    GetFieldHandlePtr  getHandleFbConfigId      (void) const;
-    EditFieldHandlePtr editHandleFbConfigId     (void);
+     GetFieldHandlePtr  getHandleDisplay         (void) const;
+     EditFieldHandlePtr editHandleDisplay        (void);
+     GetFieldHandlePtr  getHandleWindow          (void) const;
+     EditFieldHandlePtr editHandleWindow         (void);
+     GetFieldHandlePtr  getHandleContext         (void) const;
+     EditFieldHandlePtr editHandleContext        (void);
+     GetFieldHandlePtr  getHandleFbConfigId      (void) const;
+     EditFieldHandlePtr editHandleFbConfigId     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

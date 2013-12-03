@@ -254,12 +254,12 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleName            (void) const;
-    EditFieldHandlePtr editHandleName           (void);
-    GetFieldHandlePtr  getHandleFrame           (void) const;
-    EditFieldHandlePtr editHandleFrame          (void);
-    GetFieldHandlePtr  getHandleIncrement       (void) const;
-    EditFieldHandlePtr editHandleIncrement      (void);
+     GetFieldHandlePtr  getHandleName            (void) const;
+     EditFieldHandlePtr editHandleName           (void);
+     GetFieldHandlePtr  getHandleFrame           (void) const;
+     EditFieldHandlePtr editHandleFrame          (void);
+     GetFieldHandlePtr  getHandleIncrement       (void) const;
+     EditFieldHandlePtr editHandleIncrement      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

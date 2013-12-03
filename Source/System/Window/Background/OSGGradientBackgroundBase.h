@@ -245,14 +245,14 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandlePosition        (void) const;
-    EditFieldHandlePtr editHandlePosition       (void);
-    GetFieldHandlePtr  getHandleNormPosition    (void) const;
-    EditFieldHandlePtr editHandleNormPosition   (void);
-    GetFieldHandlePtr  getHandleStyle           (void) const;
-    EditFieldHandlePtr editHandleStyle          (void);
+     GetFieldHandlePtr  getHandleColor           (void) const;
+     EditFieldHandlePtr editHandleColor          (void);
+     GetFieldHandlePtr  getHandlePosition        (void) const;
+     EditFieldHandlePtr editHandlePosition       (void);
+     GetFieldHandlePtr  getHandleNormPosition    (void) const;
+     EditFieldHandlePtr editHandleNormPosition   (void);
+     GetFieldHandlePtr  getHandleStyle           (void) const;
+     EditFieldHandlePtr editHandleStyle          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

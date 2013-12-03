@@ -253,12 +253,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public BaseSkeletonJoint
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInvBindMatrix   (void) const;
-    EditFieldHandlePtr editHandleInvBindMatrix  (void);
-    GetFieldHandlePtr  getHandleMatrix          (void) const;
-    EditFieldHandlePtr editHandleMatrix         (void);
-    GetFieldHandlePtr  getHandleOffsetMatrix    (void) const;
-    EditFieldHandlePtr editHandleOffsetMatrix   (void);
+     GetFieldHandlePtr  getHandleInvBindMatrix   (void) const;
+     EditFieldHandlePtr editHandleInvBindMatrix  (void);
+     GetFieldHandlePtr  getHandleMatrix          (void) const;
+     EditFieldHandlePtr editHandleMatrix         (void);
+     GetFieldHandlePtr  getHandleOffsetMatrix    (void) const;
+     EditFieldHandlePtr editHandleOffsetMatrix   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

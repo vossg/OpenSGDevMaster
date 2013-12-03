@@ -228,8 +228,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixDataSourceBase : public AnimKeyFrameData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValues          (void) const;
-    EditFieldHandlePtr editHandleValues         (void);
+     GetFieldHandlePtr  getHandleValues          (void) const;
+     EditFieldHandlePtr editHandleValues         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

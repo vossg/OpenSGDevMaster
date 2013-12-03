@@ -215,12 +215,12 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCallback        (void) const;
-    EditFieldHandlePtr editHandleCallback       (void);
-    GetFieldHandlePtr  getHandleRenderEnter     (void) const;
-    EditFieldHandlePtr editHandleRenderEnter    (void);
-    GetFieldHandlePtr  getHandleRenderLeave     (void) const;
-    EditFieldHandlePtr editHandleRenderLeave    (void);
+     GetFieldHandlePtr  getHandleCallback        (void) const;
+     EditFieldHandlePtr editHandleCallback       (void);
+     GetFieldHandlePtr  getHandleRenderEnter     (void) const;
+     EditFieldHandlePtr editHandleRenderEnter    (void);
+     GetFieldHandlePtr  getHandleRenderLeave     (void) const;
+     EditFieldHandlePtr editHandleRenderLeave    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

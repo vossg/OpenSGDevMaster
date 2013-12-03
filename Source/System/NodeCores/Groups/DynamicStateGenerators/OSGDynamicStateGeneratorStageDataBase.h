@@ -239,10 +239,10 @@ class OSG_GROUP_DLLMAPPING DynamicStateGeneratorStageDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
-    GetFieldHandlePtr  getHandleChunks          (void) const;
-    EditFieldHandlePtr editHandleChunks         (void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleChunks          (void) const;
+     EditFieldHandlePtr editHandleChunks         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

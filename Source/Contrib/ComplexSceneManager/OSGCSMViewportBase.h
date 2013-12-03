@@ -383,32 +383,32 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleForegrounds     (void) const;
-    EditFieldHandlePtr editHandleForegrounds    (void);
-    GetFieldHandlePtr  getHandleLeftBottom      (void) const;
-    EditFieldHandlePtr editHandleLeftBottom     (void);
-    GetFieldHandlePtr  getHandleRightTop        (void) const;
-    EditFieldHandlePtr editHandleRightTop       (void);
-    GetFieldHandlePtr  getHandleTravMask        (void) const;
-    EditFieldHandlePtr editHandleTravMask       (void);
-    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
-    EditFieldHandlePtr editHandleRenderOptions  (void);
-    GetFieldHandlePtr  getHandleStereoMode      (void) const;
-    EditFieldHandlePtr editHandleStereoMode     (void);
-    GetFieldHandlePtr  getHandlePassive         (void) const;
-    EditFieldHandlePtr editHandlePassive        (void);
-    GetFieldHandlePtr  getHandleServerId        (void) const;
-    EditFieldHandlePtr editHandleServerId       (void);
-    GetFieldHandlePtr  getHandleMouseDataVC     (void) const;
-    EditFieldHandlePtr editHandleMouseDataVC    (void);
-    GetFieldHandlePtr  getHandleMTouchDataVC    (void) const;
-    EditFieldHandlePtr editHandleMTouchDataVC   (void);
+     GetFieldHandlePtr  getHandleRoot            (void) const;
+     EditFieldHandlePtr editHandleRoot           (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleBackground      (void) const;
+     EditFieldHandlePtr editHandleBackground     (void);
+     GetFieldHandlePtr  getHandleForegrounds     (void) const;
+     EditFieldHandlePtr editHandleForegrounds    (void);
+     GetFieldHandlePtr  getHandleLeftBottom      (void) const;
+     EditFieldHandlePtr editHandleLeftBottom     (void);
+     GetFieldHandlePtr  getHandleRightTop        (void) const;
+     EditFieldHandlePtr editHandleRightTop       (void);
+     GetFieldHandlePtr  getHandleTravMask        (void) const;
+     EditFieldHandlePtr editHandleTravMask       (void);
+     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
+     EditFieldHandlePtr editHandleRenderOptions  (void);
+     GetFieldHandlePtr  getHandleStereoMode      (void) const;
+     EditFieldHandlePtr editHandleStereoMode     (void);
+     GetFieldHandlePtr  getHandlePassive         (void) const;
+     EditFieldHandlePtr editHandlePassive        (void);
+     GetFieldHandlePtr  getHandleServerId        (void) const;
+     EditFieldHandlePtr editHandleServerId       (void);
+     GetFieldHandlePtr  getHandleMouseDataVC     (void) const;
+     EditFieldHandlePtr editHandleMouseDataVC    (void);
+     GetFieldHandlePtr  getHandleMTouchDataVC    (void) const;
+     EditFieldHandlePtr editHandleMTouchDataVC   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

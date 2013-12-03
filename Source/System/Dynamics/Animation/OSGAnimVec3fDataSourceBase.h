@@ -294,20 +294,20 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSourceBase : public AnimKeyFrameDataS
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValues          (void) const;
-    EditFieldHandlePtr editHandleValues         (void);
-    GetFieldHandlePtr  getHandleInTangentsX     (void) const;
-    EditFieldHandlePtr editHandleInTangentsX    (void);
-    GetFieldHandlePtr  getHandleInTangentsY     (void) const;
-    EditFieldHandlePtr editHandleInTangentsY    (void);
-    GetFieldHandlePtr  getHandleInTangentsZ     (void) const;
-    EditFieldHandlePtr editHandleInTangentsZ    (void);
-    GetFieldHandlePtr  getHandleOutTangentsX    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsX   (void);
-    GetFieldHandlePtr  getHandleOutTangentsY    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsY   (void);
-    GetFieldHandlePtr  getHandleOutTangentsZ    (void) const;
-    EditFieldHandlePtr editHandleOutTangentsZ   (void);
+     GetFieldHandlePtr  getHandleValues          (void) const;
+     EditFieldHandlePtr editHandleValues         (void);
+     GetFieldHandlePtr  getHandleInTangentsX     (void) const;
+     EditFieldHandlePtr editHandleInTangentsX    (void);
+     GetFieldHandlePtr  getHandleInTangentsY     (void) const;
+     EditFieldHandlePtr editHandleInTangentsY    (void);
+     GetFieldHandlePtr  getHandleInTangentsZ     (void) const;
+     EditFieldHandlePtr editHandleInTangentsZ    (void);
+     GetFieldHandlePtr  getHandleOutTangentsX    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsX   (void);
+     GetFieldHandlePtr  getHandleOutTangentsY    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsY   (void);
+     GetFieldHandlePtr  getHandleOutTangentsZ    (void) const;
+     EditFieldHandlePtr editHandleOutTangentsZ   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

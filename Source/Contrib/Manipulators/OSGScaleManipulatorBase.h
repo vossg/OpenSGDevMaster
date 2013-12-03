@@ -229,8 +229,8 @@ class OSG_CONTRIBGUI_DLLMAPPING ScaleManipulatorBase : public Manipulator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleUniform         (void) const;
-    EditFieldHandlePtr editHandleUniform        (void);
+     GetFieldHandlePtr  getHandleUniform         (void) const;
+     EditFieldHandlePtr editHandleUniform        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

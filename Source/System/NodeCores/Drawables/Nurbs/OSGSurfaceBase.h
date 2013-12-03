@@ -363,38 +363,38 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDimU            (void) const;
-    EditFieldHandlePtr editHandleDimU           (void);
-    GetFieldHandlePtr  getHandleDimV            (void) const;
-    EditFieldHandlePtr editHandleDimV           (void);
-    GetFieldHandlePtr  getHandleKnotsU          (void) const;
-    EditFieldHandlePtr editHandleKnotsU         (void);
-    GetFieldHandlePtr  getHandleKnotsV          (void) const;
-    EditFieldHandlePtr editHandleKnotsV         (void);
-    GetFieldHandlePtr  getHandleControlPoints   (void) const;
-    EditFieldHandlePtr editHandleControlPoints  (void);
-    GetFieldHandlePtr  getHandleError           (void) const;
-    EditFieldHandlePtr editHandleError          (void);
-    GetFieldHandlePtr  getHandleNumCurves       (void) const;
-    EditFieldHandlePtr editHandleNumCurves      (void);
-    GetFieldHandlePtr  getHandleKnotLengths     (void) const;
-    EditFieldHandlePtr editHandleKnotLengths    (void);
-    GetFieldHandlePtr  getHandleDimensions      (void) const;
-    EditFieldHandlePtr editHandleDimensions     (void);
-    GetFieldHandlePtr  getHandleCurveControlPoints (void) const;
-    EditFieldHandlePtr editHandleCurveControlPoints(void);
-    GetFieldHandlePtr  getHandleKnots           (void) const;
-    EditFieldHandlePtr editHandleKnots          (void);
-    GetFieldHandlePtr  getHandleCurvesPerLoop   (void) const;
-    EditFieldHandlePtr editHandleCurvesPerLoop  (void);
-    GetFieldHandlePtr  getHandleIsDelaunay      (void) const;
-    EditFieldHandlePtr editHandleIsDelaunay     (void);
-    GetFieldHandlePtr  getHandleTextureControlPoints (void) const;
-    EditFieldHandlePtr editHandleTextureControlPoints(void);
-    GetFieldHandlePtr  getHandleDirtyMask       (void) const;
-    EditFieldHandlePtr editHandleDirtyMask      (void);
-    GetFieldHandlePtr  getHandleSurfaceGLId     (void) const;
-    EditFieldHandlePtr editHandleSurfaceGLId    (void);
+     GetFieldHandlePtr  getHandleDimU            (void) const;
+     EditFieldHandlePtr editHandleDimU           (void);
+     GetFieldHandlePtr  getHandleDimV            (void) const;
+     EditFieldHandlePtr editHandleDimV           (void);
+     GetFieldHandlePtr  getHandleKnotsU          (void) const;
+     EditFieldHandlePtr editHandleKnotsU         (void);
+     GetFieldHandlePtr  getHandleKnotsV          (void) const;
+     EditFieldHandlePtr editHandleKnotsV         (void);
+     GetFieldHandlePtr  getHandleControlPoints   (void) const;
+     EditFieldHandlePtr editHandleControlPoints  (void);
+     GetFieldHandlePtr  getHandleError           (void) const;
+     EditFieldHandlePtr editHandleError          (void);
+     GetFieldHandlePtr  getHandleNumCurves       (void) const;
+     EditFieldHandlePtr editHandleNumCurves      (void);
+     GetFieldHandlePtr  getHandleKnotLengths     (void) const;
+     EditFieldHandlePtr editHandleKnotLengths    (void);
+     GetFieldHandlePtr  getHandleDimensions      (void) const;
+     EditFieldHandlePtr editHandleDimensions     (void);
+     GetFieldHandlePtr  getHandleCurveControlPoints (void) const;
+     EditFieldHandlePtr editHandleCurveControlPoints(void);
+     GetFieldHandlePtr  getHandleKnots           (void) const;
+     EditFieldHandlePtr editHandleKnots          (void);
+     GetFieldHandlePtr  getHandleCurvesPerLoop   (void) const;
+     EditFieldHandlePtr editHandleCurvesPerLoop  (void);
+     GetFieldHandlePtr  getHandleIsDelaunay      (void) const;
+     EditFieldHandlePtr editHandleIsDelaunay     (void);
+     GetFieldHandlePtr  getHandleTextureControlPoints (void) const;
+     EditFieldHandlePtr editHandleTextureControlPoints(void);
+     GetFieldHandlePtr  getHandleDirtyMask       (void) const;
+     EditFieldHandlePtr editHandleDirtyMask      (void);
+     GetFieldHandlePtr  getHandleSurfaceGLId     (void) const;
+     EditFieldHandlePtr editHandleSurfaceGLId    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -272,12 +272,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleWindows         (void) const;
-    EditFieldHandlePtr editHandleWindows        (void);
-    GetFieldHandlePtr  getHandleDisplayString   (void) const;
-    EditFieldHandlePtr editHandleDisplayString  (void);
-    GetFieldHandlePtr  getHandleAspect          (void) const;
-    EditFieldHandlePtr editHandleAspect         (void);
+     GetFieldHandlePtr  getHandleWindows         (void) const;
+     EditFieldHandlePtr editHandleWindows        (void);
+     GetFieldHandlePtr  getHandleDisplayString   (void) const;
+     EditFieldHandlePtr editHandleDisplayString  (void);
+     GetFieldHandlePtr  getHandleAspect          (void) const;
+     EditFieldHandlePtr editHandleAspect         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

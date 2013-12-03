@@ -246,10 +246,10 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleImage           (void) const;
-    EditFieldHandlePtr editHandleImage          (void);
-    GetFieldHandlePtr  getHandleAutoResize      (void) const;
-    EditFieldHandlePtr editHandleAutoResize     (void);
+     GetFieldHandlePtr  getHandleImage           (void) const;
+     EditFieldHandlePtr editHandleImage          (void);
+     GetFieldHandlePtr  getHandleAutoResize      (void) const;
+     EditFieldHandlePtr editHandleAutoResize     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

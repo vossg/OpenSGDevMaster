@@ -177,8 +177,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleName            (void) const;
-    EditFieldHandlePtr editHandleName           (void);
+     GetFieldHandlePtr  getHandleName            (void) const;
+     EditFieldHandlePtr editHandleName           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

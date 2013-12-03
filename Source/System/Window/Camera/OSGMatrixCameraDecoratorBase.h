@@ -289,18 +289,18 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePreViewing      (void) const;
-    EditFieldHandlePtr editHandlePreViewing     (void);
-    GetFieldHandlePtr  getHandlePostViewing     (void) const;
-    EditFieldHandlePtr editHandlePostViewing    (void);
-    GetFieldHandlePtr  getHandlePreProjectionTranslation (void) const;
-    EditFieldHandlePtr editHandlePreProjectionTranslation(void);
-    GetFieldHandlePtr  getHandlePostProjectionTranslation (void) const;
-    EditFieldHandlePtr editHandlePostProjectionTranslation(void);
-    GetFieldHandlePtr  getHandlePreProjection   (void) const;
-    EditFieldHandlePtr editHandlePreProjection  (void);
-    GetFieldHandlePtr  getHandlePostProjection  (void) const;
-    EditFieldHandlePtr editHandlePostProjection (void);
+     GetFieldHandlePtr  getHandlePreViewing      (void) const;
+     EditFieldHandlePtr editHandlePreViewing     (void);
+     GetFieldHandlePtr  getHandlePostViewing     (void) const;
+     EditFieldHandlePtr editHandlePostViewing    (void);
+     GetFieldHandlePtr  getHandlePreProjectionTranslation (void) const;
+     EditFieldHandlePtr editHandlePreProjectionTranslation(void);
+     GetFieldHandlePtr  getHandlePostProjectionTranslation (void) const;
+     EditFieldHandlePtr editHandlePostProjectionTranslation(void);
+     GetFieldHandlePtr  getHandlePreProjection   (void) const;
+     EditFieldHandlePtr editHandlePreProjection  (void);
+     GetFieldHandlePtr  getHandlePostProjection  (void) const;
+     EditFieldHandlePtr editHandlePostProjection (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

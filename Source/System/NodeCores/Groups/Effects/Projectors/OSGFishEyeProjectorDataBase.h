@@ -286,16 +286,16 @@ class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjectorDataBase : public StageData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
-    GetFieldHandlePtr  getHandleTextures        (void) const;
-    EditFieldHandlePtr editHandleTextures       (void);
-    GetFieldHandlePtr  getHandleTextureRes      (void) const;
-    EditFieldHandlePtr editHandleTextureRes     (void);
-    GetFieldHandlePtr  getHandleTextureFormat   (void) const;
-    EditFieldHandlePtr editHandleTextureFormat  (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
+     GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+     EditFieldHandlePtr editHandleRenderTarget   (void);
+     GetFieldHandlePtr  getHandleTextures        (void) const;
+     EditFieldHandlePtr editHandleTextures       (void);
+     GetFieldHandlePtr  getHandleTextureRes      (void) const;
+     EditFieldHandlePtr editHandleTextureRes     (void);
+     GetFieldHandlePtr  getHandleTextureFormat   (void) const;
+     EditFieldHandlePtr editHandleTextureFormat  (void);
+     GetFieldHandlePtr  getHandleCamera          (void) const;
+     EditFieldHandlePtr editHandleCamera         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

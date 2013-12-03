@@ -278,16 +278,16 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleDatum           (void) const;
-    EditFieldHandlePtr editHandleDatum          (void);
-    GetFieldHandlePtr  getHandleEllipsoidAxis   (void) const;
-    EditFieldHandlePtr editHandleEllipsoidAxis  (void);
-    GetFieldHandlePtr  getHandleOrigin          (void) const;
-    EditFieldHandlePtr editHandleOrigin         (void);
-    GetFieldHandlePtr  getHandlePixelSize       (void) const;
-    EditFieldHandlePtr editHandlePixelSize      (void);
-    GetFieldHandlePtr  getHandleNoDataValue     (void) const;
-    EditFieldHandlePtr editHandleNoDataValue    (void);
+     GetFieldHandlePtr  getHandleDatum           (void) const;
+     EditFieldHandlePtr editHandleDatum          (void);
+     GetFieldHandlePtr  getHandleEllipsoidAxis   (void) const;
+     EditFieldHandlePtr editHandleEllipsoidAxis  (void);
+     GetFieldHandlePtr  getHandleOrigin          (void) const;
+     EditFieldHandlePtr editHandleOrigin         (void);
+     GetFieldHandlePtr  getHandlePixelSize       (void) const;
+     EditFieldHandlePtr editHandlePixelSize      (void);
+     GetFieldHandlePtr  getHandleNoDataValue     (void) const;
+     EditFieldHandlePtr editHandleNoDataValue    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

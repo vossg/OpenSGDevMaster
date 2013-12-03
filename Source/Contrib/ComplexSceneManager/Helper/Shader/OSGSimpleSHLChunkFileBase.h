@@ -253,12 +253,12 @@ class OSG_CONTRIBCSM_DLLMAPPING SimpleSHLChunkFileBase : public SimpleSHLChunk
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleVertexProgramUrl (void) const;
-    EditFieldHandlePtr editHandleVertexProgramUrl(void);
-    GetFieldHandlePtr  getHandleGeometryProgramUrl (void) const;
-    EditFieldHandlePtr editHandleGeometryProgramUrl(void);
-    GetFieldHandlePtr  getHandleFragmentProgramUrl (void) const;
-    EditFieldHandlePtr editHandleFragmentProgramUrl(void);
+     GetFieldHandlePtr  getHandleVertexProgramUrl (void) const;
+     EditFieldHandlePtr editHandleVertexProgramUrl(void);
+     GetFieldHandlePtr  getHandleGeometryProgramUrl (void) const;
+     EditFieldHandlePtr editHandleGeometryProgramUrl(void);
+     GetFieldHandlePtr  getHandleFragmentProgramUrl (void) const;
+     EditFieldHandlePtr editHandleFragmentProgramUrl(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

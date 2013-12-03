@@ -289,18 +289,18 @@ class OSG_CLUSTER_DLLMAPPING MultiDisplayWindowBase : public ClusterWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleHServers        (void) const;
-    EditFieldHandlePtr editHandleHServers       (void);
-    GetFieldHandlePtr  getHandleVServers        (void) const;
-    EditFieldHandlePtr editHandleVServers       (void);
-    GetFieldHandlePtr  getHandleManageClientViewports (void) const;
-    EditFieldHandlePtr editHandleManageClientViewports(void);
-    GetFieldHandlePtr  getHandleXOverlap        (void) const;
-    EditFieldHandlePtr editHandleXOverlap       (void);
-    GetFieldHandlePtr  getHandleYOverlap        (void) const;
-    EditFieldHandlePtr editHandleYOverlap       (void);
-    GetFieldHandlePtr  getHandleMaxDepth        (void) const;
-    EditFieldHandlePtr editHandleMaxDepth       (void);
+     GetFieldHandlePtr  getHandleHServers        (void) const;
+     EditFieldHandlePtr editHandleHServers       (void);
+     GetFieldHandlePtr  getHandleVServers        (void) const;
+     EditFieldHandlePtr editHandleVServers       (void);
+     GetFieldHandlePtr  getHandleManageClientViewports (void) const;
+     EditFieldHandlePtr editHandleManageClientViewports(void);
+     GetFieldHandlePtr  getHandleXOverlap        (void) const;
+     EditFieldHandlePtr editHandleXOverlap       (void);
+     GetFieldHandlePtr  getHandleYOverlap        (void) const;
+     EditFieldHandlePtr editHandleYOverlap       (void);
+     GetFieldHandlePtr  getHandleMaxDepth        (void) const;
+     EditFieldHandlePtr editHandleMaxDepth       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

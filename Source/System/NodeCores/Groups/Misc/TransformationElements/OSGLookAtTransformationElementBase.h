@@ -253,12 +253,12 @@ class OSG_GROUP_DLLMAPPING LookAtTransformationElementBase : public Transformati
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEyePosition     (void) const;
-    EditFieldHandlePtr editHandleEyePosition    (void);
-    GetFieldHandlePtr  getHandleLookAtPosition  (void) const;
-    EditFieldHandlePtr editHandleLookAtPosition (void);
-    GetFieldHandlePtr  getHandleUpDirection     (void) const;
-    EditFieldHandlePtr editHandleUpDirection    (void);
+     GetFieldHandlePtr  getHandleEyePosition     (void) const;
+     EditFieldHandlePtr editHandleEyePosition    (void);
+     GetFieldHandlePtr  getHandleLookAtPosition  (void) const;
+     EditFieldHandlePtr editHandleLookAtPosition (void);
+     GetFieldHandlePtr  getHandleUpDirection     (void) const;
+     EditFieldHandlePtr editHandleUpDirection    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

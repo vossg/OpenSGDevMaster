@@ -251,10 +251,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimTargetAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTargetId        (void) const;
-    EditFieldHandlePtr editHandleTargetId       (void);
-    GetFieldHandlePtr  getHandleBlenders        (void) const;
-    EditFieldHandlePtr editHandleBlenders       (void);
+     GetFieldHandlePtr  getHandleTargetId        (void) const;
+     EditFieldHandlePtr editHandleTargetId       (void);
+     GetFieldHandlePtr  getHandleBlenders        (void) const;
+     EditFieldHandlePtr editHandleBlenders       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

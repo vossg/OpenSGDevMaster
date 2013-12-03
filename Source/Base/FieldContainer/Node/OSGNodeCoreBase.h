@@ -188,8 +188,8 @@ class OSG_BASE_DLLMAPPING NodeCoreBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParents         (void) const;
-    EditFieldHandlePtr editHandleParents        (void);
+     GetFieldHandlePtr  getHandleParents         (void) const;
+     EditFieldHandlePtr editHandleParents        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

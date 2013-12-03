@@ -352,28 +352,28 @@ class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleEnabled         (void) const;
-    EditFieldHandlePtr editHandleEnabled        (void);
-    GetFieldHandlePtr  getHandleIsActive        (void) const;
-    EditFieldHandlePtr editHandleIsActive       (void);
-    GetFieldHandlePtr  getHandleLoop            (void) const;
-    EditFieldHandlePtr editHandleLoop           (void);
-    GetFieldHandlePtr  getHandleForward         (void) const;
-    EditFieldHandlePtr editHandleForward        (void);
-    GetFieldHandlePtr  getHandleStartTime       (void) const;
-    EditFieldHandlePtr editHandleStartTime      (void);
-    GetFieldHandlePtr  getHandleStopTime        (void) const;
-    EditFieldHandlePtr editHandleStopTime       (void);
-    GetFieldHandlePtr  getHandleTime            (void) const;
-    EditFieldHandlePtr editHandleTime           (void);
-    GetFieldHandlePtr  getHandleCycleLength     (void) const;
-    EditFieldHandlePtr editHandleCycleLength    (void);
-    GetFieldHandlePtr  getHandleTimeScale       (void) const;
-    EditFieldHandlePtr editHandleTimeScale      (void);
-    GetFieldHandlePtr  getHandleFraction        (void) const;
-    EditFieldHandlePtr editHandleFraction       (void);
-    GetFieldHandlePtr  getHandleAnimTime        (void) const;
-    EditFieldHandlePtr editHandleAnimTime       (void);
+     GetFieldHandlePtr  getHandleEnabled         (void) const;
+     EditFieldHandlePtr editHandleEnabled        (void);
+     GetFieldHandlePtr  getHandleIsActive        (void) const;
+     EditFieldHandlePtr editHandleIsActive       (void);
+     GetFieldHandlePtr  getHandleLoop            (void) const;
+     EditFieldHandlePtr editHandleLoop           (void);
+     GetFieldHandlePtr  getHandleForward         (void) const;
+     EditFieldHandlePtr editHandleForward        (void);
+     GetFieldHandlePtr  getHandleStartTime       (void) const;
+     EditFieldHandlePtr editHandleStartTime      (void);
+     GetFieldHandlePtr  getHandleStopTime        (void) const;
+     EditFieldHandlePtr editHandleStopTime       (void);
+     GetFieldHandlePtr  getHandleTime            (void) const;
+     EditFieldHandlePtr editHandleTime           (void);
+     GetFieldHandlePtr  getHandleCycleLength     (void) const;
+     EditFieldHandlePtr editHandleCycleLength    (void);
+     GetFieldHandlePtr  getHandleTimeScale       (void) const;
+     EditFieldHandlePtr editHandleTimeScale      (void);
+     GetFieldHandlePtr  getHandleFraction        (void) const;
+     EditFieldHandlePtr editHandleFraction       (void);
+     GetFieldHandlePtr  getHandleAnimTime        (void) const;
+     EditFieldHandlePtr editHandleAnimTime       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

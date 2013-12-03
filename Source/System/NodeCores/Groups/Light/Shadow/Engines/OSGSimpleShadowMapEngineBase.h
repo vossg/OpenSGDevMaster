@@ -242,10 +242,10 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShadowColor     (void) const;
-    EditFieldHandlePtr editHandleShadowColor    (void);
-    GetFieldHandlePtr  getHandleForceTextureUnit (void) const;
-    EditFieldHandlePtr editHandleForceTextureUnit(void);
+     GetFieldHandlePtr  getHandleShadowColor     (void) const;
+     EditFieldHandlePtr editHandleShadowColor    (void);
+     GetFieldHandlePtr  getHandleForceTextureUnit (void) const;
+     EditFieldHandlePtr editHandleForceTextureUnit(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

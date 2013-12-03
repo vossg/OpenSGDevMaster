@@ -205,8 +205,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlockBase : public FieldContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChunks          (void) const;
-    EditFieldHandlePtr editHandleChunks         (void);
+     GetFieldHandlePtr  getHandleChunks          (void) const;
+     EditFieldHandlePtr editHandleChunks         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

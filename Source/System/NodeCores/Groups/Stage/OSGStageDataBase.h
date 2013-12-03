@@ -253,12 +253,12 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public TraversalData
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandlePartitionRangeBegin (void) const;
-    EditFieldHandlePtr editHandlePartitionRangeBegin(void);
-    GetFieldHandlePtr  getHandlePartitionRangeEnd (void) const;
-    EditFieldHandlePtr editHandlePartitionRangeEnd(void);
-    GetFieldHandlePtr  getHandleGroupMode       (void) const;
-    EditFieldHandlePtr editHandleGroupMode      (void);
+     GetFieldHandlePtr  getHandlePartitionRangeBegin (void) const;
+     EditFieldHandlePtr editHandlePartitionRangeBegin(void);
+     GetFieldHandlePtr  getHandlePartitionRangeEnd (void) const;
+     EditFieldHandlePtr editHandlePartitionRangeEnd(void);
+     GetFieldHandlePtr  getHandleGroupMode       (void) const;
+     EditFieldHandlePtr editHandleGroupMode      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

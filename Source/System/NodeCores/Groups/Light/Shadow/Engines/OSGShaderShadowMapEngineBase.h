@@ -280,16 +280,16 @@ class OSG_GROUP_DLLMAPPING ShaderShadowMapEngineBase : public ShadowMapEngine
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleShadowVertexProgram (void) const;
-    EditFieldHandlePtr editHandleShadowVertexProgram(void);
-    GetFieldHandlePtr  getHandleShadowFragmentProgram (void) const;
-    EditFieldHandlePtr editHandleShadowFragmentProgram(void);
-    GetFieldHandlePtr  getHandleForceTextureUnit (void) const;
-    EditFieldHandlePtr editHandleForceTextureUnit(void);
-    GetFieldHandlePtr  getHandleShadowNear      (void) const;
-    EditFieldHandlePtr editHandleShadowNear     (void);
-    GetFieldHandlePtr  getHandleShadowFar       (void) const;
-    EditFieldHandlePtr editHandleShadowFar      (void);
+     GetFieldHandlePtr  getHandleShadowVertexProgram (void) const;
+     EditFieldHandlePtr editHandleShadowVertexProgram(void);
+     GetFieldHandlePtr  getHandleShadowFragmentProgram (void) const;
+     EditFieldHandlePtr editHandleShadowFragmentProgram(void);
+     GetFieldHandlePtr  getHandleForceTextureUnit (void) const;
+     EditFieldHandlePtr editHandleForceTextureUnit(void);
+     GetFieldHandlePtr  getHandleShadowNear      (void) const;
+     EditFieldHandlePtr editHandleShadowNear     (void);
+     GetFieldHandlePtr  getHandleShadowFar       (void) const;
+     EditFieldHandlePtr editHandleShadowFar      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

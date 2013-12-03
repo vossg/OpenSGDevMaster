@@ -246,10 +246,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimQuaternionChannelBase : public AnimChannel
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleData            (void) const;
-    EditFieldHandlePtr editHandleData           (void);
-    GetFieldHandlePtr  getHandleOutValue        (void) const;
-    EditFieldHandlePtr editHandleOutValue       (void);
+     GetFieldHandlePtr  getHandleData            (void) const;
+     EditFieldHandlePtr editHandleData           (void);
+     GetFieldHandlePtr  getHandleOutValue        (void) const;
+     EditFieldHandlePtr editHandleOutValue       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

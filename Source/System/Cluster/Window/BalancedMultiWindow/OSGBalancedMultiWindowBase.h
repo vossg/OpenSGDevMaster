@@ -277,16 +277,16 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindowBase : public MultiDisplayWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleBalance         (void) const;
-    EditFieldHandlePtr editHandleBalance        (void);
-    GetFieldHandlePtr  getHandleBestCut         (void) const;
-    EditFieldHandlePtr editHandleBestCut        (void);
-    GetFieldHandlePtr  getHandleShowBalancing   (void) const;
-    EditFieldHandlePtr editHandleShowBalancing  (void);
-    GetFieldHandlePtr  getHandleTileSize        (void) const;
-    EditFieldHandlePtr editHandleTileSize       (void);
-    GetFieldHandlePtr  getHandleShort           (void) const;
-    EditFieldHandlePtr editHandleShort          (void);
+     GetFieldHandlePtr  getHandleBalance         (void) const;
+     EditFieldHandlePtr editHandleBalance        (void);
+     GetFieldHandlePtr  getHandleBestCut         (void) const;
+     EditFieldHandlePtr editHandleBestCut        (void);
+     GetFieldHandlePtr  getHandleShowBalancing   (void) const;
+     EditFieldHandlePtr editHandleShowBalancing  (void);
+     GetFieldHandlePtr  getHandleTileSize        (void) const;
+     EditFieldHandlePtr editHandleTileSize       (void);
+     GetFieldHandlePtr  getHandleShort           (void) const;
+     EditFieldHandlePtr editHandleShort          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

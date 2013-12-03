@@ -387,34 +387,34 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleServers         (void) const;
-    EditFieldHandlePtr editHandleServers        (void);
-    GetFieldHandlePtr  getHandleServerIds       (void) const;
-    EditFieldHandlePtr editHandleServerIds      (void);
-    GetFieldHandlePtr  getHandleConnectionType  (void) const;
-    EditFieldHandlePtr editHandleConnectionType (void);
-    GetFieldHandlePtr  getHandleConnectionInterface (void) const;
-    EditFieldHandlePtr editHandleConnectionInterface(void);
-    GetFieldHandlePtr  getHandleConnectionDestination (void) const;
-    EditFieldHandlePtr editHandleConnectionDestination(void);
-    GetFieldHandlePtr  getHandleConnectionParams (void) const;
-    EditFieldHandlePtr editHandleConnectionParams(void);
-    GetFieldHandlePtr  getHandleServicePort     (void) const;
-    EditFieldHandlePtr editHandleServicePort    (void);
-    GetFieldHandlePtr  getHandleServiceAddress  (void) const;
-    EditFieldHandlePtr editHandleServiceAddress (void);
-    GetFieldHandlePtr  getHandleServiceInterface (void) const;
-    EditFieldHandlePtr editHandleServiceInterface(void);
-    GetFieldHandlePtr  getHandleClientWindow    (void) const;
-    EditFieldHandlePtr editHandleClientWindow   (void);
-    GetFieldHandlePtr  getHandleInterleave      (void) const;
-    EditFieldHandlePtr editHandleInterleave     (void);
-    GetFieldHandlePtr  getHandleFrameCount      (void) const;
-    EditFieldHandlePtr editHandleFrameCount     (void);
-    GetFieldHandlePtr  getHandleComposer        (void) const;
-    EditFieldHandlePtr editHandleComposer       (void);
-    GetFieldHandlePtr  getHandleAutostart       (void) const;
-    EditFieldHandlePtr editHandleAutostart      (void);
+     GetFieldHandlePtr  getHandleServers         (void) const;
+     EditFieldHandlePtr editHandleServers        (void);
+     GetFieldHandlePtr  getHandleServerIds       (void) const;
+     EditFieldHandlePtr editHandleServerIds      (void);
+     GetFieldHandlePtr  getHandleConnectionType  (void) const;
+     EditFieldHandlePtr editHandleConnectionType (void);
+     GetFieldHandlePtr  getHandleConnectionInterface (void) const;
+     EditFieldHandlePtr editHandleConnectionInterface(void);
+     GetFieldHandlePtr  getHandleConnectionDestination (void) const;
+     EditFieldHandlePtr editHandleConnectionDestination(void);
+     GetFieldHandlePtr  getHandleConnectionParams (void) const;
+     EditFieldHandlePtr editHandleConnectionParams(void);
+     GetFieldHandlePtr  getHandleServicePort     (void) const;
+     EditFieldHandlePtr editHandleServicePort    (void);
+     GetFieldHandlePtr  getHandleServiceAddress  (void) const;
+     EditFieldHandlePtr editHandleServiceAddress (void);
+     GetFieldHandlePtr  getHandleServiceInterface (void) const;
+     EditFieldHandlePtr editHandleServiceInterface(void);
+     GetFieldHandlePtr  getHandleClientWindow    (void) const;
+     EditFieldHandlePtr editHandleClientWindow   (void);
+     GetFieldHandlePtr  getHandleInterleave      (void) const;
+     EditFieldHandlePtr editHandleInterleave     (void);
+     GetFieldHandlePtr  getHandleFrameCount      (void) const;
+     EditFieldHandlePtr editHandleFrameCount     (void);
+     GetFieldHandlePtr  getHandleComposer        (void) const;
+     EditFieldHandlePtr editHandleComposer       (void);
+     GetFieldHandlePtr  getHandleAutostart       (void) const;
+     EditFieldHandlePtr editHandleAutostart      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

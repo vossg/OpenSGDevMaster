@@ -238,8 +238,8 @@ class OSG_BASE_DLLMAPPING GlobalsAttachmentBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleElements        (void) const;
-    EditFieldHandlePtr editHandleElements       (void);
+     GetFieldHandlePtr  getHandleElements        (void) const;
+     EditFieldHandlePtr editHandleElements       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

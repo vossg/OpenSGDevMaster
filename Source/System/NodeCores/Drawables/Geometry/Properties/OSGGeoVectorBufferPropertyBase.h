@@ -289,18 +289,18 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferPropertyBase : public GeoVectorProp
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleStride          (void) const;
-    EditFieldHandlePtr editHandleStride         (void);
-    GetFieldHandlePtr  getHandleFormat          (void) const;
-    EditFieldHandlePtr editHandleFormat         (void);
-    GetFieldHandlePtr  getHandleFormatSize      (void) const;
-    EditFieldHandlePtr editHandleFormatSize     (void);
-    GetFieldHandlePtr  getHandleDimension       (void) const;
-    EditFieldHandlePtr editHandleDimension      (void);
-    GetFieldHandlePtr  getHandleVectorType      (void) const;
-    EditFieldHandlePtr editHandleVectorType     (void);
-    GetFieldHandlePtr  getHandleSize            (void) const;
-    EditFieldHandlePtr editHandleSize           (void);
+     GetFieldHandlePtr  getHandleStride          (void) const;
+     EditFieldHandlePtr editHandleStride         (void);
+     GetFieldHandlePtr  getHandleFormat          (void) const;
+     EditFieldHandlePtr editHandleFormat         (void);
+     GetFieldHandlePtr  getHandleFormatSize      (void) const;
+     EditFieldHandlePtr editHandleFormatSize     (void);
+     GetFieldHandlePtr  getHandleDimension       (void) const;
+     EditFieldHandlePtr editHandleDimension      (void);
+     GetFieldHandlePtr  getHandleVectorType      (void) const;
+     EditFieldHandlePtr editHandleVectorType     (void);
+     GetFieldHandlePtr  getHandleSize            (void) const;
+     EditFieldHandlePtr editHandleSize           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

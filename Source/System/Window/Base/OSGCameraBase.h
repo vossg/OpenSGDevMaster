@@ -231,12 +231,12 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleBeacon          (void) const;
-    EditFieldHandlePtr editHandleBeacon         (void);
-    GetFieldHandlePtr  getHandleNear            (void) const;
-    EditFieldHandlePtr editHandleNear           (void);
-    GetFieldHandlePtr  getHandleFar             (void) const;
-    EditFieldHandlePtr editHandleFar            (void);
+    virtual GetFieldHandlePtr  getHandleBeacon          (void) const;
+    virtual EditFieldHandlePtr editHandleBeacon         (void);
+    virtual GetFieldHandlePtr  getHandleNear            (void) const;
+    virtual EditFieldHandlePtr editHandleNear           (void);
+    virtual GetFieldHandlePtr  getHandleFar             (void) const;
+    virtual EditFieldHandlePtr editHandleFar            (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

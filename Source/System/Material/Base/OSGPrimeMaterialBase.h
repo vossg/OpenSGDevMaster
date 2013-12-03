@@ -202,8 +202,8 @@ class OSG_SYSTEM_DLLMAPPING PrimeMaterialBase : public Material
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleCoreGLChunkLimit (void) const;
-    EditFieldHandlePtr editHandleCoreGLChunkLimit(void);
+     GetFieldHandlePtr  getHandleCoreGLChunkLimit (void) const;
+     EditFieldHandlePtr editHandleCoreGLChunkLimit(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
