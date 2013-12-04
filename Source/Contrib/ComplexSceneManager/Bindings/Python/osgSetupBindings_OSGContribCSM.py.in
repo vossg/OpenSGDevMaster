@@ -89,7 +89,7 @@ bool wrapInit(OSG::ComplexSceneManager* csm, bp::list pythonArgv)
       argv[i] = bp::extract<char*>(pythonArgv[i]);
    }
 
-   return csm->init(argc, &argv[0]);
+   return csm->startFrom(argc, &argv[0]);
 }
 
 void wrapSetMainloop(OSG::ComplexSceneManager* csm, bp::object fMainLoop)
