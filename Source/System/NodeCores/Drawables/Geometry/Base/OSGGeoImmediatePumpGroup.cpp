@@ -512,7 +512,8 @@ void GeoImmediatePumpGroup::masterClassicGeoPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          UInt32                              )
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -698,7 +699,8 @@ void GeoImmediatePumpGroup::masterAttribGeoPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          UInt32                              )
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;

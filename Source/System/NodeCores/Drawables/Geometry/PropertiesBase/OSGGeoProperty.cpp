@@ -247,7 +247,7 @@ void GeoProperty::dump(      UInt32    ,
 UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv, 
                              UInt32                   id, 
                              Window::GLObjectStatusE  mode,
-                             UInt32                   uiOptions)
+                             UInt64                   uiOptions)
 {
     GLuint  glid;
 

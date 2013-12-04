@@ -391,4 +391,16 @@ inline GeoIntegralProperty *Geometry::getIndices(void)
     return getIndex(0);
 }
 
+inline
+UInt32 Geometry::getFuncIdDrawElementsInstanced(void)
+{
+    return FuncIdDrawElementsInstanced;
+}
+
+inline
+UInt32 Geometry::getFuncIdDrawArraysInstanced(void)
+{
+    return FuncIdDrawArraysInstanced;
+}
+
 OSG_END_NAMESPACE

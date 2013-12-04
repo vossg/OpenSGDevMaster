@@ -96,18 +96,26 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
                                  const GeoIntegralProperty         *lengths,
                                  const GeoIntegralProperty         *types,
                                  const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx );
+                                 const Geometry::MFPropIndicesType *propIdx,
+                                       UInt32                       uiNumInst);
 
     typedef bool (*SetupGeoPump)(      DrawEnv                     *pEnv,
                                  const GeoIntegralProperty         *lengths,
                                  const GeoIntegralProperty         *types,
                                  const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx );
+                                 const Geometry::MFPropIndicesType *propIdx);
+
+    typedef void (*GeoDrawPump) (      DrawEnv                     *pEnv,
+                                 const GeoIntegralProperty         *lengths,
+                                 const GeoIntegralProperty         *types,
+                                 const Geometry::MFPropertiesType  *prop,
+                                 const Geometry::MFPropIndicesType *propIdx,
+                                       UInt32                       uiNumInst);
 
     struct SplitGeoPump
     {
         SetupGeoPump setupPump;
-        GeoPump      drawPump;
+        GeoDrawPump  drawPump;
         SetupGeoPump shutdownPump;
     };
 

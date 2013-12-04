@@ -489,15 +489,47 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {
-            pSFHandle->set(pNewNode);
+            bool rc = pSFHandle->set(pNewNode);
+
+            if(rc == false)
+            {
+                Node *pNode = dynamic_cast<Node *>(pNewNode);
+
+                if(pNode != NULL)
+                {
+                    pSFHandle->set(pNode->getCore());
+                }
+            }
         }
         else if(pMFHandle != NULL && pMFHandle->isValid())
         {
-            pMFHandle->add(pNewNode);
+            bool rc = pMFHandle->add(pNewNode);
+
+            if(rc == false)
+            {
+                Node *pNode = dynamic_cast<Node *>(pNewNode);
+
+                if(pNode != NULL)
+                {
+                    pMFHandle->add(pNode->getCore());
+                }
+            }
         }
         else if(pMapHandle != NULL && pMapHandle->isValid())
         {
             pMapHandle->add(pNewNode, "0");
+
+#if 0
+            if(rc == false)
+            {
+                Node *pNode = dynamic_cast<Node *>(pNewNode);
+
+                if(pNode != NULL)
+                {
+                    pMapHandle->add(pNode->getCore(), "0");
+                }
+            }
+#endif
         }
     }
 }

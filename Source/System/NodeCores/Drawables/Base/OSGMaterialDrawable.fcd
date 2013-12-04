@@ -17,6 +17,7 @@
 	 cardinality="single"
 	 visibility="external"
 	 access="public"
+     virtual="true"
 	 >
 	The material used to render the Drawable.
   </Field>

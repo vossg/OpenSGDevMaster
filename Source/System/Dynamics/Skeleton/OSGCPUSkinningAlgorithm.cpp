@@ -851,7 +851,8 @@ void CPUSkinningAlgorithm::drawPrimitives(
     {
         pump(pEnv,
              skinGeo->getLengths(),      skinGeo->getTypes(),
-             data   ->getMFProperties(), skinGeo->getMFPropIndices());
+             data   ->getMFProperties(), skinGeo->getMFPropIndices(),
+             1                                                      );
     }
     else
     {

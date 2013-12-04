@@ -359,7 +359,8 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          UInt32                       uiNumInstances)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -514,32 +515,82 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(
             indexData = NULL;
         }
 
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        if(uiNumInstances > 1)
+        {        
+            OSGGETGLFUNCBYID_GL3_ES(glDrawElementsInstanced,
+                                    osgGlDrawElementsInstanced,
+                                    Geometry::getFuncIdDrawElementsInstanced(),
+                                    win);
+
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                osgGlDrawElementsInstanced(
+                    types->getValue<UInt16>(primindex),
+                    curlen,
+                    indexFormat,
+                    indexData + vertindex * indexStride,
+                    uiNumInstances                     );
+
+                vertindex += curlen;
+            }
+        }
+        else
         {
-            if(primindex < lengths->size())
-                curlen = lengths->getValue<UInt32>(primindex);
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawElements(types->getValue<UInt16>(primindex),
-                           curlen,
-                           indexFormat,
-                           indexData + vertindex * indexStride);
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
 
-            vertindex += curlen;
+                vertindex += curlen;
+            }
         }
 
         index->deactivate(pEnv, 0);
     }
     else
     {
-        // Non-indexed
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        if(uiNumInstances > 1)
         {
-            if(primindex < lengths->size())
-                curlen = lengths->getValue<UInt32>(primindex);
+            OSGGETGLFUNCBYID_GL3_ES(glDrawArraysInstanced,
+                                    osgGlDrawArraysInstanced,
+                                    Geometry::getFuncIdDrawArraysInstanced(),
+                                    win);
 
-            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
+            // Non-indexed
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                osgGlDrawArraysInstanced(
+                    types->getValue<UInt16>(primindex), 
+                    vertindex,
+                    curlen,
+                    uiNumInstances);
+
+                vertindex += curlen;
+            }
+        }
+        else
+        {
+            // Non-indexed
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                             curlen);
+                vertindex += curlen;
+            }
         }
     }
 
@@ -559,7 +610,8 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          UInt32                       uiNumInstances)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -759,32 +811,82 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(
             indexData = NULL;
         }
 
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        if(uiNumInstances > 1)
+        {        
+            OSGGETGLFUNCBYID_GL3_ES(glDrawElementsInstanced,
+                                    osgGlDrawElementsInstanced,
+                                    Geometry::getFuncIdDrawElementsInstanced(),
+                                    win);
+
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+
+                osgGlDrawElementsInstanced(
+                    types->getValue<UInt16>(primindex),
+                    curlen,
+                    indexFormat,
+                    indexData + vertindex * indexStride,
+                    uiNumInstances                     );
+                
+                vertindex += curlen;
+            }
+        }
+        else
         {
-            if(primindex < lengths->size())
-                curlen = lengths->getValue<UInt32>(primindex);
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawElements(types->getValue<UInt16>(primindex),
-                           curlen,
-                           indexFormat,
-                           indexData + vertindex * indexStride);
-
-            vertindex += curlen;
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
+                
+                vertindex += curlen;
+            }
         }
 
         index->deactivate(pEnv, 0);
     }
     else
     {
-        // Non-indexed
-        for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+        if(uiNumInstances > 1)
         {
-            if(primindex < lengths->size())
-                curlen = lengths->getValue<UInt32>(primindex);
+            OSGGETGLFUNCBYID_GL3_ES(glDrawArraysInstanced,
+                                    osgGlDrawArraysInstanced,
+                                    Geometry::getFuncIdDrawArraysInstanced(),
+                                    win);
 
-            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
+            // Non-indexed
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+                
+                osgGlDrawArraysInstanced(
+                    types->getValue<UInt16>(primindex), 
+                    vertindex,
+                    curlen,
+                    uiNumInstances);
+
+                vertindex += curlen;
+            }
+        }
+        else
+        {
+            // Non-indexed
+            for(UInt32 primindex = 0; primindex < nprims; ++primindex)
+            {
+                if(primindex < lengths->size())
+                    curlen = lengths->getValue<UInt32>(primindex);
+                
+                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                             curlen);
+                vertindex += curlen;
+            }
         }
     }
 

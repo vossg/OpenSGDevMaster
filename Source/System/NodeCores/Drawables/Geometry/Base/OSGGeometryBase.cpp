@@ -156,6 +156,24 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Geometry *,
                            nsOSG);
 
+DataType &FieldTraits< Geometry *, nsOSG + 1 >::getType(void)
+{
+    return FieldTraits<Geometry *, nsOSG>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      Geometry *,
+                      UnrecordedRefCountPolicy,
+                      nsOSG + 1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      Geometry *,
+                      UnrecordedRefCountPolicy,
+                      nsOSG + 1);
+
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -326,6 +344,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
+    "    childFields=\"both\"\n"
     "    decoratable=\"false\"\n"
     "    isNodeCore=\"true\"\n"
     "    docGroupBase=\"GrpDrawablesGeometry\"\n"

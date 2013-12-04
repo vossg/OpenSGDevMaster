@@ -1,0 +1,167 @@
+#OSG V1.0 
+
+Node
+{
+  children
+  [
+#    Node
+#    {
+#      travMask 0x80000000
+#      core Inline
+#      {
+#        url "../../../Models/IndexVariants/Single/plane_ndl_vbo_natt_vao.osg"
+#      }
+#    }
+
+
+    Node
+    {
+      volume 5 -5 -5 -5  5 5 5  
+      children
+      [
+        Node
+        {
+          volume 5 -5 -5 -5  5 5 5  
+#          core USE BaseGeometry
+          core GeoInstancer
+          {
+            numInstances 81
+            baseGeometry USE BaseGeometry
+          }
+        }
+      ]
+  
+      core MaterialGroup
+      {
+        material ChunkMaterial
+        {
+          slots #0
+          [
+          ]
+          chunks
+          [
+            ShaderProgramChunk
+            {
+              vertexShader 
+              [
+                ShaderProgram
+                {
+                  shaderType GL_VERTEX_SHADER
+
+                  program "
+                    #version 400 compatibility
+
+                    out float Diffuse; 
+
+                    float fBase = -12.0;
+                    float fStep =  3.0;
+
+                    int iXInstance = gl_InstanceID % 9;
+                    int iYInstance = gl_InstanceID / 9;
+
+                    void main(void)
+                    {
+                      vec4 vVertex = gl_Vertex + vec4(
+                        fBase + fStep * iXInstance,
+                        fBase + fStep * iYInstance,
+                        0.0,
+                        0.0);
+
+                      // calculate vertex position in eye coordinates
+                      vec4 ecPosition = -normalize(gl_ModelViewMatrix * 
+                                                   vVertex);
+
+                      // compute the transformed normal
+                      vec3 tnorm      = normalize(gl_NormalMatrix * gl_Normal);
+
+                      // Calculate a diffuse light intensity
+                      Diffuse             = dot(ecPosition.xyz, 
+                                                tnorm     );
+
+                      // output final vertex information
+                      gl_Position     = gl_ModelViewProjectionMatrix * vVertex;
+                    }
+                  "
+                }
+              ]
+
+              fragmentShader 
+              [
+                ShaderProgram
+                {
+                  shaderType GL_FRAGMENT_SHADER
+
+                  variables ShaderProgramVariables
+                  {
+                    variables
+                    [
+                      ShaderVariableReal
+                      {
+                        name "ColR"
+                        value 1.0
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColG"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 0.0
+                      }
+                    ]
+                  }
+
+                  program "
+                    #version 400 compatibility
+
+                    in float Diffuse; 
+                    uniform float ColR;
+                    uniform float ColG;
+                    uniform float ColB;
+
+                    void main (void)
+                    {
+                      gl_FragColor = vec4(ColR * Diffuse, 
+                                          ColG * Diffuse, 
+                                          ColB * Diffuse, 
+                                          1.);
+                    }
+                  "
+                }
+              ]
+            }
+
+#            TextureObjChunk
+#            {
+#              image ImageFile
+#              {
+#                url "../Texture/tree.jpg"
+#              }
+#            }
+#            TextureEnvChunk
+#            {
+#              envMode GL_REPLACE
+#            }
+
+            MaterialChunk
+            {
+              diffuse 1.0 0.7 0.7 1.0
+              lit FALSE
+            }
+          ]
+        }
+      }
+    }
+  ]
+
+  core Group {}
+
+  volume 5 -5 -5 -5  5 5 5  
+}

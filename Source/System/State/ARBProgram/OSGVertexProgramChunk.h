@@ -165,7 +165,7 @@ class OSG_STATE_DLLMAPPING VertexProgramChunk : public VertexProgramChunkBase
            UInt32 handleGL       (DrawEnv                 *pEnv, 
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions);
+                                  UInt64                   uiOptions);
     static void   handleDestroyGL(DrawEnv                 *pEnv, 
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode     );

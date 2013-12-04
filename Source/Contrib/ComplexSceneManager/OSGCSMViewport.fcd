@@ -75,7 +75,7 @@
      cardinality="single"
      visibility="external"
      access="public"
-     defaultValue="TypeTraits&lt;UInt32&gt;::BitsSet"
+     defaultValue="TypeTraits&lt;UInt32&gt;::BitsSet &amp; ~TraversalMasks::FindNamedComponentTraversal"
      >
   </Field>
   <Field

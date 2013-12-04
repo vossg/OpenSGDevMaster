@@ -162,6 +162,7 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t access=\"public\"\n"
+    "     virtual=\"true\"\n"
     "\t >\n"
     "\tThe material used to render the Drawable.\n"
     "  </Field>\n"

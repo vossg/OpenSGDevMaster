@@ -128,7 +128,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     typedef boost::function<UInt32 (DrawEnv *, 
                                     UInt32,
                                     GLObjectStatusE,
-                                    UInt32         )> GLObjectFunctor;
+                                    UInt64         )> GLObjectFunctor;
     typedef boost::function<void   (DrawEnv *, 
                                     UInt32, 
                                     GLObjectStatusE)> GLObjectDestroyFunctor;
@@ -216,7 +216,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     UInt32     validateGLObject    (UInt32      osgId,
                                     DrawEnv    *pEnv,
-                                    UInt32      uiOptions = 0);
+                                    UInt64      uiOptions = 0);
     void       validateAllGLObjects(void);
     
     void       setGLObjectId       (UInt32      osgId,

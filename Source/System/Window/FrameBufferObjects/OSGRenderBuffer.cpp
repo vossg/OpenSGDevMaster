@@ -237,7 +237,7 @@ GLenum RenderBuffer::getBufferFormat(void) const
 UInt32 RenderBuffer::handleGL(DrawEnv                 *pEnv, 
                               UInt32                   osgid, 
                               Window::GLObjectStatusE  mode,
-                              UInt32                        )
+                              UInt64                        )
 {
     Window *pWindow = pEnv->getWindow();
     

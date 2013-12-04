@@ -167,7 +167,7 @@ bool CgFXMaterial::isTransparent(void) const
 UInt32 CgFXMaterial::handleGL(DrawEnv                 *pEnv, 
                               UInt32                   osgId, 
                               Window::GLObjectStatusE  mode,
-                              UInt32                   uiOptions)
+                              UInt64                   uiOptions)
 
 {
     if(mode == Window::initialize)

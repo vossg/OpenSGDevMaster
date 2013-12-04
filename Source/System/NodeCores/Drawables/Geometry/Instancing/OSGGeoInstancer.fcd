@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="GeoInstancer"
+    parent="MaterialDrawable"
+    library="Drawable"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    docGroupBase="GrpDrawablesGeometry"
+    >
+    <Field
+        name="numInstances"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="1"
+        access="public"
+        >
+    </Field>
+    <Field
+        name="baseGeometry"
+        type="Geometry"
+        category="childpointer"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="NULL"
+        access="public"
+        linkParentField="Parents"
+        >
+    </Field>
+</FieldContainer>

@@ -726,6 +726,8 @@ RenderAction::RenderAction(void) :
 
     _uiKeyGen = ( (uiShId) | (uiTId << 10) | (uiMId      << 20) );
 
+    _travMask &= ~TraversalMasks::FindNamedComponentTraversal;
+
 /*
     fprintf(stderr, "CreateKeyGen (RT) (%p) from %d %d %d -> %08x\n",
             this,

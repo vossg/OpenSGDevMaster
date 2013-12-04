@@ -117,14 +117,16 @@ class OSG_DRAWABLE_DLLMAPPING GeoVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     static void masterAttribGeoPump(
               DrawEnv                     *pEnv,
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

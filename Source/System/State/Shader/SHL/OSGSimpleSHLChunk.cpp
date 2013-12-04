@@ -84,7 +84,7 @@ void SimpleSHLChunk::initMethod(InitPhase ePhase)
 UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv, 
                                 UInt32                   id, 
                                 Window::GLObjectStatusE  mode,
-                                UInt32                   uiOptions)
+                                UInt64                   uiOptions)
 {
     UInt32  returnValue = 0;
     Window *pWin        = pEnv->getWindow();

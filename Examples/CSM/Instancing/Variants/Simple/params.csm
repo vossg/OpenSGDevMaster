@@ -1,0 +1,5 @@
+--global ../../../Common/default-setup.osg
+--system ../../../Common/system-native.osg
+--global ../../../Models/IndexVariants/Single/plane_ndl_vbo_natt_vao.osg
+--data   ./scene.osg
+--global ../../../Common/simple_mouse.osg

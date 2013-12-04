@@ -85,13 +85,16 @@ OSG_BEGIN_NAMESPACE
 
 Geometry::PumpGroupStorage Geometry::_pumps;
 
-UInt32 Geometry::_arbVertexArrayObject    = Window::invalidExtensionID;
-UInt32 Geometry::_arbTessellationShader   = Window::invalidExtensionID;
+UInt32 Geometry::_arbVertexArrayObject       = Window::invalidExtensionID;
+UInt32 Geometry::_arbTessellationShader      = Window::invalidExtensionID;
+UInt32 Geometry::_arbDrawInstanced           = Window::invalidExtensionID;
 
-UInt32 Geometry::FuncIdBindVertexArray    = Window::invalidFunctionID;
-UInt32 Geometry::FuncIdDeleteVertexArrays = Window::invalidFunctionID;
-UInt32 Geometry::FuncIdGenVertexArrays    = Window::invalidFunctionID;
-UInt32 Geometry::FuncPatchParameterI      = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdBindVertexArray       = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdDeleteVertexArrays    = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdGenVertexArrays       = Window::invalidFunctionID;
+UInt32 Geometry::FuncPatchParameterI         = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdDrawElementsInstanced = Window::invalidFunctionID;
+UInt32 Geometry::FuncIdDrawArraysInstanced   = Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -158,11 +161,23 @@ void Geometry::initMethod(InitPhase ePhase)
         _arbTessellationShader = 
             Window::registerExtension("GL_ARB_tessellation_shader");
 
+        _arbDrawInstanced = 
+            Window::registerExtension("GL_ARB_draw_instanced");
+
         FuncPatchParameterI   = 
             Window::registerFunction
             (OSG_DLSYM_UNDERSCORE"glPatchParameteri",
              _arbTessellationShader);
 
+        FuncIdDrawElementsInstanced = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glDrawElementsInstanced",
+             _arbDrawInstanced);
+
+        FuncIdDrawArraysInstanced   = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glDrawArraysInstanced",
+             _arbDrawInstanced);
     }
 }
 
@@ -300,11 +315,11 @@ void Geometry::adjustVolume(Volume & volume)
 UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv, 
                                  UInt32                   id, 
                                  Window::GLObjectStatusE  mode,
-                                 UInt32                   uiOptions)
+                                 UInt64                   uiOptions)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-    UInt32                   glid;
-    Window                  *pWin = pEnv->getWindow();
+    UInt32            glid;
+    Window           *pWin = pEnv->getWindow();
 
 #ifdef OSG_DEBUG
     Geometry *pAspectGeo = Aspect::convertToCurrent<Geometry *>(this);
@@ -338,7 +353,8 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         {
             pump(pEnv,
                  getLengths(),      getTypes(),
-                 getMFProperties(), getMFPropIndices());
+                 getMFProperties(), getMFPropIndices(),
+                 1                                    );
         }
         else
         {
@@ -388,7 +404,7 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
 UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv, 
                              UInt32                   id, 
                              Window::GLObjectStatusE  mode,
-                             UInt32                   uiOptions)
+                             UInt64                   uiOptions)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
@@ -422,7 +438,8 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         {
             pump(pEnv,
                  getLengths(),      getTypes(),
-                 getMFProperties(), getMFPropIndices());
+                 getMFProperties(), getMFPropIndices(),
+                 1                                    );
         }
         else
         {
@@ -542,7 +559,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
         {
             pump(pEnv,
                  getLengths(),      getTypes(),
-                 getMFProperties(), getMFPropIndices());
+                 getMFProperties(), getMFPropIndices(),
+                 1                                    );
         }
         else
         {
@@ -595,6 +613,13 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     }
 */
 }
+
+void Geometry::drawPrimitives(DrawEnv *pEnv,
+                              UInt32   uiNumInstances)
+{
+    this->drawPrimitives(pEnv);
+}
+
 #endif
 
 /*! The IntersectAction callback for Geometry. It computes if the ray used in

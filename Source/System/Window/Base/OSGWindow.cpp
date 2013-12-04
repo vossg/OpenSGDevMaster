@@ -624,7 +624,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
 */
 UInt32 OSG::Window::validateGLObject(UInt32   osgId, 
                                      DrawEnv *pEnv, 
-                                     UInt32   uiOptions)
+                                     UInt64   uiOptions)
 {
     UInt32 returnValue = 0;
     

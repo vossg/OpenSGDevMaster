@@ -88,7 +88,8 @@
       cardinality="single"
       visibility="external"
       access="public"
-      defaultValue="TypeTraits&lt;UInt32&gt;::getMax()"
+      defaultHeader="OSGNode.h"
+      defaultValue="TypeTraits&lt;UInt32&gt;::getMax() &amp; ~TraversalMasks::FindNamedComponentTraversal"
       >
     The foreground additions to the rendered image.
   </Field>

@@ -53,11 +53,12 @@ void Geometry::onDestroy(UInt32 uiContainerId)
 UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv, 
                                  UInt32                   id, 
                                  Window::GLObjectStatusE  mode,
-                                 UInt32                   uiOptions)
+                                 UInt64                   uiOptions)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     UInt32                   glid;
-    Window                  *pWin = pEnv->getWindow();
+    Window                  *pWin      = pEnv->getWindow();
+    GLHandlerOptions         glOptions = { uiOptions };
 
 #ifdef OSG_DEBUG
     Geometry *pAspectGeo = Aspect::convertToCurrent<Geometry *>(this);
@@ -77,7 +78,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
                      GeoPumpGroup::NonIndexed    )) == 0x0000))
@@ -90,7 +91,8 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
             {
                 pump(pEnv,
                      getLengths(),      getTypes(),
-                     getMFProperties(), getMFPropIndices());
+                     getMFProperties(), getMFPropIndices(),
+                     glOptions.uiNumInstances             );
             }
             else
             {
@@ -114,7 +116,8 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
 
                 pump.drawPump(pEnv,
                               getLengths(),      getTypes(),
-                              getMFProperties(), getMFPropIndices());
+                              getMFProperties(), getMFPropIndices(),
+                              glOptions.uiNumInstances             );
 
                 glEndList();
             }
@@ -130,7 +133,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         {
             Int32 vaoGlid = getVaoGLId();
 
-            pWin->validateGLObject(vaoGlid, pEnv, prop);
+            pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
             UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
@@ -153,7 +156,8 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
 
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
-                                  getMFProperties(), getMFPropIndices());
+                                  getMFProperties(), getMFPropIndices(),
+                                  glOptions.uiNumInstances             );
                     
                     glEndList();
 
@@ -208,11 +212,12 @@ void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv,
 UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv, 
                              UInt32                   id, 
                              Window::GLObjectStatusE  mode,
-                             UInt32                   uiOptions)
+                             UInt64                   uiOptions)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-    UInt32   glid;
-    Window  *pWin = pEnv->getWindow();
+    UInt32            glid;
+    Window           *pWin = pEnv->getWindow();
+    GLHandlerOptions  glOptions = { uiOptions };
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -227,7 +232,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
                      GeoPumpGroup::NonIndexed    )) == 0x0000))
@@ -240,7 +245,8 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             {
                 pump(pEnv,
                      getLengths(),      getTypes(),
-                     getMFProperties(), getMFPropIndices());
+                     getMFProperties(), getMFPropIndices(),
+                     glOptions.uiNumInstances             );
             }
             else
             {
@@ -264,7 +270,8 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
 
                 pump.drawPump(pEnv,
                               getLengths(),      getTypes(),
-                              getMFProperties(), getMFPropIndices());
+                              getMFProperties(), getMFPropIndices(),
+                              glOptions.uiNumInstances             );
 
                 glEndList();
             }
@@ -280,7 +287,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         {
             Int32 vaoGlid = getVaoGLId();
 
-            pWin->validateGLObject(vaoGlid, pEnv, prop);
+            pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
             UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
@@ -303,7 +310,8 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
 
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
-                                  getMFProperties(), getMFPropIndices());
+                                  getMFProperties(), getMFPropIndices(),
+                                  glOptions.uiNumInstances             );
                     
                     glEndList();
 
@@ -334,8 +342,8 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
                                   Window::GLObjectStatusE  mode)
 {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
-    UInt32                   glid;
-    Window                  *pWin = pEnv->getWindow();
+    UInt32            glid;
+    Window           *pWin      = pEnv->getWindow();
 
     if(mode == Window::destroy)
     {
@@ -358,10 +366,11 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv, 
                              UInt32                   id, 
                              Window::GLObjectStatusE  mode,
-                             UInt32                   uiOptions)
+                             UInt64                   uiOptions)
 {
-    UInt32   glid;
-    Window  *pWin = pEnv->getWindow();
+    UInt32            glid;
+    Window           *pWin      = pEnv->getWindow();
+    GLHandlerOptions  glOptions = { uiOptions };
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -382,7 +391,7 @@ UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
 
         GeoPumpGroup::SplitGeoPump pump = GeoPumpGroup::findSplitGeoPump(pEnv, 
                                                                          prop);
@@ -450,9 +459,19 @@ void Geometry::handleVAODestroyGL(DrawEnv                 *pEnv,
 
 void Geometry::drawPrimitives(DrawEnv *pEnv)
 {
+    this->drawPrimitives(pEnv, 1);
+}
+
+void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
+{
     Window *pWin       = pEnv->getWindow();
     bool    usesShader = false;
-    
+
+    if(!pWin->hasExtOrVersion(_arbDrawInstanced, 0x0300, 0x0200))
+    {
+        uiNumInstances = 1;
+    }
+
     // Quick solution must be cleaned up.
     if(_sfUseAttribCalls.getValue() == true)
     {
@@ -483,6 +502,11 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
 
     if(usesShader)
         prop |= GeoPumpGroup::UsesShader;
+
+    GLHandlerOptions glOptions;
+
+    glOptions.uiOptions      = prop;
+    glOptions.uiNumInstances = uiNumInstances;
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // store glColor.
@@ -519,7 +543,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                 glid = getClassicGLId();
             }
 
-            pWin->validateGLObject(glid, pEnv, prop);
+            pWin->validateGLObject(glid, pEnv, glOptions.value);
             
             glCallList(pEnv->getWindow()->getGLObjectId(glid));
         }
@@ -532,7 +556,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
             {
                 pump(pEnv,
                      getLengths(),      getTypes(),
-                     getMFProperties(), getMFPropIndices());
+                     getMFProperties(), getMFPropIndices(),
+                     uiNumInstances                       );
             }
             else
             {
@@ -547,7 +572,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     {
 #if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) &&  \
     !defined(__APPLE__)
-        if(getDlistCache() == true)
+        if(getDlistCache() == true && uiNumInstances == 1)
         {
             Int32 glid;
 
@@ -574,7 +599,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                 
                 if(rc == true)
                 {
-                    pWin->validateGLObject(glid, pEnv, prop);
+                    pWin->validateGLObject(glid, pEnv, glOptions.value);
                 
                     glCallList(pEnv->getWindow()->getGLObjectId(glid));
                 
@@ -593,7 +618,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                     {
                         pump(pEnv,
                              getLengths(),      getTypes(),
-                             getMFProperties(), getMFPropIndices());
+                             getMFProperties(), getMFPropIndices(),
+                             uiNumInstances                       );
                     }
                 }
             }
@@ -607,7 +633,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
             {
                 pump(pEnv,
                      getLengths(),      getTypes(),
-                     getMFProperties(), getMFPropIndices());
+                     getMFProperties(), getMFPropIndices(),
+                     uiNumInstances                       );
             }
             else
             {
@@ -622,7 +649,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
     {
         Int32 vaoGlid = getVaoGLId();
         
-        pWin->validateGLObject(vaoGlid, pEnv, prop);
+        pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
         UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
 
@@ -641,7 +668,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                                       
 #if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) && \
     !defined(__APPLE__)
-                if(getDlistCache() == true)
+                if(getDlistCache() == true && uiNumInstances == 1)
                 {
                     Int32 glid;
                     
@@ -654,7 +681,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                         glid = getClassicGLId();
                     }
 
-                    pWin->validateGLObject(glid, pEnv, prop);
+                    pWin->validateGLObject(glid, pEnv, glOptions.value);
 
                     osgGlBindVertexArray(
                         pEnv->getWindow()->getGLObjectId(vaoGlid));
@@ -673,7 +700,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv)
                                   getLengths(),      
                                   getTypes(),
                                   getMFProperties(), 
-                                  getMFPropIndices());
+                                  getMFPropIndices(),
+                                  uiNumInstances    );
 
                     osgGlBindVertexArray(0);
                 }

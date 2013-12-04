@@ -449,7 +449,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
            UInt32 handleGL       (DrawEnv                 *pEnv, 
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions);
+                                  UInt64                   uiOptions);
     static void   handleDestroyGL(DrawEnv                 *pEnv, 
                                   UInt32                   id, 
                                   Window::GLObjectStatusE  mode     );

@@ -759,7 +759,7 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
                                    UInt32                   osgid, 
                                    Window::GLObjectStatusE  mode,
-                                   UInt32                        ) const
+                                   UInt64                        ) const
 {
     Window *win     = pEnv->getWindow();
     GLuint  uiFBOId = 0;
@@ -936,7 +936,7 @@ UInt32 FrameBufferObject::handleMultiSampleGL(
     DrawEnv                 *pEnv, 
     UInt32                   osgid, 
     Window::GLObjectStatusE  mode,
-    UInt32                        ) const
+    UInt64                        ) const
 {
     Window *win     = pEnv->getWindow();
     GLuint  uiFBOId = 0;

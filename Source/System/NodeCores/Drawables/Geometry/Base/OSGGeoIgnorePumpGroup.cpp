@@ -97,6 +97,7 @@ void GeoIgnorePumpGroup::masterGeoPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx )
+    const Geometry::MFPropIndicesType *propIdx,
+          UInt32                       uiNumInstances)
 {
 }

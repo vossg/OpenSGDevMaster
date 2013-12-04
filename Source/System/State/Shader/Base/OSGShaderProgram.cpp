@@ -609,7 +609,7 @@ void ShaderProgram::resolveLinks(void)
 UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv, 
                                UInt32                   id, 
                                Window::GLObjectStatusE  mode,
-                               UInt32                   uiOptions)
+                               UInt64                   uiOptions)
 {
     Window *pWin = pEnv->getWindow();
 

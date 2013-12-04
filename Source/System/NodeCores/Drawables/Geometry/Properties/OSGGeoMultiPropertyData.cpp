@@ -178,7 +178,7 @@ void GeoMultiPropertyData::changed(ConstFieldMaskArg whichField,
 UInt32 GeoMultiPropertyData::handleGL(DrawEnv                 *pEnv, 
                                       UInt32                   id, 
                                       Window::GLObjectStatusE  mode,
-                                      UInt32                   uiOptions)
+                                      UInt64                   uiOptions)
 {
     Window *pWin = pEnv->getWindow();
 

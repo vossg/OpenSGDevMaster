@@ -1555,7 +1555,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
 UInt32 TextureObjChunk::handleGL(DrawEnv                 *pEnv, 
                                  UInt32                   osgid, 
                                  Window::GLObjectStatusE  mode,
-                                 UInt32                   uiOptions)
+                                 UInt64                   uiOptions)
 {
     Window *win = pEnv->getWindow();
     GLuint  id  = win->getGLObjectId(osgid);

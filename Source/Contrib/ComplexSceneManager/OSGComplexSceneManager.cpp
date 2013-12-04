@@ -397,8 +397,6 @@ void ComplexSceneManager::scanPreSystem(std::vector<std::string> &vParams)
 
 void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 {
-    setVBOUsageOnPropertyProtos(true);
-
     _oPathHandler.clearPathList();
     _oPathHandler.clearBaseFile();
 
@@ -423,39 +421,7 @@ void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 
     scanParamFile(szParamFileResolved.c_str(), vParams);
     
-    scanPreSystem(vParams);
-
-    std::string szSystemFile         = vParams[0];
-
-    std::string szSystemFileResolved = 
-        _oPathHandler.findFile(szSystemFile.c_str());
-
-    if(szSystemFileResolved.empty() == true)
-    {
-        fprintf(stderr, "Could not find system file %s\n",
-                szSystemFile.c_str());
-
-        return;
-    }
-
-    readOSGFile(szSystemFileResolved,
-                boost::bind(&ComplexSceneManager::resolveStatic, 
-                            _1, _2, _3));
-
-    _vStaticGlobals.clear();
-
-    if(OSG::ComplexSceneManager::the() == NULL)
-    {
-        fprintf(stderr, "Error could not find any complex scenemanager\n");
-        return;
-    }
-
-    OSG::SceneFileHandler::the()->setGlobalResolver(
-        boost::bind(&ComplexSceneManager::resolve, _the.get(), _1, _2, _3));
-
-    OSG::ComplexSceneManager::the()->init(vParams);
-    
-    OSG::ComplexSceneManager::the()->run();
+    Self::startUp(vParams);
 }
 
 /***************************************************************************\
@@ -534,26 +500,34 @@ void ComplexSceneManager::addGlobals(const std::string &filename)
                     boost::bind(&ComplexSceneManager::resolve, this, 
                                 _1, _2, _3));
 
+    fprintf(stderr, "addGlobals::pres %p\n", pRes.get());
+
     if(pRes == NULL)
         return;
 
     ContainerCollectionUnrecPtr pColl = 
         dynamic_pointer_cast<ContainerCollection>(pRes);
 
-    if(pColl == NULL)
-        return;
-
-    MFUnrecFieldContainerPtr::const_iterator fIt  = 
-        pColl->getMFContainers()->begin();
-
-    MFUnrecFieldContainerPtr::const_iterator fEnd = 
-        pColl->getMFContainers()->end();
-
-    while(fIt != fEnd)
+    if(pColl != NULL)
     {
-        this->pushToGlobals(*fIt);
-        ++fIt;
-    }   
+        MFUnrecFieldContainerPtr::const_iterator fIt  = 
+            pColl->getMFContainers()->begin();
+
+        MFUnrecFieldContainerPtr::const_iterator fEnd = 
+            pColl->getMFContainers()->end();
+
+        while(fIt != fEnd)
+        {
+            this->pushToGlobals(*fIt);
+            ++fIt;
+        }   
+    }
+    else
+    {
+        this->pushToGlobals(pRes);
+    }
+
+    return;
 }
 
 void ComplexSceneManager::addData(const std::string &filename)
@@ -854,7 +828,7 @@ void ComplexSceneManager::onCreate(const ComplexSceneManager *source)
 #endif
 }
 
-bool ComplexSceneManager::init(int argc, char **argv)
+bool ComplexSceneManager::startFrom(int argc, char **argv)
 {
     _oPathHandler.clearPathList();
     _oPathHandler.clearBaseFile();
@@ -871,9 +845,50 @@ bool ComplexSceneManager::init(int argc, char **argv)
         vParams.push_back(szTmp);
     }
 
+    Self::startUp(vParams);
+
+    return true;
+}
+
+bool ComplexSceneManager::startUp(std::vector<std::string> &vParams)
+{
+    setVBOUsageOnPropertyProtos(true);
+
     scanPreSystem(vParams);
 
-    return init(vParams);
+    std::string szSystemFile         = vParams[0];
+
+    std::string szSystemFileResolved = 
+        _oPathHandler.findFile(szSystemFile.c_str());
+
+    if(szSystemFileResolved.empty() == true)
+    {
+        fprintf(stderr, "Could not find system file %s\n",
+                szSystemFile.c_str());
+
+        return false;
+    }
+
+    readOSGFile(szSystemFileResolved,
+                boost::bind(&ComplexSceneManager::resolveStatic, 
+                            _1, _2, _3));
+
+    _vStaticGlobals.clear();
+
+    if(OSG::ComplexSceneManager::the() == NULL)
+    {
+        fprintf(stderr, "Error could not find any complex scenemanager\n");
+        return false;
+    }
+
+    OSG::SceneFileHandler::the()->setGlobalResolver(
+        boost::bind(&ComplexSceneManager::resolve, _the.get(), _1, _2, _3));
+
+    OSG::ComplexSceneManager::the()->init(vParams);
+    
+    OSG::ComplexSceneManager::the()->run();
+
+    return true;
 }
 
 bool ComplexSceneManager::init(const std::vector<std::string> &vParams)

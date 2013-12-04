@@ -104,7 +104,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool init     (int argc, char **argv);
+    bool startFrom(int argc, char **argv);
     void terminate(void                 );
 
     /*! \}                                                                 */
@@ -237,8 +237,9 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    bool init    (const std::vector<std::string> &vParams);
-    void shutdown(      void                             );
+    static bool startUp (      std::vector<std::string> &vParams);
+           bool init    (const std::vector<std::string> &vParams);
+           void shutdown(      void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -155,7 +155,7 @@ void CubeTextureObjChunk::dump(      UInt32    ,
 UInt32 CubeTextureObjChunk::handleGL(DrawEnv                 *pEnv, 
                                      UInt32                   osgid, 
                                      Window::GLObjectStatusE  mode,
-                                     UInt32                   uiOptions)
+                                     UInt64                   uiOptions)
 {
     GLuint  id;
 

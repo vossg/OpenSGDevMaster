@@ -108,14 +108,16 @@ class OSG_DRAWABLE_DLLMAPPING GeoImmediatePumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     static void masterAttribGeoPump(
               DrawEnv                     *pEnv,
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     /*! \}                                                                 */
 };

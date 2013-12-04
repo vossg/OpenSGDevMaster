@@ -8,6 +8,7 @@
     structure="concrete"
     systemcomponent="true"
     parentsystemcomponent="true"
+    childFields="both"
     decoratable="false"
     isNodeCore="true"
     docGroupBase="GrpDrawablesGeometry"

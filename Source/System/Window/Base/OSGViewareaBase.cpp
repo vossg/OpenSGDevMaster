@@ -56,6 +56,7 @@
 #include "OSGConfig.h"
 
 
+#include "OSGNode.h"                      // TravMask default header
 
 #include "OSGRenderOptions.h"           // RenderOptions Class
 
@@ -410,7 +411,8 @@ ViewareaBase::TypeObject ViewareaBase::_type(
     "      cardinality=\"single\"\n"
     "      visibility=\"external\"\n"
     "      access=\"public\"\n"
-    "      defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
+    "      defaultHeader=\"OSGNode.h\"\n"
+    "      defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax() &amp; ~TraversalMasks::FindNamedComponentTraversal\"\n"
     "      >\n"
     "    The foreground additions to the rendered image.\n"
     "  </Field>\n"
@@ -902,7 +904,7 @@ ViewareaBase::ViewareaBase(void) :
     _sfRight                  (Real32(1.f)),
     _sfBottom                 (Real32(0.f)),
     _sfTop                    (Real32(1.f)),
-    _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
+    _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax() & ~TraversalMasks::FindNamedComponentTraversal)),
     _sfEnabled                (bool(true)),
     _sfDrawTime               (Real32(0.0f)),
     _sfDrawableId             (Int32(-1)),

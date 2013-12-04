@@ -128,18 +128,18 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
-                  SFUnrecMaterialPtr  *editSFMaterial       (void);
+    virtual const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
+    virtual       SFUnrecMaterialPtr  *editSFMaterial       (void);
 
 
-                  Material * getMaterial       (void) const;
+    virtual       Material * getMaterial       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (Material * const value);
+    virtual void setMaterial       (Material * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,8 +206,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleMaterial        (void) const;
-    EditFieldHandlePtr editHandleMaterial       (void);
+    virtual GetFieldHandlePtr  getHandleMaterial        (void) const;
+    virtual EditFieldHandlePtr editHandleMaterial       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

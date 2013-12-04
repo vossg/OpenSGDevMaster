@@ -77,6 +77,13 @@ int init(int argc, char **argv)
 
         OSG::ComplexSceneManager::startFrom(szParamFilename);
     }
+    else if(argc > 2)
+    {
+        fprintf(stderr, "start from arg\n");
+
+        OSG::ComplexSceneManager::the()->startFrom(argc, 
+                                                   argv);
+    }
     else
     {
         OSG::OSGSceneFileType::the().readContainer(
@@ -96,8 +103,9 @@ int init(int argc, char **argv)
     
         int argcTmp = 6;
         
-        OSG::ComplexSceneManager::the()->init(argcTmp, 
-                                              const_cast<char **>(argvTmp));
+        OSG::ComplexSceneManager::the()->startFrom(
+            argcTmp, 
+            const_cast<char **>(argvTmp));
         
         OSG::ComplexSceneManager::the()->run();
     }

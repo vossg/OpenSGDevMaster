@@ -138,7 +138,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     static bool masterClassicGeoShutdownPump(
               DrawEnv                     *pEnv,
@@ -175,7 +176,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInstances);
 
     static bool masterAttribGeoShutdownPump(
               DrawEnv                     *pEnv,

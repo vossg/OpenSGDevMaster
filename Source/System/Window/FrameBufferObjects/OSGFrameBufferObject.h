@@ -160,7 +160,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
            UInt32 handleGL           (DrawEnv                 *pEnv, 
                                       UInt32                   id, 
                                       Window::GLObjectStatusE  mode,
-                                      UInt32                   uiOptions) const;
+                                      UInt64                   uiOptions) const;
     static void   handleDestroyGL    (DrawEnv                 *pEnv, 
                                       UInt32                   id, 
                                       Window::GLObjectStatusE  mode     );
@@ -168,7 +168,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
            UInt32 handleMultiSampleGL(DrawEnv                 *pEnv, 
                                       UInt32                   id, 
                                       Window::GLObjectStatusE  mode,
-                                      UInt32                   uiOptions) const;
+                                      UInt64                   uiOptions) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

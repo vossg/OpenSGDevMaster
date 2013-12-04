@@ -1855,7 +1855,7 @@ void Surface::onDestroy(UInt32 id)
 UInt32 Surface::handleGL(DrawEnv                *pEnv,
                          UInt32                  id,
                          Window::GLObjectStatusE mode,
-                         UInt32                  uiOptions)
+                         UInt64                  uiOptions)
 {
     if(mode == Window::initialize  ||
        mode == Window::needrefresh ||

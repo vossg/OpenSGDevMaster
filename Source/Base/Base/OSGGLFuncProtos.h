@@ -892,6 +892,23 @@ typedef void (OSG_APIENTRY *osgGlMemoryBarrierProc   )(GLbitfield barriers);
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name draw instanced                                                     */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *osgGlDrawArraysInstancedProc)  (GLenum  mode, 
+                                                            GLint   first, 
+                                                            GLsizei count, 
+                                                            GLsizei primcount);
+typedef void (OSG_APIENTRY *osgGlDrawElementsInstancedProc)(
+          GLenum   mode, 
+          GLsizei  count, 
+          GLenum   type, 
+    const void    *indices,
+          GLsizei  primcount);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

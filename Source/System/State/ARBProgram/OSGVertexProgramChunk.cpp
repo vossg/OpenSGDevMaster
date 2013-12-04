@@ -174,7 +174,7 @@ const char *VertexProgramChunk::getTargetName(void) const
 UInt32 VertexProgramChunk::handleGL(DrawEnv                 *pEnv, 
                                     UInt32                   osgid, 
                                     Window::GLObjectStatusE  mode,
-                                    UInt32                   uiOptions)
+                                    UInt64                   uiOptions)
 {
     Inherited::handleGL(pEnv, 
                         osgid,

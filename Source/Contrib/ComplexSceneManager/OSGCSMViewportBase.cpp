@@ -418,7 +418,7 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     defaultValue=\"TypeTraits&lt;UInt32&gt;::BitsSet\"\n"
+    "     defaultValue=\"TypeTraits&lt;UInt32&gt;::BitsSet &amp; ~TraversalMasks::FindNamedComponentTraversal\"\n"
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -1088,7 +1088,7 @@ CSMViewportBase::CSMViewportBase(void) :
     _mfForegrounds            (),
     _sfLeftBottom             (Vec2f(0.f, 0.f)),
     _sfRightTop               (Vec2f(1.f, 1.f)),
-    _sfTravMask               (UInt32(TypeTraits<UInt32>::BitsSet)),
+    _sfTravMask               (UInt32(TypeTraits<UInt32>::BitsSet & ~TraversalMasks::FindNamedComponentTraversal)),
     _sfRenderOptions          (NULL),
     _sfStereoMode             (std::string("none")),
     _sfPassive                (bool(false)),

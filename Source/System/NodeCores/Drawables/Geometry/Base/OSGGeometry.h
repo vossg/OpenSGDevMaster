@@ -55,6 +55,7 @@
 OSG_BEGIN_NAMESPACE
 
 class GeoPumpGroup;
+class GeoInstancer;
 
 class TriangleIterator;
 class PrimitiveIterator;
@@ -253,8 +254,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*---------------------------------------------------------------------*/
     /*! \name                      NodeCore Specific                       */
     /*! \{                                                                 */
-
-    void               adjustVolume     (Volume & volume);
+            
+    virtual void adjustVolume(Volume & volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,6 +304,14 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name              Global Pump Group Handling                      */
     /*! \{                                                                 */
 
+    static UInt32 getFuncIdDrawElementsInstanced(void);
+    static UInt32 getFuncIdDrawArraysInstanced  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name              Global Pump Group Handling                      */
+    /*! \{                                                                 */
+
 
     typedef std::vector<GeoPumpGroup*> PumpGroupStorage;
 
@@ -319,11 +328,26 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     static UInt32    _arbVertexArrayObject;
     static UInt32    _arbTessellationShader;
+    static UInt32    _arbDrawInstanced;
 
     static UInt32     FuncIdBindVertexArray;
     static UInt32     FuncIdDeleteVertexArrays;
     static UInt32     FuncIdGenVertexArrays;
     static UInt32     FuncPatchParameterI;
+
+    static UInt32     FuncIdDrawElementsInstanced;
+    static UInt32     FuncIdDrawArraysInstanced;
+
+    union GLHandlerOptions
+    {
+        UInt64 value;
+
+        struct 
+        {
+            UInt32 uiOptions;
+            UInt32 uiNumInstances;
+        };
+    };
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -347,7 +371,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
            UInt32 handleClassicGL       (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode,
-                                         UInt32                   uiOptions);
+                                         UInt64                   uiOptions);
 
     static void   handleClassicDestroyGL(DrawEnv                 *pEnv, 
                                          UInt32                   id, 
@@ -356,7 +380,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
            UInt32 handleAttGL           (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode,
-                                         UInt32                   uiOption);
+                                         UInt64                   uiOption);
     static void   handleAttDestroyGL    (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode    );
@@ -364,13 +388,21 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
            UInt32 handleVAOGL           (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode,
-                                         UInt32                   uiOption);
+                                         UInt64                   uiOption);
     static void   handleVAODestroyGL    (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode    );
 
     void onCreate(const Geometry *source = NULL);
     void onDestroy(UInt32 id);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Init                                       */
+    /*! \{                                                                 */
+
+    virtual void drawPrimitives(DrawEnv *pEnv,
+                                UInt32   uiNumInstances);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -386,6 +418,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     friend class FieldContainer;
     friend class GeometryBase;
+    friend class GeoInstancer;
 
     static PumpGroupStorage _pumps;
     
