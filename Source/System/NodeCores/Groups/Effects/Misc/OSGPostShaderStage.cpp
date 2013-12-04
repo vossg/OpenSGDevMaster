@@ -413,8 +413,8 @@ Action::ResultE PostShaderStage::renderEnter(Action *action)
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());
-#endif
 
+#endif
                     pPart->calcViewportDimension(0.f,
                                                  0.f,
                                                  1.f,
@@ -878,7 +878,7 @@ void PostShaderStage::RenderPassData::draw(
     {
         glViewport(pEnv->getPixelLeft  (), 
                    pEnv->getPixelBottom(),
-                   pEnv->getPixelRight (),
+                   pEnv->getPixelWidth (),
                    pEnv->getPixelHeight());
     }
 
