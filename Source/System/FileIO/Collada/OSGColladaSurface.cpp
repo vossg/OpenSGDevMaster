@@ -172,6 +172,10 @@ ColladaSurface::read2D(domFx_surface_common *surface)
         }
 
         daeElementRef      imageElem = initFroms[0]->getValue().getElement();
+
+        if(imageElem == NULL)
+            return;
+        
         domImageRef        image     = daeSafeCast<domImage>(imageElem);
         ColladaImageRefPtr colImage  = getUserDataAs<ColladaImage>(image);
 
