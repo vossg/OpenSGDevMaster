@@ -188,17 +188,21 @@ const char *Geometry::mapType(UInt8 type)
 {
     switch(type)
     {
-        case GL_POINTS:         return "Points";
-        case GL_LINES:          return "Lines";
-        case GL_LINE_LOOP:      return "LineLoop";
-        case GL_LINE_STRIP:     return "LineStrip";
-        case GL_TRIANGLES:      return "Triangles";
-        case GL_TRIANGLE_STRIP: return "TriangleStrip";
-        case GL_TRIANGLE_FAN:   return "TriangleFan";
-        case GL_QUADS:          return "Quads";
-        case GL_QUAD_STRIP:     return "QuadStrip";
-        case GL_POLYGON:        return "Polygon";
-        case GL_PATCHES:        return "Patches";
+        case GL_POINTS:                       return "Points";
+        case GL_LINES:                        return "Lines";
+        case GL_LINE_LOOP:                    return "LineLoop";
+        case GL_LINE_STRIP:                   return "LineStrip";
+        case GL_TRIANGLES:                    return "Triangles";
+        case GL_TRIANGLE_STRIP:               return "TriangleStrip";
+        case GL_TRIANGLE_FAN:                 return "TriangleFan";
+        case GL_QUADS:                        return "Quads";
+        case GL_QUAD_STRIP:                   return "QuadStrip";
+        case GL_POLYGON:                      return "Polygon";
+        case GL_PATCHES:                      return "Patches";
+        case GL_LINES_ADJACENCY_EXT:          return "LinesAdjacency";
+        case GL_LINE_STRIP_ADJACENCY_EXT:     return "LineStripAdjacency";
+        case GL_TRIANGLES_ADJACENCY_EXT:      return "TrianglesAdjacency";
+        case GL_TRIANGLE_STRIP_ADJACENCY_EXT: return "TriangleStripAdjacency";
     }
 
     return "Unknown Primitive";
@@ -978,6 +982,18 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
                 break;
             case GL_PATCHES:
                 patches += 1;
+                break;
+            case GL_LINES_ADJACENCY_EXT:
+                line += len / 4;
+                break;
+            case GL_LINE_STRIP_ADJACENCY_EXT:
+                line += len - 3;
+                break;
+            case GL_TRIANGLES_ADJACENCY_EXT:
+                triangle += len / 6;
+                break;
+            case GL_TRIANGLE_STRIP_ADJACENCY_EXT:
+                triangle += len / 2 - 2;
                 break;
             default:
                 FWARNING(("GeoStatsAttachment::calc: Invalid geoType: %d\n",
