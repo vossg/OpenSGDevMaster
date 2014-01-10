@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #ifndef _OSGATTACHMENTCONTAINERFRAMETASKPARENT_H_
-#define _OSGATTACHmENTCONTAINERFRAMETASKPARENT_H_
+#define _OSGATTACHMENTCONTAINERFRAMETASKPARENT_H_
 
 #include "OSGAttachmentContainer.h"
 #include "OSGFrameTaskMixin.h"
@@ -64,4 +64,4 @@ typedef
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNODECORESENSORPARENT_H_ */
+#endif /* _OSGATTACHMENTCONTAINERFRAMETASKPARENT_H_ */
