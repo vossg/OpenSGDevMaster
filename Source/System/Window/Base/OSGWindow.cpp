@@ -1058,7 +1058,7 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
 bool OSG::Window::hasExtension(const Char8 *s)
 {
     if(_sfIgnoreAllExtensions.getValue() == true)
-        return NULL;
+        return false;
 
     if(std::find(_ignoredExtensions.begin(),
                  _ignoredExtensions.end(),
