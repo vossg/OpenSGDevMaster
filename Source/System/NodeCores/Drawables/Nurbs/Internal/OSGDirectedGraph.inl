@@ -151,7 +151,7 @@ bool DirectedGraph<T0, T1>::getEdgeDirection( int edgeindex, int &error )
   error = 0;
   if ( edgeindex < 0 || edgeindex >= edges.size() ) {
     error = -1;
-    return NULL;
+    return false;
   }
 
   return edges[ edgeindex ].orientation;
