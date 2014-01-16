@@ -99,23 +99,39 @@ OSG_USING_NAMESPACE
 
 StateChunkClass GeoProperty::_class("GeoProperty", 16, 150);
 
-UInt32 GeoProperty::_extVertexBufferObject;
-UInt32 GeoProperty::_extMultitexture;
-UInt32 GeoProperty::_arbVertexProgram;
-UInt32 GeoProperty::_extSecondaryColor;
-UInt32 GeoProperty::_funcBindBuffer;
-UInt32 GeoProperty::_funcMapBuffer;
-UInt32 GeoProperty::_funcUnmapBuffer;
-UInt32 GeoProperty::_funcBufferData;
-UInt32 GeoProperty::_funcBufferSubData;
-UInt32 GeoProperty::_funcGenBuffers;
-UInt32 GeoProperty::_funcDeleteBuffers;
-UInt32 GeoProperty::_funcglVertexAttribPointerARB;
-UInt32 GeoProperty::_funcglEnableVertexAttribArrayARB;
-UInt32 GeoProperty::_funcglDisableVertexAttribArrayARB;
+UInt32 GeoProperty::_extVertexBufferObject = Window::invalidExtensionID;
+UInt32 GeoProperty::_extMultitexture       = Window::invalidExtensionID;
+UInt32 GeoProperty::_arbVertexProgram      = Window::invalidExtensionID;
+UInt32 GeoProperty::_extSecondaryColor     = Window::invalidExtensionID;
+UInt32 GeoProperty::_arbInstancedArrays    = Window::invalidExtensionID;
 
-UInt32 GeoProperty::_glSecondaryColorPointerEXT;
-UInt32 GeoProperty::_glClientActiveTextureARB;
+UInt32 GeoProperty::_funcBindBuffer                   = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcMapBuffer                    = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcUnmapBuffer                  = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcBufferData                   = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcBufferSubData                = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcGenBuffers                   = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcDeleteBuffers                = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcVertexAttribPointerARB       = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcEnableVertexAttribArrayARB   = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcDisableVertexAttribArrayARB  = 
+    Window::invalidFunctionID;
+
+UInt32 GeoProperty::_funcSecondaryColorPointer        = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcClientActiveTextureARB       = 
+    Window::invalidFunctionID;
+UInt32 GeoProperty::_funcVertexAttribDivisorARB       = 
+    Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -161,18 +177,38 @@ void GeoProperty::initMethod(InitPhase ePhase)
         _arbVertexProgram       = 
             Window::registerExtension("GL_ARB_vertex_program");
         
-        _funcglVertexAttribPointerARB   = Window::registerFunction(
+        _funcVertexAttribPointerARB   = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glVertexAttribPointerARB",
             _arbVertexProgram);
 
-        _funcglEnableVertexAttribArrayARB   = Window::registerFunction(
+        _funcEnableVertexAttribArrayARB   = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glEnableVertexAttribArrayARB",
             _arbVertexProgram);
 
-        _funcglDisableVertexAttribArrayARB   = Window::registerFunction(
+        _funcDisableVertexAttribArrayARB   = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glDisableVertexAttribArrayARB",
             _arbVertexProgram);
 
+        _extMultitexture        =
+            Window::registerExtension("GL_ARB_multitexture");
+
+        _funcClientActiveTextureARB = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glClientActiveTextureARB",
+            _extMultitexture);
+
+        _extSecondaryColor      =
+            Window::registerExtension("GL_EXT_secondary_color");
+        
+        _funcSecondaryColorPointer  = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glSecondaryColorPointerEXT",
+            _extSecondaryColor);
+
+        _arbInstancedArrays     =
+            Window::registerExtension("GL_ARB_instanced_arrays");
+
+        _funcVertexAttribDivisorARB = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glVertexAttribDivisorARB",
+            _arbInstancedArrays);
     }
 }
 

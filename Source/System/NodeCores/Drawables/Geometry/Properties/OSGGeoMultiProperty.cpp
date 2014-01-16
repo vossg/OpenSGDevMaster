@@ -274,7 +274,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     {
         OSGGETGLFUNCBYID_GL3_ES( glVertexAttribPointer, 
                                  osgGlVertexAttribPointer,
-                                _funcglVertexAttribPointerARB,
+                                _funcVertexAttribPointerARB,
                                  win);
 
         osgGlVertexAttribPointer(slot, 
@@ -286,11 +286,18 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
 
         OSGGETGLFUNCBYID_GL3_ES( glEnableVertexAttribArray,
                                  osgGlEnableVertexAttribArray,
-                                _funcglEnableVertexAttribArrayARB,
+                                _funcEnableVertexAttribArrayARB,
                                  win);
  
         osgGlEnableVertexAttribArray(slot);
-    }
+ 
+        OSGGETGLFUNCBYID_GL3_ES( glVertexAttribDivisor,
+                                 osgGlVertexAttribDivisor,
+                                _funcVertexAttribDivisorARB,
+                                 win);
+ 
+        osgGlVertexAttribDivisor(slot, _sfDivisor.getValue());
+     }
     else
     {
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
@@ -316,7 +323,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
                 {
                     OSGGETGLFUNCBYID_EXT( glSecondaryColorPointer,
                                           osgGlSecondaryColorPointer,
-                                         _funcglSecondaryColorPointer,
+                                         _funcSecondaryColorPointer,
                                           win);
 
                     osgGlSecondaryColorPointer(getDimension(),
@@ -339,7 +346,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
             {
                 OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
                                          osgGlClientActiveTexture,
-                                        _funcglClientActiveTextureARB,
+                                        _funcClientActiveTextureARB,
                                          win);
 
                 osgGlClientActiveTexture(GL_TEXTURE0_ARB + slot - 8);

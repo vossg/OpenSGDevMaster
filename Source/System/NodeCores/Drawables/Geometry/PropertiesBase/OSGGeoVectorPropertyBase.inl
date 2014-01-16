@@ -74,6 +74,31 @@ OSG::UInt16 GeoVectorPropertyBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the GeoVectorProperty::_sfDivisor field.
+
+inline
+UInt32 &GeoVectorPropertyBase::editDivisor(void)
+{
+    editSField(DivisorFieldMask);
+
+    return _sfDivisor.getValue();
+}
+
+//! Get the value of the GeoVectorProperty::_sfDivisor field.
+inline
+      UInt32  GeoVectorPropertyBase::getDivisor(void) const
+{
+    return _sfDivisor.getValue();
+}
+
+//! Set the value of the GeoVectorProperty::_sfDivisor field.
+inline
+void GeoVectorPropertyBase::setDivisor(const UInt32 value)
+{
+    editSField(DivisorFieldMask);
+
+    _sfDivisor.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -85,6 +110,9 @@ void GeoVectorPropertyBase::execSync (      GeoVectorPropertyBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DivisorFieldMask & whichField))
+        _sfDivisor.syncWith(pFrom->_sfDivisor);
 }
 #endif
 

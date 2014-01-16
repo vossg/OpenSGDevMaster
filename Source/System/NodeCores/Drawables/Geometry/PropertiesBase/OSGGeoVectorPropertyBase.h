@@ -65,6 +65,7 @@
 
 #include "OSGGeoProperty.h" // Parent
 
+#include "OSGSysFields.h"               // Divisor type
 
 #include "OSGGeoVectorPropertyFields.h"
 
@@ -91,6 +92,18 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
 
   public:
 
+    enum
+    {
+        DivisorFieldId = Inherited::NextFieldId,
+        NextFieldId = DivisorFieldId + 1
+    };
+
+    static const OSG::BitVector DivisorFieldMask =
+        (TypeTraits<BitVector>::One << DivisorFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFDivisorType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -109,6 +122,31 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFUInt32            *editSFDivisor        (void);
+            const SFUInt32            *getSFDivisor         (void) const;
+
+
+                  UInt32              &editDivisor        (void);
+                  UInt32               getDivisor         (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setDivisor        (const UInt32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,6 +170,13 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUInt32          _sfDivisor;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -157,6 +202,8 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorPropertyBase : public GeoProperty
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+     GetFieldHandlePtr  getHandleDivisor         (void) const;
+     EditFieldHandlePtr editHandleDivisor        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -243,15 +243,6 @@ class OSG_SYSTEM_DLLMAPPING GeoVectorProperty :
 
     virtual GLenum getBufferType(void); // buffer type for VBOs
 
-
-    // extension indices for used extensions;
-    static UInt32 _extSecondaryColor;
-    static UInt32 _extMultitexture;
-
-    // extension indices for used fucntions;
-    static UInt32 _funcglSecondaryColorPointer;
-    static UInt32 _funcglClientActiveTextureARB;
-
     static void initMethod(InitPhase ePhase);
 
     /*==========================  PRIVATE  ================================*/

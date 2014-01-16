@@ -179,7 +179,7 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
     for(Int16 i = 0; i < natt; ++i)
     {
         // Only count actual attributes
-        if((*prop)[i] != NULL)
+        if((*prop)[i] != NULL && (*prop)[i]->getDivisor() == 0)
         {
             if(i < nind)
             {
@@ -216,6 +216,14 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
         retVal |= GeoPumpGroup::SingleIndexed;
     else if(multi)   
         retVal |= GeoPumpGroup::MultiIndexed;
+
+#if 0
+    // check double single + multi char
+    fprintf(stderr, "single %d | no %d | multi %d\n",
+            UInt32(single),
+            UInt32(nonind),
+            UInt32(multi));
+#endif
 
     // Check for non-traditional properties.
     // Right now just check existence of attribs 6&7

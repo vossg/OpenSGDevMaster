@@ -132,7 +132,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
     {
         OSGGETGLFUNCBYID_GL3_ES( glVertexAttribPointer, 
                                  osgGlVertexAttribPointer,
-                                _funcglVertexAttribPointerARB,
+                                _funcVertexAttribPointerARB,
                                  pWin);
 
         if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
@@ -166,10 +166,17 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
         
         OSGGETGLFUNCBYID_GL3_ES( glEnableVertexAttribArray,
                                  osgGlEnableVertexAttribArray,
-                                _funcglEnableVertexAttribArrayARB,
+                                _funcEnableVertexAttribArrayARB,
                                  pWin);
         
         osgGlEnableVertexAttribArray(slot);
+
+        OSGGETGLFUNCBYID_GL3_ES( glVertexAttribDivisor,
+                                 osgGlVertexAttribDivisor,
+                                _funcVertexAttribDivisorARB,
+                                 pWin);
+ 
+        osgGlVertexAttribDivisor(slot, _sfDivisor.getValue());
     }
     else 
     {        
@@ -226,7 +233,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
                 {
                     OSGGETGLFUNCBYID_EXT( glSecondaryColorPointer,
                                           osgGlSecondaryColorPointer,
-                                         _funcglSecondaryColorPointer,
+                                         _funcSecondaryColorPointer,
                                           pWin);
 
                     osgGlSecondaryColorPointer(getDimension(),
@@ -254,7 +261,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
             {
                 OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
                                          osgGlClientActiveTexture,
-                                        _funcglClientActiveTextureARB,
+                                        _funcClientActiveTextureARB,
                                          pWin);
 
                 osgGlClientActiveTexture(GL_TEXTURE0_ARB + slot - 8);

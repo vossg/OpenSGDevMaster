@@ -83,6 +83,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var UInt32          GeoVectorPropertyBase::_sfDivisor
+    sets the vertex attrib divisor for instanced rendering
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -130,6 +134,20 @@ OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
 
 void GeoVectorPropertyBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "divisor",
+        "sets the vertex attrib divisor for instanced rendering\n",
+        DivisorFieldId, DivisorFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&GeoVectorProperty::editHandleDivisor),
+        static_cast<FieldGetMethodSig >(&GeoVectorProperty::getHandleDivisor));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -147,20 +165,30 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"GeoVectorProperty\"\n"
-    "   parent=\"GeoProperty\"\n"
-    "   library=\"System\"\n"
-    "   pointerfieldtypes=\"both\"\n"
-    "   structure=\"abstract\"\n"
-    "   systemcomponent=\"true\"\n"
-    "   parentsystemcomponent=\"true\"\n"
-    "   decoratable=\"false\"\n"
-    "   childFields=\"both\"\n"
-    "   docGroupBase=\"GrpDrawablesGeometry\"\n"
-    "   >\n"
+    "    name=\"GeoVectorProperty\"\n"
+    "    parent=\"GeoProperty\"\n"
+    "    library=\"System\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"abstract\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
+    "    childFields=\"both\"\n"
+    "    docGroupBase=\"GrpDrawablesGeometry\"\n"
+    "    >\n"
     "  Abstract base class for all vector-valued GeoProperties.\n"
     "  Provides a uniform interface for accessing all vector data in geometry using\n"
     "  automatic conversion methods.\n"
+    "  <Field\n"
+    "      name=\"divisor\"\n"
+    "      type=\"UInt32\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      defaultValue=\"0\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "    sets the vertex attrib divisor for instanced rendering\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "Abstract base class for all vector-valued GeoProperties.\n"
     "Provides a uniform interface for accessing all vector data in geometry using\n"
@@ -187,6 +215,19 @@ UInt32 GeoVectorPropertyBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFUInt32 *GeoVectorPropertyBase::editSFDivisor(void)
+{
+    editSField(DivisorFieldMask);
+
+    return &_sfDivisor;
+}
+
+const SFUInt32 *GeoVectorPropertyBase::getSFDivisor(void) const
+{
+    return &_sfDivisor;
+}
+
+
 
 
 
@@ -197,6 +238,10 @@ SizeT GeoVectorPropertyBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (DivisorFieldMask & whichField))
+    {
+        returnValue += _sfDivisor.getBinSize();
+    }
 
     return returnValue;
 }
@@ -206,6 +251,10 @@ void GeoVectorPropertyBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (DivisorFieldMask & whichField))
+    {
+        _sfDivisor.copyToBin(pMem);
+    }
 }
 
 void GeoVectorPropertyBase::copyFromBin(BinaryDataHandler &pMem,
@@ -213,6 +262,11 @@ void GeoVectorPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (DivisorFieldMask & whichField))
+    {
+        editSField(DivisorFieldMask);
+        _sfDivisor.copyFromBin(pMem);
+    }
 }
 
 
@@ -221,12 +275,14 @@ void GeoVectorPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 /*------------------------- constructors ----------------------------------*/
 
 GeoVectorPropertyBase::GeoVectorPropertyBase(void) :
-    Inherited()
+    Inherited(),
+    _sfDivisor                (UInt32(0))
 {
 }
 
 GeoVectorPropertyBase::GeoVectorPropertyBase(const GeoVectorPropertyBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfDivisor                (source._sfDivisor                )
 {
 }
 
@@ -237,6 +293,31 @@ GeoVectorPropertyBase::~GeoVectorPropertyBase(void)
 {
 }
 
+
+GetFieldHandlePtr GeoVectorPropertyBase::getHandleDivisor         (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfDivisor,
+             this->getType().getFieldDesc(DivisorFieldId),
+             const_cast<GeoVectorPropertyBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeoVectorPropertyBase::editHandleDivisor        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfDivisor,
+             this->getType().getFieldDesc(DivisorFieldId),
+             this));
+
+
+    editSField(DivisorFieldMask);
+
+    return returnValue;
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

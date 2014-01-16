@@ -107,14 +107,6 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-// extension indices for used extensions;
-UInt32 GeoVectorProperty::_extSecondaryColor;
-UInt32 GeoVectorProperty::_extMultitexture;
-
-// extension indices for used fucntions;
-UInt32 GeoVectorProperty::_funcglSecondaryColorPointer;
-UInt32 GeoVectorProperty::_funcglClientActiveTextureARB;
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -125,19 +117,6 @@ void GeoVectorProperty::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        _extSecondaryColor      =
-            Window::registerExtension("GL_EXT_secondary_color");
-        
-        _funcglSecondaryColorPointer  = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glSecondaryColorPointerEXT",
-            _extSecondaryColor);
-        
-        _extMultitexture        =
-            Window::registerExtension("GL_ARB_multitexture");
-
-        _funcglClientActiveTextureARB = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glClientActiveTextureARB",
-            _extMultitexture);
     }
 }
 
@@ -162,7 +141,7 @@ const StateChunkClass *GeoVectorProperty::getClass(void) const
 GeoVectorProperty::GeoVectorProperty(void) :
     Inherited()
 {
- }
+}
 
 GeoVectorProperty::GeoVectorProperty(const GeoVectorProperty &source) :
     Inherited(source)
@@ -195,7 +174,7 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
     {
         OSGGETGLFUNCBYID_GL3_ES( glVertexAttribPointer, 
                                  osgGlVertexAttribPointer,
-                                _funcglVertexAttribPointerARB,
+                                _funcVertexAttribPointerARB,
                                  pWin);
 
         if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
@@ -231,10 +210,17 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
         
         OSGGETGLFUNCBYID_GL3_ES( glEnableVertexAttribArray,
                                  osgGlEnableVertexAttribArray,
-                                _funcglEnableVertexAttribArrayARB,
+                                _funcEnableVertexAttribArrayARB,
                                  pWin);
         
         osgGlEnableVertexAttribArray(slot);
+  
+        OSGGETGLFUNCBYID_GL3_ES( glVertexAttribDivisor,
+                                 osgGlVertexAttribDivisor,
+                                _funcVertexAttribDivisorARB,
+                                 pWin);
+ 
+        osgGlVertexAttribDivisor(slot, _sfDivisor.getValue());
     }
     else 
     {        
@@ -293,7 +279,7 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
                 {
                     OSGGETGLFUNCBYID_GL3( glSecondaryColorPointer,
                                           osgGlSecondaryColorPointer,
-                                         _funcglSecondaryColorPointer,
+                                         _funcSecondaryColorPointer,
                                           pWin);
 
                     osgGlSecondaryColorPointer(getDimension(),
@@ -323,7 +309,7 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
                 {
                     OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
                                              osgGlClientActiveTexture,
-                                            _funcglClientActiveTextureARB,
+                                            _funcClientActiveTextureARB,
                                              pWin);
 
                     osgGlClientActiveTexture(GL_TEXTURE0_ARB + slot - 8);
@@ -396,7 +382,7 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
     {
         OSGGETGLFUNCBYID_GL3_ES( glDisableVertexAttribArray,
                                  osgGlDisableVertexAttribArray,
-                                _funcglDisableVertexAttribArrayARB,
+                                _funcDisableVertexAttribArrayARB,
                                  pWin);
 
         osgGlDisableVertexAttribArray(slot);
@@ -435,7 +421,7 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
                 {
                     OSGGETGLFUNCBYID_GL3_ES( glClientActiveTexture,
                                              osgGlClientActiveTexture,
-                                            _funcglClientActiveTextureARB,
+                                            _funcClientActiveTextureARB,
                                              pWin);
                 
                     osgGlClientActiveTexture(GL_TEXTURE0_ARB + slot - 8);

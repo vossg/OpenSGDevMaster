@@ -221,6 +221,8 @@ class OSG_SYSTEM_DLLMAPPING GeoProperty : public GeoPropertyBase
     static UInt32 _extMultitexture;
     static UInt32 _arbVertexProgram;
     static UInt32 _extSecondaryColor;
+    static UInt32 _arbInstancedArrays;
+
     static UInt32 _funcBindBuffer;
     static UInt32 _funcMapBuffer;
     static UInt32 _funcUnmapBuffer;
@@ -228,12 +230,14 @@ class OSG_SYSTEM_DLLMAPPING GeoProperty : public GeoPropertyBase
     static UInt32 _funcBufferSubData;
     static UInt32 _funcDeleteBuffers;
     static UInt32 _funcGenBuffers;
-    static UInt32 _funcglVertexAttribPointerARB;
-    static UInt32 _funcglEnableVertexAttribArrayARB;
-    static UInt32 _funcglDisableVertexAttribArrayARB;
+    static UInt32 _funcVertexAttribPointerARB;
+    static UInt32 _funcEnableVertexAttribArrayARB;
+    static UInt32 _funcDisableVertexAttribArrayARB;
 
-    static UInt32 _glClientActiveTextureARB;
-    static UInt32 _glSecondaryColorPointerEXT;
+    static UInt32 _funcClientActiveTextureARB;
+    static UInt32 _funcSecondaryColorPointer;
+
+    static UInt32 _funcVertexAttribDivisorARB;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
