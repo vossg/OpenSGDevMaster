@@ -531,46 +531,6 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
     {
         _pMaterial     = pMaterial;
         _pMaterialNode = pNode;
-
-#ifdef OSG_NEW_SHADER_DISABLE
-        State *pState = _pMaterial->getState();
-
-        OSG_ASSERT(pState != NULL);
-
-        ShaderProgramChunk *pSPChunk =
-            static_cast<ShaderProgramChunk *>(
-                pState->getChunk(ShaderProgramChunk::getStaticClassId()));
-
-        if(pSPChunk != NULL)
-        {
-            this->pushState();
-
-            _sStateOverrides.top()->addOverride(0, pSPChunk);
-
-            _sStateOverrides.top()->setShader(NULL);
-
-            _addedStateOverride = true;
-        }
-
-        ShaderProgramVariableChunk *pSPVChunk =
-            static_cast<ShaderProgramVariableChunk *>(
-                pState->getChunk(
-                    ShaderProgramVariableChunk::getStaticClassId()));
-
-        if(pSPChunk != NULL)
-        {
-            if(_addedStateOverride == false)
-            {
-                this->pushState();
-
-                _addedStateOverride = true;
-            }
-
-            _sStateOverrides.top()->addOverride(0, pSPVChunk);
-
-            _sStateOverrides.top()->setShaderVar(NULL);
-        }
-#endif
     }
     else if(_pMaterialNode == pNode)
     {
@@ -578,15 +538,6 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
         {
             _pMaterial     = NULL;
             _pMaterialNode = NULL;
-
-#ifdef OSG_NEW_SHADER_DISABLE
-            if(_addedStateOverride == true)
-            {
-                this->popState();
-
-                _addedStateOverride = false;
-            }
-#endif
         }
         else
         {
