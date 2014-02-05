@@ -3,46 +3,101 @@
 #include "OSGVerifyGraphOp.h"
 
 #include "OSGModelRequest.h"
+#include "OSGGraphOpSeq.h"
+
 #include <iostream>
 
-OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
 
-ModelRequest::ModelRequest()
-   : mParent(NULL)
-   , mModel (NULL)
-{;}
+ModelRequest::ModelRequest(void) : 
+    mParent     (NULL     ),
+    mModel      (NULL     ),
+    mFilename   (         ),
+    pChangeList (NULL     ),
+    bVerifyModel(true     ),
+    szGraphOp   ("default")
+{
+}
 
-ModelRequest::~ModelRequest()
-{;}
+ModelRequest::~ModelRequest(void)
+{
+    mParent     = NULL;
+    mModel      = NULL;
+    pChangeList = NULL;
+}
 
-std::string ModelRequest::getDescription()
+std::string ModelRequest::getDescription(void)
 {
    return std::string("ModelRequest: ") + mFilename;
 }
 
-void ModelRequest::execute()
+void ModelRequest::execute(void)
 {
    std::cout << "ModelRequest: loading model: " << mFilename << std::endl;
-   mModel = OSG::NodeRefPtr(OSG::SceneFileHandler::the()->read(mFilename.c_str()));
 
-#if 1
-   VerifyGraphOpRefPtr vop = VerifyGraphOp::create();
-   vop->setRepair(true);
-   vop->setVerbose(true);
-   Node *node(mModel);
-   vop->traverse(node);
-#endif
+   GraphOpSeqRefPtr pGraphOp = NULL;
+        
+   if(szGraphOp.compare("none") == 0)
+   {
+       // leave it NULL
+   }
+   else if(szGraphOp.compare("default") == 0)
+   {
+       pGraphOp = SceneFileHandler::the()->getDefaultGraphOp();
+   }
+   else
+   {
+       pGraphOp = GraphOpSeq::create(szGraphOp);
+   }
+   
+   fprintf(stderr, "Using graphop %p\n", pGraphOp.get());
+
+   mModel = SceneFileHandler::the()->read(mFilename.c_str(),
+                                          pGraphOp         );
+
+   if(bVerifyModel == true)
+   {
+       std::cout << "verify model" << std::endl;
+
+       VerifyGraphOpRefPtr vop = VerifyGraphOp::create();
+       
+       vop->setRepair (true);
+       vop->setVerbose(true);
+       
+       vop->traverse(mModel.get());
+   }
+
+   commitChanges();
+
+   pChangeList->merge(*Thread::getCurrentChangeList());
+
+   clearChangeList();
 }
 
-void ModelRequest::sync()
+void ModelRequest::sync(void)
 {
-   if (mParent && mModel)
+   if (mParent != NULL && mModel != NULL)
    {
-      std::cout << "ModelRequest: adding model to scene: " << mFilename << std::endl;
+      std::cout << "ModelRequest: adding model to scene: " 
+                << mFilename 
+                << std::endl; 
+
       mParent->addChild(mModel);
+
+      Thread::getCurrentChangeList()->merge(*pChangeList);
    }
+
    mCompleted = true;
+}
+
+void ModelRequest::setVerifyModel(bool bVal)
+{
+    bVerifyModel = bVal;
+}
+
+void ModelRequest::setGraphOp(const std::string &szVal)
+{
+    szGraphOp = szVal;
 }
 
 OSG_END_NAMESPACE

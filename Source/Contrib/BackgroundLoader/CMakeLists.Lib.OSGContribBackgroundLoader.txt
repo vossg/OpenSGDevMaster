@@ -14,7 +14,10 @@ OSG_SELECT_PROJECT()
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGUtil)
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
+                                     OSGCluster
                                      OSGWindow
+                                     OSGFileIO
+                                     OSGImageFileIO
                                      OSGWindowGLUT)
 
 # dependencies - External
