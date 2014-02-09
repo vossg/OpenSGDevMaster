@@ -59,7 +59,9 @@
 
 #cmakedefine OSG_USE_OGLES_PROTOS 1
 
+#if !defined(OSG_GL_INCLUDE_GLEW)
 #cmakedefine OSG_GL_INCLUDE_GLEW 1
+#endif
 
 #cmakedefine OSG_OGL_NO_DOUBLE 1
 
