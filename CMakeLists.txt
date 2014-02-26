@@ -1,5 +1,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-CMAKE_POLICY(SET CMP0020 OLD) # behaviour change in linking qt
+
+MESSAGE(STATUS "Running cmake version : ${CMAKE_VERSION}")
+
+IF(${CMAKE_VERSION} VERSION_GREATER "2.8.11")
+  CMAKE_POLICY(SET CMP0020 OLD) # behaviour change in linking qt
+ENDIF()
 
 PROJECT(OpenSG)
 
