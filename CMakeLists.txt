@@ -1,4 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_POLICY(SET CMP0020 OLD) # behaviour change in linking qt
 
 PROJECT(OpenSG)
 
