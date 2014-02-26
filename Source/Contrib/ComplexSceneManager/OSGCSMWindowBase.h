@@ -125,7 +125,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         PartitionDrawModeFieldId = RenderOptionsFieldId + 1,
         RegisterMainLoopFieldId = PartitionDrawModeFieldId + 1,
         DumpContainerFieldId = RegisterMainLoopFieldId + 1,
-        NextFieldId = DumpContainerFieldId + 1
+        WindowStateFieldId = DumpContainerFieldId + 1,
+        NextFieldId = WindowStateFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
@@ -174,6 +175,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << RegisterMainLoopFieldId);
     static const OSG::BitVector DumpContainerFieldMask =
         (TypeTraits<BitVector>::One << DumpContainerFieldId);
+    static const OSG::BitVector WindowStateFieldMask =
+        (TypeTraits<BitVector>::One << WindowStateFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -200,6 +203,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFUInt32          SFPartitionDrawModeType;
     typedef SFBool            SFRegisterMainLoopType;
     typedef SFBool            SFDumpContainerType;
+    typedef SFInt32           SFWindowStateType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -289,6 +293,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   SFBool              *editSFDumpContainer  (void);
             const SFBool              *getSFDumpContainer   (void) const;
 
+                  SFInt32             *editSFWindowState    (void);
+            const SFInt32             *getSFWindowState     (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
@@ -354,6 +361,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   bool                &editDumpContainer  (void);
                   bool                 getDumpContainer   (void) const;
 
+                  Int32               &editWindowState    (void);
+                  Int32                getWindowState     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -379,6 +389,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setPartitionDrawMode(const UInt32 value);
             void setRegisterMainLoop(const bool value);
             void setDumpContainer  (const bool value);
+            void setWindowState    (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -445,6 +456,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFUInt32          _sfPartitionDrawMode;
     SFBool            _sfRegisterMainLoop;
     SFBool            _sfDumpContainer;
+    SFInt32           _sfWindowState;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -530,6 +542,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
      EditFieldHandlePtr editHandleRegisterMainLoop(void);
      GetFieldHandlePtr  getHandleDumpContainer   (void) const;
      EditFieldHandlePtr editHandleDumpContainer  (void);
+     GetFieldHandlePtr  getHandleWindowState     (void) const;
+     EditFieldHandlePtr editHandleWindowState    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

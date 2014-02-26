@@ -176,6 +176,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           CSMWindowBase::_sfWindowState
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -501,6 +505,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleDumpContainer));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "windowState",
+        "",
+        WindowStateFieldId, WindowStateFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleWindowState),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleWindowState));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -745,6 +761,16 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "      access=\"public\"\n"
     "      fieldFlags=\"\"\n"
     "      defaultValue=\"false\"\n"
+    "      >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"windowState\"\n"
+    "      type=\"Int32\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"internal\"\n"
+    "      access=\"public\"\n"
+    "      fieldFlags=\"\"\n"
+    "      defaultValue=\"0\"\n"
     "      >\n"
     "  </Field>\n"
     "</FieldContainer>\n",
@@ -1077,6 +1103,19 @@ const SFBool *CSMWindowBase::getSFDumpContainer(void) const
 }
 
 
+SFInt32 *CSMWindowBase::editSFWindowState(void)
+{
+    editSField(WindowStateFieldMask);
+
+    return &_sfWindowState;
+}
+
+const SFInt32 *CSMWindowBase::getSFWindowState(void) const
+{
+    return &_sfWindowState;
+}
+
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -1232,6 +1271,10 @@ SizeT CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDumpContainer.getBinSize();
     }
+    if(FieldBits::NoField != (WindowStateFieldMask & whichField))
+    {
+        returnValue += _sfWindowState.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1332,6 +1375,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         _sfDumpContainer.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (WindowStateFieldMask & whichField))
+    {
+        _sfWindowState.copyToBin(pMem);
     }
 }
 
@@ -1455,6 +1502,11 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(DumpContainerFieldMask);
         _sfDumpContainer.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (WindowStateFieldMask & whichField))
+    {
+        editSField(WindowStateFieldMask);
+        _sfWindowState.copyFromBin(pMem);
+    }
 }
 
 
@@ -1486,7 +1538,8 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfRenderOptions          (NULL),
     _sfPartitionDrawMode      (UInt32(Window::SequentialPartitionDraw)),
     _sfRegisterMainLoop       (bool(true)),
-    _sfDumpContainer          (bool(false))
+    _sfDumpContainer          (bool(false)),
+    _sfWindowState            (Int32(0))
 {
 }
 
@@ -1514,7 +1567,8 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfRenderOptions          (NULL),
     _sfPartitionDrawMode      (source._sfPartitionDrawMode      ),
     _sfRegisterMainLoop       (source._sfRegisterMainLoop       ),
-    _sfDumpContainer          (source._sfDumpContainer          )
+    _sfDumpContainer          (source._sfDumpContainer          ),
+    _sfWindowState            (source._sfWindowState            )
 {
 }
 
@@ -2202,6 +2256,31 @@ EditFieldHandlePtr CSMWindowBase::editHandleDumpContainer  (void)
 
 
     editSField(DumpContainerFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleWindowState     (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfWindowState,
+             this->getType().getFieldDesc(WindowStateFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleWindowState    (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfWindowState,
+             this->getType().getFieldDesc(WindowStateFieldId),
+             this));
+
+
+    editSField(WindowStateFieldMask);
 
     return returnValue;
 }

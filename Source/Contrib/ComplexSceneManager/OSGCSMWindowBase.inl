@@ -549,6 +549,31 @@ void CSMWindowBase::setDumpContainer(const bool value)
 
     _sfDumpContainer.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfWindowState field.
+
+inline
+Int32 &CSMWindowBase::editWindowState(void)
+{
+    editSField(WindowStateFieldMask);
+
+    return _sfWindowState.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfWindowState field.
+inline
+      Int32  CSMWindowBase::getWindowState(void) const
+{
+    return _sfWindowState.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfWindowState field.
+inline
+void CSMWindowBase::setWindowState(const Int32 value)
+{
+    editSField(WindowStateFieldMask);
+
+    _sfWindowState.setValue(value);
+}
 
 
 //! Get the value of the \a index element the CSMWindow::_mfIgnoreExtensions field.
@@ -651,6 +676,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
         _sfDumpContainer.syncWith(pFrom->_sfDumpContainer);
+
+    if(FieldBits::NoField != (WindowStateFieldMask & whichField))
+        _sfWindowState.syncWith(pFrom->_sfWindowState);
 }
 #endif
 

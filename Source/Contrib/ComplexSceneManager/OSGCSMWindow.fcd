@@ -230,4 +230,14 @@
       defaultValue="false"
       >
   </Field>
+  <Field
+      name="windowState"
+      type="Int32"
+      cardinality="single"
+      visibility="internal"
+      access="public"
+      fieldFlags=""
+      defaultValue="0"
+      >
+  </Field>
 </FieldContainer>
