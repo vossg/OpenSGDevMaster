@@ -130,6 +130,24 @@ void CSMNativeWindow::changed(ConstFieldMaskArg whichField,
                               UInt32            origin,
                               BitVector         details)
 {
+    if(0x0000 != (whichField & WindowStateFieldMask))
+    {
+#if 0
+        fprintf( stderr, "window state change : %d | %p\n",
+                _sfWindowState.getValue(),
+                _pHWND                                    );
+#endif
+
+        if(_sfWindowState.getValue() == 1 && _pHWND != NULL)
+        {
+            ShowWindow(_pHWND, SW_HIDE);
+        }
+        else if(_sfWindowState.getValue() == 2 && _pHWND != NULL)
+        {
+            ShowWindow(_pHWND, SW_SHOW);
+        }
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
