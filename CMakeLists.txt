@@ -476,6 +476,7 @@ OSG_CHECK_INSTALL()
 
 # Global include/library dirs, libs and definitions
 SET(OSG_GLOBAL_DEP_INCDIR "")
+SET(OSG_SYSTEM_DEP_INCDIR "")
 SET(OSG_GLOBAL_DEP_LIBDIR "")
 SET(OSG_GLOBAL_DEP_LIBS   "")
 SET(OSG_GLOBAL_DEP_DEFS   "")
