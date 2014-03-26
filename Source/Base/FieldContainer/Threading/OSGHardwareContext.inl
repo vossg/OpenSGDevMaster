@@ -58,4 +58,10 @@ bool HardwareContext::hasAttribAliasing(void) const
     return (_uiOGLFeatures & HasAttribAliasing) != 0x0000;
 }
 
+inline
+bool HardwareContext::hasVAODListProblems(void) const
+{
+    return (_uiOGLFeatures & HasVAODListProblems) != 0x0000;
+}
+
 OSG_END_NAMESPACE

@@ -79,7 +79,8 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
 
     enum OpenGLFeatures
     {
-        HasAttribAliasing = 0x0001
+        HasAttribAliasing   = 0x0001,
+        HasVAODListProblems = 0x0002
     };
 
     /*---------------------------------------------------------------------*/
@@ -118,8 +119,9 @@ class OSG_BASE_DLLMAPPING HardwareContext : public HardwareContextBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    UInt32 getOGLFeatures   (void) const;
-    bool   hasAttribAliasing(void) const; 
+    UInt32 getOGLFeatures     (void) const;
+    bool   hasAttribAliasing  (void) const; 
+    bool   hasVAODListProblems(void) const; 
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

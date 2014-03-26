@@ -1947,6 +1947,15 @@ void OSG::Window::setupGL( void )
     {
         _uiOGLFeatures |= HasAttribAliasing;
     }
+    else
+    {
+        rc = szVendor.find("ati", 0);
+
+        if(rc != std::string::npos)
+        {
+            _uiOGLFeatures |= HasVAODListProblems;
+        }
+    }
 #endif
 
     doFrameInit();    // call it to setup extensions

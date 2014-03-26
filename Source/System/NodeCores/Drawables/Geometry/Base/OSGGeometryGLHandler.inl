@@ -665,10 +665,11 @@ void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
                                      osgGlBindVertexArray,
                                      FuncIdBindVertexArray,
                                      pWin);
-                                      
+
 #if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) && \
     !defined(__APPLE__)
-                if(getDlistCache() == true && uiNumInstances == 1)
+                if(getDlistCache() == true && uiNumInstances == 1 &&
+                   pWin->hasVAODListProblems() == false)
                 {
                     Int32 glid;
                     
