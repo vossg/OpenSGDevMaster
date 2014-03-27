@@ -220,10 +220,10 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   UInt32              &editDimV           (void);
                   UInt32               getDimV            (void) const;
 
-                  Real32              &editKnotsU         (const UInt32 index);
+            MFReal32           ::reference       editKnotsU         (const UInt32 index);
                   Real32               getKnotsU          (const UInt32 index) const;
 
-                  Real32              &editKnotsV         (const UInt32 index);
+            MFReal32           ::reference       editKnotsV         (const UInt32 index);
                   Real32               getKnotsV          (const UInt32 index) const;
 
                   GeoVectorProperty * getControlPoints  (void) const;
@@ -430,19 +430,19 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   UInt32              &editNumCurves      (void);
                   UInt32               getNumCurves       (void) const;
 
-                  UInt32              &editKnotLengths    (const UInt32 index);
+                  MFUInt32           ::reference editKnotLengths    (const UInt32 index);
                   UInt32               getKnotLengths     (const UInt32 index) const;
 
-                  UInt32              &editDimensions     (const UInt32 index);
+                  MFUInt32           ::reference editDimensions     (const UInt32 index);
                   UInt32               getDimensions      (const UInt32 index) const;
 
-                  Pnt3f               &editCurveControlPoints(const UInt32 index);
+                  MFPnt3f            ::reference editCurveControlPoints(const UInt32 index);
             const Pnt3f               &getCurveControlPoints (const UInt32 index) const;
 
-                  Real32              &editKnots          (const UInt32 index);
+                  MFReal32           ::reference editKnots          (const UInt32 index);
                   Real32               getKnots           (const UInt32 index) const;
 
-                  UInt32              &editCurvesPerLoop  (const UInt32 index);
+                  MFUInt32           ::reference editCurvesPerLoop  (const UInt32 index);
                   UInt32               getCurvesPerLoop   (const UInt32 index) const;
 
                   UInt32              &editDirtyMask      (void);

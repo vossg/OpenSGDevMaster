@@ -237,7 +237,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
                   UInt32              &editGeometries     (void);
                   UInt32               getGeometries      (void) const;
 
-                  UInt8               &editInline         (const UInt32 index);
+            MFUInt8            ::reference       editInline         (const UInt32 index);
                   UInt8                getInline          (const UInt32 index) const;
 
     /*! \}                                                                 */

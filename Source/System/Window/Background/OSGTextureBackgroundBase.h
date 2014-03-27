@@ -182,7 +182,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 
                   TextureBaseChunk * getTexture        (void) const;
 
-                  Pnt2f               &editTexCoords      (const UInt32 index);
+            MFPnt2f            ::reference       editTexCoords      (const UInt32 index);
             const Pnt2f               &getTexCoords       (const UInt32 index) const;
 
                   Real32              &editRadialDistortion(void);

@@ -279,10 +279,10 @@ class OSG_DRAWABLE_DLLMAPPING KDTreeIntersectProxyAttachmentBase : public Inters
             const MFUInt32            *getMFTriIndices      (void) const;
 
 
-                  IntersectKDTreeNode &editTreeNodes      (const UInt32 index);
+                  MFIntersectKDTreeNode::reference editTreeNodes      (const UInt32 index);
             const IntersectKDTreeNode &getTreeNodes       (const UInt32 index) const;
 
-                  UInt32              &editTriIndices     (const UInt32 index);
+                  MFUInt32           ::reference editTriIndices     (const UInt32 index);
                   UInt32               getTriIndices      (const UInt32 index) const;
 
     /*! \}                                                                 */

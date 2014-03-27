@@ -233,7 +233,7 @@ const Vec3f &PolygonBackgroundBase::getTexCoords(const UInt32 index) const
 }
 
 inline
-Vec3f &PolygonBackgroundBase::editTexCoords(const UInt32 index)
+MFVec3f            ::reference PolygonBackgroundBase::editTexCoords(const UInt32 index)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
@@ -248,7 +248,7 @@ const Pnt2f &PolygonBackgroundBase::getPositions(const UInt32 index) const
 }
 
 inline
-Pnt2f &PolygonBackgroundBase::editPositions(const UInt32 index)
+MFPnt2f            ::reference PolygonBackgroundBase::editPositions(const UInt32 index)
 {
     editMField(PositionsFieldMask, _mfPositions);
 

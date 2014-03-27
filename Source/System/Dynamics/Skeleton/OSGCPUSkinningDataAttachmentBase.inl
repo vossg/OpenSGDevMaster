@@ -109,7 +109,7 @@ const Matrix &CPUSkinningDataAttachmentBase::getJointMatrices(const UInt32 index
 }
 
 inline
-Matrix &CPUSkinningDataAttachmentBase::editJointMatrices(const UInt32 index)
+MFMatrix           ::reference CPUSkinningDataAttachmentBase::editJointMatrices(const UInt32 index)
 {
     editMField(JointMatricesFieldMask, _mfJointMatrices);
 
@@ -124,7 +124,7 @@ const Matrix &CPUSkinningDataAttachmentBase::getJointNormalMatrices(const UInt32
 }
 
 inline
-Matrix &CPUSkinningDataAttachmentBase::editJointNormalMatrices(const UInt32 index)
+MFMatrix           ::reference CPUSkinningDataAttachmentBase::editJointNormalMatrices(const UInt32 index)
 {
     editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
 

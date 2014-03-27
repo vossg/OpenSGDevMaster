@@ -108,7 +108,7 @@ inline
 }
 
 inline
-UInt32 &MultiSwitchBase::editChoices(const UInt32 index)
+MFUInt32           ::reference MultiSwitchBase::editChoices(const UInt32 index)
 {
     editMField(ChoicesFieldMask, _mfChoices);
 

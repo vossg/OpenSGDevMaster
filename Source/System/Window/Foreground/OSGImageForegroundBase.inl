@@ -84,7 +84,7 @@ const Pnt2f &ImageForegroundBase::getPositions(const UInt32 index) const
 }
 
 inline
-Pnt2f &ImageForegroundBase::editPositions(const UInt32 index)
+MFPnt2f            ::reference ImageForegroundBase::editPositions(const UInt32 index)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -99,7 +99,7 @@ const Pnt2f &ImageForegroundBase::getScales(const UInt32 index) const
 }
 
 inline
-Pnt2f &ImageForegroundBase::editScales(const UInt32 index)
+MFPnt2f            ::reference ImageForegroundBase::editScales(const UInt32 index)
 {
     editMField(ScalesFieldMask, _mfScales);
 

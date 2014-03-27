@@ -140,7 +140,7 @@ class OSG_BASE_DLLMAPPING MapHelperBase : public FieldContainer
                   SFUnrecFieldContainerPtr *editSFContainer      (void);
 
 
-                  std::string         &editKeys           (const UInt32 index);
+            MFString           ::reference       editKeys           (const UInt32 index);
             const std::string         &getKeys            (const UInt32 index) const;
 
                   FieldContainer * getContainer      (void) const;

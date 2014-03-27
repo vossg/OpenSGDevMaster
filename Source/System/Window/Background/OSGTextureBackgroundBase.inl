@@ -208,7 +208,7 @@ const Pnt2f &TextureBackgroundBase::getTexCoords(const UInt32 index) const
 }
 
 inline
-Pnt2f &TextureBackgroundBase::editTexCoords(const UInt32 index)
+MFPnt2f            ::reference TextureBackgroundBase::editTexCoords(const UInt32 index)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 

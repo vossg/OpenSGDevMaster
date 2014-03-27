@@ -134,7 +134,7 @@ inline
 }
 
 inline
-Int32 &ComputeShaderChunkBase::editVariableLocations(const UInt32 index)
+MFInt32            ::reference ComputeShaderChunkBase::editVariableLocations(const UInt32 index)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
 
@@ -149,7 +149,7 @@ inline
 }
 
 inline
-Int32 &ComputeShaderChunkBase::editProceduralVariableLocations(const UInt32 index)
+MFInt32            ::reference ComputeShaderChunkBase::editProceduralVariableLocations(const UInt32 index)
 {
     editMField(ProceduralVariableLocationsFieldMask, _mfProceduralVariableLocations);
 

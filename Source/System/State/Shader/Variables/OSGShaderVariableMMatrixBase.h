@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableMMatrixBase : public ShaderValueVariab
             const MFMatrix            *getMFValue           (void) const;
 
 
-                  Matrix              &editValue          (const UInt32 index);
+            MFMatrix           ::reference       editValue          (const UInt32 index);
             const Matrix              &getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */

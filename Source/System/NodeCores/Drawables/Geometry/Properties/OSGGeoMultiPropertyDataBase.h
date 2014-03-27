@@ -140,7 +140,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
             const SFUInt32            *getSFGLId            (void) const;
 
 
-                  UInt8               &editIData          (const UInt32 index);
+            MFUInt8            ::reference       editIData          (const UInt32 index);
                   UInt8                getIData           (const UInt32 index) const;
 
                   UInt32              &editGLId           (void);

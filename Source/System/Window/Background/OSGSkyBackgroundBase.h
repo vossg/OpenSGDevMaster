@@ -263,16 +263,16 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
             const SFBool              *getSFUseVRMLCubeTextureSemantics (void) const;
 
 
-                  Color4f             &editSkyColor       (const UInt32 index);
+            MFColor4f          ::reference       editSkyColor       (const UInt32 index);
             const Color4f             &getSkyColor        (const UInt32 index) const;
 
-                  Real32              &editSkyAngle       (const UInt32 index);
+            MFReal32           ::reference       editSkyAngle       (const UInt32 index);
                   Real32               getSkyAngle        (const UInt32 index) const;
 
-                  Color4f             &editGroundColor    (const UInt32 index);
+            MFColor4f          ::reference       editGroundColor    (const UInt32 index);
             const Color4f             &getGroundColor     (const UInt32 index) const;
 
-                  Real32              &editGroundAngle    (const UInt32 index);
+            MFReal32           ::reference       editGroundAngle    (const UInt32 index);
                   Real32               getGroundAngle     (const UInt32 index) const;
 
                   UInt32              &editSphereRes      (void);
@@ -293,22 +293,22 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
                   bool                &editBoxInside      (void);
                   bool                 getBoxInside       (void) const;
 
-                  Vec3f               &editTopTexCoord    (const UInt32 index);
+            MFVec3f            ::reference       editTopTexCoord    (const UInt32 index);
             const Vec3f               &getTopTexCoord     (const UInt32 index) const;
 
-                  Vec3f               &editBottomTexCoord (const UInt32 index);
+            MFVec3f            ::reference       editBottomTexCoord (const UInt32 index);
             const Vec3f               &getBottomTexCoord  (const UInt32 index) const;
 
-                  Vec3f               &editRightTexCoord  (const UInt32 index);
+            MFVec3f            ::reference       editRightTexCoord  (const UInt32 index);
             const Vec3f               &getRightTexCoord   (const UInt32 index) const;
 
-                  Vec3f               &editLeftTexCoord   (const UInt32 index);
+            MFVec3f            ::reference       editLeftTexCoord   (const UInt32 index);
             const Vec3f               &getLeftTexCoord    (const UInt32 index) const;
 
-                  Vec3f               &editFrontTexCoord  (const UInt32 index);
+            MFVec3f            ::reference       editFrontTexCoord  (const UInt32 index);
             const Vec3f               &getFrontTexCoord   (const UInt32 index) const;
 
-                  Vec3f               &editBackTexCoord   (const UInt32 index);
+            MFVec3f            ::reference       editBackTexCoord   (const UInt32 index);
             const Vec3f               &getBackTexCoord    (const UInt32 index) const;
 
                   Node * getBeacon         (void) const;

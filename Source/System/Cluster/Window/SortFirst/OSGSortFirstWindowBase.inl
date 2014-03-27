@@ -183,7 +183,7 @@ inline
 }
 
 inline
-UInt32 &SortFirstWindowBase::editRegion(const UInt32 index)
+MFUInt32           ::reference SortFirstWindowBase::editRegion(const UInt32 index)
 {
     editMField(RegionFieldMask, _mfRegion);
 

@@ -280,7 +280,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunkBase : public StateChunk
             const SFUInt32            *getSFActiveShader    (void) const;
 
 
-                  Int32               &editVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editVariableLocations(const UInt32 index);
                   Int32                getVariableLocations (const UInt32 index) const;
 
                   UInt32              &editActiveShader   (void);

@@ -234,7 +234,7 @@ class OSG_SYSTEM_DLLMAPPING PolygonChunkBase : public StateChunk
                   bool                &editOffsetFill     (void);
                   bool                 getOffsetFill      (void) const;
 
-                  Int32               &editStipple        (const UInt32 index);
+            MFInt32            ::reference       editStipple        (const UInt32 index);
                   Int32                getStipple         (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -308,7 +308,7 @@ const std::string &ClusterWindowBase::getServers(const UInt32 index) const
 }
 
 inline
-std::string &ClusterWindowBase::editServers(const UInt32 index)
+MFString           ::reference ClusterWindowBase::editServers(const UInt32 index)
 {
     editMField(ServersFieldMask, _mfServers);
 
@@ -323,7 +323,7 @@ inline
 }
 
 inline
-UInt32 &ClusterWindowBase::editServerIds(const UInt32 index)
+MFUInt32           ::reference ClusterWindowBase::editServerIds(const UInt32 index)
 {
     editMField(ServerIdsFieldMask, _mfServerIds);
 
@@ -338,7 +338,7 @@ const std::string &ClusterWindowBase::getAutostart(const UInt32 index) const
 }
 
 inline
-std::string &ClusterWindowBase::editAutostart(const UInt32 index)
+MFString           ::reference ClusterWindowBase::editAutostart(const UInt32 index)
 {
     editMField(AutostartFieldMask, _mfAutostart);
 

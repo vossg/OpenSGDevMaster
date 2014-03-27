@@ -133,7 +133,7 @@ const std::string &InlineBase::getUrl(const UInt32 index) const
 }
 
 inline
-std::string &InlineBase::editUrl(const UInt32 index)
+MFString           ::reference InlineBase::editUrl(const UInt32 index)
 {
     editMField(UrlFieldMask, _mfUrl);
 
@@ -148,7 +148,7 @@ const std::string &InlineBase::getOptions(const UInt32 index) const
 }
 
 inline
-std::string &InlineBase::editOptions(const UInt32 index)
+MFString           ::reference InlineBase::editOptions(const UInt32 index)
 {
     editMField(OptionsFieldMask, _mfOptions);
 

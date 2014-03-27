@@ -83,7 +83,7 @@ const Vec3f &AnimVec3fDataSourceBase::getValues(const UInt32 index) const
 }
 
 inline
-Vec3f &AnimVec3fDataSourceBase::editValues(const UInt32 index)
+MFVec3f            ::reference AnimVec3fDataSourceBase::editValues(const UInt32 index)
 {
     editMField(ValuesFieldMask, _mfValues);
 
@@ -98,7 +98,7 @@ const Vec2f &AnimVec3fDataSourceBase::getInTangentsX(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editInTangentsX(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editInTangentsX(const UInt32 index)
 {
     editMField(InTangentsXFieldMask, _mfInTangentsX);
 
@@ -113,7 +113,7 @@ const Vec2f &AnimVec3fDataSourceBase::getInTangentsY(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editInTangentsY(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editInTangentsY(const UInt32 index)
 {
     editMField(InTangentsYFieldMask, _mfInTangentsY);
 
@@ -128,7 +128,7 @@ const Vec2f &AnimVec3fDataSourceBase::getInTangentsZ(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editInTangentsZ(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editInTangentsZ(const UInt32 index)
 {
     editMField(InTangentsZFieldMask, _mfInTangentsZ);
 
@@ -143,7 +143,7 @@ const Vec2f &AnimVec3fDataSourceBase::getOutTangentsX(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editOutTangentsX(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editOutTangentsX(const UInt32 index)
 {
     editMField(OutTangentsXFieldMask, _mfOutTangentsX);
 
@@ -158,7 +158,7 @@ const Vec2f &AnimVec3fDataSourceBase::getOutTangentsY(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editOutTangentsY(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editOutTangentsY(const UInt32 index)
 {
     editMField(OutTangentsYFieldMask, _mfOutTangentsY);
 
@@ -173,7 +173,7 @@ const Vec2f &AnimVec3fDataSourceBase::getOutTangentsZ(const UInt32 index) const
 }
 
 inline
-Vec2f &AnimVec3fDataSourceBase::editOutTangentsZ(const UInt32 index)
+MFVec2f            ::reference AnimVec3fDataSourceBase::editOutTangentsZ(const UInt32 index)
 {
     editMField(OutTangentsZFieldMask, _mfOutTangentsZ);
 

@@ -83,7 +83,7 @@ inline
 }
 
 inline
-Real32 &ScreenLODBase::editCoverageOverride(const UInt32 index)
+MFReal32           ::reference ScreenLODBase::editCoverageOverride(const UInt32 index)
 {
     editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
 

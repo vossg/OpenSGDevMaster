@@ -161,7 +161,7 @@ const Matrix &SkeletonBase::getJointMatrices(const UInt32 index) const
 }
 
 inline
-Matrix &SkeletonBase::editJointMatrices(const UInt32 index)
+MFMatrix           ::reference SkeletonBase::editJointMatrices(const UInt32 index)
 {
     editMField(JointMatricesFieldMask, _mfJointMatrices);
 
@@ -176,7 +176,7 @@ const Matrix &SkeletonBase::getJointNormalMatrices(const UInt32 index) const
 }
 
 inline
-Matrix &SkeletonBase::editJointNormalMatrices(const UInt32 index)
+MFMatrix           ::reference SkeletonBase::editJointNormalMatrices(const UInt32 index)
 {
     editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
 

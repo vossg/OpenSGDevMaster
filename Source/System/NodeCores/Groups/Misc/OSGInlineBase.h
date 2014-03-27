@@ -160,7 +160,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
             const MFString            *getMFOptions         (void) const;
 
 
-                  std::string         &editUrl            (const UInt32 index);
+            MFString           ::reference       editUrl            (const UInt32 index);
             const std::string         &getUrl             (const UInt32 index) const;
 
                   bool                &editLoaded         (void);
@@ -169,7 +169,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public RootGroup
                   std::string         &editGraphOp        (void);
             const std::string         &getGraphOp         (void) const;
 
-                  std::string         &editOptions        (const UInt32 index);
+            MFString           ::reference       editOptions        (const UInt32 index);
             const std::string         &getOptions         (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -175,25 +175,25 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSourceBase : public AnimKeyFrameDataS
             const MFVec2f             *getMFOutTangentsZ    (void) const;
 
 
-                  Vec3f               &editValues         (const UInt32 index);
+            MFVec3f            ::reference       editValues         (const UInt32 index);
             const Vec3f               &getValues          (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsX    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsX    (const UInt32 index);
             const Vec2f               &getInTangentsX     (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsY    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsY    (const UInt32 index);
             const Vec2f               &getInTangentsY     (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsZ    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsZ    (const UInt32 index);
             const Vec2f               &getInTangentsZ     (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsX   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsX   (const UInt32 index);
             const Vec2f               &getOutTangentsX    (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsY   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsY   (const UInt32 index);
             const Vec2f               &getOutTangentsY    (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsZ   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsZ   (const UInt32 index);
             const Vec2f               &getOutTangentsZ    (const UInt32 index) const;
 
     /*! \}                                                                 */

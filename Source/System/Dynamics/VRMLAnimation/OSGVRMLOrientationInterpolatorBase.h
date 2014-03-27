@@ -140,7 +140,7 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public VRMLInter
             const SFQuaternion        *getSFOutValue        (void) const;
 
 
-                  Quaternion          &editKeyValue       (const UInt32 index);
+            MFQuaternion       ::reference       editKeyValue       (const UInt32 index);
             const Quaternion          &getKeyValue        (const UInt32 index) const;
 
                   Quaternion          &editOutValue       (void);

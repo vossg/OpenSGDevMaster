@@ -324,7 +324,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   UInt32              &editPixelFormat    (void);
                   UInt32               getPixelFormat     (void) const;
 
-                  UInt8               &editPixel          (const UInt32 index);
+            MFUInt8            ::reference       editPixel          (const UInt32 index);
                   UInt8                getPixel           (const UInt32 index) const;
 
                   Int32               &editFrameSize      (void);

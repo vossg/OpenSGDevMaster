@@ -183,7 +183,7 @@ const std::string &CSMClusterWindowBase::getServers(const UInt32 index) const
 }
 
 inline
-std::string &CSMClusterWindowBase::editServers(const UInt32 index)
+MFString           ::reference CSMClusterWindowBase::editServers(const UInt32 index)
 {
     editMField(ServersFieldMask, _mfServers);
 
@@ -198,7 +198,7 @@ inline
 }
 
 inline
-UInt32 &CSMClusterWindowBase::editServerIds(const UInt32 index)
+MFUInt32           ::reference CSMClusterWindowBase::editServerIds(const UInt32 index)
 {
     editMField(ServerIdsFieldMask, _mfServerIds);
 

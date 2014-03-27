@@ -236,7 +236,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
                   FrameBufferAttachment * getColorAttachments(const UInt32 index) const;
 
-                  GLenum              &editDrawBuffers    (const UInt32 index);
+            MFGLenum           ::reference       editDrawBuffers    (const UInt32 index);
             const GLenum              &getDrawBuffers     (const UInt32 index) const;
 
                   FrameBufferAttachment * getDepthAttachment(void) const;

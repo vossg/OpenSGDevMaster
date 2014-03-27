@@ -283,10 +283,10 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
                   Real32              &editHeightScale    (void);
                   Real32               getHeightScale     (void) const;
 
-                  Real32              &editHeightError    (const UInt32 index);
+            MFReal32           ::reference       editHeightError    (const UInt32 index);
                   Real32               getHeightError     (const UInt32 index) const;
 
-                  Real32              &editHeightQuad     (const UInt32 index);
+            MFReal32           ::reference       editHeightQuad     (const UInt32 index);
                   Real32               getHeightQuad      (const UInt32 index) const;
 
                   Real32              &editDetail         (void);

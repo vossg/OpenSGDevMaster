@@ -225,10 +225,10 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
             const MFString            *getMFAutostart       (void) const;
 
 
-                  std::string         &editServers        (const UInt32 index);
+            MFString           ::reference       editServers        (const UInt32 index);
             const std::string         &getServers         (const UInt32 index) const;
 
-                  UInt32              &editServerIds      (const UInt32 index);
+            MFUInt32           ::reference       editServerIds      (const UInt32 index);
                   UInt32               getServerIds       (const UInt32 index) const;
 
                   std::string         &editConnectionType (void);
@@ -262,7 +262,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindowBase : public Window
 
                   ImageComposer * getComposer       (void) const;
 
-                  std::string         &editAutostart      (const UInt32 index);
+            MFString           ::reference       editAutostart      (const UInt32 index);
             const std::string         &getAutostart       (const UInt32 index) const;
 
     /*! \}                                                                 */

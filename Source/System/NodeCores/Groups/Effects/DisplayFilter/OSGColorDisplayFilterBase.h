@@ -195,7 +195,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
                   UInt32              &editColorTableDepth(void);
                   UInt32               getColorTableDepth (void) const;
 
-                  Color3f             &editColorTable     (const UInt32 index);
+            MFColor3f          ::reference       editColorTable     (const UInt32 index);
             const Color3f             &getColorTable      (const UInt32 index) const;
 
     /*! \}                                                                 */

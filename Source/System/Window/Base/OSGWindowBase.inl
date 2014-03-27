@@ -334,7 +334,7 @@ inline
 }
 
 inline
-UInt32 &WindowBase::editGlObjectLastRefresh(const UInt32 index)
+MFUInt32           ::reference WindowBase::editGlObjectLastRefresh(const UInt32 index)
 {
     editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
 
@@ -349,7 +349,7 @@ inline
 }
 
 inline
-UInt32 &WindowBase::editGlObjectLastReinitialize(const UInt32 index)
+MFUInt32           ::reference WindowBase::editGlObjectLastReinitialize(const UInt32 index)
 {
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
 

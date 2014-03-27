@@ -108,7 +108,7 @@ inline
 }
 
 inline
-Int32 &StatisticsForegroundBase::editElementIDs(const UInt32 index)
+MFInt32            ::reference StatisticsForegroundBase::editElementIDs(const UInt32 index)
 {
     editMField(ElementIDsFieldMask, _mfElementIDs);
 

@@ -140,10 +140,10 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
             const MFPnt3f             *getMFOutValue        (void) const;
 
 
-                  Pnt3f               &editKeyValue       (const UInt32 index);
+            MFPnt3f            ::reference       editKeyValue       (const UInt32 index);
             const Pnt3f               &getKeyValue        (const UInt32 index) const;
 
-                  Pnt3f               &editOutValue       (const UInt32 index);
+            MFPnt3f            ::reference       editOutValue       (const UInt32 index);
             const Pnt3f               &getOutValue        (const UInt32 index) const;
 
     /*! \}                                                                 */

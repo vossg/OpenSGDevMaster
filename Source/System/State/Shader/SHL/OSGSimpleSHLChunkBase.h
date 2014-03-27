@@ -385,10 +385,10 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunkBase : public ShaderProgramChunk
             const MFInt32             *getMFProceduralVariableLocations (void) const;
 
 
-                  Int32               &editVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editVariableLocations(const UInt32 index);
                   Int32                getVariableLocations (const UInt32 index) const;
 
-                  Int32               &editProceduralVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editProceduralVariableLocations(const UInt32 index);
                   Int32                getProceduralVariableLocations (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -309,7 +309,7 @@ const GLenum &FrameBufferObjectBase::getDrawBuffers(const UInt32 index) const
 }
 
 inline
-GLenum &FrameBufferObjectBase::editDrawBuffers(const UInt32 index)
+MFGLenum           ::reference FrameBufferObjectBase::editDrawBuffers(const UInt32 index)
 {
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
 

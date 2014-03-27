@@ -335,7 +335,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   bool                &editEnableDebugContext(void);
                   bool                 getEnableDebugContext (void) const;
 
-                  std::string         &editIgnoreExtensions(const UInt32 index);
+            MFString           ::reference       editIgnoreExtensions(const UInt32 index);
             const std::string         &getIgnoreExtensions (const UInt32 index) const;
 
                   bool                &editIgnoreAllExtensions(void);

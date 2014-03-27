@@ -140,7 +140,7 @@ class OSG_GROUP_DLLMAPPING MultiSwitchBase : public Group
             const SFInt32             *getSFSwitchMode      (void) const;
 
 
-                  UInt32              &editChoices        (const UInt32 index);
+            MFUInt32           ::reference       editChoices        (const UInt32 index);
                   UInt32               getChoices         (const UInt32 index) const;
 
                   Int32               &editSwitchMode     (void);

@@ -133,7 +133,7 @@ class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
             const MFReal32            *getMFCoverageOverride (void) const;
 
 
-                  Real32              &editCoverageOverride(const UInt32 index);
+            MFReal32           ::reference       editCoverageOverride(const UInt32 index);
                   Real32               getCoverageOverride (const UInt32 index) const;
 
     /*! \}                                                                 */

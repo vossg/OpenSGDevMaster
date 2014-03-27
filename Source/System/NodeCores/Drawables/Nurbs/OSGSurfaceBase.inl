@@ -258,7 +258,7 @@ inline
 }
 
 inline
-Real32 &SurfaceBase::editKnotsU(const UInt32 index)
+MFReal32           ::reference SurfaceBase::editKnotsU(const UInt32 index)
 {
     editMField(KnotsUFieldMask, _mfKnotsU);
 
@@ -273,7 +273,7 @@ inline
 }
 
 inline
-Real32 &SurfaceBase::editKnotsV(const UInt32 index)
+MFReal32           ::reference SurfaceBase::editKnotsV(const UInt32 index)
 {
     editMField(KnotsVFieldMask, _mfKnotsV);
 
@@ -288,7 +288,7 @@ inline
 }
 
 inline
-UInt32 &SurfaceBase::editKnotLengths(const UInt32 index)
+MFUInt32           ::reference SurfaceBase::editKnotLengths(const UInt32 index)
 {
     editMField(KnotLengthsFieldMask, _mfKnotLengths);
 
@@ -303,7 +303,7 @@ inline
 }
 
 inline
-UInt32 &SurfaceBase::editDimensions(const UInt32 index)
+MFUInt32           ::reference SurfaceBase::editDimensions(const UInt32 index)
 {
     editMField(DimensionsFieldMask, _mfDimensions);
 
@@ -318,7 +318,7 @@ const Pnt3f &SurfaceBase::getCurveControlPoints(const UInt32 index) const
 }
 
 inline
-Pnt3f &SurfaceBase::editCurveControlPoints(const UInt32 index)
+MFPnt3f            ::reference SurfaceBase::editCurveControlPoints(const UInt32 index)
 {
     editMField(CurveControlPointsFieldMask, _mfCurveControlPoints);
 
@@ -333,7 +333,7 @@ inline
 }
 
 inline
-Real32 &SurfaceBase::editKnots(const UInt32 index)
+MFReal32           ::reference SurfaceBase::editKnots(const UInt32 index)
 {
     editMField(KnotsFieldMask, _mfKnots);
 
@@ -348,7 +348,7 @@ inline
 }
 
 inline
-UInt32 &SurfaceBase::editCurvesPerLoop(const UInt32 index)
+MFUInt32           ::reference SurfaceBase::editCurvesPerLoop(const UInt32 index)
 {
     editMField(CurvesPerLoopFieldMask, _mfCurvesPerLoop);
 

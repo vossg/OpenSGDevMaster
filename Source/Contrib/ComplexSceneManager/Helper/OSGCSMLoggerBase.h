@@ -153,7 +153,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMLoggerBase : public AttachmentContainer
 
                   FieldContainer * getContainers     (const UInt32 index) const;
 
-                  std::string         &editFields         (const UInt32 index);
+            MFString           ::reference       editFields         (const UInt32 index);
             const std::string         &getFields          (const UInt32 index) const;
 
     /*! \}                                                                 */

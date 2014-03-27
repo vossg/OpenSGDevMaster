@@ -228,10 +228,10 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonSkinningAlgorithmBase : public SkinningAlg
             const MFUInt32            *getMFDrawIndex       (void) const;
 
 
-                  Pnt3f               &editDrawPositions  (const UInt32 index);
+                  MFPnt3f            ::reference editDrawPositions  (const UInt32 index);
             const Pnt3f               &getDrawPositions   (const UInt32 index) const;
 
-                  UInt32              &editDrawIndex      (const UInt32 index);
+                  MFUInt32           ::reference editDrawIndex      (const UInt32 index);
                   UInt32               getDrawIndex       (const UInt32 index) const;
 
     /*! \}                                                                 */

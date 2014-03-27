@@ -140,7 +140,7 @@ class OSG_DYNAMICS_DLLMAPPING VRMLPositionInterpolatorBase : public VRMLInterpol
             const SFVec3f             *getSFOutValue        (void) const;
 
 
-                  Vec3f               &editKeyValue       (const UInt32 index);
+            MFVec3f            ::reference       editKeyValue       (const UInt32 index);
             const Vec3f               &getKeyValue        (const UInt32 index) const;
 
                   Vec3f               &editOutValue       (void);

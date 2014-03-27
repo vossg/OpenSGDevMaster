@@ -83,7 +83,7 @@ inline
 }
 
 inline
-Int32 &ShaderVariableMIntBase::editValue(const UInt32 index)
+MFInt32            ::reference ShaderVariableMIntBase::editValue(const UInt32 index)
 {
     editMField(ValueFieldMask, _mfValue);
 

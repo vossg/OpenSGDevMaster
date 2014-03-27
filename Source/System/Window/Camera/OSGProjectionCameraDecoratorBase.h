@@ -170,7 +170,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
                   Node * getUser           (void) const;
 
-                  Pnt3f               &editSurface        (const UInt32 index);
+            MFPnt3f            ::reference       editSurface        (const UInt32 index);
             const Pnt3f               &getSurface         (const UInt32 index) const;
 
                   Real32              &editWidth          (void);

@@ -183,7 +183,7 @@ inline
 }
 
 inline
-Int16 &SkinnedGeometryBase::editJointIds(const UInt32 index)
+MFInt16            ::reference SkinnedGeometryBase::editJointIds(const UInt32 index)
 {
     editMField(JointIdsFieldMask, _mfJointIds);
 

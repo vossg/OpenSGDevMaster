@@ -158,7 +158,7 @@ const Color4f &SkyBackgroundBase::getSkyColor(const UInt32 index) const
 }
 
 inline
-Color4f &SkyBackgroundBase::editSkyColor(const UInt32 index)
+MFColor4f          ::reference SkyBackgroundBase::editSkyColor(const UInt32 index)
 {
     editMField(SkyColorFieldMask, _mfSkyColor);
 
@@ -173,7 +173,7 @@ inline
 }
 
 inline
-Real32 &SkyBackgroundBase::editSkyAngle(const UInt32 index)
+MFReal32           ::reference SkyBackgroundBase::editSkyAngle(const UInt32 index)
 {
     editMField(SkyAngleFieldMask, _mfSkyAngle);
 
@@ -188,7 +188,7 @@ const Color4f &SkyBackgroundBase::getGroundColor(const UInt32 index) const
 }
 
 inline
-Color4f &SkyBackgroundBase::editGroundColor(const UInt32 index)
+MFColor4f          ::reference SkyBackgroundBase::editGroundColor(const UInt32 index)
 {
     editMField(GroundColorFieldMask, _mfGroundColor);
 
@@ -203,7 +203,7 @@ inline
 }
 
 inline
-Real32 &SkyBackgroundBase::editGroundAngle(const UInt32 index)
+MFReal32           ::reference SkyBackgroundBase::editGroundAngle(const UInt32 index)
 {
     editMField(GroundAngleFieldMask, _mfGroundAngle);
 
@@ -218,7 +218,7 @@ const Vec3f &SkyBackgroundBase::getTopTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editTopTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editTopTexCoord(const UInt32 index)
 {
     editMField(TopTexCoordFieldMask, _mfTopTexCoord);
 
@@ -233,7 +233,7 @@ const Vec3f &SkyBackgroundBase::getBottomTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editBottomTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editBottomTexCoord(const UInt32 index)
 {
     editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
 
@@ -248,7 +248,7 @@ const Vec3f &SkyBackgroundBase::getRightTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editRightTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editRightTexCoord(const UInt32 index)
 {
     editMField(RightTexCoordFieldMask, _mfRightTexCoord);
 
@@ -263,7 +263,7 @@ const Vec3f &SkyBackgroundBase::getLeftTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editLeftTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editLeftTexCoord(const UInt32 index)
 {
     editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
 
@@ -278,7 +278,7 @@ const Vec3f &SkyBackgroundBase::getFrontTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editFrontTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editFrontTexCoord(const UInt32 index)
 {
     editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
 
@@ -293,7 +293,7 @@ const Vec3f &SkyBackgroundBase::getBackTexCoord(const UInt32 index) const
 }
 
 inline
-Vec3f &SkyBackgroundBase::editBackTexCoord(const UInt32 index)
+MFVec3f            ::reference SkyBackgroundBase::editBackTexCoord(const UInt32 index)
 {
     editMField(BackTexCoordFieldMask, _mfBackTexCoord);
 

@@ -195,10 +195,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWindowBase : public CSMWindow
                   bool                &editRenderClient   (void);
                   bool                 getRenderClient    (void) const;
 
-                  std::string         &editServers        (const UInt32 index);
+            MFString           ::reference       editServers        (const UInt32 index);
             const std::string         &getServers         (const UInt32 index) const;
 
-                  UInt32              &editServerIds      (const UInt32 index);
+            MFUInt32           ::reference       editServerIds      (const UInt32 index);
                   UInt32               getServerIds       (const UInt32 index) const;
 
                   UInt32              &editServerRows     (void);

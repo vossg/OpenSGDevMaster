@@ -208,7 +208,7 @@ const Pnt3f &ProjectionCameraDecoratorBase::getSurface(const UInt32 index) const
 }
 
 inline
-Pnt3f &ProjectionCameraDecoratorBase::editSurface(const UInt32 index)
+MFPnt3f            ::reference ProjectionCameraDecoratorBase::editSurface(const UInt32 index)
 {
     editMField(SurfaceFieldMask, _mfSurface);
 

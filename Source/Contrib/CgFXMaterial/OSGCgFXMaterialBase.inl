@@ -258,7 +258,7 @@ const std::string &CgFXMaterialBase::getCompilerOptions(const UInt32 index) cons
 }
 
 inline
-std::string &CgFXMaterialBase::editCompilerOptions(const UInt32 index)
+MFString           ::reference CgFXMaterialBase::editCompilerOptions(const UInt32 index)
 {
     editMField(CompilerOptionsFieldMask, _mfCompilerOptions);
 

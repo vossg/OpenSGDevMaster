@@ -212,7 +212,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
             const SFVec2f             *getSFTextMargin      (void) const;
 
 
-                  std::string         &editFormats        (const UInt32 index);
+            MFString           ::reference       editFormats        (const UInt32 index);
             const std::string         &getFormats         (const UInt32 index) const;
 
                   Real32              &editSize           (void);

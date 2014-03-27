@@ -83,7 +83,7 @@ inline
 }
 
 inline
-Int32 &SimpleSHLVariableChunkBase::editVariableLocations(const UInt32 index)
+MFInt32            ::reference SimpleSHLVariableChunkBase::editVariableLocations(const UInt32 index)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
 

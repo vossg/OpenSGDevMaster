@@ -108,7 +108,7 @@ const Vec3f &VRMLPositionInterpolatorBase::getKeyValue(const UInt32 index) const
 }
 
 inline
-Vec3f &VRMLPositionInterpolatorBase::editKeyValue(const UInt32 index)
+MFVec3f            ::reference VRMLPositionInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 

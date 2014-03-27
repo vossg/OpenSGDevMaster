@@ -109,7 +109,7 @@ const std::string &CSMLoggerBase::getFields(const UInt32 index) const
 }
 
 inline
-std::string &CSMLoggerBase::editFields(const UInt32 index)
+MFString           ::reference CSMLoggerBase::editFields(const UInt32 index)
 {
     editMField(FieldsFieldMask, _mfFields);
 

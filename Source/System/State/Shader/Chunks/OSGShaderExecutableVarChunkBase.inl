@@ -108,7 +108,7 @@ inline
 }
 
 inline
-Int32 &ShaderExecutableVarChunkBase::editVariableLocations(const UInt32 index)
+MFInt32            ::reference ShaderExecutableVarChunkBase::editVariableLocations(const UInt32 index)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
 

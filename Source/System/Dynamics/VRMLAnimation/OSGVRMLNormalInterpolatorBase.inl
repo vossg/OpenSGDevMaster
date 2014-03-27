@@ -83,7 +83,7 @@ const Vec3f &VRMLNormalInterpolatorBase::getKeyValue(const UInt32 index) const
 }
 
 inline
-Vec3f &VRMLNormalInterpolatorBase::editKeyValue(const UInt32 index)
+MFVec3f            ::reference VRMLNormalInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
@@ -98,7 +98,7 @@ const Vec3f &VRMLNormalInterpolatorBase::getOutValue(const UInt32 index) const
 }
 
 inline
-Vec3f &VRMLNormalInterpolatorBase::editOutValue(const UInt32 index)
+MFVec3f            ::reference VRMLNormalInterpolatorBase::editOutValue(const UInt32 index)
 {
     editMField(OutValueFieldMask, _mfOutValue);
 

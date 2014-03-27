@@ -108,7 +108,7 @@ inline
 }
 
 inline
-UInt8 &GeoMultiPropertyDataBase::editIData(const UInt32 index)
+MFUInt8            ::reference GeoMultiPropertyDataBase::editIData(const UInt32 index)
 {
     editMField(IDataFieldMask, _mfIData);
 

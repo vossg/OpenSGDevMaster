@@ -140,7 +140,7 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public VRMLInterpolat
             const SFReal32            *getSFOutValue        (void) const;
 
 
-                  Real32              &editKeyValue       (const UInt32 index);
+            MFReal32           ::reference       editKeyValue       (const UInt32 index);
                   Real32               getKeyValue        (const UInt32 index) const;
 
                   Real32              &editOutValue       (void);

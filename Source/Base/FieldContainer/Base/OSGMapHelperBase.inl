@@ -83,7 +83,7 @@ const std::string &MapHelperBase::getKeys(const UInt32 index) const
 }
 
 inline
-std::string &MapHelperBase::editKeys(const UInt32 index)
+MFString           ::reference MapHelperBase::editKeys(const UInt32 index)
 {
     editMField(KeysFieldMask, _mfKeys);
 

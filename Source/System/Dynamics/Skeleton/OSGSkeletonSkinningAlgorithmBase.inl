@@ -83,7 +83,7 @@ const Pnt3f &SkeletonSkinningAlgorithmBase::getDrawPositions(const UInt32 index)
 }
 
 inline
-Pnt3f &SkeletonSkinningAlgorithmBase::editDrawPositions(const UInt32 index)
+MFPnt3f            ::reference SkeletonSkinningAlgorithmBase::editDrawPositions(const UInt32 index)
 {
     editMField(DrawPositionsFieldMask, _mfDrawPositions);
 
@@ -98,7 +98,7 @@ inline
 }
 
 inline
-UInt32 &SkeletonSkinningAlgorithmBase::editDrawIndex(const UInt32 index)
+MFUInt32           ::reference SkeletonSkinningAlgorithmBase::editDrawIndex(const UInt32 index)
 {
     editMField(DrawIndexFieldMask, _mfDrawIndex);
 

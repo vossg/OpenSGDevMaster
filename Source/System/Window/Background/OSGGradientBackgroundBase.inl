@@ -133,7 +133,7 @@ const Color3f &GradientBackgroundBase::getColor(const UInt32 index) const
 }
 
 inline
-Color3f &GradientBackgroundBase::editColor(const UInt32 index)
+MFColor3f          ::reference GradientBackgroundBase::editColor(const UInt32 index)
 {
     editMField(ColorFieldMask, _mfColor);
 
@@ -148,7 +148,7 @@ inline
 }
 
 inline
-Real32 &GradientBackgroundBase::editPosition(const UInt32 index)
+MFReal32           ::reference GradientBackgroundBase::editPosition(const UInt32 index)
 {
     editMField(PositionFieldMask, _mfPosition);
 

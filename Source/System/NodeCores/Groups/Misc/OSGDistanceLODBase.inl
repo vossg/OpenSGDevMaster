@@ -108,7 +108,7 @@ inline
 }
 
 inline
-Real32 &DistanceLODBase::editRange(const UInt32 index)
+MFReal32           ::reference DistanceLODBase::editRange(const UInt32 index)
 {
     editMField(RangeFieldMask, _mfRange);
 

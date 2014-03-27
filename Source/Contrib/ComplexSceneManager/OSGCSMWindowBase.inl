@@ -584,7 +584,7 @@ const std::string &CSMWindowBase::getIgnoreExtensions(const UInt32 index) const
 }
 
 inline
-std::string &CSMWindowBase::editIgnoreExtensions(const UInt32 index)
+MFString           ::reference CSMWindowBase::editIgnoreExtensions(const UInt32 index)
 {
     editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
 

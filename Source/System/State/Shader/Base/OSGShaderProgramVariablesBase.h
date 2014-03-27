@@ -143,7 +143,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariablesBase : public Attachment
             const MFUInt8             *getMFVariableChanged (void) const;
 
 
-                  UInt8               &editVariableChanged(const UInt32 index);
+            MFUInt8            ::reference       editVariableChanged(const UInt32 index);
                   UInt8                getVariableChanged (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -83,7 +83,7 @@ const std::string &StringAttributeMapBase::getKeys(const UInt32 index) const
 }
 
 inline
-std::string &StringAttributeMapBase::editKeys(const UInt32 index)
+MFString           ::reference StringAttributeMapBase::editKeys(const UInt32 index)
 {
     editMField(KeysFieldMask, _mfKeys);
 
@@ -98,7 +98,7 @@ const std::string &StringAttributeMapBase::getValues(const UInt32 index) const
 }
 
 inline
-std::string &StringAttributeMapBase::editValues(const UInt32 index)
+MFString           ::reference StringAttributeMapBase::editValues(const UInt32 index)
 {
     editMField(ValuesFieldMask, _mfValues);
 

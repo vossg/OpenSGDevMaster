@@ -85,7 +85,7 @@ inline
 }
 
 inline
-UInt8 &ShaderProgramVariablesBase::editVariableChanged(const UInt32 index)
+MFUInt8            ::reference ShaderProgramVariablesBase::editVariableChanged(const UInt32 index)
 {
     editMField(VariableChangedFieldMask, _mfVariableChanged);
 

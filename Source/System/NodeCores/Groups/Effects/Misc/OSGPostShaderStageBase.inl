@@ -158,7 +158,7 @@ const std::string &PostShaderStageBase::getVertexShaders(const UInt32 index) con
 }
 
 inline
-std::string &PostShaderStageBase::editVertexShaders(const UInt32 index)
+MFString           ::reference PostShaderStageBase::editVertexShaders(const UInt32 index)
 {
     editMField(VertexShadersFieldMask, _mfVertexShaders);
 
@@ -173,7 +173,7 @@ const std::string &PostShaderStageBase::getFragmentShaders(const UInt32 index) c
 }
 
 inline
-std::string &PostShaderStageBase::editFragmentShaders(const UInt32 index)
+MFString           ::reference PostShaderStageBase::editFragmentShaders(const UInt32 index)
 {
     editMField(FragmentShadersFieldMask, _mfFragmentShaders);
 
@@ -188,7 +188,7 @@ const Vec2f &PostShaderStageBase::getPassSizes(const UInt32 index) const
 }
 
 inline
-Vec2f &PostShaderStageBase::editPassSizes(const UInt32 index)
+MFVec2f            ::reference PostShaderStageBase::editPassSizes(const UInt32 index)
 {
     editMField(PassSizesFieldMask, _mfPassSizes);
 

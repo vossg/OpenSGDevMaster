@@ -233,7 +233,7 @@ const std::string &ShaderProgramBase::getFeedbackVaryings(const UInt32 index) co
 }
 
 inline
-std::string &ShaderProgramBase::editFeedbackVaryings(const UInt32 index)
+MFString           ::reference ShaderProgramBase::editFeedbackVaryings(const UInt32 index)
 {
     editMField(FeedbackVaryingsFieldMask, _mfFeedbackVaryings);
 
@@ -248,7 +248,7 @@ const ShaderParameter &ShaderProgramBase::getParameter(const UInt32 index) const
 }
 
 inline
-ShaderParameter &ShaderProgramBase::editParameter(const UInt32 index)
+MFShaderParameter  ::reference ShaderProgramBase::editParameter(const UInt32 index)
 {
     editMField(ParameterFieldMask, _mfParameter);
 
@@ -263,7 +263,7 @@ const ShaderAttribute &ShaderProgramBase::getAttributes(const UInt32 index) cons
 }
 
 inline
-ShaderAttribute &ShaderProgramBase::editAttributes(const UInt32 index)
+MFShaderAttribute  ::reference ShaderProgramBase::editAttributes(const UInt32 index)
 {
     editMField(AttributesFieldMask, _mfAttributes);
 

@@ -219,7 +219,7 @@ class OSG_WINDOW_DLLMAPPING SimpleTextForegroundBase : public Foreground
             const SFBool              *getSFTile            (void) const;
 
 
-                  std::string         &editLines          (const UInt32 index);
+            MFString           ::reference       editLines          (const UInt32 index);
             const std::string         &getLines           (const UInt32 index) const;
 
                   Real32              &editSize           (void);

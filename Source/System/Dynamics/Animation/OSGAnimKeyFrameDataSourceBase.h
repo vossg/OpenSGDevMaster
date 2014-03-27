@@ -140,10 +140,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
             const MFUInt32            *getMFInterpolationModes (void) const;
 
 
-                  Real32              &editInValues       (const UInt32 index);
+            MFReal32           ::reference       editInValues       (const UInt32 index);
                   Real32               getInValues        (const UInt32 index) const;
 
-                  UInt32              &editInterpolationModes(const UInt32 index);
+            MFUInt32           ::reference       editInterpolationModes(const UInt32 index);
                   UInt32               getInterpolationModes (const UInt32 index) const;
 
     /*! \}                                                                 */

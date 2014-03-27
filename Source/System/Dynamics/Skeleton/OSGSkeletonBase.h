@@ -191,10 +191,10 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public SkeletonParent
 
                   BaseSkeletonJoint * getParentJoints   (const UInt32 index) const;
 
-                  Matrix              &editJointMatrices  (const UInt32 index);
+            MFMatrix           ::reference       editJointMatrices  (const UInt32 index);
             const Matrix              &getJointMatrices   (const UInt32 index) const;
 
-                  Matrix              &editJointNormalMatrices(const UInt32 index);
+            MFMatrix           ::reference       editJointNormalMatrices(const UInt32 index);
             const Matrix              &getJointNormalMatrices (const UInt32 index) const;
 
                   bool                &editUseInvBindMatrix(void);

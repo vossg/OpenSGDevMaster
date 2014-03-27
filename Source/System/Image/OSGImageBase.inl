@@ -658,7 +658,7 @@ inline
 }
 
 inline
-UInt8 &ImageBase::editPixel(const UInt32 index)
+MFUInt8            ::reference ImageBase::editPixel(const UInt32 index)
 {
     editMField(PixelFieldMask, _mfPixel);
 

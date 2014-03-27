@@ -141,7 +141,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
             const SFStatCollectorP    *getSFCollector       (void) const;
 
 
-                  Int32               &editElementIDs     (const UInt32 index);
+            MFInt32            ::reference       editElementIDs     (const UInt32 index);
                   Int32                getElementIDs      (const UInt32 index) const;
 
                   StatCollectorP      &editCollector      (void);

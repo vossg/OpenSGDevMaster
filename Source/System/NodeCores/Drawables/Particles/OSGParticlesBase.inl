@@ -233,7 +233,7 @@ const Vec3f &ParticlesBase::getSizes(const UInt32 index) const
 }
 
 inline
-Vec3f &ParticlesBase::editSizes(const UInt32 index)
+MFVec3f            ::reference ParticlesBase::editSizes(const UInt32 index)
 {
     editMField(SizesFieldMask, _mfSizes);
 
@@ -248,7 +248,7 @@ inline
 }
 
 inline
-Int32 &ParticlesBase::editIndices(const UInt32 index)
+MFInt32            ::reference ParticlesBase::editIndices(const UInt32 index)
 {
     editMField(IndicesFieldMask, _mfIndices);
 
@@ -263,7 +263,7 @@ inline
 }
 
 inline
-Real32 &ParticlesBase::editTextureZs(const UInt32 index)
+MFReal32           ::reference ParticlesBase::editTextureZs(const UInt32 index)
 {
     editMField(TextureZsFieldMask, _mfTextureZs);
 

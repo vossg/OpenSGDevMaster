@@ -183,7 +183,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableArgb(const UInt32 index) co
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableArgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableArgb(const UInt32 index)
 {
     editMField(VariableArgbFieldMask, _mfVariableArgb);
 
@@ -198,7 +198,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableBrgb(const UInt32 index) co
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableBrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableBrgb(const UInt32 index)
 {
     editMField(VariableBrgbFieldMask, _mfVariableBrgb);
 
@@ -213,7 +213,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableCrgb(const UInt32 index) co
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableCrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableCrgb(const UInt32 index)
 {
     editMField(VariableCrgbFieldMask, _mfVariableCrgb);
 
@@ -228,7 +228,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableDrgb(const UInt32 index) co
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableDrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableDrgb(const UInt32 index)
 {
     editMField(VariableDrgbFieldMask, _mfVariableDrgb);
 
@@ -243,7 +243,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableAalpha(const UInt32 index) 
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableAalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableAalpha(const UInt32 index)
 {
     editMField(VariableAalphaFieldMask, _mfVariableAalpha);
 
@@ -258,7 +258,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableBalpha(const UInt32 index) 
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableBalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableBalpha(const UInt32 index)
 {
     editMField(VariableBalphaFieldMask, _mfVariableBalpha);
 
@@ -273,7 +273,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableCalpha(const UInt32 index) 
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableCalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableCalpha(const UInt32 index)
 {
     editMField(VariableCalphaFieldMask, _mfVariableCalpha);
 
@@ -288,7 +288,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableDalpha(const UInt32 index) 
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableDalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableDalpha(const UInt32 index)
 {
     editMField(VariableDalphaFieldMask, _mfVariableDalpha);
 
@@ -303,7 +303,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputABrgb(const UInt32 index) con
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputABrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputABrgb(const UInt32 index)
 {
     editMField(OutputABrgbFieldMask, _mfOutputABrgb);
 
@@ -318,7 +318,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputCDrgb(const UInt32 index) con
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputCDrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputCDrgb(const UInt32 index)
 {
     editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
 
@@ -333,7 +333,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputSumrgb(const UInt32 index) co
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputSumrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputSumrgb(const UInt32 index)
 {
     editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
 
@@ -348,7 +348,7 @@ const GLenum &RegisterCombinersChunkBase::getScalergb(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editScalergb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editScalergb(const UInt32 index)
 {
     editMField(ScalergbFieldMask, _mfScalergb);
 
@@ -363,7 +363,7 @@ const GLenum &RegisterCombinersChunkBase::getBiasrgb(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editBiasrgb(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editBiasrgb(const UInt32 index)
 {
     editMField(BiasrgbFieldMask, _mfBiasrgb);
 
@@ -378,7 +378,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputABalpha(const UInt32 index) c
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputABalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputABalpha(const UInt32 index)
 {
     editMField(OutputABalphaFieldMask, _mfOutputABalpha);
 
@@ -393,7 +393,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputCDalpha(const UInt32 index) c
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputCDalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputCDalpha(const UInt32 index)
 {
     editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
 
@@ -408,7 +408,7 @@ const GLenum &RegisterCombinersChunkBase::getOutputSumalpha(const UInt32 index) 
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editOutputSumalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editOutputSumalpha(const UInt32 index)
 {
     editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
 
@@ -423,7 +423,7 @@ inline
 }
 
 inline
-UInt8 &RegisterCombinersChunkBase::editDotABrgb(const UInt32 index)
+MFUInt8            ::reference RegisterCombinersChunkBase::editDotABrgb(const UInt32 index)
 {
     editMField(DotABrgbFieldMask, _mfDotABrgb);
 
@@ -438,7 +438,7 @@ inline
 }
 
 inline
-UInt8 &RegisterCombinersChunkBase::editDotCDrgb(const UInt32 index)
+MFUInt8            ::reference RegisterCombinersChunkBase::editDotCDrgb(const UInt32 index)
 {
     editMField(DotCDrgbFieldMask, _mfDotCDrgb);
 
@@ -453,7 +453,7 @@ inline
 }
 
 inline
-UInt8 &RegisterCombinersChunkBase::editMuxSumrgb(const UInt32 index)
+MFUInt8            ::reference RegisterCombinersChunkBase::editMuxSumrgb(const UInt32 index)
 {
     editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
 
@@ -468,7 +468,7 @@ const GLenum &RegisterCombinersChunkBase::getScalealpha(const UInt32 index) cons
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editScalealpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editScalealpha(const UInt32 index)
 {
     editMField(ScalealphaFieldMask, _mfScalealpha);
 
@@ -483,7 +483,7 @@ const GLenum &RegisterCombinersChunkBase::getBiasalpha(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editBiasalpha(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editBiasalpha(const UInt32 index)
 {
     editMField(BiasalphaFieldMask, _mfBiasalpha);
 
@@ -498,7 +498,7 @@ inline
 }
 
 inline
-UInt8 &RegisterCombinersChunkBase::editMuxSumalpha(const UInt32 index)
+MFUInt8            ::reference RegisterCombinersChunkBase::editMuxSumalpha(const UInt32 index)
 {
     editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
 
@@ -513,7 +513,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableE(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableE(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableE(const UInt32 index)
 {
     editMField(VariableEFieldMask, _mfVariableE);
 
@@ -528,7 +528,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableF(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableF(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableF(const UInt32 index)
 {
     editMField(VariableFFieldMask, _mfVariableF);
 
@@ -543,7 +543,7 @@ const GLenum &RegisterCombinersChunkBase::getVariableG(const UInt32 index) const
 }
 
 inline
-GLenum &RegisterCombinersChunkBase::editVariableG(const UInt32 index)
+MFGLenum           ::reference RegisterCombinersChunkBase::editVariableG(const UInt32 index)
 {
     editMField(VariableGFieldMask, _mfVariableG);
 
@@ -558,7 +558,7 @@ const Color4f &RegisterCombinersChunkBase::getCombinerColor0(const UInt32 index)
 }
 
 inline
-Color4f &RegisterCombinersChunkBase::editCombinerColor0(const UInt32 index)
+MFColor4f          ::reference RegisterCombinersChunkBase::editCombinerColor0(const UInt32 index)
 {
     editMField(CombinerColor0FieldMask, _mfCombinerColor0);
 
@@ -573,7 +573,7 @@ const Color4f &RegisterCombinersChunkBase::getCombinerColor1(const UInt32 index)
 }
 
 inline
-Color4f &RegisterCombinersChunkBase::editCombinerColor1(const UInt32 index)
+MFColor4f          ::reference RegisterCombinersChunkBase::editCombinerColor1(const UInt32 index)
 {
     editMField(CombinerColor1FieldMask, _mfCombinerColor1);
 

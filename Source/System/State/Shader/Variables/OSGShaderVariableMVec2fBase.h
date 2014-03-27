@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableMVec2fBase : public ShaderValueVariabl
             const MFVec2f             *getMFValue           (void) const;
 
 
-                  Vec2f               &editValue          (const UInt32 index);
+            MFVec2f            ::reference       editValue          (const UInt32 index);
             const Vec2f               &getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -208,7 +208,7 @@ const Color3f &ColorDisplayFilterBase::getColorTable(const UInt32 index) const
 }
 
 inline
-Color3f &ColorDisplayFilterBase::editColorTable(const UInt32 index)
+MFColor3f          ::reference ColorDisplayFilterBase::editColorTable(const UInt32 index)
 {
     editMField(ColorTableFieldMask, _mfColorTable);
 

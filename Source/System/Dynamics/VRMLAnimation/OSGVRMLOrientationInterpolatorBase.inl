@@ -108,7 +108,7 @@ const Quaternion &VRMLOrientationInterpolatorBase::getKeyValue(const UInt32 inde
 }
 
 inline
-Quaternion &VRMLOrientationInterpolatorBase::editKeyValue(const UInt32 index)
+MFQuaternion       ::reference VRMLOrientationInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 

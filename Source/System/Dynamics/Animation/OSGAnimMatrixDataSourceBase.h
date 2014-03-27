@@ -133,7 +133,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixDataSourceBase : public AnimKeyFrameData
             const MFMatrix            *getMFValues          (void) const;
 
 
-                  Matrix              &editValues         (const UInt32 index);
+            MFMatrix           ::reference       editValues         (const UInt32 index);
             const Matrix              &getValues          (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -190,31 +190,31 @@ class OSG_DYNAMICS_DLLMAPPING AnimQuaternionDataSourceBase : public AnimKeyFrame
             const MFVec2f             *getMFOutTangentsW    (void) const;
 
 
-                  Quaternion          &editValues         (const UInt32 index);
+            MFQuaternion       ::reference       editValues         (const UInt32 index);
             const Quaternion          &getValues          (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsX    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsX    (const UInt32 index);
             const Vec2f               &getInTangentsX     (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsY    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsY    (const UInt32 index);
             const Vec2f               &getInTangentsY     (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsZ    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsZ    (const UInt32 index);
             const Vec2f               &getInTangentsZ     (const UInt32 index) const;
 
-                  Vec2f               &editInTangentsW    (const UInt32 index);
+            MFVec2f            ::reference       editInTangentsW    (const UInt32 index);
             const Vec2f               &getInTangentsW     (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsX   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsX   (const UInt32 index);
             const Vec2f               &getOutTangentsX    (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsY   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsY   (const UInt32 index);
             const Vec2f               &getOutTangentsY    (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsZ   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsZ   (const UInt32 index);
             const Vec2f               &getOutTangentsZ    (const UInt32 index) const;
 
-                  Vec2f               &editOutTangentsW   (const UInt32 index);
+            MFVec2f            ::reference       editOutTangentsW   (const UInt32 index);
             const Vec2f               &getOutTangentsW    (const UInt32 index) const;
 
     /*! \}                                                                 */

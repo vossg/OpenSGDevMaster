@@ -333,7 +333,7 @@ inline
 }
 
 inline
-UInt8 &ProxyGroupBase::editInline(const UInt32 index)
+MFUInt8            ::reference ProxyGroupBase::editInline(const UInt32 index)
 {
     editMField(InlineFieldMask, _mfInline);
 

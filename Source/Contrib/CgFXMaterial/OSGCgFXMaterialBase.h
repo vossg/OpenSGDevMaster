@@ -204,7 +204,7 @@ class OSG_CONTRIBCGFX_DLLMAPPING CgFXMaterialBase : public VariantMaterial
                   std::string         &editEffectString   (void);
             const std::string         &getEffectString    (void) const;
 
-                  std::string         &editCompilerOptions(const UInt32 index);
+            MFString           ::reference       editCompilerOptions(const UInt32 index);
             const std::string         &getCompilerOptions (const UInt32 index) const;
 
                   GLenum              &editGLId           (void);

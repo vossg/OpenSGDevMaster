@@ -333,7 +333,7 @@ inline
 }
 
 inline
-Int32 &PolygonChunkBase::editStipple(const UInt32 index)
+MFInt32            ::reference PolygonChunkBase::editStipple(const UInt32 index)
 {
     editMField(StippleFieldMask, _mfStipple);
 

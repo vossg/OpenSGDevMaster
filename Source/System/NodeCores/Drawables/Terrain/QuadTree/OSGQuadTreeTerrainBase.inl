@@ -583,7 +583,7 @@ inline
 }
 
 inline
-Real32 &QuadTreeTerrainBase::editHeightError(const UInt32 index)
+MFReal32           ::reference QuadTreeTerrainBase::editHeightError(const UInt32 index)
 {
     editMField(HeightErrorFieldMask, _mfHeightError);
 
@@ -598,7 +598,7 @@ inline
 }
 
 inline
-Real32 &QuadTreeTerrainBase::editHeightQuad(const UInt32 index)
+MFReal32           ::reference QuadTreeTerrainBase::editHeightQuad(const UInt32 index)
 {
     editMField(HeightQuadFieldMask, _mfHeightQuad);
 

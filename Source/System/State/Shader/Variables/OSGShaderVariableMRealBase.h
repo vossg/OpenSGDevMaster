@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableMRealBase : public ShaderValueVariable
             const MFReal32            *getMFValue           (void) const;
 
 
-                  Real32              &editValue          (const UInt32 index);
+            MFReal32           ::reference       editValue          (const UInt32 index);
                   Real32               getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */

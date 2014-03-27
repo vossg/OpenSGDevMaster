@@ -240,7 +240,7 @@ class OSG_CLUSTER_DLLMAPPING SortLastWindowBase : public ClusterWindow
 
                   Node * getGroupNodes     (const UInt32 index) const;
 
-                  UInt32              &editGroupLengths   (const UInt32 index);
+                  MFUInt32           ::reference editGroupLengths   (const UInt32 index);
                   UInt32               getGroupLengths    (const UInt32 index) const;
 
                   bool                &editGroupsChanged  (void);

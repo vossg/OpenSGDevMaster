@@ -140,10 +140,10 @@ class OSG_DYNAMICS_DLLMAPPING VRMLNormalInterpolatorBase : public VRMLInterpolat
             const MFVec3f             *getMFOutValue        (void) const;
 
 
-                  Vec3f               &editKeyValue       (const UInt32 index);
+            MFVec3f            ::reference       editKeyValue       (const UInt32 index);
             const Vec3f               &getKeyValue        (const UInt32 index) const;
 
-                  Vec3f               &editOutValue       (const UInt32 index);
+            MFVec3f            ::reference       editOutValue       (const UInt32 index);
             const Vec3f               &getOutValue        (const UInt32 index) const;
 
     /*! \}                                                                 */

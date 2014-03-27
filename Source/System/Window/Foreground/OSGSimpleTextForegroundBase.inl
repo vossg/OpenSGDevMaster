@@ -383,7 +383,7 @@ const std::string &SimpleTextForegroundBase::getLines(const UInt32 index) const
 }
 
 inline
-std::string &SimpleTextForegroundBase::editLines(const UInt32 index)
+MFString           ::reference SimpleTextForegroundBase::editLines(const UInt32 index)
 {
     editMField(LinesFieldMask, _mfLines);
 

@@ -149,10 +149,10 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
                   Image * getImages         (const UInt32 index) const;
 
-                  Pnt2f               &editPositions      (const UInt32 index);
+            MFPnt2f            ::reference       editPositions      (const UInt32 index);
             const Pnt2f               &getPositions       (const UInt32 index) const;
 
-                  Pnt2f               &editScales         (const UInt32 index);
+            MFPnt2f            ::reference       editScales         (const UInt32 index);
             const Pnt2f               &getScales          (const UInt32 index) const;
 
     /*! \}                                                                 */

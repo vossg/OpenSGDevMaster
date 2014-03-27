@@ -108,7 +108,7 @@ inline
 }
 
 inline
-Real32 &VRMLScalarInterpolatorBase::editKeyValue(const UInt32 index)
+MFReal32           ::reference VRMLScalarInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 

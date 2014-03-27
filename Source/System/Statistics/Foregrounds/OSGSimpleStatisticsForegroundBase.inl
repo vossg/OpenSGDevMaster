@@ -358,7 +358,7 @@ const std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index
 }
 
 inline
-std::string &SimpleStatisticsForegroundBase::editFormats(const UInt32 index)
+MFString           ::reference SimpleStatisticsForegroundBase::editFormats(const UInt32 index)
 {
     editMField(FormatsFieldMask, _mfFormats);
 

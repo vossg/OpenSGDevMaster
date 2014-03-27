@@ -171,7 +171,7 @@ class OSG_CLUSTER_DLLMAPPING SortFirstWindowBase : public ClusterWindow
                   bool                &editCompose        (void);
                   bool                 getCompose         (void) const;
 
-                  UInt32              &editRegion         (const UInt32 index);
+            MFUInt32           ::reference       editRegion         (const UInt32 index);
                   UInt32               getRegion          (const UInt32 index) const;
 
                   bool                &editUseFaceDistribution(void);

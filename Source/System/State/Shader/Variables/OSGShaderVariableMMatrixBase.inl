@@ -83,7 +83,7 @@ const Matrix &ShaderVariableMMatrixBase::getValue(const UInt32 index) const
 }
 
 inline
-Matrix &ShaderVariableMMatrixBase::editValue(const UInt32 index)
+MFMatrix           ::reference ShaderVariableMMatrixBase::editValue(const UInt32 index)
 {
     editMField(ValueFieldMask, _mfValue);
 

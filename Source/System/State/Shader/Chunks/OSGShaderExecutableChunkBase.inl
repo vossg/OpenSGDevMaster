@@ -208,7 +208,7 @@ inline
 }
 
 inline
-Int32 &ShaderExecutableChunkBase::editVariableLocations(const UInt32 index)
+MFInt32            ::reference ShaderExecutableChunkBase::editVariableLocations(const UInt32 index)
 {
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
 
@@ -223,7 +223,7 @@ inline
 }
 
 inline
-Int32 &ShaderExecutableChunkBase::editProceduralVariableLocations(const UInt32 index)
+MFInt32            ::reference ShaderExecutableChunkBase::editProceduralVariableLocations(const UInt32 index)
 {
     editMField(ProceduralVariableLocationsFieldMask, _mfProceduralVariableLocations);
 
@@ -238,7 +238,7 @@ const ShaderAttribute &ShaderExecutableChunkBase::getAttributes(const UInt32 ind
 }
 
 inline
-ShaderAttribute &ShaderExecutableChunkBase::editAttributes(const UInt32 index)
+MFShaderAttribute  ::reference ShaderExecutableChunkBase::editAttributes(const UInt32 index)
 {
     editMField(AttributesFieldMask, _mfAttributes);
 

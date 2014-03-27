@@ -164,7 +164,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMStatisticsForegroundBase : public Foreground
                   Color4f             &editBgColor        (void);
             const Color4f             &getBgColor         (void) const;
 
-                  std::string         &editElements       (const UInt32 index);
+            MFString           ::reference       editElements       (const UInt32 index);
             const std::string         &getElements        (const UInt32 index) const;
 
     /*! \}                                                                 */

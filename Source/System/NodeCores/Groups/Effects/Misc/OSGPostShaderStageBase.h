@@ -299,13 +299,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING PostShaderStageBase : public Stage
             const MFVec2f             *getMFPassSizes       (void) const;
 
 
-                  std::string         &editVertexShaders  (const UInt32 index);
+                  MFString           ::reference editVertexShaders  (const UInt32 index);
             const std::string         &getVertexShaders   (const UInt32 index) const;
 
-                  std::string         &editFragmentShaders(const UInt32 index);
+                  MFString           ::reference editFragmentShaders(const UInt32 index);
             const std::string         &getFragmentShaders (const UInt32 index) const;
 
-                  Vec2f               &editPassSizes      (const UInt32 index);
+                  MFVec2f            ::reference editPassSizes      (const UInt32 index);
             const Vec2f               &getPassSizes       (const UInt32 index) const;
 
     /*! \}                                                                 */

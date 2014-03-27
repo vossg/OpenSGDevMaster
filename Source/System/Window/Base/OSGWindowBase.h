@@ -417,10 +417,10 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
                   UInt32              &editGlObjectEventCounter(void);
                   UInt32               getGlObjectEventCounter (void) const;
 
-                  UInt32              &editGlObjectLastRefresh(const UInt32 index);
+                  MFUInt32           ::reference editGlObjectLastRefresh(const UInt32 index);
                   UInt32               getGlObjectLastRefresh (const UInt32 index) const;
 
-                  UInt32              &editGlObjectLastReinitialize(const UInt32 index);
+                  MFUInt32           ::reference editGlObjectLastReinitialize(const UInt32 index);
                   UInt32               getGlObjectLastReinitialize (const UInt32 index) const;
 
                   DrawTask * getDrawTasks      (const UInt32 index) const;

@@ -217,7 +217,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
                   GLenum              &editGeometryOutputType(void);
             const GLenum              &getGeometryOutputType (void) const;
 
-                  ShaderAttribute     &editAttributes     (const UInt32 index);
+            MFShaderAttribute  ::reference       editAttributes     (const UInt32 index);
             const ShaderAttribute     &getAttributes      (const UInt32 index) const;
 
                   UInt32              &editGLId           (void);
@@ -393,10 +393,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunkBase : public StateChunk
             const MFInt32             *getMFProceduralVariableLocations (void) const;
 
 
-                  Int32               &editVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editVariableLocations(const UInt32 index);
                   Int32                getVariableLocations (const UInt32 index) const;
 
-                  Int32               &editProceduralVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editProceduralVariableLocations(const UInt32 index);
                   Int32                getProceduralVariableLocations (const UInt32 index) const;
 
     /*! \}                                                                 */

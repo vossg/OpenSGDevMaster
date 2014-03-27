@@ -227,10 +227,10 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public Attachment
             const MFString            *getMFValues          (void) const;
 
 
-                  std::string         &editKeys           (const UInt32 index);
+                  MFString           ::reference editKeys           (const UInt32 index);
             const std::string         &getKeys            (const UInt32 index) const;
 
-                  std::string         &editValues         (const UInt32 index);
+                  MFString           ::reference editValues         (const UInt32 index);
             const std::string         &getValues          (const UInt32 index) const;
 
     /*! \}                                                                 */

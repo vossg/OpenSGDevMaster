@@ -223,13 +223,13 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramBase : public FieldContainer
 
                   ShaderProgramVariables * getVariables      (void) const;
 
-                  std::string         &editFeedbackVaryings(const UInt32 index);
+            MFString           ::reference       editFeedbackVaryings(const UInt32 index);
             const std::string         &getFeedbackVaryings (const UInt32 index) const;
 
-                  ShaderParameter     &editParameter      (const UInt32 index);
+            MFShaderParameter  ::reference       editParameter      (const UInt32 index);
             const ShaderParameter     &getParameter       (const UInt32 index) const;
 
-                  ShaderAttribute     &editAttributes     (const UInt32 index);
+            MFShaderAttribute  ::reference       editAttributes     (const UInt32 index);
             const ShaderAttribute     &getAttributes      (const UInt32 index) const;
 
                   bool                &editCgFrontEnd     (void);

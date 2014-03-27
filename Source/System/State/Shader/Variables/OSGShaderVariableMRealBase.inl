@@ -83,7 +83,7 @@ inline
 }
 
 inline
-Real32 &ShaderVariableMRealBase::editValue(const UInt32 index)
+MFReal32           ::reference ShaderVariableMRealBase::editValue(const UInt32 index)
 {
     editMField(ValueFieldMask, _mfValue);
 

@@ -353,85 +353,85 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
                   bool                &editColorSumClamp  (void);
                   bool                 getColorSumClamp   (void) const;
 
-                  GLenum              &editVariableArgb   (const UInt32 index);
+            MFGLenum           ::reference       editVariableArgb   (const UInt32 index);
             const GLenum              &getVariableArgb    (const UInt32 index) const;
 
-                  GLenum              &editVariableBrgb   (const UInt32 index);
+            MFGLenum           ::reference       editVariableBrgb   (const UInt32 index);
             const GLenum              &getVariableBrgb    (const UInt32 index) const;
 
-                  GLenum              &editVariableCrgb   (const UInt32 index);
+            MFGLenum           ::reference       editVariableCrgb   (const UInt32 index);
             const GLenum              &getVariableCrgb    (const UInt32 index) const;
 
-                  GLenum              &editVariableDrgb   (const UInt32 index);
+            MFGLenum           ::reference       editVariableDrgb   (const UInt32 index);
             const GLenum              &getVariableDrgb    (const UInt32 index) const;
 
-                  GLenum              &editVariableAalpha (const UInt32 index);
+            MFGLenum           ::reference       editVariableAalpha (const UInt32 index);
             const GLenum              &getVariableAalpha  (const UInt32 index) const;
 
-                  GLenum              &editVariableBalpha (const UInt32 index);
+            MFGLenum           ::reference       editVariableBalpha (const UInt32 index);
             const GLenum              &getVariableBalpha  (const UInt32 index) const;
 
-                  GLenum              &editVariableCalpha (const UInt32 index);
+            MFGLenum           ::reference       editVariableCalpha (const UInt32 index);
             const GLenum              &getVariableCalpha  (const UInt32 index) const;
 
-                  GLenum              &editVariableDalpha (const UInt32 index);
+            MFGLenum           ::reference       editVariableDalpha (const UInt32 index);
             const GLenum              &getVariableDalpha  (const UInt32 index) const;
 
-                  GLenum              &editOutputABrgb    (const UInt32 index);
+            MFGLenum           ::reference       editOutputABrgb    (const UInt32 index);
             const GLenum              &getOutputABrgb     (const UInt32 index) const;
 
-                  GLenum              &editOutputCDrgb    (const UInt32 index);
+            MFGLenum           ::reference       editOutputCDrgb    (const UInt32 index);
             const GLenum              &getOutputCDrgb     (const UInt32 index) const;
 
-                  GLenum              &editOutputSumrgb   (const UInt32 index);
+            MFGLenum           ::reference       editOutputSumrgb   (const UInt32 index);
             const GLenum              &getOutputSumrgb    (const UInt32 index) const;
 
-                  GLenum              &editScalergb       (const UInt32 index);
+            MFGLenum           ::reference       editScalergb       (const UInt32 index);
             const GLenum              &getScalergb        (const UInt32 index) const;
 
-                  GLenum              &editBiasrgb        (const UInt32 index);
+            MFGLenum           ::reference       editBiasrgb        (const UInt32 index);
             const GLenum              &getBiasrgb         (const UInt32 index) const;
 
-                  GLenum              &editOutputABalpha  (const UInt32 index);
+            MFGLenum           ::reference       editOutputABalpha  (const UInt32 index);
             const GLenum              &getOutputABalpha   (const UInt32 index) const;
 
-                  GLenum              &editOutputCDalpha  (const UInt32 index);
+            MFGLenum           ::reference       editOutputCDalpha  (const UInt32 index);
             const GLenum              &getOutputCDalpha   (const UInt32 index) const;
 
-                  GLenum              &editOutputSumalpha (const UInt32 index);
+            MFGLenum           ::reference       editOutputSumalpha (const UInt32 index);
             const GLenum              &getOutputSumalpha  (const UInt32 index) const;
 
-                  UInt8               &editDotABrgb       (const UInt32 index);
+            MFUInt8            ::reference       editDotABrgb       (const UInt32 index);
                   UInt8                getDotABrgb        (const UInt32 index) const;
 
-                  UInt8               &editDotCDrgb       (const UInt32 index);
+            MFUInt8            ::reference       editDotCDrgb       (const UInt32 index);
                   UInt8                getDotCDrgb        (const UInt32 index) const;
 
-                  UInt8               &editMuxSumrgb      (const UInt32 index);
+            MFUInt8            ::reference       editMuxSumrgb      (const UInt32 index);
                   UInt8                getMuxSumrgb       (const UInt32 index) const;
 
-                  GLenum              &editScalealpha     (const UInt32 index);
+            MFGLenum           ::reference       editScalealpha     (const UInt32 index);
             const GLenum              &getScalealpha      (const UInt32 index) const;
 
-                  GLenum              &editBiasalpha      (const UInt32 index);
+            MFGLenum           ::reference       editBiasalpha      (const UInt32 index);
             const GLenum              &getBiasalpha       (const UInt32 index) const;
 
-                  UInt8               &editMuxSumalpha    (const UInt32 index);
+            MFUInt8            ::reference       editMuxSumalpha    (const UInt32 index);
                   UInt8                getMuxSumalpha     (const UInt32 index) const;
 
-                  GLenum              &editVariableE      (const UInt32 index);
+            MFGLenum           ::reference       editVariableE      (const UInt32 index);
             const GLenum              &getVariableE       (const UInt32 index) const;
 
-                  GLenum              &editVariableF      (const UInt32 index);
+            MFGLenum           ::reference       editVariableF      (const UInt32 index);
             const GLenum              &getVariableF       (const UInt32 index) const;
 
-                  GLenum              &editVariableG      (const UInt32 index);
+            MFGLenum           ::reference       editVariableG      (const UInt32 index);
             const GLenum              &getVariableG       (const UInt32 index) const;
 
-                  Color4f             &editCombinerColor0 (const UInt32 index);
+            MFColor4f          ::reference       editCombinerColor0 (const UInt32 index);
             const Color4f             &getCombinerColor0  (const UInt32 index) const;
 
-                  Color4f             &editCombinerColor1 (const UInt32 index);
+            MFColor4f          ::reference       editCombinerColor1 (const UInt32 index);
             const Color4f             &getCombinerColor1  (const UInt32 index) const;
 
                   UInt8               &editPerStageConstants(void);

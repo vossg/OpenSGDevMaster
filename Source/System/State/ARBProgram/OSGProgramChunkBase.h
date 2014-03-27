@@ -156,10 +156,10 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
                   std::string         &editProgram        (void);
             const std::string         &getProgram         (void) const;
 
-                  Vec4f               &editParamValues    (const UInt32 index);
+            MFVec4f            ::reference       editParamValues    (const UInt32 index);
             const Vec4f               &getParamValues     (const UInt32 index) const;
 
-                  std::string         &editParamNames     (const UInt32 index);
+            MFString           ::reference       editParamNames     (const UInt32 index);
             const std::string         &getParamNames      (const UInt32 index) const;
 
     /*! \}                                                                 */

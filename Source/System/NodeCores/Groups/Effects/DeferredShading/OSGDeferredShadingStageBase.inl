@@ -83,7 +83,7 @@ const GLenum &DeferredShadingStageBase::getPixelFormats(const UInt32 index) cons
 }
 
 inline
-GLenum &DeferredShadingStageBase::editPixelFormats(const UInt32 index)
+MFGLenum           ::reference DeferredShadingStageBase::editPixelFormats(const UInt32 index)
 {
     editMField(PixelFormatsFieldMask, _mfPixelFormats);
 
@@ -98,7 +98,7 @@ const GLenum &DeferredShadingStageBase::getPixelTypes(const UInt32 index) const
 }
 
 inline
-GLenum &DeferredShadingStageBase::editPixelTypes(const UInt32 index)
+MFGLenum           ::reference DeferredShadingStageBase::editPixelTypes(const UInt32 index)
 {
     editMField(PixelTypesFieldMask, _mfPixelTypes);
 

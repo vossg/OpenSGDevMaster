@@ -84,7 +84,7 @@ inline
 }
 
 inline
-Int32 &ChunkMaterialBase::editSlots(const UInt32 index)
+MFInt32            ::reference ChunkMaterialBase::editSlots(const UInt32 index)
 {
     editMField(SlotsFieldMask, _mfSlots);
 

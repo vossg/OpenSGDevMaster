@@ -158,7 +158,7 @@ const std::string &CSMStatisticsForegroundBase::getElements(const UInt32 index) 
 }
 
 inline
-std::string &CSMStatisticsForegroundBase::editElements(const UInt32 index)
+MFString           ::reference CSMStatisticsForegroundBase::editElements(const UInt32 index)
 {
     editMField(ElementsFieldMask, _mfElements);
 

@@ -109,7 +109,7 @@ inline
 }
 
 inline
-UInt32 &SortLastWindowBase::editGroupLengths(const UInt32 index)
+MFUInt32           ::reference SortLastWindowBase::editGroupLengths(const UInt32 index)
 {
     editMField(GroupLengthsFieldMask, _mfGroupLengths);
 

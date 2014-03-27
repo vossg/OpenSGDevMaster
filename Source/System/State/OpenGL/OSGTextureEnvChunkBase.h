@@ -387,7 +387,7 @@ class OSG_STATE_DLLMAPPING TextureEnvChunkBase : public StateChunk
                   GLenum              &editShaderInput    (void);
             const GLenum              &getShaderInput     (void) const;
 
-                  Real32              &editShaderOffsetMatrix(const UInt32 index);
+            MFReal32           ::reference       editShaderOffsetMatrix(const UInt32 index);
                   Real32               getShaderOffsetMatrix (const UInt32 index) const;
 
                   Real32              &editShaderOffsetScale(void);

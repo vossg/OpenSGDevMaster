@@ -179,7 +179,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
                   Matrix              &editBindShapeMatrix(void);
             const Matrix              &getBindShapeMatrix (void) const;
 
-                  Int16               &editJointIds       (const UInt32 index);
+            MFInt16            ::reference       editJointIds       (const UInt32 index);
                   Int16                getJointIds        (const UInt32 index) const;
 
                   UInt16              &editJointIndexProperty(void);

@@ -218,7 +218,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
                   GeoVectorProperty * getPositions      (void) const;
 
-                  Vec3f               &editSizes          (const UInt32 index);
+            MFVec3f            ::reference       editSizes          (const UInt32 index);
             const Vec3f               &getSizes           (const UInt32 index) const;
 
                   GeoVectorProperty * getSecPositions   (void) const;
@@ -227,10 +227,10 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
                   GeoVectorProperty * getNormals        (void) const;
 
-                  Int32               &editIndices        (const UInt32 index);
+            MFInt32            ::reference       editIndices        (const UInt32 index);
                   Int32                getIndices         (const UInt32 index) const;
 
-                  Real32              &editTextureZs      (const UInt32 index);
+            MFReal32           ::reference       editTextureZs      (const UInt32 index);
                   Real32               getTextureZs       (const UInt32 index) const;
 
                   UInt32              &editDrawOrder      (void);

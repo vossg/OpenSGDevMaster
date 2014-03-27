@@ -133,7 +133,7 @@ const Vec2f &DistortionDisplayFilterBase::getPositions(const UInt32 index) const
 }
 
 inline
-Vec2f &DistortionDisplayFilterBase::editPositions(const UInt32 index)
+MFVec2f            ::reference DistortionDisplayFilterBase::editPositions(const UInt32 index)
 {
     editMField(PositionsFieldMask, _mfPositions);
 

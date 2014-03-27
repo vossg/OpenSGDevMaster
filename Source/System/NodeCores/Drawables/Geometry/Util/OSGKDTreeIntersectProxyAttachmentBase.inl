@@ -108,7 +108,7 @@ const IntersectKDTreeNode &KDTreeIntersectProxyAttachmentBase::getTreeNodes(cons
 }
 
 inline
-IntersectKDTreeNode &KDTreeIntersectProxyAttachmentBase::editTreeNodes(const UInt32 index)
+MFIntersectKDTreeNode::reference KDTreeIntersectProxyAttachmentBase::editTreeNodes(const UInt32 index)
 {
     editMField(TreeNodesFieldMask, _mfTreeNodes);
 
@@ -123,7 +123,7 @@ inline
 }
 
 inline
-UInt32 &KDTreeIntersectProxyAttachmentBase::editTriIndices(const UInt32 index)
+MFUInt32           ::reference KDTreeIntersectProxyAttachmentBase::editTriIndices(const UInt32 index)
 {
     editMField(TriIndicesFieldMask, _mfTriIndices);
 

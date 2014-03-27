@@ -133,7 +133,7 @@ const Vec4f &ProgramChunkBase::getParamValues(const UInt32 index) const
 }
 
 inline
-Vec4f &ProgramChunkBase::editParamValues(const UInt32 index)
+MFVec4f            ::reference ProgramChunkBase::editParamValues(const UInt32 index)
 {
     editMField(ParamValuesFieldMask, _mfParamValues);
 
@@ -148,7 +148,7 @@ const std::string &ProgramChunkBase::getParamNames(const UInt32 index) const
 }
 
 inline
-std::string &ProgramChunkBase::editParamNames(const UInt32 index)
+MFString           ::reference ProgramChunkBase::editParamNames(const UInt32 index)
 {
     editMField(ParamNamesFieldMask, _mfParamNames);
 

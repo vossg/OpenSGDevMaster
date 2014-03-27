@@ -83,7 +83,7 @@ inline
 }
 
 inline
-Real32 &AnimKeyFrameDataSourceBase::editInValues(const UInt32 index)
+MFReal32           ::reference AnimKeyFrameDataSourceBase::editInValues(const UInt32 index)
 {
     editMField(InValuesFieldMask, _mfInValues);
 
@@ -98,7 +98,7 @@ inline
 }
 
 inline
-UInt32 &AnimKeyFrameDataSourceBase::editInterpolationModes(const UInt32 index)
+MFUInt32           ::reference AnimKeyFrameDataSourceBase::editInterpolationModes(const UInt32 index)
 {
     editMField(InterpolationModesFieldMask, _mfInterpolationModes);
 

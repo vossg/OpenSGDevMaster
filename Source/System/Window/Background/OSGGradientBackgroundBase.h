@@ -270,10 +270,10 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
             const SFBool              *getSFNormPosition    (void) const;
 
 
-                  Color3f             &editColor          (const UInt32 index);
+                  MFColor3f          ::reference editColor          (const UInt32 index);
             const Color3f             &getColor           (const UInt32 index) const;
 
-                  Real32              &editPosition       (const UInt32 index);
+                  MFReal32           ::reference editPosition       (const UInt32 index);
                   Real32               getPosition        (const UInt32 index) const;
 
                   bool                &editNormPosition   (void);

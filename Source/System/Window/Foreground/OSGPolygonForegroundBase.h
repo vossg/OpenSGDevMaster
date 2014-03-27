@@ -192,10 +192,10 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
 
                   PrimeMaterial * getMaterial       (void) const;
 
-                  Pnt2f               &editPositions      (const UInt32 index);
+            MFPnt2f            ::reference       editPositions      (const UInt32 index);
             const Pnt2f               &getPositions       (const UInt32 index) const;
 
-                  Vec3f               &editTexCoords      (const UInt32 index);
+            MFVec3f            ::reference       editTexCoords      (const UInt32 index);
             const Vec3f               &getTexCoords       (const UInt32 index) const;
 
                   bool                &editNormalizedX    (void);

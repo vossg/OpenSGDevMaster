@@ -109,7 +109,7 @@ const std::string &AnimTemplateBase::getTargetIds(const UInt32 index) const
 }
 
 inline
-std::string &AnimTemplateBase::editTargetIds(const UInt32 index)
+MFString           ::reference AnimTemplateBase::editTargetIds(const UInt32 index)
 {
     editMField(TargetIdsFieldMask, _mfTargetIds);
 

@@ -83,7 +83,7 @@ const Pnt3f &VRMLCoordinateInterpolatorBase::getKeyValue(const UInt32 index) con
 }
 
 inline
-Pnt3f &VRMLCoordinateInterpolatorBase::editKeyValue(const UInt32 index)
+MFPnt3f            ::reference VRMLCoordinateInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
@@ -98,7 +98,7 @@ const Pnt3f &VRMLCoordinateInterpolatorBase::getOutValue(const UInt32 index) con
 }
 
 inline
-Pnt3f &VRMLCoordinateInterpolatorBase::editOutValue(const UInt32 index)
+MFPnt3f            ::reference VRMLCoordinateInterpolatorBase::editOutValue(const UInt32 index)
 {
     editMField(OutValueFieldMask, _mfOutValue);
 

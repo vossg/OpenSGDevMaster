@@ -83,7 +83,7 @@ const Matrix &AnimMatrixDataSourceBase::getValues(const UInt32 index) const
 }
 
 inline
-Matrix &AnimMatrixDataSourceBase::editValues(const UInt32 index)
+MFMatrix           ::reference AnimMatrixDataSourceBase::editValues(const UInt32 index)
 {
     editMField(ValuesFieldMask, _mfValues);
 

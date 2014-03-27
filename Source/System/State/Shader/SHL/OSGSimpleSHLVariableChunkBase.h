@@ -262,7 +262,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLVariableChunkBase : public StateChunk
             const MFInt32             *getMFVariableLocations (void) const;
 
 
-                  Int32               &editVariableLocations(const UInt32 index);
+                  MFInt32            ::reference editVariableLocations(const UInt32 index);
                   Int32                getVariableLocations (const UInt32 index) const;
 
     /*! \}                                                                 */

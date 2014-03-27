@@ -154,7 +154,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DistortionDisplayFilterBase : public DisplayFi
                   UInt32              &editColumns        (void);
                   UInt32               getColumns         (void) const;
 
-                  Vec2f               &editPositions      (const UInt32 index);
+            MFVec2f            ::reference       editPositions      (const UInt32 index);
             const Vec2f               &getPositions       (const UInt32 index) const;
 
     /*! \}                                                                 */

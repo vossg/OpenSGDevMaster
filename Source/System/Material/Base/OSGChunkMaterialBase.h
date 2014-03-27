@@ -229,7 +229,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public PrimeMaterial
 
                   StateChunk * getChunks         (const UInt32 index) const;
 
-                  Int32               &editSlots          (const UInt32 index);
+                  MFInt32            ::reference editSlots          (const UInt32 index);
                   Int32                getSlots           (const UInt32 index) const;
 
     /*! \}                                                                 */

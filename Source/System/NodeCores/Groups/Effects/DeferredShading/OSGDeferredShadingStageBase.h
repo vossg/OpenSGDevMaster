@@ -166,10 +166,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING DeferredShadingStageBase : public SimpleStage
                   MFUnrecLightPtr     *editMFLights         (void);
 
 
-                  GLenum              &editPixelFormats   (const UInt32 index);
+            MFGLenum           ::reference       editPixelFormats   (const UInt32 index);
             const GLenum              &getPixelFormats    (const UInt32 index) const;
 
-                  GLenum              &editPixelTypes     (const UInt32 index);
+            MFGLenum           ::reference       editPixelTypes     (const UInt32 index);
             const GLenum              &getPixelTypes      (const UInt32 index) const;
 
                   ShaderProgramChunk * getGBufferProgram (void) const;

@@ -108,7 +108,7 @@ inline
 }
 
 inline
-Real32 &VRMLInterpolatorBase::editKey(const UInt32 index)
+MFReal32           ::reference VRMLInterpolatorBase::editKey(const UInt32 index)
 {
     editMField(KeyFieldMask, _mfKey);
 
@@ -123,7 +123,7 @@ inline
 }
 
 inline
-UInt32 &VRMLInterpolatorBase::editResortIndex(const UInt32 index)
+MFUInt32           ::reference VRMLInterpolatorBase::editResortIndex(const UInt32 index)
 {
     editMField(ResortIndexFieldMask, _mfResortIndex);
 

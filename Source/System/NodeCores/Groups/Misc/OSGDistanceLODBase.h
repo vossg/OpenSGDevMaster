@@ -144,7 +144,7 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
                   Pnt3f               &editCenter         (void);
             const Pnt3f               &getCenter          (void) const;
 
-                  Real32              &editRange          (const UInt32 index);
+            MFReal32           ::reference       editRange          (const UInt32 index);
                   Real32               getRange           (const UInt32 index) const;
 
     /*! \}                                                                 */

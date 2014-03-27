@@ -133,7 +133,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableMIntBase : public ShaderValueVariable
             const MFInt32             *getMFValue           (void) const;
 
 
-                  Int32               &editValue          (const UInt32 index);
+            MFInt32            ::reference       editValue          (const UInt32 index);
                   Int32                getValue           (const UInt32 index) const;
 
     /*! \}                                                                 */

@@ -83,7 +83,7 @@ const Vec4f &ShaderVariableMVec4fBase::getValue(const UInt32 index) const
 }
 
 inline
-Vec4f &ShaderVariableMVec4fBase::editValue(const UInt32 index)
+MFVec4f            ::reference ShaderVariableMVec4fBase::editValue(const UInt32 index)
 {
     editMField(ValueFieldMask, _mfValue);
 

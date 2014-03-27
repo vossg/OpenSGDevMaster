@@ -83,7 +83,7 @@ const Quaternion &AnimQuaternionDataSourceBase::getValues(const UInt32 index) co
 }
 
 inline
-Quaternion &AnimQuaternionDataSourceBase::editValues(const UInt32 index)
+MFQuaternion       ::reference AnimQuaternionDataSourceBase::editValues(const UInt32 index)
 {
     editMField(ValuesFieldMask, _mfValues);
 
@@ -98,7 +98,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getInTangentsX(const UInt32 index) co
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editInTangentsX(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editInTangentsX(const UInt32 index)
 {
     editMField(InTangentsXFieldMask, _mfInTangentsX);
 
@@ -113,7 +113,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getInTangentsY(const UInt32 index) co
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editInTangentsY(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editInTangentsY(const UInt32 index)
 {
     editMField(InTangentsYFieldMask, _mfInTangentsY);
 
@@ -128,7 +128,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getInTangentsZ(const UInt32 index) co
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editInTangentsZ(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editInTangentsZ(const UInt32 index)
 {
     editMField(InTangentsZFieldMask, _mfInTangentsZ);
 
@@ -143,7 +143,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getInTangentsW(const UInt32 index) co
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editInTangentsW(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editInTangentsW(const UInt32 index)
 {
     editMField(InTangentsWFieldMask, _mfInTangentsW);
 
@@ -158,7 +158,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsX(const UInt32 index) c
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editOutTangentsX(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editOutTangentsX(const UInt32 index)
 {
     editMField(OutTangentsXFieldMask, _mfOutTangentsX);
 
@@ -173,7 +173,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsY(const UInt32 index) c
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editOutTangentsY(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editOutTangentsY(const UInt32 index)
 {
     editMField(OutTangentsYFieldMask, _mfOutTangentsY);
 
@@ -188,7 +188,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsZ(const UInt32 index) c
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editOutTangentsZ(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editOutTangentsZ(const UInt32 index)
 {
     editMField(OutTangentsZFieldMask, _mfOutTangentsZ);
 
@@ -203,7 +203,7 @@ const Vec2f &AnimQuaternionDataSourceBase::getOutTangentsW(const UInt32 index) c
 }
 
 inline
-Vec2f &AnimQuaternionDataSourceBase::editOutTangentsW(const UInt32 index)
+MFVec2f            ::reference AnimQuaternionDataSourceBase::editOutTangentsW(const UInt32 index)
 {
     editMField(OutTangentsWFieldMask, _mfOutTangentsW);
 
