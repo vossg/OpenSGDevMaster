@@ -485,8 +485,10 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
             editMFTessControlShader()->resize(1);
         }
 
-        _mfTessControlShader[0]->setProgram   (_sfGeometryProgram.getValue());
-        _mfTessControlShader[0]->setCgFrontEnd(_sfCgFrontEnd     .getValue());
+        _mfTessControlShader[0]->setProgram   (
+            _sfTessControlProgram.getValue());
+        _mfTessControlShader[0]->setCgFrontEnd(
+            _sfCgFrontEnd        .getValue());
 
         bMarkChanged = true;
 
@@ -511,9 +513,9 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
         }
 
         _mfTessEvaluationShader[0]->setProgram   (
-            _sfGeometryProgram.getValue());
+            _sfTessEvaluationProgram.getValue());
         _mfTessEvaluationShader[0]->setCgFrontEnd(
-            _sfCgFrontEnd     .getValue());
+            _sfCgFrontEnd           .getValue());
 
         bMarkChanged = true;
 
