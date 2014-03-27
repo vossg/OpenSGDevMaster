@@ -128,7 +128,7 @@ inline
           @@if !field.isPtrField
 
 inline
-@!field.FullType!@ &@!Classname!@Base::edit@!field.Name!@(const UInt32 index)
+@!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps:17!@::reference @!Classname!@Base::edit@!field.Name!@(const UInt32 index)
 {
     editMField(@!field.Name!@FieldMask, _@!field.VarName!@);
 
