@@ -98,6 +98,13 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     typedef std::set<UInt32>           IdSetT;
 
     /*---------------------------------------------------------------------*/
+    /*! \name                     Constants                                */
+    /*! \{                                                                 */
+
+    static StatElemDesc<StatTimeElem> statSyncTime;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
@@ -250,8 +257,6 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
                                           RemoteAspect   *       aspect);
     static bool _defaultChangedFunction  (FieldContainer * const fcp,
                                           RemoteAspect   *       aspect);
-
-    static StatElemDesc<StatTimeElem> statSyncTime;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
