@@ -671,10 +671,6 @@ static const Char8 *PluginPattern = "*.dll";
 
 static const Char8  DirSep    = '\\';
 
-#ifndef PRIx64
-#define PRIx64 "llx"
-#endif
-
 #elif defined(__APPLE__)
 
 /*! \ingroup GrpBaseBaseConstants
@@ -755,6 +751,14 @@ typedef PointerSize::IPtrSize  IntPointer;
 # else
 #  define PRISize "zd"
 #  define PRIUSize "zu"
+# endif
+#endif
+
+#ifndef PRIx64
+# ifdef WIN32
+#  define PRIx64 "llx"
+# else
+#  define PRIx64 "lx"
 # endif
 #endif
 

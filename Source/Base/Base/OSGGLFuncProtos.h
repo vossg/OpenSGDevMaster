@@ -218,6 +218,40 @@ typedef void  (OSG_APIENTRY * osgGlBindAttribLocationProc)(      GLuint,
 
 /*! \}                                                                       */
 #endif
+
+/*---------------------------------------------------------------------------*/
+/*! \name GL_ARB_uniform_buffer_object                                       */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+typedef void   (OSG_APIENTRY *osgGlGetUniformIndicesProc    )(GLuint,
+                                                              GLsizei,
+                                                              const GLchar* const *, 
+                                                              GLuint *          );
+typedef void   (OSG_APIENTRY *osgGlGetActiveUniformsivProc  )(GLuint, GLsizei, 
+                                                              const GLuint *, 
+                                                              GLenum, GLint *   );
+typedef void   (OSG_APIENTRY *osgGlGetActiveUniformNameProc )(GLuint, 
+                                                              GLuint, 
+                                                              GLsizei, 
+                                                              GLsizei *,
+                                                              GLchar *          );
+typedef GLuint (OSG_APIENTRY *osgGlGetUniformBlockIndexProc )(GLuint,
+                                                              const GLchar *    );
+typedef void   (OSG_APIENTRY *osgGlGetActiveUniformBlockivProc)
+                                                             (GLuint, 
+                                                              GLuint, 
+                                                              GLenum, 
+                                                              GLint *           );
+typedef void   (OSG_APIENTRY *osgGlGetActiveUniformBlockNameProc)
+                                                             (GLuint, 
+                                                              GLuint, 
+                                                              GLsizei, 
+                                                              GLsizei *, 
+                                                              GLchar *          );
+typedef void   (OSG_APIENTRY *osgGlUniformBlockBindingProc  )(GLuint, 
+                                                              GLuint, 
+                                                              GLuint            );
+/*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
 /*! \name FrameBuffer Objects                                                */
 /*! \ingroup GrpBaseBaseGLFunc                                               */

@@ -125,6 +125,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariableChunk :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+    bool addUniformBlock        (const Char8 *name, UInt32  value);
+    bool updateUniformBlock     (const Char8 *name, UInt32  value);
+    bool getUniformBlock        (const Char8 *name, UInt32 &value);
+    bool subUniformBlock        (const Char8 *name               );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

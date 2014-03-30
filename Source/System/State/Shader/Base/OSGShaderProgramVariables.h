@@ -336,6 +336,23 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
+    bool addUniformBlock      (const Char8    *name,
+                                     UInt32    value,
+                                     MFInt32  *pVarLoc,
+                                     MFInt32  *pProcVarLoc                );
+
+    bool updateUniformBlock   (const Char8    *name,       UInt32    value);
+
+    bool getUniformBlock      (const Char8    *name,       UInt32   &value);
+
+    bool subUniformBlock      (const Char8    *name,
+                                     MFInt32  *pVarLoc,
+                                     MFInt32  *pProcVarLoc                );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

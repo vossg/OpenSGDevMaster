@@ -68,6 +68,8 @@
 
 #include "OSGShaderVariableOSG.h"
 
+#include "OSGShaderVariableUniformBlock.h"
+
 #include "OSGGLFuncProtos.h"
 #include "OSGShaderProgram.h"
 
@@ -182,6 +184,19 @@ void osgUniformShaderVariableMVec4f  (DrawEnv        *pEnv,
                                       bool            warnUnknown);
 
 void osgUniformShaderVariableMMatrix (DrawEnv        *pEnv,      
+                                      ShaderVariable *pVar,  
+                                      Int32          &loc,
+                                      UInt32          uiProgram, 
+                                      bool            warnUnknown);
+
+void osgUniformShaderUniformBlockLocation
+                                     (DrawEnv        *pEnv,      
+                                      ShaderVariable *pVar,       
+                                      Int32          &loc,
+                                      UInt32          uiProgram  );
+
+void osgUniformShaderUniformBlockBinding
+                                     (DrawEnv        *pEnv,      
                                       ShaderVariable *pVar,  
                                       Int32          &loc,
                                       UInt32          uiProgram, 

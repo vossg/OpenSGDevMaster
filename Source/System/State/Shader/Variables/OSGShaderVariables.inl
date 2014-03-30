@@ -540,4 +540,67 @@ void osgUniformShaderVariableMMatrix(DrawEnv        *pEnv,
     }
 }
 
+inline
+void osgUniformShaderUniformBlockLocation(DrawEnv        *pEnv, 
+                                          ShaderVariable *pVar, 
+                                          Int32          &loc, 
+                                          UInt32          uiProgram)
+{
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdUniformBufferObject(), 0x0210, 0x0200))
+    {
+        SWARNING << "Uniform blocks are not supported, could not "
+                 << "find extension 'GL_ARB_uniform_buffer_object'!"
+                 << std::endl;
+        return;
+    }
+
+    if(loc == -1)
+    {
+        OSGGETGLFUNC_GL3_ES(glGetUniformBlockIndex,
+                            osgGlGetUniformBlockIndex,
+                            ShaderProgram::getFuncIdGetUniformBlockIndex());
+
+        loc = osgGlGetUniformBlockIndex(uiProgram, pVar->getName().c_str());
+#ifdef OSG_MULTISHADER_VARCHUNK
+        if(loc == -1)
+            loc = -2;
+#endif
+     }
+}
+
+inline
+void osgUniformShaderUniformBlockBinding(DrawEnv        *pEnv,
+                                         ShaderVariable *pVar,
+                                         Int32          &loc,
+                                         UInt32          uiProgram,
+                                         bool            warnUnknown)
+{
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdUniformBufferObject(), 0x0210, 0x0200))
+    {
+        SWARNING << "Uniform blocks are not supported, could not "
+                 << "find extension 'GL_ARB_uniform_buffer_object'!"
+                 << std::endl;
+        return;
+    }
+
+    ShaderVariableUniformBlock *p = dynamic_cast<ShaderVariableUniformBlock *>(pVar);
+
+    if(loc > -1)
+    {
+        OSGGETGLFUNC_GL3_ES(glUniformBlockBinding,
+                            osgGlUniformBlockBinding,
+                            ShaderProgram::getFuncIdUniformBlockBinding());
+
+        osgGlUniformBlockBinding(uiProgram, loc, p->getValue());
+    }
+    else if(warnUnknown == true)
+    {
+        SWARNING << "Block '" << p->getName() << "'" 
+                 << "not found in active shader program '" << uiProgram << "'" 
+                 << std::endl;
+    }
+}
+
 OSG_END_NAMESPACE

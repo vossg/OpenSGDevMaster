@@ -1162,9 +1162,6 @@ bool ShaderProgramVariables::updateUniformVariable(const Char8    *name,
     return this->updateMapMVariable<ShaderVariableMMatrix>(name, value);
 }
 
-
-
-
 bool ShaderProgramVariables::getUniformVariable(const Char8    *name,  
                                                       bool     &value)
 {
@@ -1268,8 +1265,6 @@ bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
     return this->getMapMVariable<ShaderVariableMMatrix>(name, value);
 }
 
-
-
 bool ShaderProgramVariables::addOSGVariable(const Char8   *name,
                                                   MFInt32 *pProcVarLoc)
 {
@@ -1364,6 +1359,35 @@ void ShaderProgramVariables::onCreateAspect(
     if(GlobalSystemState != Running)
         return;
 }
+
+bool ShaderProgramVariables::addUniformBlock(const Char8    *name,
+                                                   UInt32    value,
+                                                   MFInt32  *pVarLoc,
+                                                   MFInt32  *pProcVarLoc)
+{
+    return this->addMapSVariable<ShaderVariableUniformBlock>(name, 
+                                                             value, 
+                                                             pVarLoc,
+                                                             pProcVarLoc);
+}
+
+bool ShaderProgramVariables::updateUniformBlock(const Char8 *name, UInt32 value)
+{
+    return this->updateMapSVariable<ShaderVariableUniformBlock>(name, value);
+}
+
+bool ShaderProgramVariables::getUniformBlock(const Char8 *name, UInt32 &value)
+{
+    return this->getMapSVariable<ShaderVariableUniformBlock>(name, value);
+}
+
+bool ShaderProgramVariables::subUniformBlock(const Char8   *name,
+                                             MFInt32 *pVarLoc,
+                                             MFInt32 *pProcVarLoc)
+{
+    return this->subMapVariable(name, pVarLoc, pProcVarLoc);
+}
+
 
 void ShaderProgramVariables::onDestroyAspect(UInt32 uiContainerId,
                                              UInt32 uiAspect     )

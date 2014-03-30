@@ -154,6 +154,12 @@ void osgUniformShaderVariableSwitch(DrawEnv        *pEnv,
                                              warnUnknown               );
             break;
 
+        case ShaderVariable::SHVTypeUniformBlock:
+            osgUniformShaderUniformBlockLocation(pEnv, pVar, loc, uiProgram);
+            osgUniformShaderUniformBlockBinding (pEnv, pVar, loc, uiProgram, 
+                                                 warnUnknown               );
+            break;
+
         case ShaderVariable::SHVTypeOSG:
             // not handled here
             break;

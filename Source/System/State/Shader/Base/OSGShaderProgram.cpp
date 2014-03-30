@@ -66,6 +66,7 @@ UInt32 ShaderProgram::_extCG                 = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extGeoShader4         = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extGPUShader4         = Window::invalidExtensionID;
 UInt32 ShaderProgram::_extTransformFeedback2 = Window::invalidExtensionID;
+UInt32 ShaderProgram::_extUniformBufferObject       = Window::invalidExtensionID;
 
 UInt32 ShaderProgram::FuncIdCreateShader            = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdDeleteShader            = Window::invalidFunctionID;
@@ -138,6 +139,9 @@ UInt32 ShaderProgram::FuncIdEndTransformFeedback    = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdPauseTransformFeedback  = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdResumeTransformFeedback = Window::invalidFunctionID;
 
+UInt32 ShaderProgram::FuncIdGetUniformBlockIndex    = Window::invalidFunctionID;
+UInt32 ShaderProgram::FuncIdUniformBlockBinding     = Window::invalidFunctionID;
+
 const Char8 *ShaderProgram::NextBufferToken = "gl_NextBuffer";
 
 ShaderProgram::ProgramIdPool *ShaderProgram::_pProgIdPool = NULL;
@@ -174,6 +178,9 @@ void ShaderProgram::initMethod(InitPhase ePhase)
 
         _extTransformFeedback2 = 
             Window::registerExtension("GL_EXT_transform_feedback2");
+
+        _extUniformBufferObject = 
+            Window::registerExtension("GL_ARB_uniform_buffer_object");
 
 #ifdef OSG_OGL2_SHADERFUNCS
         FuncIdCreateShader =
@@ -502,6 +509,16 @@ void ShaderProgram::initMethod(InitPhase ePhase)
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glResumeTransformFeedback",
                 _extTransformFeedback2);
+
+        FuncIdGetUniformBlockIndex =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGetUniformBlockIndex",
+                _extUniformBufferObject);
+
+        FuncIdUniformBlockBinding =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glUniformBlockBinding",
+                _extUniformBufferObject);
     }
 }
 
@@ -994,6 +1011,27 @@ void ShaderProgram::clearUniformVariables(void)
     {
         _sfVariables.getValue()->clearUniformVariables();
     }
+}
+
+
+bool ShaderProgram::subUniformBlock(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+#if 0
+        return _sfVariables.getValue()->subUniformBlock(
+            name,
+            editMFBlockLocations(),
+            editMFProceduralVariableLocations());
+#else
+        return _sfVariables.getValue()->subUniformBlock(
+            name,
+            NULL,
+            NULL);
+#endif                                                     
+    }
+
+    return false;
 }
 
 bool ShaderProgram::addProceduralVariable(const Char8          *name,

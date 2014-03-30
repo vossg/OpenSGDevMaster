@@ -101,13 +101,66 @@ bool ShaderProgram::updateUniformVariable(const Char8  *name,
     return _sfVariables.getValue()->updateUniformVariable(name, value);
 }
 
-template<class ValueT>
+template<class ValueT> inline
 bool ShaderProgram::getUniformVariable(const Char8  *name,
                                              ValueT &value)
 {
     if(_sfVariables.getValue() != NULL)
     {
         return _sfVariables.getValue()->getUniformVariable(name, value);
+    }
+
+    return false;
+}
+
+inline
+bool ShaderProgram::addUniformBlock(const Char8 *name, UInt32 value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+#if 0
+    return _sfVariables.getValue()->addUniformBlock(
+        name, 
+        value,
+        editMFVariableLocations          (),
+        editMFProceduralVariableLocations());
+#else
+    return _sfVariables.getValue()->addUniformBlock(
+        name, 
+        value,
+        NULL,
+        NULL);
+#endif
+}
+
+inline
+bool ShaderProgram::updateUniformBlock(const Char8  *name, UInt32 value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateUniformBlock(name, value);
+}
+
+inline
+bool ShaderProgram::getUniformBlock(const Char8  *name, UInt32 &value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getUniformBlock(name, value);
     }
 
     return false;
@@ -210,6 +263,11 @@ UInt32 ShaderProgram::getExtIdTransformFeedback2(void)
     return _extTransformFeedback2;
 }
 
+inline
+UInt32 ShaderProgram::getExtIdUniformBufferObject(void)
+{
+    return _extUniformBufferObject;
+}
 
 inline
 UInt32 ShaderProgram::getFuncIdCreateShader(void)
@@ -521,6 +579,18 @@ inline
 UInt32 ShaderProgram::getFuncIdResumeTransformFeedback(void)
 {
     return FuncIdResumeTransformFeedback;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdGetUniformBlockIndex(void)
+{
+    return FuncIdGetUniformBlockIndex;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdUniformBlockBinding(void)
+{
+    return FuncIdUniformBlockBinding;
 }
 
 inline

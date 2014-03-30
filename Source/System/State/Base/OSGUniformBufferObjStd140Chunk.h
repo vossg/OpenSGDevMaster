@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,162 +36,182 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSHADERVARIABLE_H_
-#define _OSGSHADERVARIABLE_H_
+#ifndef _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_
+#define _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGShaderVariableBase.h"
+#include "OSGUniformBufferObjStd140ChunkBase.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ShaderProgramVariables;
+/*! \brief UniformBufferObjStd140Chunk class. See \ref
+           PageSystemUniformBufferObjStd140Chunk for a description.
+*/
 
-/*! \brief ShaderParameter class. See \ref 
-           PageSystemShaderParameter for a description.
-    \ingroup GrpSystemShaderBase
-    \ingroup GrpLibOSGSystem
-    \includebasedoc
- */
-
-class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
+class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferObjStd140ChunkBase
 {
-  private:
+  protected:
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ShaderVariableBase Inherited;
+    typedef UniformBufferObjStd140ChunkBase Inherited;
+    typedef UniformBufferObjStd140Chunk     Self;
 
-    static bool WarnUnknown;
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Chunk Class Access                           */
+    /*! \{                                                                 */
 
+    virtual const StateChunkClass *getClass(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name              Static Chunk Class Access                       */
+    /*! \{                                                                 */
+
+    static       UInt32           getStaticClassId(void);
+    static const StateChunkClass *getStaticClass  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Chunk Id                                  */
+    /*! \{                                                                 */
+
+    virtual UInt16 getChunkId(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         details);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    const std::string &getName(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual bool isProcedural(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     TypeId's                                 */
+    /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    enum SHVType
-    {
-        SHVTypeUnknown = 0,
-        SHVTypeBool,
-        SHVTypeInt,
-        SHVTypeUInt,
-        SHVTypeReal,
-        SHVTypeVec2s,            // missing
-        SHVTypeVec3s,            // missing
-        SHVTypeVec4s,            // missing
-        SHVTypeVec2f,
-        SHVTypeVec3f,
-        SHVTypeVec4f,
-        SHVTypePnt2f,
-        SHVTypePnt3f,
-        SHVTypeMatrix,
-        SHVTypeString,           // missing
-        SHVTypeMBool,            // missing
-        SHVTypeMInt,
-        SHVTypeMUInt,
-        SHVTypeMReal,
-        SHVTypeMVec2s,           // missing
-        SHVTypeMVec3s,           // missing
-        SHVTypeMVec4s,           // missing
-        SHVTypeMVec2f,
-        SHVTypeMVec3f,
-        SHVTypeMVec4f,
-        SHVTypeMMatrix,
-        SHVTypeMString,          // missing
-        SHVTypeOSG,
-        SHVTypeFunctor,
-        SHVTypeUniformBlock
-    };
+    virtual void activate   (DrawEnv    *pEnv,
+                             UInt32      index = 0);
 
-    enum SHVFlags
-    {
-        SHVFlagNone = 0,
-        SHVFlagUpdate = 1
-    };
+    virtual void changeFrom (DrawEnv    *pEnv,
+                             StateChunk *pOld,
+                             UInt32      index = 0);
 
-    SHVType getTypeId(void);
+    virtual void deactivate (DrawEnv    *pEnv,
+                             UInt32      index = 0);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name             OpenGL handling                                  */
+    /*! \{                                                                 */
+
+    virtual void   validate               (DrawEnv *pEnv);
+    virtual Int32  getOpenGLId            (DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    SHVType _typeid;
+    UInt16 _uiChunkId;
+
+    // Variables should all be in UniformBufferObjStd140ChunkBase.
+
+    void onCreate      (const UniformBufferObjStd140Chunk *source      = NULL);
+    void onCreateAspect(const UniformBufferObjStd140Chunk *createAspect,
+                        const UniformBufferObjStd140Chunk *source      = NULL);
+    void onDestroy     (      UInt32                 uiContainerId     );
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ShaderVariable(void);
-    ShaderVariable(const ShaderVariable &source);
+    UniformBufferObjStd140Chunk(void);
+    UniformBufferObjStd140Chunk(const UniformBufferObjStd140Chunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShaderVariable(void); 
-
-    void setTypeId (SHVType type);
+    virtual ~UniformBufferObjStd140Chunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Init                                     */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+
+    // extension indices for used extensions;
+    static UInt32 _extVertexBufferObject;
+
+    static UInt32 _funcBindBuffer;
+    static UInt32 _funcMapBuffer;
+    static UInt32 _funcUnmapBuffer;
+    static UInt32 _funcBufferData;
+    static UInt32 _funcBufferSubData;
+    static UInt32 _funcGenBuffers;
+    static UInt32 _funcDeleteBuffers;
+    static UInt32 _funcGetBufferParameteriv;
+
+
+    static UInt32 _arbUniformBufferObject;    
+
+    static UInt32 _funcBindBufferBase;
+
+
+    static StateChunkClass _class;
+    static volatile UInt16 _uiChunkCounter;
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class ShaderVariableBase;
-    friend class ShaderProgramVariables;
+    friend class UniformBufferObjStd140ChunkBase;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                         GL                                   */
+    /*! \{                                                                 */
+
+           UInt32 handleGL       (DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode,
+                                  UInt64                   uiOptions);
+
+    static void   handleDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode     );
+
+    /*! \}                                                                 */
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ShaderVariable &source);
+    void operator =(const UniformBufferObjStd140Chunk &source);
 };
 
-typedef ShaderVariable *ShaderVariableP;
+typedef UniformBufferObjStd140Chunk *UniformBufferObjStd140ChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGShaderVariableBase.inl"
-#include "OSGShaderVariable.inl"
+#include "OSGUniformBufferObjStd140ChunkBase.inl"
+#include "OSGUniformBufferObjStd140Chunk.inl"
 
-#endif /* _OSGSHADERVARIABLE_H_ */
+#endif /* _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_ */

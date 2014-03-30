@@ -84,6 +84,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getExtIdGeometryShader4           (void);
     static UInt32 getExtIdGPUShader4                (void);
     static UInt32 getExtIdTransformFeedback2        (void);
+    static UInt32 getExtIdUniformBufferObject       (void);
 
     static UInt32 getFuncIdCreateShader             (void);
     static UInt32 getFuncIdDeleteShader             (void);
@@ -151,6 +152,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getFuncIdPauseTransformFeedback   (void);
     static UInt32 getFuncIdResumeTransformFeedback  (void);
 
+    static UInt32 getFuncIdGetUniformBlockIndex     (void);
+    static UInt32 getFuncIdUniformBlockBinding      (void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -205,6 +209,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     bool addOSGVariable       (const Char8 *name                     );
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
@@ -228,6 +233,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
                                             ProcVarNodeFunctor  pFunc,
                                             UInt32              uiDependency =
                                                ShaderProcVariable::SHDObject);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+    bool addUniformBlock      (const Char8 *name, UInt32  value);
+    bool updateUniformBlock   (const Char8 *name, UInt32  value);
+    bool getUniformBlock      (const Char8 *name, UInt32& value);
+    bool subUniformBlock      (const Char8 *name               );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -312,6 +326,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  _extGeoShader4;
     static       UInt32  _extGPUShader4;
     static       UInt32  _extTransformFeedback2;
+    static       UInt32  _extUniformBufferObject;
 
     static       UInt32  FuncIdCreateShader;
     static       UInt32  FuncIdDeleteShader;
@@ -376,6 +391,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  FuncIdEndTransformFeedback;
     static       UInt32  FuncIdPauseTransformFeedback;
     static       UInt32  FuncIdResumeTransformFeedback;
+    
+    static       UInt32  FuncIdGetUniformBlockIndex;
+    static       UInt32  FuncIdUniformBlockBinding;
     
     static const Char8  *NextBufferToken;
 
