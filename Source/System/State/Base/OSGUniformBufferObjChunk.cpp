@@ -538,7 +538,7 @@ std::vector<GLubyte> UniformBufferObjChunk::createBuffer(DrawEnv *pEnv)
     GLint num;
     osgGlGetActiveUniformBlockiv(pEnv->getActiveShader(), index, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &num);
 
-    if (num != _mfIndex.size())
+    if (SizeT(num) != _mfIndex.size())
     {
         SWARNING << "UniformBufferObjChunk::createBuffer: Invalid number of active uniforms in block" << std::endl;
         return buffer;
@@ -568,7 +568,7 @@ std::vector<GLubyte> UniformBufferObjChunk::createBuffer(DrawEnv *pEnv)
 
     buffer.resize(size);
 
-    for (std::size_t i = 0; i < num; ++i)
+    for (GLint i = 0; i < num; ++i)
     {
         UInt32              idx   =                               _mfIndex           [i];
         FundamentalTypes    fType = static_cast<FundamentalTypes>(_mfFundamentalTypes[i]);

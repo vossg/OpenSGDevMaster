@@ -351,19 +351,28 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
                     osgGlBindBuffer(GL_UNIFORM_BUFFER, id);
 
                     GLint curr_size;
-                    osgGlGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_SIZE, &curr_size);
+                    osgGlGetBufferParameteriv( GL_UNIFORM_BUFFER, 
+                                               GL_BUFFER_SIZE, 
+                                              &curr_size);
 
                     GLint curr_usage;
-                    osgGlGetBufferParameteriv(GL_UNIFORM_BUFFER, GL_BUFFER_USAGE, &curr_usage);
+                    osgGlGetBufferParameteriv( GL_UNIFORM_BUFFER, 
+                                               GL_BUFFER_USAGE, 
+                                              &curr_usage);
 
-                    if (sz != curr_size || _sfUsage.getValue() != curr_usage)
+                    if ( sz                 != SizeT (curr_size ) || 
+                        _sfUsage.getValue() != GLenum(curr_usage)  )
                     {
-                        osgGlBufferData(GL_UNIFORM_BUFFER, sz, &_mfBuffer[0], _sfUsage.getValue());
+                        osgGlBufferData(  GL_UNIFORM_BUFFER, 
+                                          sz, 
+                                        &_mfBuffer[0], 
+                                         _sfUsage.getValue());
                     }
                     else
                     {
                         GLubyte* pBuffer = static_cast<GLubyte*>(
-                                    osgGlMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY_ARB));
+                            osgGlMapBuffer(GL_UNIFORM_BUFFER, 
+                                           GL_WRITE_ONLY_ARB));
 
                         UInt8* p = &_mfBuffer[0];
                         memcpy(pBuffer, p, sizeof(UInt8) * _mfBuffer.size());
@@ -529,3 +538,4 @@ void UniformBufferObjStd140Chunk::changeFrom(DrawEnv    *pEnv,
 }
 
 OSG_END_NAMESPACE
+
