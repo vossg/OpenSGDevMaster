@@ -659,8 +659,8 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
             }
 #endif
 
-//            if(uiShader == 0)
-            if(mode == Window::initialize)
+            if(uiShader == 0)
+//            if(mode == Window::initialize)
             {      
                 OSGGETGLFUNCBYID_GL3_ES(glCreateShader,
                                         osgGlCreateShader,
@@ -692,6 +692,9 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
                 uiShader = osgGlCreateShader(shaderType);
             }
+
+            if(uiShader == 0)
+                return 0;
 
             const Char8 *source  = _sfProgram.getValue().c_str();
 
@@ -743,30 +746,32 @@ UInt32 ShaderProgram::handleGL(DrawEnv                 *pEnv,
 
             if(iStatus == 0)
             {
-                Char8 *szDebug;
                 GLint  iDebugLength;
 
                 osgGlGetShaderiv( uiShader, 
                                   GL_INFO_LOG_LENGTH, 
                                  &iDebugLength);
 
-                szDebug = new Char8[iDebugLength];
+                if(iDebugLength > 0)
+                {
+                    Char8 *szDebug = new Char8[iDebugLength];
 
-                OSGGETGLFUNCBYID_GL3_ES(glGetShaderInfoLog,
-                                        osgGlGetShaderInfoLog,
-                                        FuncIdGetShaderInfoLog,
-                                        pWin);
+                    OSGGETGLFUNCBYID_GL3_ES(glGetShaderInfoLog,
+                                            osgGlGetShaderInfoLog,
+                                            FuncIdGetShaderInfoLog,
+                                            pWin);
 
-                osgGlGetShaderInfoLog( uiShader, 
-                                       iDebugLength, 
-                                      &iDebugLength, 
-                                       szDebug     );
+                    osgGlGetShaderInfoLog( uiShader, 
+                                           iDebugLength, 
+                                          &iDebugLength, 
+                                           szDebug     );
+                    
+                    FFATAL(( "Couldn't compile shader program (0x%x)!\n%s\n", 
+                            _sfShaderType.getValue(),
+                             szDebug));
 
-                FFATAL(("Couldn't compile shader program (0x%x)!\n%s\n", 
-                        _sfShaderType.getValue(),
-                        szDebug));
-
-                delete [] szDebug;
+                    delete [] szDebug;
+                }
 
                 // log source that failed to compile
                 FINFO(("Shader source was:\n"));
