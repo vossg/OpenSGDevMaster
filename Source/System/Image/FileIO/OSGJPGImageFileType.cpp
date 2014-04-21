@@ -651,7 +651,6 @@ UInt64 JPGImageFileType::restoreData(      Image  *OSG_JPG_ARG(pImage ),
     Image::PixelFormat              pixelFormat = Image::OSG_INVALID_PF;
 
     unsigned long                    imageSize;
-    typedef struct local_error_mgr  *local_error_ptr;
     struct local_error_mgr          jerr;
     struct jpeg_decompress_struct   cinfo;
     JSAMPARRAY                      imagebuffer;
@@ -751,8 +750,6 @@ UInt64 JPGImageFileType::storeData(const Image  *OSG_JPG_ARG(pImage ),
         struct jpeg_error_mgr   pub;
         jmp_buf                 setjmp_buffer;
     };
-
-    typedef struct local_error_mgr  *local_error_ptr;
 
     struct local_error_mgr          jerr;
     struct jpeg_compress_struct     cinfo;

@@ -379,37 +379,37 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunkBase : public StateChunk
             const MFUInt8             *getMFBoolValues      (void) const;
 
 
-                  UInt8               &editFundamentalTypes(const UInt32 index);
+                  MFUInt8            ::reference editFundamentalTypes(const UInt32 index);
                   UInt8                getFundamentalTypes (const UInt32 index) const;
 
-                  UInt8               &editMainTypes      (const UInt32 index);
+                  MFUInt8            ::reference editMainTypes      (const UInt32 index);
                   UInt8                getMainTypes       (const UInt32 index) const;
 
-                  UInt32              &editCardinality    (const UInt32 index);
+                  MFUInt32           ::reference editCardinality    (const UInt32 index);
                   UInt32               getCardinality     (const UInt32 index) const;
 
-                  UInt32              &editIndex          (const UInt32 index);
+                  MFUInt32           ::reference editIndex          (const UInt32 index);
                   UInt32               getIndex           (const UInt32 index) const;
 
-                  std::string         &editNames          (const UInt32 index);
+                  MFString           ::reference editNames          (const UInt32 index);
             const std::string         &getNames           (const UInt32 index) const;
 
                   StringToUInt32Map   &editNameToIndex    (void);
             const StringToUInt32Map   &getNameToIndex     (void) const;
 
-                  Real32              &editFloatValues    (const UInt32 index);
+                  MFReal32           ::reference editFloatValues    (const UInt32 index);
                   Real32               getFloatValues     (const UInt32 index) const;
 
-                  Real64              &editDoubleValues   (const UInt32 index);
+                  MFReal64           ::reference editDoubleValues   (const UInt32 index);
                   Real64               getDoubleValues    (const UInt32 index) const;
 
-                  Int32               &editIntValues      (const UInt32 index);
+                  MFInt32            ::reference editIntValues      (const UInt32 index);
                   Int32                getIntValues       (const UInt32 index) const;
 
-                  UInt32              &editUIntValues     (const UInt32 index);
+                  MFUInt32           ::reference editUIntValues     (const UInt32 index);
                   UInt32               getUIntValues      (const UInt32 index) const;
 
-                  UInt8               &editBoolValues     (const UInt32 index);
+                  MFUInt8            ::reference editBoolValues     (const UInt32 index);
                   UInt8                getBoolValues      (const UInt32 index) const;
 
     /*! \}                                                                 */

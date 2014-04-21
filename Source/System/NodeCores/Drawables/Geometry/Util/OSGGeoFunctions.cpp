@@ -3740,7 +3740,6 @@ void copyVectorMapped(      GeoVectorProperty   *dstProp,
 {
     typedef          GeoIntegralProperty::MaxTypeT     IndexType;
     typedef          TypedGeoVectorProperty<DescTypeT> TypedProp;
-    typedef typename TypedProp::StoredType             StoredType;
     typedef typename TypedProp::StoredFieldType        StoredField;
     
           TypedProp   *typedDst = dynamic_cast<      TypedProp *>(dstProp);
@@ -3988,8 +3987,6 @@ void mergeGeoNISI(
 {
     FDEBUG(("mergeGeoNISI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
     
-    typedef GeoVectorProperty::MaxTypeT ValueType;
-
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);

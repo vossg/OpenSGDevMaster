@@ -154,7 +154,7 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140ChunkBase : public StateChunk
                   GLenum              &editUsage          (void);
             const GLenum              &getUsage           (void) const;
 
-                  UInt8               &editBuffer         (const UInt32 index);
+            MFUInt8            ::reference       editBuffer         (const UInt32 index);
                   UInt8                getBuffer          (const UInt32 index) const;
 
     /*! \}                                                                 */

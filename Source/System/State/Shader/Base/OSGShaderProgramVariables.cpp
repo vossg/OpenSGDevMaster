@@ -191,8 +191,7 @@ template<class VariableType, class ValueType> inline
 bool ShaderProgramVariables::updateMapSVariable(const Char8     *name, 
                                                 const ValueType &value)
 {
-    typedef          VariableType              *VarPtr;
-    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+    typedef VariableType *VarPtr;
 
     if(name == NULL)
         return false;
@@ -362,8 +361,7 @@ template<class VariableType, class ValueType> inline
 bool ShaderProgramVariables::updateMapMVariable(const char      *name, 
                                                 const ValueType &value)
 {
-    typedef          VariableType              *VarPtr;
-    typedef typename VariableType::ObjUnrecPtr  VarUnrecPtr;
+    typedef VariableType *VarPtr;
 
     if(name == NULL)
         return false;

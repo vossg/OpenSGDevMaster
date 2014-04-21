@@ -183,7 +183,7 @@ inline
 }
 
 inline
-UInt8 &UniformBufferObjChunkBase::editFundamentalTypes(const UInt32 index)
+MFUInt8            ::reference UniformBufferObjChunkBase::editFundamentalTypes(const UInt32 index)
 {
     editMField(FundamentalTypesFieldMask, _mfFundamentalTypes);
 
@@ -198,7 +198,7 @@ inline
 }
 
 inline
-UInt8 &UniformBufferObjChunkBase::editMainTypes(const UInt32 index)
+MFUInt8            ::reference UniformBufferObjChunkBase::editMainTypes(const UInt32 index)
 {
     editMField(MainTypesFieldMask, _mfMainTypes);
 
@@ -213,7 +213,7 @@ inline
 }
 
 inline
-UInt32 &UniformBufferObjChunkBase::editCardinality(const UInt32 index)
+MFUInt32           ::reference UniformBufferObjChunkBase::editCardinality(const UInt32 index)
 {
     editMField(CardinalityFieldMask, _mfCardinality);
 
@@ -228,7 +228,7 @@ inline
 }
 
 inline
-UInt32 &UniformBufferObjChunkBase::editIndex(const UInt32 index)
+MFUInt32           ::reference UniformBufferObjChunkBase::editIndex(const UInt32 index)
 {
     editMField(IndexFieldMask, _mfIndex);
 
@@ -243,7 +243,7 @@ const std::string &UniformBufferObjChunkBase::getNames(const UInt32 index) const
 }
 
 inline
-std::string &UniformBufferObjChunkBase::editNames(const UInt32 index)
+MFString           ::reference UniformBufferObjChunkBase::editNames(const UInt32 index)
 {
     editMField(NamesFieldMask, _mfNames);
 
@@ -258,7 +258,7 @@ inline
 }
 
 inline
-Real32 &UniformBufferObjChunkBase::editFloatValues(const UInt32 index)
+MFReal32           ::reference UniformBufferObjChunkBase::editFloatValues(const UInt32 index)
 {
     editMField(FloatValuesFieldMask, _mfFloatValues);
 
@@ -273,7 +273,7 @@ inline
 }
 
 inline
-Real64 &UniformBufferObjChunkBase::editDoubleValues(const UInt32 index)
+MFReal64           ::reference UniformBufferObjChunkBase::editDoubleValues(const UInt32 index)
 {
     editMField(DoubleValuesFieldMask, _mfDoubleValues);
 
@@ -288,7 +288,7 @@ inline
 }
 
 inline
-Int32 &UniformBufferObjChunkBase::editIntValues(const UInt32 index)
+MFInt32            ::reference UniformBufferObjChunkBase::editIntValues(const UInt32 index)
 {
     editMField(IntValuesFieldMask, _mfIntValues);
 
@@ -303,7 +303,7 @@ inline
 }
 
 inline
-UInt32 &UniformBufferObjChunkBase::editUIntValues(const UInt32 index)
+MFUInt32           ::reference UniformBufferObjChunkBase::editUIntValues(const UInt32 index)
 {
     editMField(UIntValuesFieldMask, _mfUIntValues);
 
@@ -318,7 +318,7 @@ inline
 }
 
 inline
-UInt8 &UniformBufferObjChunkBase::editBoolValues(const UInt32 index)
+MFUInt8            ::reference UniformBufferObjChunkBase::editBoolValues(const UInt32 index)
 {
     editMField(BoolValuesFieldMask, _mfBoolValues);
 

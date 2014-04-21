@@ -189,7 +189,6 @@ OSBGeometryHelper::splitMultiIndex(
     const InIndexPtrTypeT      inIndex,
           Geometry            * const geo          )
 {
-    typedef          InIndexPtrTypeT                       InIndexPtrType;
     typedef typename PtrStripper<OutIndexPtrTypeT>::Object OutIndexType;
     typedef typename OutIndexType::ObjUnrecPtr             OutIndexUnrecPtrType;
     typedef typename OutIndexType::StoredFieldType         OutIndexFieldType;

@@ -682,7 +682,7 @@ void DynFieldContainer<ParentT>::execSync (
     for(UInt32 i = _uiDescStartIdx; i <= getType().getNumFieldDescs(); ++i)
     {
 #ifdef OSG_DBGPRINT_DYNFC
-        fprintf(stderr, "[%d] : 0x%016"PRIx64" (0x%016"PRIx64")\n",
+        fprintf(stderr, "[%d] : 0x%016" PRIx64 " (0x%016" PRIx64 ")\n",
                 i,
                 bvMask,
                 whichField);

@@ -133,7 +133,7 @@ inline
 }
 
 inline
-UInt8 &UniformBufferObjStd140ChunkBase::editBuffer(const UInt32 index)
+MFUInt8            ::reference UniformBufferObjStd140ChunkBase::editBuffer(const UInt32 index)
 {
     editMField(BufferFieldMask, _mfBuffer);
 
