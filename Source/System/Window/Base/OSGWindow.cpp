@@ -440,9 +440,9 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
                                                      SequentialPartitionDraw &&
                this->hasContext() == true)
             {
-                doActivate  ();
-                doFrameExit (); // after frame cleanup: delete dead GL objects
-                doDeactivate();
+                activate   ();
+                doFrameExit(); // after frame cleanup: delete dead GL objects
+                deactivate ();
             }
         }
     }
@@ -1280,9 +1280,9 @@ void OSG::Window::doTerminate(void)
             if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                        SequentialPartitionDraw)
             {
-                doActivate  ();
-                doFrameExit (); // after frame cleanup: delete dead GL objects
-                doDeactivate();
+                activate   ();
+                doFrameExit(); // after frame cleanup: delete dead GL objects
+                deactivate ();
             }
         }
     }
@@ -2257,9 +2257,9 @@ void OSG::Window::runFrameExit(void)
 {
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
-        doActivate  ();
+        activate  ();
         doFrameExit (); // after frame cleanup: delete dead GL objects
-        doDeactivate();
+        deactivate();
     }
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
