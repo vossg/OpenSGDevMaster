@@ -2760,7 +2760,7 @@ MACRO(OSG_BOOST_DEP_SETUP)
                                     CACHE INTERNAL "")
 
 
-        INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR} )
+        INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR} )
 
         IF(UNIX)
             LINK_DIRECTORIES   (${Boost_LIBRARY_DIRS})
