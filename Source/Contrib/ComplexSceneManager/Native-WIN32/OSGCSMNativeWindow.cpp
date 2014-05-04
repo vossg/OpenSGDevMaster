@@ -144,7 +144,11 @@ void CSMNativeWindow::changed(ConstFieldMaskArg whichField,
         }
         else if(_sfWindowState.getValue() == 2 && _pHWND != NULL)
         {
-            ShowWindow(_pHWND, SW_SHOW);
+            ShowWindow  (_pHWND, SW_SHOW);
+            SetWindowPos(_pHWND, 
+                         HWND_TOPMOST,
+                         0, 0, 0, 0,
+                         SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE);
         }
     }
 
