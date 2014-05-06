@@ -93,10 +93,16 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    bool addChunk(StateChunk *chunk, 
-                  Int32       slot = State::AutoSlotReplace);
-    bool subChunk(StateChunk *chunk, 
-                  Int32       slot = State::AutoSlotReplace);
+    bool addChunk    (StateChunk *chunk,
+                      Int32       slot = State::AutoSlotReplace);
+    bool subChunk    (StateChunk *chunk,
+                      Int32       slot = State::AutoSlotReplace);
+    bool insertChunk (StateChunk *chunk,
+                      UInt32      chunkIndex,
+                      Int32       slot = State::AutoSlotReplace);
+
+    bool getChunkSlot(StateChunk *chunk, Int32 &slot) const;
+    bool setChunkSlot(StateChunk *chunk, Int32  slot);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

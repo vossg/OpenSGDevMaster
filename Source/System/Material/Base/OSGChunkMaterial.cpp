@@ -270,6 +270,88 @@ bool ChunkMaterial::subChunk(StateChunk *chunk, Int32 slot)
     return true;
 }
 
+/*! Add the given chunk to the material at a certain index. It is possible to
+    specify which slot this chunk should be associated with.
+    See \ref StateChunkClass for a general description of the slots concept.
+    The default slot is State::AutoSlotReplace. */
+
+bool ChunkMaterial::insertChunk(StateChunk *chunk, UInt32 chunkIndex, Int32 slot)
+{
+    if(chunk == NULL)
+        return false;
+
+    // push back chunk
+    if(chunkIndex >= _mfChunks.size())
+        return addChunk(chunk, slot);
+
+    if(slot != State::AutoSlotReplace)
+    {
+        editMField(SlotsFieldMask, _mfSlots);
+
+        while(_mfSlots.size() < chunkIndex+1)
+            _mfSlots.push_back(State::AutoSlotReplace);
+
+        _mfSlots.insert(_mfSlots.begin()+chunkIndex, slot);
+    }
+    else
+    {
+        if(_mfSlots.size() > chunkIndex)
+        {
+            editMField(SlotsFieldMask, _mfSlots);
+
+            _mfSlots.insert(_mfSlots.begin()+chunkIndex, slot);
+        }
+    }
+
+    editMField(ChunksFieldMask, _mfChunks);
+
+    _mfChunks.insert(_mfChunks.begin()+chunkIndex, chunk);
+
+    return true;
+}
+
+/*! Retrieve slot information from the given chunk. Returns false if the
+    chunk couldn't be found. */
+
+bool ChunkMaterial::getChunkSlot(StateChunk *chunk, Int32 &slot) const
+{
+    if(chunk == NULL)
+        return false;
+
+    Int32 chunkIndex = this->find(chunk);
+    if(chunkIndex < 0)
+        return false;
+
+    if(_mfSlots.size() <= chunkIndex)
+        slot = State::AutoSlotReplace;
+    else
+        slot = _mfSlots[chunkIndex];
+
+    return true;
+}
+
+/*! Update slot information for the given chunk. Returns false if the
+    chunk couldn't be found. */
+
+bool ChunkMaterial::setChunkSlot(StateChunk *chunk, Int32 slot)
+{
+    if(chunk == NULL)
+        return false;
+
+    Int32 chunkIndex = this->find(chunk);
+    if(chunkIndex < 0)
+        return false;
+
+    editMField(SlotsFieldMask, _mfSlots);
+
+    while(_mfSlots.size() <= chunkIndex)
+        _mfSlots.push_back(State::AutoSlotReplace);
+
+    _mfSlots[chunkIndex] = slot;
+
+    return true;
+}
+
 /*! Search the list of chunks for the given chunk. Returns its index, -1
   if the chunk is not used in the material.
 */
