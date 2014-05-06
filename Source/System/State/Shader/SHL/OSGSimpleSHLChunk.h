@@ -184,6 +184,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
     template<class ValueT>
     bool getUniformVariable      (const Char8 *name,       ValueT &value);
 
+    bool hasUniformVariable      (const Char8 *name                     );
+
     bool subUniformVariable      (const Char8 *name                     );
     void clearUniformVariables   (      void                            );
 

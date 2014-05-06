@@ -234,6 +234,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    bool hasUniformVariable   (const Char8 *name);
+
     bool updateUniformVariable(const Char8 *name,       bool      value);
     bool updateUniformVariable(const Char8 *name,       Int32     value);
     bool updateUniformVariable(const Char8 *name,       UInt32    value);

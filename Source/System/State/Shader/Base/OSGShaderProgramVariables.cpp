@@ -1263,12 +1263,22 @@ bool ShaderProgramVariables::getUniformVariable(const Char8    *name,
     return this->getMapMVariable<ShaderVariableMMatrix>(name, value);
 }
 
+
+bool ShaderProgramVariables::hasUniformVariable(const Char8    *name)
+{
+    if(name == NULL)
+        return false;
+
+    VariableIt it = _mVarMap.find(name);
+
+    return (it != _mVarMap.end());
+}
+
 bool ShaderProgramVariables::addOSGVariable(const Char8   *name,
                                                   MFInt32 *pProcVarLoc)
 {
     return this->addMapVariableOSG(name, pProcVarLoc);
 }
-
 
 bool ShaderProgramVariables::addProceduralVariable(
     const Char8          *name,

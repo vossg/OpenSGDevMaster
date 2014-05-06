@@ -1007,6 +1007,16 @@ void SimpleSHLChunk::clearUniformParameters(void)
 }
 #endif
 
+bool SimpleSHLChunk::hasUniformVariable(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->hasUniformVariable(name);
+    }
+
+    return false;
+}
+
 bool SimpleSHLChunk::subUniformVariable(const Char8 *name)
 {
     if(_sfVariables.getValue() != NULL)
