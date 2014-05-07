@@ -305,7 +305,7 @@ bool ChunkMaterial::insertChunk(StateChunk *chunk, UInt32 chunkIndex, Int32 slot
 
     editMField(ChunksFieldMask, _mfChunks);
 
-    _mfChunks.insert(_mfChunks.begin()+chunkIndex, chunk);
+    _mfChunks.insert(_mfChunks.begin_nc() + chunkIndex, chunk);
 
     return true;
 }
@@ -319,10 +319,11 @@ bool ChunkMaterial::getChunkSlot(StateChunk *chunk, Int32 &slot) const
         return false;
 
     Int32 chunkIndex = this->find(chunk);
+
     if(chunkIndex < 0)
         return false;
 
-    if(_mfSlots.size() <= chunkIndex)
+    if(Int32(_mfSlots.size()) <= chunkIndex)
         slot = State::AutoSlotReplace;
     else
         slot = _mfSlots[chunkIndex];
@@ -339,12 +340,13 @@ bool ChunkMaterial::setChunkSlot(StateChunk *chunk, Int32 slot)
         return false;
 
     Int32 chunkIndex = this->find(chunk);
+
     if(chunkIndex < 0)
         return false;
 
     editMField(SlotsFieldMask, _mfSlots);
 
-    while(_mfSlots.size() <= chunkIndex)
+    while(Int32(_mfSlots.size()) <= chunkIndex)
         _mfSlots.push_back(State::AutoSlotReplace);
 
     _mfSlots[chunkIndex] = slot;
