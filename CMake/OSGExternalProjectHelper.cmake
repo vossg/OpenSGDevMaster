@@ -307,6 +307,14 @@ MACRO(OSG_INIT)
     #### QT
     #############
 
+    IF(WIN32)
+      IF(EXISTS ${OSG_SUPPORT_ROOT}/qt5)
+        SET(QT5_CMAKE_DIR "${OSG_SUPPORT_ROOT}/qt5/lib/cmake" CACHE PATH "" FORCE)
+      ELSEIF(EXISTS ${OSG_SUPPORT_ROOT}/qt4)
+        SET(QT_QMAKE_EXECUTABLE "${OSG_SUPPORT_ROOT}/qt4/bin/qmake.exe" CACHE FILEPATH "" FORCE)
+      ENDIF()
+    ENDIF()
+
     OSG_CONFIGURE_QT()
   ENDIF()
 
