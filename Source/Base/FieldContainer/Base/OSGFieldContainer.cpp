@@ -844,7 +844,7 @@ FieldContainerTransitPtr deepClone(
         GetFieldHandlePtr  srcField = src    ->getField (i);
         EditFieldHandlePtr dstField = fcClone->editField(i);
 
-        if(dstField == NULL || dstField->isValid() == false || 
+        if(dstField == NULL || dstField->isValid() == false ||
            srcField == NULL || srcField->isValid() == false)
         {
             continue;
@@ -856,11 +856,60 @@ FieldContainerTransitPtr deepClone(
         }
         else
         {
-            dstField->cloneValues(srcField, 
-                                  shareTypes,    
-                                  ignoreTypes,
-                                  shareGroupIds, 
-                                  ignoreGroupIds);
+            // get type info for values stored in field
+            const DataType &contentType = srcField->getType().getContentType();
+
+            // check if it's a "pointer to FC" type (needed, because
+            // AttachmentMap also passes the above isPointerType() check)
+            const PointerType *pointerType =
+                dynamic_cast<const PointerType *>(&contentType);
+
+            // punt, share if it is something that is not "pointer to FC"
+            if(pointerType == NULL)
+            {
+                dstField->shareValues(srcField);
+                continue;
+            }
+
+            // get type info for pointed-to FC type
+            const ReflexiveContainerType *rcType =
+                dynamic_cast<const ReflexiveContainerType *>(
+                    &pointerType->getContentType());
+
+            // punt, share if it is something that is not derived from RC
+            if(rcType == NULL)
+            {
+                dstField->shareValues(srcField);
+                continue;
+            }
+
+            // check if type should be ignored
+            if(!TypePredicates::typeInGroupIds(
+                    ignoreGroupIds.begin(),
+                    ignoreGroupIds.end  (), *rcType) &&
+               !TypePredicates::typeDerivedFrom(
+                    ignoreTypes.begin(),
+                    ignoreTypes.end  (), *rcType)      )
+            {
+                // check if type should by shared
+                if(TypePredicates::typeInGroupIds(
+                        shareGroupIds.begin(),
+                        shareGroupIds.end  (), *rcType) ||
+                   TypePredicates::typeDerivedFrom(
+                        shareTypes.begin(),
+                        shareTypes.end  (), *rcType)      )
+                {
+                    dstField->shareValues(srcField);
+                }
+                else
+                {
+                    dstField->cloneValues(srcField,
+                                          shareTypes,
+                                          ignoreTypes,
+                                          shareGroupIds,
+                                          ignoreGroupIds);
+                }
+            }
         }
     }
 
