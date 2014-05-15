@@ -97,6 +97,7 @@ class OSG_FILEIO_DLLMAPPING OSBCommonElement : public OSBElementBase
 
     virtual void read    (const std::string &typeName) = 0;
     virtual void postRead(      void                 ) = 0;
+    virtual void postMap (      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

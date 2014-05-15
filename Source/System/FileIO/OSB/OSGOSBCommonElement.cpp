@@ -88,6 +88,10 @@ OSBCommonElement::~OSBCommonElement(void)
     // nothing to do.
 }
 
+void OSBCommonElement::postMap(void)
+{
+}
+
 /*-------------------------------------------------------------------------*/
 /* Reading                                                                 */
 

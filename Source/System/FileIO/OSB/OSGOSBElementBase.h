@@ -162,7 +162,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
 
     virtual void read    (const std::string &typeName) = 0;
     virtual void postRead(      void                 ) = 0;
-
+    virtual void postMap (      void                 ) = 0;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Writing                                                      */

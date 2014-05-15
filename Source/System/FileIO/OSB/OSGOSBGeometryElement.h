@@ -108,6 +108,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryElement : public OSBCommonElement
 
     virtual void read    (const std::string &typeName);
     virtual void postRead(      void                 );
+    virtual void postMap (      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,6 +132,7 @@ class OSG_FILEIO_DLLMAPPING OSBGeometryElement : public OSBCommonElement
 
     void readV100    (void);
     void postReadV100(void);
+    void postMapV200 (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

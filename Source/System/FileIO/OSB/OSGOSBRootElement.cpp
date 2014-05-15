@@ -248,6 +248,21 @@ OSBRootElement::postRead(void)
     {
         mapPtrField(*ptrFieldIt);
     }
+    
+    this->postMap();
+}
+
+void OSBRootElement::postMap(void)
+{
+    OSG_OSB_LOG(("OSBRootElement::postMap\n"));
+
+    ElementListConstIt elemIt  = getElementList().begin();
+    ElementListConstIt elemEnd = getElementList().end  ();
+
+    for(; elemIt != elemEnd; ++elemIt)
+    {
+        (*elemIt)->postMap();
+    }
 }
 
 /*-------------------------------------------------------------------------*/

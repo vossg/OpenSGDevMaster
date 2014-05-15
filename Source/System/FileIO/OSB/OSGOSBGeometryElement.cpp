@@ -45,6 +45,7 @@
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGGeometry.h"
+#include "OSGGeoPumpGroup.h"
 
 OSG_USING_NAMESPACE
 
@@ -152,11 +153,33 @@ OSBGeometryElement::postRead(void)
                    "Unknown version, trying to process as latest.\n"));
         }
 
+        postMapV200();
+
         // postRead v2.0 Geometry - nothing to do.
     }
     else if(_version >= OSGOSBHeaderVersion100)
     {
         postReadV100();
+    }
+}
+
+void OSBGeometryElement::postMap(void)
+{
+    OSG_OSB_LOG(("OSBGeometryElement::postMap:\n"));
+
+    if(_version >= OSGOSBHeaderVersion200)
+    {
+        if(_version > OSGOSBHeaderVersion200)
+        {
+            FINFO(("OSBGeometryElement::postMap: "
+                   "Unknown version, trying to process as latest.\n"));
+        }
+
+        postMapV200();
+    }
+    else if(_version >= OSGOSBHeaderVersion100)
+    {
+        // postMap v1.0 Geometry - nothing to do.
     }
 }
 
@@ -689,4 +712,31 @@ OSBGeometryElement::postReadV100(void)
             }
         }
     }
+}
+
+void OSBGeometryElement::postMapV200(void)
+{
+    Geometry        *geo              =
+        dynamic_cast<Geometry*>(getContainer());
+
+    if(geo == NULL)
+        return;
+
+    if(geo->getUseVAO() == false)
+        return;
+
+    GeoPumpGroup::PropertyCharacteristics prop = 
+        GeoPumpGroup::characterizeGeometry(geo);
+
+    if(((prop & (GeoPumpGroup::SingleIndexed)) == 0x0000))
+    {
+        return;
+    }
+
+    GeoProperty *pIndexProp = geo->getIndex(Geometry::PositionsIndex);
+
+    if(pIndexProp == NULL)
+        return;
+
+    pIndexProp->setUseVBO(true);
 }
