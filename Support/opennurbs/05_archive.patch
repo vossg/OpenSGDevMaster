@@ -1,0 +1,11 @@
+--- opennurbs_archive.cpp	2011-11-28 14:22:36.000000000 +0800
++++ patched/opennurbs_archive.cpp	2014-05-17 17:11:58.872892629 +0800
+@@ -13245,7 +13245,7 @@
+ 
+   while(pObject)
+   {
+-    rc = archive.Write3dmStartSection( version, "Archive created by ON_WriteOneObjectArchive "__DATE__" "__TIME__ );
++    rc = archive.Write3dmStartSection( version, "Archive created by ON_WriteOneObjectArchive " __DATE__ " " __TIME__ );
+     if ( !rc )
+       break;
+ 
