@@ -1,0 +1,17 @@
+--- minibrick.cpp	2014-05-25 18:11:29.250503918 +0800
++++ minibrick.cpp.patched	2014-05-25 18:12:30.549682624 +0800
+@@ -3433,11 +3433,10 @@
+ // render a brick tile
+ void minibrick::drawdata(databuf *brick,minisurf *surface,int phase)
+    {
+-   float mtx[16]={brick->sex-brick->swx,0.0f,brick->nwx-brick->swx,0.0f,
+-                  brick->sey-brick->swy,0.0f,brick->nwy-brick->swy,0.0f,
+-                  0.0f,brick->dh,0.0f,0.0f,
++   float mtx[16]={float(brick->sex-brick->swx),0.0f,float(brick->nwx-brick->swx),0.0f,
++                  float(brick->sey-brick->swy),0.0f,float(brick->nwy-brick->swy),0.0f,
++                  0.0f,float(brick->dh),0.0f,0.0f,
+                   0.0f,0.0f,0.0f,1.0f};
+-
+    mtxpush();
+ 
+    // warp tile from computational to object space

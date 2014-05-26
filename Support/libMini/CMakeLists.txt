@@ -40,8 +40,7 @@ IF(OSGLibMiniSrcDir)
                        ${OSGLibMiniSrcDir}/minitext.cpp 
                        ${OSGLibMiniSrcDir}/minisky.cpp 
                        ${OSGLibMiniSrcDir}/miniglobe.cpp
-	                   ${OSGLibMiniSrcDir}/minitree.cpp 
-                       ${OSGLibMiniSrcDir}/minibrick.cpp
+	                   ${OSGLibMiniSrcDir}/minitree.cpp
                        ${OSGLibMiniSrcDir}/minilod.cpp
 	                   ${OSGLibMiniSrcDir}/minimesh.cpp 
                        ${OSGLibMiniSrcDir}/minibspt.cpp 
@@ -58,6 +57,12 @@ IF(OSGLibMiniSrcDir)
 	                   ${OSGLibMiniSrcDir}/lunascan.cpp 
                        ${OSGLibMiniSrcDir}/lunaparse.cpp 
                        ${OSGLibMiniSrcDir}/lunacode.cpp)
+
+  IF(OSG_GCC_VERSION AND OSG_GCC_VERSION VERSION_LESS "4.7")
+    SET(OSG_LIBMINI_PATCH_SRCS ${OSGLibMiniSrcDir}/minibrick.cpp)
+  ELSE()
+    LIST(APPEND OSG_LIBMINI_SRCS ${OSGLibMiniSrcDir}/minibrick.cpp)
+  ENDIF()
 
   SET(OSG_LIBMINI_HDR ${OSGLibMiniSrcDir}/minibase.h
 	                  ${OSGLibMiniSrcDir}/minivec.h 
@@ -112,6 +117,36 @@ IF(OSGLibMiniSrcDir)
 	                  ${OSGLibMiniSrcDir}/lunascan.h 
                       ${OSGLibMiniSrcDir}/lunaparse.h 
                       ${OSGLibMiniSrcDir}/lunacode.h)
+
+
+  IF(OSG_GCC_VERSION AND OSG_GCC_VERSION VERSION_LESS "4.7")
+    SET(OSG_LIBMINI_SRCS_PATCHES 01_brick_cpp.patch)
+
+    EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_BINARY_DIR}/libMini/patched")
+
+    FOREACH(_MINI_PATCHED_FILE ${OSG_LIBMINI_PATCH_SRCS})
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy "${_MINI_PATCHED_FILE}" "${CMAKE_BINARY_DIR}/libMini/patched")
+    ENDFOREACH()
+
+    FOREACH(_MINI_PATCH ${OSG_LIBMINI_SRCS_PATCHES})
+      EXECUTE_PROCESS(COMMAND "patch" "-p0" 
+                      INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_MINI_PATCH}"
+                      WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/libMini/patched")
+    ENDFOREACH()
+
+    FOREACH(_MINI_PATCHED_FILE_IN ${OSG_LIBMINI_PATCH_SRCS})
+
+      GET_FILENAME_COMPONENT(_MINI_PATCHED_FILE ${_MINI_PATCHED_FILE_IN} NAME)
+
+      EXECUTE_PROCESS(
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_BINARY_DIR}/libMini/patched/${_MINI_PATCHED_FILE}"
+                                   "${CMAKE_BINARY_DIR}/libMini")
+
+    LIST(APPEND OSG_LIBMINI_SRCS "${CMAKE_BINARY_DIR}/libMini/${_MINI_PATCHED_FILE}")
+  ENDFOREACH()
+  ENDIF()
 
   SET(OSGLIBMINI_DEF )
 
