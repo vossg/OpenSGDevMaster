@@ -118,7 +118,11 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         BlitZBufferFieldId = AlphaFieldId + 1,
         CombineBlendFieldId = BlitZBufferFieldId + 1,
         RenderPropertyMaskFieldId = CombineBlendFieldId + 1,
-        NextFieldId = RenderPropertyMaskFieldId + 1
+        EnableMultiSampleFieldId = RenderPropertyMaskFieldId + 1,
+        ColorSamplesFieldId = EnableMultiSampleFieldId + 1,
+        CoverageSamplesFieldId = ColorSamplesFieldId + 1,
+        FixedSampleLocationFieldId = CoverageSamplesFieldId + 1,
+        NextFieldId = FixedSampleLocationFieldId + 1
     };
 
     static const OSG::BitVector BufferFormatFieldMask =
@@ -165,6 +169,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
         (TypeTraits<BitVector>::One << CombineBlendFieldId);
     static const OSG::BitVector RenderPropertyMaskFieldMask =
         (TypeTraits<BitVector>::One << RenderPropertyMaskFieldId);
+    static const OSG::BitVector EnableMultiSampleFieldMask =
+        (TypeTraits<BitVector>::One << EnableMultiSampleFieldId);
+    static const OSG::BitVector ColorSamplesFieldMask =
+        (TypeTraits<BitVector>::One << ColorSamplesFieldId);
+    static const OSG::BitVector CoverageSamplesFieldMask =
+        (TypeTraits<BitVector>::One << CoverageSamplesFieldId);
+    static const OSG::BitVector FixedSampleLocationFieldMask =
+        (TypeTraits<BitVector>::One << FixedSampleLocationFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -190,6 +202,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     typedef SFBool            SFBlitZBufferType;
     typedef SFBool            SFCombineBlendType;
     typedef SFRenderPropBitVector SFRenderPropertyMaskType;
+    typedef SFBool            SFEnableMultiSampleType;
+    typedef SFUInt32          SFColorSamplesType;
+    typedef SFUInt32          SFCoverageSamplesType;
+    typedef SFBool            SFFixedSampleLocationType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -279,6 +295,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   SFRenderPropBitVector *editSFRenderPropertyMask(void);
             const SFRenderPropBitVector *getSFRenderPropertyMask (void) const;
 
+                  SFBool              *editSFEnableMultiSample(void);
+            const SFBool              *getSFEnableMultiSample (void) const;
+
+                  SFUInt32            *editSFColorSamples   (void);
+            const SFUInt32            *getSFColorSamples    (void) const;
+
+                  SFUInt32            *editSFCoverageSamples(void);
+            const SFUInt32            *getSFCoverageSamples (void) const;
+
+                  SFBool              *editSFFixedSampleLocation(void);
+            const SFBool              *getSFFixedSampleLocation (void) const;
+
 
                   GLenum              &editBufferFormat   (void);
             const GLenum              &getBufferFormat    (void) const;
@@ -344,6 +372,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
                   RenderPropBitVector &editRenderPropertyMask(void);
             const RenderPropBitVector &getRenderPropertyMask (void) const;
 
+                  bool                &editEnableMultiSample(void);
+                  bool                 getEnableMultiSample (void) const;
+
+                  UInt32              &editColorSamples   (void);
+                  UInt32               getColorSamples    (void) const;
+
+                  UInt32              &editCoverageSamples(void);
+                  UInt32               getCoverageSamples (void) const;
+
+                  bool                &editFixedSampleLocation(void);
+                  bool                 getFixedSampleLocation (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -369,6 +409,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
             void setBlitZBuffer    (const bool value);
             void setCombineBlend   (const bool value);
             void setRenderPropertyMask(const RenderPropBitVector &value);
+            void setEnableMultiSample(const bool value);
+            void setColorSamples   (const UInt32 value);
+            void setCoverageSamples(const UInt32 value);
+            void setFixedSampleLocation(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -467,6 +511,10 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
     SFBool            _sfBlitZBuffer;
     SFBool            _sfCombineBlend;
     SFRenderPropBitVector _sfRenderPropertyMask;
+    SFBool            _sfEnableMultiSample;
+    SFUInt32          _sfColorSamples;
+    SFUInt32          _sfCoverageSamples;
+    SFBool            _sfFixedSampleLocation;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -539,6 +587,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageBase : public Stage
      EditFieldHandlePtr editHandleCombineBlend   (void);
      GetFieldHandlePtr  getHandleRenderPropertyMask (void) const;
      EditFieldHandlePtr editHandleRenderPropertyMask(void);
+     GetFieldHandlePtr  getHandleEnableMultiSample (void) const;
+     EditFieldHandlePtr editHandleEnableMultiSample(void);
+     GetFieldHandlePtr  getHandleColorSamples    (void) const;
+     EditFieldHandlePtr editHandleColorSamples   (void);
+     GetFieldHandlePtr  getHandleCoverageSamples (void) const;
+     EditFieldHandlePtr editHandleCoverageSamples(void);
+     GetFieldHandlePtr  getHandleFixedSampleLocation (void) const;
+     EditFieldHandlePtr editHandleFixedSampleLocation(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

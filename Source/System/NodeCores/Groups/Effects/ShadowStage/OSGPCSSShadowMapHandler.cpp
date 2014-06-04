@@ -458,7 +458,7 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
             pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
             pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
-            pPart->setRenderTarget(_pSceneFBO);
+            pPart->setRenderTarget(_pShadowFactorFBO);
             pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT1_EXT);
             
             Node *light  = vLights[num].first;

@@ -145,6 +145,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     ImageUnrecPtr              _shadowFactorMapImage2;
 
     FrameBufferObjectUnrecPtr  _pSceneFBO;
+    FrameBufferObjectUnrecPtr  _pShadowFactorFBO;
 
     SolidBackgroundUnrecPtr    _pClearBackground;
 

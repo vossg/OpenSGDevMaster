@@ -1301,7 +1301,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                     pPart->addPostRenderCallback(
                         &ShadowTreeHandler::endAmbientModel  );
 
-                    pPart->setRenderTarget(_pSceneFBO);
+                    pPart->setRenderTarget(_pShadowFactorFBO);
                     pPart->setDrawBuffer  ( dBuffers );
 
                     Node *light  = vLights[i].first;
@@ -1838,7 +1838,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                 pPart->addPostRenderCallback(
                     &ShadowTreeHandler::endAmbientModel  );
 
-                pPart->setRenderTarget(_pSceneFBO);
+                pPart->setRenderTarget(_pShadowFactorFBO);
                 pPart->setDrawBuffer  ( dBuffers );
                 
                 Node *light  = vLights[i].first;

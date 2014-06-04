@@ -768,7 +768,7 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 
                     pPart->setupProjection(m, t);
 
-                    pPart->setRenderTarget(_pSceneFBO);
+                    pPart->setRenderTarget(_pShadowFactorFBO);
                     pPart->setDrawBuffer  ( dBuffers );
 
                     pPart->setViewportDimension(0, 0,
@@ -1193,7 +1193,7 @@ void PCF2ShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 
                 pPart->setupProjection(m, t);
 
-                pPart->setRenderTarget(_pSceneFBO);
+                pPart->setRenderTarget(_pShadowFactorFBO);
                 pPart->setDrawBuffer  ( dBuffers);
 
                 pPart->setViewportDimension(0, 0,

@@ -180,6 +180,22 @@ OSG_BEGIN_NAMESPACE
     target framebuffer.
 */
 
+/*! \var bool            ShadowStageBase::_sfEnableMultiSample
+    Use multisampling when rendering color map and shadow factor map.
+*/
+
+/*! \var UInt32          ShadowStageBase::_sfColorSamples
+    
+*/
+
+/*! \var UInt32          ShadowStageBase::_sfCoverageSamples
+    
+*/
+
+/*! \var bool            ShadowStageBase::_sfFixedSampleLocation
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -478,6 +494,54 @@ void ShadowStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ShadowStage::getHandleRenderPropertyMask));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableMultiSample",
+        "Use multisampling when rendering color map and shadow factor map.\n",
+        EnableMultiSampleFieldId, EnableMultiSampleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleEnableMultiSample),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleEnableMultiSample));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "colorSamples",
+        "",
+        ColorSamplesFieldId, ColorSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleColorSamples),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleColorSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "coverageSamples",
+        "",
+        CoverageSamplesFieldId, CoverageSamplesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleCoverageSamples),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleCoverageSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "fixedSampleLocation",
+        "",
+        FixedSampleLocationFieldId, FixedSampleLocationFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowStage::editHandleFixedSampleLocation),
+        static_cast<FieldGetMethodSig >(&ShadowStage::getHandleFixedSampleLocation));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -726,6 +790,43 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "    >\n"
     "    Use blending when writing the combined scene and shadow images to the\n"
     "    target framebuffer.\n"
+    "    </Field>\n"
+    "  <Field\n"
+    "    name=\"enableMultiSample\"\n"
+    "    type=\"bool\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    access=\"public\"\n"
+    "    defaultValue=\"false\"\n"
+    "    >\n"
+    "\tUse multisampling when rendering color map and shadow factor map.\n"
+    "    </Field>\n"
+    "  <Field\n"
+    "    name=\"colorSamples\"\n"
+    "    type=\"UInt32\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    access=\"public\"\n"
+    "    defaultValue=\"4\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "  <Field\n"
+    "    name=\"coverageSamples\"\n"
+    "    type=\"UInt32\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    access=\"public\"\n"
+    "    defaultValue=\"4\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "  <Field\n"
+    "    name=\"fixedSampleLocation\"\n"
+    "    type=\"bool\"\n"
+    "    cardinality=\"single\"\n"
+    "    visibility=\"external\"\n"
+    "    access=\"public\"\n"
+    "    defaultValue=\"true\"\n"
+    "    >\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     "First Release of ShadowMap-Viewport. Viewport is capable to handle multiple\n"
@@ -1047,6 +1148,58 @@ const SFRenderPropBitVector *ShadowStageBase::getSFRenderPropertyMask(void) cons
 }
 
 
+SFBool *ShadowStageBase::editSFEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return &_sfEnableMultiSample;
+}
+
+const SFBool *ShadowStageBase::getSFEnableMultiSample(void) const
+{
+    return &_sfEnableMultiSample;
+}
+
+
+SFUInt32 *ShadowStageBase::editSFColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return &_sfColorSamples;
+}
+
+const SFUInt32 *ShadowStageBase::getSFColorSamples(void) const
+{
+    return &_sfColorSamples;
+}
+
+
+SFUInt32 *ShadowStageBase::editSFCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return &_sfCoverageSamples;
+}
+
+const SFUInt32 *ShadowStageBase::getSFCoverageSamples(void) const
+{
+    return &_sfCoverageSamples;
+}
+
+
+SFBool *ShadowStageBase::editSFFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return &_sfFixedSampleLocation;
+}
+
+const SFBool *ShadowStageBase::getSFFixedSampleLocation(void) const
+{
+    return &_sfFixedSampleLocation;
+}
+
+
 
 
 void ShadowStageBase::pushToLightNodes(Node * const value)
@@ -1251,6 +1404,22 @@ SizeT ShadowStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderPropertyMask.getBinSize();
     }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        returnValue += _sfEnableMultiSample.getBinSize();
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        returnValue += _sfColorSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        returnValue += _sfCoverageSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        returnValue += _sfFixedSampleLocation.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1347,6 +1516,22 @@ void ShadowStageBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
     {
         _sfRenderPropertyMask.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        _sfEnableMultiSample.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        _sfColorSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        _sfCoverageSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        _sfFixedSampleLocation.copyToBin(pMem);
     }
 }
 
@@ -1464,6 +1649,26 @@ void ShadowStageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(RenderPropertyMaskFieldMask);
         _sfRenderPropertyMask.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+    {
+        editSField(EnableMultiSampleFieldMask);
+        _sfEnableMultiSample.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+    {
+        editSField(ColorSamplesFieldMask);
+        _sfColorSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+    {
+        editSField(CoverageSamplesFieldMask);
+        _sfCoverageSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+    {
+        editSField(FixedSampleLocationFieldMask);
+        _sfFixedSampleLocation.copyFromBin(pMem);
     }
 }
 
@@ -1611,7 +1816,11 @@ ShadowStageBase::ShadowStageBase(void) :
     _sfAlpha                  (bool(GL_TRUE)),
     _sfBlitZBuffer            (bool(false)),
     _sfCombineBlend           (bool(false)),
-    _sfRenderPropertyMask     (RenderPropBitVector(SystemRenderProperties.ColorBuffer))
+    _sfRenderPropertyMask     (RenderPropBitVector(SystemRenderProperties.ColorBuffer)),
+    _sfEnableMultiSample      (bool(false)),
+    _sfColorSamples           (UInt32(4)),
+    _sfCoverageSamples        (UInt32(4)),
+    _sfFixedSampleLocation    (bool(true))
 {
 }
 
@@ -1638,7 +1847,11 @@ ShadowStageBase::ShadowStageBase(const ShadowStageBase &source) :
     _sfAlpha                  (source._sfAlpha                  ),
     _sfBlitZBuffer            (source._sfBlitZBuffer            ),
     _sfCombineBlend           (source._sfCombineBlend           ),
-    _sfRenderPropertyMask     (source._sfRenderPropertyMask     )
+    _sfRenderPropertyMask     (source._sfRenderPropertyMask     ),
+    _sfEnableMultiSample      (source._sfEnableMultiSample      ),
+    _sfColorSamples           (source._sfColorSamples           ),
+    _sfCoverageSamples        (source._sfCoverageSamples        ),
+    _sfFixedSampleLocation    (source._sfFixedSampleLocation    )
 {
 }
 
@@ -2253,6 +2466,106 @@ EditFieldHandlePtr ShadowStageBase::editHandleRenderPropertyMask(void)
 
 
     editSField(RenderPropertyMaskFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleEnableMultiSample (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleEnableMultiSample(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableMultiSample,
+             this->getType().getFieldDesc(EnableMultiSampleFieldId),
+             this));
+
+
+    editSField(EnableMultiSampleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleColorSamples    (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleColorSamples   (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfColorSamples,
+             this->getType().getFieldDesc(ColorSamplesFieldId),
+             this));
+
+
+    editSField(ColorSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleCoverageSamples (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleCoverageSamples(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfCoverageSamples,
+             this->getType().getFieldDesc(CoverageSamplesFieldId),
+             this));
+
+
+    editSField(CoverageSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShadowStageBase::getHandleFixedSampleLocation (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             const_cast<ShadowStageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowStageBase::editHandleFixedSampleLocation(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfFixedSampleLocation,
+             this->getType().getFieldDesc(FixedSampleLocationFieldId),
+             this));
+
+
+    editSField(FixedSampleLocationFieldMask);
 
     return returnValue;
 }

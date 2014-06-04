@@ -233,4 +233,41 @@
     Use blending when writing the combined scene and shadow images to the
     target framebuffer.
     </Field>
+  <Field
+    name="enableMultiSample"
+    type="bool"
+    cardinality="single"
+    visibility="external"
+    access="public"
+    defaultValue="false"
+    >
+    Use multisampling when rendering color map and shadow factor map.
+    </Field>
+  <Field
+    name="colorSamples"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    access="public"
+    defaultValue="4"
+    >
+    </Field>
+  <Field
+    name="coverageSamples"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    access="public"
+    defaultValue="4"
+    >
+    </Field>
+  <Field
+    name="fixedSampleLocation"
+    type="bool"
+    cardinality="single"
+    visibility="external"
+    access="public"
+    defaultValue="true"
+    >
+    </Field>
 </FieldContainer>

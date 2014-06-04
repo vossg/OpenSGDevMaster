@@ -110,6 +110,7 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _shadowFactorMapImage2(NULL                  ),
 
     _pSceneFBO            (NULL                  ),
+    _pShadowFactorFBO     (NULL                  ),
 
     _pClearBackground     (NULL                  ),
 
@@ -241,6 +242,7 @@ ShadowTreeHandler::~ShadowTreeHandler(void)
     _shadowFactorMapImage2 = NULL;
 
     _pSceneFBO             = NULL;
+    _pShadowFactorFBO      = NULL;
 
     _pClearBackground      = NULL;
 
@@ -297,9 +299,14 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
     }
 
     _pSceneFBO = FrameBufferObject::createLocal();
-    
     _pSceneFBO->setSize(_width, _height);
-        
+    _pSceneFBO->setEnableMultiSample(this->_pStage->getEnableMultiSample());
+    _pSceneFBO->setColorSamples(this->_pStage->getColorSamples());
+    _pSceneFBO->setCoverageSamples(this->_pStage->getCoverageSamples());
+    _pSceneFBO->setFixedSampleLocation(this->_pStage->getFixedSampleLocation());
+
+    _pShadowFactorFBO = FrameBufferObject::createLocal();
+    _pShadowFactorFBO->setSize(_width, _height); 
 
     TextureBufferUnrecPtr pDepthTB = TextureBuffer::createLocal();
     pDepthTB->setTexture(_depthMapO);
@@ -309,22 +316,21 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
 
     _pSceneFBO->setColorAttachment(pTexBuffer, 0);
 
-
     pTexBuffer = TextureBuffer::createLocal();
     pTexBuffer->setTexture(_shadowFactorMapO);
 
-    _pSceneFBO->setColorAttachment(pTexBuffer, 1);
-
+    _pShadowFactorFBO->setColorAttachment(pTexBuffer, 1);
 
     if(bHaveTwoFactorMaps == true)
     {
         pTexBuffer = TextureBuffer::createLocal();
         pTexBuffer->setTexture(_shadowFactorMap2O);
 
-        _pSceneFBO->setColorAttachment(pTexBuffer, 2);
+        _pShadowFactorFBO->setColorAttachment(pTexBuffer, 2);
     }
 
     _pSceneFBO->setDepthAttachment(pDepthTB);
+    _pShadowFactorFBO->setDepthAttachment(pDepthTB);
 
     commitChanges();
 
@@ -369,7 +375,8 @@ void ShadowTreeHandler::updateSceneFBOSize(DrawEnv *pEnv,
                                      false);
     }
 
-    _pSceneFBO->setSize(_width, _height);
+    _pSceneFBO ->setSize(_width, _height);
+    _pShadowFactorFBO->setSize(_width, _height);
 }
 
 

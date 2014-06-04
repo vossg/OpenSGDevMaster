@@ -574,6 +574,106 @@ void ShadowStageBase::setRenderPropertyMask(const RenderPropBitVector &value)
 
     _sfRenderPropertyMask.setValue(value);
 }
+//! Get the value of the ShadowStage::_sfEnableMultiSample field.
+
+inline
+bool &ShadowStageBase::editEnableMultiSample(void)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfEnableMultiSample field.
+inline
+      bool  ShadowStageBase::getEnableMultiSample(void) const
+{
+    return _sfEnableMultiSample.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfEnableMultiSample field.
+inline
+void ShadowStageBase::setEnableMultiSample(const bool value)
+{
+    editSField(EnableMultiSampleFieldMask);
+
+    _sfEnableMultiSample.setValue(value);
+}
+//! Get the value of the ShadowStage::_sfColorSamples field.
+
+inline
+UInt32 &ShadowStageBase::editColorSamples(void)
+{
+    editSField(ColorSamplesFieldMask);
+
+    return _sfColorSamples.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfColorSamples field.
+inline
+      UInt32  ShadowStageBase::getColorSamples(void) const
+{
+    return _sfColorSamples.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfColorSamples field.
+inline
+void ShadowStageBase::setColorSamples(const UInt32 value)
+{
+    editSField(ColorSamplesFieldMask);
+
+    _sfColorSamples.setValue(value);
+}
+//! Get the value of the ShadowStage::_sfCoverageSamples field.
+
+inline
+UInt32 &ShadowStageBase::editCoverageSamples(void)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    return _sfCoverageSamples.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfCoverageSamples field.
+inline
+      UInt32  ShadowStageBase::getCoverageSamples(void) const
+{
+    return _sfCoverageSamples.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfCoverageSamples field.
+inline
+void ShadowStageBase::setCoverageSamples(const UInt32 value)
+{
+    editSField(CoverageSamplesFieldMask);
+
+    _sfCoverageSamples.setValue(value);
+}
+//! Get the value of the ShadowStage::_sfFixedSampleLocation field.
+
+inline
+bool &ShadowStageBase::editFixedSampleLocation(void)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Get the value of the ShadowStage::_sfFixedSampleLocation field.
+inline
+      bool  ShadowStageBase::getFixedSampleLocation(void) const
+{
+    return _sfFixedSampleLocation.getValue();
+}
+
+//! Set the value of the ShadowStage::_sfFixedSampleLocation field.
+inline
+void ShadowStageBase::setFixedSampleLocation(const bool value)
+{
+    editSField(FixedSampleLocationFieldMask);
+
+    _sfFixedSampleLocation.setValue(value);
+}
 
 
 
@@ -659,6 +759,18 @@ void ShadowStageBase::execSync (      ShadowStageBase *pFrom,
 
     if(FieldBits::NoField != (RenderPropertyMaskFieldMask & whichField))
         _sfRenderPropertyMask.syncWith(pFrom->_sfRenderPropertyMask);
+
+    if(FieldBits::NoField != (EnableMultiSampleFieldMask & whichField))
+        _sfEnableMultiSample.syncWith(pFrom->_sfEnableMultiSample);
+
+    if(FieldBits::NoField != (ColorSamplesFieldMask & whichField))
+        _sfColorSamples.syncWith(pFrom->_sfColorSamples);
+
+    if(FieldBits::NoField != (CoverageSamplesFieldMask & whichField))
+        _sfCoverageSamples.syncWith(pFrom->_sfCoverageSamples);
+
+    if(FieldBits::NoField != (FixedSampleLocationFieldMask & whichField))
+        _sfFixedSampleLocation.syncWith(pFrom->_sfFixedSampleLocation);
 }
 #endif
 
