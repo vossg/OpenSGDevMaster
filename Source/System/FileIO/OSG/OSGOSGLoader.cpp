@@ -304,6 +304,12 @@ void OSGLoader::initFieldTypeMapper(void)
     setIntExtMapping(SFMatrix::getClassType().getId(),
                      ScanParseSkel::OSGsfMatrix);
 
+    setIntExtMapping(SFPnt4f::getClassType().getId(),
+                     ScanParseSkel::OSGsfPnt4f);
+
+    setIntExtMapping(MFPnt4f::getClassType().getId(),
+                     ScanParseSkel::OSGmfPnt4f);
+
     setIntExtMapping(SFPnt3f::getClassType().getId(),
                      ScanParseSkel::OSGsfPnt3f);
 
