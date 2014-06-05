@@ -139,7 +139,7 @@ void GeoInstancerBase::classDescInserter(TypeObject &oType)
         "baseGeometry",
         "",
         BaseGeometryFieldId, BaseGeometryFieldMask,
-        true,
+        false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoInstancer::editHandleBaseGeometry),
         static_cast<FieldGetMethodSig >(&GeoInstancer::getHandleBaseGeometry));
@@ -186,7 +186,7 @@ GeoInstancerBase::TypeObject GeoInstancerBase::_type(
     "        type=\"Geometry\"\n"
     "        category=\"childpointer\"\n"
     "        cardinality=\"single\"\n"
-    "        visibility=\"internal\"\n"
+    "        visibility=\"external\"\n"
     "        defaultValue=\"NULL\"\n"
     "        access=\"public\"\n"
     "        linkParentField=\"Parents\"\n"

@@ -25,7 +25,7 @@
         type="Geometry"
         category="childpointer"
         cardinality="single"
-        visibility="internal"
+        visibility="external"
         defaultValue="NULL"
         access="public"
         linkParentField="Parents"
