@@ -429,11 +429,7 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
 
         pPart->setWindow  (pAction->getWindow());
 
-        pPart->calcViewportDimension(pArea->getLeft  (),
-                                     pArea->getBottom(),
-                                     pArea->getRight (),
-                                     pArea->getTop   (),
-                                     
+        pPart->calcViewportDimension(0.f, 0.f, 1.f, 1.f,
                                      pTarget->getWidth    (),
                                      pTarget->getHeight   ());
 
