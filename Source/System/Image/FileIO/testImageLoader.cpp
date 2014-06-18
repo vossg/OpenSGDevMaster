@@ -39,10 +39,15 @@ OSG::StatElemDesc<OSG::StatIntElem> textureFrameCountDesc("textureFrameCount", "
 
 std::string szFilename;
 
+OSG::TextureTransformChunkRecPtr tTr;
+OSG::Real32 rTexTrStep = 0.f;
+
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
-void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo = OSG::Image::OSG_INVALID_PF)
+void updateScene(const                   std::string &filename, 
+                 OSG::Image::PixelFormat compressTo     = OSG::Image::OSG_INVALID_PF,
+                 OSG::Image::PixelFormat internalFormat = OSG::Image::OSG_INVALID_PF)
 {
     // Try to create the new image
     OSG::ImageRecPtr imagePtr = 
@@ -138,6 +143,10 @@ void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo
     statfg->editCollector()->getElem(textureMipMapCountDesc)->set(imagePtr->getMipMapCount());
     statfg->editCollector()->getElem(textureFrameCountDesc)->set(imagePtr->getFrameCount());
 
+    rTexTrStep = 1.f / float(imagePtr->getDepth() - 1);
+
+    tTr->editMatrix()[3][2] = rTexTrStep / 10.f;
+
     // Put it all together into a Geometry NodeCore.
     OSG::GeometryRecPtr geo = OSG::makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
     OSG::NodeRecPtr imageNode = OSG::Node::create();
@@ -154,10 +163,18 @@ void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
     texObjChunk->setWrapT(GL_CLAMP);
+    texObjChunk->setWrapR(GL_CLAMP);
     texObjChunk->setMagFilter(GL_NEAREST);
     texObjChunk->setMinFilter(GL_NEAREST);
+//    texObjChunk->setTarget(GL_TEXTURE_2D_ARRAY);
+
+    if(internalFormat != OSG::Image::OSG_INVALID_PF)
+    {
+        texObjChunk->setInternalFormat(internalFormat);
+    }
+
     OSG::TextureEnvChunkRecPtr texEnvChunk = OSG::TextureEnvChunk::create();
-    texEnvChunk->setEnvMode(GL_MODULATE);
+    texEnvChunk->setEnvMode(GL_REPLACE);
 
     OSG::MaterialChunkRecPtr matChunk = OSG::MaterialChunk::create();
     matChunk->setAmbient(OSG::Color4f(1.f, 1.f, 1.f, 1.f));
@@ -169,6 +186,7 @@ void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo
     OSG::ChunkMaterialRecPtr m = OSG::ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
+    m->addChunk(tTr        );
     m->addChunk(matChunk);
 
     geo->setMaterial(m);
@@ -225,6 +243,10 @@ int doMain(int argc, char **argv)
         std::cerr << "Usage: testImageLoader <filename>" << std::endl;
         return EXIT_FAILURE;
     }
+
+    tTr = OSG::TextureTransformChunk::create();
+
+    tTr->editMatrix().setIdentity();
 
     updateScene(argv[1]);
 
@@ -305,6 +327,7 @@ void keyboard(unsigned char k, int x, int y)
             mgr    = NULL;
             scene  = NULL;
             statfg = NULL;
+            tTr    = NULL;
 
             OSG::osgExit();
             exit(0);
@@ -324,9 +347,63 @@ void keyboard(unsigned char k, int x, int y)
         case '5':
             updateScene(szFilename, OSG::Image::OSG_RGBA_DXT5);
             break;
-                
-        break;
+
+
+
+        case '6':
+            updateScene(szFilename, OSG::Image::OSG_INVALID_PF, OSG::Image::OSG_RGB_DXT1);
+            break;
+        case '7':
+            updateScene(szFilename, OSG::Image::OSG_INVALID_PF, OSG::Image::OSG_RGBA_DXT1);
+            break;
+        case '8':
+            updateScene(szFilename, OSG::Image::OSG_INVALID_PF, OSG::Image::OSG_RGBA_DXT3);
+            break;
+        case '9':
+            updateScene(szFilename, OSG::Image::OSG_INVALID_PF, OSG::Image::OSG_RGBA_DXT5);
+            break;
+             
+        case '[':
+            tTr->editMatrix()[3][2] -= rTexTrStep;
+
+            if(tTr->getMatrix()[3][2] < 0.f)
+                tTr->editMatrix()[3][2] = 1.f + rTexTrStep / 10.f;
+
+            fprintf(stderr, "textr: %f / %f\n",
+                    tTr->getMatrix()[3][2],
+                    rTexTrStep);
+            break;
+
+        case ']':
+            tTr->editMatrix()[3][2] += rTexTrStep;
+
+            if(tTr->getMatrix()[3][2] > 1.f + rTexTrStep / 5.f)
+                tTr->editMatrix()[3][2] = 0.f + rTexTrStep / 10.f;
+
+            fprintf(stderr, "textr: %f / %f\n",
+                    tTr->getMatrix()[3][2],
+                    rTexTrStep);
+            break;
+
+        case '{':
+            tTr->editMatrix()[3][2] = 0.f + rTexTrStep / 10.f;
+
+            fprintf(stderr, "textr: %f / %f\n",
+                    tTr->getMatrix()[3][2],
+                    rTexTrStep);
+
+            break;
+
+        case '}':
+            fprintf(stderr, "textr: %f / %f\n",
+                    tTr->getMatrix()[3][2],
+                    rTexTrStep);
+
+            break;
+            
     }
+
+    glutPostRedisplay();
 }
 
 // setup the GLUT library which handles the windows for us
