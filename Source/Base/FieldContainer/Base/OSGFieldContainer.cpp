@@ -277,6 +277,18 @@ void FieldContainer::registerChangedContainer(void)
 
     osgSpinLock(&_uiContainerId, SpinLockBit);
 
+#ifdef OSG_DEBUG
+    // Check if the container is registered with the FC factory.
+    // This catches e.g. cases where fields are modified in the c'tor instead
+    // of the onCreate/onCreateAspect functions.
+    if(_uiContainerId == 0)
+    {
+        SWARNING << "FieldContainer::registerChangedContainer called without "
+                 << "valid _uiContainerId!"
+                 << std::endl;
+    }
+#endif
+
     ChangeList* pCL = Thread::getCurrentChangeList();
 
     if(_pContainerChanges == NULL)
