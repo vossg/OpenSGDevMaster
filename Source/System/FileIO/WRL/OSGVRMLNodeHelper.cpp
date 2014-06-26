@@ -1555,16 +1555,19 @@ void VRMLShapeHelper::endNode(FieldContainer *pFC)
             }
         }
 
-        Node *pChild = pNode->getChild(0);
-
-        if(pChild != NULL)
+        if(pNode->getNChildren() > 0)
         {
-            Geometry      *pShapeGeo = pChild->getCore<Geometry     >();
-            MaterialGroup *pShapeMat = pNode ->getCore<MaterialGroup>();
+            Node *pChild = pNode->getChild(0);
 
-            if(pShapeGeo != NULL && pShapeMat != NULL)
+            if(pChild != NULL)
             {
-                pShapeGeo->setMaterial(pShapeMat->getMaterial());
+                Geometry      *pShapeGeo = pChild->getCore<Geometry     >();
+                MaterialGroup *pShapeMat = pNode ->getCore<MaterialGroup>();
+                
+                if(pShapeGeo != NULL && pShapeMat != NULL)
+                {
+                    pShapeGeo->setMaterial(pShapeMat->getMaterial());
+                }
             }
         }
     }
