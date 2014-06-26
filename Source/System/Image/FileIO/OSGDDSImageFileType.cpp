@@ -1037,7 +1037,8 @@ void CDDSImage::flip(CSurface &image,
             DXTColBlock *top;
             DXTColBlock *bottom;
         
-            for(Int32 j = 0; j < (yblocks >> 1); j++)
+            Int32 j = 0;
+            for(; j < (yblocks >> 1); j++)
             {
                 top    = reinterpret_cast<DXTColBlock*>(image.get_pixels() + j * linesize);
                 bottom = reinterpret_cast<DXTColBlock*>(image.get_pixels() + (((yblocks - j) - 1) * linesize));
@@ -1046,6 +1047,13 @@ void CDDSImage::flip(CSurface &image,
                 (this->*flipblocks)(bottom, xblocks);
 
                 swap(bottom, top, linesize);
+            }
+
+            if((yblocks & 0x01) == 0x01)
+            {
+                top = reinterpret_cast<DXTColBlock*>(image.get_pixels() + j * linesize);
+
+                (this->*flipblocks)(top,    xblocks);
             }
         }
         else
@@ -1175,9 +1183,11 @@ void CDDSImage::flipDXT(CSurface &image,
  
     Int32 SliceSize = xblocks * yblocks * blocksize;
 
+    Int32 d=0;
     for(Int32 d = 0; d < depth; ++d)
     {
-        for(Int32 j = 0; j < (yblocks >> 1); j++)
+        Int32 j = 0;
+        for(; j < (yblocks >> 1); j++)
         {
             top    = reinterpret_cast<DXTColBlock*>(image.get_pixels() + d * SliceSize + j * linesize);
             bottom = reinterpret_cast<DXTColBlock*>(image.get_pixels() + d * SliceSize + (((yblocks - j) - 1) * linesize));
@@ -1186,6 +1196,13 @@ void CDDSImage::flipDXT(CSurface &image,
             (this->*flipblocks)(bottom, xblocks);
             
             swap(bottom, top, linesize);
+        }
+
+        if((yblocks & 0x01) == 0x01)
+        {
+            top = reinterpret_cast<DXTColBlock*>(image.get_pixels() + d * SliceSize + j * linesize);
+
+            (this->*flipblocks)(top,    xblocks);
         }
     }
 }
