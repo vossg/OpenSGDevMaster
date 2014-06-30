@@ -721,6 +721,7 @@ bool CDDSImage::load(std::istream &is,
     if((ddsh.ddspf.dwFlags & DDS_DDPF_OPENGL) != 0x00000000 && volume == false)
         doFlipImage = false;
 
+#ifdef OSG_DEBUG
     fprintf(stderr, 
             "dds status : opengl 0x%x | layout nv 0x%x "
             "| layout std 0x%x | flip %d\n",
@@ -728,6 +729,7 @@ bool CDDSImage::load(std::istream &is,
             UInt32((ddsh.ddspf.dwFlags & DDS_DDPF_OPENGL_NV ) == DDS_DDPF_OPENGL_NV ),
             UInt32((ddsh.ddspf.dwFlags & DDS_DDPF_OPENGL_STD) == DDS_DDPF_OPENGL_STD),
             UInt32(doFlipImage));
+#endif
     
     // load all surfaces for the image (6 surfaces for cubemaps)
     for(Int32 n = 0; n < (cubemap ? 6 : 1); n++)
@@ -975,8 +977,9 @@ void CDDSImage::flip(CSurface &image,
     {
         if((ddpfFlags  & DDS_DDPF_OPENGL) != 0x00)
         {
+#ifdef OSG_DEBUG
             fprintf(stderr, "already OpenGL data\n");
-
+#endif
             return;
         }
 
@@ -1058,29 +1061,41 @@ void CDDSImage::flip(CSurface &image,
         }
         else
         {          
+#ifdef OSG_DEBUG
             fprintf(stderr, "compressed volume\n");
+#endif
 
             if(format != GL_COMPRESSED_RGB_S3TC_DXT1_EXT)
             {
+#ifdef OSG_DEBUG
                 fprintf(stderr, "sorry, only dxt1 rgb volumes supported yet\n");
+#endif
+
+                return;
             }
 
+#ifdef OSG_DEBUG
             fprintf(stderr, 
                     "dds status : opengl 0x%x | layout nv 0x%x "
                     "| layout std 0x%x\n",
                     UInt32(ddpfFlags  & DDS_DDPF_OPENGL),
                     UInt32((ddpfFlags & DDS_DDPF_OPENGL_NV ) == DDS_DDPF_OPENGL_NV ),
                     UInt32((ddpfFlags & DDS_DDPF_OPENGL_STD) == DDS_DDPF_OPENGL_STD));
+#endif
 
             char *szEnvGPU = getenv("OSG_GPU_NVIDIA");
 
+#ifdef OSG_DEBUG
             fprintf(stderr, "env nv : %p\n", szEnvGPU);
+#endif
 
             if((ddpfFlags & DDS_DDPF_OPENGL) == 0x00)
             {
                 if(szEnvGPU == NULL)
                 {
+#ifdef OSG_DEBUG
                     fprintf(stderr, "flip\n");
+#endif
 
                     this->flipDXT(image, 
                                   width, 
@@ -1090,7 +1105,9 @@ void CDDSImage::flip(CSurface &image,
                 }
                 else
                 {
+#ifdef OSG_DEBUG
                     fprintf(stderr, "flip + adjust layout std->nv\n"); 
+#endif
 
                     this->flipDXTStdToNV(image, 
                                          width, 
@@ -1105,7 +1122,9 @@ void CDDSImage::flip(CSurface &image,
                 {
                     if(szEnvGPU == NULL)
                     {
+#ifdef OSG_DEBUG
                         fprintf(stderr, "adjust layout nv->std\n");
+#endif
 
                         this->changeLayout(image, 
                                            width, 
@@ -1116,18 +1135,24 @@ void CDDSImage::flip(CSurface &image,
                     }
                     else
                     {
+#ifdef OSG_DEBUG
                         fprintf(stderr, "do nothing (nv)\n"); 
+#endif
                     }
                 }
-                else if((ddpfFlags & DDS_DDPF_OPENGL_STD) == DDS_DDPF_OPENGL_STD)
+                else
                 {
                     if(szEnvGPU == NULL)
                     {
+#ifdef OSG_DEBUG
                         fprintf(stderr, "do nothing (std)\n");
+#endif
                     }
                     else
                     {
+#ifdef OSG_DEBUG
                         fprintf(stderr, "adjust layout std->nv\n"); 
+#endif
 
                         this->changeLayout(image, 
                                            width, 
@@ -1138,8 +1163,6 @@ void CDDSImage::flip(CSurface &image,
                     }
                 }
             }
-
-
         }
     }
 }    
@@ -1183,7 +1206,6 @@ void CDDSImage::flipDXT(CSurface &image,
  
     Int32 SliceSize = xblocks * yblocks * blocksize;
 
-    Int32 d=0;
     for(Int32 d = 0; d < depth; ++d)
     {
         Int32 j = 0;
