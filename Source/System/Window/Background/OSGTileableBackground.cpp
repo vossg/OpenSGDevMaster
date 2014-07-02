@@ -49,6 +49,7 @@
 #include "OSGDrawEnv.h"
 #include "OSGRenderActionBase.h"
 #include "OSGTileCameraDecorator.h"
+#include "OSGTextureBaseChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -139,6 +140,7 @@ void TileableBackground::beginOrthoRender(
     glPushMatrix();
     glLoadIdentity();
 
+    TextureBaseChunk::activateTexture(pEnv->getWindow(), 0);
     glMatrixMode(GL_TEXTURE);
     glPushMatrix();
     glLoadIdentity();
@@ -183,6 +185,7 @@ void TileableBackground::endOrthoRender(DrawEnv *pEnv)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     
+    TextureBaseChunk::activateTexture(pEnv->getWindow(), 0);
     glMatrixMode(GL_TEXTURE);
     glPopMatrix();
 

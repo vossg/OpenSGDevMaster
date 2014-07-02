@@ -40,6 +40,10 @@ void dumpGLError(GLenum glError, const GLubyte *glErrorString)
             fprintf(stderr, "    ProjectionStack %d %d\n", 
                     iProjMatInfo[0],
                     iProjMatInfo[1]);
+
+            fprintf(stderr, "    TextureStack %d %d\n", 
+                    iTexMatInfo[0],
+                    iTexMatInfo[1]);
         }
     };
 #endif
