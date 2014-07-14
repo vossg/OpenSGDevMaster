@@ -129,7 +129,11 @@ OSG_BEGIN_NAMESPACE
     The dlist id for the attribute-based rendering mode, if used.
 */
 
-/*! \var Int32           GeometryBase::_sfVaoGLId
+/*! \var Int32           GeometryBase::_sfClassicVaoGLId
+    The vao gl id for the attribute-based rendering mode, if used.
+*/
+
+/*! \var Int32           GeometryBase::_sfAttribVaoGLId
     The vao gl id for the attribute-based rendering mode, if used.
 */
 
@@ -311,13 +315,25 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
-        "vaoGLId",
+        "classicVaoGLId",
         "The vao gl id for the attribute-based rendering mode, if used.\n",
-        VaoGLIdFieldId, VaoGLIdFieldMask,
+        ClassicVaoGLIdFieldId, ClassicVaoGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&Geometry::editHandleVaoGLId),
-        static_cast<FieldGetMethodSig >(&Geometry::getHandleVaoGLId));
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleClassicVaoGLId),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleClassicVaoGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "attribVaoGLId",
+        "The vao gl id for the attribute-based rendering mode, if used.\n",
+        AttribVaoGLIdFieldId, AttribVaoGLIdFieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&Geometry::editHandleAttribVaoGLId),
+        static_cast<FieldGetMethodSig >(&Geometry::getHandleAttribVaoGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -466,7 +482,18 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\tThe dlist id for the attribute-based rendering mode, if used.\n"
     "    </Field>\n"
     "    <Field\n"
-    "        name=\"vaoGLId\"\n"
+    "        name=\"classicVaoGLId\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"protected\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "\tThe vao gl id for the attribute-based rendering mode, if used.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"attribVaoGLId\"\n"
     "        type=\"Int32\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
@@ -668,16 +695,29 @@ const SFInt32 *GeometryBase::getSFAttGLId(void) const
 }
 
 
-SFInt32 *GeometryBase::editSFVaoGLId(void)
+SFInt32 *GeometryBase::editSFClassicVaoGLId(void)
 {
-    editSField(VaoGLIdFieldMask);
+    editSField(ClassicVaoGLIdFieldMask);
 
-    return &_sfVaoGLId;
+    return &_sfClassicVaoGLId;
 }
 
-const SFInt32 *GeometryBase::getSFVaoGLId(void) const
+const SFInt32 *GeometryBase::getSFClassicVaoGLId(void) const
 {
-    return &_sfVaoGLId;
+    return &_sfClassicVaoGLId;
+}
+
+
+SFInt32 *GeometryBase::editSFAttribVaoGLId(void)
+{
+    editSField(AttribVaoGLIdFieldMask);
+
+    return &_sfAttribVaoGLId;
+}
+
+const SFInt32 *GeometryBase::getSFAttribVaoGLId(void) const
+{
+    return &_sfAttribVaoGLId;
 }
 
 
@@ -837,9 +877,13 @@ SizeT GeometryBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfAttGLId.getBinSize();
     }
-    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    if(FieldBits::NoField != (ClassicVaoGLIdFieldMask & whichField))
     {
-        returnValue += _sfVaoGLId.getBinSize();
+        returnValue += _sfClassicVaoGLId.getBinSize();
+    }
+    if(FieldBits::NoField != (AttribVaoGLIdFieldMask & whichField))
+    {
+        returnValue += _sfAttribVaoGLId.getBinSize();
     }
 
     return returnValue;
@@ -890,9 +934,13 @@ void GeometryBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfAttGLId.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    if(FieldBits::NoField != (ClassicVaoGLIdFieldMask & whichField))
     {
-        _sfVaoGLId.copyToBin(pMem);
+        _sfClassicVaoGLId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (AttribVaoGLIdFieldMask & whichField))
+    {
+        _sfAttribVaoGLId.copyToBin(pMem);
     }
 }
 
@@ -951,10 +999,15 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(AttGLIdFieldMask);
         _sfAttGLId.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
+    if(FieldBits::NoField != (ClassicVaoGLIdFieldMask & whichField))
     {
-        editSField(VaoGLIdFieldMask);
-        _sfVaoGLId.copyFromBin(pMem);
+        editSField(ClassicVaoGLIdFieldMask);
+        _sfClassicVaoGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AttribVaoGLIdFieldMask & whichField))
+    {
+        editSField(AttribVaoGLIdFieldMask);
+        _sfAttribVaoGLId.copyFromBin(pMem);
     }
 }
 
@@ -1099,7 +1152,8 @@ GeometryBase::GeometryBase(void) :
     _sfUseAttribCalls         (bool(false)),
     _sfClassicGLId            (Int32(0)),
     _sfAttGLId                (Int32(0)),
-    _sfVaoGLId                (Int32(0))
+    _sfClassicVaoGLId         (Int32(0)),
+    _sfAttribVaoGLId          (Int32(0))
 {
 }
 
@@ -1123,7 +1177,8 @@ GeometryBase::GeometryBase(const GeometryBase &source) :
     _sfUseAttribCalls         (source._sfUseAttribCalls         ),
     _sfClassicGLId            (source._sfClassicGLId            ),
     _sfAttGLId                (source._sfAttGLId                ),
-    _sfVaoGLId                (source._sfVaoGLId                )
+    _sfClassicVaoGLId         (source._sfClassicVaoGLId         ),
+    _sfAttribVaoGLId          (source._sfAttribVaoGLId          )
 {
 }
 
@@ -1595,27 +1650,52 @@ EditFieldHandlePtr GeometryBase::editHandleAttGLId        (void)
     return returnValue;
 }
 
-GetFieldHandlePtr GeometryBase::getHandleVaoGLId         (void) const
+GetFieldHandlePtr GeometryBase::getHandleClassicVaoGLId  (void) const
 {
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
-             &_sfVaoGLId,
-             this->getType().getFieldDesc(VaoGLIdFieldId),
+             &_sfClassicVaoGLId,
+             this->getType().getFieldDesc(ClassicVaoGLIdFieldId),
              const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr GeometryBase::editHandleVaoGLId        (void)
+EditFieldHandlePtr GeometryBase::editHandleClassicVaoGLId (void)
 {
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
-             &_sfVaoGLId,
-             this->getType().getFieldDesc(VaoGLIdFieldId),
+             &_sfClassicVaoGLId,
+             this->getType().getFieldDesc(ClassicVaoGLIdFieldId),
              this));
 
 
-    editSField(VaoGLIdFieldMask);
+    editSField(ClassicVaoGLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GeometryBase::getHandleAttribVaoGLId   (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfAttribVaoGLId,
+             this->getType().getFieldDesc(AttribVaoGLIdFieldId),
+             const_cast<GeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeometryBase::editHandleAttribVaoGLId  (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfAttribVaoGLId,
+             this->getType().getFieldDesc(AttribVaoGLIdFieldId),
+             this));
+
+
+    editSField(AttribVaoGLIdFieldMask);
 
     return returnValue;
 }

@@ -130,7 +130,18 @@
 	The dlist id for the attribute-based rendering mode, if used.
     </Field>
     <Field
-        name="vaoGLId"
+        name="classicVaoGLId"
+        type="Int32"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="0"
+        access="protected"
+        fieldFlags="FClusterLocal"
+        >
+	The vao gl id for the attribute-based rendering mode, if used.
+    </Field>
+    <Field
+        name="attribVaoGLId"
         type="Int32"
         cardinality="single"
         visibility="internal"

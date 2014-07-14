@@ -23,7 +23,13 @@ void Geometry::onCreate(const Geometry *source)
                         _1, _2, _3, _4),
             &Geometry::handleAttDestroyGL));
 
-    setVaoGLId(               
+    setClassicVaoGLId(               
+        Window::registerGLObject(
+            boost::bind(&Geometry::handleVAOGL,
+                        GeometryMTUncountedPtr(this), 
+                        _1, _2, _3, _4),
+            &Geometry::handleVAODestroyGL));
+    setAttribVaoGLId(               
         Window::registerGLObject(
             boost::bind(&Geometry::handleVAOGL,
                         GeometryMTUncountedPtr(this), 
@@ -41,8 +47,11 @@ void Geometry::onDestroy(UInt32 uiContainerId)
     if(getAttGLId() > 0)
         Window::destroyGLObject(getAttGLId(), 1);
 
-    if(getVaoGLId() > 0)
-        Window::destroyGLObject(getVaoGLId(), 1);
+    if(getClassicVaoGLId() > 0)
+        Window::destroyGLObject(getClassicVaoGLId(), 1);
+
+    if(getAttribVaoGLId() > 0)
+        Window::destroyGLObject(getAttribVaoGLId(), 1);
 
     Inherited::onDestroy(uiContainerId);
 }
@@ -131,11 +140,14 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
         }
         else
         {
-            Int32 vaoGlid = getVaoGLId();
+            Int32 vaoGlid = 
+                (glOptions.value & 
+                 GeoPumpGroup::UsesShader) ? getAttribVaoGLId () : 
+                                             getClassicVaoGLId();
 
             pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
-            UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
+            UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid) & ValidVAO;
 
             if(uiValidVAO != 0)
             {
@@ -285,11 +297,14 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
         }
         else
         {
-            Int32 vaoGlid = getVaoGLId();
+            Int32 vaoGlid = 
+                (glOptions.value & 
+                 GeoPumpGroup::UsesShader) ? getAttribVaoGLId () : 
+                                             getClassicVaoGLId();
 
             pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
-            UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
+            UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid) & ValidVAO;
 
             if(uiValidVAO != 0)
             {
@@ -408,7 +423,11 @@ UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv,
                                      getLengths(),      getTypes(),
                                      getMFProperties(), getMFPropIndices());
 
-            pWin->setGLObjectInfo(id, UInt32(rc));
+            UInt32 uiObjInfo = rc ? ValidVAO : 0x00;
+            
+            uiObjInfo |= (prop & GeoPumpGroup::UsesShader);
+
+            pWin->setGLObjectInfo(id, uiObjInfo);
 
             osgGlBindVertexArray(0);
         }
@@ -647,13 +666,26 @@ void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
     }
     else
     {
-        Int32 vaoGlid = getVaoGLId();
+        Int32 vaoGlid = 
+                (glOptions.value & 
+                 GeoPumpGroup::UsesShader) ? getAttribVaoGLId () : 
+                                             getClassicVaoGLId();
         
         pWin->validateGLObject(vaoGlid, pEnv, glOptions.value);
         
-        UInt32 uiValidVAO = pWin->getGLObjectInfo(vaoGlid);
+        UInt32 uiVAOInfo = pWin->getGLObjectInfo(vaoGlid);
 
-        if(uiValidVAO != 0)
+#ifdef OSG_DEBUG
+        if((prop      & GeoPumpGroup::UsesShader) != 
+           (uiVAOInfo & GeoPumpGroup::UsesShader)   )
+        {
+            fprintf(stderr, "vao shader settings not equal : %04x | %04x\n",
+                    (prop      & GeoPumpGroup::UsesShader),
+                    (uiVAOInfo & GeoPumpGroup::UsesShader));
+        }
+#endif
+
+        if((uiVAOInfo & ValidVAO) != 0)
         {
             GeoPumpGroup::SplitGeoPump pump = 
                 GeoPumpGroup::findSplitGeoPump(pEnv,
@@ -789,7 +821,8 @@ void Geometry::changed(ConstFieldMaskArg whichField,
 
         if(this->getUseVAO() == true)
         {
-            Window::refreshGLObject(getVaoGLId    ());
+            Window::refreshGLObject(getClassicVaoGLId());
+            Window::refreshGLObject(getAttribVaoGLId ());
         }
     }
 

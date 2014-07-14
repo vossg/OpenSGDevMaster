@@ -224,30 +224,55 @@ void GeometryBase::setAttGLId(const Int32 value)
 
     _sfAttGLId.setValue(value);
 }
-//! Get the value of the Geometry::_sfVaoGLId field.
+//! Get the value of the Geometry::_sfClassicVaoGLId field.
 
 inline
-Int32 &GeometryBase::editVaoGLId(void)
+Int32 &GeometryBase::editClassicVaoGLId(void)
 {
-    editSField(VaoGLIdFieldMask);
+    editSField(ClassicVaoGLIdFieldMask);
 
-    return _sfVaoGLId.getValue();
+    return _sfClassicVaoGLId.getValue();
 }
 
-//! Get the value of the Geometry::_sfVaoGLId field.
+//! Get the value of the Geometry::_sfClassicVaoGLId field.
 inline
-      Int32  GeometryBase::getVaoGLId(void) const
+      Int32  GeometryBase::getClassicVaoGLId(void) const
 {
-    return _sfVaoGLId.getValue();
+    return _sfClassicVaoGLId.getValue();
 }
 
-//! Set the value of the Geometry::_sfVaoGLId field.
+//! Set the value of the Geometry::_sfClassicVaoGLId field.
 inline
-void GeometryBase::setVaoGLId(const Int32 value)
+void GeometryBase::setClassicVaoGLId(const Int32 value)
 {
-    editSField(VaoGLIdFieldMask);
+    editSField(ClassicVaoGLIdFieldMask);
 
-    _sfVaoGLId.setValue(value);
+    _sfClassicVaoGLId.setValue(value);
+}
+//! Get the value of the Geometry::_sfAttribVaoGLId field.
+
+inline
+Int32 &GeometryBase::editAttribVaoGLId(void)
+{
+    editSField(AttribVaoGLIdFieldMask);
+
+    return _sfAttribVaoGLId.getValue();
+}
+
+//! Get the value of the Geometry::_sfAttribVaoGLId field.
+inline
+      Int32  GeometryBase::getAttribVaoGLId(void) const
+{
+    return _sfAttribVaoGLId.getValue();
+}
+
+//! Set the value of the Geometry::_sfAttribVaoGLId field.
+inline
+void GeometryBase::setAttribVaoGLId(const Int32 value)
+{
+    editSField(AttribVaoGLIdFieldMask);
+
+    _sfAttribVaoGLId.setValue(value);
 }
 
 
@@ -299,8 +324,11 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
     if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
         _sfAttGLId.syncWith(pFrom->_sfAttGLId);
 
-    if(FieldBits::NoField != (VaoGLIdFieldMask & whichField))
-        _sfVaoGLId.syncWith(pFrom->_sfVaoGLId);
+    if(FieldBits::NoField != (ClassicVaoGLIdFieldMask & whichField))
+        _sfClassicVaoGLId.syncWith(pFrom->_sfClassicVaoGLId);
+
+    if(FieldBits::NoField != (AttribVaoGLIdFieldMask & whichField))
+        _sfAttribVaoGLId.syncWith(pFrom->_sfAttribVaoGLId);
 }
 #endif
 

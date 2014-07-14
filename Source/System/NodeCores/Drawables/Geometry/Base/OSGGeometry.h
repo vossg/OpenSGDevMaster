@@ -349,6 +349,11 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
         };
     };
 
+    enum
+    {
+        ValidVAO = 0x00000001L 
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
