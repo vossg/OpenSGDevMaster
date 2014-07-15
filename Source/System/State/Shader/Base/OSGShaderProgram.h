@@ -93,6 +93,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getFuncIdAttachShader             (void);
     static UInt32 getFuncIdGetShaderiv              (void);
     static UInt32 getFuncIdGetShaderInfoLog         (void);
+    static UInt32 getFuncIdGetActiveAttrib          (void);
 
     static UInt32 getFuncIdCreateProgram            (void);
     static UInt32 getFuncIdDeleteProgram            (void);
@@ -335,6 +336,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  FuncIdAttachShader;
     static       UInt32  FuncIdGetShaderiv;
     static       UInt32  FuncIdGetShaderInfoLog;
+    static       UInt32  FuncIdGetActiveAttrib;
 
     static       UInt32  FuncIdCreateProgram;
     static       UInt32  FuncIdDeleteProgram;

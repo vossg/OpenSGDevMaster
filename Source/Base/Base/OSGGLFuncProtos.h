@@ -87,18 +87,26 @@ typedef void     (OSG_APIENTRY *
                                                              GLsizei *, 
                                                              GLchar  * );
 
-typedef GLuint (OSG_APIENTRY * osgGlCreateProgramProc)(      void      );
-typedef void   (OSG_APIENTRY * osgGlDeleteProgramProc)(      GLuint    );
-typedef void   (OSG_APIENTRY * osgGlLinkProgramProc  )(      GLuint    );
-typedef void   (OSG_APIENTRY * osgGlGetProgramivProc )(      GLuint, 
+typedef GLuint (OSG_APIENTRY * osgGlCreateProgramProc  )(    void      );
+typedef void   (OSG_APIENTRY * osgGlDeleteProgramProc  )(    GLuint    );
+typedef void   (OSG_APIENTRY * osgGlLinkProgramProc    )(    GLuint    );
+typedef void   (OSG_APIENTRY * osgGlGetProgramivProc   )(    GLuint, 
                                                              GLenum, 
                                                              GLint   * );
 typedef void   (OSG_APIENTRY * 
-                           osgGlGetProgramInfoLogProc)(      GLuint, 
+                           osgGlGetProgramInfoLogProc  )(    GLuint, 
                                                              GLsizei, 
                                                              GLsizei *, 
                                                              GLchar  *);
-typedef void   (OSG_APIENTRY * osgGlUseProgramProc   )(      GLuint   );
+typedef void   (OSG_APIENTRY * osgGlUseProgramProc     )(    GLuint   );
+
+typedef void   (OSG_APIENTRY * osgGlGetActiveAttribProc)(    GLuint, 
+                                                             GLuint, 
+                                                             GLsizei, 
+                                                             GLsizei *, 
+                                                             GLint   *, 
+                                                             GLenum  *, 
+                                                             GLchar  *);
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/

@@ -75,7 +75,7 @@ UInt32 ShaderProgram::FuncIdCompileShader           = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdAttachShader            = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdGetShaderiv             = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdGetShaderInfoLog        = Window::invalidFunctionID;
-
+UInt32 ShaderProgram::FuncIdGetActiveAttrib         = Window::invalidFunctionID;
 
 UInt32 ShaderProgram::FuncIdCreateProgram           = Window::invalidFunctionID;
 UInt32 ShaderProgram::FuncIdDeleteProgram           = Window::invalidFunctionID;
@@ -216,6 +216,11 @@ void ShaderProgram::initMethod(InitPhase ePhase)
         FuncIdGetShaderInfoLog =
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glGetShaderInfoLog",
+                _extSHL);
+
+        FuncIdGetActiveAttrib =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGetActiveAttrib",
                 _extSHL);
 
 

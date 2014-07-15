@@ -396,6 +396,59 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
 
             osgGlGetProgramiv(uiProgram, GL_LINK_STATUS, &iStatus);
 
+            GLint iNumAttribs      = 0;
+            GLint iMaxAttribLength = 0;
+
+            osgGlGetProgramiv(uiProgram, GL_ACTIVE_ATTRIBUTES, &iNumAttribs);
+
+            osgGlGetProgramiv( uiProgram, 
+                               GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, 
+                              &iMaxAttribLength);
+
+            if(iMaxAttribLength > 0)
+            {
+                Char8   *szAttribBuffer = NULL;
+                GLsizei  iNameLength;
+                GLint    iSizeTmp;
+                GLenum   eTypeTmp;
+
+                szAttribBuffer = new Char8[iMaxAttribLength];
+                szAttribBuffer[0] = '\0';
+
+                OSGGETGLFUNCBYID_GL3_ES(
+                    glGetActiveAttrib,
+                    osgGlGetActiveAttrib,
+                    ShaderProgram::getFuncIdGetActiveAttrib(),
+                    pWin);
+
+                for(GLint i = 0; i < iNumAttribs; ++i)
+                {
+                    osgGlGetActiveAttrib( uiProgram,
+                                          i, 
+                                          iMaxAttribLength, 
+                                         &iNameLength, 
+                                         &iSizeTmp,
+                                         &eTypeTmp,
+                                          szAttribBuffer);
+
+                    if(iNameLength != 0)
+                    {
+                        if(iNameLength       < 3    ||
+                           szAttribBuffer[0] != 'g' ||
+                           szAttribBuffer[1] != 'l' ||
+                           szAttribBuffer[2] != '_'  )
+                        {
+                            pWin->setGLObjectInfo(getGLId(), UsesAttribs);
+
+                            break;
+                        }  
+                        
+                    }
+                }
+
+                delete [] szAttribBuffer;
+            }
+
             if(iStatus == 0)
             {
                 if(szInfoBuffer != NULL && szInfoBuffer[0] != '\0')
@@ -712,11 +765,12 @@ void ShaderExecutableChunk::activate(DrawEnv    *pEnv,
 
         pEnv->setActiveShader(uiProgId);
         osgGlUseProgram      (uiProgId);
+    }
 
-        if(_mfAttributes.size() == 0)
-        {
-            pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
-        }
+    if(_mfAttributes.size()                             == 0      && 
+       (pWin->getGLObjectInfo(getGLId()) & UsesAttribs) == 0x0000   )
+    {
+        pEnv->addRequiredOGLFeature(HardwareContext::HasAttribAliasing);
     }
 
     pEnv->incNumShaderChanges();
@@ -764,12 +818,13 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
                 pEnv->setActiveShader(uiProgId);
                 osgGlUseProgram      (uiProgId);
+            }
 
-                if(_mfAttributes.size() == 0)
-                {
-                    pEnv->addRequiredOGLFeature(
-                        HardwareContext::HasAttribAliasing);
-                }
+            if(_mfAttributes.size()                             == 0     && 
+               (pWin->getGLObjectInfo(getGLId()) & UsesAttribs) == 0x0000 )
+            {
+                pEnv->addRequiredOGLFeature(
+                    HardwareContext::HasAttribAliasing);
             }
 
             if(_sfPointSize.getValue() == true)
@@ -880,7 +935,7 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
             this->editMFProceduralVariableLocations());
 
         bPointSize |= (*sIt)->getPointSize();
-        
+
         if((*sIt)->hasAttributes() == true)
         {
             _mfAttributes.reserve(_mfAttributes.size() + 
@@ -896,7 +951,6 @@ void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
     {
         this->setPointSize(bPointSize);
     }
-
 
     _mfTessControlShader.reserve(_mfTessControlShader.size() + 
                                   pChunk->getMFTessControlShader()->size());

@@ -312,6 +312,12 @@ UInt32 ShaderProgram::getFuncIdGetShaderInfoLog(void)
 }
 
 inline
+UInt32 ShaderProgram::getFuncIdGetActiveAttrib(void)
+{
+    return FuncIdGetActiveAttrib;
+}
+
+inline
 UInt32 ShaderProgram::getFuncIdCreateProgram(void)
 {
     return FuncIdCreateProgram;

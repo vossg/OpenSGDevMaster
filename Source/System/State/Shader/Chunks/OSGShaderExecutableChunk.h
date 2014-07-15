@@ -137,7 +137,9 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
 
   protected:
 
-    static UInt32 _extSHL;
+    static       UInt32 _extSHL;
+
+    static const UInt32 UsesAttribs = 0x0001;
 
     /*---------------------------------------------------------------------*/
 
