@@ -1635,12 +1635,17 @@ void OSG::Window::doFrameExit(void)
     if(!inited)
     {
         inited = true;
-        char *p = getenv(OSG_NAMESPACE_PREFIX"_DEBUG");
-        if(p)
+        char *pD = getenv(OSG_NAMESPACE_PREFIX"_DEBUG");
+        char *pN = getenv(OSG_NAMESPACE_PREFIX"_NO_GL_CHECK_ON_FRAMEEXIT");
+
+        if(pD)
             testGLErrors = true;
+
+        if(pN)
+            testGLErrors = false;
     }
  
-    if(testGLErrors)
+    if(testGLErrors && this->hasContext() == true)
     {
         GLenum glerr;
         
