@@ -276,7 +276,7 @@ GeoPumpGroup::GeoPump GeoVertexArrayPumpGroup::getGeoPump(
 {
     // Remove the stuff we can handle
     PropertyCharacteristics prop;
-    prop = acset & ~(NonTraditionalProperties|UsesShader);
+    prop = acset & GeoPumpGroup::IndexMask;
 
     if(prop == SingleIndexed || prop == NonIndexed)
     {

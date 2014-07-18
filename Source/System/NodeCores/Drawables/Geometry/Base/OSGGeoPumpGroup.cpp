@@ -61,16 +61,7 @@
 #include "OSGGeoPumpGroup.h"
 #include "OSGGeoImmediatePumpGroup.h"
 #include "OSGGeoVertexArrayPumpGroup.h"
-
-#if 0
-# ifdef OSG_NEW_GEOHANDLER
-#  undef OSG_NEW_GEOHANDLER
-# endif
-#endif
-
-#ifdef OSG_NEW_GEOHANDLER
 #include "OSGGeoSplitVertexArrayPumpGroup.h"
-#endif
 
 OSG_USING_NAMESPACE
 
@@ -107,9 +98,7 @@ bool GeoPumpGroup::initActiveGroups(void)
     _activeGroups = new std::vector<GeoPumpGroup*>;
 
     _activeGroups->push_back(new GeoVertexArrayPumpGroup);
-#ifdef OSG_NEW_GEOHANDLER
     _activeGroups->push_back(new GeoSplitVertexArrayPumpGroup);
-#endif
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     _activeGroups->push_back(new GeoImmediatePumpGroup);
 #endif
@@ -172,15 +161,22 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
     // Check for single- and multi-indexed
     GeoIntegralProperty *ind = NULL;
 
-    bool single = true;
-    bool multi  = true;
-    bool nonind = true;
+    bool single     = true;
+    bool multi      = true;
+    bool nonind     = true;
+    bool allPropVAO = true;
+    bool allIdxVAO  = true;
 
     for(Int16 i = 0; i < natt; ++i)
     {
         // Only count actual attributes
         if((*prop)[i] != NULL && (*prop)[i]->getDivisor() == 0)
         {
+            if((*prop)[i]->getUseVBO() == false)
+            {
+                allPropVAO = false;
+            }
+
             if(i < nind)
             {
                 if((*propIdx)[i] == NULL)
@@ -193,6 +189,11 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
                 }
                 else
                 {
+                    if((*propIdx)[i]->getUseVBO() == false)
+                    {
+                        allIdxVAO = false;
+                    }
+
                     nonind = false;
 
                     if(ind == NULL)
@@ -217,12 +218,25 @@ GeoPumpGroup::characterizeGeometry(const Geometry::MFPropertiesType  *prop,
     else if(multi)   
         retVal |= GeoPumpGroup::MultiIndexed;
 
+    if(allPropVAO == true)
+    {
+        retVal |= AllPropsVAO;
+    }
+
+    if(allIdxVAO == true)
+    {
+        retVal |= AllPropIdxVAO;
+    }
+
 #if 0
     // check double single + multi char
-    fprintf(stderr, "single %d | no %d | multi %d\n",
+    fprintf(stderr, 
+            "single %d | no %d | multi %d | prop vao %d | idx vao %d\n",
             UInt32(single),
             UInt32(nonind),
-            UInt32(multi));
+            UInt32(multi),
+            UInt32(allPropVAO),
+            UInt32(allIdxVAO));
 #endif
 
     // Check for non-traditional properties.

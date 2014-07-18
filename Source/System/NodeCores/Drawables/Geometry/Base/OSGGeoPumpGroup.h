@@ -72,12 +72,18 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
         NonIndexed               = 0x00000001L,    
         SingleIndexed            = 0x00000002L,    
         MultiIndexed             = 0x00000004L,
-        Indexing                 = 0x00000007L,
+        IndexMask                = 0x00000007L,
+
         NonTraditionalProperties = 0x00000008L,
         // this is actually set at render time dynamically
-        UsesShader               = 0x00000010L 
+        UsesShader               = 0x00000010L,
+
+        AllPropsVAO              = 0x00000100L,
+        AllPropIdxVAO            = 0x00000200L, 
+        AllVAOMask               = 0x00000300L
     };
     
+
     static std::string describePropertyCharacteristics(
                                         PropertyCharacteristics ac);
 
@@ -92,31 +98,42 @@ class OSG_DRAWABLE_DLLMAPPING GeoPumpGroup
     /*! \name                    Pump Types                                */
     /*! \{                                                                 */
     
-    typedef void (*GeoPump)     (      DrawEnv                     *pEnv,
-                                 const GeoIntegralProperty         *lengths,
-                                 const GeoIntegralProperty         *types,
-                                 const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx,
-                                       UInt32                       uiNumInst);
+    typedef void (*GeoPump)     (
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInst);
 
-    typedef bool (*SetupGeoPump)(      DrawEnv                     *pEnv,
-                                 const GeoIntegralProperty         *lengths,
-                                 const GeoIntegralProperty         *types,
-                                 const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx);
+    typedef bool (*SetupGeoPump)(     
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx,
+              bool                         withFallback);
 
-    typedef void (*GeoDrawPump) (      DrawEnv                     *pEnv,
-                                 const GeoIntegralProperty         *lengths,
-                                 const GeoIntegralProperty         *types,
-                                 const Geometry::MFPropertiesType  *prop,
-                                 const Geometry::MFPropIndicesType *propIdx,
-                                       UInt32                       uiNumInst);
+    typedef bool (*ShutdownGeoPump)(     
+              DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx);
+
+    typedef void (*GeoDrawPump) (     
+        DrawEnv                     *pEnv,
+        const GeoIntegralProperty         *lengths,
+        const GeoIntegralProperty         *types,
+        const Geometry::MFPropertiesType  *prop,
+        const Geometry::MFPropIndicesType *propIdx,
+              UInt32                       uiNumInst);
 
     struct SplitGeoPump
     {
-        SetupGeoPump setupPump;
-        GeoDrawPump  drawPump;
-        SetupGeoPump shutdownPump;
+        SetupGeoPump    setupPump;
+        GeoDrawPump     drawPump;
+        ShutdownGeoPump shutdownPump;
     };
 
     /*! \}                                                                 */

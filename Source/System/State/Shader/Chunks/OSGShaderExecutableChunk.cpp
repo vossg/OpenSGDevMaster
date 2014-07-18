@@ -1274,7 +1274,6 @@ void ShaderExecutableChunk::updateVariables(DrawEnv *pEnv,
 void ShaderExecutableChunk::updateAttribBindings(DrawEnv *pEnv,
                                                  UInt32   uiProgram)
 {
-#ifdef OSG_OGL_VERTEXATTRIB_FUNCS
     MFAttributesType::const_iterator aIt  = _mfAttributes.begin();
     MFAttributesType::const_iterator aEnd = _mfAttributes.end  ();
         
@@ -1289,14 +1288,6 @@ void ShaderExecutableChunk::updateAttribBindings(DrawEnv *pEnv,
     {
         osgGlBindAttribLocation(uiProgram, (*aIt).first, (*aIt).second.c_str());
     }
-#else
-    if(_mfAttributes.size() != 0)
-    {
-        FWARNING(("attributes given, but support not enabled, please"
-                  " compile with OSG_ENABLE_OGL_VERTEXT_ATTRIB_FUNCS=ON\n"));
-    }
-#endif
-
 }
 
 void ShaderExecutableChunk::updateParameters(DrawEnv *pEnv,

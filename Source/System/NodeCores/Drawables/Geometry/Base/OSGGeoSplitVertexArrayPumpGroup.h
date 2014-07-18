@@ -117,7 +117,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              bool                         withFallback);
 
     static void masterClassicGeoDrawPump (
               DrawEnv                     *pEnv,
@@ -131,7 +132,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              bool                         withFallback );
 
     static void masterClassicGeoJustDrawPump (
               DrawEnv                     *pEnv,
@@ -154,7 +156,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              bool                         withFallback);
 
     static void masterAttribGeoDrawPump (
               DrawEnv                     *pEnv,
@@ -169,7 +172,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoSplitVertexArrayPumpGroup :
         const GeoIntegralProperty         *lengths,
         const GeoIntegralProperty         *types,
         const Geometry::MFPropertiesType  *prop,
-        const Geometry::MFPropIndicesType *propIdx );
+        const Geometry::MFPropIndicesType *propIdx,
+              bool                         withFallback);
 
     static void masterAttribGeoJustDrawPump (
               DrawEnv                     *pEnv,

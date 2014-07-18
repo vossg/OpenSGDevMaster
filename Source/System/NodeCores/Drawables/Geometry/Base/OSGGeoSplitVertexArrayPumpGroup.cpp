@@ -276,7 +276,7 @@ GeoPumpGroup::SplitGeoPump GeoSplitVertexArrayPumpGroup::getSplitGeoPump(
 
     // Remove the stuff we can handle
     PropertyCharacteristics prop;
-    prop = acset & ~(NonTraditionalProperties|UsesShader);
+    prop = acset & GeoPumpGroup::IndexMask;
 
     if(prop == SingleIndexed || prop == NonIndexed)
     {
@@ -358,7 +358,8 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump(
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          bool                         withFallback)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -397,9 +398,11 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPump(
         if(bPrinted1 == false)
         {
 #endif
-        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
-                 << "No positions, or positions not in vbo." << endLog;
-
+        if(withFallback == false)
+        {
+            SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No positions, or positions not in vbo." << endLog;
+        }
 #ifdef DEBUG_WHICH_PUMP
             bPrinted1 = true;
         }
@@ -580,11 +583,12 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
 
 
 bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPumpFull(
-    DrawEnv                     *pEnv,
+          DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          bool                         withFallback)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -623,9 +627,11 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoSetupPumpFull(
         if(bPrinted1 == false)
         {
 #endif
-        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
-                 << "No positions." << endLog;
-
+        if(withFallback == false)
+        {
+            SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No positions." << endLog;
+        }
 #ifdef DEBUG_WHICH_PUMP
             bPrinted1 = true;
         }
@@ -938,11 +944,12 @@ bool GeoSplitVertexArrayPumpGroup::masterClassicGeoShutdownPump(
 
 
 bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
-    DrawEnv                     *pEnv,
+          DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          bool                         withFallback)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -981,9 +988,11 @@ bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPump(
         if(bPrinted1 == false)
         {
 #endif
-        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
-                 << "No positions." << endLog;
-
+        if(withFallback == false)
+        {
+            SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No positions." << endLog;
+        }
 #ifdef DEBUG_WHICH_PUMP
             bPrinted1 = true;
         }
@@ -1215,11 +1224,12 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
 }
 
 bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPumpFull(
-    DrawEnv                     *pEnv,
+          DrawEnv                     *pEnv,
     const GeoIntegralProperty         *lengths,
     const GeoIntegralProperty         *types,
     const Geometry::MFPropertiesType  *prop,
-    const Geometry::MFPropIndicesType *propIdx)
+    const Geometry::MFPropIndicesType *propIdx,
+          bool                         withFallback)
 {
 #ifdef DEBUG_WHICH_PUMP
     static bool bPrinted = false;
@@ -1258,9 +1268,11 @@ bool GeoSplitVertexArrayPumpGroup::masterAttribGeoSetupPumpFull(
         if(bPrinted1 == false)
         {
 #endif
-        SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
-                 << "No positions, or positions not in vbo." << endLog;
-
+        if(withFallback == false)
+        {
+            SWARNING << "GeoSplitVertexArrayPumpGroup::masterAttribGeoPump: "
+                     << "No positions, or positions not in vbo." << endLog;
+        }
 #ifdef DEBUG_WHICH_PUMP
             bPrinted1 = true;
         }

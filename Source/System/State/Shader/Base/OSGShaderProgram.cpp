@@ -182,7 +182,7 @@ void ShaderProgram::initMethod(InitPhase ePhase)
         _extUniformBufferObject = 
             Window::registerExtension("GL_ARB_uniform_buffer_object");
 
-#ifdef OSG_OGL2_SHADERFUNCS
+
         FuncIdCreateShader =
             Window::registerFunction
             (OSG_DLSYM_UNDERSCORE"glCreateShader",
@@ -253,73 +253,6 @@ void ShaderProgram::initMethod(InitPhase ePhase)
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glUseProgram",
                 _extSHL);
-#else
-        FuncIdCreateShader =
-            Window::registerFunction
-            (OSG_DLSYM_UNDERSCORE"glCreateShaderObjectARB",
-             _extSHL);
-
-        FuncIdDeleteShader =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glDeleteObjectARB",
-                _extSHL);
-        
-        FuncIdShaderSource =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glShaderSourceARB",
-                _extSHL);
-        
-        FuncIdCompileShader =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glCompileShaderARB",
-                _extSHL);
-        
-        FuncIdAttachShader =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glAttachObjectARB",
-                _extSHL);
-        
-        FuncIdGetShaderiv =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGetObjectParameterivARB",
-                _extSHL);
-        
-        FuncIdGetShaderInfoLog =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGetInfoLogARB",
-                _extSHL);
-
-
-        FuncIdCreateProgram =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glCreateProgramObjectARB",
-                _extSHL);
-
-        FuncIdDeleteProgram =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glDeleteObjectARB",
-                _extSHL);
-
-        FuncIdLinkProgram =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glLinkProgramARB",
-                _extSHL);
-
-        FuncIdGetProgramiv =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGetObjectParameterivARB",
-                _extSHL);
-
-        FuncIdGetProgramInfoLog =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glGetInfoLogARB",
-                _extSHL);
-
-        FuncIdUseProgram =
-            Window::registerFunction (
-                OSG_DLSYM_UNDERSCORE"glUseProgramObjectARB",
-                _extSHL);
-#endif
 
 
         FuncIdGetUniformLocation =
