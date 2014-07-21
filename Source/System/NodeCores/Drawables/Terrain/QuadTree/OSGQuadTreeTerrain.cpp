@@ -1672,53 +1672,53 @@ Real32 QuadTreeTerrain::getHeightAboveGround (const Pnt3f& eye)
 
 Action::ResultE QuadTreeTerrain::renderEnter (Action* action)
 {
-    RenderAction* da =
+    RenderAction* ra =
         dynamic_cast<RenderAction*>(action);
 
 
-    this->doRenderEnter(da->getFrustum(),
-                        da->getActivePartition()->getCameraToWorld(),
-                        da->getActivePartition()->topMatrix());
+    this->doRenderEnter(ra);
 
 
     return Inherited::renderEnter(action);
 }
 
-Action::ResultE QuadTreeTerrain::doRenderEnter (
-    const FrustumVolume &frustum,
-          Matrix         camera,
-          Matrix         toworld)
+Action::ResultE QuadTreeTerrain::doRenderEnter(RenderAction* ra)
 {
     if(getWidth() > 0)
-    { // dynamic tesselation
+    {   // dynamic tesselation
         // Time startTime = getSystemTime();
-        //--- create Terrain Mesh ---------------------------------------------
 
         GeoUInt32Property *len =
             dynamic_cast<GeoUInt32Property *>(getLengths());
 
         if(getUpdateTerrain() || len->size() == 0)
         {
+            RenderPartition* part      = ra->getActivePartition();
+            Matrix           matModelI = part->getModelMatrix();
+            matModelI.invert();
+
+            //--- triangulate Mesh ------------------------------------------
             if(!getEyePointValid())
             {
-//                Matrix camera  = da->getCameraToWorld();
-//                Matrix toworld = da->top_matrix();
-                //action->getActNode()->getToWorld(toworld);
-                toworld.invert();
-                camera.multLeft(toworld);
-                //--- triangulate Mesh ----------------------------------------
-                setEyePoint(Pnt3f(camera[3][0], camera[3][1], camera[3][2]));
+                // eye point is the camera origin transfomed to local (model)
+                // coordinates
+                Matrix matCam = part->getCameraToWorld();
+                matCam.multLeft(matModelI);
+                setEyePoint(Pnt3f(matCam[3][0], matCam[3][1], matCam[3][2]));
             }
 
             setEyeHeight(getHeightAboveGround(getEyePoint()));
 
-//            const FrustumVolume& frustum = da->getFrustum();
+            // transform frustum to local (model) coordinates
+            FrustumVolume frustum = part->getFrustum();
+            frustum.transform(matModelI);
 
             triangulateMeshRec(frustum,
                                getWidth()*getWidth()/2,
                                getWidth()-1,
                                1);
 
+            //--- create Terrain Mesh ---------------------------------------
             GeoUInt8Property *typ =
                 dynamic_cast<GeoUInt8Property  *>(getTypes());
 
@@ -1751,7 +1751,6 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (
             len->push_back((ind->size()));
             typ->push_back(GL_TRIANGLES);
 #endif
-
         }
         // Time endTime = getSystemTime();
 

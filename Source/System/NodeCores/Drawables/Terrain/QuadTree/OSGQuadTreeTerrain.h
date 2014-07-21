@@ -74,9 +74,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
                          UInt32            origin,
                          BitVector         detail);
 
-    Action::ResultE doRenderEnter  (const FrustumVolume &frustum,
-                                          Matrix         camera,
-                                          Matrix         toworld);
+    Action::ResultE doRenderEnter  (RenderAction* ra);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
