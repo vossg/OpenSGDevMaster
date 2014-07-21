@@ -49,7 +49,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Terrain class. See \ref 
+/*! \brief Terrain class. See \ref
            PageExperimentalTerrain for a description.
     \ingroup GrpDrawablesTerrainObj
     \ingroup GrpLibOSGDrawables
@@ -70,7 +70,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         detail);
 
@@ -83,7 +83,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -133,64 +133,64 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
 
           void    addMaterialChunks  (       void                      ) const;
           Real32  getHeightDataScaled(       UInt32         i          ) const;
-          void    getVertex          (       UInt32         i, 
+          void    getVertex          (       UInt32         i,
                                              Pnt3f         &point      ) const;
     const Pnt3f  &getVertex          (       UInt32         i          ) const;
-          Real32  getHeight          (       Int32          index, 
-                                             Int32          width, 
-                                             Int32          dirToFather, 
-                                             Int32          neswc, 
+          Real32  getHeight          (       Int32          index,
+                                             Int32          width,
+                                             Int32          dirToFather,
+                                             Int32          neswc,
                                              Real32         blend,
-                                             Real32         rhNW, 
-                                             Real32         rhNE, 
-                                             Real32         rhSW, 
+                                             Real32         rhNW,
+                                             Real32         rhNE,
+                                             Real32         rhSW,
                                              Real32         rhSE       );
-          Real32  calcSubDiv          (      Int32          nodeIndex, 
+          Real32  calcSubDiv          (      Int32          nodeIndex,
                                              Int32          width);
           Real32  calcBlend           (      Real32         subDiv     );
           Real32  getHeightAboveGround(const Pnt3f         &eye        );
           UInt32  getNumVertices      (      void                      ) const;
           void    calcD2ErrorMatrix   (      void                      );
-          void    calcD2ErrorMatrixRec(      Int32          centerX, 
-                                             Int32          centerZ, 
-                                             Int32          width, 
+          void    calcD2ErrorMatrixRec(      Int32          centerX,
+                                             Int32          centerZ,
+                                             Int32          width,
                                              Int32          level      );
-          Real32  calcD2Value         (      Int32          centerX, 
-                                             Int32          centerZ, 
+          Real32  calcD2Value         (      Int32          centerX,
+                                             Int32          centerZ,
                                              Int32          width      );
           void    propagateD2Errors   ();
 
-          void    deleteNode          (      Int32          index, 
+          void    deleteNode          (      Int32          index,
                                              Int32          width      );
-          void    triangulateMeshRec  (const FrustumVolume &frustum, 
-                                             Int32          c,  
-                                             Int32          width, 
+          void    triangulateMeshRec  (const FrustumVolume &frustum,
+                                             Int32          c,
+                                             Int32          width,
                                              Int32          level      );
-          bool    renderMeshRec       (const FrustumVolume &frustum, 
-                                             Int32          x, 
-                                             Int32          z, 
-                                             Int32          width, 
-                                             Int32          level, 
+          bool    renderMeshRec       (const FrustumVolume &frustum,
+                                             Int32          x,
+                                             Int32          z,
+                                             Int32          width,
+                                             Int32          level,
                                              Int32          dirToFather,
-                                             Real32         rhNW, 
-                                             Real32         rhNE, 
-                                             Real32         rhSW, 
+                                             Real32         rhNW,
+                                             Real32         rhNE,
+                                             Real32         rhSW,
                                              Real32         rhSE       );
-          void    createFanAround     (      Int32          x, 
-                                             Int32          z, 
-                                             Int32          width, 
-                                             bool          *corners, 
+          void    createFanAround     (      Int32          x,
+                                             Int32          z,
+                                             Int32          width,
+                                             bool          *corners,
                                              bool           isLeaf,
-                                             Real32         hC,  
-                                             Real32         hN,  
-                                             Real32         hS,  
-                                             Real32         hW,  
+                                             Real32         hC,
+                                             Real32         hN,
+                                             Real32         hS,
+                                             Real32         hW,
                                              Real32         hE,
-                                             Real32         hNW, 
-                                             Real32         hNE, 
-                                             Real32         hSW, 
+                                             Real32         hNW,
+                                             Real32         hNE,
+                                             Real32         hSW,
                                              Real32         hSE);
-          void    setInterleaved      (      Int32          index, 
+          void    setInterleaved      (      Int32          index,
                                              Real32         height     );
 
 
@@ -207,7 +207,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~QuadTreeTerrain(void); 
+    virtual ~QuadTreeTerrain(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
