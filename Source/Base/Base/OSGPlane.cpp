@@ -359,36 +359,19 @@ int Plane::clip(Pnt3f *polyIn, Pnt3f *polyOut, int count) const
 
 void Plane::transform(const Matrix &matrix)
 {
+    // point in plane
+    Pnt3f o(_normalVec[0] * _distance,
+            _normalVec[1] * _distance,
+            _normalVec[2] * _distance );
+
+    matrix.multFull(o, o);
+
+    // This should use the inverse, transpose of matrix in order to work with
+    // arbitrary matrices - as is matrix needs to be orthogonal
     matrix.mult(_normalVec, _normalVec);
 
     _normalVec.normalize();
-
-    Vec3f trans;
-
-    trans[0] = matrix[3][0];
-    trans[1] = matrix[3][1];
-    trans[2] = matrix[3][2];
-
-    trans.projectTo(_normalVec);
-
-    UInt32 uiValNorm  = getMaxIndexAbs3(_normalVec);
-    UInt32 uiValPoint = getMaxIndexAbs3( trans);
-
-    if(trans[uiValPoint] >  TypeTraits<Real32>::getDefaultEps() ||
-       trans[uiValPoint] < -TypeTraits<Real32>::getDefaultEps()   )
-    {
-        if((_normalVec[uiValNorm ] < 0.f &&
-             trans    [uiValPoint] < 0.f ) ||
-           (_normalVec[uiValNorm ] > 0.f &&
-             trans    [uiValPoint] > 0.f ))
-        {
-            _distance -= trans.length();
-        }
-        else
-        {
-            _distance += trans.length();
-        }
-    }
+    _distance = _normalVec.dot(o);
 
     updateDirectionIndex();
 }
