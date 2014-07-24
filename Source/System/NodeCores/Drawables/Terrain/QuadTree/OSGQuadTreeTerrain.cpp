@@ -292,45 +292,44 @@ static std::string _fp_program =
 
 SimpleSHLChunkTransitPtr QuadTreeTerrain::createSHLChunk () const
 {
-   SimpleSHLChunkTransitPtr shl = SimpleSHLChunk::create();
+    SimpleSHLChunkTransitPtr shl = SimpleSHLChunk::create();
 
-   shl->setVertexProgram  (_vp_program);
-   shl->setFragmentProgram(_fp_program);
+    shl->setVertexProgram  (_vp_program);
+    shl->setFragmentProgram(_fp_program);
 
     return shl;
 }
 
 void QuadTreeTerrain::addMaterialChunks(void) const
 {
-#if 1
 #ifndef WITH_SINGLE_SHLCHUNK
 
-   SimpleSHLVariableChunkUnrecPtr shlp = SimpleSHLVariableChunk::create();
+    SimpleSHLVariableChunkUnrecPtr shlp = SimpleSHLVariableChunk::create();
 
-//   shlp->setSHLChunk(_shlChunk);
-   shlp->addUniformVariable("texSampler",  0);
-   shlp->addUniformVariable("nmapSampler", 1);
-   // the following spares a second set of texture coordinates
-   shlp->addUniformVariable("offsetS",    -getOriginTexX()/getTexSpacing());
-   shlp->addUniformVariable("scaleS",     1.0f/getTexSpacing());
+    //   shlp->setSHLChunk(_shlChunk);
+    shlp->addUniformVariable("texSampler",  0);
+    shlp->addUniformVariable("nmapSampler", 1);
+    // the following spares a second set of texture coordinates
+    shlp->addUniformVariable("offsetS",    -getOriginTexX()/getTexSpacing());
+    shlp->addUniformVariable("scaleS",     1.0f/getTexSpacing());
 
-   if(getTexYSpacing() != 1.0f)
-   {
+    if(getTexYSpacing() != 1.0f)
+    {
        shlp->addUniformVariable("offsetT", -getOriginTexY()/getTexYSpacing());
        shlp->addUniformVariable("scaleT",   1.0f/getTexYSpacing());
-   }
-   else
-   {
+    }
+    else
+    {
        shlp->addUniformVariable("offsetT", -getOriginTexY()/getTexSpacing());
        shlp->addUniformVariable("scaleT",   1.0f/getTexSpacing());
-   }
+    }
 
-   shlp->addUniformVariable("diffuseFactor",    1.0f);
-   shlp->addUniformVariable("specularFactor",   0.2f);
-   shlp->addUniformVariable("specularExponent", 6.0f);
-   shlp->addUniformVariable("basecolor",        Vec3f(1.0, 1.0, 1.0));
+    shlp->addUniformVariable("diffuseFactor",    1.0f);
+    shlp->addUniformVariable("specularFactor",   0.2f);
+    shlp->addUniformVariable("specularExponent", 6.0f);
+    shlp->addUniformVariable("basecolor",        Vec3f(1.0, 1.0, 1.0));
 
-#else
+#else // WITH_SINGLE_SHLCHUNK
 
    SHLChunkUnrecPtr shl = SHLChunk::create();
 
@@ -359,12 +358,7 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    shl->setUniformParameter("specularExponent", 6.0f);
    shl->setUniformParameter("basecolor",        Vec3f(1.0, 1.0, 1.0));
 
-#endif
-
-#else
-   VertexProgramChunkUnrecPtr   vp = createVPChunk();
-   FragmentProgramChunkUnrecPtr fp = createFPChunk();
-#endif
+#endif // WITH_SINGLE_SHLCHUNK
 
    ImageUnrecPtr           normal_map_img = createNormalMap();
    TextureObjChunkUnrecPtr tex_normal_map = TextureObjChunk::create();
@@ -377,8 +371,6 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    //tex_normal_map->setEnvMode(GL_MODULATE);
 
    ChunkMaterial *mat = dynamic_cast<ChunkMaterial *>(getMaterial());
-
-#if 1
 
 #ifndef WITH_SINGLE_SHLCHUNK
    StateChunk *oldSHL  = mat->find(SimpleSHLChunk::getClassType());
@@ -396,7 +388,9 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    }
 
    mat->addChunk(shlp);
-#else
+
+#else // WITH_SINGLE_SHLCHUNK
+
    StateChunk *oldSHL  = mat->find(SHLChunk::getClassType());
 
    if(oldSHL != NULL)
@@ -405,26 +399,8 @@ void QuadTreeTerrain::addMaterialChunks(void) const
    }
 
    mat->addChunk(shl);
-#endif
 
-#else
-   StateChunk *oldVP  = mat->find(VertexProgramChunk::getClassType());
-
-   if(oldVP != NULL)
-   {
-       mat->subChunk(oldVP);
-   }
-
-   mat->addChunk(vp);
-
-   StateChunk *oldFP  = mat->find(FragmentProgramChunk::getClassType());
-   if(oldFP != NULL)
-   {
-       mat->subChunk(oldFP);
-   }
-
-   mat->addChunk(fp);
-#endif
+#endif // WITH_SINGLE_SHLCHUNK
 
    StateChunk *oldTEX  = mat->find(TextureObjChunk::getClassType(), 1);
 
