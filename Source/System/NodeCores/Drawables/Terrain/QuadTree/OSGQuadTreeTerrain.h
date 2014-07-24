@@ -119,8 +119,6 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    VertexProgramChunkTransitPtr   createVPChunk  (void) const;
-    FragmentProgramChunkTransitPtr createFPChunk  (void) const;
     SimpleSHLChunkTransitPtr       createSHLChunk (void) const;
     ImageTransitPtr                createNormalMap(void) const;
 
