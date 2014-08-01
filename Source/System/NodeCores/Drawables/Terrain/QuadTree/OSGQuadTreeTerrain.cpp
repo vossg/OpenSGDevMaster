@@ -226,17 +226,23 @@ static std::string _vp_program =
 "    vec3 t = normalize(gl_NormalMatrix * planetangent);\n"
 "    vec3 b = cross(n, t);\n"
 
-"    // Transform light position into surface local coordinates\n"
-"    vec3 LightPosition = gl_LightSource[0].position.xyz;\n"
+"    // eye space vertex position\n"
+"    vec3 pos = (gl_ModelViewMatrix * gl_Vertex).xyz;\n"
+
+"    // Transform light direction into surface local coordinates\n"
+"    vec3 LightDirection = gl_LightSource[0].position.xyz;\n"
+
+"    // handle point lights\n"
+"    if(gl_LightSource[0].position.w != 0.0)\n"
+"        LightDirection -= pos;\n"
 
 "    vec3 v;\n"
-"    v.x = dot(LightPosition, t);\n"
-"    v.y = dot(LightPosition, b);\n"
-"    v.z = dot(LightPosition, n);\n"
+"    v.x = dot(LightDirection, t);\n"
+"    v.y = dot(LightDirection, b);\n"
+"    v.z = dot(LightDirection, n);\n"
 
 "    lightDir = normalize(v);\n"
 
-"    vec3 pos = vec3 (gl_ModelViewMatrix * gl_Vertex);\n"
 "    v.x = dot(pos, t);\n"
 "    v.y = dot(pos, b);\n"
 "    v.z = dot(pos, n);\n"
@@ -284,7 +290,9 @@ static std::string _fp_program =
 "    intensity += min (spec, 1.0);\n"
 "    // mix texture color and lighting color\n"
 "    texcolor = vec3(texture2D(texSampler, vec2 (gl_TexCoord[0])));\n"
-"    color = clamp(texcolor * basecolor * intensity, 0.0, 1.0);\n"
+"    color = clamp(\n"
+"        gl_LightSource[0].diffuse.rgb * texcolor * basecolor * intensity,\n"
+"        0.0, 1.0);\n"
 "    // Write out final fragment color\n"
 "    gl_FragColor = vec4 (color, 1.0);\n"
 "\n"
