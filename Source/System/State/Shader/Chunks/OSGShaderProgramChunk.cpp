@@ -174,7 +174,7 @@ void ShaderProgramChunk::addShader(ShaderProgram * const value)
             break;
 
         case GL_TESS_EVALUATION_SHADER:
-            this->addTessControlShader(value);
+            this->addTessEvaluationShader(value);
             break;
 
         case GL_GEOMETRY_SHADER_EXT:
