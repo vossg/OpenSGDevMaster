@@ -539,7 +539,6 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
         GeoIntegralProperty *index       = (*propIdx)[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
             index->getDimension();
@@ -556,12 +555,15 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
             if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawElements(types->getValue<UInt16>(primindex),
-                           curlen,
-                           indexFormat,
-                           indexData + vertindex * indexStride);
+            if(curlen > 0)
+            {
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
 
-            vertindex += curlen;
+                vertindex += curlen;
+            }
         }
 
         index->deactivate(pEnv, 0);
@@ -574,9 +576,12 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoDrawPump(
             if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
+            if(curlen > 0)
+            {
+                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                             curlen);
+                vertindex += curlen;
+            }
         }
     }
 }
@@ -772,7 +777,6 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
         GeoIntegralProperty *index       = (*propIdx)[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
             index->getDimension();
@@ -799,15 +803,18 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                osgGlDrawElementsInstanced(
-                    types->getValue<UInt16>(primindex),
-                    curlen,
-                    indexFormat,
-                    indexData + vertindex * indexStride,
-                    uiNumInstances                     );
-                
-                vertindex += curlen;
+
+                if(curlen > 0)
+                {
+                    osgGlDrawElementsInstanced(
+                        types->getValue<UInt16>(primindex),
+                        curlen,
+                        indexFormat,
+                        indexData + vertindex * indexStride,
+                        uiNumInstances                     );
+
+                    vertindex += curlen;
+                }
             }
         }
         else
@@ -816,13 +823,16 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                glDrawElements(types->getValue<UInt16>(primindex),
-                               curlen,
-                               indexFormat,
-                               indexData + vertindex * indexStride);
-                
-                vertindex += curlen;
+
+                if(curlen > 0)
+                {
+                    glDrawElements(types->getValue<UInt16>(primindex),
+                                   curlen,
+                                   indexFormat,
+                                   indexData + vertindex * indexStride);
+
+                    vertindex += curlen;
+                }
             }
         }
 
@@ -843,14 +853,17 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                osgGlDrawArraysInstanced(
-                    types->getValue<UInt16>(primindex), 
-                    vertindex,
-                    curlen,
-                    uiNumInstances);
 
-                vertindex += curlen;
+                if(curlen > 0)
+                {
+                    osgGlDrawArraysInstanced(
+                        types->getValue<UInt16>(primindex), 
+                        vertindex,
+                        curlen,
+                        uiNumInstances);
+
+                    vertindex += curlen;
+                }
             }
         }
         else
@@ -860,10 +873,13 @@ void GeoSplitVertexArrayPumpGroup::masterClassicGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                             curlen);
-                vertindex += curlen;
+
+                if(curlen > 0)
+                {
+                    glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                                 curlen);
+                    vertindex += curlen;
+                }
             }
         }
     }
@@ -1181,7 +1197,6 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
         GeoIntegralProperty *index       = (*propIdx)[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
             index->getDimension();
@@ -1198,12 +1213,15 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
             if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawElements(types->getValue<UInt16>(primindex),
-                           curlen,
-                           indexFormat,
-                           indexData + vertindex * indexStride);
+            if(curlen > 0)
+            {
+                glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
 
-            vertindex += curlen;
+                vertindex += curlen;
+            }
         }
 
         index->deactivate(pEnv, 0);
@@ -1216,9 +1234,12 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoDrawPump(
             if(primindex < lengths->size())
                 curlen = lengths->getValue<UInt32>(primindex);
 
-            glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                         curlen);
-            vertindex += curlen;
+            if(curlen > 0)
+            {
+                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                             curlen);
+                vertindex += curlen;
+            }
         }
     }
 }
@@ -1466,7 +1487,6 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
         GeoIntegralProperty *index       = (*propIdx)[0];
         const UInt8         *indexData   = index->getData();
         GLenum               indexFormat = index->getFormat();
-//        UInt32               indexSize   = index->getSize();
         UInt32               indexStride =
             index->getStride() ? index->getStride() : index->getFormatSize() *
                                                       index->getDimension();
@@ -1493,15 +1513,18 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                osgGlDrawElementsInstanced(
-                    types->getValue<UInt16>(primindex),
-                    curlen,
-                    indexFormat,
-                    indexData + vertindex * indexStride,
-                    uiNumInstances                     );
 
-                vertindex += curlen;
+                if(curlen > 0)
+                {
+                    osgGlDrawElementsInstanced(
+                        types->getValue<UInt16>(primindex),
+                        curlen,
+                        indexFormat,
+                        indexData + vertindex * indexStride,
+                        uiNumInstances                     );
+
+                    vertindex += curlen;
+                }
             }
         }
         else
@@ -1510,13 +1533,16 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                glDrawElements(types->getValue<UInt16>(primindex),
-                           curlen,
-                           indexFormat,
-                           indexData + vertindex * indexStride);
 
-                vertindex += curlen;
+                if(curlen > 0)
+                {
+                    glDrawElements(types->getValue<UInt16>(primindex),
+                               curlen,
+                               indexFormat,
+                               indexData + vertindex * indexStride);
+
+                    vertindex += curlen;
+                }
             }
         }
 
@@ -1538,14 +1564,17 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                osgGlDrawArraysInstanced(
-                    types->getValue<UInt16>(primindex), 
-                    vertindex,
-                    curlen,
-                    uiNumInstances                    );
 
-                vertindex += curlen;
+                if(curlen > 0)
+                {
+                    osgGlDrawArraysInstanced(
+                        types->getValue<UInt16>(primindex), 
+                        vertindex,
+                        curlen,
+                        uiNumInstances                    );
+
+                    vertindex += curlen;
+                }
             }
         }
         else
@@ -1555,10 +1584,13 @@ void GeoSplitVertexArrayPumpGroup::masterAttribGeoJustDrawPump(
             {
                 if(primindex < lengths->size())
                     curlen = lengths->getValue<UInt32>(primindex);
-                
-                glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
-                             curlen);
-                vertindex += curlen;
+
+                if(curlen > 0)
+                {
+                    glDrawArrays(types->getValue<UInt16>(primindex), vertindex,
+                                 curlen);
+                    vertindex += curlen;
+                }
             }
         }
     }
