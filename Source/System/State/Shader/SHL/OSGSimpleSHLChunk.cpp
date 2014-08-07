@@ -831,6 +831,16 @@ bool SimpleSHLChunk::readGeometryProgram(const Char8 *file)
     return readProgram(editSFGeometryProgram()->getValue(), file);
 }
 
+bool SimpleSHLChunk::readTessControlProgram(const Char8* file)
+{
+    return readProgram(editSFTessControlProgram()->getValue(), file);
+}
+
+bool SimpleSHLChunk::readTessEvaluationProgram(const Char8* file)
+{
+    return readProgram(editSFTessEvaluationProgram()->getValue(), file);
+}
+
 bool SimpleSHLChunk::readVertexProgram(const Char8 *file)
 {
     return readProgram(editSFVertexProgram()->getValue(), file);

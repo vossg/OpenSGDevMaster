@@ -130,9 +130,11 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool readFragmentProgram(const Char8 *file);
-    bool readGeometryProgram(const Char8 *file);
-    bool readVertexProgram  (const Char8 *file);
+    bool readFragmentProgram      (const Char8 *file);
+    bool readGeometryProgram      (const Char8 *file);
+    bool readTessControlProgram   (const Char8* file);
+    bool readTessEvaluationProgram(const Char8* file);
+    bool readVertexProgram        (const Char8 *file);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
