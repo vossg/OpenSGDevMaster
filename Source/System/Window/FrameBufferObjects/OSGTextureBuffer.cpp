@@ -215,7 +215,10 @@ void TextureBuffer::processPreDeactivate(DrawEnv *pEnv, UInt32 index)
             return;
         
         Image *pTexImg = pTexObj->getImage();
-                    
+
+        if(pTexImg == NULL)
+            return;
+
         if(pTexImg->getData() == NULL)
         {
             SINFO << "TextureBuffer::render: (Re)Allocating image "
