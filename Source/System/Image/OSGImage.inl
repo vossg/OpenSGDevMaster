@@ -51,6 +51,20 @@ bool Image::isValid(void) const
     return !_mfPixel.empty();
 }
 
+/*! Returns a hash value calculated over the image's pixel data. The hash value
+    is cached and only (re-)calculated if the cached value has been invalidated
+    or \a force is true.
+*/
+
+inline
+SizeT Image::getHash(bool force) const
+{
+    if(force || !_hashValid)
+        calcHash();
+
+    return _hash;
+}
+
 /*! returns the data size in bytes. 
  */
 inline 

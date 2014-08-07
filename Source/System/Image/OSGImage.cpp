@@ -54,6 +54,7 @@
 #include <cstdio>
 
 #include <algorithm>
+#include <boost/functional/hash/hash.hpp>
 
 #include "OSGConfig.h"
 #include "OSGLog.h"
@@ -185,6 +186,8 @@ void Image::changed(ConstFieldMaskArg whichField,
     }
 
     calcMipmapOffsets();
+
+    _hashValid = false;
 
     Inherited::changed(whichField, origin, details);
 }
@@ -3752,7 +3755,7 @@ UInt64 Image::store(const Char8 *mimeType, UChar8 *mem, Int32 memSize)
 
 UInt64 Image::restore(const UChar8 *mem, Int32 memSize)
 {
-    return ImageFileHandler::the()->restore(this, mem, memSize);;
+    return ImageFileHandler::the()->restore(this, mem, memSize);
 }
 
 
@@ -3764,7 +3767,9 @@ UInt64 Image::restore(const UChar8 *mem, Int32 memSize)
 
 Image::Image(void) :
      Inherited   (),
-    _mipmapOffset()
+    _mipmapOffset(),
+    _hash        (0),
+    _hashValid   (false)
 {
 }
 
@@ -3773,7 +3778,9 @@ Image::Image(void) :
 
 Image::Image(const Image &obj) :
      Inherited   (obj              ),
-    _mipmapOffset(obj._mipmapOffset)
+    _mipmapOffset(obj._mipmapOffset),
+    _hash        (obj._hash        ),
+    _hashValid   (obj._hashValid   )
 {
 }
 
@@ -4269,6 +4276,14 @@ void Image::calcMipmapOffsets(void)
         h >>= 1;
         d >>= 1;
     }
+}
+
+void Image::calcHash(void) const
+{
+    _hash = 173;
+
+    boost::hash_range(_hash, _mfPixel.begin(), _mfPixel.end());
+    _hashValid = true;
 }
 
 /*! Internal method to mirror image data blocks

@@ -334,6 +334,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     
     bool   calcIsAlphaBinary(void);
 
+    SizeT  getHash          (bool force = false) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Size                                    */
@@ -434,6 +436,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
   protected:
 
     std::vector<Int32> _mipmapOffset;
+    mutable SizeT      _hash;
+    mutable bool       _hashValid;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  static element                              */
@@ -485,6 +489,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
                                  Int32  destD            );
 
     void calcMipmapOffsets(      void                    );
+    void calcHash         (      void                    ) const;
 
     bool mirrorData       (const UInt8 *srcData,
                                  UInt8 *destData,
