@@ -232,7 +232,7 @@ void ClusterWindow::init(GLInitFunctor)
             FILE *pipe = popen(command.str().c_str(),"r");
 #endif
             if(!pipe)
-                SFATAL << "Error starting: " << command << std::endl;
+                SFATAL << "Error starting: " << command.str() << std::endl;
             pipes.push_back(pipe);
         }
 
