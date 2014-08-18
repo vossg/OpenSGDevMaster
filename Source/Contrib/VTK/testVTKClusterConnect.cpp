@@ -141,7 +141,11 @@ OSG::NodeTransitPtr initVTK(void)
     vtkRungeKutta4 *integ = vtkRungeKutta4::New();
     vtkStreamLine *streamer = vtkStreamLine::New();
     streamer->SetInputConnection(reader->GetOutputPort());
+#if VTK_MAJOR_VERSION >= 6
+    streamer->SetSourceData(seeds->GetOutput());
+#else
     streamer->SetSource(seeds->GetOutput());
+#endif
     streamer->SetMaximumPropagationTime(500);
     streamer->SetStepLength(0.5);
     streamer->SetIntegrationStepLength(0.05);
