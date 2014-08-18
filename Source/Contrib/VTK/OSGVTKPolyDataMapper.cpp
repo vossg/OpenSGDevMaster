@@ -391,7 +391,7 @@ void VTKPolyDataMapper::execute(void)
     if(pMapper == NULL)
         return;
 
-    pMapper->GetInput()->Update();
+    pMapper->Update();
     
     if( (_pActor ->            GetMTime() < this->_executeTime) && 
         ( pMapper->            GetMTime() < this->_executeTime) &&

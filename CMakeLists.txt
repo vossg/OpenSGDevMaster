@@ -728,11 +728,13 @@ IF(NOT OSG_BUILD_DEPENDEND)
       IF(OSG_USE_OSG_VTK_SETUP)
         OSG_CONFIGURE_VTK()
       ELSE(OSG_USE_OSG_VTK_SETUP)
-        FIND_PACKAGE(VTK)
+        FIND_PACKAGE(VTK NO_MODULE)
 
         IF(VTK_FOUND)
           OSG_SET(OSG_WITH_VTK 1)
-          OSG_SET(OSG_VTK_LIBS "vtkCommon;vtkFiltering;vtkGraphics;vtkIO;vtkRendering")
+
+          INCLUDE(${VTK_USE_FILE})
+          OSG_SET(OSG_VTK_LIBS "${VTK_LIBRARIES}")
 
           OSG_ADD_OPT(OSG_VTK_LIBS)
           OSG_ADD_OPT(VTK_LIBRARY_DIRS)
