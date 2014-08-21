@@ -84,22 +84,15 @@ UInt32 TextureObjChunk::_extShadow                   = Win::invalidExtensionID;
 UInt32 TextureObjChunk::_extDepthTexture             = Win::invalidExtensionID;
 
 UInt32 TextureObjChunk::_funcTexImage3D              = Win::invalidFunctionID;
+UInt32 TextureObjChunk::_funcTexImage3DExt           = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcTexSubImage3D           = Win::invalidFunctionID;
+UInt32 TextureObjChunk::_funcTexSubImage3DExt        = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexImage1D    = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexSubImage1D = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexImage2D    = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexSubImage2D = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexImage3D    = Win::invalidFunctionID;
 UInt32 TextureObjChunk::_funcCompressedTexSubImage3D = Win::invalidFunctionID;
-
-// define GL_TEXTURE_3D, if not defined yet
-#ifndef GL_VERSION_1_2
-#  define GL_FUNC_TEXIMAGE3D    OSG_DLSYM_UNDERSCORE"glTexImage3DEXT"
-#  define GL_FUNC_TEXSUBIMAGE3D OSG_DLSYM_UNDERSCORE"glTexSubImage3DEXT"
-#else
-#  define GL_FUNC_TEXIMAGE3D    OSG_DLSYM_UNDERSCORE"glTexImage3D"
-#  define GL_FUNC_TEXSUBIMAGE3D OSG_DLSYM_UNDERSCORE"glTexSubImage3D"
-#endif
 
 
 StatElemDesc<StatIntOnceElem> TextureObjChunk::statNTextures(
@@ -147,14 +140,15 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
         _extDepthTexture =
             Window::registerExtension("GL_ARB_depth_texture"  );
 
-        _funcTexImage3D    =
-            Window::registerFunction (GL_FUNC_TEXIMAGE3D,
-                                      _extTex3D,
-                                      0x0102 );
-        _funcTexSubImage3D =
-            Window::registerFunction (GL_FUNC_TEXSUBIMAGE3D,
-                                      _extTex3D,
-                                      0x0102);
+        _funcTexImage3D    = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glTexImage3D", _extTex3D, 0x0102);
+        _funcTexImage3DExt = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glTexImage3DEXT", _extTex3D, 0x0102);
+
+        _funcTexSubImage3D    = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glTexSubImage3D", _extTex3D, 0x0102);
+        _funcTexSubImage3DExt = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glTexSubImage3DEXT", _extTex3D, 0x0102);
 
         _funcCompressedTexImage1D    = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glCompressedTexImage1DARB"             ,
@@ -525,14 +519,33 @@ void TextureObjChunk::handleTexture(Window                  *win,
 #endif
 
         // 3D texture functions
-        OSGGETGLFUNCBYID_GL3( glTexImage3D,    
+        OSGGETGLFUNCBYID_GL3( glTexImage3D,
                               osgGlTexImage3D,
-                             _funcTexImage3D,    
+                             _funcTexImage3D,
                               win);
-        OSGGETGLFUNCBYID_GL3( glTexSubImage3D, 
+
+        // standard function not available? try extension
+        if(osgGlTexImage3D == NULL)
+        {
+            OSGGETGLFUNCBYID_GL3( glTexImage3D,
+                                  osgGlTexImage3D,
+                                 _funcTexImage3DExt,
+                                  win);
+        }
+
+        OSGGETGLFUNCBYID_GL3( glTexSubImage3D,
                               osgGlTexSubImage3D,
-                             _funcTexSubImage3D, 
+                             _funcTexSubImage3D,
                               win);
+
+        // standard function not available? try extension
+        if(osgGlTexSubImage3D == NULL)
+        {
+            OSGGETGLFUNCBYID_GL3( glTexSubImage3D,
+                                  osgGlTexSubImage3D,
+                                 _funcTexSubImage3DExt,
+                                  win);
+        }
 
 #ifndef OSG_OGL_ES2
         // Compressed texture functions

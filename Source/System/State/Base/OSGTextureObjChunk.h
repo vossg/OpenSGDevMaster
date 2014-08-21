@@ -228,7 +228,9 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 
     // extension indices for used fucntions;
     static UInt32 _funcTexImage3D;
+    static UInt32 _funcTexImage3DExt;
     static UInt32 _funcTexSubImage3D;
+    static UInt32 _funcTexSubImage3DExt;
     static UInt32 _arbCubeTex;
     static UInt32 _funcCompressedTexImage1D;
     static UInt32 _funcCompressedTexSubImage1D;
