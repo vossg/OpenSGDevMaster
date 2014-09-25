@@ -299,6 +299,11 @@ bool StateChunk::isTransparent(void) const
     return false;
 }
 
+void StateChunk::updateObjectDependencies(DrawEnv    *pEnv, 
+                                          UInt32      index)
+{
+}
+
 /*---------------------- Chunk Class Access -------------------------------*/
 
 const StateChunkClass *StateChunk::getClass(void) const

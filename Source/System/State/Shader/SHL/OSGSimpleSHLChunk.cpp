@@ -815,6 +815,12 @@ void SimpleSHLChunk::deactivate(DrawEnv    *pEnv,
     osgGlUseProgram(0);
 }
 
+void SimpleSHLChunk::updateObjectDependencies(DrawEnv    *pEnv, 
+                                              UInt32      index)
+{
+    updateProceduralVariables(pEnv, ShaderProcVariable::SHDObject);
+}
+
 void SimpleSHLChunk::dump(      UInt32    ,
                           const BitVector ) const
 {

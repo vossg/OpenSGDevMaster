@@ -47,6 +47,8 @@
 #include "OSGBaseFunctions.h"
 #include "OSGFullStateChunk.h"
 
+#include "OSGShaderExecutableChunk.h"
+
 OSG_USING_NAMESPACE
 
 /*! \class OSG::OpenGLState
@@ -991,22 +993,61 @@ void DrawEnv::updateChunk(State *pState)
     {
         (c)->changeFrom(this, c, UInt32(0));
     }
+
+    c = pState->getChunk(ShaderExecutableChunk::getStaticClassId());
+
+    if(c != NULL && c->getIgnore() == false && c->getClassId() < climit)
+    {
+        (c)->changeFrom(this, c, UInt32(0));
+    }
 }
 
 void DrawEnv::updateChunk(State         *pState,
                           StateOverride *pOverride)
 {
-    StateChunk   *c      = pState->getChunk(State::UpdateChunk);
-    UInt32 const  climit = pState->getCoreGLChunkLimit();
-
-    if(pOverride->size()         >  0                  &&
-       pOverride->begin()->first == State::UpdateChunk  )
+    if(pOverride->size() == 0)
     {
-        c = pOverride->begin()->second;
+        return updateChunk(pState);
+    }
+
+    const UInt32 climit = pState->getCoreGLChunkLimit();
+
+
+    StateChunk                       *c  = NULL;
+    StateOverride::ChunkStoreConstIt oIt = pOverride->begin();
+
+
+    if(oIt->first == State::UpdateChunk)
+    {
+        c = oIt->second;
+        ++oIt;
+    }
+    else
+    {
+        pState->getChunk(State::UpdateChunk);
     }
 
     if(c != NULL && c->getIgnore() == false && c->getClassId() < climit)
     {
         c->changeFrom(this, c, UInt32(0));
+        return;
+    }
+
+
+    if(oIt        != pOverride->end()                         && 
+       oIt->first ==ShaderExecutableChunk::getStaticClassId()  )
+    {
+        c = oIt->second;
+        ++oIt;
+    }
+    else
+    {
+        c = pState->getChunk(ShaderExecutableChunk::getStaticClassId());
+    }
+
+    if(c != NULL && c->getIgnore() == false && c->getClassId() < climit)
+    {
+        
+        c->updateObjectDependencies(this);
     }
 }

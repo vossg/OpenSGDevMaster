@@ -194,20 +194,23 @@ class OSG_SYSTEM_DLLMAPPING StateChunk : public StateChunkBase
     /*! \{                                                                 */
 
 #ifndef OSG_DISABLE_DEPRECATED
-    virtual void update       (DrawEnv   *pEnv      );
+    virtual void update                  (DrawEnv   *pEnv      );
 #endif
 
-    virtual void activate     (DrawEnv    *pEnv, 
-                               UInt32      index = 0) = 0;
+    virtual void activate                (DrawEnv    *pEnv, 
+                                          UInt32      index = 0) = 0;
 
-    virtual void changeFrom   (DrawEnv    *pEnv, 
-                               StateChunk *pOld,
-                               UInt32      index = 0) = 0;
+    virtual void changeFrom              (DrawEnv    *pEnv, 
+                                          StateChunk *pOld,
+                                          UInt32      index = 0) = 0;
 
-    virtual void deactivate   (DrawEnv    *pEnv, 
-                               UInt32      index = 0) = 0;
+    virtual void deactivate              (DrawEnv    *pEnv, 
+                                          UInt32      index = 0) = 0;
 
-    virtual bool isTransparent(void) const;
+    virtual bool isTransparent           (void                 ) const;
+
+    virtual void updateObjectDependencies(DrawEnv    *pEnv, 
+                                          UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

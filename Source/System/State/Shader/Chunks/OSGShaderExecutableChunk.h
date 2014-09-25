@@ -109,13 +109,18 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void activate  (DrawEnv    *pEnv,              
-                            UInt32      uiIdx = 0);
-    virtual void changeFrom(DrawEnv    *pEnv, 
-                            StateChunk *pOld, 
-                            UInt32      uiIdx = 0);
-    virtual void deactivate(DrawEnv    *pEnv,              
-                            UInt32      uiIdx = 0);
+    virtual void activate                (DrawEnv    *pEnv,              
+                                          UInt32      uiIdx = 0);
+
+    virtual void changeFrom              (DrawEnv    *pEnv, 
+                                          StateChunk *pOld, 
+                                          UInt32      uiIdx = 0);
+
+    virtual void deactivate              (DrawEnv    *pEnv,              
+                                          UInt32      uiIdx = 0);
+
+    virtual void updateObjectDependencies(DrawEnv    *pEnv, 
+                                          UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -846,7 +846,7 @@ void ShaderExecutableChunk::changeFrom(DrawEnv    *pEnv,
 
             pEnv->incNumShaderChanges();
         }
-
+        
         updateProceduralVariables(pEnv, uiDep);
     }
     else
@@ -890,6 +890,12 @@ void ShaderExecutableChunk::deactivate(DrawEnv    *pEnv,
     }
 
     osgGlUseProgram(0);
+}
+
+void ShaderExecutableChunk::updateObjectDependencies(DrawEnv    *pEnv, 
+                                                     UInt32      index)
+{
+    updateProceduralVariables(pEnv, ShaderProcVariable::SHDObject);
 }
 
 void ShaderExecutableChunk::merge(const ShaderProgramChunk *pChunk)
