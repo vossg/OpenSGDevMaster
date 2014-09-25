@@ -156,6 +156,11 @@ void ShaderVariableOSG::changed(ConstFieldMaskArg whichField,
             setOsgVarType(OSGModelViewMatrix);
             setDependency(SHDObject          );
         }
+        else if(_sfName.getValue() == "OSGViewportSize")
+        {
+            setOsgVarType(OSGViewportSize);
+            setDependency(SHDScene       );
+        }
 #ifdef OSG_OGL_COREONLY
         else if(_sfName.getValue() == "OSGNormalMatrix")
         {
@@ -330,6 +335,11 @@ void ShaderVariableOSG::setName(const std::string &value)
     {
         setOsgVarType(OSGModelViewMatrix);
         setDependency(SHDObject         );
+    }
+    else if(_sfName.getValue() == "OSGViewportSize")
+    {
+        setOsgVarType(OSGViewportSize);
+        setDependency(SHDScene       );
     }
 #ifdef OSG_OGL_COREONLY
     else if(_sfName.getValue() == "OSGNormalMatrix")
@@ -617,6 +627,21 @@ void ShaderVariableOSG::evaluate(DrawEnv *pEnv,
 
                 osgGlUniformMatrix4fv(iLocation, 1, GL_FALSE, m.getValues());
             }
+        }
+        break;
+
+        case OSGViewportSize:
+        {
+            Vec2f viewportSize(pEnv->getPixelWidth (),
+                               pEnv->getPixelHeight());
+
+            OSGGETGLFUNCBYID_GL3_ES(
+                glUniform2fv,
+                osgGlUniform2fv,
+                ShaderProgram::getFuncIdUniform2fv(),
+                pWin);
+            
+            osgGlUniform2fv(iLocation, 1, viewportSize.getValues());
         }
         break;
 

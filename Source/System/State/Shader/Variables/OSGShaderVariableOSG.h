@@ -77,6 +77,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableOSG : public ShaderVariableOSGBase
         OSGInvViewMatrix,
         OSGProjectionMatrix,
         OSGModelViewMatrix,
+        OSGViewportSize,
 #ifdef OSG_OGL_COREONLY
         OSGNormalMatrix,
         OSGModelViewProjectionMatrix,
