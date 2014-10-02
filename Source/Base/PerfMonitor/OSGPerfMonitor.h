@@ -71,7 +71,7 @@ class OSG_BASE_DLLMAPPING NestedSampleInfo
 {
   public:
 #ifdef OSG_STL_HAS_HASH_MAP
-#ifndef WIN32
+#if !defined(WIN32) && !defined(_LIBCPP_VERSION)
     /*! \nohierarchy */
     struct string_hash
     {

@@ -51,6 +51,9 @@
 
 #include <string>
 
+#include "OSGDeprecatedCPP.h"
+
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief VRML97 Loader prototype handler
@@ -124,7 +127,14 @@ class VRMLNodePrototypeHandler : public BaseT
 
     typedef BaseT Inherited;
 
-#ifndef WIN32
+#if defined(_LIBCPP_VERSION)
+    typedef
+        OSG_STDEXTENSION_NAMESPACE::hash_map<
+              std::string,
+              VRMLNodeHelper *> NameHelperMap;
+
+#else
+# if !defined(WIN32) 
     /*! \nohierarchy
      */
     struct string_hash
@@ -134,26 +144,27 @@ class VRMLNodePrototypeHandler : public BaseT
             return OSG_STDEXTENSION_NAMESPACE::__stl_hash_string(s.c_str());
         }
     };
-#endif
+# endif
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_USE_HASH_COMPARE
+# ifdef OSG_STL_HAS_HASH_MAP
+# ifdef OSG_USE_HASH_COMPARE
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
             const Char8    *,
                   VRMLNodeHelper *,
                   HashCmpString                   > NameHelperMap;
-#else
+# else
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
               const std::string,
                     VRMLNodeHelper *,
                     string_hash                   > NameHelperMap;
-#endif
-#else
+# endif
+# else
     typedef
         std::map<const std::string,
                        VRMLNodeHelper *           > NameHelperMap;
+# endif
 #endif
 
     /*---------------------------------------------------------------------*/

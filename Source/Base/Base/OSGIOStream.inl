@@ -171,6 +171,7 @@ OutStream &OutStream::operator<<(const std::string &__s)
 }
 
 #ifndef WIN32
+# ifndef _LIBCPP_VERSION
 inline
 OutStream &OutStream::operator<<(std::_Setbase __f)
 {
@@ -178,6 +179,15 @@ OutStream &OutStream::operator<<(std::_Setbase __f)
     
     return *this;
 }
+#else
+inline
+OutStream &OutStream::operator<<(std::__iom_t3 __f)
+{
+    (*_pBaseStream) << __f;
+
+    return *this;
+}
+# endif
 #else
 template <class Arg> inline
 OutStream &OutStream::operator<<(std::_Smanip<Arg> &__f)
@@ -264,7 +274,7 @@ void FileStreamMixin<ParentT>::close(void)
 template <class ParentT> inline
 FileStreamMixin<ParentT>::operator bool (void) 
 {
-    return _oFileStream; 
+    return _oFileStream.good(); 
 }
 
 //---------------------------------------------------------------------------

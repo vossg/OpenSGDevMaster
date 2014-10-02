@@ -157,7 +157,11 @@ class OSG_BASE_DLLMAPPING OutStream
     /*! \{                                                                 */
 
 #ifndef WIN32
+# ifndef _LIBCPP_VERSION
     OutStream &operator<<(std::_Setbase      __f);
+# else
+    OutStream &operator<<(std::__iom_t3      __f);
+# endif
 #else
     template <class Arg>
     OutStream &operator<<(std::_Smanip<Arg> &__f);

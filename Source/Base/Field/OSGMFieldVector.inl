@@ -104,6 +104,9 @@ MFieldVector<Tp, Alloc>::MFieldVector(const MFieldVector<Tp, Alloc>& __x) :
 template <class Tp, class Alloc> inline
 void MFieldVector<Tp, Alloc>::shareValues(Self &other, bool bDeleteOld)
 {
+#ifdef _LIBCPP_VERSION
+    *this = other;
+#else
     if(bDeleteOld == true)
     {
         std::_Destroy(this->MYFIRST, this->MYLAST);
@@ -115,22 +118,31 @@ void MFieldVector<Tp, Alloc>::shareValues(Self &other, bool bDeleteOld)
     this->MYFIRST = other.MYFIRST; 
     this->MYLAST  = other.MYLAST;
     this->MYEND   = other.MYEND;
+#endif
 }
 
 template <class Tp, class Alloc> inline
 void MFieldVector<Tp, Alloc>::resolveShare(void)
 {
+#ifdef _LIBCPP_VERSION
+    this->clear();
+#else
     this->MYFIRST = NULL;
     this->MYLAST  = NULL;
     this->MYEND   = NULL;
+#endif
 }
 
 template <> inline
 void MFieldVector<bool>::resolveShare(void)
 {
+#ifdef _LIBCPP_VERSION
+    this->clear();
+#else
     this->MYFIRST = Inherited::iterator();
     this->MYLAST  = this->MYFIRST;
     this->MYEND   = NULL;
+#endif
 }
 
 #ifdef __STL_MEMBER_TEMPLATES
@@ -166,6 +178,7 @@ void MFieldVector<Tp, Alloc>::dump(
           UInt32    uiIndent,
     const BitVector) const
 {
+#if 0
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");
 
@@ -173,6 +186,7 @@ void MFieldVector<Tp, Alloc>::dump(
             this->MYFIRST,
             this->MYLAST,
             this->MYEND);
+#endif
 }
 
 #elif defined(WIN32)
