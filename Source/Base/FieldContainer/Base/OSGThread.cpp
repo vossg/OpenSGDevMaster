@@ -711,7 +711,7 @@ UInt32 WinThreadBase::getCurrentAspect(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pUint == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -735,7 +735,7 @@ ChangeList *WinThreadBase::getCurrentChangeList(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pCList == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -748,7 +748,7 @@ ChangeList *WinThreadBase::getCurrentChangeList(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(_pChangeListLocal == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
     }
@@ -768,7 +768,7 @@ BitVector WinThreadBase::getCurrentNamespaceMask(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pBitVec == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -792,7 +792,7 @@ BitVector WinThreadBase::getCurrentLocalFlags(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pBitVec == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 

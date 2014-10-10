@@ -553,8 +553,8 @@ BaseThread *BaseWinThreadBase::getCurrent(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pThread == NULL)
     {
-        BaseWinThreadBase *pT = dynamic_cast<BaseThread *>(
-            ThreadManager::the()->getThread(NULL, "OSGThread"));
+        BaseWinThreadBase *pT = dynamic_pointer_cast<BaseThread>(
+            ThreadManager::the()->getThread(NULL, true, "OSGThread"));
 
         pT->doAutoInit();
 
@@ -567,8 +567,8 @@ BaseThread *BaseWinThreadBase::getCurrent(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(_pThreadLocal == NULL)
     {
-        BaseWinThreadBase *pThread = dynamic_cast<BaseThread *>(
-            ThreadManager::the()->getThread(NULL, "OSGThread"));
+        BaseWinThreadBase *pThread = dynamic_pointer_cast<BaseThread>(
+            ThreadManager::the()->getThread(NULL, true, "OSGThread"));
 
         pThread->doAutoInit();
     }
