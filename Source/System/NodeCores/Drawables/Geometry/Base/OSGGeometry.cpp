@@ -442,7 +442,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                 }
                 else
                 {
-                    SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                    SWARNING << "Geometry::handleClassicGL: no Pump found for "
                              << "geometry "
                              << this
                              << std::endl;
@@ -452,7 +452,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleClassicGL: Illegal mode: "
+        SWARNING << "Geometry(" << this << ")::handleClassicGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 #endif
@@ -527,7 +527,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             }
             else
             {
-                SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                SWARNING << "Geometry::handleAttGL: no Pump found for "
                          << "geometry "
                          << this
                          << std::endl;
@@ -555,7 +555,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             }
             else
             {
-                SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                SWARNING << "Geometry::handleAttGL: no Pump found for "
                          << "geometry "
                          << this
                          << std::endl;
@@ -600,7 +600,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                 }
                 else
                 {
-                    SWARNING << "Geometry::drawPrimitives: no Pump found for "
+                    SWARNING << "Geometry::handleAttGL: no Pump found for "
                              << "geometry "
                              << this
                              << std::endl;
@@ -610,7 +610,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleAttGL: Illegal mode: "
+        SWARNING << "Geometry(" << this << ")::handleAttGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 #endif
@@ -700,14 +700,14 @@ UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv,
         }
         else
         {
-            SWARNING << "Geometry::handleAttGL: no Pump found for geometry "
+            SWARNING << "Geometry::handleVAOGL: no Pump found for geometry "
                      << this
                      << std::endl;
         }
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleAttGL: Illegal mode: "
+        SWARNING << "Geometry(" << this << ")::handleVAOGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 
@@ -738,7 +738,7 @@ void Geometry::handleVAODestroyGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "Geometry::handleAttDestroyGL: Illegal mode: "
+        SWARNING << "Geometry::handleVAODestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 }
