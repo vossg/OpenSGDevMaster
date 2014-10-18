@@ -378,6 +378,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
             glEndList();
         }
         else if(_sfUseVAO.getValue() == false ||
+            !pWin->hasExtension(_arbVertexArrayObject) ||
             (prop &   GeoPumpGroup::AllVAOMask) != GeoPumpGroup::AllVAOMask)
         {
             GeoPumpGroup::SplitGeoPump pump = 
@@ -536,6 +537,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             glEndList();
         }
         else if(_sfUseVAO.getValue() == false ||
+            !pWin->hasExtension(_arbVertexArrayObject) ||
             (prop &   GeoPumpGroup::AllVAOMask) != GeoPumpGroup::AllVAOMask)
         {
             GeoPumpGroup::SplitGeoPump pump = 
@@ -653,6 +655,14 @@ UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv,
     Window           *pWin      = pEnv->getWindow();
     GLHandlerOptions  glOptions = { uiOptions };
 
+    if(!pWin->hasExtension(_arbVertexArrayObject))
+    {
+        SWARNING << "Geometry::handleVAOGL: Extension "
+                 << "'GL_ARB_vertex_array_object' not supported by window "
+                 << pWin << std::endl;
+        return 0;
+    }
+
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
     {
@@ -720,6 +730,15 @@ void Geometry::handleVAODestroyGL(DrawEnv                 *pEnv,
 {
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
+
+    if(!pWin->hasExtension(_arbVertexArrayObject))
+    {
+        SWARNING << "Geometry::handleVAODestroyGL: Extension "
+                 << "'GL_ARB_vertex_array_object' not supported by window "
+                 << pWin
+                 << std::endl;
+        return;
+    }
 
     if(mode == Window::destroy)
     {
@@ -854,6 +873,7 @@ void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
         }
     }
     else if( _sfUseVAO.getValue() == false ||
+            !pWin->hasExtension(_arbVertexArrayObject) ||
             (prop &   GeoPumpGroup::AllVAOMask) != GeoPumpGroup::AllVAOMask)
     {
 #if (!defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)) &&  \
