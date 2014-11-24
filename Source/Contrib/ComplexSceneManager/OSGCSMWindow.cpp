@@ -338,8 +338,6 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
         MTouchData::MTouchBlobStore &vBlobsWC = 
             editMTouchDataWC().getBlobStore();
 
-        MTouchData::MTouchBlobStoreIt bWCIt  = vBlobsWC.begin();
-
 #if 0
         fprintf(stderr, "process\n=====================================\n");
         fprintf(stderr, "input mtouch\n");
@@ -354,7 +352,9 @@ void CSMWindow::changed(ConstFieldMaskArg whichField,
             vBlobsWC.clear();
         }
 
-        for(; bIt != bEnd; ++bIt)
+        MTouchData::MTouchBlobStoreIt bWCIt = vBlobsWC.begin();
+
+        for (; bIt != bEnd; ++bIt)
         {
             Vec2i vScreenC;
 
