@@ -1429,58 +1429,42 @@ CONFIGURE_FILE(CMake/FindOpenSG.cmake.in
 
 INSTALL(FILES "${CMAKE_BINARY_DIR}/cmake/FindOpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake.in"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindExpat_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindGLUT_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindJPEG_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindGLEW_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindPNG_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindTIFF_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindZLIB_OpenSG.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGSetupCompiler.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGUpdateCompiler.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGBuildFunctions.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGConfigurePackages.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGExternalProjectHelper.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OpenSGVersion.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGCommonOptions.cmake"
         DESTINATION share/OpenSG/cmake)
-#        COMPONENT development_configuration)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGCommonConfig.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OSGCommonSupportConfig.cmake"
