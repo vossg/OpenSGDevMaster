@@ -35,6 +35,10 @@ MACRO(OSG_INIT)
     SET(OSG_PLATFORM_32 1)
   ENDIF()
 
+  IF(${CMAKE_CXX_PLATFORM_ID} STREQUAL "Linux")
+    SET(LINUX 1)
+  ENDIF()
+
   IF(WIN32)
     SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt"
                                   CACHE STRING "OpenSG Build Types" FORCE )
