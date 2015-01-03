@@ -46,6 +46,7 @@
 #include "OSGSimpleSHLChunk.h"
 #include "OSGVertexProgramChunk.h"
 #include "OSGFragmentProgramChunk.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 

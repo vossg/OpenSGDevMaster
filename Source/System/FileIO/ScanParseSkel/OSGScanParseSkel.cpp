@@ -153,7 +153,7 @@ const Char8 *ScanParseSkel::getText(void)
     return _pLexer->YYText();
 }
 
-void ScanParseSkel::handleError(const Char8 *szErrorText)
+void ScanParseSkel::handleError(void *pSelf, const Char8 *szErrorText)
 {
     FWARNING(("-----> %s in Line %d, read '%s'\n",
               szErrorText,

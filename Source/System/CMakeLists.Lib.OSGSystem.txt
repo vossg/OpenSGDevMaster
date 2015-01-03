@@ -121,7 +121,7 @@ IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparse_hash_map\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparse_hash_set\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsetable\"
-            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/config.h\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/google_config.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/densehashtable.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/hash_fun.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")\n\n")

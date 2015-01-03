@@ -164,9 +164,9 @@ bool VRMLFile::checkHeader(void)
     return true;
 }
 
-void VRMLFile::handleError(const Char8 *szErrorText)
+void VRMLFile::handleError(void *pSelf, const Char8 *szErrorText)
 {
-    Inherited::handleError(szErrorText);
+    Inherited::handleError(pSelf, szErrorText);
     // on an error we destroy the incomplete scene.
 
 #if 0
@@ -205,7 +205,7 @@ void VRMLFile::beginNode(const Char8     *szNodeTypename,
         szTmp += szNodeTypename;
         szTmp += "#";
 
-        Inherited::handleError(szTmp.c_str());
+        Inherited::handleError(this, szTmp.c_str());
 
         return;
     }

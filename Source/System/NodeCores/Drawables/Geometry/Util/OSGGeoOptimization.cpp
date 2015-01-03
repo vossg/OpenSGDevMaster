@@ -1814,6 +1814,7 @@ namespace
 
     /* ==================================================================== */
 
+#if defined(OSG_GEOOPT_STATISTICS)
     void
     calcCacheMissCount(Geometry *geo, UInt32 &missCount, UInt32 &hitCount)
     {
@@ -1865,7 +1866,7 @@ namespace
             }
         }
     }
-
+#endif
 } // namespace
 
 /*! Optimize the index of triangle lists for the post-transform

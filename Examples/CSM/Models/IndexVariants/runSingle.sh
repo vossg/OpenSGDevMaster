@@ -49,8 +49,10 @@ for testIndex in ${!testFiles[*]}
 #for testFile in "${testFiles[@]}"
 do
    :
+   echo "---------------------------------"
    echo "running ${testFiles[$testIndex]}"
    echo "expected : ${testResults[$testIndex]}"
    ${_OSG_TWG_DIR_}/testWindowGLUT ${_OSG_IV_DATA_ROOT_}/${testFiles[$testIndex]}
    echo "expected : ${testResults[$testIndex]}"
+   echo "##################################"
 done

@@ -42,7 +42,9 @@
 #include "OSGChunkMaterial.h"
 
 #include "OSGOSBTextureChunkElement.h"
+#include "OSGOSBCubeTextureChunkElement.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGCubeTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 
 OSG_USING_NAMESPACE
@@ -165,9 +167,11 @@ OSBChunkMaterialElement::postRead(void)
         if(mapIt == root->getIdElemMap().end())
             continue;
 
-        OSBElementBase         *chunkElem    = mapIt->second;
-        OSBTextureChunkElement *texChunkElem =
+        OSBElementBase             *chunkElem    = mapIt->second;
+        OSBTextureChunkElement     *texChunkElem =
             dynamic_cast<OSBTextureChunkElement *>(chunkElem);
+        OSBCubeTextureChunkElement *cubeTexChunkElem =
+            dynamic_cast<OSBCubeTextureChunkElement *>(chunkElem);
 
         if(texChunkElem != NULL)
         {
@@ -184,6 +188,25 @@ OSBChunkMaterialElement::postRead(void)
             {
                 chkMat->addChunk(texObj);
                 chkMat->addChunk(texEnv);
+            }
+        }
+        else if(cubeTexChunkElem != NULL)
+        {
+            // TextureChunk
+            CubeTextureObjChunk *cubeTexObj = 
+                cubeTexChunkElem->getCubeTexObjChunk();
+            TextureEnvChunk     *texEnv     = 
+                cubeTexChunkElem->getTexEnvChunk();
+
+            if(i < _mfSlots.size())
+            {
+                chkMat->addChunk(cubeTexObj, _mfSlots[i]);
+                chkMat->addChunk(texEnv,     _mfSlots[i]);
+            }
+            else
+            {
+                chkMat->addChunk(cubeTexObj);
+                chkMat->addChunk(texEnv    );
             }
         }
         else

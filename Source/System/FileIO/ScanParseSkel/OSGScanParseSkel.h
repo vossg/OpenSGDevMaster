@@ -173,15 +173,16 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     /*! \{                                                                 */
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
-                  void   scanStream (      std::istream &is        );
+                  void   scanStream (      std::istream &is          );
 #endif
 
-                  void   scanFile   (const Char8        *szFilename);
+                  void   scanFile   (const Char8        *szFilename  );
 
-    virtual       Int32  lex        (      YYSTYPE *lvalp          );
-    virtual const Char8 *getText    (      void                    );
+    virtual       Int32  lex        (      YYSTYPE       *lvalp      );
+    virtual const Char8 *getText    (      void                      );
 
-    virtual       void   handleError(const Char8       *szErrorText);
+    virtual       void   handleError(      void          *pSelf,
+                                     const Char8         *szErrorText);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

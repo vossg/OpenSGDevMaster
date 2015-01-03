@@ -3497,6 +3497,10 @@ void calcMergePropertyType(
     }
 }
 
+GeoIntegralPropertyTransitPtr mergeIntegralProp(
+    const GeoIntegralProperty *src1Prop,
+    const GeoIntegralProperty *src2Prop ) OSG_UNUSED_ATTRIB;
+
 /*! Merges integral properties by appending \a src1Prop and \a src2Prop to a
     new property.
     \note It is intended to merge the types and length properties.

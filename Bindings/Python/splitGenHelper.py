@@ -84,7 +84,7 @@ def handlAutoSlotReplace(osg, cname):
   # type int. We have to help it out.
   c = osg.class_(cname)
 
-  for mname in ["addChunk", "subChunk", "find"]:
+  for mname in ["addChunk", "insertChunk", "subChunk", "find"]:
     for decl in c.decls(mname, allow_empty = True):
       for arg in decl.arguments:
         if arg.default_value == "AutoSlotReplace":

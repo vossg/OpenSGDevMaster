@@ -42,7 +42,9 @@
 #include "OSGChunkBlock.h"
 
 #include "OSGOSBTextureChunkElement.h"
+#include "OSGOSBCubeTextureChunkElement.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGCubeTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 
 OSG_USING_NAMESPACE

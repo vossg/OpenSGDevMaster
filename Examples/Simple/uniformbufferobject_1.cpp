@@ -140,6 +140,8 @@ struct Light
                 break;
             case        spot_light: l.position = OSG::Pnt3f(0.f, 0.2f, 0.f); l.spot_direction = OSG::Pnt3f(0.f, 0.f, 0.f) - l.position;
                 break;
+            default:
+                break;
         }
         return l;
     }

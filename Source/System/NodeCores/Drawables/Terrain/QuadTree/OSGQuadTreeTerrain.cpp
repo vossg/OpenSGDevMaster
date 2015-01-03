@@ -63,7 +63,6 @@
 
 #include "OSGQuadTreeTerrain.h"
 #include "OSGImage.h"
-#include "OSGRenderAction.h"
 #include "OSGMaterial.h"
 #include "OSGChunkMaterial.h"
 #include "OSGTextureObjChunk.h"

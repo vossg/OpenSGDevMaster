@@ -272,7 +272,7 @@ void update_example_block_state(OSG::UniformBufferObjChunk* ubo)
                         41,42,43,44 );  // row 4
 
     // ... and provides elements in column-major order
-    OSG::Real32* storage = mat1.getValues();
+//    OSG::Real32* storage = mat1.getValues();
     OSG::Vec4f   column1 = mat1[1];
     OSG::Vec4f   column2 = mat1[2];
     OSG::Vec4f   column3 = mat1[3];

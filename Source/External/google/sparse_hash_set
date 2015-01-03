@@ -80,7 +80,7 @@
 #define _SPARSE_HASH_SET_H_
 
 // !!! DR changed some <google/...> to "..." due to include path problems...
-#include "config.h"
+#include "google_config.h"
 #include <stdio.h>                    // for FILE * in read()/write()
 #include <algorithm>                  // for the default template args
 #include <functional>                // for equal_to

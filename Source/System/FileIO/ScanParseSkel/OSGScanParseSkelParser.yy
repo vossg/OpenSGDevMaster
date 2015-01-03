@@ -52,8 +52,8 @@
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
-#define YYPARSE_PARAM pSkel
-#define YYLEX_PARAM   pSkel
+//#define YYPARSE_PARAM pSkel
+//#define YYLEX_PARAM   pSkel
 
 #define OSGScanParseSkel_error SKEL->handleError
 
@@ -84,6 +84,9 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 #endif
 
 %}
+
+%lex-param   { void *pSkel }
+%parse-param { void *pSkel }
 
 %token <stringVal> TOK_HEADER
 
@@ -203,7 +206,7 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 %type <doubleVal> double
 %type <floatVal> float
 
-%pure_parser
+%pure-parser
 
 %%
 
