@@ -1,19 +1,19 @@
-/* A Bison parser, made by GNU Bison 2.6.1.  */
+/* A Bison parser, made by GNU Bison 3.0.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
-   
+
+   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
@@ -26,7 +26,7 @@
    special exception, which will cause the skeleton and the resulting
    Bison output files to be licensed under the GNU General Public
    License without this special exception.
-   
+
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "2.6.1"
+#define YYBISON_VERSION "3.0.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -63,21 +63,19 @@
 #define yyparse         OSGScanParseSkel_parse
 #define yylex           OSGScanParseSkel_lex
 #define yyerror         OSGScanParseSkel_error
-#define yylval          OSGScanParseSkel_lval
-#define yychar          OSGScanParseSkel_char
 #define yydebug         OSGScanParseSkel_debug
 #define yynerrs         OSGScanParseSkel_nerrs
 
+
 /* Copy the first part of user declarations.  */
 
-/* Line 336 of yacc.c  */
-#line 75 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp"
+#line 73 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:339  */
 
-# ifndef YY_NULL
+# ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULL nullptr
+#   define YY_NULLPTR nullptr
 #  else
-#   define YY_NULL 0
+#   define YY_NULLPTR 0
 #  endif
 # endif
 
@@ -91,9 +89,9 @@
 
 /* In a future release of Bison, this section will be replaced
    by #include "OSGScanParseSkelParser.hpp".  */
-#ifndef OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP
-# define OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP
-/* Enabling traces.  */
+#ifndef YY_OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP_INCLUDED
+# define YY_OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP_INCLUDED
+/* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
@@ -101,106 +99,105 @@
 extern int OSGScanParseSkel_debug;
 #endif
 
-/* Tokens.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     TOK_HEADER = 258,
-     TOK_PROFILE = 259,
-     TOK_COMPONENT = 260,
-     TOK_META = 261,
-     TOK_PROTO = 262,
-     TOK_EXTERNPROTO = 263,
-     TOK_IS = 264,
-     TOK_DEF = 265,
-     TOK_USE = 266,
-     TOK_ROUTE = 267,
-     TOK_TO = 268,
-     TOK_IMPORT = 269,
-     TOK_EXPORT = 270,
-     TOK_AS = 271,
-     TOK_eventIn = 272,
-     TOK_eventOut = 273,
-     TOK_exposedField = 274,
-     TOK_field = 275,
-     TOK_MFBool = 276,
-     TOK_MFColor = 277,
-     TOK_MFColorRGBA = 278,
-     TOK_MFDouble = 279,
-     TOK_MFFloat = 280,
-     TOK_MFImage = 281,
-     TOK_MFInt32 = 282,
-     TOK_MFMatrix3d = 283,
-     TOK_MFMatrix3f = 284,
-     TOK_MFMatrix4d = 285,
-     TOK_MFMatrix4f = 286,
-     TOK_MFNode = 287,
-     TOK_MFRotation = 288,
-     TOK_MFString = 289,
-     TOK_MFTime = 290,
-     TOK_MFVec2d = 291,
-     TOK_MFVec2f = 292,
-     TOK_MFVec3d = 293,
-     TOK_MFVec3f = 294,
-     TOK_MFVec4d = 295,
-     TOK_MFVec4f = 296,
-     TOK_SFBool = 297,
-     TOK_SFColor = 298,
-     TOK_SFColorRGBA = 299,
-     TOK_SFDouble = 300,
-     TOK_SFFloat = 301,
-     TOK_SFImage = 302,
-     TOK_SFInt32 = 303,
-     TOK_SFMatrix3d = 304,
-     TOK_SFMatrix3f = 305,
-     TOK_SFMatrix4d = 306,
-     TOK_SFMatrix4f = 307,
-     TOK_SFNode = 308,
-     TOK_SFRotation = 309,
-     TOK_SFString = 310,
-     TOK_SFTime = 311,
-     TOK_SFVec2d = 312,
-     TOK_SFVec2f = 313,
-     TOK_SFVec3d = 314,
-     TOK_SFVec3f = 315,
-     TOK_SFVec4d = 316,
-     TOK_SFVec4f = 317,
-     TOK_MFColor4i = 318,
-     TOK_MFPnt2f = 319,
-     TOK_MFPnt3f = 320,
-     TOK_MFPnt4f = 321,
-     TOK_MFPlane = 322,
-     TOK_SFColor4i = 323,
-     TOK_SFPnt2f = 324,
-     TOK_SFPnt3f = 325,
-     TOK_SFPnt4f = 326,
-     TOK_SFPlane = 327,
-     TOK_SFVolume = 328,
-     TOK_SFVec2i = 329,
-     TOK_SFVec3i = 330,
-     TOK_MFVec2i = 331,
-     TOK_hex = 332,
-     TOK_int32 = 333,
-     TOK_double = 334,
-     TOK_string = 335,
-     TOK_bool = 336,
-     TOK_NULL = 337,
-     TOK_Id = 338,
-     TOK_ImageFinished = 339,
-     TOK_Error = 340,
-     TOK_ClusterLocal = 341,
-     TOK_ThreadLocal = 342
-   };
+  enum yytokentype
+  {
+    TOK_HEADER = 258,
+    TOK_PROFILE = 259,
+    TOK_COMPONENT = 260,
+    TOK_META = 261,
+    TOK_PROTO = 262,
+    TOK_EXTERNPROTO = 263,
+    TOK_IS = 264,
+    TOK_DEF = 265,
+    TOK_USE = 266,
+    TOK_ROUTE = 267,
+    TOK_TO = 268,
+    TOK_IMPORT = 269,
+    TOK_EXPORT = 270,
+    TOK_AS = 271,
+    TOK_eventIn = 272,
+    TOK_eventOut = 273,
+    TOK_exposedField = 274,
+    TOK_field = 275,
+    TOK_MFBool = 276,
+    TOK_MFColor = 277,
+    TOK_MFColorRGBA = 278,
+    TOK_MFDouble = 279,
+    TOK_MFFloat = 280,
+    TOK_MFImage = 281,
+    TOK_MFInt32 = 282,
+    TOK_MFMatrix3d = 283,
+    TOK_MFMatrix3f = 284,
+    TOK_MFMatrix4d = 285,
+    TOK_MFMatrix4f = 286,
+    TOK_MFNode = 287,
+    TOK_MFRotation = 288,
+    TOK_MFString = 289,
+    TOK_MFTime = 290,
+    TOK_MFVec2d = 291,
+    TOK_MFVec2f = 292,
+    TOK_MFVec3d = 293,
+    TOK_MFVec3f = 294,
+    TOK_MFVec4d = 295,
+    TOK_MFVec4f = 296,
+    TOK_SFBool = 297,
+    TOK_SFColor = 298,
+    TOK_SFColorRGBA = 299,
+    TOK_SFDouble = 300,
+    TOK_SFFloat = 301,
+    TOK_SFImage = 302,
+    TOK_SFInt32 = 303,
+    TOK_SFMatrix3d = 304,
+    TOK_SFMatrix3f = 305,
+    TOK_SFMatrix4d = 306,
+    TOK_SFMatrix4f = 307,
+    TOK_SFNode = 308,
+    TOK_SFRotation = 309,
+    TOK_SFString = 310,
+    TOK_SFTime = 311,
+    TOK_SFVec2d = 312,
+    TOK_SFVec2f = 313,
+    TOK_SFVec3d = 314,
+    TOK_SFVec3f = 315,
+    TOK_SFVec4d = 316,
+    TOK_SFVec4f = 317,
+    TOK_MFColor4i = 318,
+    TOK_MFPnt2f = 319,
+    TOK_MFPnt3f = 320,
+    TOK_MFPnt4f = 321,
+    TOK_MFPlane = 322,
+    TOK_SFColor4i = 323,
+    TOK_SFPnt2f = 324,
+    TOK_SFPnt3f = 325,
+    TOK_SFPnt4f = 326,
+    TOK_SFPlane = 327,
+    TOK_SFVolume = 328,
+    TOK_SFVec2i = 329,
+    TOK_SFVec3i = 330,
+    TOK_MFVec2i = 331,
+    TOK_hex = 332,
+    TOK_int32 = 333,
+    TOK_double = 334,
+    TOK_string = 335,
+    TOK_bool = 336,
+    TOK_NULL = 337,
+    TOK_Id = 338,
+    TOK_ImageFinished = 339,
+    TOK_Error = 340,
+    TOK_ClusterLocal = 341,
+    TOK_ThreadLocal = 342
+  };
 #endif
 
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
 {
-/* Line 350 of yacc.c  */
-#line 41 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 41 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:355  */
 
     long intVal;
     double doubleVal;
@@ -208,43 +205,28 @@ typedef union YYSTYPE
     const char *stringVal;
     bool boolVal;
 
-
-/* Line 350 of yacc.c  */
-#line 214 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp"
-} YYSTYPE;
+#line 209 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:355  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
 
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int OSGScanParseSkel_parse (void *YYPARSE_PARAM);
-#else
-int OSGScanParseSkel_parse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
-int OSGScanParseSkel_parse (void);
-#else
-int OSGScanParseSkel_parse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
-#endif /* !OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP  */
+int OSGScanParseSkel_parse (void *pSkel);
+
+#endif /* !YY_OSGSCANPARSESKEL_HOME_GERRIT_PROJECTS_OPENSG_SVN_OPENSG_BUILD_BUILD_OSGSYSTEM_OSGSCANPARSESKELPARSER_HPP_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
-/* Line 353 of yacc.c  */
-#line 49 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 49 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:358  */
 
 
 #if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
-#define YYPARSE_PARAM pSkel
-#define YYLEX_PARAM   pSkel
+//#define YYPARSE_PARAM pSkel
+//#define YYLEX_PARAM   pSkel
 
 #define OSGScanParseSkel_error SKEL->handleError
 
@@ -275,8 +257,7 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 #endif
 
 
-/* Line 353 of yacc.c  */
-#line 280 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp"
+#line 261 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -290,11 +271,8 @@ typedef unsigned char yytype_uint8;
 
 #ifdef YYTYPE_INT8
 typedef YYTYPE_INT8 yytype_int8;
-#elif (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-typedef signed char yytype_int8;
 #else
-typedef short int yytype_int8;
+typedef signed char yytype_int8;
 #endif
 
 #ifdef YYTYPE_UINT16
@@ -314,8 +292,7 @@ typedef short int yytype_int16;
 #  define YYSIZE_T __SIZE_TYPE__
 # elif defined size_t
 #  define YYSIZE_T size_t
-# elif ! defined YYSIZE_T && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+# elif ! defined YYSIZE_T
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
@@ -329,38 +306,67 @@ typedef short int yytype_int16;
 # if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
 #   include <libintl.h> /* INFRINGES ON USER NAME SPACE */
-#   define YY_(msgid) dgettext ("bison-runtime", msgid)
+#   define YY_(Msgid) dgettext ("bison-runtime", Msgid)
 #  endif
 # endif
 # ifndef YY_
-#  define YY_(msgid) msgid
+#  define YY_(Msgid) Msgid
+# endif
+#endif
+
+#ifndef YY_ATTRIBUTE
+# if (defined __GNUC__                                               \
+      && (2 < __GNUC__ || (__GNUC__ == 2 && 96 <= __GNUC_MINOR__)))  \
+     || defined __SUNPRO_C && 0x5110 <= __SUNPRO_C
+#  define YY_ATTRIBUTE(Spec) __attribute__(Spec)
+# else
+#  define YY_ATTRIBUTE(Spec) /* empty */
+# endif
+#endif
+
+#ifndef YY_ATTRIBUTE_PURE
+# define YY_ATTRIBUTE_PURE   YY_ATTRIBUTE ((__pure__))
+#endif
+
+#ifndef YY_ATTRIBUTE_UNUSED
+# define YY_ATTRIBUTE_UNUSED YY_ATTRIBUTE ((__unused__))
+#endif
+
+#if !defined _Noreturn \
+     && (!defined __STDC_VERSION__ || __STDC_VERSION__ < 201112)
+# if defined _MSC_VER && 1200 <= _MSC_VER
+#  define _Noreturn __declspec (noreturn)
+# else
+#  define _Noreturn YY_ATTRIBUTE ((__noreturn__))
 # endif
 #endif
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(e) ((void) (e))
+# define YYUSE(E) ((void) (E))
 #else
-# define YYUSE(e) /* empty */
+# define YYUSE(E) /* empty */
 #endif
 
-/* Identity function, used to suppress warnings about constant conditions.  */
-#ifndef lint
-# define YYID(n) (n)
+#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
+/* Suppress an incorrect diagnostic about yylval being uninitialized.  */
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
+    _Pragma ("GCC diagnostic push") \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")\
+    _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END \
+    _Pragma ("GCC diagnostic pop")
 #else
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static int
-YYID (int yyi)
-#else
-static int
-YYID (yyi)
-    int yyi;
+# define YY_INITIAL_VALUE(Value) Value
 #endif
-{
-  return yyi;
-}
+#ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END
 #endif
+#ifndef YY_INITIAL_VALUE
+# define YY_INITIAL_VALUE(Value) /* Nothing. */
+#endif
+
 
 #if ! defined yyoverflow || YYERROR_VERBOSE
 
@@ -379,8 +385,7 @@ YYID (yyi)
 #    define alloca _alloca
 #   else
 #    define YYSTACK_ALLOC alloca
-#    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS
 #     include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
       /* Use EXIT_SUCCESS as a witness for stdlib.h.  */
 #     ifndef EXIT_SUCCESS
@@ -392,8 +397,8 @@ YYID (yyi)
 # endif
 
 # ifdef YYSTACK_ALLOC
-   /* Pacify GCC's `empty if-body' warning.  */
-#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (YYID (0))
+   /* Pacify GCC's 'empty if-body' warning.  */
+#  define YYSTACK_FREE(Ptr) do { /* empty */; } while (0)
 #  ifndef YYSTACK_ALLOC_MAXIMUM
     /* The OS might guarantee only one guard page at the bottom of the stack,
        and a page size can be as small as 4096 bytes.  So we cannot safely
@@ -409,7 +414,7 @@ YYID (yyi)
 #  endif
 #  if (defined __cplusplus && ! defined EXIT_SUCCESS \
        && ! ((defined YYMALLOC || defined malloc) \
-	     && (defined YYFREE || defined free)))
+             && (defined YYFREE || defined free)))
 #   include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
 #   ifndef EXIT_SUCCESS
 #    define EXIT_SUCCESS 0
@@ -417,15 +422,13 @@ YYID (yyi)
 #  endif
 #  ifndef YYMALLOC
 #   define YYMALLOC malloc
-#   if ! defined malloc && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined malloc && ! defined EXIT_SUCCESS
 void *malloc (YYSIZE_T); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 #  ifndef YYFREE
 #   define YYFREE free
-#   if ! defined free && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
+#   if ! defined free && ! defined EXIT_SUCCESS
 void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
@@ -435,7 +438,7 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
-	 || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
+         || (defined YYSTYPE_IS_TRIVIAL && YYSTYPE_IS_TRIVIAL)))
 
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
@@ -460,16 +463,16 @@ union yyalloc
    elements in the stack, and YYPTR gives the new location of the
    stack.  Advance YYPTR to a properly aligned location for the next
    stack.  */
-# define YYSTACK_RELOCATE(Stack_alloc, Stack)				\
-    do									\
-      {									\
-	YYSIZE_T yynewbytes;						\
-	YYCOPY (&yyptr->Stack_alloc, Stack, yysize);			\
-	Stack = &yyptr->Stack_alloc;					\
-	yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
-	yyptr += yynewbytes / sizeof (*yyptr);				\
-      }									\
-    while (YYID (0))
+# define YYSTACK_RELOCATE(Stack_alloc, Stack)                           \
+    do                                                                  \
+      {                                                                 \
+        YYSIZE_T yynewbytes;                                            \
+        YYCOPY (&yyptr->Stack_alloc, Stack, yysize);                    \
+        Stack = &yyptr->Stack_alloc;                                    \
+        yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
+        yyptr += yynewbytes / sizeof (*yyptr);                          \
+      }                                                                 \
+    while (0)
 
 #endif
 
@@ -488,7 +491,7 @@ union yyalloc
           for (yyi = 0; yyi < (Count); yyi++)   \
             (Dst)[yyi] = (Src)[yyi];            \
         }                                       \
-      while (YYID (0))
+      while (0)
 #  endif
 # endif
 #endif /* !YYCOPY_NEEDED */
@@ -504,17 +507,19 @@ union yyalloc
 #define YYNNTS  266
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  475
-/* YYNRULES -- Number of states.  */
+/* YYNSTATES -- Number of states.  */
 #define YYNSTATES  774
 
-/* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
+/* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
+   by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   342
 
-#define YYTRANSLATE(YYX)						\
+#define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
-/* YYTRANSLATE[YYLEX] -- Bison symbol number corresponding to YYLEX.  */
+/* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex, without out-of-bounds checking.  */
 static const yytype_uint8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -555,240 +560,57 @@ static const yytype_uint8 yytranslate[] =
 };
 
 #if YYDEBUG
-/* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
-   YYRHS.  */
-static const yytype_uint16 yyprhs[] =
-{
-       0,     0,     3,     9,    11,    12,    15,    16,    18,    21,
-      22,    25,    27,    29,    32,    33,    34,    39,    41,    43,
-      46,    47,    49,    51,    53,    55,    57,    58,    59,    65,
-      66,    67,    68,    77,    80,    84,    85,    88,    89,    91,
-      93,    95,    97,    98,    99,   110,   113,   114,   115,   120,
-     121,   126,   127,   128,   135,   136,   137,   144,   145,   146,
-     155,   158,   159,   160,   165,   166,   171,   172,   177,   178,
-     183,   184,   185,   186,   198,   199,   200,   208,   209,   214,
-     217,   218,   220,   224,   227,   228,   230,   232,   234,   236,
-     238,   240,   241,   242,   249,   250,   251,   258,   259,   262,
-     263,   264,   271,   272,   273,   280,   281,   282,   289,   291,
-     295,   296,   300,   302,   304,   306,   308,   310,   314,   316,
-     318,   320,   322,   324,   326,   328,   330,   332,   334,   336,
-     338,   340,   342,   344,   346,   348,   350,   352,   354,   356,
-     358,   360,   362,   364,   366,   368,   370,   372,   374,   376,
-     378,   380,   382,   384,   386,   388,   390,   392,   394,   396,
-     398,   400,   402,   404,   406,   408,   410,   412,   414,   416,
-     418,   420,   422,   424,   426,   428,   430,   433,   436,   439,
-     442,   445,   448,   451,   454,   457,   460,   463,   466,   469,
-     472,   475,   478,   481,   484,   487,   490,   493,   496,   499,
-     502,   505,   508,   511,   514,   517,   520,   523,   526,   529,
-     532,   535,   538,   541,   544,   547,   550,   553,   556,   559,
-     562,   565,   568,   571,   574,   577,   580,   583,   586,   589,
-     592,   595,   598,   600,   602,   604,   606,   608,   610,   612,
-     614,   615,   616,   622,   623,   624,   625,   633,   635,   637,
-     638,   639,   640,   649,   652,   653,   655,   656,   657,   658,
-     659,   660,   661,   662,   663,   681,   682,   683,   684,   685,
-     686,   687,   688,   689,   707,   708,   709,   710,   711,   712,
-     713,   714,   715,   716,   717,   718,   719,   720,   721,   722,
-     754,   755,   756,   757,   758,   759,   760,   761,   762,   763,
-     764,   765,   766,   767,   768,   769,   801,   803,   805,   806,
-     807,   808,   816,   818,   820,   822,   824,   826,   827,   831,
-     832,   836,   837,   838,   839,   846,   847,   848,   849,   856,
-     857,   858,   859,   860,   869,   870,   871,   872,   873,   882,
-     884,   888,   891,   892,   894,   898,   901,   902,   904,   908,
-     911,   912,   914,   918,   921,   922,   924,   928,   931,   932,
-     934,   938,   941,   942,   944,   948,   951,   952,   954,   958,
-     961,   962,   964,   968,   971,   972,   974,   978,   981,   982,
-     984,   988,   991,   992,   994,   998,  1001,  1002,  1004,  1008,
-    1011,  1012,  1014,  1018,  1021,  1022,  1024,  1028,  1031,  1032,
-    1034,  1038,  1041,  1042,  1044,  1048,  1051,  1052,  1054,  1058,
-    1061,  1062,  1064,  1068,  1071,  1072,  1074,  1078,  1081,  1082,
-    1084,  1088,  1091,  1092,  1093,  1094,  1095,  1103,  1104,  1108,
-    1109,  1110,  1116,  1117,  1118,  1119,  1127,  1128,  1129,  1130,
-    1138,  1139,  1140,  1141,  1142,  1143,  1144,  1158,  1159,  1163,
-    1164,  1165,  1171,  1173,  1177,  1180,  1181,  1183,  1187,  1190,
-    1191,  1193,  1197,  1200,  1201,  1203,  1207,  1210,  1211,  1213,
-    1217,  1220,  1221,  1223,  1227,  1230
-};
-
-/* YYRHS -- A `-1'-separated list of the rules' RHS.  */
-static const yytype_int16 yyrhs[] =
-{
-      94,     0,    -1,    95,    96,    98,   101,   106,    -1,     3,
-      -1,    -1,     4,    97,    -1,    -1,    83,    -1,    98,    99,
-      -1,    -1,     5,   100,    -1,    83,    -1,    80,    -1,   101,
-     102,    -1,    -1,    -1,     6,   104,   103,   105,    -1,    80,
-      -1,    80,    -1,   106,   107,    -1,    -1,   108,    -1,   117,
-      -1,   138,    -1,   142,    -1,   145,    -1,    -1,    -1,   172,
-     109,   114,   110,   149,    -1,    -1,    -1,    -1,    10,   171,
-     111,   172,   112,   114,   113,   149,    -1,    11,   171,    -1,
-      88,   115,    89,    -1,    -1,   115,   116,    -1,    -1,    86,
-      -1,    87,    -1,   118,    -1,   129,    -1,    -1,    -1,     7,
-     172,   119,    88,   121,    89,   120,    90,   106,    91,    -1,
-     121,   122,    -1,    -1,    -1,    17,   176,   123,   174,    -1,
-      -1,    18,   176,   124,   175,    -1,    -1,    -1,    20,   176,
-     125,   173,   126,   177,    -1,    -1,    -1,    19,   176,   127,
-     173,   128,   177,    -1,    -1,    -1,     8,   172,   130,    88,
-     132,    89,   131,   148,    -1,   132,   133,    -1,    -1,    -1,
-      17,   176,   134,   174,    -1,    -1,    18,   176,   135,   175,
-      -1,    -1,    20,   176,   136,   173,    -1,    -1,    19,   176,
-     137,   173,    -1,    -1,    -1,    -1,    12,   171,   139,    92,
-     175,   140,    13,   171,   141,    92,   174,    -1,    -1,    -1,
-      14,   171,   143,    92,   171,   144,   147,    -1,    -1,    15,
-     171,   146,   147,    -1,    16,   171,    -1,    -1,   302,    -1,
-      90,   150,    91,    -1,   150,   151,    -1,    -1,   168,    -1,
-     152,    -1,   155,    -1,   159,    -1,   164,    -1,     1,    -1,
-      -1,    -1,    17,   176,   153,   174,   154,   158,    -1,    -1,
-      -1,    18,   176,   156,   175,   157,   158,    -1,    -1,     9,
-     173,    -1,    -1,    -1,    20,   176,   160,   173,   161,   167,
-      -1,    -1,    -1,    20,    83,   162,   173,   163,   167,    -1,
-      -1,    -1,    19,   176,   165,   173,   166,   167,    -1,   177,
-      -1,   176,     9,   173,    -1,    -1,   173,   169,   170,    -1,
-     138,    -1,   117,    -1,   142,    -1,   145,    -1,   177,    -1,
-     176,     9,   173,    -1,    83,    -1,    83,    -1,    83,    -1,
-      83,    -1,    83,    -1,    21,    -1,    22,    -1,    23,    -1,
-      24,    -1,    25,    -1,    26,    -1,    27,    -1,    28,    -1,
-      29,    -1,    30,    -1,    31,    -1,    32,    -1,    33,    -1,
-      34,    -1,    35,    -1,    36,    -1,    37,    -1,    38,    -1,
-      39,    -1,    40,    -1,    41,    -1,    42,    -1,    43,    -1,
-      44,    -1,    45,    -1,    46,    -1,    47,    -1,    48,    -1,
-      49,    -1,    50,    -1,    51,    -1,    52,    -1,    53,    -1,
-      54,    -1,    55,    -1,    56,    -1,    57,    -1,    58,    -1,
-      59,    -1,    60,    -1,    61,    -1,    62,    -1,    63,    -1,
-      64,    -1,    65,    -1,    66,    -1,    67,    -1,    68,    -1,
-      69,    -1,    70,    -1,    71,    -1,    72,    -1,    73,    -1,
-      21,   276,    -1,    22,   278,    -1,    23,   280,    -1,    24,
-     282,    -1,    25,   284,    -1,    26,   286,    -1,    27,   288,
-      -1,    28,   290,    -1,    29,   292,    -1,    30,   294,    -1,
-      31,   296,    -1,    32,   298,    -1,    33,   300,    -1,    34,
-     302,    -1,    35,   304,    -1,    36,   306,    -1,    37,   308,
-      -1,    38,   310,    -1,    39,   312,    -1,    40,   314,    -1,
-      41,   316,    -1,    42,   181,    -1,    43,   182,    -1,    44,
-     185,    -1,    45,   189,    -1,    46,   190,    -1,    47,   191,
-      -1,    48,   196,    -1,    49,   197,    -1,    50,   206,    -1,
-      51,   215,    -1,    52,   231,    -1,    53,   247,    -1,    54,
-     248,    -1,    55,   252,    -1,    56,   253,    -1,    57,   254,
-      -1,    58,   256,    -1,    59,   258,    -1,    60,   262,    -1,
-      61,   266,    -1,    62,   271,    -1,    63,   347,    -1,    64,
-     349,    -1,    65,   351,    -1,    66,   353,    -1,    67,   355,
-      -1,    68,   318,    -1,    69,   322,    -1,    70,   324,    -1,
-      71,   327,    -1,    72,   331,    -1,    73,   335,    -1,    74,
-     342,    -1,    75,   344,    -1,    76,   357,    -1,    77,    -1,
-      78,    -1,    78,    -1,    79,    -1,    78,    -1,    79,    -1,
-      81,    -1,    83,    -1,    -1,    -1,   180,   183,   180,   184,
-     180,    -1,    -1,    -1,    -1,   180,   186,   180,   187,   180,
-     188,   180,    -1,   179,    -1,   180,    -1,    -1,    -1,    -1,
-     178,   192,   178,   193,   178,   194,   195,    84,    -1,   195,
-     178,    -1,    -1,   178,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,   179,   198,   179,   199,   179,   200,   179,
-     201,   179,   202,   179,   203,   179,   204,   179,   205,   179,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   180,
-     207,   180,   208,   180,   209,   180,   210,   180,   211,   180,
-     212,   180,   213,   180,   214,   180,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,   179,   216,   179,   217,   179,   218,   179,   219,
-     179,   220,   179,   221,   179,   222,   179,   223,   179,   224,
-     179,   225,   179,   226,   179,   227,   179,   228,   179,   229,
-     179,   230,   179,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   180,
-     232,   180,   233,   180,   234,   180,   235,   180,   236,   180,
-     237,   180,   238,   180,   239,   180,   240,   180,   241,   180,
-     242,   180,   243,   180,   244,   180,   245,   180,   246,   180,
-      -1,   108,    -1,    82,    -1,    -1,    -1,    -1,   180,   249,
-     180,   250,   180,   251,   180,    -1,    80,    -1,    83,    -1,
-      77,    -1,    78,    -1,   179,    -1,    -1,   179,   255,   179,
-      -1,    -1,   180,   257,   180,    -1,    -1,    -1,    -1,   179,
-     259,   179,   260,   179,   261,    -1,    -1,    -1,    -1,   180,
-     263,   180,   264,   180,   265,    -1,    -1,    -1,    -1,    -1,
-     179,   267,   179,   268,   179,   269,   179,   270,    -1,    -1,
-      -1,    -1,    -1,   180,   272,   180,   273,   180,   274,   180,
-     275,    -1,   181,    -1,    88,   277,    89,    -1,   277,   181,
-      -1,    -1,   182,    -1,    88,   279,    89,    -1,   279,   182,
-      -1,    -1,   185,    -1,    88,   281,    89,    -1,   281,   185,
-      -1,    -1,   189,    -1,    88,   283,    89,    -1,   283,   189,
-      -1,    -1,   190,    -1,    88,   285,    89,    -1,   285,   190,
-      -1,    -1,   191,    -1,    88,   287,    89,    -1,   287,   191,
-      -1,    -1,   196,    -1,    88,   289,    89,    -1,   289,   196,
-      -1,    -1,   197,    -1,    88,   291,    89,    -1,   291,   197,
-      -1,    -1,   206,    -1,    88,   293,    89,    -1,   293,   206,
-      -1,    -1,   215,    -1,    88,   295,    89,    -1,   295,   215,
-      -1,    -1,   231,    -1,    88,   297,    89,    -1,   297,   231,
-      -1,    -1,   247,    -1,    88,   299,    89,    -1,   299,   247,
-      -1,    -1,   248,    -1,    88,   301,    89,    -1,   301,   248,
-      -1,    -1,   252,    -1,    88,   303,    89,    -1,   303,   252,
-      -1,    -1,   253,    -1,    88,   305,    89,    -1,   305,   253,
-      -1,    -1,   254,    -1,    88,   307,    89,    -1,   307,   254,
-      -1,    -1,   256,    -1,    88,   309,    89,    -1,   309,   256,
-      -1,    -1,   258,    -1,    88,   311,    89,    -1,   311,   258,
-      -1,    -1,   262,    -1,    88,   313,    89,    -1,   313,   262,
-      -1,    -1,   266,    -1,    88,   315,    89,    -1,   315,   266,
-      -1,    -1,   271,    -1,    88,   317,    89,    -1,   317,   271,
-      -1,    -1,    -1,    -1,    -1,   178,   319,   178,   320,   178,
-     321,   178,    -1,    -1,   180,   323,   180,    -1,    -1,    -1,
-     180,   325,   180,   326,   180,    -1,    -1,    -1,    -1,   180,
-     328,   180,   329,   180,   330,   180,    -1,    -1,    -1,    -1,
-     180,   332,   180,   333,   180,   334,   180,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,   178,   336,   180,   337,   180,   338,
-     180,   339,   180,   340,   180,   341,   180,    -1,    -1,   178,
-     343,   178,    -1,    -1,    -1,   178,   345,   178,   346,   178,
-      -1,   318,    -1,    88,   348,    89,    -1,   348,   318,    -1,
-      -1,   322,    -1,    88,   350,    89,    -1,   350,   322,    -1,
-      -1,   324,    -1,    88,   352,    89,    -1,   352,   324,    -1,
-      -1,   327,    -1,    88,   354,    89,    -1,   354,   327,    -1,
-      -1,   331,    -1,    88,   356,    89,    -1,   356,   331,    -1,
-      -1,   342,    -1,    88,   358,    89,    -1,   358,   342,    -1,
-      -1
-};
-
-/* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
+  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   211,   211,   218,   219,   222,   223,   226,   229,   230,
-     234,   239,   240,   247,   248,   253,   251,   258,   261,   264,
-     265,   268,   269,   270,   271,   272,   287,   290,   287,   295,
-     298,   299,   294,   303,   307,   308,   311,   312,   315,   316,
-     319,   320,   327,   328,   327,   332,   333,   337,   336,   340,
-     339,   343,   344,   342,   347,   348,   346,   352,   353,   352,
-     357,   358,   362,   361,   365,   364,   368,   367,   371,   370,
-     376,   378,   380,   375,   387,   389,   386,   400,   399,   410,
-     412,   415,   418,   421,   422,   425,   426,   427,   428,   429,
-     430,   434,   435,   433,   440,   441,   439,   444,   446,   450,
-     451,   449,   454,   455,   453,   469,   470,   468,   474,   475,
-     479,   478,   487,   488,   489,   490,   493,   494,   497,   500,
-     503,   506,   509,   512,   513,   514,   515,   516,   517,   518,
-     519,   520,   521,   522,   523,   524,   525,   526,   527,   528,
-     529,   530,   531,   532,   533,   534,   535,   536,   537,   538,
-     539,   540,   541,   542,   543,   544,   545,   546,   547,   548,
-     549,   550,   551,   552,   553,   555,   556,   557,   558,   559,
-     560,   561,   562,   563,   564,   565,   568,   569,   570,   571,
-     572,   573,   574,   575,   576,   577,   578,   579,   580,   581,
-     582,   583,   584,   585,   586,   587,   588,   589,   590,   591,
-     592,   593,   594,   595,   596,   597,   598,   599,   600,   601,
-     602,   603,   604,   605,   606,   607,   608,   609,   611,   612,
-     613,   614,   615,   616,   617,   618,   619,   620,   621,   622,
-     623,   624,   627,   628,   631,   632,   635,   636,   639,   643,
-     646,   647,   646,   655,   656,   657,   655,   665,   671,   677,
-     678,   680,   677,   690,   694,   697,   703,   704,   705,   706,
-     707,   708,   709,   710,   703,   721,   722,   723,   724,   725,
-     726,   727,   728,   721,   739,   740,   741,   742,   743,   744,
-     745,   746,   747,   748,   749,   750,   751,   752,   753,   739,
-     765,   766,   767,   768,   769,   770,   771,   772,   773,   774,
-     775,   776,   777,   778,   779,   765,   791,   792,   795,   796,
-     797,   795,   805,   809,   813,   817,   823,   829,   829,   837,
-     837,   845,   846,   847,   845,   854,   855,   856,   854,   863,
-     864,   865,   866,   863,   873,   874,   875,   876,   873,   883,
-     884,   887,   888,   891,   892,   895,   896,   899,   900,   903,
-     904,   907,   908,   911,   912,   915,   916,   919,   920,   923,
-     924,   927,   928,   931,   932,   935,   936,   939,   940,   943,
-     944,   947,   948,   951,   952,   955,   956,   959,   960,   963,
-     964,   967,   968,   971,   972,   975,   976,   979,   980,   983,
-     984,   987,   988,   991,   992,   995,   996,   999,  1000,  1003,
-    1004,  1007,  1008,  1011,  1012,  1015,  1016,  1019,  1020,  1023,
-    1024,  1027,  1028,  1031,  1032,  1035,  1036,  1039,  1040,  1043,
-    1044,  1047,  1048,  1053,  1054,  1055,  1053,  1064,  1064,  1072,
-    1073,  1072,  1081,  1082,  1083,  1081,  1091,  1092,  1093,  1091,
-    1101,  1102,  1103,  1104,  1105,  1106,  1101,  1118,  1118,  1126,
-    1128,  1126,  1138,  1139,  1142,  1143,  1146,  1147,  1150,  1151,
-    1154,  1155,  1158,  1159,  1162,  1163,  1166,  1167,  1170,  1171,
-    1174,  1175,  1178,  1179,  1182,  1183
+       0,   214,   214,   221,   222,   225,   226,   229,   232,   233,
+     237,   242,   243,   250,   251,   256,   254,   261,   264,   267,
+     268,   271,   272,   273,   274,   275,   290,   293,   290,   298,
+     301,   302,   297,   306,   310,   311,   314,   315,   318,   319,
+     322,   323,   330,   331,   330,   335,   336,   340,   339,   343,
+     342,   346,   347,   345,   350,   351,   349,   355,   356,   355,
+     360,   361,   365,   364,   368,   367,   371,   370,   374,   373,
+     379,   381,   383,   378,   390,   392,   389,   403,   402,   413,
+     415,   418,   421,   424,   425,   428,   429,   430,   431,   432,
+     433,   437,   438,   436,   443,   444,   442,   447,   449,   453,
+     454,   452,   457,   458,   456,   472,   473,   471,   477,   478,
+     482,   481,   490,   491,   492,   493,   496,   497,   500,   503,
+     506,   509,   512,   515,   516,   517,   518,   519,   520,   521,
+     522,   523,   524,   525,   526,   527,   528,   529,   530,   531,
+     532,   533,   534,   535,   536,   537,   538,   539,   540,   541,
+     542,   543,   544,   545,   546,   547,   548,   549,   550,   551,
+     552,   553,   554,   555,   556,   558,   559,   560,   561,   562,
+     563,   564,   565,   566,   567,   568,   571,   572,   573,   574,
+     575,   576,   577,   578,   579,   580,   581,   582,   583,   584,
+     585,   586,   587,   588,   589,   590,   591,   592,   593,   594,
+     595,   596,   597,   598,   599,   600,   601,   602,   603,   604,
+     605,   606,   607,   608,   609,   610,   611,   612,   614,   615,
+     616,   617,   618,   619,   620,   621,   622,   623,   624,   625,
+     626,   627,   630,   631,   634,   635,   638,   639,   642,   646,
+     649,   650,   649,   658,   659,   660,   658,   668,   674,   680,
+     681,   683,   680,   693,   697,   700,   706,   707,   708,   709,
+     710,   711,   712,   713,   706,   724,   725,   726,   727,   728,
+     729,   730,   731,   724,   742,   743,   744,   745,   746,   747,
+     748,   749,   750,   751,   752,   753,   754,   755,   756,   742,
+     768,   769,   770,   771,   772,   773,   774,   775,   776,   777,
+     778,   779,   780,   781,   782,   768,   794,   795,   798,   799,
+     800,   798,   808,   812,   816,   820,   826,   832,   832,   840,
+     840,   848,   849,   850,   848,   857,   858,   859,   857,   866,
+     867,   868,   869,   866,   876,   877,   878,   879,   876,   886,
+     887,   890,   891,   894,   895,   898,   899,   902,   903,   906,
+     907,   910,   911,   914,   915,   918,   919,   922,   923,   926,
+     927,   930,   931,   934,   935,   938,   939,   942,   943,   946,
+     947,   950,   951,   954,   955,   958,   959,   962,   963,   966,
+     967,   970,   971,   974,   975,   978,   979,   982,   983,   986,
+     987,   990,   991,   994,   995,   998,   999,  1002,  1003,  1006,
+    1007,  1010,  1011,  1014,  1015,  1018,  1019,  1022,  1023,  1026,
+    1027,  1030,  1031,  1034,  1035,  1038,  1039,  1042,  1043,  1046,
+    1047,  1050,  1051,  1056,  1057,  1058,  1056,  1067,  1067,  1075,
+    1076,  1075,  1084,  1085,  1086,  1084,  1094,  1095,  1096,  1094,
+    1104,  1105,  1106,  1107,  1108,  1109,  1104,  1121,  1121,  1129,
+    1131,  1129,  1141,  1142,  1145,  1146,  1149,  1150,  1153,  1154,
+    1157,  1158,  1161,  1162,  1165,  1166,  1169,  1170,  1173,  1174,
+    1177,  1178,  1181,  1182,  1185,  1186
 };
 #endif
 
@@ -868,13 +690,13 @@ static const char *const yytname[] =
   "sfvec3iValue", "$@130", "$@131", "mfcolor4iValue", "sfcolor4iValues",
   "mfpnt2fValue", "sfpnt2fValues", "mfpnt3fValue", "sfpnt3fValues",
   "mfpnt4fValue", "sfpnt4fValues", "mfplaneValue", "sfplaneValues",
-  "mfvec2iValue", "sfvec2iValues", YY_NULL
+  "mfvec2iValue", "sfvec2iValues", YY_NULLPTR
 };
 #endif
 
 # ifdef YYPRINT
-/* YYTOKNUM[YYLEX-NUM] -- Internal token number corresponding to
-   token YYLEX-NUM.  */
+/* YYTOKNUM[NUM] -- (External) token number corresponding to the
+   (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
@@ -890,232 +712,18 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-/* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
-static const yytype_uint16 yyr1[] =
-{
-       0,    93,    94,    95,    95,    96,    96,    97,    98,    98,
-      99,   100,   100,   101,   101,   103,   102,   104,   105,   106,
-     106,   107,   107,   107,   107,   107,   109,   110,   108,   111,
-     112,   113,   108,   108,   114,   114,   115,   115,   116,   116,
-     117,   117,   119,   120,   118,   121,   121,   123,   122,   124,
-     122,   125,   126,   122,   127,   128,   122,   130,   131,   129,
-     132,   132,   134,   133,   135,   133,   136,   133,   137,   133,
-     139,   140,   141,   138,   143,   144,   142,   146,   145,   147,
-     147,   148,   149,   150,   150,   151,   151,   151,   151,   151,
-     151,   153,   154,   152,   156,   157,   155,   158,   158,   160,
-     161,   159,   162,   163,   159,   165,   166,   164,   167,   167,
-     169,   168,   168,   168,   168,   168,   170,   170,   171,   172,
-     173,   174,   175,   176,   176,   176,   176,   176,   176,   176,
-     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
-     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
-     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
-     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
-     176,   176,   176,   176,   176,   176,   177,   177,   177,   177,
-     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
-     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
-     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
-     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
-     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
-     177,   177,   178,   178,   179,   179,   180,   180,   181,   181,
-     183,   184,   182,   186,   187,   188,   185,   189,   190,   192,
-     193,   194,   191,   195,   195,   196,   198,   199,   200,   201,
-     202,   203,   204,   205,   197,   207,   208,   209,   210,   211,
-     212,   213,   214,   206,   216,   217,   218,   219,   220,   221,
-     222,   223,   224,   225,   226,   227,   228,   229,   230,   215,
-     232,   233,   234,   235,   236,   237,   238,   239,   240,   241,
-     242,   243,   244,   245,   246,   231,   247,   247,   249,   250,
-     251,   248,   252,   252,   252,   252,   253,   255,   254,   257,
-     256,   259,   260,   261,   258,   263,   264,   265,   262,   267,
-     268,   269,   270,   266,   272,   273,   274,   275,   271,   276,
-     276,   277,   277,   278,   278,   279,   279,   280,   280,   281,
-     281,   282,   282,   283,   283,   284,   284,   285,   285,   286,
-     286,   287,   287,   288,   288,   289,   289,   290,   290,   291,
-     291,   292,   292,   293,   293,   294,   294,   295,   295,   296,
-     296,   297,   297,   298,   298,   299,   299,   300,   300,   301,
-     301,   302,   302,   303,   303,   304,   304,   305,   305,   306,
-     306,   307,   307,   308,   308,   309,   309,   310,   310,   311,
-     311,   312,   312,   313,   313,   314,   314,   315,   315,   316,
-     316,   317,   317,   319,   320,   321,   318,   323,   322,   325,
-     326,   324,   328,   329,   330,   327,   332,   333,   334,   331,
-     336,   337,   338,   339,   340,   341,   335,   343,   342,   345,
-     346,   344,   347,   347,   348,   348,   349,   349,   350,   350,
-     351,   351,   352,   352,   353,   353,   354,   354,   355,   355,
-     356,   356,   357,   357,   358,   358
-};
-
-/* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
-static const yytype_uint8 yyr2[] =
-{
-       0,     2,     5,     1,     0,     2,     0,     1,     2,     0,
-       2,     1,     1,     2,     0,     0,     4,     1,     1,     2,
-       0,     1,     1,     1,     1,     1,     0,     0,     5,     0,
-       0,     0,     8,     2,     3,     0,     2,     0,     1,     1,
-       1,     1,     0,     0,    10,     2,     0,     0,     4,     0,
-       4,     0,     0,     6,     0,     0,     6,     0,     0,     8,
-       2,     0,     0,     4,     0,     4,     0,     4,     0,     4,
-       0,     0,     0,    11,     0,     0,     7,     0,     4,     2,
-       0,     1,     3,     2,     0,     1,     1,     1,     1,     1,
-       1,     0,     0,     6,     0,     0,     6,     0,     2,     0,
-       0,     6,     0,     0,     6,     0,     0,     6,     1,     3,
-       0,     3,     1,     1,     1,     1,     1,     3,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-       0,     0,     5,     0,     0,     0,     7,     1,     1,     0,
-       0,     0,     8,     2,     0,     1,     0,     0,     0,     0,
-       0,     0,     0,     0,    17,     0,     0,     0,     0,     0,
-       0,     0,     0,    17,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    31,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    31,     1,     1,     0,     0,
-       0,     7,     1,     1,     1,     1,     1,     0,     3,     0,
-       3,     0,     0,     0,     6,     0,     0,     0,     6,     0,
-       0,     0,     0,     8,     0,     0,     0,     0,     8,     1,
-       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
-       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
-       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
-       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
-       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
-       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
-       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
-       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
-       3,     2,     0,     0,     0,     0,     7,     0,     3,     0,
-       0,     5,     0,     0,     0,     7,     0,     0,     0,     7,
-       0,     0,     0,     0,     0,     0,    13,     0,     3,     0,
-       0,     5,     1,     3,     2,     0,     1,     3,     2,     0,
-       1,     3,     2,     0,     1,     3,     2,     0,     1,     3,
-       2,     0,     1,     3,     2,     0
-};
-
-/* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
-   Performed when YYTABLE doesn't specify something else to do.  Zero
-   means the default is an error.  */
-static const yytype_uint16 yydefact[] =
-{
-       4,     3,     0,     6,     1,     0,     9,     7,     5,    14,
-       0,     8,    20,    12,    11,    10,     0,    13,     2,    17,
-      15,     0,     0,     0,     0,     0,     0,     0,   119,    19,
-      21,    22,    40,    41,    23,    24,    25,    26,     0,    42,
-      57,   118,    29,    33,    70,    74,    77,    35,    18,    16,
-       0,     0,     0,     0,     0,    80,    37,    27,    46,    61,
-      30,     0,     0,     0,    78,     0,     0,     0,     0,    35,
-     122,    71,    75,    79,    38,    39,    34,    36,    84,    28,
-       0,     0,     0,     0,    43,    45,     0,     0,     0,     0,
-      58,    60,    31,     0,    80,     0,   123,   124,   125,   126,
-     127,   128,   129,   130,   131,   132,   133,   134,   135,   136,
-     137,   138,   139,   140,   141,   142,   143,   144,   145,   146,
-     147,   148,   149,   150,   151,   152,   153,   154,   155,   156,
-     157,   158,   159,   160,   161,   162,   163,   164,   165,   166,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,    47,
-      49,    54,    51,     0,    62,    64,    68,    66,     0,     0,
-       0,    76,    90,     0,     0,     0,     0,   120,    82,   113,
-     112,   114,   115,    83,    86,    87,    88,    89,    85,   110,
-       0,     0,     0,     0,    20,     0,     0,     0,     0,   314,
-     315,   312,   313,   394,    59,   391,    81,    32,    72,    91,
-      94,   105,   102,    99,     0,   121,    48,    50,    55,    52,
-       0,    63,    65,    69,    67,     0,     0,     0,     0,     0,
-       0,     0,   123,   124,   125,   126,   127,   128,   129,   130,
-     131,   132,   133,   134,   135,   136,   137,   138,   139,   140,
-     141,   142,   143,   144,   145,   146,   147,   148,   149,   150,
-     151,   152,   153,   154,   155,   156,   157,   158,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   168,   169,   170,
-     171,   172,   173,   174,   175,     0,     0,     0,   111,     0,
-     116,     0,     0,    44,   392,   393,     0,    92,    95,   106,
-     103,   100,   238,   239,   342,   339,   176,   236,   237,   346,
-     240,   343,   177,   350,   243,   347,   178,   234,   235,   354,
-     247,   351,   179,   358,   248,   355,   180,   232,   233,   362,
-     249,   359,   181,   366,   255,   363,   182,   370,   256,   367,
-     183,   374,   265,   371,   184,   378,   274,   375,   185,   382,
-     290,   379,   186,   307,   386,   306,   383,   187,   390,   308,
-     387,   188,   189,   398,   316,   395,   190,   402,   317,   399,
-     191,   406,   319,   403,   192,   410,   321,   407,   193,   414,
-     325,   411,   194,   418,   329,   415,   195,   422,   334,   419,
-     196,   197,   198,   199,   200,   201,   202,   203,   204,   205,
-     206,   207,   208,   209,   210,   211,   212,   213,   214,   215,
-     216,   217,   455,   423,   452,   218,   459,   427,   456,   219,
-     463,   429,   460,   220,   467,   432,   464,   221,   471,   436,
-     468,   222,   223,   224,   225,   226,   227,   440,   228,   447,
-     229,   449,   230,   475,   472,   231,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      56,    53,    73,    97,    97,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,   117,     0,    93,    96,
-     107,     0,   108,   104,   101,   340,   341,   344,   345,   241,
-     348,   349,   244,   352,   353,   356,   357,   360,   361,   250,
-     364,   365,   368,   369,   257,   372,   373,   266,   376,   377,
-     275,   380,   381,   291,   384,   385,   388,   389,   309,   396,
-     397,   400,   401,   318,   404,   405,   320,   408,   409,   322,
-     412,   413,   326,   416,   417,   330,   420,   421,   335,   453,
-     454,   424,   457,   458,   428,   461,   462,   430,   465,   466,
-     433,   469,   470,   437,   441,   448,   450,   473,   474,    98,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,   109,
-     242,   245,   251,   258,   267,   276,   292,   310,   323,   327,
-     331,   336,   425,   431,   434,   438,   442,   451,     0,   254,
-       0,     0,     0,     0,     0,   324,   328,     0,     0,     0,
-       0,     0,     0,   246,     0,   259,   268,   277,   293,   311,
-     332,   337,   426,   435,   439,   443,   252,   253,     0,     0,
-       0,     0,   333,   338,     0,   260,   269,   278,   294,   444,
-       0,     0,     0,     0,     0,   261,   270,   279,   295,   445,
-       0,     0,     0,     0,     0,   262,   271,   280,   296,   446,
-       0,     0,     0,     0,   263,   272,   281,   297,     0,     0,
-       0,     0,   264,   273,   282,   298,     0,     0,   283,   299,
-       0,     0,   284,   300,     0,     0,   285,   301,     0,     0,
-     286,   302,     0,     0,   287,   303,     0,     0,   288,   304,
-       0,     0,   289,   305
-};
-
-/* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int16 yydefgoto[] =
-{
-      -1,     2,     3,     6,     8,     9,    11,    15,    12,    17,
-      38,    20,    49,    18,    29,   345,    47,    66,    52,    69,
-     159,    57,    65,    77,    31,    32,    50,   153,    67,    85,
-     180,   181,   183,   282,   182,   281,    33,    51,   158,    68,
-      91,   185,   186,   188,   187,    34,    53,    93,   216,    35,
-      54,    94,    36,    55,    64,   194,    79,    95,   173,   174,
-     217,   493,   175,   218,   494,   548,   176,   221,   497,   220,
-     496,   177,   219,   495,   550,   178,   204,   278,    42,    37,
-     179,   206,    71,   551,   552,   320,   310,   300,   295,   301,
-     500,   631,   305,   502,   632,   668,   311,   315,   321,   506,
-     633,   669,   684,   325,   329,   509,   634,   670,   698,   710,
-     720,   730,   738,   333,   511,   635,   671,   699,   711,   721,
-     731,   739,   337,   513,   636,   672,   700,   712,   722,   732,
-     740,   746,   750,   754,   758,   762,   766,   770,   341,   515,
-     637,   673,   701,   713,   723,   733,   741,   747,   751,   755,
-     759,   763,   767,   771,   346,   350,   518,   638,   674,   195,
-     355,   359,   521,   363,   523,   367,   525,   639,   675,   371,
-     527,   640,   676,   375,   529,   641,   677,   702,   379,   531,
-     642,   678,   703,   296,   498,   302,   499,   306,   501,   312,
-     503,   316,   504,   322,   505,   326,   507,   330,   508,   334,
-     510,   338,   512,   342,   514,   347,   516,   351,   517,   352,
-     215,   356,   519,   360,   520,   364,   522,   368,   524,   372,
-     526,   376,   528,   380,   530,   404,   533,   643,   679,   408,
-     535,   412,   537,   644,   416,   539,   645,   680,   420,   541,
-     646,   681,   428,   542,   647,   682,   704,   714,   724,   430,
-     543,   432,   544,   648,   405,   532,   409,   534,   413,   536,
-     417,   538,   421,   540,   435,   545
-};
-
-/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-   STATE-NUM.  */
 #define YYPACT_NINF -286
+
+#define yypact_value_is_default(Yystate) \
+  (!!((Yystate) == (-286)))
+
+#define YYTABLE_NINF -1
+
+#define yytable_value_is_error(Yytable_value) \
+  0
+
+  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+     STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
       42,  -286,    36,    48,  -286,   -27,  -286,  -286,  -286,    68,
@@ -1198,7 +806,92 @@ static const yytype_int16 yypact[] =
       49,    32,  -286,  -286
 };
 
-/* YYPGOTO[NTERM-NUM].  */
+  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+     Performed when YYTABLE does not specify something else to do.  Zero
+     means the default is an error.  */
+static const yytype_uint16 yydefact[] =
+{
+       4,     3,     0,     6,     1,     0,     9,     7,     5,    14,
+       0,     8,    20,    12,    11,    10,     0,    13,     2,    17,
+      15,     0,     0,     0,     0,     0,     0,     0,   119,    19,
+      21,    22,    40,    41,    23,    24,    25,    26,     0,    42,
+      57,   118,    29,    33,    70,    74,    77,    35,    18,    16,
+       0,     0,     0,     0,     0,    80,    37,    27,    46,    61,
+      30,     0,     0,     0,    78,     0,     0,     0,     0,    35,
+     122,    71,    75,    79,    38,    39,    34,    36,    84,    28,
+       0,     0,     0,     0,    43,    45,     0,     0,     0,     0,
+      58,    60,    31,     0,    80,     0,   123,   124,   125,   126,
+     127,   128,   129,   130,   131,   132,   133,   134,   135,   136,
+     137,   138,   139,   140,   141,   142,   143,   144,   145,   146,
+     147,   148,   149,   150,   151,   152,   153,   154,   155,   156,
+     157,   158,   159,   160,   161,   162,   163,   164,   165,   166,
+     167,   168,   169,   170,   171,   172,   173,   174,   175,    47,
+      49,    54,    51,     0,    62,    64,    68,    66,     0,     0,
+       0,    76,    90,     0,     0,     0,     0,   120,    82,   113,
+     112,   114,   115,    83,    86,    87,    88,    89,    85,   110,
+       0,     0,     0,     0,    20,     0,     0,     0,     0,   314,
+     315,   312,   313,   394,    59,   391,    81,    32,    72,    91,
+      94,   105,   102,    99,     0,   121,    48,    50,    55,    52,
+       0,    63,    65,    69,    67,     0,     0,     0,     0,     0,
+       0,     0,   123,   124,   125,   126,   127,   128,   129,   130,
+     131,   132,   133,   134,   135,   136,   137,   138,   139,   140,
+     141,   142,   143,   144,   145,   146,   147,   148,   149,   150,
+     151,   152,   153,   154,   155,   156,   157,   158,   159,   160,
+     161,   162,   163,   164,   165,   166,   167,   168,   169,   170,
+     171,   172,   173,   174,   175,     0,     0,     0,   111,     0,
+     116,     0,     0,    44,   392,   393,     0,    92,    95,   106,
+     103,   100,   238,   239,   342,   339,   176,   236,   237,   346,
+     240,   343,   177,   350,   243,   347,   178,   234,   235,   354,
+     247,   351,   179,   358,   248,   355,   180,   232,   233,   362,
+     249,   359,   181,   366,   255,   363,   182,   370,   256,   367,
+     183,   374,   265,   371,   184,   378,   274,   375,   185,   382,
+     290,   379,   186,   307,   386,   306,   383,   187,   390,   308,
+     387,   188,   189,   398,   316,   395,   190,   402,   317,   399,
+     191,   406,   319,   403,   192,   410,   321,   407,   193,   414,
+     325,   411,   194,   418,   329,   415,   195,   422,   334,   419,
+     196,   197,   198,   199,   200,   201,   202,   203,   204,   205,
+     206,   207,   208,   209,   210,   211,   212,   213,   214,   215,
+     216,   217,   455,   423,   452,   218,   459,   427,   456,   219,
+     463,   429,   460,   220,   467,   432,   464,   221,   471,   436,
+     468,   222,   223,   224,   225,   226,   227,   440,   228,   447,
+     229,   449,   230,   475,   472,   231,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      56,    53,    73,    97,    97,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,   117,     0,    93,    96,
+     107,     0,   108,   104,   101,   340,   341,   344,   345,   241,
+     348,   349,   244,   352,   353,   356,   357,   360,   361,   250,
+     364,   365,   368,   369,   257,   372,   373,   266,   376,   377,
+     275,   380,   381,   291,   384,   385,   388,   389,   309,   396,
+     397,   400,   401,   318,   404,   405,   320,   408,   409,   322,
+     412,   413,   326,   416,   417,   330,   420,   421,   335,   453,
+     454,   424,   457,   458,   428,   461,   462,   430,   465,   466,
+     433,   469,   470,   437,   441,   448,   450,   473,   474,    98,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   109,
+     242,   245,   251,   258,   267,   276,   292,   310,   323,   327,
+     331,   336,   425,   431,   434,   438,   442,   451,     0,   254,
+       0,     0,     0,     0,     0,   324,   328,     0,     0,     0,
+       0,     0,     0,   246,     0,   259,   268,   277,   293,   311,
+     332,   337,   426,   435,   439,   443,   252,   253,     0,     0,
+       0,     0,   333,   338,     0,   260,   269,   278,   294,   444,
+       0,     0,     0,     0,     0,   261,   270,   279,   295,   445,
+       0,     0,     0,     0,     0,   262,   271,   280,   296,   446,
+       0,     0,     0,     0,   263,   272,   281,   297,     0,     0,
+       0,     0,   264,   273,   282,   298,     0,     0,   283,   299,
+       0,     0,   284,   300,     0,     0,   285,   301,     0,     0,
+     286,   302,     0,     0,   287,   303,     0,     0,   288,   304,
+       0,     0,   289,   305
+};
+
+  /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
     -286,  -286,  -286,  -286,  -286,  -286,  -286,  -286,  -286,  -286,
@@ -1230,10 +923,41 @@ static const yytype_int16 yypgoto[] =
     -286,  -286,  -286,  -286,  -286,  -286
 };
 
-/* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
-   positive, shift that token.  If negative, reduce the rule which
-   number is the opposite.  If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -1
+  /* YYDEFGOTO[NTERM-NUM].  */
+static const yytype_int16 yydefgoto[] =
+{
+      -1,     2,     3,     6,     8,     9,    11,    15,    12,    17,
+      38,    20,    49,    18,    29,   345,    47,    66,    52,    69,
+     159,    57,    65,    77,    31,    32,    50,   153,    67,    85,
+     180,   181,   183,   282,   182,   281,    33,    51,   158,    68,
+      91,   185,   186,   188,   187,    34,    53,    93,   216,    35,
+      54,    94,    36,    55,    64,   194,    79,    95,   173,   174,
+     217,   493,   175,   218,   494,   548,   176,   221,   497,   220,
+     496,   177,   219,   495,   550,   178,   204,   278,    42,    37,
+     179,   206,    71,   551,   552,   320,   310,   300,   295,   301,
+     500,   631,   305,   502,   632,   668,   311,   315,   321,   506,
+     633,   669,   684,   325,   329,   509,   634,   670,   698,   710,
+     720,   730,   738,   333,   511,   635,   671,   699,   711,   721,
+     731,   739,   337,   513,   636,   672,   700,   712,   722,   732,
+     740,   746,   750,   754,   758,   762,   766,   770,   341,   515,
+     637,   673,   701,   713,   723,   733,   741,   747,   751,   755,
+     759,   763,   767,   771,   346,   350,   518,   638,   674,   195,
+     355,   359,   521,   363,   523,   367,   525,   639,   675,   371,
+     527,   640,   676,   375,   529,   641,   677,   702,   379,   531,
+     642,   678,   703,   296,   498,   302,   499,   306,   501,   312,
+     503,   316,   504,   322,   505,   326,   507,   330,   508,   334,
+     510,   338,   512,   342,   514,   347,   516,   351,   517,   352,
+     215,   356,   519,   360,   520,   364,   522,   368,   524,   372,
+     526,   376,   528,   380,   530,   404,   533,   643,   679,   408,
+     535,   412,   537,   644,   416,   539,   645,   680,   420,   541,
+     646,   681,   428,   542,   647,   682,   704,   714,   724,   430,
+     543,   432,   544,   648,   405,   532,   409,   534,   413,   536,
+     417,   538,   421,   540,   435,   545
+};
+
+  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+     positive, shift that token.  If negative, reduce the rule whose
+     number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint16 yytable[] =
 {
      304,   434,   314,   401,   426,   397,   332,   400,   340,   425,
@@ -1336,12 +1060,6 @@ static const yytype_uint16 yytable[] =
      130,   131,   132,   133,   134,   135,   136,   137,   138,   139,
      140,   141,   142,   143,   144,   145,   146,   147,   148
 };
-
-#define yypact_value_is_default(yystate) \
-  ((yystate) == (-286))
-
-#define yytable_value_is_error(yytable_value) \
-  YYID (0)
 
 static const yytype_int16 yycheck[] =
 {
@@ -1446,8 +1164,8 @@ static const yytype_int16 yycheck[] =
       65,    66,    67,    68,    69,    70,    71,    72,    73
 };
 
-/* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-   symbol of state STATE-NUM.  */
+  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
+     symbol of state STATE-NUM.  */
 static const yytype_uint16 yystos[] =
 {
        0,     3,    94,    95,     0,     4,    96,    83,    97,    98,
@@ -1530,30 +1248,122 @@ static const yytype_uint16 yystos[] =
      230,   246,   179,   180
 };
 
-#define yyerrok		(yyerrstatus = 0)
-#define yyclearin	(yychar = YYEMPTY)
-#define YYEMPTY		(-2)
-#define YYEOF		0
+  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
+static const yytype_uint16 yyr1[] =
+{
+       0,    93,    94,    95,    95,    96,    96,    97,    98,    98,
+      99,   100,   100,   101,   101,   103,   102,   104,   105,   106,
+     106,   107,   107,   107,   107,   107,   109,   110,   108,   111,
+     112,   113,   108,   108,   114,   114,   115,   115,   116,   116,
+     117,   117,   119,   120,   118,   121,   121,   123,   122,   124,
+     122,   125,   126,   122,   127,   128,   122,   130,   131,   129,
+     132,   132,   134,   133,   135,   133,   136,   133,   137,   133,
+     139,   140,   141,   138,   143,   144,   142,   146,   145,   147,
+     147,   148,   149,   150,   150,   151,   151,   151,   151,   151,
+     151,   153,   154,   152,   156,   157,   155,   158,   158,   160,
+     161,   159,   162,   163,   159,   165,   166,   164,   167,   167,
+     169,   168,   168,   168,   168,   168,   170,   170,   171,   172,
+     173,   174,   175,   176,   176,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176,   176,   176,   176,   176,   176,
+     176,   176,   176,   176,   176,   176,   177,   177,   177,   177,
+     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
+     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
+     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
+     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
+     177,   177,   177,   177,   177,   177,   177,   177,   177,   177,
+     177,   177,   178,   178,   179,   179,   180,   180,   181,   181,
+     183,   184,   182,   186,   187,   188,   185,   189,   190,   192,
+     193,   194,   191,   195,   195,   196,   198,   199,   200,   201,
+     202,   203,   204,   205,   197,   207,   208,   209,   210,   211,
+     212,   213,   214,   206,   216,   217,   218,   219,   220,   221,
+     222,   223,   224,   225,   226,   227,   228,   229,   230,   215,
+     232,   233,   234,   235,   236,   237,   238,   239,   240,   241,
+     242,   243,   244,   245,   246,   231,   247,   247,   249,   250,
+     251,   248,   252,   252,   252,   252,   253,   255,   254,   257,
+     256,   259,   260,   261,   258,   263,   264,   265,   262,   267,
+     268,   269,   270,   266,   272,   273,   274,   275,   271,   276,
+     276,   277,   277,   278,   278,   279,   279,   280,   280,   281,
+     281,   282,   282,   283,   283,   284,   284,   285,   285,   286,
+     286,   287,   287,   288,   288,   289,   289,   290,   290,   291,
+     291,   292,   292,   293,   293,   294,   294,   295,   295,   296,
+     296,   297,   297,   298,   298,   299,   299,   300,   300,   301,
+     301,   302,   302,   303,   303,   304,   304,   305,   305,   306,
+     306,   307,   307,   308,   308,   309,   309,   310,   310,   311,
+     311,   312,   312,   313,   313,   314,   314,   315,   315,   316,
+     316,   317,   317,   319,   320,   321,   318,   323,   322,   325,
+     326,   324,   328,   329,   330,   327,   332,   333,   334,   331,
+     336,   337,   338,   339,   340,   341,   335,   343,   342,   345,
+     346,   344,   347,   347,   348,   348,   349,   349,   350,   350,
+     351,   351,   352,   352,   353,   353,   354,   354,   355,   355,
+     356,   356,   357,   357,   358,   358
+};
 
-#define YYACCEPT	goto yyacceptlab
-#define YYABORT		goto yyabortlab
-#define YYERROR		goto yyerrorlab
+  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
+static const yytype_uint8 yyr2[] =
+{
+       0,     2,     5,     1,     0,     2,     0,     1,     2,     0,
+       2,     1,     1,     2,     0,     0,     4,     1,     1,     2,
+       0,     1,     1,     1,     1,     1,     0,     0,     5,     0,
+       0,     0,     8,     2,     3,     0,     2,     0,     1,     1,
+       1,     1,     0,     0,    10,     2,     0,     0,     4,     0,
+       4,     0,     0,     6,     0,     0,     6,     0,     0,     8,
+       2,     0,     0,     4,     0,     4,     0,     4,     0,     4,
+       0,     0,     0,    11,     0,     0,     7,     0,     4,     2,
+       0,     1,     3,     2,     0,     1,     1,     1,     1,     1,
+       1,     0,     0,     6,     0,     0,     6,     0,     2,     0,
+       0,     6,     0,     0,     6,     0,     0,     6,     1,     3,
+       0,     3,     1,     1,     1,     1,     1,     3,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     1,     1,     1,     1,     1,     1,     1,     1,
+       0,     0,     5,     0,     0,     0,     7,     1,     1,     0,
+       0,     0,     8,     2,     0,     1,     0,     0,     0,     0,
+       0,     0,     0,     0,    17,     0,     0,     0,     0,     0,
+       0,     0,     0,    17,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    31,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    31,     1,     1,     0,     0,
+       0,     7,     1,     1,     1,     1,     1,     0,     3,     0,
+       3,     0,     0,     0,     6,     0,     0,     0,     6,     0,
+       0,     0,     0,     8,     0,     0,     0,     0,     8,     1,
+       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
+       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
+       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
+       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
+       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
+       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
+       3,     2,     0,     1,     3,     2,     0,     1,     3,     2,
+       0,     1,     3,     2,     0,     1,     3,     2,     0,     1,
+       3,     2,     0,     0,     0,     0,     7,     0,     3,     0,
+       0,     5,     0,     0,     0,     7,     0,     0,     0,     7,
+       0,     0,     0,     0,     0,     0,    13,     0,     3,     0,
+       0,     5,     1,     3,     2,     0,     1,     3,     2,     0,
+       1,     3,     2,     0,     1,     3,     2,     0,     1,     3,
+       2,     0,     1,     3,     2,     0
+};
 
 
-/* Like YYERROR except do call yyerror.  This remains here temporarily
-   to ease the transition to the new meaning of YYERROR, for GCC.
-   Once GCC version 2 has supplanted version 1, this can go.  However,
-   YYFAIL appears to be in use.  Nevertheless, it is formally deprecated
-   in Bison 2.4.2's NEWS entry, where a plan to phase it out is
-   discussed.  */
+#define yyerrok         (yyerrstatus = 0)
+#define yyclearin       (yychar = YYEMPTY)
+#define YYEMPTY         (-2)
+#define YYEOF           0
 
-#define YYFAIL		goto yyerrlab
-#if defined YYFAIL
-  /* This is here to suppress warnings from the GCC cpp's
-     -Wunused-macros.  Normally we don't worry about that warning, but
-     some users do, and we want to make it easy for users to remove
-     YYFAIL uses, which will produce warnings from Bison 2.5.  */
-#endif
+#define YYACCEPT        goto yyacceptlab
+#define YYABORT         goto yyabortlab
+#define YYERROR         goto yyerrorlab
+
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
@@ -1569,57 +1379,16 @@ do                                                              \
     }                                                           \
   else                                                          \
     {                                                           \
-      yyerror (YY_("syntax error: cannot back up")); \
-      YYERROR;							\
-    }								\
-while (YYID (0))
+      yyerror (pSkel, YY_("syntax error: cannot back up")); \
+      YYERROR;                                                  \
+    }                                                           \
+while (0)
+
+/* Error token number */
+#define YYTERROR        1
+#define YYERRCODE       256
 
 
-#define YYTERROR	1
-#define YYERRCODE	256
-
-/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
-   If N is 0, then set CURRENT to the empty location which ends
-   the previous symbol: RHS[0] (always defined).  */
-
-#ifndef YYLLOC_DEFAULT
-# define YYLLOC_DEFAULT(Current, Rhs, N)                                \
-    do                                                                  \
-      if (YYID (N))                                                     \
-        {                                                               \
-          (Current).first_line   = YYRHSLOC (Rhs, 1).first_line;        \
-          (Current).first_column = YYRHSLOC (Rhs, 1).first_column;      \
-          (Current).last_line    = YYRHSLOC (Rhs, N).last_line;         \
-          (Current).last_column  = YYRHSLOC (Rhs, N).last_column;       \
-        }                                                               \
-      else                                                              \
-        {                                                               \
-          (Current).first_line   = (Current).last_line   =              \
-            YYRHSLOC (Rhs, 0).last_line;                                \
-          (Current).first_column = (Current).last_column =              \
-            YYRHSLOC (Rhs, 0).last_column;                              \
-        }                                                               \
-    while (YYID (0))
-#endif
-
-#define YYRHSLOC(Rhs, K) ((Rhs)[K])
-
-
-
-/* This macro is provided for backward compatibility. */
-
-#ifndef YY_LOCATION_PRINT
-# define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-#endif
-
-
-/* YYLEX -- calling `yylex' with the right arguments.  */
-
-#ifdef YYLEX_PARAM
-# define YYLEX yylex (&yylval, YYLEX_PARAM)
-#else
-# define YYLEX yylex (&yylval)
-#endif
 
 /* Enable debugging if requested.  */
 #if YYDEBUG
@@ -1629,56 +1398,47 @@ while (YYID (0))
 #  define YYFPRINTF fprintf
 # endif
 
-# define YYDPRINTF(Args)			\
-do {						\
-  if (yydebug)					\
-    YYFPRINTF Args;				\
-} while (YYID (0))
+# define YYDPRINTF(Args)                        \
+do {                                            \
+  if (yydebug)                                  \
+    YYFPRINTF Args;                             \
+} while (0)
 
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)			  \
-do {									  \
-  if (yydebug)								  \
-    {									  \
-      YYFPRINTF (stderr, "%s ", Title);					  \
-      yy_symbol_print (stderr,						  \
-		  Type, Value); \
-      YYFPRINTF (stderr, "\n");						  \
-    }									  \
-} while (YYID (0))
-
-
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
-
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_value_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
+/* This macro is provided for backward compatibility. */
+#ifndef YY_LOCATION_PRINT
+# define YY_LOCATION_PRINT(File, Loc) ((void) 0)
 #endif
+
+
+# define YY_SYMBOL_PRINT(Title, Type, Value, Location)                    \
+do {                                                                      \
+  if (yydebug)                                                            \
+    {                                                                     \
+      YYFPRINTF (stderr, "%s ", Title);                                   \
+      yy_symbol_print (stderr,                                            \
+                  Type, Value, pSkel); \
+      YYFPRINTF (stderr, "\n");                                           \
+    }                                                                     \
+} while (0)
+
+
+/*----------------------------------------.
+| Print this symbol's value on YYOUTPUT.  |
+`----------------------------------------*/
+
+static void
+yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, void *pSkel)
 {
   FILE *yyo = yyoutput;
   YYUSE (yyo);
+  YYUSE (pSkel);
   if (!yyvaluep)
     return;
 # ifdef YYPRINT
   if (yytype < YYNTOKENS)
     YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
-# else
-  YYUSE (yyoutput);
 # endif
-  switch (yytype)
-    {
-      default:
-	break;
-    }
+  YYUSE (yytype);
 }
 
 
@@ -1686,24 +1446,13 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 | Print this symbol on YYOUTPUT.  |
 `--------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
-#else
-static void
-yy_symbol_print (yyoutput, yytype, yyvaluep)
-    FILE *yyoutput;
-    int yytype;
-    YYSTYPE const * const yyvaluep;
-#endif
+yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, void *pSkel)
 {
-  if (yytype < YYNTOKENS)
-    YYFPRINTF (yyoutput, "token %s (", yytname[yytype]);
-  else
-    YYFPRINTF (yyoutput, "nterm %s (", yytname[yytype]);
+  YYFPRINTF (yyoutput, "%s %s (",
+             yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
+  yy_symbol_value_print (yyoutput, yytype, yyvaluep, pSkel);
   YYFPRINTF (yyoutput, ")");
 }
 
@@ -1712,16 +1461,8 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
 | TOP (included).                                                   |
 `------------------------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
 yy_stack_print (yytype_int16 *yybottom, yytype_int16 *yytop)
-#else
-static void
-yy_stack_print (yybottom, yytop)
-    yytype_int16 *yybottom;
-    yytype_int16 *yytop;
-#endif
 {
   YYFPRINTF (stderr, "Stack now");
   for (; yybottom <= yytop; yybottom++)
@@ -1732,49 +1473,42 @@ yy_stack_print (yybottom, yytop)
   YYFPRINTF (stderr, "\n");
 }
 
-# define YY_STACK_PRINT(Bottom, Top)				\
-do {								\
-  if (yydebug)							\
-    yy_stack_print ((Bottom), (Top));				\
-} while (YYID (0))
+# define YY_STACK_PRINT(Bottom, Top)                            \
+do {                                                            \
+  if (yydebug)                                                  \
+    yy_stack_print ((Bottom), (Top));                           \
+} while (0)
 
 
 /*------------------------------------------------.
 | Report that the YYRULE is going to be reduced.  |
 `------------------------------------------------*/
 
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yy_reduce_print (YYSTYPE *yyvsp, int yyrule)
-#else
-static void
-yy_reduce_print (yyvsp, yyrule)
-    YYSTYPE *yyvsp;
-    int yyrule;
-#endif
+yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, void *pSkel)
 {
+  unsigned long int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
-  unsigned long int yylno = yyrline[yyrule];
   YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
-	     yyrule - 1, yylno);
+             yyrule - 1, yylno);
   /* The symbols being reduced.  */
   for (yyi = 0; yyi < yynrhs; yyi++)
     {
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
-      yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
-		       &(yyvsp[(yyi + 1) - (yynrhs)])
-		       		       );
+      yy_symbol_print (stderr,
+                       yystos[yyssp[yyi + 1 - yynrhs]],
+                       &(yyvsp[(yyi + 1) - (yynrhs)])
+                                              , pSkel);
       YYFPRINTF (stderr, "\n");
     }
 }
 
-# define YY_REDUCE_PRINT(Rule)		\
-do {					\
-  if (yydebug)				\
-    yy_reduce_print (yyvsp, Rule); \
-} while (YYID (0))
+# define YY_REDUCE_PRINT(Rule)          \
+do {                                    \
+  if (yydebug)                          \
+    yy_reduce_print (yyssp, yyvsp, Rule, pSkel); \
+} while (0)
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
@@ -1788,7 +1522,7 @@ int yydebug;
 
 
 /* YYINITDEPTH -- initial size of the parser's stacks.  */
-#ifndef	YYINITDEPTH
+#ifndef YYINITDEPTH
 # define YYINITDEPTH 200
 #endif
 
@@ -1811,15 +1545,8 @@ int yydebug;
 #   define yystrlen strlen
 #  else
 /* Return the length of YYSTR.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static YYSIZE_T
 yystrlen (const char *yystr)
-#else
-static YYSIZE_T
-yystrlen (yystr)
-    const char *yystr;
-#endif
 {
   YYSIZE_T yylen;
   for (yylen = 0; yystr[yylen]; yylen++)
@@ -1835,16 +1562,8 @@ yystrlen (yystr)
 #  else
 /* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
    YYDEST.  */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static char *
 yystpcpy (char *yydest, const char *yysrc)
-#else
-static char *
-yystpcpy (yydest, yysrc)
-    char *yydest;
-    const char *yysrc;
-#endif
 {
   char *yyd = yydest;
   const char *yys = yysrc;
@@ -1874,27 +1593,27 @@ yytnamerr (char *yyres, const char *yystr)
       char const *yyp = yystr;
 
       for (;;)
-	switch (*++yyp)
-	  {
-	  case '\'':
-	  case ',':
-	    goto do_not_strip_quotes;
+        switch (*++yyp)
+          {
+          case '\'':
+          case ',':
+            goto do_not_strip_quotes;
 
-	  case '\\':
-	    if (*++yyp != '\\')
-	      goto do_not_strip_quotes;
-	    /* Fall through.  */
-	  default:
-	    if (yyres)
-	      yyres[yyn] = *yyp;
-	    yyn++;
-	    break;
+          case '\\':
+            if (*++yyp != '\\')
+              goto do_not_strip_quotes;
+            /* Fall through.  */
+          default:
+            if (yyres)
+              yyres[yyn] = *yyp;
+            yyn++;
+            break;
 
-	  case '"':
-	    if (yyres)
-	      yyres[yyn] = '\0';
-	    return yyn;
-	  }
+          case '"':
+            if (yyres)
+              yyres[yyn] = '\0';
+            return yyn;
+          }
     do_not_strip_quotes: ;
     }
 
@@ -1917,12 +1636,11 @@ static int
 yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                 yytype_int16 *yyssp, int yytoken)
 {
-  YYSIZE_T yysize0 = yytnamerr (YY_NULL, yytname[yytoken]);
+  YYSIZE_T yysize0 = yytnamerr (YY_NULLPTR, yytname[yytoken]);
   YYSIZE_T yysize = yysize0;
-  YYSIZE_T yysize1;
   enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
   /* Internationalized format string. */
-  const char *yyformat = YY_NULL;
+  const char *yyformat = YY_NULLPTR;
   /* Arguments of yyformat. */
   char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
   /* Number of reported tokens (one for the "unexpected", one per
@@ -1930,10 +1648,6 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
   int yycount = 0;
 
   /* There are many possibilities here to consider:
-     - Assume YYFAIL is not used.  It's too flawed to consider.  See
-       <http://lists.gnu.org/archive/html/bison-patches/2009-12/msg00024.html>
-       for details.  YYERROR is fine as it does not invoke this
-       function.
      - If this state is a consistent state with a default action, then
        the only way this function was invoked is if the default action
        is an error action.  In that case, don't check for expected
@@ -1982,11 +1696,13 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                     break;
                   }
                 yyarg[yycount++] = yytname[yyx];
-                yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
-                if (! (yysize <= yysize1
-                       && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-                  return 2;
-                yysize = yysize1;
+                {
+                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULLPTR, yytname[yyx]);
+                  if (! (yysize <= yysize1
+                         && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+                    return 2;
+                  yysize = yysize1;
+                }
               }
         }
     }
@@ -2006,10 +1722,12 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 # undef YYCASE_
     }
 
-  yysize1 = yysize + yystrlen (yyformat);
-  if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-    return 2;
-  yysize = yysize1;
+  {
+    YYSIZE_T yysize1 = yysize + yystrlen (yyformat);
+    if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+      return 2;
+    yysize = yysize1;
+  }
 
   if (*yymsg_alloc < yysize)
     {
@@ -2046,31 +1764,18 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 | Release the memory associated to this symbol.  |
 `-----------------------------------------------*/
 
-/*ARGSUSED*/
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
-#else
-static void
-yydestruct (yymsg, yytype, yyvaluep)
-    const char *yymsg;
-    int yytype;
-    YYSTYPE *yyvaluep;
-#endif
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, void *pSkel)
 {
   YYUSE (yyvaluep);
-
+  YYUSE (pSkel);
   if (!yymsg)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
 
-  switch (yytype)
-    {
-
-      default:
-	break;
-    }
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YYUSE (yytype);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
@@ -2080,33 +1785,18 @@ yydestruct (yymsg, yytype, yyvaluep)
 | yyparse.  |
 `----------*/
 
-#ifdef YYPARSE_PARAM
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
 int
-yyparse (void *YYPARSE_PARAM)
-#else
-int
-yyparse (YYPARSE_PARAM)
-    void *YYPARSE_PARAM;
-#endif
-#else /* ! YYPARSE_PARAM */
-#if (defined __STDC__ || defined __C99__FUNC__ \
-     || defined __cplusplus || defined _MSC_VER)
-int
-yyparse (void)
-#else
-int
-yyparse ()
-
-#endif
-#endif
+yyparse (void *pSkel)
 {
 /* The lookahead symbol.  */
 int yychar;
 
+
 /* The semantic value of the lookahead symbol.  */
-YYSTYPE yylval;
+/* Default value used for initialization, for pacifying older GCCs
+   or non-GCC compilers.  */
+YY_INITIAL_VALUE (static YYSTYPE yyval_default;)
+YYSTYPE yylval YY_INITIAL_VALUE (= yyval_default);
 
     /* Number of syntax errors so far.  */
     int yynerrs;
@@ -2116,8 +1806,8 @@ YYSTYPE yylval;
     int yyerrstatus;
 
     /* The stacks and their tools:
-       `yyss': related to states.
-       `yyvs': related to semantic values.
+       'yyss': related to states.
+       'yyvs': related to semantic values.
 
        Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
@@ -2137,7 +1827,7 @@ YYSTYPE yylval;
   int yyn;
   int yyresult;
   /* Lookahead token as an internal (translated) token number.  */
-  int yytoken;
+  int yytoken = 0;
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
@@ -2155,9 +1845,8 @@ YYSTYPE yylval;
      Keep to zero when no symbol should be popped.  */
   int yylen = 0;
 
-  yytoken = 0;
-  yyss = yyssa;
-  yyvs = yyvsa;
+  yyssp = yyss = yyssa;
+  yyvsp = yyvs = yyvsa;
   yystacksize = YYINITDEPTH;
 
   YYDPRINTF ((stderr, "Starting parse\n"));
@@ -2166,13 +1855,6 @@ YYSTYPE yylval;
   yyerrstatus = 0;
   yynerrs = 0;
   yychar = YYEMPTY; /* Cause a token to be read.  */
-
-  /* Initialize stack pointers.
-     Waste one element of value and location stack
-     so that they stay on the same level as the state stack.
-     The wasted elements are never initialized.  */
-  yyssp = yyss;
-  yyvsp = yyvs;
   goto yysetstate;
 
 /*------------------------------------------------------------.
@@ -2193,23 +1875,23 @@ YYSTYPE yylval;
 
 #ifdef yyoverflow
       {
-	/* Give user a chance to reallocate the stack.  Use copies of
-	   these so that the &'s don't force the real ones into
-	   memory.  */
-	YYSTYPE *yyvs1 = yyvs;
-	yytype_int16 *yyss1 = yyss;
+        /* Give user a chance to reallocate the stack.  Use copies of
+           these so that the &'s don't force the real ones into
+           memory.  */
+        YYSTYPE *yyvs1 = yyvs;
+        yytype_int16 *yyss1 = yyss;
 
-	/* Each stack pointer address is followed by the size of the
-	   data in use in that stack, in bytes.  This used to be a
-	   conditional around just the two extra args, but that might
-	   be undefined if yyoverflow is a macro.  */
-	yyoverflow (YY_("memory exhausted"),
-		    &yyss1, yysize * sizeof (*yyssp),
-		    &yyvs1, yysize * sizeof (*yyvsp),
-		    &yystacksize);
+        /* Each stack pointer address is followed by the size of the
+           data in use in that stack, in bytes.  This used to be a
+           conditional around just the two extra args, but that might
+           be undefined if yyoverflow is a macro.  */
+        yyoverflow (YY_("memory exhausted"),
+                    &yyss1, yysize * sizeof (*yyssp),
+                    &yyvs1, yysize * sizeof (*yyvsp),
+                    &yystacksize);
 
-	yyss = yyss1;
-	yyvs = yyvs1;
+        yyss = yyss1;
+        yyvs = yyvs1;
       }
 #else /* no yyoverflow */
 # ifndef YYSTACK_RELOCATE
@@ -2217,22 +1899,22 @@ YYSTYPE yylval;
 # else
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-	goto yyexhaustedlab;
+        goto yyexhaustedlab;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
-	yystacksize = YYMAXDEPTH;
+        yystacksize = YYMAXDEPTH;
 
       {
-	yytype_int16 *yyss1 = yyss;
-	union yyalloc *yyptr =
-	  (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
-	if (! yyptr)
-	  goto yyexhaustedlab;
-	YYSTACK_RELOCATE (yyss_alloc, yyss);
-	YYSTACK_RELOCATE (yyvs_alloc, yyvs);
+        yytype_int16 *yyss1 = yyss;
+        union yyalloc *yyptr =
+          (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
+        if (! yyptr)
+          goto yyexhaustedlab;
+        YYSTACK_RELOCATE (yyss_alloc, yyss);
+        YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
-	if (yyss1 != yyssa)
-	  YYSTACK_FREE (yyss1);
+        if (yyss1 != yyssa)
+          YYSTACK_FREE (yyss1);
       }
 # endif
 #endif /* no yyoverflow */
@@ -2241,10 +1923,10 @@ YYSTYPE yylval;
       yyvsp = yyvs + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-		  (unsigned long int) yystacksize));
+                  (unsigned long int) yystacksize));
 
       if (yyss + yystacksize - 1 <= yyssp)
-	YYABORT;
+        YYABORT;
     }
 
   YYDPRINTF ((stderr, "Entering state %d\n", yystate));
@@ -2273,7 +1955,7 @@ yybackup:
   if (yychar == YYEMPTY)
     {
       YYDPRINTF ((stderr, "Reading a token: "));
-      yychar = YYLEX;
+      yychar = yylex (&yylval, pSkel);
     }
 
   if (yychar <= YYEOF)
@@ -2313,7 +1995,9 @@ yybackup:
   yychar = YYEMPTY;
 
   yystate = yyn;
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
   goto yynewstate;
 
@@ -2336,7 +2020,7 @@ yyreduce:
   yylen = yyr2[yyn];
 
   /* If YYLEN is nonzero, implement the default value of the action:
-     `$$ = $1'.
+     '$$ = $1'.
 
      Otherwise, the following line sets YYVAL to garbage.
      This behavior is undocumented and Bison
@@ -2350,1374 +2034,1373 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-/* Line 1787 of yacc.c  */
-#line 218 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { if(SKEL->verifyHeader((yyvsp[(1) - (1)].stringVal)) == false) { YYABORT; } }
+#line 221 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { if(SKEL->verifyHeader((yyvsp[0].stringVal)) == false) { YYABORT; } }
+#line 2040 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 4:
-/* Line 1787 of yacc.c  */
-#line 219 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 222 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { if(SKEL->checkHeader() == true) { YYABORT; } }
+#line 2046 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 5:
-/* Line 1787 of yacc.c  */
-#line 222 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->profileElement((yyvsp[(2) - (2)].stringVal)); }
+#line 225 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->profileElement((yyvsp[0].stringVal)); }
+#line 2052 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-/* Line 1787 of yacc.c  */
-#line 236 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->componentElement((yyvsp[(2) - (2)].stringVal)); }
+#line 239 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->componentElement((yyvsp[0].stringVal)); }
+#line 2058 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-/* Line 1787 of yacc.c  */
-#line 253 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(2) - (2)].stringVal); }
+#line 256 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); }
+#line 2064 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 16:
-/* Line 1787 of yacc.c  */
-#line 255 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->metaElement(SKEL->_tmpString1.c_str(), (yyvsp[(4) - (4)].stringVal)); }
+#line 258 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->metaElement(SKEL->_tmpString1.c_str(), (yyvsp[0].stringVal)); }
+#line 2070 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-/* Line 1787 of yacc.c  */
-#line 287 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(1) - (1)].stringVal); 
+#line 290 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); 
                             SKEL->_tmpBitVector1 = 
                                 TypeTraits<BitVector>::BitsClear; }
+#line 2078 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-/* Line 1787 of yacc.c  */
-#line 290 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 293 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginNode(SKEL->_tmpString1.c_str(), 
                                             0,
                                             SKEL->_tmpBitVector1     ); }
+#line 2086 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-/* Line 1787 of yacc.c  */
-#line 295 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(2) - (2)].stringVal); 
+#line 298 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); 
                             SKEL->_tmpBitVector1 = 
                                 TypeTraits<BitVector>::BitsClear; }
+#line 2094 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-/* Line 1787 of yacc.c  */
-#line 298 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString2 = (yyvsp[(4) - (4)].stringVal); }
+#line 301 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString2 = (yyvsp[0].stringVal); }
+#line 2100 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-/* Line 1787 of yacc.c  */
-#line 299 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 302 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginNode(SKEL->_tmpString2.c_str(), 
                                             SKEL->_tmpString1.c_str(),
                                             SKEL->_tmpBitVector1     ); }
+#line 2108 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-/* Line 1787 of yacc.c  */
-#line 304 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->use((yyvsp[(2) - (2)].stringVal)); }
+#line 307 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->use((yyvsp[0].stringVal)); }
+#line 2114 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
-/* Line 1787 of yacc.c  */
-#line 315 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 318 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpBitVector1 |= FCLocal::Cluster; }
+#line 2120 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
-/* Line 1787 of yacc.c  */
-#line 316 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 319 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpBitVector1 |= FCLocal::MT;      }
+#line 2126 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
-/* Line 1787 of yacc.c  */
-#line 327 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginProto((yyvsp[(2) - (2)].stringVal)); }
+#line 330 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginProto((yyvsp[0].stringVal)); }
+#line 2132 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-/* Line 1787 of yacc.c  */
-#line 328 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 331 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endProtoInterface(); }
+#line 2138 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
-/* Line 1787 of yacc.c  */
-#line 329 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 332 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endProto(); }
+#line 2144 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
-/* Line 1787 of yacc.c  */
-#line 337 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 340 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2150 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 48:
-/* Line 1787 of yacc.c  */
-#line 338 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->endEventDecl(); }
+#line 341 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->endEventDecl(); }
+#line 2156 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 49:
-/* Line 1787 of yacc.c  */
-#line 340 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 343 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2162 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
-/* Line 1787 of yacc.c  */
-#line 341 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->endEventDecl(); }
+#line 344 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->endEventDecl(); }
+#line 2168 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
-/* Line 1787 of yacc.c  */
-#line 343 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 346 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2174 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
-/* Line 1787 of yacc.c  */
-#line 344 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->getLexer()->expectType((yyvsp[(2) - (4)].intVal)); }
+#line 347 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->getLexer()->expectType((yyvsp[-2].intVal)); }
+#line 2180 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 53:
-/* Line 1787 of yacc.c  */
-#line 345 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 348 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endFieldDecl(); }
+#line 2186 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 54:
-/* Line 1787 of yacc.c  */
-#line 347 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 350 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2192 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 55:
-/* Line 1787 of yacc.c  */
-#line 348 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->getLexer()->expectType((yyvsp[(2) - (4)].intVal)); }
+#line 351 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->getLexer()->expectType((yyvsp[-2].intVal)); }
+#line 2198 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 56:
-/* Line 1787 of yacc.c  */
-#line 349 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 352 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endExposedFieldDecl(); }
+#line 2204 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 57:
-/* Line 1787 of yacc.c  */
-#line 352 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginExternProto((yyvsp[(2) - (2)].stringVal)); }
+#line 355 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginExternProto((yyvsp[0].stringVal)); }
+#line 2210 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 58:
-/* Line 1787 of yacc.c  */
-#line 353 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 356 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endExternProtoInterface(); }
+#line 2216 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 59:
-/* Line 1787 of yacc.c  */
-#line 354 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 357 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endExternProto(); }
+#line 2222 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 62:
-/* Line 1787 of yacc.c  */
-#line 362 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 365 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2228 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 63:
-/* Line 1787 of yacc.c  */
-#line 363 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addExternEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 366 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addExternEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2234 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 64:
-/* Line 1787 of yacc.c  */
-#line 365 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 368 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2240 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 65:
-/* Line 1787 of yacc.c  */
-#line 366 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addExternEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 369 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addExternEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2246 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 66:
-/* Line 1787 of yacc.c  */
-#line 368 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 371 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2252 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 67:
-/* Line 1787 of yacc.c  */
-#line 369 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addExternFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 372 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addExternFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2258 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 68:
-/* Line 1787 of yacc.c  */
-#line 371 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 374 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2264 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 69:
-/* Line 1787 of yacc.c  */
-#line 372 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addExternExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 375 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addExternExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2270 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 70:
-/* Line 1787 of yacc.c  */
-#line 376 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(2) - (2)].stringVal); }
+#line 379 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); }
+#line 2276 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 71:
-/* Line 1787 of yacc.c  */
-#line 378 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString2 = (yyvsp[(5) - (5)].stringVal); }
+#line 381 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString2 = (yyvsp[0].stringVal); }
+#line 2282 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 72:
-/* Line 1787 of yacc.c  */
-#line 380 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString3 = (yyvsp[(8) - (8)].stringVal); }
+#line 383 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString3 = (yyvsp[0].stringVal); }
+#line 2288 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 73:
-/* Line 1787 of yacc.c  */
-#line 383 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addRoute(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), SKEL->_tmpString3.c_str(), (yyvsp[(11) - (11)].stringVal)); }
+#line 386 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addRoute(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), SKEL->_tmpString3.c_str(), (yyvsp[0].stringVal)); }
+#line 2294 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-/* Line 1787 of yacc.c  */
-#line 387 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(2) - (2)].stringVal); }
+#line 390 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); }
+#line 2300 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-/* Line 1787 of yacc.c  */
-#line 389 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString2 = (yyvsp[(5) - (5)].stringVal); }
+#line 392 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString2 = (yyvsp[0].stringVal); }
+#line 2306 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 76:
-/* Line 1787 of yacc.c  */
-#line 391 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 394 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        if ((yyvsp[(7) - (7)].stringVal) != 0)
-            SKEL->importElement(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), (yyvsp[(7) - (7)].stringVal));
+        if ((yyvsp[0].stringVal) != 0)
+            SKEL->importElement(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), (yyvsp[0].stringVal));
         else
             SKEL->importElement(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), 0);
     }
+#line 2317 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 77:
-/* Line 1787 of yacc.c  */
-#line 400 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->_tmpString1 = (yyvsp[(2) - (2)].stringVal); }
+#line 403 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->_tmpString1 = (yyvsp[0].stringVal); }
+#line 2323 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 78:
-/* Line 1787 of yacc.c  */
-#line 402 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 405 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        if ((yyvsp[(4) - (4)].stringVal) != 0)
-            SKEL->exportElement(SKEL->_tmpString1.c_str(), (yyvsp[(4) - (4)].stringVal));
+        if ((yyvsp[0].stringVal) != 0)
+            SKEL->exportElement(SKEL->_tmpString1.c_str(), (yyvsp[0].stringVal));
         else
             SKEL->exportElement(SKEL->_tmpString1.c_str(), 0);
     }
+#line 2334 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 79:
-/* Line 1787 of yacc.c  */
-#line 411 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.stringVal) = (yyvsp[(2) - (2)].stringVal); }
+#line 414 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.stringVal) = (yyvsp[0].stringVal); }
+#line 2340 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 80:
-/* Line 1787 of yacc.c  */
-#line 412 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 415 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { (yyval.stringVal) = 0; }
+#line 2346 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 82:
-/* Line 1787 of yacc.c  */
-#line 418 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 421 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endNode(); }
+#line 2352 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 91:
-/* Line 1787 of yacc.c  */
-#line 434 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 437 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2358 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 92:
-/* Line 1787 of yacc.c  */
-#line 435 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 438 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginEventInDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2364 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 93:
-/* Line 1787 of yacc.c  */
-#line 436 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 439 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endEventDecl(); }
+#line 2370 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 94:
-/* Line 1787 of yacc.c  */
-#line 440 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 443 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2376 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 95:
-/* Line 1787 of yacc.c  */
-#line 441 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); }
+#line 444 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginEventOutDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); }
+#line 2382 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 96:
-/* Line 1787 of yacc.c  */
-#line 442 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 445 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endEventDecl(); }
+#line 2388 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 98:
-/* Line 1787 of yacc.c  */
-#line 446 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->is((yyvsp[(2) - (2)].stringVal)); }
+#line 449 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->is((yyvsp[0].stringVal)); }
+#line 2394 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 99:
-/* Line 1787 of yacc.c  */
-#line 450 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 453 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2400 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 100:
-/* Line 1787 of yacc.c  */
-#line 451 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->getLexer()->expectType((yyvsp[(2) - (4)].intVal)); }
+#line 454 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->getLexer()->expectType((yyvsp[-2].intVal)); }
+#line 2406 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 101:
-/* Line 1787 of yacc.c  */
-#line 452 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 455 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endFieldDecl(); }
+#line 2412 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 102:
-/* Line 1787 of yacc.c  */
-#line 454 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 457 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2418 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 103:
-/* Line 1787 of yacc.c  */
-#line 455 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 458 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { 
-               SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), 0, (yyvsp[(4) - (4)].stringVal)); 
+               SKEL->beginFieldDecl(SKEL->_tmpString1.c_str(), 0, (yyvsp[0].stringVal)); 
 
-               Int32 iFieldTypeId = SKEL->getFieldType((yyvsp[(4) - (4)].stringVal));
+               Int32 iFieldTypeId = SKEL->getFieldType((yyvsp[0].stringVal));
 
                if(SKEL->getMapFieldTypes() == true)
-                 iFieldTypeId = SKEL->mapExtIntFieldType((yyvsp[(4) - (4)].stringVal), iFieldTypeId);
+                 iFieldTypeId = SKEL->mapExtIntFieldType((yyvsp[0].stringVal), iFieldTypeId);
 
                SKEL->getLexer()->expectType(iFieldTypeId);
              }
+#line 2433 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 104:
-/* Line 1787 of yacc.c  */
-#line 465 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 468 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endFieldDecl(); }
+#line 2439 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 105:
-/* Line 1787 of yacc.c  */
-#line 469 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 472 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->_tmpString1 = SKEL->getLexer()->YYText(); }
+#line 2445 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 106:
-/* Line 1787 of yacc.c  */
-#line 470 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->beginExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[(2) - (4)].intVal), (yyvsp[(4) - (4)].stringVal)); SKEL->getLexer()->expectType((yyvsp[(2) - (4)].intVal)); }
+#line 473 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->beginExposedFieldDecl(SKEL->_tmpString1.c_str(), (yyvsp[-2].intVal), (yyvsp[0].stringVal)); SKEL->getLexer()->expectType((yyvsp[-2].intVal)); }
+#line 2451 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 107:
-/* Line 1787 of yacc.c  */
-#line 471 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 474 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endExposedFieldDecl(); }
+#line 2457 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 109:
-/* Line 1787 of yacc.c  */
-#line 475 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->is((yyvsp[(3) - (3)].stringVal)); }
+#line 478 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->is((yyvsp[0].stringVal)); }
+#line 2463 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 110:
-/* Line 1787 of yacc.c  */
-#line 479 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 482 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        Int32 iFieldTypeId = SKEL->getFieldType((yyvsp[(1) - (1)].stringVal));
+        Int32 iFieldTypeId = SKEL->getFieldType((yyvsp[0].stringVal));
         if (SKEL->getMapFieldTypes() == true)
-            iFieldTypeId = SKEL->mapExtIntFieldType((yyvsp[(1) - (1)].stringVal), iFieldTypeId);
+            iFieldTypeId = SKEL->mapExtIntFieldType((yyvsp[0].stringVal), iFieldTypeId);
         SKEL->getLexer()->expectType(iFieldTypeId);
-        SKEL->beginField((yyvsp[(1) - (1)].stringVal), iFieldTypeId);
+        SKEL->beginField((yyvsp[0].stringVal), iFieldTypeId);
     }
+#line 2475 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 111:
-/* Line 1787 of yacc.c  */
-#line 486 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 489 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->endField(); }
+#line 2481 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 117:
-/* Line 1787 of yacc.c  */
-#line 494 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->is((yyvsp[(3) - (3)].stringVal)); }
+#line 497 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->is((yyvsp[0].stringVal)); }
+#line 2487 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 232:
-/* Line 1787 of yacc.c  */
-#line 627 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.intVal) = (yyvsp[(1) - (1)].intVal); }
+#line 630 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.intVal) = (yyvsp[0].intVal); }
+#line 2493 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 233:
-/* Line 1787 of yacc.c  */
-#line 628 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.intVal) = (yyvsp[(1) - (1)].intVal); }
+#line 631 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.intVal) = (yyvsp[0].intVal); }
+#line 2499 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 234:
-/* Line 1787 of yacc.c  */
-#line 631 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.doubleVal) = (yyvsp[(1) - (1)].intVal); }
+#line 634 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.doubleVal) = (yyvsp[0].intVal); }
+#line 2505 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 235:
-/* Line 1787 of yacc.c  */
-#line 632 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.doubleVal) = (yyvsp[(1) - (1)].doubleVal); }
+#line 635 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.doubleVal) = (yyvsp[0].doubleVal); }
+#line 2511 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 236:
-/* Line 1787 of yacc.c  */
-#line 635 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.floatVal) = static_cast<float>((yyvsp[(1) - (1)].intVal)); }
+#line 638 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.floatVal) = static_cast<float>((yyvsp[0].intVal)); }
+#line 2517 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 237:
-/* Line 1787 of yacc.c  */
-#line 636 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { (yyval.floatVal) = static_cast<float>((yyvsp[(1) - (1)].doubleVal)); }
+#line 639 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { (yyval.floatVal) = static_cast<float>((yyvsp[0].doubleVal)); }
+#line 2523 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 238:
-/* Line 1787 of yacc.c  */
-#line 640 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 643 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addBoolValue((yyvsp[(1) - (1)].boolVal));
+        SKEL->addBoolValue((yyvsp[0].boolVal));
     }
+#line 2531 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 239:
-/* Line 1787 of yacc.c  */
-#line 643 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-    { SKEL->addFieldValue((yyvsp[(1) - (1)].stringVal)); }
+#line 646 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
+    { SKEL->addFieldValue((yyvsp[0].stringVal)); }
+#line 2537 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 240:
-/* Line 1787 of yacc.c  */
-#line 646 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 649 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2543 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 241:
-/* Line 1787 of yacc.c  */
-#line 647 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 650 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2549 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 242:
-/* Line 1787 of yacc.c  */
-#line 649 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 652 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addColorValue(Color3f((yyvsp[(1) - (5)].floatVal), (yyvsp[(3) - (5)].floatVal), (yyvsp[(5) - (5)].floatVal)));
+        SKEL->addColorValue(Color3f((yyvsp[-4].floatVal), (yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 2558 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 243:
-/* Line 1787 of yacc.c  */
-#line 655 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 658 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2564 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 244:
-/* Line 1787 of yacc.c  */
-#line 656 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 659 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2570 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 245:
-/* Line 1787 of yacc.c  */
-#line 657 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 660 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2576 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 246:
-/* Line 1787 of yacc.c  */
-#line 659 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 662 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addColorRGBAValue(Color4f((yyvsp[(1) - (7)].floatVal), (yyvsp[(3) - (7)].floatVal), (yyvsp[(5) - (7)].floatVal), (yyvsp[(7) - (7)].floatVal)));
+        SKEL->addColorRGBAValue(Color4f((yyvsp[-6].floatVal), (yyvsp[-4].floatVal), (yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 2585 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 247:
-/* Line 1787 of yacc.c  */
-#line 666 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 669 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addDoubleValue((yyvsp[(1) - (1)].doubleVal));
+        SKEL->addDoubleValue((yyvsp[0].doubleVal));
     }
+#line 2593 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 248:
-/* Line 1787 of yacc.c  */
-#line 672 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 675 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addFloatValue((yyvsp[(1) - (1)].floatVal));
+        SKEL->addFloatValue((yyvsp[0].floatVal));
     }
+#line 2601 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 249:
-/* Line 1787 of yacc.c  */
-#line 677 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 680 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2607 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 250:
-/* Line 1787 of yacc.c  */
-#line 678 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 681 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2613 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 251:
-/* Line 1787 of yacc.c  */
-#line 680 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 683 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->beginImage((yyvsp[(1) - (5)].intVal), (yyvsp[(3) - (5)].intVal), (yyvsp[(5) - (5)].intVal));
+        SKEL->beginImage((yyvsp[-4].intVal), (yyvsp[-2].intVal), (yyvsp[0].intVal));
     }
+#line 2622 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 252:
-/* Line 1787 of yacc.c  */
-#line 685 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 688 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->endImage();
     }
+#line 2630 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 253:
-/* Line 1787 of yacc.c  */
-#line 691 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 694 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addImagePixel((yyvsp[(2) - (2)].intVal));
+        SKEL->addImagePixel((yyvsp[0].intVal));
     }
+#line 2638 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 255:
-/* Line 1787 of yacc.c  */
-#line 698 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 701 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addInt32Value((yyvsp[(1) - (1)].intVal));
+        SKEL->addInt32Value((yyvsp[0].intVal));
     }
+#line 2646 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 256:
-/* Line 1787 of yacc.c  */
-#line 703 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 706 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2652 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 257:
-/* Line 1787 of yacc.c  */
-#line 704 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 707 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2658 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 258:
-/* Line 1787 of yacc.c  */
-#line 705 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 708 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2664 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 259:
-/* Line 1787 of yacc.c  */
-#line 706 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 709 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2670 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 260:
-/* Line 1787 of yacc.c  */
-#line 707 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 710 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2676 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 261:
-/* Line 1787 of yacc.c  */
-#line 708 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 711 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2682 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 262:
-/* Line 1787 of yacc.c  */
-#line 709 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 712 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2688 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 263:
-/* Line 1787 of yacc.c  */
-#line 710 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 713 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2694 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 264:
-/* Line 1787 of yacc.c  */
-#line 712 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 715 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
         SKEL->addMatrix3dValue(
-            (yyvsp[(1) - (17)].doubleVal),  (yyvsp[(7) - (17)].doubleVal), (yyvsp[(13) - (17)].doubleVal),
-            (yyvsp[(3) - (17)].doubleVal),  (yyvsp[(9) - (17)].doubleVal), (yyvsp[(15) - (17)].doubleVal),
-            (yyvsp[(5) - (17)].doubleVal), (yyvsp[(11) - (17)].doubleVal), (yyvsp[(17) - (17)].doubleVal));
+            (yyvsp[-16].doubleVal),  (yyvsp[-10].doubleVal), (yyvsp[-4].doubleVal),
+            (yyvsp[-14].doubleVal),  (yyvsp[-8].doubleVal), (yyvsp[-2].doubleVal),
+            (yyvsp[-12].doubleVal), (yyvsp[-6].doubleVal), (yyvsp[0].doubleVal));
     }
+#line 2706 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 265:
-/* Line 1787 of yacc.c  */
-#line 721 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 724 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2712 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 266:
-/* Line 1787 of yacc.c  */
-#line 722 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 725 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2718 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 267:
-/* Line 1787 of yacc.c  */
-#line 723 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 726 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2724 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 268:
-/* Line 1787 of yacc.c  */
-#line 724 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 727 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2730 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 269:
-/* Line 1787 of yacc.c  */
-#line 725 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 728 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2736 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 270:
-/* Line 1787 of yacc.c  */
-#line 726 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 729 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2742 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 271:
-/* Line 1787 of yacc.c  */
-#line 727 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 730 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2748 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 272:
-/* Line 1787 of yacc.c  */
-#line 728 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 731 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2754 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 273:
-/* Line 1787 of yacc.c  */
-#line 730 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 733 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
         SKEL->addMatrix3fValue(
-            (yyvsp[(1) - (17)].floatVal),  (yyvsp[(7) - (17)].floatVal), (yyvsp[(13) - (17)].floatVal),
-            (yyvsp[(3) - (17)].floatVal),  (yyvsp[(9) - (17)].floatVal), (yyvsp[(15) - (17)].floatVal),
-            (yyvsp[(5) - (17)].floatVal), (yyvsp[(11) - (17)].floatVal), (yyvsp[(17) - (17)].floatVal));
+            (yyvsp[-16].floatVal),  (yyvsp[-10].floatVal), (yyvsp[-4].floatVal),
+            (yyvsp[-14].floatVal),  (yyvsp[-8].floatVal), (yyvsp[-2].floatVal),
+            (yyvsp[-12].floatVal), (yyvsp[-6].floatVal), (yyvsp[0].floatVal));
     }
+#line 2766 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 274:
-/* Line 1787 of yacc.c  */
-#line 739 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 742 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2772 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 275:
-/* Line 1787 of yacc.c  */
-#line 740 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 743 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2778 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 276:
-/* Line 1787 of yacc.c  */
-#line 741 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 744 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2784 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 277:
-/* Line 1787 of yacc.c  */
-#line 742 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 745 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2790 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 278:
-/* Line 1787 of yacc.c  */
-#line 743 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 746 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2796 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 279:
-/* Line 1787 of yacc.c  */
-#line 744 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 747 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2802 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 280:
-/* Line 1787 of yacc.c  */
-#line 745 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 748 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2808 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 281:
-/* Line 1787 of yacc.c  */
-#line 746 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 749 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2814 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 282:
-/* Line 1787 of yacc.c  */
-#line 747 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 750 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2820 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 283:
-/* Line 1787 of yacc.c  */
-#line 748 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 751 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2826 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 284:
-/* Line 1787 of yacc.c  */
-#line 749 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 752 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2832 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 285:
-/* Line 1787 of yacc.c  */
-#line 750 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 753 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2838 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 286:
-/* Line 1787 of yacc.c  */
-#line 751 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 754 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2844 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 287:
-/* Line 1787 of yacc.c  */
-#line 752 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 755 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2850 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 288:
-/* Line 1787 of yacc.c  */
-#line 753 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 756 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2856 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 289:
-/* Line 1787 of yacc.c  */
-#line 755 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 758 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
         SKEL->addMatrix4dValue(Matrix4d(
-            (yyvsp[(1) - (31)].doubleVal),  (yyvsp[(9) - (31)].doubleVal), (yyvsp[(17) - (31)].doubleVal), (yyvsp[(25) - (31)].doubleVal),
-            (yyvsp[(3) - (31)].doubleVal), (yyvsp[(11) - (31)].doubleVal), (yyvsp[(19) - (31)].doubleVal), (yyvsp[(27) - (31)].doubleVal),
-            (yyvsp[(5) - (31)].doubleVal), (yyvsp[(13) - (31)].doubleVal), (yyvsp[(21) - (31)].doubleVal), (yyvsp[(29) - (31)].doubleVal),
-            (yyvsp[(7) - (31)].doubleVal), (yyvsp[(15) - (31)].doubleVal), (yyvsp[(23) - (31)].doubleVal), (yyvsp[(31) - (31)].doubleVal)));
+            (yyvsp[-30].doubleVal),  (yyvsp[-22].doubleVal), (yyvsp[-14].doubleVal), (yyvsp[-6].doubleVal),
+            (yyvsp[-28].doubleVal), (yyvsp[-20].doubleVal), (yyvsp[-12].doubleVal), (yyvsp[-4].doubleVal),
+            (yyvsp[-26].doubleVal), (yyvsp[-18].doubleVal), (yyvsp[-10].doubleVal), (yyvsp[-2].doubleVal),
+            (yyvsp[-24].doubleVal), (yyvsp[-16].doubleVal), (yyvsp[-8].doubleVal), (yyvsp[0].doubleVal)));
     }
+#line 2869 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 290:
-/* Line 1787 of yacc.c  */
-#line 765 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 768 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2875 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 291:
-/* Line 1787 of yacc.c  */
-#line 766 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 769 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2881 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 292:
-/* Line 1787 of yacc.c  */
-#line 767 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 770 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2887 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 293:
-/* Line 1787 of yacc.c  */
-#line 768 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 771 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2893 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 294:
-/* Line 1787 of yacc.c  */
-#line 769 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 772 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2899 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 295:
-/* Line 1787 of yacc.c  */
-#line 770 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 773 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2905 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 296:
-/* Line 1787 of yacc.c  */
-#line 771 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 774 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2911 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 297:
-/* Line 1787 of yacc.c  */
-#line 772 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 775 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2917 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 298:
-/* Line 1787 of yacc.c  */
-#line 773 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 776 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2923 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 299:
-/* Line 1787 of yacc.c  */
-#line 774 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 777 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2929 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 300:
-/* Line 1787 of yacc.c  */
-#line 775 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 778 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2935 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 301:
-/* Line 1787 of yacc.c  */
-#line 776 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 779 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2941 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 302:
-/* Line 1787 of yacc.c  */
-#line 777 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 780 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2947 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 303:
-/* Line 1787 of yacc.c  */
-#line 778 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 781 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2953 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 304:
-/* Line 1787 of yacc.c  */
-#line 779 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 782 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2959 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 305:
-/* Line 1787 of yacc.c  */
-#line 781 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 784 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
         SKEL->addMatrix4fValue(Matrix4f(
-            (yyvsp[(1) - (31)].floatVal),  (yyvsp[(9) - (31)].floatVal), (yyvsp[(17) - (31)].floatVal), (yyvsp[(25) - (31)].floatVal),
-            (yyvsp[(3) - (31)].floatVal), (yyvsp[(11) - (31)].floatVal), (yyvsp[(19) - (31)].floatVal), (yyvsp[(27) - (31)].floatVal),
-            (yyvsp[(5) - (31)].floatVal), (yyvsp[(13) - (31)].floatVal), (yyvsp[(21) - (31)].floatVal), (yyvsp[(29) - (31)].floatVal),
-            (yyvsp[(7) - (31)].floatVal), (yyvsp[(15) - (31)].floatVal), (yyvsp[(23) - (31)].floatVal), (yyvsp[(31) - (31)].floatVal)));
+            (yyvsp[-30].floatVal),  (yyvsp[-22].floatVal), (yyvsp[-14].floatVal), (yyvsp[-6].floatVal),
+            (yyvsp[-28].floatVal), (yyvsp[-20].floatVal), (yyvsp[-12].floatVal), (yyvsp[-4].floatVal),
+            (yyvsp[-26].floatVal), (yyvsp[-18].floatVal), (yyvsp[-10].floatVal), (yyvsp[-2].floatVal),
+            (yyvsp[-24].floatVal), (yyvsp[-16].floatVal), (yyvsp[-8].floatVal), (yyvsp[0].floatVal)));
     }
+#line 2972 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 307:
-/* Line 1787 of yacc.c  */
-#line 792 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 795 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->nullNode(); }
+#line 2978 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 308:
-/* Line 1787 of yacc.c  */
-#line 795 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 798 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 2984 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 309:
-/* Line 1787 of yacc.c  */
-#line 796 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 799 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2990 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 310:
-/* Line 1787 of yacc.c  */
-#line 797 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 800 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 2996 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 311:
-/* Line 1787 of yacc.c  */
-#line 799 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 802 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addRotationValue(Vec3f((yyvsp[(1) - (7)].floatVal), (yyvsp[(3) - (7)].floatVal), (yyvsp[(5) - (7)].floatVal)), (yyvsp[(7) - (7)].floatVal));
+        SKEL->addRotationValue(Vec3f((yyvsp[-6].floatVal), (yyvsp[-4].floatVal), (yyvsp[-2].floatVal)), (yyvsp[0].floatVal));
     }
+#line 3005 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 312:
-/* Line 1787 of yacc.c  */
-#line 806 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 809 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addStringValue((yyvsp[(1) - (1)].stringVal));
+        SKEL->addStringValue((yyvsp[0].stringVal));
     }
+#line 3013 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 313:
-/* Line 1787 of yacc.c  */
-#line 810 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 813 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { /* Not VRML conformant */
-        SKEL->addStringValue((yyvsp[(1) - (1)].stringVal));
+        SKEL->addStringValue((yyvsp[0].stringVal));
     }
+#line 3021 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 314:
-/* Line 1787 of yacc.c  */
-#line 814 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 817 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { /* Not VRML conformant */
         SKEL->addBufferAsStringValue();
     }
+#line 3029 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 315:
-/* Line 1787 of yacc.c  */
-#line 818 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 821 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { /* Not VRML conformant */
         SKEL->addBufferAsStringValue();
     }
+#line 3037 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 316:
-/* Line 1787 of yacc.c  */
-#line 824 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 827 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
-        SKEL->addTimeValue((yyvsp[(1) - (1)].doubleVal));
+        SKEL->addTimeValue((yyvsp[0].doubleVal));
     }
+#line 3045 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 317:
-/* Line 1787 of yacc.c  */
-#line 829 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 832 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3051 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 318:
-/* Line 1787 of yacc.c  */
-#line 831 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 834 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec2dValue(Vec2d((yyvsp[(1) - (3)].doubleVal), (yyvsp[(3) - (3)].doubleVal)));
+        SKEL->addVec2dValue(Vec2d((yyvsp[-2].doubleVal), (yyvsp[0].doubleVal)));
     }
+#line 3060 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 319:
-/* Line 1787 of yacc.c  */
-#line 837 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 840 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3066 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 320:
-/* Line 1787 of yacc.c  */
-#line 839 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 842 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec2fValue(Vec2f((yyvsp[(1) - (3)].floatVal), (yyvsp[(3) - (3)].floatVal)));
+        SKEL->addVec2fValue(Vec2f((yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 3075 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 321:
-/* Line 1787 of yacc.c  */
-#line 845 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 848 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3081 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 322:
-/* Line 1787 of yacc.c  */
-#line 846 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 849 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3087 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 323:
-/* Line 1787 of yacc.c  */
-#line 847 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 850 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3093 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 324:
-/* Line 1787 of yacc.c  */
-#line 848 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 851 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec3dValue(Vec3d((yyvsp[(1) - (6)].doubleVal), (yyvsp[(3) - (6)].doubleVal), (yyvsp[(5) - (6)].doubleVal)));
+        SKEL->addVec3dValue(Vec3d((yyvsp[-5].doubleVal), (yyvsp[-3].doubleVal), (yyvsp[-1].doubleVal)));
     }
+#line 3102 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 325:
-/* Line 1787 of yacc.c  */
-#line 854 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 857 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3108 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 326:
-/* Line 1787 of yacc.c  */
-#line 855 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 858 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3114 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 327:
-/* Line 1787 of yacc.c  */
-#line 856 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 859 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3120 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 328:
-/* Line 1787 of yacc.c  */
-#line 857 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 860 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec3fValue(Vec3f((yyvsp[(1) - (6)].floatVal), (yyvsp[(3) - (6)].floatVal), (yyvsp[(5) - (6)].floatVal)));
+        SKEL->addVec3fValue(Vec3f((yyvsp[-5].floatVal), (yyvsp[-3].floatVal), (yyvsp[-1].floatVal)));
     }
+#line 3129 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 329:
-/* Line 1787 of yacc.c  */
-#line 863 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 866 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3135 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 330:
-/* Line 1787 of yacc.c  */
-#line 864 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 867 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3141 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 331:
-/* Line 1787 of yacc.c  */
-#line 865 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 868 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3147 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 332:
-/* Line 1787 of yacc.c  */
-#line 866 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 869 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3153 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 333:
-/* Line 1787 of yacc.c  */
-#line 867 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 870 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec4dValue(Vec4d((yyvsp[(1) - (8)].doubleVal), (yyvsp[(3) - (8)].doubleVal), (yyvsp[(5) - (8)].doubleVal), (yyvsp[(7) - (8)].doubleVal)));
+        SKEL->addVec4dValue(Vec4d((yyvsp[-7].doubleVal), (yyvsp[-5].doubleVal), (yyvsp[-3].doubleVal), (yyvsp[-1].doubleVal)));
     }
+#line 3162 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 334:
-/* Line 1787 of yacc.c  */
-#line 873 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 876 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3168 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 335:
-/* Line 1787 of yacc.c  */
-#line 874 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 877 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3174 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 336:
-/* Line 1787 of yacc.c  */
-#line 875 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 878 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3180 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 337:
-/* Line 1787 of yacc.c  */
-#line 876 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 879 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3186 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 338:
-/* Line 1787 of yacc.c  */
-#line 877 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 880 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec4fValue(Vec4f((yyvsp[(1) - (8)].floatVal), (yyvsp[(3) - (8)].floatVal), (yyvsp[(5) - (8)].floatVal), (yyvsp[(7) - (8)].floatVal)));
+        SKEL->addVec4fValue(Vec4f((yyvsp[-7].floatVal), (yyvsp[-5].floatVal), (yyvsp[-3].floatVal), (yyvsp[-1].floatVal)));
     }
+#line 3195 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 423:
-/* Line 1787 of yacc.c  */
-#line 1053 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1056 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3201 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 424:
-/* Line 1787 of yacc.c  */
-#line 1054 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1057 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3207 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 425:
-/* Line 1787 of yacc.c  */
-#line 1055 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1058 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3213 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 426:
-/* Line 1787 of yacc.c  */
-#line 1057 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1060 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addColor4iValue(Color4ub(static_cast<UInt8>((yyvsp[(1) - (7)].intVal)), static_cast<UInt8>((yyvsp[(3) - (7)].intVal)),
-                                       static_cast<UInt8>((yyvsp[(5) - (7)].intVal)), static_cast<UInt8>((yyvsp[(7) - (7)].intVal))));
+        SKEL->addColor4iValue(Color4ub(static_cast<UInt8>((yyvsp[-6].intVal)), static_cast<UInt8>((yyvsp[-4].intVal)),
+                                       static_cast<UInt8>((yyvsp[-2].intVal)), static_cast<UInt8>((yyvsp[0].intVal))));
     }
+#line 3223 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 427:
-/* Line 1787 of yacc.c  */
-#line 1064 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1067 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3229 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 428:
-/* Line 1787 of yacc.c  */
-#line 1066 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1069 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addPnt2fValue(Pnt2f((yyvsp[(1) - (3)].floatVal), (yyvsp[(3) - (3)].floatVal)));
+        SKEL->addPnt2fValue(Pnt2f((yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 3238 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 429:
-/* Line 1787 of yacc.c  */
-#line 1072 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1075 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3244 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 430:
-/* Line 1787 of yacc.c  */
-#line 1073 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1076 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3250 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 431:
-/* Line 1787 of yacc.c  */
-#line 1075 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1078 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addPnt3fValue(Pnt3f((yyvsp[(1) - (5)].floatVal), (yyvsp[(3) - (5)].floatVal), (yyvsp[(5) - (5)].floatVal)));
+        SKEL->addPnt3fValue(Pnt3f((yyvsp[-4].floatVal), (yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 3259 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 432:
-/* Line 1787 of yacc.c  */
-#line 1081 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1084 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3265 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 433:
-/* Line 1787 of yacc.c  */
-#line 1082 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1085 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3271 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 434:
-/* Line 1787 of yacc.c  */
-#line 1083 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1086 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3277 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 435:
-/* Line 1787 of yacc.c  */
-#line 1085 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1088 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addPnt4fValue(Pnt4f((yyvsp[(1) - (7)].floatVal), (yyvsp[(3) - (7)].floatVal), (yyvsp[(5) - (7)].floatVal), (yyvsp[(7) - (7)].floatVal)));
+        SKEL->addPnt4fValue(Pnt4f((yyvsp[-6].floatVal), (yyvsp[-4].floatVal), (yyvsp[-2].floatVal), (yyvsp[0].floatVal)));
     }
+#line 3286 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 436:
-/* Line 1787 of yacc.c  */
-#line 1091 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1094 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3292 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 437:
-/* Line 1787 of yacc.c  */
-#line 1092 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1095 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3298 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 438:
-/* Line 1787 of yacc.c  */
-#line 1093 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1096 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3304 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 439:
-/* Line 1787 of yacc.c  */
-#line 1095 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1098 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addPlaneValue(Plane(Vec3f((yyvsp[(1) - (7)].floatVal), (yyvsp[(3) - (7)].floatVal), (yyvsp[(5) - (7)].floatVal)), (yyvsp[(7) - (7)].floatVal)));
+        SKEL->addPlaneValue(Plane(Vec3f((yyvsp[-6].floatVal), (yyvsp[-4].floatVal), (yyvsp[-2].floatVal)), (yyvsp[0].floatVal)));
     }
+#line 3313 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 440:
-/* Line 1787 of yacc.c  */
-#line 1101 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1104 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue();  }
+#line 3319 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 441:
-/* Line 1787 of yacc.c  */
-#line 1102 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1105 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3325 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 442:
-/* Line 1787 of yacc.c  */
-#line 1103 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1106 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3331 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 443:
-/* Line 1787 of yacc.c  */
-#line 1104 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1107 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3337 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 444:
-/* Line 1787 of yacc.c  */
-#line 1105 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1108 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3343 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 445:
-/* Line 1787 of yacc.c  */
-#line 1106 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1109 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->appendValue(); }
+#line 3349 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 446:
-/* Line 1787 of yacc.c  */
-#line 1108 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1111 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        BoxVolume bv((yyvsp[(3) - (13)].floatVal), (yyvsp[(5) - (13)].floatVal), (yyvsp[(7) - (13)].floatVal), (yyvsp[(9) - (13)].floatVal), (yyvsp[(11) - (13)].floatVal), (yyvsp[(13) - (13)].floatVal));
+        BoxVolume bv((yyvsp[-10].floatVal), (yyvsp[-8].floatVal), (yyvsp[-6].floatVal), (yyvsp[-4].floatVal), (yyvsp[-2].floatVal), (yyvsp[0].floatVal));
         
-        bv.setState((yyvsp[(1) - (13)].intVal));
+        bv.setState((yyvsp[-12].intVal));
 
         SKEL->addVolumeValue(bv);
     }
+#line 3362 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 447:
-/* Line 1787 of yacc.c  */
-#line 1118 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1121 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3368 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 448:
-/* Line 1787 of yacc.c  */
-#line 1120 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1123 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec2iValue(Vec2i((yyvsp[(1) - (3)].intVal), (yyvsp[(3) - (3)].intVal)));
+        SKEL->addVec2iValue(Vec2i((yyvsp[-2].intVal), (yyvsp[0].intVal)));
     }
+#line 3377 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 449:
-/* Line 1787 of yacc.c  */
-#line 1126 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1129 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     { SKEL->beginValue(); }
+#line 3383 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 450:
-/* Line 1787 of yacc.c  */
-#line 1128 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1131 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
     }
+#line 3391 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
   case 451:
-/* Line 1787 of yacc.c  */
-#line 1132 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1135 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1646  */
     {
         SKEL->appendValue();
-        SKEL->addVec3iValue(Vec3i((yyvsp[(1) - (5)].intVal), (yyvsp[(3) - (5)].intVal), (yyvsp[(5) - (5)].intVal)));
+        SKEL->addVec3iValue(Vec3i((yyvsp[-4].intVal), (yyvsp[-2].intVal), (yyvsp[0].intVal)));
     }
+#line 3400 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
     break;
 
 
-/* Line 1787 of yacc.c  */
-#line 3721 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp"
+#line 3404 "/home/gerrit/Projects/OpenSG/svn/OpenSG.build/Build/OSGSystem/OSGScanParseSkelParser.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3739,7 +3422,7 @@ yyreduce:
 
   *++yyvsp = yyval;
 
-  /* Now `shift' the result of the reduction.  Determine what state
+  /* Now 'shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
      number reduced by.  */
 
@@ -3754,9 +3437,9 @@ yyreduce:
   goto yynewstate;
 
 
-/*------------------------------------.
-| yyerrlab -- here on detecting error |
-`------------------------------------*/
+/*--------------------------------------.
+| yyerrlab -- here on detecting error.  |
+`--------------------------------------*/
 yyerrlab:
   /* Make sure we have latest lookahead translation.  See comments at
      user semantic actions for why this is necessary.  */
@@ -3767,7 +3450,7 @@ yyerrlab:
     {
       ++yynerrs;
 #if ! YYERROR_VERBOSE
-      yyerror (YY_("syntax error"));
+      yyerror (pSkel, YY_("syntax error"));
 #else
 # define YYSYNTAX_ERROR yysyntax_error (&yymsg_alloc, &yymsg, \
                                         yyssp, yytoken)
@@ -3794,7 +3477,7 @@ yyerrlab:
                 yymsgp = yymsg;
               }
           }
-        yyerror (yymsgp);
+        yyerror (pSkel, yymsgp);
         if (yysyntax_error_status == 2)
           goto yyexhaustedlab;
       }
@@ -3807,20 +3490,20 @@ yyerrlab:
   if (yyerrstatus == 3)
     {
       /* If just tried and failed to reuse lookahead token after an
-	 error, discard it.  */
+         error, discard it.  */
 
       if (yychar <= YYEOF)
-	{
-	  /* Return failure if at end of input.  */
-	  if (yychar == YYEOF)
-	    YYABORT;
-	}
+        {
+          /* Return failure if at end of input.  */
+          if (yychar == YYEOF)
+            YYABORT;
+        }
       else
-	{
-	  yydestruct ("Error: discarding",
-		      yytoken, &yylval);
-	  yychar = YYEMPTY;
-	}
+        {
+          yydestruct ("Error: discarding",
+                      yytoken, &yylval, pSkel);
+          yychar = YYEMPTY;
+        }
     }
 
   /* Else will try to reuse lookahead token after shifting the error
@@ -3839,7 +3522,7 @@ yyerrorlab:
   if (/*CONSTCOND*/ 0)
      goto yyerrorlab;
 
-  /* Do not reclaim the symbols of the rule which action triggered
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
   YYPOPSTACK (yylen);
   yylen = 0;
@@ -3852,35 +3535,37 @@ yyerrorlab:
 | yyerrlab1 -- common code for both syntax error and YYERROR.  |
 `-------------------------------------------------------------*/
 yyerrlab1:
-  yyerrstatus = 3;	/* Each real token shifted decrements this.  */
+  yyerrstatus = 3;      /* Each real token shifted decrements this.  */
 
   for (;;)
     {
       yyn = yypact[yystate];
       if (!yypact_value_is_default (yyn))
-	{
-	  yyn += YYTERROR;
-	  if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
-	    {
-	      yyn = yytable[yyn];
-	      if (0 < yyn)
-		break;
-	    }
-	}
+        {
+          yyn += YYTERROR;
+          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
+            {
+              yyn = yytable[yyn];
+              if (0 < yyn)
+                break;
+            }
+        }
 
       /* Pop the current state because it cannot handle the error token.  */
       if (yyssp == yyss)
-	YYABORT;
+        YYABORT;
 
 
       yydestruct ("Error: popping",
-		  yystos[yystate], yyvsp);
+                  yystos[yystate], yyvsp, pSkel);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
     }
 
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
 
   /* Shift the error token.  */
@@ -3909,7 +3594,7 @@ yyabortlab:
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
 yyexhaustedlab:
-  yyerror (YY_("memory exhausted"));
+  yyerror (pSkel, YY_("memory exhausted"));
   yyresult = 2;
   /* Fall through.  */
 #endif
@@ -3921,16 +3606,16 @@ yyreturn:
          user semantic actions for why this is necessary.  */
       yytoken = YYTRANSLATE (yychar);
       yydestruct ("Cleanup: discarding lookahead",
-                  yytoken, &yylval);
+                  yytoken, &yylval, pSkel);
     }
-  /* Do not reclaim the symbols of the rule which action triggered
+  /* Do not reclaim the symbols of the rule whose action triggered
      this YYABORT or YYACCEPT.  */
   YYPOPSTACK (yylen);
   YY_STACK_PRINT (yyss, yyssp);
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-		  yystos[*yyssp], yyvsp);
+                  yystos[*yyssp], yyvsp, pSkel);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
@@ -3941,17 +3626,12 @@ yyreturn:
   if (yymsg != yymsgbuf)
     YYSTACK_FREE (yymsg);
 #endif
-  /* Make sure YYID is used.  */
-  return YYID (yyresult);
+  return yyresult;
 }
-
-
-/* Line 2048 of yacc.c  */
-#line 1185 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+#line 1188 "/home/gerrit/Projects/OpenSG/svn/OpenSG/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy" /* yacc.c:1906  */
 
 
 int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *pSkel)
 {
     return SKEL->lex(lvalp);
 }
-
