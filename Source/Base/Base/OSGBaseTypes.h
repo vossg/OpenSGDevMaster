@@ -612,6 +612,13 @@ typedef std::string    tstring;
 #define OSGT(TEXT) TEXT
 #endif
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+#if defined(__GNUC__)
+#define OSG_UNUSED_ATTRIB __attribute__((__unused__))
+#else
+#define OSG_UNUSED_ATTRIB
+#endif
+#endif
 
 /** \brief Namespace constant used by as the numeric namespace id
  *  \ingroup GrpBaseBaseConstants
@@ -689,14 +696,6 @@ const Char8 PluginPattern[] = "*.dylib";
 const Char8  DirSep    = '/';
 
 #else
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#if defined(__GNUC__)
-#define OSG_UNUSED_ATTRIB __attribute__((__unused__))
-#else
-#define OSG_UNUSED_ATTRIB
-#endif
-#endif
 
 /*! \ingroup GrpBaseBaseConstants
  */
