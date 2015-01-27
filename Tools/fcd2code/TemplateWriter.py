@@ -1,5 +1,18 @@
 
 import logging;
+from sys import platform as _platform
+
+openMode = "w"
+
+if _platform == "linux" or _platform == "linux2":
+   # linux
+   openMode = "w"  
+elif _platform == "darwin":
+   # MAC OS X
+   openMode = "w"  
+elif _platform == "win32":
+   # Windows
+   openMode = "wb"  
 
 class TemplateWriter:
     """Simple helper for writing a filled template.
@@ -17,7 +30,7 @@ class TemplateWriter:
            constructor.
         """
         self.m_log.debug("write: Opening file \"%s\"." % self.m_fileName);
-        fileObj = open(self.m_fileName, "wb");
+        fileObj = open(self.m_fileName, openMode);
         
         self.m_log.debug("write: writing template.");
         fileObj.writelines(self.m_filledTemplate);
