@@ -40,6 +40,10 @@
 # pragma warning (disable: 4786)
 #endif
 
+#if __GNUC__ > 4 || (__GNUC__ >= 4 && __GNUC_MINOR__ >=8)
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include "OSGTextFT2Backend.h"
 #include "OSGBaseTypes.h"
 
