@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="HeadTrackedStereoCameraDecorator"
+   parent="StereoCameraDecorator"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   docGroupBase="GrpWindowCamera"
+   >
+  The decorator for tracked stereo projections (e.g. HMD's), see \ref
+  PageSystemWindowCameraDecoratorsStereoProjection for a description.
+
+  The parameters are defined by the _sfUser field.
+
+  <Field
+	 name="user"
+	 type="NodePtr"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
+	The coordinate system relative to the camera.
+  </Field>
+</FieldContainer>
