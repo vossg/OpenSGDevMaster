@@ -294,7 +294,6 @@ void ShaderProgramVariableChunk::resolveLinks(void)
 {
     MFChangedFunctorCallback::iterator       cfIt = 
         _mfDestroyedFunctors.begin();
-
     MFChangedFunctorCallback::const_iterator cfEnd= 
         _mfDestroyedFunctors.end();
 
@@ -303,6 +302,8 @@ void ShaderProgramVariableChunk::resolveLinks(void)
         if(cfIt->_func)
             (cfIt->_func)(this, 0x0000, ChangedOrigin::External);
     }
+
+    clearDestroyedFunctors();
 
     Inherited::resolveLinks();
 }
