@@ -3340,6 +3340,9 @@ void ShaderCacheTreeV3<ObjectT,
         fprintf(pOut, "[\n");
         fprintf(pOut, "    label=\"");
 
+        if(_vLevelEntries.empty())
+            fprintf(pOut, "\"\n");
+
         for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
         {
             if(_vLevelEntries[i] != NULL)
