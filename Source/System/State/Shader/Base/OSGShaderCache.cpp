@@ -430,7 +430,7 @@ void ShaderCache::updateRemoveCallback(ShaderExecutableChunk *pShader)
 
     ShaderExecutableChunk::VertexShaderIt vIt  = 
         pShader->getMFVertexShader()->begin();
-    ShaderExecutableChunk::FragmentShaderIt vEnd = 
+    ShaderExecutableChunk::VertexShaderIt vEnd = 
         pShader->getMFVertexShader()->end  ();
 
     for(; vIt != vEnd; ++vIt)
@@ -496,7 +496,7 @@ void ShaderCache::clearShRemoveCallback(ShaderExecutableChunk *pShader)
 
     ShaderExecutableChunk::VertexShaderIt vIt  = 
         pShader->getMFVertexShader()->begin();
-    ShaderExecutableChunk::FragmentShaderIt vEnd = 
+    ShaderExecutableChunk::VertexShaderIt vEnd = 
         pShader->getMFVertexShader()->end  ();
 
     for(; vIt != vEnd; ++vIt)
