@@ -3288,31 +3288,34 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::sub(UInt32 uiIdx)
     {
         for(UInt32 i = 0; i < LevelSize; ++i)
         {
-            TreeNode *pChild = pCurrNode->_vChildren[i].asT2();
-
-            if(0x0000 != (i & uiCurrBits) && pChild != NULL)
+            if(0x0000 != (i & uiCurrBits))
             {
-                if(pChild->_pNext == NULL)
-                {
-                    pChild->_pPrev->_pNext = NULL;
-                }
-                else
-                {
-                    pChild->_pPrev->_pNext = pChild->_pNext;
-                    pChild->_pNext->_pPrev = pChild->_pPrev;
-                }
-                
-                pChild->_pPrev = NULL;
-                pChild->_pNext = NULL;
+                TreeNode *pChild = pCurrNode->_vChildren[i].asT2();
 
-                eraseNode(pCurrNode->_vChildren[i].asT2());
-                pCurrNode->_vJumps   [i] = 0;
-                pCurrNode->_vChildren[i].setAsT2(NULL);
-            }
-            else if(pCurrNode->_vChildren[i].asT1() != NULL)
-            {
-                pCurrNode->_vChildren[i].setAsT1(NULL);
-                pCurrNode->_vJumps   [i] = 0;
+                if(pChild != NULL)
+                {
+                    if(pChild->_pNext == NULL)
+                    {
+                        pChild->_pPrev->_pNext = NULL;
+                    }
+                    else
+                    {
+                        pChild->_pPrev->_pNext = pChild->_pNext;
+                        pChild->_pNext->_pPrev = pChild->_pPrev;
+                    }
+                    
+                    pChild->_pPrev = NULL;
+                    pChild->_pNext = NULL;
+
+                    eraseNode(pCurrNode->_vChildren[i].asT2());
+                    pCurrNode->_vJumps   [i] = 0;
+                    pCurrNode->_vChildren[i].setAsT2(NULL);
+                }
+                else if(pCurrNode->_vChildren[i].asT1() != NULL)
+                {
+                    pCurrNode->_vChildren[i].setAsT1(NULL);
+                    pCurrNode->_vJumps   [i] = 0;
+                }
             }
         }
     }
