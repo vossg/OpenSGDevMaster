@@ -765,11 +765,8 @@ void ShadowStage::checkLights(RenderActionBase *action,
 
         for(; lIt != lEnd; ++lIt, ++lsIt)
         {
-            if((*lsIt).first != *lIt)
-            {
-                (*lsIt).first  = *lIt;
-                (*lsIt).second = dynamic_cast<Light *>((*lIt)->getCore());
-            }
+            (*lsIt).first  = *lIt;
+            (*lsIt).second = dynamic_cast<Light *>((*lIt)->getCore());
         }
     }
 
@@ -781,7 +778,6 @@ void ShadowStage::checkLights(RenderActionBase *action,
     {
         for(UInt32 i = 0;i < vLights.size();++i)
         {
-            
             bool light_state = vLights[i].second->getOn();
 
             if(vLights[i].second->getShadowMode() == Light::CAST_SHADOW_ON)
