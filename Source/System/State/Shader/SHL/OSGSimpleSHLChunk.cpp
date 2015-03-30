@@ -1280,6 +1280,10 @@ void SimpleSHLChunk::updateVariableLocations(DrawEnv *pEnv,
 
         for(; mVarIt != mVarEnd; ++mVarIt, ++mLocIt)
         {
+            // variable at this position was removed
+            if((*mVarIt) == NULL)
+                continue;
+
             *mLocIt = osgGlGetUniformLocation(uiProgram,
                                               (*mVarIt)->getName().c_str());
         }
