@@ -103,11 +103,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(TransformationElement *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< TransformationElement *, nsOSG + 1 >::getType(void)
 {
@@ -118,7 +118,7 @@ DataType &FieldTraits< TransformationElement *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       TransformationElement *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

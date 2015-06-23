@@ -126,7 +126,7 @@ void CSMLogger::postOSGLoading(FileContextAttachment * const pContext)
         for(; cIt != cEnd && fIt != fEnd; ++cIt, ++fIt)
         {
             fprintf(stderr, "log : %p (%s).%s\n",
-                    *cIt,
+                    static_cast<void *>(*cIt),
                     (*cIt) != NULL ? (*cIt)->getType().getCName() : "---",
                     fIt->c_str()                                         );
 

@@ -102,11 +102,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(MatrixTransformationElement *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MatrixTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MatrixTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

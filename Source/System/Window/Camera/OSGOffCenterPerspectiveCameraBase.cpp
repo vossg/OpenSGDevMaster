@@ -102,11 +102,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(OffCenterPerspectiveCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            OffCenterPerspectiveCamera *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            OffCenterPerspectiveCamera *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

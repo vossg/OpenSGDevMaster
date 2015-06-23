@@ -127,7 +127,7 @@ Action::ResultE MaterialDrawable::renderEnter(Action *action)
         else
         {
             FINFO(("%s: Material %p has NULL state for pass %d\n",
-                   OSG_FUNCNAME_MACRO, pPrimeMat, uiPass));
+                   OSG_FUNCNAME_MACRO, static_cast<void *>(pPrimeMat), uiPass));
         }
     }
 

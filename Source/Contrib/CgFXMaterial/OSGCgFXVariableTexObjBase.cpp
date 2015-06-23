@@ -106,11 +106,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CgFXVariableTexObj *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CgFXVariableTexObj *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CgFXVariableTexObj *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

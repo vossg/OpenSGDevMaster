@@ -70,9 +70,9 @@ OSG_USING_NAMESPACE
 StateChunkClass RegisterCombinersChunk::_class("RegisterCombiners", 1, 210);
 
 UInt32 RegisterCombinersChunk::_nvRegisterCombiners  
-                                            = Window::invalidExtensionID;;
+                                            = Window::invalidExtensionID;
 UInt32 RegisterCombinersChunk::_nvRegisterCombiners2 
-                                            = Window::invalidExtensionID;;
+                                            = Window::invalidExtensionID;
 
 UInt32 RegisterCombinersChunk::_funcCombinerParameterfv 
                                             = Window::invalidFunctionID; 

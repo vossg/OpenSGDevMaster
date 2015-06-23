@@ -108,11 +108,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(SkinningAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkinningAlgorithm *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkinningAlgorithm *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< SkinningAlgorithm *, nsOSG + 1 >::getType(void)
 {
@@ -123,13 +123,13 @@ DataType &FieldTraits< SkinningAlgorithm *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       SkinningAlgorithm *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       SkinningAlgorithm *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

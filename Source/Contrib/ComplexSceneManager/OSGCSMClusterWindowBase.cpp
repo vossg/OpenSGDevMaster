@@ -137,11 +137,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMClusterWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMClusterWindow *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMClusterWindow *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits<CSMClusterWindow *, nsOSG + 1 >::getType(void)
 {
@@ -157,7 +157,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          CSMClusterWindow *,
                          NoRefCountPolicy,
-                         nsOSG + 1);
+                         nsOSG + 1)
 
 
 /***************************************************************************\

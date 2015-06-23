@@ -98,11 +98,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(GPUVolRTV1 *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GPUVolRTV1 *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GPUVolRTV1 *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -180,7 +180,8 @@ void CSMNativeWindow::xMainLoop(void)
                                 if(pPort != NULL)
                                 {
                                     fprintf(stderr, "root %p\n",
-                                            pPort->getRoot());
+                                            static_cast<void *>(
+                                                pPort->getRoot()));
 
                                     DotFileGeneratorGraphOpRefPtr pGO =
                                         DotFileGeneratorGraphOp::create();
@@ -210,7 +211,8 @@ void CSMNativeWindow::xMainLoop(void)
                                 if(pPort != NULL)
                                 {
                                     fprintf(stderr, "root %p\n",
-                                            pPort->getRoot());
+                                            static_cast<void *>(
+                                                pPort->getRoot()));
 
                                     SceneFileHandler::the()->write(
                                         pPort->getRoot(),

@@ -184,7 +184,9 @@ void AnimQuaternionBlender::connectTo(
     AttachmentContainer *container, const std::string &fieldName)
 {
     FDEBUG(("AnimQuaternionBlender::connectTo: this [%p] target [%p] [%s]\n",
-            this, container, fieldName.c_str()));
+            static_cast<void *>(this),
+            static_cast<void *>(container),
+            fieldName.c_str()));
 
     addConnection(this, "outValue", container, fieldName.c_str());
 }

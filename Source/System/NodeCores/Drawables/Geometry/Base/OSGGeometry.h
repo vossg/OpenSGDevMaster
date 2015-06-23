@@ -346,7 +346,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
         {
             UInt32 uiOptions;
             UInt32 uiNumInstances;
-        };
+        } s;
     };
 
     enum

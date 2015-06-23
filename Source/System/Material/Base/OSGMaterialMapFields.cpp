@@ -54,7 +54,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialMap);
+OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialMap)
 
 
 const FieldType &GetSFieldHandle<SFMaterialPtrMap>::getType(void) const

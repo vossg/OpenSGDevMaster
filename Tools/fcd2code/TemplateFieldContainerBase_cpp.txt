@@ -136,13 +136,13 @@ OSG_FIELDTRAITS_GETTYPE_NS(@!Classname!@ *, @!nsConst!@)
  @@if SFPointerField
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            @!Classname!@ *,
-                           @!nsConst!@);
+                           @!nsConst!@)
  @@endif // SFPointerField
 
  @@if MFPointerField
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            @!Classname!@ *,
-                           @!nsConst!@);
+                           @!nsConst!@)
  @@endif // MFPointerField
 @@else // PointerField
 OSG_FIELDTRAITS_GETTYPE_NS(@!Classname!@ *, @!nsConst!@)
@@ -160,7 +160,7 @@ DataType &FieldTraits< @!Classname!@ *, @!nsConst!@ + @!ChildNS!@ >::getType(voi
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       @!Classname!@ *,
                       UnrecordedRefCountPolicy,
-                      @!nsConst!@ + @!ChildNS!@);
+                      @!nsConst!@ + @!ChildNS!@)
 
 @@endif // ChildSFields
 @@if ChildMFields
@@ -168,7 +168,7 @@ OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       @!Classname!@ *,
                       UnrecordedRefCountPolicy,
-                      @!nsConst!@ + @!ChildNS!@);
+                      @!nsConst!@ + @!ChildNS!@)
 
 @@endif // ChildMFields
 @@if ParentField
@@ -189,7 +189,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          @!Classname!@ *,
                          NoRefCountPolicy,
-                         @!nsConst!@ + @!ParentNS!@);
+                         @!nsConst!@ + @!ParentNS!@)
 
 @@endif // ParentSFields
 @@if ParentMFields
@@ -202,7 +202,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          @!Classname!@ *,
                          NoRefCountPolicy,
-                         @!ParentNS!@);
+                         @!ParentNS!@)
 
 @@endif // ParentMFields
 @@if inExternalNamespace

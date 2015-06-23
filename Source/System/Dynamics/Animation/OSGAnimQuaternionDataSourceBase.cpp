@@ -134,11 +134,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionDataSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimQuaternionDataSource *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimQuaternionDataSource *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

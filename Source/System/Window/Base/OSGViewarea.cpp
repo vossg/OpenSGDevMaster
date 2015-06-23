@@ -316,7 +316,7 @@ void Viewarea::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump Viewarea NI" << std::endl;
 
     fprintf(stderr, "%p\n", 
-            this);
+            static_cast<const void *>(this));
 }
 
 

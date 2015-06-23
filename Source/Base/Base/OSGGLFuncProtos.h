@@ -966,14 +966,14 @@ typedef void (OSG_APIENTRY *osgGlVertexAttribDivisorProc)(GLuint index,
 
 #ifdef OSG_DEBUG
 
-# define OSGGETGLFUNC_W(OGLFUNC, FUNCVAR, FUNCID)                       \
-    OSG::FUNCVAR##Proc FUNCVAR =                                        \
-        reinterpret_cast<OSG::FUNCVAR##Proc>(                           \
-            pEnv->getWindow()->getFunction(FUNCID));                    \
-                                                                        \
-    if(FUNCVAR == NULL)                                                 \
-        FFATAL(("Func %s of type %s NULL, window %p\n",                 \
-                #FUNCVAR, #OGLFUNC, pEnv->getWindow()))                 \
+# define OSGGETGLFUNC_W(OGLFUNC, FUNCVAR, FUNCID)                            \
+    OSG::FUNCVAR##Proc FUNCVAR =                                             \
+        reinterpret_cast<OSG::FUNCVAR##Proc>(                                \
+            pEnv->getWindow()->getFunction(FUNCID));                         \
+                                                                             \
+    if(FUNCVAR == NULL)                                                      \
+        FFATAL(("Func %s of type %s NULL, window %p\n",                      \
+                #FUNCVAR, #OGLFUNC, static_cast<void *>(pEnv->getWindow()))) \
 
 # define OSGGETGLFUNCBYID_W(OGLFUNC, FUNCVAR, FUNCID, WINDOW)           \
     OSG::FUNCVAR##Proc FUNCVAR =                                        \
@@ -982,7 +982,7 @@ typedef void (OSG_APIENTRY *osgGlVertexAttribDivisorProc)(GLuint index,
                                                                         \
     if(FUNCVAR == NULL)                                                 \
         FFATAL(("Func %s of type %s NULL, window %p\n",                 \
-                #FUNCVAR, #OGLFUNC, (WINDOW)))                          \
+                #FUNCVAR, #OGLFUNC, static_cast<void *>((WINDOW))))     \
 
 # define OSGGETGLFUNCBYNAME_W(OGLFUNC, FUNCVAR, FUNCNAME, WINDOW)       \
     OSG::FUNCVAR##Proc FUNCVAR =                                        \
@@ -991,7 +991,7 @@ typedef void (OSG_APIENTRY *osgGlVertexAttribDivisorProc)(GLuint index,
                                                                         \
     if(FUNCVAR == NULL)                                                 \
         FFATAL(("Func %s of type %s NULL, window %p\n",                 \
-                #FUNCVAR, #OGLFUNC, (WINDOW)))                          \
+                #FUNCVAR, #OGLFUNC, static_cast<void *>((WINDOW))))     \
 
 #else
 

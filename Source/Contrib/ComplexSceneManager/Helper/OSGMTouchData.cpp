@@ -389,9 +389,9 @@ void MTouchData::dump(void) const
                 szCSys,
                 _vBlobs[i]._vPosition[0],
                 _vBlobs[i]._vPosition[1],
-                _vBlobs[i]._pWindow,
-                _vBlobs[i]._pViewport,
-                _vBlobs[i]._pActiveViewport);
+                 static_cast<void *>(_vBlobs[i]._pWindow),
+                 static_cast<void *>(_vBlobs[i]._pViewport),
+                 static_cast<void *>(_vBlobs[i]._pActiveViewport));
     }
 
     fprintf(stderr, "Active Blobs (%" PRISize ") :\n", _vActiveBlobs.size());

@@ -1291,7 +1291,7 @@ Real32 noise(Real32 vec[], Int32 len)
     }
 }
 
-};
+}
 
 
 /*! create a noise texture. 

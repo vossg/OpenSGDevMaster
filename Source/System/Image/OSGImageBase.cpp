@@ -207,11 +207,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(Image *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Image *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Image *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< Image *, nsOSG + 1 >::getType(void)
 {
@@ -222,7 +222,7 @@ DataType &FieldTraits< Image *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Image *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

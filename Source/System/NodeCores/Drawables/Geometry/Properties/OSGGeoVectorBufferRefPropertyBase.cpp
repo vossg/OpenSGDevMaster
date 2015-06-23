@@ -98,11 +98,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(GeoVectorBufferRefProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoVectorBufferRefProperty *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoVectorBufferRefProperty *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< GeoVectorBufferRefProperty *, nsOSG + 1 >::getType(void)
 {
@@ -113,13 +113,13 @@ DataType &FieldTraits< GeoVectorBufferRefProperty *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoVectorBufferRefProperty *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

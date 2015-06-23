@@ -70,7 +70,7 @@ DataType FieldTraits<DrawTaskRefPtr, 0>::_type("DrawTaskRefPtr", NULL);
 
 OSG_FIELDTRAITS_GETTYPE_NS(DrawTaskRefPtr, 0)
 
-OSG_FIELD_DLLEXPORT_DEF1(MField, DrawTaskRefPtr);
+OSG_FIELD_DLLEXPORT_DEF1(MField, DrawTaskRefPtr)
 
 
 /*! \class OSG::DrawTask

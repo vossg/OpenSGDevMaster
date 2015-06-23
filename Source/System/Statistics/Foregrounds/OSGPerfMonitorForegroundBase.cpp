@@ -134,11 +134,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(PerfMonitorForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PerfMonitorForeground *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PerfMonitorForeground *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -271,7 +271,8 @@ GeoPumpGroup::GeoPump GeoPumpGroup::findGeoPump(DrawEnv                 *pEnv,
     if(pump == NULL)
     {
         FWARNING(("GeoPumpGroup::findGeoPump: Couldn't find pump for"
-                  "Window %p and characteristics %s!\n", win,
+                  "Window %p and characteristics %s!\n", 
+                  static_cast<void *>(win),
                   describePropertyCharacteristics(acset).c_str() ));
     }
 
@@ -296,7 +297,8 @@ GeoPumpGroup::SplitGeoPump GeoPumpGroup::findSplitGeoPump(
     if(pump.setupPump == NULL)
     {
         FWARNING(("GeoPumpGroup::findSplitGeoPump: Couldn't find pump for"
-                  "Window %p and characteristics %s!\n", win,
+                  "Window %p and characteristics %s!\n", 
+                  static_cast<void *>(win),
                   describePropertyCharacteristics(acset).c_str() ));
     }
 

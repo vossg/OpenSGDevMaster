@@ -68,7 +68,7 @@ DgramQueue::DgramQueue():
     _waiting(false)
 {
     char barrierName[256];
-    sprintf(barrierName,"DgramQueue%p",this);
+    sprintf(barrierName,"DgramQueue%p", static_cast<void *>(this));
 
     // create barrier
     _barrier = Barrier::get(barrierName, false);

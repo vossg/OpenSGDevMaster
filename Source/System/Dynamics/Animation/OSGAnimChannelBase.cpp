@@ -111,11 +111,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(AnimChannel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimChannel *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimChannel *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< AnimChannel *, nsOSG + 1 >::getType(void)
 {
@@ -126,13 +126,13 @@ DataType &FieldTraits< AnimChannel *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       AnimChannel *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       AnimChannel *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

@@ -266,7 +266,7 @@ void ThreadManager::dump(void)
         FLOG(("ThreadManager::dump: "
                "thread [%s|%p] is still alive ([%d]). \n", 
                (*tI).first.c_str(),
-               (*tI).second,
+               static_cast<void *>((*tI).second),
                (*tI).second->exists()));
     }
 
@@ -278,7 +278,7 @@ void ThreadManager::dump(void)
         FINFO(("ThreadManager::dump: "
                "barrier [%s|%p] is still alive\n", 
                (*bI).first.c_str(),
-               (*bI).second));
+               static_cast<void *>((*bI).second)));
 
     }
 
@@ -290,7 +290,7 @@ void ThreadManager::dump(void)
         FLOG(("ThreadManager::dump: "
               "condvar [%s|%p] is still alive\n", 
               (*cI).first.c_str(),
-              (*cI).second));
+              static_cast<void *>((*cI).second)));
 
     }
 
@@ -302,7 +302,7 @@ void ThreadManager::dump(void)
         FLOG(("ThreadManager::dump: "
               "lock [%s|%p] is still alive\n", 
               (*lI).first.c_str(),
-              (*lI).second));
+              static_cast<void *>((*lI).second)));
     }
 
     LockPoolStore::MPFieldMapCIt lpI = _sLockPoolStore._mFieldMap.begin();
@@ -313,7 +313,7 @@ void ThreadManager::dump(void)
         FLOG(("ThreadManager::dump: "
               "lockpool [%s|%p] is still alive\n", 
               (*lpI).first.c_str(),
-              (*lpI).second));
+              static_cast<void *>((*lpI).second)));
 
     }
 
@@ -325,7 +325,7 @@ void ThreadManager::dump(void)
         FLOG(("ThreadManager::dump: "
               "semaphore [%s|%p] is still alive\n", 
               (*sI).first.c_str(),
-              (*sI).second));
+              static_cast<void *>((*sI).second)));
     }
 
     FLOG(
@@ -528,7 +528,8 @@ bool ThreadManager::init(void)
              ("OSGTM : could not get application thread \n"););
              
 
-    FINFO(("OSGTM : got application thread %p\n", _pAppThread.get()));
+    FINFO(("OSGTM : got application thread %p\n", 
+           static_cast<void *>(_pAppThread.get())));
 
     AspectPool::the()->get("AppThreadAspect");
 
@@ -563,7 +564,7 @@ bool ThreadManager::shutdown(void)
             FWARNING(("ThreadManager::shutdown: "
                       "thread [%s|%p] is still alive ([%d]). \n", 
                       (*tI).first.c_str(),
-                      (*tI).second,
+                      static_cast<void *>((*tI).second),
                       (*tI).second->exists()));
         }
     }
@@ -576,7 +577,7 @@ bool ThreadManager::shutdown(void)
         FWARNING(("ThreadManager::shutdown: "
                   "barrier [%s|%p] is still alive\n", 
                   (*bI).first.c_str(),
-                  (*bI).second));
+                  static_cast<void *>((*bI).second)));
 
     }
 
@@ -588,7 +589,7 @@ bool ThreadManager::shutdown(void)
         FWARNING(("ThreadManager::shutdown: "
                   "condvar [%s|%p] is still alive\n", 
                   (*cI).first.c_str(),
-                  (*cI).second));
+                  static_cast<void *>((*cI).second)));
 
     }
 
@@ -603,7 +604,7 @@ bool ThreadManager::shutdown(void)
             FWARNING(("ThreadManager::shutdown: "
                       "lock [%s|%p] is still alive\n", 
                       (*lI).first.c_str(),
-                      (*lI).second));
+                      static_cast<void *>((*lI).second)));
         }
     }
 
@@ -615,7 +616,7 @@ bool ThreadManager::shutdown(void)
         FWARNING(("ThreadManager::shutdown: "
                   "lockpool [%s|%p] is still alive\n", 
                   (*lpI).first.c_str(),
-                  (*lpI).second));
+                  static_cast<void *>((*lpI).second)));
 
     }
 
@@ -627,7 +628,7 @@ bool ThreadManager::shutdown(void)
         FWARNING(("ThreadManager::shutdown: "
                   "semaphore [%s|%p] is still alive\n", 
                   (*sI).first.c_str(),
-                  (*sI).second));
+                  static_cast<void *>((*sI).second)));
     }
 
 #endif

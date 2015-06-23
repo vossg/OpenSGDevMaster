@@ -98,11 +98,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(HardwareContext *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            HardwareContext *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            HardwareContext *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< HardwareContext *, nsOSG + 1 >::getType(void)
 {
@@ -113,13 +113,13 @@ DataType &FieldTraits< HardwareContext *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       HardwareContext *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       HardwareContext *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 DataType &FieldTraits<HardwareContext *, nsOSG + 2 >::getType(void)
@@ -136,7 +136,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          HardwareContext *,
                          NoRefCountPolicy,
-                         nsOSG + 2);
+                         nsOSG + 2)
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -147,7 +147,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          HardwareContext *,
                          NoRefCountPolicy,
-                         2);
+                         2)
 
 
 /***************************************************************************\

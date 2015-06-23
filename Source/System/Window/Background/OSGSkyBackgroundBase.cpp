@@ -197,7 +197,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(SkyBackground *, nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkyBackground *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

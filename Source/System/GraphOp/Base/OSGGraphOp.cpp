@@ -122,12 +122,12 @@ bool GraphOp::traverse(Node *node)
 const std::string & GraphOp::getName(void)
 {
     return _name;
-};
+}
 
 void GraphOp::setName(const char *name)
 {
     _name = name;
-};
+}
 
 /*--------------------------- Exclude List --------------------------------*/
 

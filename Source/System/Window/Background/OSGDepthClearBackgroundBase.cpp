@@ -99,7 +99,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(DepthClearBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DepthClearBackground *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

@@ -128,7 +128,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(TextureBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextureBackground *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

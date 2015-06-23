@@ -106,11 +106,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(ChunkOverrideGroup *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ChunkOverrideGroup *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ChunkOverrideGroup *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

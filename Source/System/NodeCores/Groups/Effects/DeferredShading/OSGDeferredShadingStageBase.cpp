@@ -127,11 +127,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(DeferredShadingStage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DeferredShadingStage *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DeferredShadingStage *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

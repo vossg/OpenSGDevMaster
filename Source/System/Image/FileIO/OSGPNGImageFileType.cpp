@@ -973,7 +973,7 @@ UInt64 PNGImageFileType::storeData(const Image  *OSG_PNG_ARG  (pImage  ),
 const PNGImageFileType &PNGImageFileType::the(void) 
 {
     return _the; 
-};
+}
 
 //-------------------------------------------------------------------------
 /*! Constructor used for the singleton object

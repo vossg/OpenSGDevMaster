@@ -707,7 +707,7 @@ bool DBImageFileType::read(      Image       *pImage,
 
     if(pIn != NULL)
     {
-        fprintf(stderr, "db::open %p\n", pIn);
+        fprintf(stderr, "db::open %p\n", static_cast<void *>(pIn));
 
         DBHeader oHeader;
 

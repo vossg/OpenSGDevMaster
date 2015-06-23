@@ -338,7 +338,9 @@ Action::ResultE VRMLWriteAction::writeGroupEnter(NodeCore * const ,
 
         if(pInfo == NULL || pCoreInfo == NULL)
         {
-            FWARNING(("Info missing %p %p\n", pInfo, pCoreInfo));
+            FWARNING(("Info missing %p %p\n", 
+                      static_cast<void *>(pInfo),
+                      static_cast<void *>(pCoreInfo)));
             return Action::Quit;
         }
 
@@ -1565,7 +1567,9 @@ bool VRMLWriteAction::writeGeoCommon(Node            *pNode,
 
     if(pInfo == NULL || pCoreInfo == NULL || setTypename == NULL)
     {
-        FWARNING(("Info missing %p %p\n", pInfo, pCoreInfo));
+        FWARNING(("Info missing %p %p\n", 
+                  static_cast<void *>(pInfo),
+                  static_cast<void *>(pCoreInfo)));
         return false;
     }
 

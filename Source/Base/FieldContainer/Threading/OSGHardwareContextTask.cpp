@@ -307,7 +307,7 @@ DataType FieldTraits<
 
 OSG_FIELDTRAITS_GETTYPE(HardwareContextTaskRefPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(MField, HardwareContextTaskRefPtr);
+OSG_FIELD_DLLEXPORT_DEF1(MField, HardwareContextTaskRefPtr)
 
 
 OSG_END_NAMESPACE

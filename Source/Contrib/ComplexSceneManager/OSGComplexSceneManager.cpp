@@ -500,7 +500,7 @@ void ComplexSceneManager::addGlobals(const std::string &filename)
                     boost::bind(&ComplexSceneManager::resolve, this, 
                                 _1, _2, _3));
 
-    fprintf(stderr, "addGlobals::pres %p\n", pRes.get());
+    fprintf(stderr, "addGlobals::pres %p\n", static_cast<void *>(pRes.get()));
 
     if(pRes == NULL)
         return;
@@ -571,7 +571,7 @@ void ComplexSceneManager::addData(const std::string &filename)
         OSG::GraphOpRefPtr op = 
             OSG::GraphOpFactory::the()->create("PrepareES");
 
-        fprintf(stderr, "do es prep %p\n", op.get());
+        fprintf(stderr, "do es prep %p\n", static_cast<void *>(op.get()));
 
         op->traverse(pFile);
 #endif
@@ -1009,7 +1009,7 @@ void ComplexSceneManager::run(void)
         if(pRootNode != NULL)
         {
             fprintf(stderr, "WebService using : %p\n",
-                    pRootNode                        );
+                    static_cast<void *>(pRootNode)   );
 
             _pWebInterface->setRoot           (pRootNode);
             _pWebInterface->setSystemContainer(this     );
@@ -1124,7 +1124,7 @@ void ComplexSceneManager::resetScene(void)
         
         if(pIf != NULL)
         {
-            fprintf(stderr, "found if %p\n", pIf);
+            fprintf(stderr, "found if %p\n", static_cast<void *>(pIf));
 
             pIf->reset();
         }

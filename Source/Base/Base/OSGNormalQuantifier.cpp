@@ -215,7 +215,7 @@ bool NormalQuantifier::rayTriangle ( const Vec3f & dir,
   //t = edge2.dot(qvec) * inv_det;
 
   return true;
-};
+}
 
 
 /*! recursive function to fill the NormalsTable

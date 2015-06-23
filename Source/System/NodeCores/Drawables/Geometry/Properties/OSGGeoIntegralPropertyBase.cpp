@@ -99,11 +99,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(GeoIntegralProperty *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GeoIntegralProperty *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GeoIntegralProperty *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< GeoIntegralProperty *, nsOSG + 1 >::getType(void)
 {
@@ -114,13 +114,13 @@ DataType &FieldTraits< GeoIntegralProperty *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GeoIntegralProperty *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GeoIntegralProperty *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

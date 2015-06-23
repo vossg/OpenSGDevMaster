@@ -111,11 +111,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMDrawer *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMDrawer *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMDrawer *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits<CSMDrawer *, nsOSG + 1 >::getType(void)
 {
@@ -131,7 +131,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          CSMDrawer *,
                          NoRefCountPolicy,
-                         nsOSG + 1);
+                         nsOSG + 1)
 
 
 /***************************************************************************\

@@ -351,7 +351,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.s.uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
                      GeoPumpGroup::NonIndexed    )) == 0x0000))
@@ -365,7 +365,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                 pump(pEnv,
                      getLengths(),      getTypes(),
                      getMFProperties(), getMFPropIndices(),
-                     glOptions.uiNumInstances             );
+                     glOptions.s.uiNumInstances           );
             }
             else
             {
@@ -392,7 +392,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                 pump.drawPump(pEnv,
                               getLengths(),      getTypes(),
                               getMFProperties(), getMFPropIndices(),
-                              glOptions.uiNumInstances             );
+                              glOptions.s.uiNumInstances           );
 
                 glEndList();
             }
@@ -435,7 +435,7 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
                                   getMFProperties(), getMFPropIndices(),
-                                  glOptions.uiNumInstances             );
+                                  glOptions.s.uiNumInstances           );
                     
                     glEndList();
 
@@ -510,7 +510,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.s.uiOptions;
 
         if(((prop & (GeoPumpGroup::SingleIndexed | 
                      GeoPumpGroup::NonIndexed    )) == 0x0000))
@@ -524,7 +524,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                 pump(pEnv,
                      getLengths(),      getTypes(),
                      getMFProperties(), getMFPropIndices(),
-                     glOptions.uiNumInstances             );
+                     glOptions.s.uiNumInstances           );
             }
             else
             {
@@ -551,7 +551,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                 pump.drawPump(pEnv,
                               getLengths(),      getTypes(),
                               getMFProperties(), getMFPropIndices(),
-                              glOptions.uiNumInstances             );
+                              glOptions.s.uiNumInstances           );
 
                 glEndList();
             }
@@ -594,7 +594,7 @@ UInt32 Geometry::handleAttGL(DrawEnv                 *pEnv,
                     pump.drawPump(pEnv,
                                   getLengths(),      getTypes(),
                                   getMFProperties(), getMFPropIndices(),
-                                  glOptions.uiNumInstances             );
+                                  glOptions.s.uiNumInstances           );
                     
                     glEndList();
 
@@ -682,7 +682,7 @@ UInt32 Geometry::handleVAOGL(DrawEnv                 *pEnv,
             glid = pWin->getGLObjectId(id);
         }
 
-        GeoPumpGroup::PropertyCharacteristics prop = glOptions.uiOptions;
+        GeoPumpGroup::PropertyCharacteristics prop = glOptions.s.uiOptions;
 
         GeoPumpGroup::SplitGeoPump pump = GeoPumpGroup::findSplitGeoPump(pEnv, 
                                                                          prop);
@@ -808,8 +808,8 @@ void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
 
     GLHandlerOptions glOptions;
 
-    glOptions.uiOptions      = prop;
-    glOptions.uiNumInstances = uiNumInstances;
+    glOptions.s.uiOptions      = prop;
+    glOptions.s.uiNumInstances = uiNumInstances;
 
 #if !defined(OSG_OGL_COREONLY) || defined(OSG_CHECK_COREONLY)
     // store glColor.

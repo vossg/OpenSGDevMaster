@@ -119,7 +119,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(GradientBackground *, nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GradientBackground *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -194,7 +194,7 @@ bool PrepareESGraphOp::travNodeEnter(Node *node)
 {
     Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
 
-    fprintf(stderr, "tne esp : %p\n", geo);
+    fprintf(stderr, "tne esp : %p\n", static_cast<void *>(geo));
 
     if(geo != NULL)
     {

@@ -128,9 +128,9 @@ bool StriperHalfEdgeGraph::Triangle::verify (void)
          )
     {
         FINFO(("StriperHalfEdgeGraph::Triangle::verify: Neighbor linked more "
-               "than once: %p/%p/%p\n", neighbor[0],
-                                        neighbor[1],
-                                        neighbor[2]));
+               "than once: %p/%p/%p\n", static_cast<void *>(neighbor[0]),
+                                        static_cast<void *>(neighbor[1]),
+                                        static_cast<void *>(neighbor[2])));
         retCode = false;
     }
 
@@ -138,7 +138,8 @@ bool StriperHalfEdgeGraph::Triangle::verify (void)
        (halfEdgeVec[0].vertexStart() == halfEdgeVec[2].vertexStart()) ||
        (halfEdgeVec[1].vertexStart() == halfEdgeVec[2].vertexStart()))
     {
-        SINFO << "StriperHalfEdgeGraph::Triangle::verify: Invalid collapsed Triangle" 
+        SINFO << "StriperHalfEdgeGraph::Triangle::verify: "
+              << "Invalid collapsed Triangle" 
               << endl;
         retCode = false;
     }
@@ -236,11 +237,13 @@ bool StriperHalfEdgeGraph::verify (bool verbose)
               triangle->halfEdgeVec[2].twin->triangle : 0;
             
             FINFO ( ( "HEG: Triangle %p: %d %d %d, %p %p %p: %s\n",
-                      triangle, 
+                      static_cast<void *>(triangle), 
                       triangle->halfEdgeVec[0].vertexStart(),
                       triangle->halfEdgeVec[1].vertexStart(),
                       triangle->halfEdgeVec[2].vertexStart(),
-                      nt0, nt1, nt2,
+                      static_cast<void *>(nt0),
+                      static_cast<void *>(nt1),
+                      static_cast<void *>(nt2),
                       (validTri ? "VALID" : "INVALID" ) ) );
         }
     }
@@ -281,10 +284,10 @@ bool StriperHalfEdgeGraph::verify (bool verbose)
                   lI != _edgeLinkVec[i].end(); ++lI )
             {  
               FINFO (( "HEG: HalfEdge %p: %d to %d, twin: %p\n",
-                       lI->second,
+                       static_cast<void *>(lI->second),
                        lI->second->vertexStart(),
                        lI->second->vertexEnd(),
-                       lI->second->twin));
+                       static_cast<void *>(lI->second->twin)));
             }
         }
     }

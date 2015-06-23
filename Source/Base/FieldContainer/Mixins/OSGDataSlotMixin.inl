@@ -85,7 +85,7 @@ void DataSlotMixin<ParentT>::clearData(FieldContainer    *pContainer,
                                        Int32              iSlotId   )
 {
     fprintf(stderr, "Clear Data %p %d\n",
-            pContainer,
+            static_cast<void *>(pContainer),
             iSlotId);
 
     if(iSlotId < 0)
@@ -155,7 +155,7 @@ DataSlotMixin<ParentT>::~DataSlotMixin(void)
     for(UInt32 i = 0; i < _mfDestroyedFunctors.size(); ++i)
     {
         fprintf(stderr, "DF (%d) (%p)\n",
-                i, this);
+                i, static_cast<void *>(this));
 
         (_mfDestroyedFunctors[i].first)(this);
     }

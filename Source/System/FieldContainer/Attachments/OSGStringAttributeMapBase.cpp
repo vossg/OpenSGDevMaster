@@ -108,7 +108,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(StringAttributeMap *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            StringAttributeMap *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

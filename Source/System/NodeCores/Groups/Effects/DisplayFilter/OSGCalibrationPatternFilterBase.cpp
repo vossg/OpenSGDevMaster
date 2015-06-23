@@ -102,11 +102,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CalibrationPatternFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CalibrationPatternFilter *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CalibrationPatternFilter *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

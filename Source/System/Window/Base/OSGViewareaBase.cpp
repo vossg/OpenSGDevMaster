@@ -165,11 +165,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(Viewarea *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Viewarea *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Viewarea *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< Viewarea *, nsOSG + 1 >::getType(void)
 {
@@ -180,7 +180,7 @@ DataType &FieldTraits< Viewarea *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Viewarea *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

@@ -144,8 +144,8 @@ void MouseData::dump(void) const
             _iModifier,
             _rX,
             _rY,
-            _pWindow,
-            _pViewport,
+             static_cast<void *>(_pWindow),
+             static_cast<void *>(_pViewport),
             _uiMode   );
 }
     

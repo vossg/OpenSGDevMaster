@@ -106,11 +106,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(AnimKeyFrameDataSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimKeyFrameDataSource *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimKeyFrameDataSource *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

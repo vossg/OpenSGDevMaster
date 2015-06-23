@@ -69,7 +69,7 @@ PointMCastConnection::PointMCastConnection():
     _initialized(false)
 {
     char lockName[256];
-    sprintf(lockName,"PointMCastConnection%p",this);
+    sprintf(lockName,"PointMCastConnection%p", static_cast<void *>(this));
 
     // create locks
     _lock     = Lock::get(lockName, false);
@@ -676,7 +676,7 @@ void PointMCastConnection::initialize()
     UInt32        port;
     char          threadName[256];
 
-    sprintf(threadName,"PointMCastConnection%p",this);
+    sprintf(threadName,"PointMCastConnection%p", static_cast<void *>(this));
 
     // get info about the group
     _socket.recv(message);

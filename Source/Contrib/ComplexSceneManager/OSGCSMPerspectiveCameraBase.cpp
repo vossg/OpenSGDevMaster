@@ -111,11 +111,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMPerspectiveCamera *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMPerspectiveCamera *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMPerspectiveCamera *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

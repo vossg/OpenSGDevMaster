@@ -54,7 +54,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ChunkBlockMap);
+OSG_FIELD_DLLEXPORT_DEF1(SField, ChunkBlockMap)
 
 
 const FieldType &GetSFieldHandle<SFChunkBlockPtrMap>::getType(void) const

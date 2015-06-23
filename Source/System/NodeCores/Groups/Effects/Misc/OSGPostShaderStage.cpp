@@ -323,7 +323,8 @@ void PostShaderStage::postProcess(DrawEnv *pEnv)
     if(win->hasExtension(_uiFramebuffer_object_extension) == false ||
        win->hasExtension(_extDepthTexture               ) == false)
     {
-        FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
+        FNOTICE(("Framebuffer objects not supported on Window %p!\n", 
+                 static_cast<void *>(win)));
         return;        
     }
 

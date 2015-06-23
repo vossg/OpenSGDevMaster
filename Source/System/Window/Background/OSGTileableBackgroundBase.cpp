@@ -103,7 +103,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(TileableBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TileableBackground *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

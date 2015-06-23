@@ -119,7 +119,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          DeviceInterfaceSensor *,
                          NoRefCountPolicy,
-                         nsOSG + 1);
+                         nsOSG + 1)
 
 
 /***************************************************************************\

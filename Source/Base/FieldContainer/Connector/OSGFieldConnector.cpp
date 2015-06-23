@@ -115,8 +115,12 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
         FWARNING(("addConnection: Failed to obtain field descriptions for "
                   "source container [%p] field [%s] desc [%p] - "
                   "destination container [%p] field [%s] desc [%p]\n",
-                  pSrcContainer, szSrcName, pSrcDesc,
-                  pDstContainer, szDstName, pDstDesc));
+                  static_cast<void *>(pSrcContainer), 
+                  szSrcName, 
+                  static_cast<const void *>(pSrcDesc),
+                  static_cast<void *>(pDstContainer), 
+                  szDstName, 
+                  static_cast<const void *>(pDstDesc)                      ));
  
         return false;
     }
@@ -134,7 +138,8 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
     {
         FWARNING(("addConnection: Failed to obtain field handles for "
                   "source container [%p] - destination container [%p]\n",
-                  pSrcContainer, pDstContainer));
+                  static_cast<void *>(pSrcContainer), 
+                  static_cast<void *>(pDstContainer)));
 
         return false;
     }

@@ -165,11 +165,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(SimpleStatisticsForeground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleStatisticsForeground *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleStatisticsForeground *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

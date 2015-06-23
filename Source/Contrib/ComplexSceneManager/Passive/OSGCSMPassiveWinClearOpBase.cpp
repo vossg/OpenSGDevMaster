@@ -102,11 +102,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMPassiveWinClearOp *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMPassiveWinClearOp *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMPassiveWinClearOp *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

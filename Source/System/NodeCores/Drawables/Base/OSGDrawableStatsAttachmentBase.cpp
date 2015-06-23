@@ -142,11 +142,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(DrawableStatsAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DrawableStatsAttachment *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DrawableStatsAttachment *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -137,11 +137,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(SimpleTexturedMaterial *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SimpleTexturedMaterial *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SimpleTexturedMaterial *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -65,17 +65,17 @@ OSG_FIELDTRAITS_GETTYPE(GeoUInt32Property *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoUInt8Property *, 
-                           0);
+                           0)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoUInt8Property *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoUInt32Property *, 
-                           0);
+                           0)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoUInt32Property *, 
-                           0);
+                           0)
 
 OSG_END_NAMESPACE
 

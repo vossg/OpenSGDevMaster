@@ -69,10 +69,10 @@ OSG_BEGIN_NAMESPACE
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            ImageGenericAtt *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            ImageGenericAtt *, 
-                           0);
+                           0)
 
 OSG_END_NAMESPACE

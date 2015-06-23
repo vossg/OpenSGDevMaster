@@ -92,7 +92,7 @@ class VoidPAttachment : public SimpleAttachment<VoidPAttachmentDesc> {};
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-OSG_GEN_CONTAINERPTR(VoidPAttachment)  
+OSG_GEN_CONTAINERPTR(VoidPAttachment);
 #endif
 
 #ifdef WIN32

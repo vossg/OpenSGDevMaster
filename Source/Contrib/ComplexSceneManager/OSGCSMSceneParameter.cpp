@@ -127,7 +127,8 @@ void CSMSceneParameter::frame(Time oTime, UInt32 uiFrame)
 
 void CSMSceneParameter::reset(void)
 {
-    fprintf(stderr, "CSMSceneParameter::reset %p\n", _sfSceneRef.getValue());
+    fprintf(stderr, "CSMSceneParameter::reset %p\n", 
+            static_cast<void *>(_sfSceneRef.getValue()));
 
     if(_sfSceneRef.getValue() != NULL)
     {

@@ -2775,7 +2775,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
         else
         {
             FWARNING(("Invalid masterProp %p, block: %d\n",
-                      masterProp, indexBlock));
+                      static_cast<void *>(masterProp), indexBlock));
         }
         
         FINFO(("Create sharedIndex: %d pass; "
@@ -3930,7 +3930,9 @@ void mergeGeoLengths(
 void mergeGeoNINI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoNINI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoNINI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1), 
+            static_cast<const void *>(srcGeo2)));
     
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
     mergeGeoLengths(dstGeo, srcGeo1, srcGeo2);
@@ -3989,7 +3991,9 @@ void mergeGeoNINI(
 void mergeGeoNISI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoNISI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoNISI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1),
+            static_cast<const void *>(srcGeo2)));
     
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
@@ -4080,7 +4084,9 @@ void mergeGeoSINI(
 void mergeGeoNIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoNIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoNIMI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1), 
+            static_cast<const void *>(srcGeo2)));
     
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
@@ -4171,7 +4177,9 @@ void mergeGeoMINI(
 void mergeGeoSISI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoSISI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoSISI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1),
+            static_cast<const void *>(srcGeo2)));
     
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
@@ -4270,7 +4278,9 @@ void mergeGeoSISI(
 void mergeGeoSIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoSIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoSIMI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1),
+            static_cast<const void *>(srcGeo2)));
     
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);
@@ -4364,7 +4374,9 @@ void mergeGeoMISI(
 void mergeGeoMIMI(
     Geometry *dstGeo, const Geometry *srcGeo1, const Geometry *srcGeo2)
 {
-    FDEBUG(("mergeGeoMIMI: srcGeo1 [%p] srcGeo2 [%p]\n", srcGeo1, srcGeo2));
+    FDEBUG(("mergeGeoMIMI: srcGeo1 [%p] srcGeo2 [%p]\n", 
+            static_cast<const void *>(srcGeo1),
+            static_cast<const void *>(srcGeo2)));
     
     // 1. merge types and lengths
     mergeGeoTypes  (dstGeo, srcGeo1, srcGeo2);

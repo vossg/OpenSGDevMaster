@@ -103,7 +103,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMClusterWinOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMClusterWinOptions *,
-                           nsOSG);
+                           nsOSG)
 
 
 DataType &FieldTraits< CSMClusterWinOptions *, nsOSG + 1 >::getType(void)
@@ -115,7 +115,7 @@ DataType &FieldTraits< CSMClusterWinOptions *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       CSMClusterWinOptions *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

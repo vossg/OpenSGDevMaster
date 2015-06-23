@@ -70,24 +70,24 @@ OSG_FIELDTRAITS_GETTYPE(GeoColor4fProperty *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoPnt3fProperty *, 
-                           0);
+                           0)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoPnt3fProperty *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoVec3fProperty *, 
-                           0);
+                           0)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoVec3fProperty *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            GeoColor4fProperty *, 
-                           0);
+                           0)
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            GeoColor4fProperty *, 
-                           0);
+                           0)
 
 OSG_END_NAMESPACE
 

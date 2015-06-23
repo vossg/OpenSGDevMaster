@@ -151,7 +151,9 @@ void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("TextureTransformChunk::deactivate: Trying to bind "
                   "texcoord unit %d, but Window %p only supports %lf!\n",
-                  idx, win, ntexcoords));
+                  idx, 
+                  static_cast<void *>(win), 
+                  ntexcoords));
 #endif
         return;        
     }
@@ -209,7 +211,9 @@ void TextureTransformChunk::changeFrom(DrawEnv    *pEnv,
 #ifdef OSG_DEBUG
         FWARNING(("TextureTransformChunk::deactivate: Trying to bind "
                   "texcoord unit %d, but Window %p only supports %lf!\n",
-                  idx, win, ntexcoords));
+                  idx, 
+                  static_cast<void *>(win), 
+                  ntexcoords));
 #endif
         return;        
     }
@@ -255,7 +259,9 @@ void TextureTransformChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("TextureTransformChunk::deactivate: Trying to bind"
                   " texcoord unit %d, but Window %p only supports %lf!\n",
-                  idx, win, ntexcoords));
+                  idx, 
+                  static_cast<void *>(win), 
+                  ntexcoords));
 #endif
         return;        
     }

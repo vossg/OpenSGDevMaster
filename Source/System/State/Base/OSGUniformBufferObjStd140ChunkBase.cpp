@@ -120,11 +120,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(UniformBufferObjStd140Chunk *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            UniformBufferObjStd140Chunk *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            UniformBufferObjStd140Chunk *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -64,7 +64,7 @@ struct HardwareContextDataSlotDesc
 
     static void dumpElement(const HardwareContextData *pVal)
     {
-        fprintf(stderr, "%p", pVal);
+        fprintf(stderr, "%p", static_cast<const void *>(pVal));
     }
 };
 

@@ -121,11 +121,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(Animation *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Animation *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Animation *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits<Animation *, nsOSG + 1 >::getType(void)
 {
@@ -141,7 +141,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Animation *,
                          NoRefCountPolicy,
-                         nsOSG + 1);
+                         nsOSG + 1)
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -152,7 +152,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          Animation *,
                          NoRefCountPolicy,
-                         1);
+                         1)
 
 
 /***************************************************************************\

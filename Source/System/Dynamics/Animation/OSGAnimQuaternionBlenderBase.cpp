@@ -107,11 +107,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(AnimQuaternionBlender *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AnimQuaternionBlender *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimQuaternionBlender *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

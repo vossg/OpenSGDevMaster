@@ -55,7 +55,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, AttachmentMap);
+OSG_FIELD_DLLEXPORT_DEF1(SField, AttachmentMap)
 
 
 const FieldType &GetSFieldHandle<SFAttachmentPtrMap>::getType(void) const

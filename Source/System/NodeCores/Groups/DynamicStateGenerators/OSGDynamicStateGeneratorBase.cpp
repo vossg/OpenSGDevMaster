@@ -103,11 +103,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(DynamicStateGenerator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DynamicStateGenerator *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DynamicStateGenerator *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -64,8 +64,8 @@ OSG_FIELDTRAITS_GETTYPE   (RenderActionFunctorCallback     )
 
 #endif
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, RenderActionFunctorCallback);
-OSG_FIELD_DLLEXPORT_DEF1(MField, RenderActionFunctorCallback);
+OSG_FIELD_DLLEXPORT_DEF1(SField, RenderActionFunctorCallback)
+OSG_FIELD_DLLEXPORT_DEF1(MField, RenderActionFunctorCallback)
 
 #if 0
 template <>

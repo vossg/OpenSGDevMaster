@@ -329,7 +329,7 @@ UInt8  Image::getComponents(void) const
     }
 
     FWARNING(("Image::getComponents: image %p has unknown pixel format 0x%x!",
-                this, getPixelFormat()));
+                static_cast<const void *>(this), getPixelFormat()));
 
     return 0;
 }

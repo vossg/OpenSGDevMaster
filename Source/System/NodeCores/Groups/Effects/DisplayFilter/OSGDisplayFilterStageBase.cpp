@@ -148,11 +148,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(DisplayFilterStage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DisplayFilterStage *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DisplayFilterStage *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -104,11 +104,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(GlobalsAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            GlobalsAttachment *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            GlobalsAttachment *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< GlobalsAttachment *, nsOSG + 1 >::getType(void)
 {
@@ -119,13 +119,13 @@ DataType &FieldTraits< GlobalsAttachment *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       GlobalsAttachment *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       GlobalsAttachment *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 DataType &FieldTraits<GlobalsAttachment *, nsOSG + 2 >::getType(void)
@@ -142,7 +142,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          GlobalsAttachment *,
                          NoRefCountPolicy,
-                         nsOSG + 2);
+                         nsOSG + 2)
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -153,7 +153,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          GlobalsAttachment *,
                          NoRefCountPolicy,
-                         2);
+                         2)
 
 
 /***************************************************************************\

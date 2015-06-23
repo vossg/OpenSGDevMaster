@@ -345,7 +345,7 @@ DataType &FieldTraits<StatCollectorP>::getType(void)
 }
 #endif
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, StatCollectorP);
+OSG_FIELD_DLLEXPORT_DEF1(SField, StatCollectorP)
 
 OSG_END_NAMESPACE
 

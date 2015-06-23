@@ -45,36 +45,36 @@ template<class SingletonT, typename TagT, class LockPolicy>
 LockPolicy TaggedSingletonHolder<SingletonT, TagT, LockPolicy>::_oLock;
 
 
-#define OSG_TAGGEDSINGLETON_INST(OSG_CLASS, OSG_TAG)              \
-template <> OSG_DLL_EXPORT                                        \
-bool TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::destroy(void)   \
-{                                                                 \
-    FDEBUG_GV(("Destroy Singleton %p\n", _the));                  \
-                                                                  \
-    delete _the;                                                  \
-                                                                  \
-    _the = NULL;                                                  \
-                                                                  \
-    return true;                                                  \
-}                                                                 \
-                                                                  \
-template<> OSG_DLL_EXPORT                                         \
-OSG_CLASS *TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::the(void) \
-{                                                                 \
-    _oLock.acquire();                                             \
-                                                                  \
-    if(_the == NULL)                                              \
-    {                                                             \
-        _the = new OSG_CLASS();                                   \
-                                                                  \
-        addPostFactoryExitFunction(&Self::destroy);               \
-    }                                                             \
-                                                                  \
-    _oLock.release();                                             \
-                                                                  \
-    return _the;                                                  \
-}                                                                 \
-                                                                  \
+#define OSG_TAGGEDSINGLETON_INST(OSG_CLASS, OSG_TAG)                  \
+template <> OSG_DLL_EXPORT                                            \
+bool TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::destroy(void)       \
+{                                                                     \
+    FDEBUG_GV(("Destroy Singleton %p\n", static_cast<void *>(_the))); \
+                                                                      \
+    delete _the;                                                      \
+                                                                      \
+    _the = NULL;                                                      \
+                                                                      \
+    return true;                                                      \
+}                                                                     \
+                                                                      \
+template<> OSG_DLL_EXPORT                                             \
+OSG_CLASS *TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::the(void)     \
+{                                                                     \
+    _oLock.acquire();                                                 \
+                                                                      \
+    if(_the == NULL)                                                  \
+    {                                                                 \
+        _the = new OSG_CLASS();                                       \
+                                                                      \
+        addPostFactoryExitFunction(&Self::destroy);                   \
+    }                                                                 \
+                                                                      \
+    _oLock.release();                                                 \
+                                                                      \
+    return _the;                                                      \
+}
+                                                                      
 
 /*
 template<class SingletonT> inline

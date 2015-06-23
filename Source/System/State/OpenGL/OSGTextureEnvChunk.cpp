@@ -153,7 +153,8 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
     if(!win->hasExtension(_extTextureShader))
     {
         if(getShaderOperation() != GL_NONE)
-            FINFO(("NV Texture Shaders not supported on Window %p!\n", win));
+            FINFO(("NV Texture Shaders not supported on Window %p!\n", 
+                   static_cast<void *>(win)));
         return;
     }
 
@@ -169,7 +170,8 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
 
     if(bindtarget == GL_TEXTURE_3D && !win->hasExtension(_extTextureShader2))
     {
-        FINFO(("NV Texture Shaders 2 not supported on Window %p!\n", win));
+        FINFO(("NV Texture Shaders 2 not supported on Window %p!\n", 
+               static_cast<void *>(win)));
         return;
     }
 
@@ -565,7 +567,9 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("TextureEnvChunk::activate: Trying to bind image unit %d,"
                   " but Window %p only supports %lf!\n",
-                  idx, win, nteximages));
+                  idx, 
+                  static_cast<void *>(win),
+                  nteximages));
 #endif
         return;
     }
@@ -737,7 +741,9 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
 #ifdef OSG_DEBUG
         FWARNING(("TextureEnvChunk::changeFrom: Trying to bind image unit %d,"
                   " but Window %p only supports %lf!\n",
-                  idx, win, nteximages));
+                  idx, 
+                  static_cast<void *>(win),
+                  nteximages));
 #endif
         return;
     }
@@ -917,7 +923,9 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("CubeTextureEnvChunk::deactivate: Trying to bind image unit "
                   "%d, but Window %p only supports %lf!\n",
-                  idx, win, nteximages));
+                  idx, 
+                  static_cast<void *>(win), 
+                  nteximages));
 #endif
         return;
     }

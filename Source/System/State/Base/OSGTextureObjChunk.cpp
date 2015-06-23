@@ -474,7 +474,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
         if( bindtarget == GL_TEXTURE_3D && 
             !win->hasExtOrVersion(_extTex3D, 0x0102))
         {
-            FWARNING(("3D textures not supported on Window %p!\n", win));
+            FWARNING(("3D textures not supported on Window %p!\n", 
+                      static_cast<void *>(win)));
             return;
         }
 
@@ -483,7 +484,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
            !win->hasExtOrVersion(_extTextureArray, 0x0300))
         {
             FWARNING(("texture arrays not supported on Window %p!\n",
-                      win));
+                      static_cast<void *>(win)));
             return;
         }
 
@@ -491,14 +492,15 @@ void TextureObjChunk::handleTexture(Window                  *win,
            !win->hasExtOrVersion(_arbTextureRectangle, 0x0301))
         {
             FWARNING(("Rectangular textures not supported on Window %p!\n",
-                      win));
+                      static_cast<void *>(win)));
             return;
         }
 
         if(paramtarget == GL_TEXTURE_CUBE_MAP_ARB &&
            !win->hasExtOrVersion(_arbCubeTex, 0x0103, 0x0200))
         {
-            FNOTICE(("Cube textures not supported on Window %p!\n", win));
+            FNOTICE(("Cube textures not supported on Window %p!\n", 
+                     static_cast<void *>(win)));
             return;
         }
 
@@ -506,7 +508,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
            !win->hasExtOrVersion(_arbTextureCompression, 0x0103, 0x0200))
         {
             FWARNING(("Compressed textures not supported on Window %p!\n",
-                      win));
+                      static_cast<void *>(win)));
             return;
         }
 
@@ -1373,7 +1375,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
         if(bindtarget == GL_TEXTURE_3D && !has3DTex)
         {
-            FINFO(("3D textures not supported on Window %p!\n", win));
+            FINFO(("3D textures not supported on Window %p!\n", 
+                   static_cast<void *>(win)));
             return;
         }
 
@@ -1737,7 +1740,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
                   " but Window %p only supports %lf!\n",
-                  idx, win, nteximages));
+                  idx, static_cast<void *>(win), nteximages));
 #endif
         return;
     }
@@ -1912,7 +1915,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
 #ifdef OSG_DEBUG
         FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
                   " but Window %p only supports %d!\n",
-                  idx, win, nteximages));
+                  idx, static_cast<void *>(win), nteximages));
 #endif
         return;
     }
@@ -2059,7 +2062,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 #ifdef OSG_DEBUG
         FWARNING(("TextureObjChunk::deactivate: Trying to bind image unit %d,"
                   " but Window %p only supports %lf!\n",
-                  idx, win, nteximages));
+                  idx, static_cast<void *>(win), nteximages));
 #endif
         return;
     }

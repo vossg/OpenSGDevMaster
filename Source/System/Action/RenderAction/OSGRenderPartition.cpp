@@ -1286,7 +1286,8 @@ void RenderPartition::dump(UInt32 uiIndent)
     uiIndent += 4;
 
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
-    fprintf(stderr, "RenderParition %p | %d\n", this, Int32(_ubState));
+    fprintf(stderr, "RenderParition %p | %d\n", 
+            static_cast<void *>(this), Int32(_ubState));
 
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "with %" PRISize " groups\n", _vGroupStore.size());

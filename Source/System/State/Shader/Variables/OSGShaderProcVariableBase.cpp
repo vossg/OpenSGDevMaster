@@ -107,11 +107,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(ShaderProcVariable *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShaderProcVariable *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShaderProcVariable *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< ShaderProcVariable *, nsOSG + 1 >::getType(void)
 {
@@ -122,7 +122,7 @@ DataType &FieldTraits< ShaderProcVariable *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       ShaderProcVariable *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

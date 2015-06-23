@@ -110,7 +110,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(PassiveBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PassiveBackground *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

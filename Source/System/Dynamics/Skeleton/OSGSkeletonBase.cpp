@@ -164,11 +164,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(Skeleton *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Skeleton *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Skeleton *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< Skeleton *, nsOSG + 1 >::getType(void)
 {
@@ -179,13 +179,13 @@ DataType &FieldTraits< Skeleton *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Skeleton *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Skeleton *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 DataType &FieldTraits<Skeleton *, nsOSG + 2 >::getType(void)
@@ -202,7 +202,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Skeleton *,
                          NoRefCountPolicy,
-                         nsOSG + 2);
+                         nsOSG + 2)
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -213,7 +213,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          Skeleton *,
                          NoRefCountPolicy,
-                         2);
+                         2)
 
 
 /***************************************************************************\

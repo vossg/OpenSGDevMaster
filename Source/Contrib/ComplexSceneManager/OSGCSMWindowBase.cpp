@@ -197,11 +197,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CSMWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CSMWindow *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CSMWindow *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< CSMWindow *, nsOSG + 1 >::getType(void)
 {
@@ -212,13 +212,13 @@ DataType &FieldTraits< CSMWindow *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       CSMWindow *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       CSMWindow *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

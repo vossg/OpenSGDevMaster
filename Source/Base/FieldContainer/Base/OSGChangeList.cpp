@@ -441,8 +441,8 @@ void ChangeList::dump(      UInt32    uiIndent,
                 (*cIt)->uiContainerId,
                 tmpChanges,
                 (*cIt)->whichField,
-                (*cIt),
-                (*cIt)->bvUncommittedChanges,
+                static_cast<void *>((*cIt)),
+                static_cast<void *>((*cIt)->bvUncommittedChanges),
                 szTmp.c_str());
 
         ++cIt;
@@ -483,8 +483,8 @@ void ChangeList::dump(      UInt32    uiIndent,
                 (*cIt)->uiContainerId,
                 tmpChanges,
                 (*cIt)->whichField,
-                (*cIt),
-                (*cIt)->bvUncommittedChanges,
+                static_cast<void *>((*cIt)),
+                static_cast<void *>((*cIt)->bvUncommittedChanges),
                 szTmp.c_str());
 
         ++cIt;

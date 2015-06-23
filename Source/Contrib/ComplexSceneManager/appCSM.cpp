@@ -93,7 +93,8 @@ int init(int argc, char **argv)
         OSG::OSGSceneFileType::the().readContainer(
             "Source/Contrib/ComplexSceneManager/data/system-native.osg");
         
-        fprintf(stderr, "Got %p\n", OSG::ComplexSceneManager::the());
+        fprintf(stderr, "Got %p\n", 
+                static_cast<void *>(OSG::ComplexSceneManager::the()));
         
         const char *argvTmp[] = 
         {

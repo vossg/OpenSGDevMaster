@@ -198,11 +198,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(QuadTreeTerrain *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            QuadTreeTerrain *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            QuadTreeTerrain *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

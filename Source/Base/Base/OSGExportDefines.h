@@ -241,16 +241,16 @@ FieldType CLASSNAME< T1 , T2, T3 >::_fieldType(          \
     OSG_FIELD_DLLEXPORT_DEF3(CLASS, T1, T2, T3)  
 
 #define OSG_EXPORT_PTR_SFIELD_FULL(CLASS, T1, T3)                   \
-    OSG_EXPORT_PTR_SFIELD(CLASS, T1, RecordedRefCountPolicy,   T3); \
-    OSG_EXPORT_PTR_SFIELD(CLASS, T1, UnrecordedRefCountPolicy, T3); \
-    OSG_EXPORT_PTR_SFIELD(CLASS, T1, WeakRefCountPolicy,       T3); \
-    OSG_EXPORT_PTR_SFIELD(CLASS, T1, NoRefCountPolicy,         T3);
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, RecordedRefCountPolicy,   T3)  \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, UnrecordedRefCountPolicy, T3)  \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, WeakRefCountPolicy,       T3)  \
+    OSG_EXPORT_PTR_SFIELD(CLASS, T1, NoRefCountPolicy,         T3)
 
 #define OSG_EXPORT_PTR_MFIELD_FULL(CLASS, T1, T3)                   \
-    OSG_EXPORT_PTR_MFIELD(CLASS, T1, RecordedRefCountPolicy,   T3); \
-    OSG_EXPORT_PTR_MFIELD(CLASS, T1, UnrecordedRefCountPolicy, T3); \
-    OSG_EXPORT_PTR_MFIELD(CLASS, T1, WeakRefCountPolicy,       T3); \
-    OSG_EXPORT_PTR_MFIELD(CLASS, T1, NoRefCountPolicy,         T3);
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, RecordedRefCountPolicy,   T3)  \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, UnrecordedRefCountPolicy, T3)  \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, WeakRefCountPolicy,       T3)  \
+    OSG_EXPORT_PTR_MFIELD(CLASS, T1, NoRefCountPolicy,         T3)
 
 
 #define OSG_FIELD_TRAITS_NAME_INST(PTRCLASS, PTRCLASSNAME) \

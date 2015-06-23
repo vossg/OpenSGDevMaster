@@ -114,11 +114,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(CheckerboardCalibFilter *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CheckerboardCalibFilter *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CheckerboardCalibFilter *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

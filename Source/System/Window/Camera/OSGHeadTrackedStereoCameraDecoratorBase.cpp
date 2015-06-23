@@ -106,11 +106,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(HeadTrackedStereoCameraDecorator *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            HeadTrackedStereoCameraDecorator *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            HeadTrackedStereoCameraDecorator *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -40,15 +40,11 @@
 
 #include "OSGSingletonHolder.ins"
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(OSG::OSBElementFactorySingleton, addPostFactoryExitFunction);
+OSG_SINGLETON_INST(OSG::OSBElementFactorySingleton, addPostFactoryExitFunction)
 
 template class SingletonHolder<OSG::OSBElementFactorySingleton>;
-
-OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /* OSBElementCreatorBase                                                  */
@@ -59,7 +55,7 @@ OSG_END_NAMESPACE
 
 OSBElementCreatorBase::~OSBElementCreatorBase(void)
 {
-};
+}
 
 /*-------------------------------------------------------------------------*/
 /* OSBElementFactorySingleton                                             */
@@ -204,3 +200,5 @@ OSBElementFactorySingleton::~OSBElementFactorySingleton(void)
         ++regIt;
     }
 }
+
+OSG_END_NAMESPACE

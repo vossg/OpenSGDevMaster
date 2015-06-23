@@ -102,11 +102,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(ComputeCallbackAlgorithm *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ComputeCallbackAlgorithm *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComputeCallbackAlgorithm *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

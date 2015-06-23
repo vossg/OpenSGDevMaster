@@ -213,11 +213,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(ShadowStage *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ShadowStage *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ShadowStage *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -799,7 +799,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "    access=\"public\"\n"
     "    defaultValue=\"false\"\n"
     "    >\n"
-    "\tUse multisampling when rendering color map and shadow factor map.\n"
+    "    Use multisampling when rendering color map and shadow factor map.\n"
     "    </Field>\n"
     "  <Field\n"
     "    name=\"colorSamples\"\n"

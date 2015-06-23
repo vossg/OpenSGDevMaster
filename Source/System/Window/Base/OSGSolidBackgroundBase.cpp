@@ -109,7 +109,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(SolidBackground *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SolidBackground *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

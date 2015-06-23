@@ -50,7 +50,7 @@ void ModelRequest::execute(void)
        pGraphOp = GraphOpSeq::create(szGraphOp);
    }
    
-   fprintf(stderr, "Using graphop %p\n", pGraphOp.get());
+   fprintf(stderr, "Using graphop %p\n", static_cast<void *>(pGraphOp.get()));
 
    mModel = SceneFileHandler::the()->read(mFilename.c_str(),
                                           pGraphOp         );

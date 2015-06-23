@@ -214,7 +214,7 @@ void AspectStore::dump(void)
 
     for(UInt32 i = 0; i < _vAspects.size(); ++i)
     {
-        fprintf(stderr, "AS %d : %p\n", i, _vAspects[i]);
+        fprintf(stderr, "AS %d : %p\n", i, static_cast<void *>(_vAspects[i]));
     }
 }
 

@@ -257,7 +257,9 @@ const TChar *SharedObject::getCName(void)
 
 void SharedObject::dump(void)
 {
-    FLOG(("\tObject %s | %p\n", _szName.c_str(), _pHandle));
+    FLOG(("\tObject %s | %p\n", 
+          _szName.c_str(), 
+          static_cast<void *>(_pHandle)));
 }
 
 /*---------------------------- properties ---------------------------------*/
@@ -508,7 +510,9 @@ bool SharedObjectHandler::initialize(void)
 
     for(UInt32 i = 0; i < _vLoadedNames.size(); ++i)
     {
-        FLOG(("Preloaded %s %p\n", _vLoadedNames[i].c_str(), pAppHandle));
+        FLOG(("Preloaded %s %p\n", 
+              _vLoadedNames[i].c_str(), 
+              static_cast<void *>(pAppHandle)));
 
 		_mSharedObjects[_vLoadedNames[i]] = pAppHandle;
 
@@ -528,7 +532,8 @@ void SharedObjectHandler::dump(void)
     while(soIt != soEnd)
     {
         FLOG(("SharedObjectHandler::dump: %s | %p\n",
-              soIt->first.c_str(), soIt->second));
+              soIt->first.c_str(), 
+              static_cast<void *>(soIt->second)));
 
         soIt->second->dump();
         ++soIt;

@@ -308,7 +308,7 @@ GeoPumpGroup::GeoPump GeoSplitVertexArrayPumpGroup::getGeoPump(
     PropertyCharacteristics  acset)
 {
     return NULL;
-};
+}
 
 bool GeoSplitVertexArrayPumpGroup::glextInitFunction(void)
 {

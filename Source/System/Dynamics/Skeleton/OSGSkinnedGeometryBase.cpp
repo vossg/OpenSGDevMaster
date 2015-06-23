@@ -132,11 +132,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(SkinnedGeometry *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            SkinnedGeometry *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            SkinnedGeometry *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits<SkinnedGeometry *, nsOSG + 1 >::getType(void)
 {
@@ -152,7 +152,7 @@ OSG_SFIELDTYPE_INST(ParentPointerSField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          SkinnedGeometry *,
                          NoRefCountPolicy,
-                         nsOSG + 1);
+                         nsOSG + 1)
 
 
 OSG_MFIELDTYPE_INST(ParentPointerMField,
@@ -163,7 +163,7 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          SkinnedGeometry *,
                          NoRefCountPolicy,
-                         1);
+                         1)
 
 
 /***************************************************************************\

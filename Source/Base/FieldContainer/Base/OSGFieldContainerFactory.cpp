@@ -148,7 +148,8 @@ bool FieldContainerFactoryBase::terminate(void)
         {
             FWARNING(("FieldContainerFactoryBase::terminate: "
                       "Entry [%d] is not NULL ([%p]). \n",
-                      (*sI).first, (*sI).second));
+                      (*sI).first, 
+                      static_cast<void *>((*sI).second)));
                                               
             for(UInt32 j = 0; j < (*sI).second->getNumAspects(); ++j)
             {
@@ -156,7 +157,7 @@ bool FieldContainerFactoryBase::terminate(void)
                 {
                     FWARNING(("  [%d] [%p] [%s] [%d %d]\n",
                               j, 
-                              (*sI).second->getPtr(j),
+                              static_cast<void *>((*sI).second->getPtr(j)),
                               (*sI).second->getPtr(j)->getType().getCName(),
                               (*sI).second->getPtr(j)->getRefCount(),
                               (*sI).second->getPtr(j)->getWeakRefCount() ));
@@ -165,7 +166,7 @@ bool FieldContainerFactoryBase::terminate(void)
                 {
                     FWARNING(("  [%d] [%p] [] [N/A N/A]\n",
                               j, 
-                              (*sI).second->getPtr(j)));
+                              static_cast<void *>((*sI).second->getPtr(j))));
                 }
             }
         }
@@ -293,7 +294,8 @@ void FieldContainerFactoryBase::dump(void)
         {
             FWARNING(("FieldContainerFactoryBase::dump: "
                       "Entry [%d] is not NULL ([%p]). \n",
-                      (*sI).first, (*sI).second));
+                      (*sI).first, 
+                      static_cast<void *>((*sI).second)));
                                               
             for(UInt32 j = 0; j < (*sI).second->getNumAspects(); ++j)
             {
@@ -301,7 +303,7 @@ void FieldContainerFactoryBase::dump(void)
                 {
                     FWARNING(("  [%d] [%p] [%s] [%d %d]\n",
                               j, 
-                              (*sI).second->getPtr(j),
+                              static_cast<void *>((*sI).second->getPtr(j)),
                               (*sI).second->getPtr(j)->getType().getCName(),
                               (*sI).second->getPtr(j)->getRefCount(),
                               (*sI).second->getPtr(j)->getWeakRefCount() ));
@@ -310,7 +312,7 @@ void FieldContainerFactoryBase::dump(void)
                 {
                     FWARNING(("  [%d] [%p] [] [N/A N/A]\n",
                               j, 
-                              (*sI).second->getPtr(j)));
+                              static_cast<void *>((*sI).second->getPtr(j))));
                 }
             }
         }

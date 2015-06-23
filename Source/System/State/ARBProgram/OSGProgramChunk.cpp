@@ -308,7 +308,8 @@ void ProgramChunk::printCompileError(Window *win, UInt32 id)
     
     FWARNING(("ProgramChunk(%p:%d): error compiling program "
               "at position %d: %s\n",
-              win, id, pos, glGetString(GL_PROGRAM_ERROR_STRING_ARB)));
+              static_cast<void *>(win), 
+              id, pos, glGetString(GL_PROGRAM_ERROR_STRING_ARB)));
     
     UInt32 start = 0, end, line = 0;
     

@@ -419,8 +419,8 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
         if(_pContextThread->isRunning() == true)
         {
             fprintf(stderr, "Terminate context thread %p %p\n", 
-                    this,
-                    _pContextThread.get());
+                    static_cast<void *>(this),
+                    static_cast<void *>(_pContextThread.get()));
 
             if(0x0000 != (_sfDrawMode.getValue() & ExternalContext))
             {
@@ -666,7 +666,7 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
     FDEBUG(("Window 0x%p (event %d,ri:%" PRISize ",rf:%" PRISize "): "
             "Validating object %d: last reinit:%d, last validate:"
             "%d last refresh: %d => %s\n", 
-            this, getGlObjectEventCounter(), 
+            static_cast<void *>(this), getGlObjectEventCounter(), 
             _mfGlObjectLastReinitialize.size(),
             _mfGlObjectLastRefresh.size(),
             osgId, 
@@ -1135,7 +1135,7 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
 
         for(; winIt != winEnd; ++winIt)
         {
-            FPDEBUG((" %p:", winIt->get()));
+            FPDEBUG((" %p:", static_cast<void *>(winIt->get())));
             
             std::vector<std::string>::iterator extit;
             
@@ -1260,8 +1260,8 @@ void OSG::Window::doTerminate(void)
         if(_pContextThread->isRunning() == true)
         {
             fprintf(stderr, "Terminate draw thread %p | %p\n", 
-                    this,
-                    _pActivateTask.get());
+                    static_cast<void *>(this),
+                    static_cast<void *>(_pActivateTask.get()));
 
             if(0x0000 != (_sfDrawMode.getValue() & ExternalContext))
             {
@@ -1393,14 +1393,16 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
         const char *gl_extensions = 
             reinterpret_cast<const char*> (glGetString(GL_EXTENSIONS));
 
-        FDEBUG(("Window %p: GL Version: %4x ('%s')\n", this, 
+        FDEBUG(("Window %p: GL Version: %4x ('%s')\n", 
+                static_cast<void *>(this), 
                 _glVersion, glGetString(GL_VERSION) ));
 
-        FDEBUG(("Window %p: GL Extensions: %s\n", this, gl_extensions));
+        FDEBUG(("Window %p: GL Extensions: %s\n", 
+                static_cast<void *>(this), gl_extensions));
 
         std::string foo(gl_extensions != NULL ? gl_extensions : "");
 
-        FDEBUG(("Window %p: Ignored extensions: ", this));
+        FDEBUG(("Window %p: Ignored extensions: ", static_cast<void *>(this)));
 
         for(string_token_iterator it = string_token_iterator(foo, ",. ");
             it != string_token_iterator(); ++it)
@@ -1431,7 +1433,7 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
     if(_registeredExtensions.size() > _availExtensions.size())
     {
         staticAcquire();
-        FDEBUG(("Window %p: exts: ", this));
+        FDEBUG(("Window %p: exts: ", static_cast<void *>(this)));
 
         while(_registeredExtensions.size() > _availExtensions.size())
         {                          
@@ -1497,7 +1499,8 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
     while(_registeredFunctions.size() > _extFunctions.size())
     {   
         const Char8 *s    = _registeredFunctions[_extFunctions.size()].c_str();
-        FPDEBUG(("Window %p: Looking up ext function: %s ... ", this, s));
+        FPDEBUG(("Window %p: Looking up ext function: %s ... ", 
+                 static_cast<void *>(this), s));
 
         Int32        ext  = _registeredFunctionExts    [_extFunctions.size()];
         UInt32       ver  = _registeredFunctionVersions[_extFunctions.size()];
@@ -1540,7 +1543,8 @@ void OSG::Window::doFrameInit(bool reinitExtFuctions)
             glGetFloatv(*cIt, static_cast<GLfloat *>(val.getValues()));
             _availConstants[*cIt] = val;
 
-            FDEBUG(("Window(%p): Constant 0x%x value is %.3f %.3f\n", this,
+            FDEBUG(("Window(%p): Constant 0x%x value is %.3f %.3f\n", 
+                    static_cast<void *>(this),
                     *cIt, val[0], val[1]));
         }
 
@@ -1689,7 +1693,8 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 
     FINFO(("Window::getFunctionByName: %s\n", s));
 
-    FDEBUG(("Window %p: GL Vendor: %s\n", this, glGetString(GL_VENDOR)));
+    FDEBUG(("Window %p: GL Vendor: %s\n", 
+            static_cast<void *>(this), glGetString(GL_VENDOR)));
 
 #if defined(__APPLE__) && !defined(OSG_OGL_ES2)
 
@@ -1830,7 +1835,8 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                     {
                         FWARNING(("Neither glXGetProcAddress nor "
                                   "glXGetProcAddressARB found! Disabling all "
-                                  " extensions for Window %p!\n", this)); 
+                                  " extensions for Window %p!\n", 
+                                  static_cast<void *>(this))); 
 
                         _availExtensions.clear();
                         _availExtensions.resize(_registeredExtensions.size(), 
@@ -1879,12 +1885,15 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     if(retval == NULL)
     {
         FWARNING(("Window::getFunctionByName: Couldn't get function '%s' for "
-                 "Window %p.\n", s, this));
+                 "Window %p.\n", s, static_cast<void *>(this)));
     }
     else
     {
         FDEBUG(("Window::getFunctionByName: got function '%s' for "
-                 "Window %p at %p.\n", s, this, retval));
+                 "Window %p at %p.\n", 
+                s, 
+                static_cast<void *>(this), 
+                reinterpret_cast<void *>(retval)));
     }
 
     return retval;
@@ -2534,7 +2543,7 @@ void Window::staticDump(void)
 
     for(UInt32 i = 0; i < _glObjects.size(); ++i)
     {
-        fprintf(stderr, "gl[%d] = %p\n", i, _glObjects[i]);
+        fprintf(stderr, "gl[%d] = %p\n", i, static_cast<void *>(_glObjects[i]));
     }
 }
 

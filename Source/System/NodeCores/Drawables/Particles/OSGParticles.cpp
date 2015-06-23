@@ -2943,7 +2943,8 @@ void Particles::drawPrimitives(DrawEnv *pEnv)
 
     if(drawer == NULL)
     {
-        FWARNING(("Particles 0x%p: couldn't find drawer!\n", this));
+        FWARNING(("Particles 0x%p: couldn't find drawer!\n", 
+                  static_cast<void *>(this)));
         return;
     }
 

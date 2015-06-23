@@ -106,11 +106,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(RotationTransformationElement *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            RotationTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            RotationTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

@@ -154,11 +154,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(Geometry *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Geometry *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Geometry *,
-                           nsOSG);
+                           nsOSG)
 
 DataType &FieldTraits< Geometry *, nsOSG + 1 >::getType(void)
 {
@@ -169,13 +169,13 @@ DataType &FieldTraits< Geometry *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       Geometry *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Geometry *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

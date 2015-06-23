@@ -157,11 +157,11 @@ bool DATImageFileType::read(      Image *image,
                     image->setAttachmentField ( keyStr, value );
                     break;
                 case CHANNEL_KT:
-                    sscanf ( value, "%d", &(channel) );
+                    sscanf ( value, "%u", &(channel) );
                     image->setAttachmentField ( keyStr, value );
                     break;
                 case RESOLUTION_KT:
-                    sscanf ( value, "%d %d %d",
+                    sscanf ( value, "%u %u %u",
                              &(res[0]), &(res[1]), &(res[2]));
                     image->setAttachmentField ( keyStr, value );
                     break;

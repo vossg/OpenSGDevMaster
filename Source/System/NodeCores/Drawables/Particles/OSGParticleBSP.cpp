@@ -515,7 +515,7 @@ DataType FieldTraits<ParticleBSPTree>::_type("ParticleBSPTree",
 
 OSG_FIELDTRAITS_GETTYPE(ParticleBSPTree)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ParticleBSPTree);
+OSG_FIELD_DLLEXPORT_DEF1(SField, ParticleBSPTree)
 
 OSG_END_NAMESPACE
 

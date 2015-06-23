@@ -74,7 +74,7 @@ GroupMCastConnection::GroupMCastConnection():
     _initialized(false)
 {
     char lockName[256];
-    sprintf(lockName,"GroupMCastConnection%p",this);
+    sprintf(lockName,"GroupMCastConnection%p", static_cast<void *>(this));
 
     // create locks
     _lock     = Lock::get(lockName, false);
@@ -597,7 +597,7 @@ void GroupMCastConnection::initialize()
     BinaryMessage message;
     char          threadName[256];
 
-    sprintf(threadName,"GroupMCastConnection%p",this);
+    sprintf(threadName,"GroupMCastConnection%p", static_cast<void *>(this));
 
     if(!getDestination().empty())
         group = getDestination();

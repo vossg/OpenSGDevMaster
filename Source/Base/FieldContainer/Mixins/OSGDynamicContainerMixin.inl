@@ -545,7 +545,7 @@ void DynFieldContainer<ParentT>::dump(
     {
         fprintf(stderr, "[%d] : %p\n",
                 i,
-                _dynFieldsV[i]);
+                static_cast<void *>(_dynFieldsV[i]));
     }
 
     uiIndent -= 4;

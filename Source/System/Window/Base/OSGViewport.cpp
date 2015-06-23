@@ -547,9 +547,9 @@ void Viewport::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump Viewport NI" << std::endl;
 
     fprintf(stderr, "%p %p %p\n", 
-            this, 
-            _sfCamera.getValue(),
-            getCamera());
+            static_cast<const void *>(this), 
+            static_cast<      void *>(_sfCamera.getValue()),
+            static_cast<      void *>(getCamera()));
 }
 
 

@@ -91,7 +91,7 @@ class Name : public SimpleAttachment<NameAttachmentDesc> {};
 #endif
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-OSG_GEN_CONTAINERPTR(Name)  
+OSG_GEN_CONTAINERPTR(Name);
 #endif
 
 

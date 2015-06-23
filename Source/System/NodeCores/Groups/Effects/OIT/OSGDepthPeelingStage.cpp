@@ -455,7 +455,8 @@ void DepthPeelingStage::postProcess(DrawEnv *pEnv, bool isPing)
 
     if(win->hasExtOrVersion(_uiFramebufferObjectExt, 0x0300, 0x0200) == false)
     {
-        FNOTICE(("Framebuffer objects not supported on Window %p!\n", win));
+        FNOTICE(("Framebuffer objects not supported on Window %p!\n", 
+                 static_cast<void *>(win)));
         return;
     }
 

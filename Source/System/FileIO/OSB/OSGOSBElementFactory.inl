@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 template <class ElementTypeT>
 OSBElementCreator<ElementTypeT>::~OSBElementCreator(void)
 {
-};
+}
 
 /*-------------------------------------------------------------------------*/
 /* Create                                                                  */

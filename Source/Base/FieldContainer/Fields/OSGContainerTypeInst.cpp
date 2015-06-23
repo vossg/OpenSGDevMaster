@@ -130,37 +130,37 @@ DataType &FieldTraits< Node *, 1 >::getType(void)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            FieldContainer *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            FieldContainer *, 
-                           0);
+                           0)
 
 // Node
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            Node *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            Node *, 
-                           0);
+                           0)
 
 // AttachmentContainer
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
                            AttachmentContainer *, 
-                           0);
+                           0)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            AttachmentContainer *, 
-                           0);
+                           0)
 
 // NodeChildNode
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       Node *,
                       UnrecordedRefCountPolicy, 
-                      1);
+                      1)
 
 
 // ParentFieldContainer
@@ -177,11 +177,11 @@ OSG_MFIELDTYPE_INST(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField, 
                          FieldContainer *, 
                          NoRefCountPolicy,
-                         1);
+                         1)
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField, 
                          FieldContainer *, 
                          NoRefCountPolicy,
-                         1);
+                         1)
 
 
 OSG_SFIELDTYPE_INST_X(ParentPointerSField,
@@ -196,37 +196,37 @@ OSG_MFIELDTYPE_INST_X(ParentPointerMField,
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
                          Node *,
                          NoRefCountPolicy,
-                         1);
+                         1)
 OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          Node *,
                          NoRefCountPolicy,
-                         1);
+                         1)
 
 // ChangeFunctor
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);
+OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback)
+OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback)
 
 // MemoryObject
 
 OSG_EXPORT_PTR_SFIELD(MemObjPointerSField,
                       MemoryObject *, 
                       MemObjRefCountPolicy,
-                      0);
+                      0)
 OSG_EXPORT_PTR_MFIELD(MemObjPointerMField, 
                       MemoryObject *, 
                       MemObjRefCountPolicy,
-                      0);
+                      0)
 
 // HardwareContextData
 
 OSG_EXPORT_PTR_SFIELD(MemObjPointerSField,
                       HardwareContextData *, 
                       MemObjRefCountPolicy,
-                      0);
+                      0)
 OSG_EXPORT_PTR_MFIELD(MemObjPointerMField, 
                       HardwareContextData *, 
                       MemObjRefCountPolicy,
-                      0);
+                      0)
 
 OSG_END_NAMESPACE

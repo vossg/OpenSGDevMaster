@@ -176,7 +176,9 @@ void AnimVec3fBlender::connectTo(
     AttachmentContainer *container, const std::string &fieldName)
 {
     FDEBUG(("AnimVec3fBlender::connectTo: this [%p] target [%p] [%s]\n",
-            this, container, fieldName.c_str()));
+            static_cast<void *>(this),
+            static_cast<void *>(container),
+            fieldName.c_str()));
 
     addConnection(this, "outValue", container, fieldName.c_str());
 }

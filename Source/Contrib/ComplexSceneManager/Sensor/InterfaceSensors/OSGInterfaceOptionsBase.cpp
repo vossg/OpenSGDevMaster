@@ -111,7 +111,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(InterfaceOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            InterfaceOptions *,
-                           nsOSG);
+                           nsOSG)
 
 
 DataType &FieldTraits< InterfaceOptions *, nsOSG + 1 >::getType(void)
@@ -123,7 +123,7 @@ DataType &FieldTraits< InterfaceOptions *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       InterfaceOptions *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

@@ -83,7 +83,7 @@ struct RenderDataSlotDesc
 
     static void dumpElement(const FieldContainer *pVal)
     {
-        fprintf(stderr, "%p", pVal);
+        fprintf(stderr, "%p", static_cast<const void *>(pVal));
 
         if(pVal != NULL)
         {

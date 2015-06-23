@@ -85,7 +85,8 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
     _override        (override        ),
     _overridePriority(overridePriority)
 {
-    FINFO(( "Init %s Scene File Type %p\n", suffixArray[0], this ));
+    FINFO(( "Init %s Scene File Type %p\n", 
+            suffixArray[0], static_cast<void *>(this)));
 
     int count = (suffixByteCount / sizeof(const Char8 *)), i = 0;
 

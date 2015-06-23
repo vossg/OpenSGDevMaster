@@ -110,7 +110,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(LinuxEventOptions *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LinuxEventOptions *,
-                           nsOSG);
+                           nsOSG)
 
 
 DataType &FieldTraits< LinuxEventOptions *, nsOSG + 1 >::getType(void)
@@ -122,7 +122,7 @@ DataType &FieldTraits< LinuxEventOptions *, nsOSG + 1 >::getType(void)
 OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
                       LinuxEventOptions *,
                       UnrecordedRefCountPolicy,
-                      nsOSG + 1);
+                      nsOSG + 1)
 
 
 /***************************************************************************\

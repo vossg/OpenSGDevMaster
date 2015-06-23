@@ -110,7 +110,7 @@ struct FieldTraits<StringToUInt32Map> :
         //Get Size of the map
         UInt32 uiSize = 0;
 
-        if(sscanf(inVal,"%d", &uiSize) != 1)
+        if(sscanf(inVal,"%u", &uiSize) != 1)
         {
             return false;
         }

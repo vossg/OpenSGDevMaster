@@ -347,13 +347,13 @@ DataType FieldTraits<X11Window,  2>::_type("X11Window",  NULL);
 #endif
 DataType FieldTraits<GLXContext, 2>::_type("GLXContext", NULL);
 
-OSG_FIELD_DLLEXPORT_DEF2(SField, DisplayP,   2);
-OSG_FIELD_DLLEXPORT_DEF2(MField, DisplayP,   2);
+OSG_FIELD_DLLEXPORT_DEF2(SField, DisplayP,   2)
+OSG_FIELD_DLLEXPORT_DEF2(MField, DisplayP,   2)
 #if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
-OSG_FIELD_DLLEXPORT_DEF2(SField, X11Window,  2);
-OSG_FIELD_DLLEXPORT_DEF2(MField, X11Window,  2);
+OSG_FIELD_DLLEXPORT_DEF2(SField, X11Window,  2)
+OSG_FIELD_DLLEXPORT_DEF2(MField, X11Window,  2)
 #endif
-OSG_FIELD_DLLEXPORT_DEF2(SField, GLXContext, 2);
-OSG_FIELD_DLLEXPORT_DEF2(MField, GLXContext, 2);
+OSG_FIELD_DLLEXPORT_DEF2(SField, GLXContext, 2)
+OSG_FIELD_DLLEXPORT_DEF2(MField, GLXContext, 2)
 
 OSG_END_NAMESPACE

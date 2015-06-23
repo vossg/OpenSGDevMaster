@@ -108,7 +108,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(IntersectProxyAttachment *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            IntersectProxyAttachment *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

@@ -175,15 +175,17 @@ int DgramSocket::recvFrom(Dgram &dgram, SocketAddress &from)
         {
 #ifdef OSG_DEBUG
             fprintf(stderr, "efault at : %p %p (%d)\n", 
-                    &dgram, 
-                    dgram.getBuffer(),
+                    static_cast<void *>(&dgram), 
+                    static_cast<void *>(dgram.getBuffer()),
                     dgram.getUsageCounter());
 #endif
 
             dgram.reallocateBuffer();
 
 #ifdef OSG_DEBUG
-            fprintf(stderr, "change to : %p %p\n", &dgram, dgram.getBuffer());
+            fprintf(stderr, "change to : %p %p\n", 
+                    static_cast<void *>(&dgram),
+                    static_cast<void *>(dgram.getBuffer()));
 #endif
         }
     } 

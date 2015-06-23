@@ -134,7 +134,7 @@ OSG_FIELDTRAITS_GETTYPE_NS(FrameHandler *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            FrameHandler *,
-                           nsOSG);
+                           nsOSG)
 
 
 /***************************************************************************\

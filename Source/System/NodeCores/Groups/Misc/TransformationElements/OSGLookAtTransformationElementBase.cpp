@@ -110,11 +110,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(LookAtTransformationElement *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            LookAtTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            LookAtTransformationElement *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

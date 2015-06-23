@@ -38,10 +38,10 @@ OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<IntersectKDTreeNode>::_type("IntersectKDTreeNode", NULL);
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, IntersectKDTreeNode);
-OSG_FIELD_DLLEXPORT_DEF1(MField, IntersectKDTreeNode);
+OSG_FIELD_DLLEXPORT_DEF1(SField, IntersectKDTreeNode)
+OSG_FIELD_DLLEXPORT_DEF1(MField, IntersectKDTreeNode)
 
-OSG_FIELDTRAITS_GETTYPE(IntersectKDTreeNode);
+OSG_FIELDTRAITS_GETTYPE(IntersectKDTreeNode)
 
 /* static */ const Char8 *
 FieldTraits<IntersectKDTreeNode>::getSName(void)

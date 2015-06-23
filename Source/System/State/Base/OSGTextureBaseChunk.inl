@@ -88,8 +88,10 @@ bool TextureBaseChunk::activateTexture(Window *win, UInt16 texture)
         if(texture != 0)
         {
             FWARNING(("TextureChunk::activateTexture: trying to activate "
-                "texture %d, but Window %p doesn't support multi-textures!\n",
-                texture, win));
+                      "texture %d, but Window %p doesn't support "
+                      "multi-textures!\n", 
+                      texture, 
+                      static_cast<void *>(win)));
             return true;
         }
     }

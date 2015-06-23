@@ -550,7 +550,8 @@ void RenderAction::dumpPartitionList(void)
 
     for(UInt32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
     {
-        fprintf(stderr, "    %p\n", _vRenderPartitions[_currentBuffer][i]);
+        fprintf(stderr, "    %p\n", 
+                static_cast<void *>(_vRenderPartitions[_currentBuffer][i]));
     }
 }
 

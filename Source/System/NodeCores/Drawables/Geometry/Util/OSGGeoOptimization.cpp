@@ -355,7 +355,7 @@ namespace
         bCROSScp = bx * cpy - by * cpx;
 
         return ((aCROSSbp >= 0.0f) && (bCROSScp >= 0.0f) && (cCROSSap >= 0.0f));
-    };
+    }
 
     static const float EPSILON = 0.0000000001f;
 

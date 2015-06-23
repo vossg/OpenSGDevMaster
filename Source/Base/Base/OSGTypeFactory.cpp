@@ -261,7 +261,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
 
 
     FDEBUG(("Registered type %s | %d (%p)\n", pType->getCName(), returnValue,
-                                              pType)); 
+                                              static_cast<void *>(pType))); 
 
     return returnValue;
 }

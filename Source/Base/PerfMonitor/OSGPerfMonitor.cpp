@@ -50,7 +50,7 @@
 OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(PerfMonitorBase, addPostFactoryExitFunction);
+OSG_SINGLETON_INST(PerfMonitorBase, addPostFactoryExitFunction)
 
 void NestedSampleInfo::updateFrame()
 {

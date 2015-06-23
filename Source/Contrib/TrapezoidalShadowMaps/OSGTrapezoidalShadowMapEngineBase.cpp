@@ -99,11 +99,11 @@ OSG_FIELDTRAITS_GETTYPE_NS(TrapezoidalShadowMapEngine *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TrapezoidalShadowMapEngine *,
-                           nsOSG);
+                           nsOSG)
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TrapezoidalShadowMapEngine *,
-                           nsOSG);
+                           nsOSG)
 
 /***************************************************************************\
  *                         Field Description                               *

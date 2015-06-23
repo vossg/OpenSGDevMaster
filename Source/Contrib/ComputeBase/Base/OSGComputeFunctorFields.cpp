@@ -64,8 +64,8 @@ OSG_FIELDTRAITS_GETTYPE   (ComputeFunctorCallback     )
 
 #endif
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ComputeFunctorCallback);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ComputeFunctorCallback);
+OSG_FIELD_DLLEXPORT_DEF1(SField, ComputeFunctorCallback)
+OSG_FIELD_DLLEXPORT_DEF1(MField, ComputeFunctorCallback)
 
 #if 0
 template <>

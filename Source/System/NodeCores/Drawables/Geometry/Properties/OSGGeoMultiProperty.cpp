@@ -252,8 +252,10 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     if(!win->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
     {
         FWARNING(("GeoMultiProperty::activate: Window %p doesn't "
-                  "support VBOs!\n", win));
-                  return;
+                  "support VBOs!\n", 
+                  static_cast<void *>(win)));
+        
+        return;
     }
     
     win->validateGLObject(getContainer()->getGLId(), pEnv);

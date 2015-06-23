@@ -64,7 +64,7 @@
     typedef MTRefCountPtr< CLASST, WeakRefCountPolicy      > ObjMTWeakPtr;  \
                                                                             \
     typedef CLASST       *                                ObjCPtr;          \
-    typedef CLASST const *                                ConstObjCPtr;
+    typedef CLASST const *                                ConstObjCPtr
 
 
 #if defined(OSG_1_COMPAT)
@@ -75,6 +75,7 @@
 #endif
 
 #define OSG_GEN_CONTAINERPTR(CLASST)                                          \
+    OSG_GEN_COMPAT_CONTAINERPTR(CLASST)                                       \
     typedef TransitPtr   < CLASST                  > CLASST##TransitPtr;      \
     typedef MTRefCountPtr< CLASST,                                            \
                            NoRefCountPolicy        > CLASST##MTUncountedPtr;  \
@@ -89,10 +90,9 @@
     typedef MTRefCountPtr< CLASST,                                            \
                            WeakRefCountPolicy      > CLASST##MTWeakPtr;       \
     typedef CLASST##RecPtr                           CLASST##RefPtr;          \
-    typedef CLASST##MTRecPtr                         CLASST##MTRefPtr;        \
-                                                                              \
-    OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
-
+    typedef CLASST##MTRecPtr                         CLASST##MTRefPtr
+                                                                              
+ 
 
 #define OSG_FWDDECL_FC(CLASST)                          \
     OSG_BEGIN_NAMESPACE                                 \

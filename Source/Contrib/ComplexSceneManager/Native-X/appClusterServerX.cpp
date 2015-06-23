@@ -138,7 +138,7 @@ int main(int argc,char **argv)
                     if(argv[a][2] != '\0')
                     {
                         rc = sscanf(argv[a] + 2, 
-                                    "%dx%d+%d+%d",
+                                    "%ux%u+%u+%u",
                                     &width,
                                     &height,
                                     &xPos,
@@ -147,7 +147,7 @@ int main(int argc,char **argv)
                     else
                     {
                         rc = sscanf(argv[++a], 
-                                    "%dx%d+%d+%d",
+                                    "%ux%u+%u+%u",
                                     &width,
                                     &height,
                                     &xPos,
