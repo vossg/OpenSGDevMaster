@@ -63,9 +63,10 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 } // namespace
 
 
-MakeTransparentGraphOp::MakeTransparentGraphOp(const char* name)
-    : GraphOp      (name),
-      _transparency(0.5 )
+MakeTransparentGraphOp::MakeTransparentGraphOp(const char* name) :
+     GraphOp     (name),
+    _materialMap (    ),
+    _transparency(0.5 )
 {
 }
 

@@ -78,8 +78,9 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 } // namespace
 
-MaterialMergeGraphOp::MaterialMergeGraphOp(const char* name)
-    : GraphOp(name)
+MaterialMergeGraphOp::MaterialMergeGraphOp(const char* name) :
+     GraphOp    (name),
+    _materialMap(    )
 {
 }
 

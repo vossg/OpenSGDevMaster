@@ -61,6 +61,8 @@ struct ComputeFunctorCallback
     std::string    _createSymbol;
 
     typedef std::allocator<void> Alloc;
+
+    ComputeFunctorCallback(void) : _func(), _uiId(), _createSymbol() {}
 };
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)

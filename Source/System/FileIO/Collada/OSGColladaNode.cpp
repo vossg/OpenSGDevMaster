@@ -86,8 +86,9 @@ ColladaNode::ColladaNodeInstInfo::ColladaNodeInstInfo(
     ColladaElement *colInstParent, ColladaInstanceNode *colInst,
     Node           *parentN                                     )
 
-    : Inherited(colInstParent, colInst)
-    , _parentN (parentN)
+    : Inherited     (colInstParent, colInst)
+    , _colInstTarget(NULL                  )
+    , _parentN      (parentN               )
 {
 }
 
@@ -365,7 +366,8 @@ ColladaNode::getNodeBySid(UInt32 instIdx, const std::string &sid) const
 
 
 ColladaNode::ColladaNode(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
+    : Inherited     (elem, global)
+    , _instDataStore(            )
 {
 }
 

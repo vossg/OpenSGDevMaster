@@ -159,6 +159,13 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
 
         void clear(void);
         void init (void);
+
+        Level3Sorter(void) : _pRoot(NULL), _mLevelMap() {}
+        
+      private:
+
+        Level3Sorter(const Level3Sorter &other);
+        void operator =(const Level3Sorter &rhs);
     };
 
     /*! \nohierarchy
@@ -177,6 +184,13 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
 
         void clear(void);
         void init (void);
+
+        Level2Sorter(void) : _pRoot(NULL), _mLevelMap() {}
+
+      private:
+
+        Level2Sorter(const Level2Sorter &other);
+        void operator =(const Level2Sorter &rhs);
     };
 
     /*! \nohierarchy
@@ -195,6 +209,13 @@ class OSG_SYSTEM_DLLMAPPING HashSorter
         void            clear    (void                 );
         void            init     (void                 );
         void            setupRoot(RenderTreeNode *pRoot);
+
+        Level1Sorter(void) : _pRoot(NULL), _mLevelMap() {}
+
+      private:
+
+        Level1Sorter(const Level1Sorter &other);
+        void operator =(const Level1Sorter &rhs);
     };
 
     static void initLevel2Sorter(Level2Sorter *pElement);

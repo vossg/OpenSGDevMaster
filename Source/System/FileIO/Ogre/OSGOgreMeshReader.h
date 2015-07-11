@@ -181,6 +181,16 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
         UInt16                    index;
 
         GeoVectorPropertyUnrecPtr prop;
+
+        VertexElement(void) : 
+            bufferIdx(0           ),
+            type     (VET_FLOAT3  ),
+            semantic (VES_POSITION),
+            offset   (0           ),
+            index    (0           ),
+            
+            prop     (NULL        ) {}
+            
     };
 
     typedef std::vector<VertexElement       >  VertexElementStore;
@@ -199,6 +209,20 @@ class OSG_FILEIO_DLLMAPPING OgreMeshReader : public OgreChunkReader
 
         GeometryUnrecPtr            mesh;
         NodeUnrecPtr                meshN;
+
+        SubMeshInfo(void) :
+            sharedVertex  (false            ),
+            skelAnim      (false            ),
+            vertexElements(                 ),
+            meshOp        (SMO_TRIANGLE_LIST),
+            name          (                 ),
+            matName       (                 ),
+
+            propIdx       (NULL             ),
+
+            mesh          (NULL             ),
+            meshN         (NULL             ) {}
+            
     };
 
     typedef std::vector<SubMeshInfo>                SubMeshStore;

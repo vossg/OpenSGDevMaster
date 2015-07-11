@@ -58,7 +58,13 @@ OSG_BEGIN_NAMESPACE
  */
 
 GroupConnection::GroupConnection(int zeroCopyThreshold):
-    Connection(zeroCopyThreshold)
+     Connection         (zeroCopyThreshold),
+    _selection          (                 ),
+    _destination        (                 ),
+    _disconnectedChannel(                 ),
+    _channelToIndex     (                 ),
+    _indexToChannel     (                 ),
+    _reuseChannel       (                 )
 {
 }
 

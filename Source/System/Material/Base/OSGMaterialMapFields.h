@@ -241,6 +241,12 @@ template<>
 class OSG_SYSTEM_DLLMAPPING 
     EditSFieldHandle<SFMaterialPtrMap> : public EditMapFieldHandle
 {
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    void operator =(const EditSFieldHandle &rhs);
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:

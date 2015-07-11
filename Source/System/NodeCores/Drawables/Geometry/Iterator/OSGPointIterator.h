@@ -126,13 +126,13 @@ class OSG_DRAWABLE_DLLMAPPING PointIterator : public PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void operator ++(void);
-    void seek(Int32 index);
+    const PointIterator &operator ++ (      void                 );
+          void           seek        (      Int32          index );
 
-    PointIterator & operator =(const PointIterator &source);
-    bool operator < (const PointIterator &other) const;
-    bool operator == (const PointIterator &other) const;
-    bool operator != (const PointIterator &other) const;
+    const PointIterator &operator =  (const PointIterator &source);
+          bool           operator <  (const PointIterator &other ) const;
+          bool           operator == (const PointIterator &other ) const;
+          bool           operator != (const PointIterator &other ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

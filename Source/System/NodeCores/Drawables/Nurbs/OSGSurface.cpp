@@ -115,17 +115,29 @@ const OSG::BitVector Surface::SurfaceFieldMask =
 //! Constructor
 
 Surface::Surface(void) :
-    Inherited()
+     Inherited     (    ),
+    _trimmedSurface(NULL),       // internal representation
+    _surfacePatch  (NULL),       // encompassing class 
+                                 // (tessellator class)
+    _min           (    ),       // trimming curves BB
+    _max           (    ),
+    _minParam      (    ),       // trimming curves BB in
+    _maxParam      (    )        // parameter space
 {
 //    std::cerr<<"constructor"<<std::endl;
-    _trimmedSurface = NULL;
-    _surfacePatch   = NULL;
 }
 
 //! Copy Constructor
 
 Surface::Surface(const Surface &source) :
-    Inherited(source)
+     Inherited     (source),
+    _trimmedSurface(NULL  ),     // internal representation
+    _surfacePatch  (NULL  ),     // encompassing class 
+                                 // (tessellator class)
+    _min           (      ),     // trimming curves BB
+    _max           (      ),
+    _minParam      (      ),     // trimming curves BB in
+    _maxParam      (      ) 
 {
     // We need these for every class and every aspect, so we have to
     // allocate them here.

@@ -171,6 +171,7 @@ OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void) :
     _bucketScale         (0.f),
     _testNodes           (),
     _testPendingNodes    (),
+    _numNodes            (0),
     _worldToScreen       (),
     _vpWidth             (),
     _vpHeight            (),

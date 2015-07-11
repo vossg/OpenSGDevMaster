@@ -85,10 +85,12 @@ parameters of a GraphOp.
 /*------------- constructors & destructors --------------------------------*/
 
 GraphOp::GraphOp(const char* name): 
-    Inherited(),
-    _excludeListNodes(), 
-    _excludeListNames(),
-    _name(name)
+     Inherited        (    ),
+    _excludeListNodes (    ), 
+    _excludeListNames (    ),
+    _preserveListNodes(    ),
+    _preserveListNames(    ),
+    _name             (name)
 {
 }
 

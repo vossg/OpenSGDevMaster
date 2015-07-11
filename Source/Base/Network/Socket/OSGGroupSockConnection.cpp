@@ -64,7 +64,13 @@ OSG_USING_NAMESPACE
  */
 
 GroupSockConnection::GroupSockConnection():
-    GroupConnection(0)
+     GroupConnection  (0),
+    _acceptSocket     ( ),
+    _sockets          ( ),
+    _remoteAddresses  ( ),
+    _readIndex        (0),
+    _socketReadBuffer ( ),
+    _socketWriteBuffer( )
 {
     _acceptSocket.open();
     _acceptSocket.setReusePort(true);

@@ -145,14 +145,16 @@ void ShaderExecutableChunk::resolveLinks(void)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderExecutableChunk::ShaderExecutableChunk(void) :
-    Inherited()
+     Inherited( ),
+    _uiChunkId(0)
 {
 }
 
 ShaderExecutableChunk::ShaderExecutableChunk(
     const ShaderExecutableChunk &source) :
 
-    Inherited(source)
+     Inherited(source),
+    _uiChunkId(0     )
 {
 }
 

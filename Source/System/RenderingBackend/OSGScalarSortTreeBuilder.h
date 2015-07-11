@@ -192,7 +192,8 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const ScalarSortTreeBuilder &source);    
+    ScalarSortTreeBuilder(const ScalarSortTreeBuilder &other);
+    void operator =(const ScalarSortTreeBuilder &source);
 };
 
 //---------------------------------------------------------------------------

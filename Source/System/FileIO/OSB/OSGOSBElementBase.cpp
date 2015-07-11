@@ -175,12 +175,22 @@ OSBElementBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
     given \a fieldId of the given FieldContainer \a fc.
  */
 OSBElementBase::PtrFieldInfo::PtrFieldInfo(
-    FieldContainer * const fc, UInt32 fieldId)
-    : _fc           (fc     ),
-      _fieldId      (fieldId),
-      _ptrIds       (       ),
-      _bindings     (       ),
-      _bHandledField(false  )
+    FieldContainer * const fc, UInt32 fieldId) :
+    
+    _fc           (fc     ),
+    _fieldId      (fieldId),
+    _ptrIds       (       ),
+    _bindings     (       ),
+    _bHandledField(false  )
+{
+}
+
+OSBElementBase::PtrFieldInfo::PtrFieldInfo(const PtrFieldInfo &other) :
+    _fc           (other._fc           ),
+    _fieldId      (other._fieldId      ),
+    _ptrIds       (other._ptrIds       ),
+    _bindings     (other._bindings     ),
+    _bHandledField(other._bHandledField)
 {
 }
 

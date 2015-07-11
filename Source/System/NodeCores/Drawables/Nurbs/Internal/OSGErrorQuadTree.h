@@ -213,6 +213,11 @@ class OSG_DRAWABLE_DLLMAPPING CErrorQuadTree
 
   public:
     static bool m_sbNormalApproximation;
+
+  private:
+
+    CErrorQuadTree(const CErrorQuadTree &other);
+    void operator=(const CErrorQuadTree &rhs);
 };
 
 OSG_END_NAMESPACE

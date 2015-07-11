@@ -392,85 +392,85 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     //   class variables                                                     
     //-----------------------------------------------------------------------
 
-    Mode                _eMode;
-    UInt32              _uiSetupMode;
-    bool                _bDone;
+    Mode                      _eMode;
+    UInt32                    _uiSetupMode;
+    bool                      _bDone;
 
-    GroupStore          _vGroupStore;
+    GroupStore                _vGroupStore;
 
-    DrawEnv             _oDrawEnv;
+    DrawEnv                   _oDrawEnv;
 
-    SimpleDrawCallback  _oSimpleDrawCallback;
+    SimpleDrawCallback        _oSimpleDrawCallback;
 
-    Background         *_pBackground;
+    Background               *_pBackground;
 
-    std::vector<Foreground*> _vpForegrounds;
+    std::vector<Foreground*>  _vpForegrounds;
 
     // Transform
 
-    UInt32              _uiMatrixId;
-    mutable bool        _modelMatrixValid;
+    UInt32                    _uiMatrixId;
+    mutable bool              _modelMatrixValid;
 
-    MatrixStore         _modelViewMatrix;
-    mutable Matrix      _modelMatrix;
+    MatrixStore               _modelViewMatrix;
+    mutable Matrix            _modelMatrix;
 
-    MatrixStack         _modelViewMatrixStack;
+    MatrixStack               _modelViewMatrixStack;
 
     // Roots
 
-    RenderTreeNodePool *_pNodePool;
+    RenderTreeNodePool       *_pNodePool;
 
-    BuildKeyMap          _mMatTrees;
-    BuildKeyMap          _mTransMatTrees;
+    BuildKeyMap               _mMatTrees;
+    BuildKeyMap               _mTransMatTrees;
 
     // Active Elements
 
-    UInt32              _uiActiveMatrix;
-    
+    UInt32                    _uiActiveMatrix;
+     
     // State
 
-    StateOverridePool  *_pStatePool;
+    StateOverridePool        *_pStatePool;
     
-    OverrideStack       _sStateOverrides;
+    OverrideStack             _sStateOverrides;
 
-    TreeBuilderPool    *_pTreeBuilderPool;
+    TreeBuilderPool          *_pTreeBuilderPool;
 
     // State
 
-    Int32               _iNextLightIndex;
-    UInt32              _uiLightState;
+    Int32                     _iNextLightIndex;
+    UInt32                    _uiLightState;
 
-    UInt32              _uiKeyGen;
+    UInt32                    _uiKeyGen;
     
     // Material Override
 
-    Material           *_pMaterial;
-    Node               *_pMaterialNode;
-    bool                _addedStateOverride;
+    Material                 *_pMaterial;
+    Node                     *_pMaterialNode;
+    bool                      _addedStateOverride;
     // Target
 
-    FrameBufferObject  *_pRenderTarget;
-    GLenum              _eDrawBuffer;
+    FrameBufferObject        *_pRenderTarget;
+    GLenum                    _eDrawBuffer;
 
 
     // Culling
 
-    VisibilityStack     _visibilityStack;
+    VisibilityStack           _visibilityStack;
 
-    bool                _bFrustumCulling;
-    bool                _bVolumeDrawing;
-    bool                _bAutoFrustum;
-    FrustumVolume       _oFrustum;
+    bool                      _bFrustumCulling;
+    bool                      _bVolumeDrawing;
+    bool                      _bAutoFrustum;
+    FrustumVolume             _oFrustum;
 
-    RenderCallbackStore _vPreRenderCallbacks;
-    RenderCallbackStore _vPostRenderCallbacks;
+    RenderCallbackStore       _vPreRenderCallbacks;
+    RenderCallbackStore       _vPostRenderCallbacks;
     
-    Node               *_pNode;
+    Node                     *_pNode;
 
 #ifdef OSG_DEBUG
      // Debug
 
-    std::string         _szDebugString;
+    std::string               _szDebugString;
 #endif
 
     //-----------------------------------------------------------------------

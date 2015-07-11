@@ -63,13 +63,12 @@ class OSG_DRAWABLE_DLLMAPPING GraphTraverserError
   public:
     int errtype;
 
-    GraphTraverserError()
+    GraphTraverserError() : errtype(0)
     {
     }
     ~GraphTraverserError() {}
-    GraphTraverserError(int t)
+    GraphTraverserError(int t) : errtype(t)
     {
-        errtype = t;
     }
 };
 
@@ -81,7 +80,12 @@ class OSG_DRAWABLE_DLLMAPPING GraphTraverser
     bool                                 usedelaunay;
 
   public:
-    GraphTraverser()
+    GraphTraverser() :
+        g          (NULL ),
+        polys      (     ),
+        globalverts(     ),
+        usedelaunay(false)
+        
     {
     }
     ~GraphTraverser() {}
@@ -104,6 +108,11 @@ class OSG_DRAWABLE_DLLMAPPING GraphTraverser
     {
         return &globalverts;
     }
+
+  private:
+    
+    GraphTraverser(const GraphTraverser &other);
+    void operator =(const GraphTraverser &rhs);
 };
 
 OSG_END_NAMESPACE

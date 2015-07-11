@@ -980,7 +980,8 @@ void ShaderCacheTreeV0<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 template<typename Object1T, typename RefCountPol1, 
          typename Object2T, typename RefCountPol2> inline
 VariantPtr<Object1T, RefCountPol1,
-           Object2T, RefCountPol2>::VariantPtr(void)
+           Object2T, RefCountPol2>::VariantPtr(void) :
+    _val()
 {
     _val._pObj1 = NULL;
 }
@@ -1067,18 +1068,26 @@ void VariantPtr<Object1T, RefCountPol1,
 
 template<typename Object1T, typename RefCountPol1, 
          typename Object2T, typename RefCountPol2> inline
-void VariantPtr<Object1T, RefCountPol1,
-                Object2T, RefCountPol2>::operator =(Object1T * const rhs)
+const VariantPtr<Object1T, RefCountPol1,
+                 Object2T, RefCountPol2> &
+    VariantPtr<Object1T, RefCountPol1,
+               Object2T, RefCountPol2>::operator =(Object1T * const rhs)
 {
     setAsT1(rhs);
+
+    return *this;
 }
 
 template<typename Object1T, typename RefCountPol1, 
          typename Object2T, typename RefCountPol2> inline
-void VariantPtr<Object1T, RefCountPol1,
-                Object2T, RefCountPol2>::operator =(Object2T * const rhs)
+const VariantPtr<Object1T, RefCountPol1,
+                 Object2T, RefCountPol2> &
+    VariantPtr<Object1T, RefCountPol1,
+               Object2T, RefCountPol2>::operator =(Object2T * const rhs)
 {
     setAsT2(rhs);
+
+    return *this;
 }
 
 

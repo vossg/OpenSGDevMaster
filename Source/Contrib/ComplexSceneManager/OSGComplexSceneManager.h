@@ -174,6 +174,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
         std::string           _szName;
         FieldContainerWeakPtr _pDstCnt;
         UInt32                _uiDstFieldId;
+
+        DeferredFCUse(void) : _szName(), _pDstCnt(NULL), _uiDstFieldId(0) {}
     };
 
     // Variables should all be in ComplexSceneManagerBase.

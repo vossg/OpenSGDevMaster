@@ -86,10 +86,13 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 /*------------- constructors & destructors --------------------------------*/
 
 SharePtrGraphOp::SharePtrGraphOp(const char* name):
-    GraphOp(name),
-    _typeMap(),
-    _includeSet(),
-    _excludeSet()
+     GraphOp    (name),
+    _typeMap    (    ),
+    _includeSet (    ),
+    _excludeSet (    ),
+    _shareCount (    ),
+    _totalTime  (0.0 ),
+    _compareTime(0.0 )
 {
 }
 

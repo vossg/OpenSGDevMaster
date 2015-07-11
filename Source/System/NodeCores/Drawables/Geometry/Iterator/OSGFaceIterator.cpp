@@ -175,11 +175,12 @@ FaceIterator::~FaceIterator(void)
     current one is exhausted. The only tricky part is the left/right swap for
     triangle strips, the rest is pretty simple. \enddev
 */
-void FaceIterator::operator++()
+
+const FaceIterator &FaceIterator::operator++()
 {
     // already at end?
     if(isAtEnd())
-        return;
+        return *this;
     
     ++_faceIndex;
 
@@ -190,7 +191,7 @@ void FaceIterator::operator++()
         
         startPrim();
         
-        return;
+        return *this;
     }
 
     switch(getType())
@@ -239,7 +240,9 @@ void FaceIterator::operator++()
                                       << ", ignoring!" << std::endl;
                             startPrim();
                             break;
-    }           
+    }     
+
+    return *this;
 }
 
 
@@ -349,7 +352,7 @@ void FaceIterator::setToEnd(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-FaceIterator& FaceIterator::operator =(const FaceIterator &source)
+const FaceIterator& FaceIterator::operator =(const FaceIterator &source)
 {
     if(this == &source)
         return *this;

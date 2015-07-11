@@ -63,16 +63,16 @@ static char THIS_FILE[] = __FILE__;
 
 bool CErrorQuadTree::m_sbNormalApproximation = false;
 
-CErrorQuadTree::CErrorQuadTree()
-{
-    m_fMaxError = -1.0;
+CErrorQuadTree::CErrorQuadTree() :
+    m_fMaxError   (-1.0    ),
 #ifdef OSG_USE_NURBS_PATCH
-    m_ptRoot = NULL;
+    m_ptRoot      (NULL    ),
 #else
-    m_vvptRoot.clear();
-    m_ptBPRoot = NULL;
+    m_vvptRoot    (        ),
+    m_ptBPRoot    (NULL    ),
 #endif
-    m_fErrorCutoff = DCTP_EPS;
+    m_fErrorCutoff(DCTP_EPS)
+{
 }
 
 

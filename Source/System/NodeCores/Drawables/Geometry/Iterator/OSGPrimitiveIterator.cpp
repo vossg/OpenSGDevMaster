@@ -261,11 +261,11 @@ void PrimitiveIterator::setGeo(const Node *geo)
     \dev Also updates the cache variables _actPointIndex, _actPrimType and
     _actPrimLength. \enddev
 */
-void PrimitiveIterator::operator++()
+const PrimitiveIterator &PrimitiveIterator::operator++()
 {
     if(isAtEnd())
     {
-        return;
+        return *this;
     }
 
     _actPointIndex += _actPrimLength;
@@ -293,6 +293,8 @@ void PrimitiveIterator::operator++()
             _actPrimLength = _geo->getPositions()->size32();
         }
     }
+
+    return *this;
 }
 
 /*! Set the iterator to the beginning of the attached Geometry. Is primarily
@@ -372,7 +374,8 @@ void PrimitiveIterator::seek(Int32 index)
 
 /*-------------------------- assignment -----------------------------------*/
 
-PrimitiveIterator& PrimitiveIterator::operator =(const PrimitiveIterator &source)
+const PrimitiveIterator &
+    PrimitiveIterator::operator =(const PrimitiveIterator &source)
 {
     if(this == &source)
         return *this;

@@ -65,10 +65,16 @@ OSG_USING_NAMESPACE
 
 TileGeometryLoad::TileGeometryLoad(UInt32 nodeId,
                                    bool useFaceDistribution):
-    _nodeId(nodeId),
-    _faces(0),
+    _nodeId             (nodeId             ),
+    _geometry           (NULL               ),
+    _faces              (0                  ),
+    _faceDistribution   (                   ),
+    _faceDistDirX       (0                  ),
+    _faceDistDirY       (0                  ),
+    _visible            (true               ),
     _useFaceDistribution(useFaceDistribution),
-    _valid(false)
+    _areaSize           (0.f                ),
+    _valid              (false              )
 {
     if(_directions.size()==0)
     {
@@ -111,18 +117,22 @@ TileGeometryLoad::TileGeometryLoad(UInt32 nodeId,
  */
 
 TileGeometryLoad::TileGeometryLoad(const TileGeometryLoad &source):
-    _nodeId(source._nodeId),
+
+    _nodeId             (source._nodeId             ),
+    _geometry           (source._geometry           ),
+    _faces              (source._faces              ),
+    _faceDistribution   (source._faceDistribution   ),
+    _faceDistDirX       (source._faceDistDirX       ),
+    _faceDistDirY       (source._faceDistDirY       ),
+    _visible            (source._visible            ),
     _useFaceDistribution(source._useFaceDistribution),
-    _valid(source._valid)
+    _areaSize           (source._areaSize           ),
+    _valid              (source._valid              )
 {
     _min[0]           = source._min[0];
     _min[1]           = source._min[1];
     _max[0]           = source._max[0];
     _max[1]           = source._max[1];
-    _faces            = source._faces;
-    _visible          = source._visible;
-    _faceDistribution = source._faceDistribution;
-    _areaSize         = source._areaSize;
 }
 
 /*-------------------------------------------------------------------------*/

@@ -129,12 +129,12 @@ class OSG_DRAWABLE_DLLMAPPING EdgeIterator : public PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void           seek        (Int32 index);    
-    void           operator ++ (void);
-    EdgeIterator & operator =  (const EdgeIterator &source);
-    bool           operator <  (const EdgeIterator &other) const;
-    bool           operator == (const EdgeIterator &other) const;
-    bool           operator != (const EdgeIterator &other) const;
+          void          seek        (      Int32         index );    
+    const EdgeIterator &operator ++ (      void                );
+    const EdgeIterator &operator =  (const EdgeIterator &source);
+          bool          operator <  (const EdgeIterator &other ) const;
+          bool          operator == (const EdgeIterator &other ) const;
+          bool          operator != (const EdgeIterator &other ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -103,6 +103,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMResetInterface
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
+    virtual ~CSMResetInterface(void) {}
+
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------

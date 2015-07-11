@@ -90,6 +90,8 @@ RemoteAspect::RemoteAspect(UInt32 aspectId) :
     _mappedFC(),
     _mappedType(),
 
+    _remoteAspectId(0),
+
     _createdFunctors(),
     _destroyedFunctors(),
     _changedFunctors(),

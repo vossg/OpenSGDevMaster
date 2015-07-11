@@ -212,18 +212,18 @@ void StageHandlerMixin<ParentT>::endPartitions(
 
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::StageHandlerMixin(void) :
-    Inherited()
+     Inherited(                            ),
+    _tmpStatus(TraversalValidator::Finished)
 {
-    _tmpStatus = TraversalValidator::Finished;
 }
 
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::StageHandlerMixin(
     const StageHandlerMixin &source) :
 
-    Inherited(source)
+     Inherited(source                      ),
+    _tmpStatus(TraversalValidator::Finished)
 {
-    _tmpStatus = TraversalValidator::Finished;
 }
 
 template <class ParentT> inline

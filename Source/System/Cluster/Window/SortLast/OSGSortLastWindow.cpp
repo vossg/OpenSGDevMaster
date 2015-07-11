@@ -977,7 +977,10 @@ void SortLastWindow::setupNodes(UInt32 groupId)
 /*! constructor
  */
 SortLastWindow::DrawableInfo::DrawableInfo():
-    node()
+    node(NULL),
+    bMin(    ),
+    bMax(    ),
+    load(0.f )
 {
 }
 

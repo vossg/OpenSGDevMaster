@@ -56,19 +56,27 @@ DitherShadowMapHandler::DitherShadowMapHandler(
     GLenum           eTargetBufferFormat,
     Window          *pWindow) :
 
-     Inherited    (pSource, 
-                   pData,
-                   eTargetBufferFormat,
-                   pWindow),
-    _blender      (NULL   ),
-    _matrixDeco   (NULL   ),
-    _shadowSHL    (NULL   ),
-    _shadowSHL2   (NULL   ),
-    _shadowSHL3   (NULL   ),
-    _shadowSHL4   (NULL   ),
-    _shadowCubeSHL(NULL   ),
-    _pPoly        (NULL   ),
-    _firstRun     (1      )
+    Inherited         (pSource, 
+                       pData,
+                       eTargetBufferFormat,
+                       pWindow            ),
+    _blender          (NULL               ),
+    _matrixDeco       (NULL               ),
+    _vShadowCmat      (                   ),
+    _shadowSHL        (NULL               ),
+    _shadowSHL2       (NULL               ),
+    _shadowSHL3       (NULL               ),
+    _shadowSHL4       (NULL               ),
+    _shadowCubeSHL    (NULL               ),
+    _pPoly            (NULL               ),
+    _firstRun         (1                  ),
+    _vShadowSHLVar    (                   ),
+    _vShadowSHLVar2   (                   ),
+    _vShadowSHLVar3   (                   ),
+    _vShadowSHLVar4   (                   ),
+
+    _vShadowCubeSHLVar(                   )
+
 {
     _uiMode = ShadowStage::DITHER_SHADOW_MAP;
 

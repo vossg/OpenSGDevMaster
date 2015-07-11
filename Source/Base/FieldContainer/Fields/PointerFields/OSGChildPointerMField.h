@@ -209,6 +209,8 @@ class ChildMFieldIterator :
   private:
 
     MFieldType  *_pField;
+
+    void operator =(const Self &rhs);
 };
 
 template <class PtrTypeT, class RefCountPolicyT, Int32 iNamespace>
@@ -472,7 +474,7 @@ class ChildMFieldReferenceProxy
                 operator const_value(void                ) const;
     const_value operator->          (void                ) const;
 
-    void        operator =          (const_value newValue);
+    const Self &operator =          (const_value newValue);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -722,7 +724,7 @@ class ChildPointerMField :
     /*! \{                                                                 */
 
 #ifdef OSG_FIELD_TOCHECK
-    Self & operator =(const Self &source);
+    const Self & operator =(const Self &source);
 #endif
 
     /*! \}                                                                 */

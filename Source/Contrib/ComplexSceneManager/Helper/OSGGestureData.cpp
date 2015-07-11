@@ -107,12 +107,14 @@ GestureData::~GestureData(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void GestureData::operator = (const GestureData &rhs)
+const GestureData &GestureData::operator = (const GestureData &rhs)
 {
     _vBlobs     = rhs._vBlobs;
 
     _pWindow    = rhs._pWindow;
     _pCSMWindow = rhs._pCSMWindow;
+
+    return *this;
 }
 
 bool GestureData::operator ==(const GestureData &rhs) const

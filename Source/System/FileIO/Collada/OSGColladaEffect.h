@@ -223,6 +223,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     {
         ColladaSampler2DRefPtr    colSampler2D;
         domFx_sampler2D_commonRef sampler2D;
+
+        ParamSampler2D(void) : colSampler2D(NULL), sampler2D(NULL) {}
     };
 
     // <surface> DOM and loader objects
@@ -233,6 +235,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     {
         ColladaSurfaceRefPtr    colSurface;
         domFx_surface_commonRef surface;
+
+        ParamSurface(void) : colSurface(NULL), surface(NULL) {}
     };
 
     // <texture> DOM and loader objects
@@ -243,6 +247,8 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     {
         ColladaTextureRefPtr                           colTexture;
         domCommon_color_or_texture_type::domTextureRef texture;
+
+        ParamTexture(void) : colTexture(), texture(NULL) {}
     };
 
     typedef std::map<std::string, ParamSampler2D> ParamSampler2DMap;

@@ -13,10 +13,12 @@ OSG_BEGIN_NAMESPACE
 OSG_SINGLETON_INST(BackgroundLoaderBase, addPostFactoryExitFunction)
 
 BackgroundLoaderBase::BackgroundLoaderBase(void) : 
-    mLoadThreads (     ),
-    mFinishedLock(NULL ),
-    mLoadCondVar (NULL ),
-    mStopRunning (false)
+    mPendingRequests (     ),
+    mFinishedRequests(     ),
+    mLoadThreads     (     ),
+    mFinishedLock    (NULL ),
+    mLoadCondVar     (NULL ),
+    mStopRunning     (false)
 {
     mStopRunning  = false;
     mFinishedLock = Lock   ::get("BackgroundLoader-FinishedLock", false);

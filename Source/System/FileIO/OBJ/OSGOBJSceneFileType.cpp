@@ -643,7 +643,8 @@ OBJSceneFileType::OBJSceneFileType(const Char8  *suffixArray[],
                   override,
                   overridePriority,
                   flags),
-    _dataElemMap()
+    _dataElemMap(),
+    _mtlElemMap ()
 
 {
     initElemMap();
@@ -671,7 +672,9 @@ OBJSceneFileType::OBJSceneFileType(const Char8  *suffixArray[],
 //------------------------------
 
 OBJSceneFileType::OBJSceneFileType(const OBJSceneFileType &obj) :
-    SceneFileType(obj)
+     SceneFileType(obj),
+    _dataElemMap  (   ),
+    _mtlElemMap   (   )
 {
     initElemMap();
 }

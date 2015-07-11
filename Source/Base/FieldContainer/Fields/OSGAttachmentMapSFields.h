@@ -129,6 +129,12 @@ class OSG_BASE_DLLMAPPING
 {
     /*=========================  PROTECTED  ===============================*/
 
+  private:
+
+    void operator =(const EditSFieldHandle &other);
+
+    /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef EditMapFieldHandle Inherited;

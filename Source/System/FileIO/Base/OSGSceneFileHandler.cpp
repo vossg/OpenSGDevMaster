@@ -879,6 +879,7 @@ static bool terminateDefaultGraphOps(void)
 }
 
 SceneFileHandlerBase::SceneFileHandlerBase(void) :
+    _suffixTypeMap     (              ),
     _readProgressFP    (NULL          ),
     _readBeginFP       (NULL          ),
     _readEndFP         (NULL          ),

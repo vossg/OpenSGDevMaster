@@ -421,9 +421,11 @@ std::string ImageFileType::determineMimetypeFromStream(std::istream &is)
 ImageFileType::ImageFileType(const char   *mimeType,
                              const Char8  *suffixArray[], 
                                    UInt16  suffixByteCount,
-                                   UInt32  flags)
+                                   UInt32  flags          ) :
 
-    : Inherited(flags)
+     Inherited (flags),
+    _suffixList(     ),
+    _mimeType  (     )
 {
     Int32 suffixCount = suffixByteCount / sizeof(const Char8 *);
     Int32 i           = 0;

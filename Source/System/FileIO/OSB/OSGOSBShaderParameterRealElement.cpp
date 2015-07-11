@@ -53,8 +53,11 @@ OSBElementRegistrationHelper<OSBShaderParameterRealElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBShaderParameterRealElement::OSBShaderParameterRealElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBShaderParameterRealElement::OSBShaderParameterRealElement(
+    OSBRootElement *root) :
+
+     Inherited(root, OSGOSBHeaderVersion200),
+    _value    (                            )
 {
 }
 

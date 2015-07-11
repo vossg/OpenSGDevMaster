@@ -53,21 +53,29 @@ PCFShadowMapHandler::PCFShadowMapHandler(ShadowStage     *pSource,
                                          ShadowStageData *pData,
                                          GLenum           eTargetBufferFormat,
                                          Window          *pWindow) :
-     Inherited    (pSource, 
-                   pData,
-                   eTargetBufferFormat,
-                   pWindow),
-    _pPoly        (NULL   ),
-    _matrixDeco   (NULL   ),
+     Inherited        (pSource, 
+                       pData,
+                       eTargetBufferFormat,
+                       pWindow            ),
+    _vShadowCmat      (                   ),
+    _pPoly            (NULL               ),
+    _matrixDeco       (NULL               ),
 
-    _shadowSHL    (NULL   ),
-    _shadowSHL2   (NULL   ),
-    _shadowSHL3   (NULL   ),
-    _shadowSHL4   (NULL   ),
-    _shadowCubeSHL(NULL   ),
+    _shadowSHL        (NULL               ),
+    _shadowSHL2       (NULL               ),
+    _shadowSHL3       (NULL               ),
+    _shadowSHL4       (NULL               ),
+    _shadowCubeSHL    (NULL               ),
 
-    _firstRun     (1      ),
-    _oldRange     (0      )
+    _firstRun         (1                  ),
+    _oldRange         (0                  ),
+
+    _vShadowSHLVar    (                   ),
+    _vShadowSHLVar2   (                   ),
+    _vShadowSHLVar3   (                   ),
+    _vShadowSHLVar4   (                   ),
+
+    _vShadowCubeSHLVar(                   )
 {
     _uiMode = ShadowStage::PCF_SHADOW_MAP;
 

@@ -70,8 +70,10 @@ const char *MaterialGroupPushGraphOp::getClassname(void)
     return "MaterialGroupPushGraphOp";
 }
 
-MaterialGroupPushGraphOp::MaterialGroupPushGraphOp(const char* name)
-    : Inherited(name)
+MaterialGroupPushGraphOp::MaterialGroupPushGraphOp(const char* name) :
+     Inherited   (name),
+    _pushPossible(true),
+    _pushTargets (    )
 {
     // nothing to do
 }

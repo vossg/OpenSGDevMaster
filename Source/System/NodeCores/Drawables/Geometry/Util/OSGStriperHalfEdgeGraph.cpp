@@ -67,7 +67,16 @@ OSG_USING_NAMESPACE
 // Description:
 //         Default Constructor
 //----------------------------------------------------------------------
-StriperHalfEdgeGraph::StriperHalfEdgeGraph (void)
+StriperHalfEdgeGraph::StriperHalfEdgeGraph (void) :
+    _edgeLinkVec       (),
+    _trianglePool      (),
+
+    _validTriangleBag  (),
+    _invalidTriangleBag(),
+
+    _stripBag          (),
+    _fanBag            (),
+    _triBag            ()
 {
 }
 
@@ -78,11 +87,13 @@ StriperHalfEdgeGraph::StriperHalfEdgeGraph (void)
 // Description:
 //         Copy Constructor
 //----------------------------------------------------------------------
+#if 0
 StriperHalfEdgeGraph::StriperHalfEdgeGraph(
     const StriperHalfEdgeGraph &OSG_CHECK_ARG(obj))
 {
     SWARNING << "Run HalfEdgeGraph copy constructor; not impl.\n" << endl;
 }
+#endif
 
 //----------------------------------------------------------------------
 // Method: ~HalfEdgeGraph

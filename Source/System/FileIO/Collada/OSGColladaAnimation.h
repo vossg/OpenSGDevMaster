@@ -181,6 +181,12 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
         std::string                    _target;
         UInt32                         _firstKey;
         UInt32                         _lastKey;
+
+        DataSourceInfo(void) :
+            _dataSource(NULL), 
+            _target    (    ), 
+            _firstKey  (0   ), 
+            _lastKey   (0   ) {}
     };
 
     void readAnim           (domAnimation           *anim          );

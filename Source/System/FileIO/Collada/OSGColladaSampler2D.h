@@ -122,6 +122,11 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     static ColladaElementRegistrationHelper _regHelper;
 
     ColladaEffect *_colEffect;
+
+  private:
+
+    ColladaSampler2D(const ColladaSampler2D &other);
+    void operator=(const ColladaSampler2D &rhs);
 };
 
 OSG_GEN_MEMOBJPTR(ColladaSampler2D);

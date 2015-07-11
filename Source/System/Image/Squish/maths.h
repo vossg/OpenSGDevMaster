@@ -37,22 +37,16 @@ class Vec3
 public:
 	typedef Vec3 const& Arg;
 
-	Vec3()
+	Vec3() : m_x(0.f), m_y(0.f), m_z(0.f)
 	{
 	}
 
-	explicit Vec3( float s )
+	explicit Vec3( float s ) : m_x(s), m_y(s), m_z(s)
 	{
-		m_x = s;
-		m_y = s;
-		m_z = s;
 	}
 
-	Vec3( float x, float y, float z )
+	Vec3( float x, float y, float z )  : m_x(x), m_y(y), m_z(z)
 	{
-		m_x = x;
-		m_y = y;
-		m_z = z;
 	}
 	
 	float X() const { return m_x; }

@@ -59,9 +59,9 @@ class DCTPEdge;
 class OSG_DRAWABLE_DLLMAPPING DCTPVertex
 {
   public:
-    DCTPVertex()
+    DCTPVertex() : edges(), faces(), coords(), id(), node_id(), vertexinfo(NULL)
+
     {
-        vertexinfo = NULL;
     }
     ~DCTPVertex() {}
 
@@ -146,6 +146,10 @@ class OSG_DRAWABLE_DLLMAPPING DCTPVertex
         }
     };
 
+  private:
+
+    DCTPVertex(const DCTPVertex &other);
+    void operator =(const DCTPVertex &rhs);
 };
 
 typedef std::set<DCTPVertex*, DCTPVertex::DCTPVertexless> dctpvertexset;

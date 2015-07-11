@@ -61,12 +61,34 @@ void SepiaComposer::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 SepiaComposer::SepiaComposer(void) :
-    Inherited()
+     Inherited      (    ),
+    _descphysaddr   (0   ),
+    _descvirtaddr   (NULL),
+#ifdef OSG_WITH_SEPIA
+    _pam            (    ),
+#endif
+    _frame          (0   ),
+    _pbuffer        (NULL),
+    _zbuffer        (NULL),
+    _fromNode       (0   ),
+    _toNode         (0   ),
+    _dmaBufferHandle(0   )
 {
 }
 
 SepiaComposer::SepiaComposer(const SepiaComposer &source) :
-    Inherited(source)
+     Inherited      (source),
+    _descphysaddr   (0     ),
+    _descvirtaddr   (NULL  ),
+#ifdef OSG_WITH_SEPIA
+    _pam            (      ),
+#endif
+    _frame          (0     ),
+    _pbuffer        (NULL  ),
+    _zbuffer        (NULL  ),
+    _fromNode       (0     ),
+    _toNode         (0     ),
+    _dmaBufferHandle(0     )
 {
 }
 

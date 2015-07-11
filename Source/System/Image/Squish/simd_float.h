@@ -37,7 +37,7 @@ class Vec4
 public:
 	typedef Vec4 const& Arg;
 
-	Vec4() {}
+	Vec4() : m_x(0.f), m_y(0.f), m_z(0.f), m_w(0.f) {}
 		
 	explicit Vec4( float s )
 	  : m_x( s ),

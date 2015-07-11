@@ -84,12 +84,36 @@ void ParallelComposer::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ParallelComposer::ParallelComposer(void) :
-    Inherited()
+     Inherited    (     ),
+    _usableServers(0    ),
+    _wWidth       (0    ),
+    _wHeight      (0    ),
+    _serverList   (NULL ),
+    _bufColor     (NULL ),
+    _bufDepth     (NULL ),
+    _bufRet       (NULL ),
+    _createContext(false)
+#ifdef OSG_WITH_PARALLEL
+    , _rowPixels(0   )
+    , _context  (NULL)
+#endif
 {
 }
 
 ParallelComposer::ParallelComposer(const ParallelComposer &source) :
-    Inherited(source)
+     Inherited    (source),
+    _usableServers(0     ),
+    _wWidth       (0     ),
+    _wHeight      (0     ),
+    _serverList   (NULL  ),
+    _bufColor     (NULL  ),
+    _bufDepth     (NULL  ),
+    _bufRet       (NULL  ),
+    _createContext(false )
+#ifdef OSG_WITH_PARALLEL
+    , _rowPixels(0   )
+    , _context  (NULL)
+#endif
 {
 }
 

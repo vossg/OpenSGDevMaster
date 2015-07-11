@@ -150,11 +150,12 @@ PointIterator::~PointIterator(void)
 /*! The increment operator steps the iterator to the next triangle. If it is
     already beyond the last point it does not change.
 */
-void PointIterator::operator++()
+
+const PointIterator &PointIterator::operator++()
 {
     // already at end?
     if(isAtEnd())
-        return;
+        return *this;
     
     ++_pointIndex;
 
@@ -164,7 +165,7 @@ void PointIterator::operator++()
         ++(static_cast<PrimitiveIterator&>(*this));      
         startPrim();
         
-        return;
+        return *this;
     }
 
 
@@ -179,6 +180,8 @@ void PointIterator::operator++()
                             startPrim();
                             break;
     }           
+
+    return *this;
 }
 
 
@@ -260,7 +263,7 @@ void PointIterator::setToEnd(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-PointIterator& PointIterator::operator =(const PointIterator &source)
+const PointIterator& PointIterator::operator =(const PointIterator &source)
 {
     if(this == &source)
         return *this;

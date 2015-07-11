@@ -68,10 +68,21 @@ OSG_USING_NAMESPACE
  */
 
 GroupMCastConnection::GroupMCastConnection():
-    Inherited(),
-    _sendQueueThread(NULL),
-    _seqNumber(0),
-    _initialized(false)
+     Inherited             (     ),
+    _mcastSocket           (     ),
+    _mcastAddress          (     ),
+    _sendQueueThread       (NULL ),
+    _sendQueueThreadRunning(false),
+    _sendQueueThreadStop   (false),
+    _queue                 (     ),
+    _free                  (     ),
+    _lock                  (NULL ),
+    _seqNumber             (0    ),
+    _receivers             (0    ),
+    _windowSize            (0    ),
+    _receiver              (     ),
+    _waitFor               (     ),
+    _initialized           (false)
 {
     char lockName[256];
     sprintf(lockName,"GroupMCastConnection%p", static_cast<void *>(this));

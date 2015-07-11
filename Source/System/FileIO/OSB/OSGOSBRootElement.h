@@ -194,6 +194,11 @@ class OSG_FILEIO_DLLMAPPING OSBRootElement : public OSBCommonElement
 
            FieldContainerList                            _writeFCList;
            FieldContainerIdSet                           _writeIdSet;
+
+  private:
+
+    OSBRootElement(const OSBRootElement &other);
+    void operator =(const OSBRootElement &rhs);
 };
 
 OSG_END_NAMESPACE

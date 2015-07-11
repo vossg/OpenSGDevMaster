@@ -64,7 +64,8 @@ Dgram::Dgram():
     _uiUsageCounter(    0),
 #endif
     _earlySend     (false),
-    _size          (    0)
+    _size          (    0),
+    _buffer        (NULL )
 {
     _buffer = new DgramBuffer;
 

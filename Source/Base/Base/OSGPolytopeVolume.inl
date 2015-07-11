@@ -51,7 +51,9 @@ OSG_BEGIN_NAMESPACE
 
 inline
 PolytopeVolume::PolytopeVolume() :
-    Volume()
+     Volume   (    ),
+    _numPlanes(0   ),
+    _planes   (NULL)
 {
 }
 
@@ -59,7 +61,9 @@ PolytopeVolume::PolytopeVolume() :
 
 inline
 PolytopeVolume::PolytopeVolume ( const UInt16& s ) :
-    Volume(), _numPlanes(s)
+     Volume   (    ), 
+    _numPlanes(s   ),
+    _planes   (NULL)
 {
     _planes = new Plane[_numPlanes];
 }
@@ -67,7 +71,9 @@ PolytopeVolume::PolytopeVolume ( const UInt16& s ) :
 /// Copy Constructor
 inline
 PolytopeVolume::PolytopeVolume(const PolytopeVolume &obj) :
-    Volume(obj), _numPlanes(obj._numPlanes)
+     Volume   (obj           ),
+    _numPlanes(obj._numPlanes),
+    _planes   (NULL          )
 {
     _planes=new Plane[_numPlanes];
     for(UInt16 i=0; i<_numPlanes; i++)

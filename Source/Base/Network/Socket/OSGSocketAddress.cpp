@@ -261,12 +261,15 @@ int SocketAddress::getPort(void) const
 /*-------------------------------------------------------------------------*/
 /*                              Comparision                                */
 
-void SocketAddress::operator = (const SocketAddress &other) const
+const SocketAddress &SocketAddress::operator = (
+    const SocketAddress &other) const
 {
     if(this != &other)
     {
         *_sockaddr = *(other._sockaddr);
     }
+
+    return *this;
 }
 
 /*! compare equal

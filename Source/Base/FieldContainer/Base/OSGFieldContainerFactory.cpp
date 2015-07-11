@@ -343,7 +343,8 @@ FieldContainerType *DerivedFieldContainerTypeIterator::operator *(void)
     return _pCurrentType;
 }
 
-void DerivedFieldContainerTypeIterator::operator++ (void)
+const DerivedFieldContainerTypeIterator &
+    DerivedFieldContainerTypeIterator::operator++ (void)
 {
     _pCurrentType = NULL;
     
@@ -365,6 +366,8 @@ void DerivedFieldContainerTypeIterator::operator++ (void)
             }
         }
     }
+
+    return *this;
 }
 
 

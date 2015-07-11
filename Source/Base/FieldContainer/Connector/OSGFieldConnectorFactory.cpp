@@ -86,9 +86,9 @@ BasicFieldConnector *FieldConnectorFactoryBase::createConnector(
     BasicFieldConnector *returnValue = NULL;
 
     EntryMapConstIt srcIt = 
-        mConnectorMap.find(pSrcDesc->getFieldType().getId());
+        _mConnectorMap.find(pSrcDesc->getFieldType().getId());
 
-    if(srcIt != mConnectorMap.end())
+    if(srcIt != _mConnectorMap.end())
     {
         ConnectorMapConstIt dstIt = 
             srcIt->second->find(pDstDesc->getFieldType().getId());
@@ -114,9 +114,9 @@ void FieldConnectorFactoryBase::registerConnector(
 {
     // src -> dst
     {
-        EntryMapConstIt srcIt = mConnectorMap.find(oSrcType.getId());
+        EntryMapConstIt srcIt = _mConnectorMap.find(oSrcType.getId());
 
-        if(srcIt != mConnectorMap.end())
+        if(srcIt != _mConnectorMap.end())
         {
             ConnectorMapConstIt dstIt = 
                 srcIt->second->find(oDstType.getId());
@@ -141,15 +141,15 @@ void FieldConnectorFactoryBase::registerConnector(
             
             (*tmpMap)[oDstType.getId()] = pSrcToDst;
 
-            mConnectorMap[oSrcType.getId()] = tmpMap;
+            _mConnectorMap[oSrcType.getId()] = tmpMap;
         }
     }
 
     // src -> dst
     {
-        EntryMapConstIt dstIt = mConnectorMap.find(oDstType.getId());
+        EntryMapConstIt dstIt = _mConnectorMap.find(oDstType.getId());
 
-        if(dstIt != mConnectorMap.end())
+        if(dstIt != _mConnectorMap.end())
         {
             ConnectorMapConstIt srcIt = 
                 dstIt->second->find(oSrcType.getId());
@@ -174,7 +174,7 @@ void FieldConnectorFactoryBase::registerConnector(
             
             (*tmpMap)[oSrcType.getId()] = pDstToSrc;
 
-            mConnectorMap[oDstType.getId()] = tmpMap;
+            _mConnectorMap[oDstType.getId()] = tmpMap;
         }
     }
 }
@@ -186,7 +186,8 @@ void FieldConnectorFactoryBase::registerConnector(
 /*                            Constructors                                 */
 
 FieldConnectorFactoryBase::FieldConnectorFactoryBase(void) : 
-    Inherited("FieldConnectorFactory")
+     Inherited    ("FieldConnectorFactory"),
+    _mConnectorMap(                       )
 {
     FactoryController::the()->registerFactory(this);
 }
@@ -204,8 +205,8 @@ bool FieldConnectorFactoryBase::terminate(void)
 {
     fprintf(stderr, "FieldConnectorFactoryBase::terminate\n");
 
-    EntryMapIt      eIt  = mConnectorMap.begin();
-    EntryMapConstIt eEnd = mConnectorMap.end  ();
+    EntryMapIt      eIt  = _mConnectorMap.begin();
+    EntryMapConstIt eEnd = _mConnectorMap.end  ();
 
     for(; eIt != eEnd; ++eIt)
     {

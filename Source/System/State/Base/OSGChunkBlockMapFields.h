@@ -234,6 +234,12 @@ template<>
 class OSG_SYSTEM_DLLMAPPING 
     EditSFieldHandle<SFChunkBlockPtrMap> : public EditMapFieldHandle
 {
+    /*=========================== PRIVATE  ================================*/
+
+  private:
+
+    void operator =(const EditSFieldHandle &rhs);
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:

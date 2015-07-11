@@ -64,9 +64,25 @@ OSG_USING_NAMESPACE
  */
 
 PointMCastConnection::PointMCastConnection():
-    Inherited(),
-    _lastDgram(NULL),
-    _initialized(false)
+     Inherited             (     ),
+    _mcastSocket           (     ),
+    _responseSocket        (     ),
+    _recvQueueThread       (NULL ),
+    _recvQueueThreadRunning(false),
+    _recvQueueThreadStop   (false),
+    _seqNumber             (    0),
+    _mcastAddress          (     ),
+    _queue                 (     ),
+    _free                  (     ),
+    _lock                  (NULL ),
+    _sender                (     ),
+    _ackDestination        (     ),
+    _lastDgram             (NULL ),
+    _lastDgramPos          (0    ),
+    _initialized           (false),
+    _combineAck            (     ),
+    _maxAck                (0    )
+
 {
     char lockName[256];
     sprintf(lockName,"PointMCastConnection%p", static_cast<void *>(this));

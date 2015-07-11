@@ -89,17 +89,22 @@ namespace
 TravMaskGraphOp::TravMaskGraphOp(void) :
     Inherited                (         ),
 	mMatchName               (true     ),
+    mMatchRegex              (         ),
     mMatchWholeName          (true     ),
+
 	mMatchNodeCoreType       (false    ),
 	mNodeCoreType            (NULL     ),
 	mMatchDerivedCoreTypes   (true     ),
+
 	mMatchCurTravMask        (false    ),
 	mMatchCurTravMaskValue   (1        ),
 	mMatchMaskCondition      (BIT_EQUAL),
+
     mApplyMaskToAllDecendents(false    ),
     mApplyToNonMatching      (false    ),
 	mNewTravMask             (1        ),
     mApplyNewMaskOperation   (BIT_EQUAL),
+
 	mNumChanged              (0        )
 {
 	mMatchRegex = boost::xpressive::cregex::compile(

@@ -223,6 +223,9 @@ class OSG_UTIL_DLLMAPPING TravMaskGraphOp : public GraphOp
     
     Action::ResultE traverseEnter(Node * const node);
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
+
+    TravMaskGraphOp(const TravMaskGraphOp &other);
+    void operator =(const TravMaskGraphOp &rhs);
 };
 
 typedef TravMaskGraphOp *TravMaskGraphOpP;

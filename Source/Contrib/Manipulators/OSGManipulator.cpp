@@ -94,14 +94,16 @@ void Manipulator::initMethod(InitPhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 Manipulator::Manipulator(void) :
-    Inherited(),
-    _activeParent( NULL ),
-    _externalUpdateHandler( NULL )
+     Inherited            (    ),
+    _activeParent         (NULL),
+    _externalUpdateHandler(NULL)
 {
 }
 
 Manipulator::Manipulator(const Manipulator &source) :
-    Inherited(source)
+     Inherited            (source),
+    _activeParent         (NULL  ),
+    _externalUpdateHandler(NULL  )
 {
     //TODO: empty copy constructor?!?!?!?
 }

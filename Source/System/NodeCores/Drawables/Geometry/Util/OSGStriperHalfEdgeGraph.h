@@ -169,7 +169,8 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
         Chunk *_first;
         Chunk *_last;   
 
- 
+        TrianglePool(const TrianglePool &other);
+        void operator =(const TrianglePool &rhs);
     };
 
     friend class TrianglePool::Chunk;
@@ -241,7 +242,7 @@ class OSG_DRAWABLE_DLLMAPPING StriperHalfEdgeGraph
 
 class StriperHalfEdgeGraph::TrianglePool::Chunk
 {
-    public:
+  public:
     const UInt32 _size;
     UInt32 _freeElem;
     Chunk *_next;
@@ -250,6 +251,11 @@ class StriperHalfEdgeGraph::TrianglePool::Chunk
     inline Chunk (const UInt32 size);
     inline ~Chunk (void);
     inline UInt32 countElem(void);
+
+  private:
+
+    Chunk(const Chunk &other);
+    void operator =(const Chunk &rhs);
 };
 
 /*! \ingroup GrpDrawablesGeometryUtils

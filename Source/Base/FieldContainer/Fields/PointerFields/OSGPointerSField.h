@@ -190,7 +190,7 @@ class PointerSField :
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
 
-    void operator = (const Self &source);
+    const Self &operator = (const Self &source);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

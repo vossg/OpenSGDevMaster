@@ -281,10 +281,13 @@ bool comparePointerFields(
 /*! \nohierarchy
  */
 
+
 struct FieldPathEntry
 {
     std::string szName;
     Int32       iIndex;
+
+    FieldPathEntry(void) : szName(), iIndex(0) {}
 };
 
 void splitFieldPath(      std::vector<FieldPathEntry> &vSplitPath,
@@ -438,6 +441,8 @@ struct ContainerVisitRecord
     std::vector<UInt32> vVisitedIds;
 
     bool visit(UInt32 uiContainerId);
+
+    ContainerVisitRecord(void) : vVisitedIds() {}
 };
 
 bool ContainerVisitRecord::visit(UInt32 uiContainerId)

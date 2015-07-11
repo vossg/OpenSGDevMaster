@@ -258,9 +258,9 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
 
     std::vector<OCRenderTreeNode*> _buckets;     //!< buckets for approximate sorting
     std::vector<OCRenderTreeNode*> _bucketsWork; //!< work copy of buckets
-    Real32 _bucketLow;                           //!< value for lowest bucket
-    Real32 _bucketHigh;                          //!< value for highest bucket
-    Real32 _bucketScale;                         //!< 1 / all buckets width
+    Real32                         _bucketLow;   //!< value for lowest bucket
+    Real32                         _bucketHigh;  //!< value for highest bucket
+    Real32                         _bucketScale; //!< 1 / all buckets width
 
     std::vector<OCRenderTreeNode*> _testNodes;        //!< Nodes currently being tested
     std::queue <OCRenderTreeNode*> _testPendingNodes; //!< Nodes with tests pending
@@ -303,6 +303,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     static bool releaseTestingState(void);
 
     /*!\brief prohibit default function (move to 'public' if needed) */
+    OcclusionCullingTreeBuilder(const OcclusionCullingTreeBuilder &other);
     void operator =(const OcclusionCullingTreeBuilder &source);
 };
 

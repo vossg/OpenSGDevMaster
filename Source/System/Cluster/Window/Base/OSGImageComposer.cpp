@@ -87,12 +87,26 @@ void ImageComposer::exitMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ImageComposer::ImageComposer(void) :
-    Inherited()
+     Inherited    (     ),
+
+    _isClient     (false),
+    _clusterId    (0    ),
+    _clusterSize  (0    ),
+    _serverCount  (0    ),
+    _localWindow  (NULL ),
+    _clusterWindow(NULL )
 {
 }
 
 ImageComposer::ImageComposer(const ImageComposer &source) :
-    Inherited(source)
+     Inherited    (source               ),
+
+    _isClient     (source._isClient     ),
+    _clusterId    (source._clusterId    ),
+    _clusterSize  (source._clusterSize  ),
+    _serverCount  (source._serverCount  ),
+    _localWindow  (source._localWindow  ),
+    _clusterWindow(source._clusterWindow)
 {
 }
 

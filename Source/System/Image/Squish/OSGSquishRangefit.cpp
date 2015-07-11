@@ -31,7 +31,11 @@
 namespace osgsquish {
 
 RangeFit::RangeFit( ColourSet const* colours, int flags ) 
-  : ColourFit( colours, flags )
+  : ColourFit( colours, flags ),
+    m_metric(),
+    m_start(),
+    m_end(),
+    m_besterror(0.f)
 {
 	// initialise the metric
 	bool perceptual = ( ( m_flags & kColourMetricPerceptual ) != 0 );

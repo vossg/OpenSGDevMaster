@@ -102,6 +102,11 @@ struct NodeFinder
         
         return returnValue;
     }
+
+  private:
+
+    NodeFinder(const NodeFinder &other);
+    void operator=(const NodeFinder &rhs);
 };
 
 struct ElementFinder
@@ -147,6 +152,12 @@ struct ElementFinder
         
         return returnValue;
     }
+
+  private:
+
+    ElementFinder(const ElementFinder &other);
+    void operator=(const ElementFinder &rhs);
+
 };
 
 /***************************************************************************\

@@ -73,18 +73,20 @@ OSG_USING_NAMESPACE
  */
 TileLoadBalancer::TileLoadBalancer(bool useFaceDistribution,
                                    bool cutBestDirection):
+    _tileGeometryLoad   (                   ),
+    _renderNode         (                   ),
     _useFaceDistribution(useFaceDistribution),
-    _cutBestDirection(cutBestDirection)
+    _cutBestDirection   (cutBestDirection   )
 {
 }
 
 /*! Copy Constructor
  */
 TileLoadBalancer::TileLoadBalancer(const TileLoadBalancer &source):
-    _tileGeometryLoad(source._tileGeometryLoad),
-    _renderNode(source._renderNode),
+    _tileGeometryLoad   (source._tileGeometryLoad   ),
+    _renderNode         (source._renderNode         ),
     _useFaceDistribution(source._useFaceDistribution),
-    _cutBestDirection(source._cutBestDirection)
+    _cutBestDirection   (source._cutBestDirection   )
 {
 }
 

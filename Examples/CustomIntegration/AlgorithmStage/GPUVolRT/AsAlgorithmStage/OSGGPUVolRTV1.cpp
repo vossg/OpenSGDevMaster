@@ -101,19 +101,45 @@ void GPUVolRTV1::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 GPUVolRTV1::GPUVolRTV1(void) :
-    Inherited(),
-    bInitialized(false)
+    Inherited      (            ),
+    bInitialized   (false       ),
+    renderbuffer   (0           ), 
+    framebuffer    (0           ),
+    volume_texture (0           ),
+    backface_buffer(0           ),
+    final_image    (0           ),
+    stepsize       (1.0f / 50.0f),
+    vertexprog     (0           ),
+    fragmentprog   (0           ),
+    shaderprog     (0           ),
+    stepsizeLoc    (0           ),
+    mvLoc          (0           ),
+    mpLoc          (0           ),
+    texLoc         (0           ),
+    volumeTexLoc   (0           ),
+    toggle_visuals (true        )
 {
-    stepsize = 1.0f/50.0f;
-    toggle_visuals = true;
 }
 
 GPUVolRTV1::GPUVolRTV1(const GPUVolRTV1 &source) :
-    Inherited(source),
-    bInitialized(false)
+    Inherited      (source      ),
+    bInitialized   (false       ),
+    renderbuffer   (0           ), 
+    framebuffer    (0           ),
+    volume_texture (0           ),
+    backface_buffer(0           ),
+    final_image    (0           ),
+    stepsize       (1.0f / 50.0f),
+    vertexprog     (0           ),
+    fragmentprog   (0           ),
+    shaderprog     (0           ),
+    stepsizeLoc    (0           ),
+    mvLoc          (0           ),
+    mpLoc          (0           ),
+    texLoc         (0           ),
+    volumeTexLoc   (0           ),
+    toggle_visuals (true        )
 {
-    stepsize = 1.0f/50.0f;
-    toggle_visuals = true;
 }
 
 GPUVolRTV1::~GPUVolRTV1(void)

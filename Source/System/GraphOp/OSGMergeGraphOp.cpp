@@ -95,12 +95,14 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /*------------- constructors & destructors --------------------------------*/
 
-MergeGraphOp::MergeGraphOp(const char* name): GraphOp(name),
+MergeGraphOp::MergeGraphOp(const char* name) : 
+     GraphOp                  (name ),
+    _color_is_vector          (false),
     _secondary_color_is_vector(false),
-    _texcoord0_is_vector(false),
-    _texcoord1_is_vector(false),
-    _texcoord2_is_vector(false),
-    _texcoord3_is_vector(false)
+    _texcoord0_is_vector      (false),
+    _texcoord1_is_vector      (false),
+    _texcoord2_is_vector      (false),
+    _texcoord3_is_vector      (false)
 {
 }
 

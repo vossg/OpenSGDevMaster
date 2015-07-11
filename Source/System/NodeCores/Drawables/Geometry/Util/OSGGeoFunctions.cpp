@@ -77,6 +77,8 @@ struct  IndexDic
 
            UInt32    entryCount(void              ) const;
 
+    IndexDic(void) : _indexMap(), _indexVec() {}
+
   private:
 
     typedef std::map<Int32Vec, Int32> IndexMap;
@@ -3534,6 +3536,8 @@ class IndexMap
   public:
     UInt32 get(UInt32 idx            ) const;
     void   set(UInt32 idx, UInt32 val);
+
+    IndexMap(void) : _iMap() {}
 
   private:
     typedef std::vector<UInt32> IMap;

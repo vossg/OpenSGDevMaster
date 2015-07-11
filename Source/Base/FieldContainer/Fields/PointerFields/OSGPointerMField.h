@@ -186,6 +186,13 @@ class PointerMFieldIterator :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Operators                                                    */
+    /*! \{                                                                 */
+
+    const Self &operator =(const Self &other);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Base                                                         */
     /*! \{                                                                 */
 
@@ -210,6 +217,7 @@ class PointerMFieldIterator :
 
     template <class PT, typename RC, Int32 NI>
     friend class PointerMField;
+
 };
 
 template <class PtrTypeT, class RefCountPolicyT, Int32 NamespaceI>

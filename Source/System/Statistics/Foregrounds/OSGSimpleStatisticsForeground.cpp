@@ -64,7 +64,12 @@ OSG_USING_NAMESPACE
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
-    Inherited(), _face(0), _texchunk(NULL), _texenvchunk(NULL)
+     Inherited       (    ), 
+     HorizontalAlignE(Left),
+     VerticalAlignE  (Top ),
+    _face            (0   ), 
+    _texchunk        (NULL), 
+    _texenvchunk     (NULL)
 {
     _texenvchunk = TextureEnvChunk::createLocal();
     _texenvchunk->setEnvMode(GL_MODULATE);
@@ -74,10 +79,12 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
 SimpleStatisticsForeground::SimpleStatisticsForeground(
     const SimpleStatisticsForeground &source) :
 
-    Inherited   (source),
-    _face       (source._face),
-    _texchunk   (source._texchunk),
-    _texenvchunk(source._texenvchunk)
+     Inherited       (source                 ),
+     HorizontalAlignE(source.HorizontalAlignE),
+     VerticalAlignE  (source.VerticalAlignE  ),
+    _face            (source._face           ),
+    _texchunk        (source._texchunk       ),
+    _texenvchunk     (source._texenvchunk    )
 {
 }
 
@@ -279,6 +286,15 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv)
             }
         }
     }
+
+#if 0
+    for(size_t i = 0; i < stat.size(); ++i)
+    {
+        fprintf(stderr, "s[%d] : %s\n",
+                UInt32(i),
+                stat[i].c_str());
+    }
+#endif
 
     TextLayoutParam layoutParam;
     layoutParam.spacing = 1.1f;

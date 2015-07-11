@@ -204,12 +204,16 @@ bool SField<ValueT, iNamespace>::operator ==(const SField &source) const
 /*                              MT Sync                                    */
 
 template <class ValueT, Int32 iNamespace> inline
-void SField<ValueT, iNamespace>::operator =(const SField &source)
+const SField<ValueT, 
+             iNamespace> &SField<ValueT, 
+                                 iNamespace>::operator =(const SField &source)
 {
     if(this != &source)
     {
         _fieldValue = source._fieldValue;
     }
+
+    return *this;
 }
 
 OSG_END_NAMESPACE

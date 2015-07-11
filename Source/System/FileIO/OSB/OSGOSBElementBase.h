@@ -192,6 +192,7 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         typedef BindingStore::const_iterator BindingStoreConstIt;
 
         PtrFieldInfo(FieldContainer * const fc, UInt32 fieldId);
+        PtrFieldInfo(const PtrFieldInfo &other);
         ~PtrFieldInfo(void);
 
         inline FieldContainer    *getContainer(void) const;
@@ -220,6 +221,8 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         PtrIdStore        _ptrIds;
         BindingStore      _bindings;
         bool              _bHandledField;
+
+        void operator =(const PtrFieldInfo &rhs);
     };
 
     typedef std::list<PtrFieldInfo>             PtrFieldList;

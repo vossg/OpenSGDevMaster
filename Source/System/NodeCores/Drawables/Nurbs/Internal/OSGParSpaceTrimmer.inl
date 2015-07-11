@@ -38,7 +38,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ParSpaceTrimmerError::ParSpaceTrimmerError(void)
+inline ParSpaceTrimmerError::ParSpaceTrimmerError(void) : 
+    errtype(0)
 {
 }
 
@@ -162,10 +163,40 @@ inline bool SPolySimVertexLess::operator() (
 }
 
 
-inline ParSpaceTrimmer::ParSpaceTrimmer(void)
+inline ParSpaceTrimmer::ParSpaceTrimmer(void) :
+    mesh(NULL),
+    tcs(NULL),         //trimming curves
+    tcs3d(NULL),       // 3d trimming curves
+    terr(0),        // trimming error (used for 3d loops only!)
+    state(),
+    start_face(NULL),  //the face in which the curve starts (if it starts OVER_FACE)
+    ie(NULL),          //last intersected edge
+    ip(0.0),          //intersection parameter on bezier curve
+    vcel(),
+    pvccrd(NULL),
+    m_pvvclSewed(NULL),
+#ifdef OSG_FORCE_NO_T_VERTICES
+/* #ifndef OSG_CREATE_NORMAL_MAPS
+        std::vector< std::vector< Vec3d > >		*m_pvvclNormals;
+ #endif*/
+ #ifdef OSG_KEEP_2D_POINTS
+    m_uiPosCnt(0),
+ #endif
+#endif
+    m_bDeleteVertexInfo(false),
+    m_clMin(),
+    m_clMax(),
+#ifdef OSG_ADAPTIVE_QUAD_TREE
+    m_pclQuadTree(NULL),
+#endif
+    m_pvbReversed(NULL),
+    m_pvbUsed(NULL),
+
+#ifdef OSG_USE_SIMPLIFIER
+    m_pclNurbs(NULL)
+#endif
 {
 //     std::cerr << "pst constr" << std::endl;
-    m_bDeleteVertexInfo = false;
 }
 
 inline ParSpaceTrimmer::~ParSpaceTrimmer(void)

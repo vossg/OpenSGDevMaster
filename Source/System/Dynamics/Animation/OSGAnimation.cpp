@@ -85,13 +85,15 @@ void Animation::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-Animation::Animation(void)
-     : Inherited()
+Animation::Animation(void):
+     Inherited ( ),
+    _animLength(0)
 {
 }
 
-Animation::Animation(const Animation &source)
-     : Inherited(source)
+Animation::Animation(const Animation &source):
+     Inherited (source            ),
+    _animLength(source._animLength)
 {
 }
 

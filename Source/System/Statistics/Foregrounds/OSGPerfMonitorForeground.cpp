@@ -98,7 +98,7 @@ void PerfMonitorForeground::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 PerfMonitorForeground::PerfMonitorForeground(void) :
-    Inherited(), _face(0), _texchunk(NULL), _texenvchunk(NULL)
+    Inherited(), _face(0), _texchunk(NULL), _texenvchunk(NULL), mode_names()
 {
     _texenvchunk = TextureEnvChunk::create();    
     _texenvchunk->setEnvMode(GL_MODULATE);   
@@ -108,7 +108,8 @@ PerfMonitorForeground::PerfMonitorForeground(const PerfMonitorForeground &source
     Inherited   (source),
     _face       (source._face),
     _texchunk   (source._texchunk),
-    _texenvchunk(source._texenvchunk)
+    _texenvchunk(source._texenvchunk),
+    mode_names  (source.mode_names)
 {
 }
 

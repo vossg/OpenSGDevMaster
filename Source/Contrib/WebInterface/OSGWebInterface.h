@@ -215,6 +215,9 @@ class OSG_CONTRIBWEBINTERFACE_DLLMAPPING WebInterface : public MemoryObject
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    WebInterface(const WebInterface &other);
+    void operator=(const WebInterface &rhs);
 };
 
 OSG_GEN_MEMOBJPTR(WebInterface);

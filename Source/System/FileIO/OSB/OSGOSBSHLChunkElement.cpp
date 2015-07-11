@@ -64,8 +64,10 @@ OSBElementRegistrationHelper<OSBSHLChunkElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBSHLChunkElement::OSBSHLChunkElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBSHLChunkElement::OSBSHLChunkElement(OSBRootElement *root) :
+     Inherited(root, OSGOSBHeaderVersion200),
+    _pSHLChunk(NULL                        ),
+    _paramIds (                            )
 {
 }
 

@@ -47,7 +47,8 @@ inline
 CylinderVolume::CylinderVolume(void) : 
      Inherited(             ),
     _axisPos  (0.f, 0.f, 0.f),
-    _axisDir  (0.f, 0.f, 0.f)
+    _axisDir  (0.f, 0.f, 0.f),
+    _radius   (0.f          )
 {
 }
 

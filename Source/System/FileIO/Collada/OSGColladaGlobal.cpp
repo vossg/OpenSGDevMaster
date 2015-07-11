@@ -298,6 +298,7 @@ ColladaGlobal::ColladaGlobal(void)
     , _docRoot    ()
     , _dae        (NULL)
     , _rootN      (NULL)
+    , _globalsAtt (NULL)
 {
 }
 

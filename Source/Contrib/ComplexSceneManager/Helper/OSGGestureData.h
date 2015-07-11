@@ -74,7 +74,12 @@ class OSG_CONTRIBCSM_DLLMAPPING GestureData
 
         std::string _szGesture;
 
-        GestureBlob(){};
+        GestureBlob() : 
+            _uiEvent   (0                     ), 
+            _iGestureId(0                     ), 
+            _vPosition (                      ),
+            _uiCoordSys(GestureData::GlobalRel),
+            _szGesture (                      ) {}
 
         GestureBlob(UInt32 uiEvent,
                    Int32  iGestureId,
@@ -232,8 +237,8 @@ class OSG_CONTRIBCSM_DLLMAPPING GestureData
 
     /*------------------------- assignment ----------------------------------*/
 
-    void operator = (const GestureData &rhs);
-    bool operator ==(const GestureData &rhs) const;
+    const GestureData &operator = (const GestureData &rhs);
+          bool         operator ==(const GestureData &rhs) const;
 
     /*------------------------- comparison ----------------------------------*/
 };

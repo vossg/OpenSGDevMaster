@@ -282,7 +282,7 @@ class MField : public Field
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
 
-    void operator =(const MField &source);
+    const MField &operator =(const MField &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

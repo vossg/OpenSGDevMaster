@@ -369,7 +369,11 @@ Real32 FlyEngine::right(Real32 step)
 /*-------------------------- constructors ---------------------------------*/
 
 FlyEngine::FlyEngine(void) : 
-    Inherited()
+     Inherited(),
+    _rFrom    (),
+    _rAt      (),
+    _vUp      (),
+    _tMatrix  ()
 {
     _rFrom  .setValues(0, 0, 0);
     _rAt    .setValues(0, 0, 1);

@@ -61,6 +61,7 @@ OSG_USING_NAMESPACE
 
 StateSorter::StateSorter(void) :
     _pNodePool      (NULL    ),
+    _uiNodePoolIdx  (0       ),
     _pRoot          (NULL    ),
     _oSorter        (        ),
     _eSortMode      (StateKey),

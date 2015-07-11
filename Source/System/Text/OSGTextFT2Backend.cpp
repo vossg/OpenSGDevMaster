@@ -94,7 +94,7 @@ OSG_BEGIN_NAMESPACE
 
 class TextFT2VectorFace: public TextVectorFace
 {
-public:
+  public:
 
     // Constructor
     TextFT2VectorFace(FT_Face face);
@@ -106,15 +106,18 @@ public:
     virtual void layout(const wstring &text, const TextLayoutParam &param,
                         TextLayoutResult &layoutResult);
 
-protected:
+  protected:
 
     // Creates a new Glyph object
     virtual auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
-private:
+  private:
 
     // Freetype face object
     FT_Face _face;
+
+    TextFT2VectorFace(const TextFT2VectorFace &other);
+    void operator =(const TextFT2VectorFace &rhs);
 };
 
 
@@ -148,7 +151,7 @@ public:
 
 class TextFT2PixmapFace: public TextPixmapFace
 {
-public:
+  public:
 
     // Constructor
     TextFT2PixmapFace(FT_Face face, UInt32 size);
@@ -160,15 +163,18 @@ public:
     virtual void layout(const wstring &text, const TextLayoutParam &param,
                         TextLayoutResult &layoutResult);
 
-protected:
+  protected:
 
     // Creates a new Glyph object
     virtual auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
-private:
-
+  private:
+    
     // Freetype face object
     FT_Face _face;
+
+    TextFT2PixmapFace(const TextFT2PixmapFace &other);
+    void operator =(const TextFT2PixmapFace &rhs);
 };
 
 

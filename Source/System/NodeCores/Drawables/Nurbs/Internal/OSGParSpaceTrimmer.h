@@ -146,6 +146,13 @@ struct SScanLineEvent
     bool bStart;
     Vec2d clPos;
     Vec2d clOther;
+
+    SScanLineEvent(void) : ptEdge(NULL), bStart(false), clPos(), clOther() {}
+
+  private:
+
+    SScanLineEvent(const SScanLineEvent &other);
+    void operator =(const SScanLineEvent &rhs);
 };
 
 struct OSG_DRAWABLE_DLLMAPPING SScanLineEventLess
@@ -164,6 +171,9 @@ struct SPolySimVertex
     unsigned int uiNext;
     Vec3d clPos;
     double dSimplifyError;
+
+    SPolySimVertex(void): 
+        uiIndex(0), uiPrev(0), uiNext(0), clPos(), dSimplifyError(0.0) {}
 };
 
 struct OSG_DRAWABLE_DLLMAPPING SPolySimVertexLess
@@ -383,6 +393,11 @@ class OSG_DRAWABLE_DLLMAPPING ParSpaceTrimmer
 #ifdef OSG_USE_SIMPLIFIER
     double DistToEdge(const Vec3d cclPoint, const Vec3d cclLine1, const Vec3d cclLine2) const;
 #endif
+
+  private:
+
+    ParSpaceTrimmer(const ParSpaceTrimmer &other);
+    void operator=(const ParSpaceTrimmer &rhs);
 };
 
 #ifdef OSG_WIN32_ICL

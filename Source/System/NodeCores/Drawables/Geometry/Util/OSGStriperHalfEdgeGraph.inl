@@ -211,7 +211,7 @@ void StriperHalfEdgeGraph::TriangleList::paste(TriangleList &list)
 
 inline
 StriperHalfEdgeGraph::TrianglePool::Chunk::Chunk(const UInt32 size)
-    : _size(size), _freeElem(size), _next(0) 
+    : _size(size), _freeElem(size), _next(0), _data(0)
 {
     _data = new Triangle[size];
 }

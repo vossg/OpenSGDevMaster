@@ -75,7 +75,13 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 /*------------- constructors & destructors --------------------------------*/
 
 VerifyGraphOp::VerifyGraphOp(bool repair, bool verbose, const char* name): 
-    GraphOp(name), _repair(repair), _verbose(verbose)
+     GraphOp       (name   ), 
+    _repair        (repair ), 
+    _verbose       (verbose),
+    _numErrors     (0      ),
+
+    _corruptedGeos (       ),
+    _corruptedNodes(       )
 {
 }
 

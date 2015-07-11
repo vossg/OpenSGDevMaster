@@ -340,7 +340,9 @@ Log::Log(LogType logType, LogLevel logLevel) :
     _fileStream    (              ),
     _logBuf        (              ),
     _headerElem    (             0),
-    _moduleHandling(LOG_MODULE_ALL)
+    _moduleHandling(LOG_MODULE_ALL),
+    _moduleList    (              ),
+    _refTime       (             0)
 {
     if(_nilstreamP == NULL)
         _nilstreamP = new std::ostream(_nilbufP);
@@ -372,7 +374,9 @@ Log::Log(const Char8 *fileName, LogLevel logLevel) :
     _fileStream    (              ),
     _logBuf        (              ),
     _headerElem    (             0),
-    _moduleHandling(LOG_MODULE_ALL)
+    _moduleHandling(LOG_MODULE_ALL),
+    _moduleList    (              ),
+    _refTime       (             0)
 {
     if(_nilstreamP == NULL)
         _nilstreamP = new std::ostream(_nilbufP);

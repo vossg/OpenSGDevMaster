@@ -3895,6 +3895,10 @@ VRMLImageTextureHelper::VRMLImageTextureHelper(void) :
 
     _defaultURL    (),
     _url           ()
+     
+#ifdef OSG_VRML_IMAGETEXTURE_MAP
+    , _urlImageMap ()
+#endif
 {
 }
 

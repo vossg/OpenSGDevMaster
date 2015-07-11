@@ -389,6 +389,7 @@ const Char8 *SelectSValueEmitter<Desc>::getClassname(void)
 template<class Desc> inline
 SelectSValueEmitter<Desc>::SelectSValueEmitter(void) :
      Inherited         (                  ),
+    _sfTrigger         (                  ),
     _sfChoice          (                  ),
     _mfChoiceValues    (                  ),
     _sfValue           (Desc::getDefault()),
@@ -401,6 +402,7 @@ SelectSValueEmitter<Desc>::SelectSValueEmitter(
     const SelectSValueEmitter &source) :
 
      Inherited         (source                    ),
+    _sfTrigger         (source._sfTrigger         ),
     _sfChoice          (source._sfChoice          ),
     _mfChoiceValues    (source._mfChoiceValues    ),
     _sfValue           (source._sfValue           ),

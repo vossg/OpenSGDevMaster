@@ -133,6 +133,9 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
   private:
 
     friend class GDALImageFileType;
+
+    GDALBlockAccessor(const GDALBlockAccessor &other);
+    void operator =(const GDALBlockAccessor &rhs);
 };
 
 /*! \ingroup GrpImageFileIOGDAL

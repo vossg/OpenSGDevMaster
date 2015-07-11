@@ -177,10 +177,10 @@ template< typename T > class Rectangle2
 
     // the rect encloses all points (x,y) with x in [x0,x1[ and y in [y0,y1[
 
-    T x0;
-    T y0;
-    T x1;
-    T y1;
+    T _x0;
+    T _y0;
+    T _x1;
+    T _y1;
 
     /*! \}                                                                 */
     /*==========================  PROTECTRED  =============================*/

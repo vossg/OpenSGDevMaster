@@ -74,11 +74,32 @@ static OSG::Time g_clActTime;
 
 #define OSG_3D_LOOPS
 
-CNurbsPatchSurface::CNurbsPatchSurface()
+CNurbsPatchSurface::CNurbsPatchSurface():
+    m_vclBSplineSurfaces    (     ),
+    m_vvvclBezierSurfaces   (     ),
+    m_vvdUParams            (     ),
+    m_vvdVParams            (     ),
+    m_clMesh                (     ),
+    m_vtSurfaces            (     ),
+    m_vclParameterVertices  (     ),
+    m_vclGlobalVertices     (     ),
+//	m_vclNormal               (),
+    m_pclGraph              (NULL ),
+    m_vclTriangles          (     ),
+    m_pclQuadTree           (NULL ),
+    m_bErrorTreeValid       (false),
+    m_bUseTextures          (false),
+    m_vvTextureControlPoints(     )
+
+#ifdef OSG_TIMING_FUNCS
+    , m_uiTotalTriangleCnt    (0    ) 
+    , m_uiNewTriangleCnt      (0    )
+#endif
+
+#ifdef OSG_KEEP_2D_POINTS
+    , m_vuiIndex              (     )
+#endif
 {
-    m_pclGraph        = NULL;
-    m_bErrorTreeValid = false;
-    m_pclQuadTree     = NULL;
 }
 
 

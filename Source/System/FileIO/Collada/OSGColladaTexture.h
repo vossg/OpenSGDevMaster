@@ -148,6 +148,11 @@ class OSG_FILEIO_DLLMAPPING ColladaTexture : public ColladaElement
     TextureTransformChunkUnrecPtr  _texTransform;
     ExtraHandlerStore              _extraHandlers;
 
+  private:
+
+    ColladaTexture(const ColladaTexture &other);
+    void operator=(const ColladaTexture &rhs);
+    
 };
 
 OSG_GEN_MEMOBJPTR(ColladaTexture);

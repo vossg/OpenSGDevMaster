@@ -71,8 +71,23 @@ OSBElementRegistrationHelper<OSBRootElement>
 
 /*! Constructor.
  */
-OSBRootElement::OSBRootElement(OSBRootElement * /* root */)
-    : Inherited(this, Inherited::OSGOSBHeaderVersion200)
+OSBRootElement::OSBRootElement(OSBRootElement * /* root */) : 
+     Inherited        (this, Inherited::OSGOSBHeaderVersion200),
+
+    _readHandler      (NULL                                   ),
+    _writeHandler     (NULL                                   ),
+
+    _options          (                                       ),
+    _elements         (                                       ),
+    _idElemMap        (                                       ),
+
+    _readHeaderVersion(0                                      ),
+    _readIdMap        (                                       ),
+    _readPtrFields    (                                       ),
+
+    _writeFCList      (                                       ),
+    _writeIdSet       (                                       )
+
 {
     // nothing to do.
 }

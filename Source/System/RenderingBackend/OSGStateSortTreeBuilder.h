@@ -202,6 +202,7 @@ class OSG_SYSTEM_DLLMAPPING StateSortTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */
+    StateSortTreeBuilder(const StateSortTreeBuilder &other);    
     void operator =(const StateSortTreeBuilder &source);    
 };
 

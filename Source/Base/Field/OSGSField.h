@@ -177,7 +177,7 @@ class SField : public Field
     /*! \name                      Assign                                  */
     /*! \{                                                                 */
 
-    void operator =(const SField &source);
+    const SField &operator =(const SField &source);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

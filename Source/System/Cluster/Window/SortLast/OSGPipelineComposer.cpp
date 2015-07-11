@@ -85,30 +85,74 @@ void PipelineComposer::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 PipelineComposer::PipelineComposer(void) :
-    Inherited(),
-    _readTilePtr(&_tileA),
-    _composeTilePtr(&_tileB),
-    _writer(NULL),
-    _barrier(NULL),
-    _composeBarrier(NULL),
-    _frameEndBarrier(NULL),
-    _lock(NULL),
-    _waiting(false),
-    _firstFrame(true)
+     Inherited      (       ),
+    _tileBufferSize (0      ),
+    _tileA          (       ),
+    _tileB          (       ),
+    _workingTile    (       ),
+    _readTilePtr    (&_tileA),
+    _composeTilePtr (&_tileB),
+    _readTilesX     (0      ),
+    _readTilesY     (0      ),
+    _composeTilesX  (0      ),
+    _composeTilesY  (0      ),
+
+    _transInfo      (       ),
+    _groupInfoPool  (       ),
+    _groupInfo      (       ),
+
+    _colorFormat    (GL_NONE),
+    _colorType      (GL_NONE),
+    _depthType      (GL_NONE),
+
+    _statistics     (       ),
+
+    _writer         (NULL   ),
+    _composer       (NULL   ),
+    _barrier        (NULL   ),
+    _composeBarrier (NULL   ),
+    _frameEndBarrier(NULL   ),
+    _lock           (NULL   ),
+    _queue          (       ),
+    _waiting        (false  ),
+    _occlusionQuery (0      ),
+    _firstFrame     (true   )
 {
 }
 
 PipelineComposer::PipelineComposer(const PipelineComposer &source) :
-    Inherited(source),
-    _readTilePtr(&_tileA),
-    _composeTilePtr(&_tileB),
-    _writer(NULL),
-    _barrier(NULL),
-    _composeBarrier(NULL),
-    _frameEndBarrier(NULL),
-    _lock(NULL),
-    _waiting(false),
-    _firstFrame(true)
+     Inherited      (source ),
+    _tileBufferSize (0      ),
+    _tileA          (       ),
+    _tileB          (       ),
+    _workingTile    (       ),
+    _readTilePtr    (&_tileA),
+    _composeTilePtr (&_tileB),
+    _readTilesX     (0      ),
+    _readTilesY     (0      ),
+    _composeTilesX  (0      ),
+    _composeTilesY  (0      ),
+
+    _transInfo      (       ),
+    _groupInfoPool  (       ),
+    _groupInfo      (       ),
+
+    _colorFormat    (GL_NONE),
+    _colorType      (GL_NONE),
+    _depthType      (GL_NONE),
+
+    _statistics     (       ),
+
+    _writer         (NULL   ),
+    _composer       (NULL   ),
+    _barrier        (NULL   ),
+    _composeBarrier (NULL   ),
+    _frameEndBarrier(NULL   ),
+    _lock           (NULL   ),
+    _queue          (       ),
+    _waiting        (false  ),
+    _occlusionQuery (0      ),
+    _firstFrame     (true   )
 {
 }
 

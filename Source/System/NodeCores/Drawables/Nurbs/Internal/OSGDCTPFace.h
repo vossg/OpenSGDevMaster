@@ -72,6 +72,10 @@ class OSG_DRAWABLE_DLLMAPPING TrimSegment
     bezier2dvector  trimbeziers;
     DCTPVertex     *start;
     DCTPVertex     *end;
+
+  private:
+
+    void operator =(const TrimSegment &rhs);
 };
 
 class OSG_DRAWABLE_DLLMAPPING DCTPFace
@@ -102,6 +106,11 @@ class OSG_DRAWABLE_DLLMAPPING DCTPFace
     inline void RemoveEdge(DCTPEdge *e);
 
     inline void dump_triangle(void);
+
+  private:
+
+    DCTPFace(const DCTPFace &other);
+    void operator =(const DCTPFace &rhs);
 };
 
 typedef std::vector<DCTPFace*> dctpfacevector;

@@ -714,6 +714,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _oDrawEnv                (         ),
     _oSimpleDrawCallback     (     NULL),
     _pBackground             (     NULL),
+    _vpForegrounds           (         ),
 
     _uiMatrixId              (        0),
     _modelMatrixValid        (true     ),

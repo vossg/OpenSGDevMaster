@@ -564,7 +564,8 @@ CDDSImage::CDDSImage() :
     compressed(false),
     cubemap(false),
     volume(false),
-    valid(false)
+    valid(false),
+    images()
 {
 }
 
@@ -1531,21 +1532,24 @@ void CDDSImage::flip_blocks_dxtc5(DXTColBlock *line, Int32 numBlocks)
 ///////////////////////////////////////////////////////////////////////////////
 // default constructor
 CTexture::CTexture()
-  : CSurface()  // initialize base class part
+  : CSurface(),  // initialize base class part
+    mipmaps()
 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // creates an empty texture
 CTexture::CTexture(Int32 w, Int32 h, Int32 d, Int32 imgSize)
-  : CSurface(w, h, d, imgSize)  // initialize base class part
+  : CSurface(w, h, d, imgSize),  // initialize base class part
+    mipmaps()
 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // copy constructor
 CTexture::CTexture(const CTexture &copy)
-  : CSurface(copy)
+  : CSurface(copy),
+    mipmaps()
 {
     for (UInt32 i = 0; i < copy.mipmaps.size(); i++)
         mipmaps.push_back(copy.mipmaps[i]);
@@ -1593,9 +1597,13 @@ CSurface::CSurface()
 
 ///////////////////////////////////////////////////////////////////////////////
 // creates an empty image
-CSurface::CSurface(Int32 w, Int32 h, Int32 d, Int32 imgsize)
+CSurface::CSurface(Int32 w, Int32 h, Int32 d, Int32 imgsize):
+    width(0),
+    height(0),
+    depth(0),
+    size(0),
+    pixels(NULL)
 {
-    pixels = NULL;
     create(w, h, d, imgsize);
 }
 

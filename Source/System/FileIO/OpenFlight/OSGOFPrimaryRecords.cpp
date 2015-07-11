@@ -1058,15 +1058,18 @@ OFRecordFactoryBase::RegisterRecord OFObjectRecord::_regHelper(
 OFLocalVertexPoolRecord::OFLocalVertexPoolRecord(
     const OFRecordHeader &oHeader, OFDatabase &oDB) :
 
-    Inherited   (oHeader, oDB),
-    _pPositions (NULL),
-    _pColors    (NULL),
-    _pNormals   (NULL),
-    _texCoords  (),
-    _vTriStrips (),
-    _vTriFans   (),
-    _vQuadStrips(),
-    _vPolygons  ()
+    Inherited    (oHeader, 
+                  oDB    ),
+     uiNumVerts  (0      ),
+     uiAttribMask(0      ),
+    _pPositions  (NULL   ),
+    _pColors     (NULL   ),
+    _pNormals    (NULL   ),
+    _texCoords   (       ),
+    _vTriStrips  (       ),
+    _vTriFans    (       ),
+    _vQuadStrips (       ),
+    _vPolygons   (       )
 {
     for(UInt32 i = 0; i < 8; ++i)
         _texCoords[i] = NULL;
@@ -1585,7 +1588,37 @@ OFRecordFactoryBase::RegisterRecord OFMeshPrimitiveRecord::_regHelper(
 
 OFMeshRecord::OFMeshRecord(const OFRecordHeader &oHeader,
                                  OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB)
+     Inherited        (oHeader, 
+                       oDB    ),
+     iPad1            (0      ),
+     iIRColorCode     (0      ),
+     iRelPrio         (0      ),
+     iDrawType        (0      ),
+     iTextureWhite    (0      ),
+     uiColorNameIdx   (0      ),
+     uiAltColorNameIdx(0      ),
+     iPad2            (0      ),
+     iTemplate        (0      ),
+     iDetailTexIdx    (0      ),
+     iTexIdx          (0      ),
+     iMatIdx          (0      ),
+     iSurfMatCode     (0      ),
+     iFeatureId       (0      ),
+     iIRMatCode       (0      ),
+     uiTransparency   (0      ),
+     uiLODGenControl  (0      ),
+     uiLineStyle      (0      ),
+     iFlags           (0      ),
+     uiLightMode      (0      ),
+     uiPackedPrimCol  (0      ),
+     uiPackedAltCol   (0      ),
+     iTexMapIdx       (0      ),
+     iPad4            (0      ),
+     uiPrimColIdx     (0      ),
+     uiAltColIdx      (0      ),
+     iPad5            (0      ),
+     iShaderIdx       (0      ),
+    _pVertexPool      (NULL   )
 {
 }
 
@@ -1991,8 +2024,36 @@ OFRecordTransitPtr OFFaceRecord::create(const OFRecordHeader &oHeader,
 
 OFFaceRecord::OFFaceRecord(const OFRecordHeader &oHeader,
                                  OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB),
-    _pVList  (NULL        )
+     Inherited        (oHeader, 
+                       oDB    ),
+     iIRColorCode     (0      ),
+     iRelPrio         (0      ),
+     iDrawType        (0      ),
+     iTextureWhite    (0      ),
+     uiColorNameIdx   (0      ),
+     uiAltColorNameIdx(0      ),
+     iPad1            (0      ),
+     iTemplate        (0      ),
+     iDetailTexIdx    (0      ),
+     iTexIdx          (0      ),
+     iMatIdx          (0      ),
+     iSurfMatCode     (0      ),
+     iFeatureId       (0      ),
+     iIRMatCode       (0      ),
+     uiTransparency   (0      ),
+     uiLODGenControl  (0      ),
+     uiLineStyle      (0      ),
+     iFlags           (0      ),
+     uiLightMode      (0      ),
+     uiPackedPrimCol  (0      ),
+     uiPackedAltCol   (0      ),
+     iTexMapIdx       (0      ),
+     iPad3            (0      ),
+     uiPrimColIdx     (0      ),
+     uiAltColIdx      (0      ),
+     iPad4            (0      ),
+     iShaderIdx       (0      ),
+    _pVList           (NULL   )
 {
 }
 
@@ -2264,7 +2325,8 @@ OFRecordTransitPtr OFVertexListRecord::create(const OFRecordHeader &oHeader,
 
 OFVertexListRecord::OFVertexListRecord(const OFRecordHeader &oHeader,
                                              OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB)
+     Inherited(oHeader, oDB),
+    _vIndices (            )
 {
 }
 
@@ -2315,7 +2377,19 @@ OFRecordTransitPtr OFLODRecord::create(const OFRecordHeader &oHeader,
 
 OFLODRecord::OFLODRecord(const OFRecordHeader &oHeader,
                                OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB)
+    Inherited   (oHeader, 
+                 oDB    ),
+    iPad1       (0      ),
+    rSwitchIn   (0      ),
+    rSwitchOut  (0      ),
+    iSpecialEff1(0      ),
+    iSpecialEff2(0      ),
+    iFlags      (0      ),
+    rCenterX    (0      ),
+    rCenterY    (0      ),
+    rCenterZ    (0      ),
+    rTransRange (0      ),
+    rSigSize    (0      )
 {
 }
 
@@ -2464,7 +2538,13 @@ OFRecordTransitPtr OFSwitchRecord::create(const OFRecordHeader &oHeader,
 
 OFSwitchRecord::OFSwitchRecord(const OFRecordHeader &oHeader,
                                      OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB)
+    Inherited (oHeader, 
+               oDB    ),
+    szPad1    (0      ),
+    iCurrMask (0      ),
+    iNumMask  (0      ),
+    iMaskWords(0      ),
+    vMask     (0      )
 {
 }
 
@@ -2611,7 +2691,12 @@ OFRecordTransitPtr OFExternalReferenceRecord::create(
 OFExternalReferenceRecord::OFExternalReferenceRecord(
     const OFRecordHeader &oHeader, OFDatabase &oDB) :
 
-    Inherited(oHeader, oDB)
+    Inherited  (oHeader,
+                oDB    ),
+    iPad1      (0      ),
+    iFlags     (0      ),
+    iViewAsBBox(0      ),
+    iPad2      (0      )
 {
 }
 

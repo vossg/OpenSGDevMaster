@@ -110,16 +110,18 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
             pFBO   = NULL;
         }
 
-        void operator =(const ShadowMapElem &src)
+        const ShadowMapElem &operator =(const ShadowMapElem &src)
         {
             if(this != &src)
-                return;
+                return *this;
 
             uiType = src.uiType;
             pImage = src.pImage;
             pTexO  = src.pTexO;
             pTexE  = src.pTexE;
             pFBO   = src.pFBO;
+
+            return *this;
         }
 
         bool operator ==(const ShadowMapElem &other) const

@@ -168,15 +168,15 @@ class OSG_DRAWABLE_DLLMAPPING PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void operator ++(void);
-    void seek(Int32 index);
+    const PrimitiveIterator &operator ++(      void                     );
+          void  seek                    (      Int32             index  );
 
-    PrimitiveIterator & operator =(const PrimitiveIterator &source);
+    const PrimitiveIterator &operator = (const PrimitiveIterator &source);
 
-    bool operator <  (const PrimitiveIterator &other) const;
+          bool               operator < (const PrimitiveIterator &other ) const;
 
-    bool operator == (const PrimitiveIterator &other) const;
-    bool operator != (const PrimitiveIterator &other) const;
+          bool               operator ==(const PrimitiveIterator &other ) const;
+          bool               operator !=(const PrimitiveIterator &other ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

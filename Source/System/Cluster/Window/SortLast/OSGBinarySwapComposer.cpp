@@ -64,22 +64,48 @@ void BinarySwapComposer::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 BinarySwapComposer::BinarySwapComposer(void) :
-    Inherited(),
-    _writer(NULL),
-    _barrier(NULL),
-    _stopWriter(false),
-    _intDepthMax(0xffffffff),
-    _shortDepthMax(0xffff)
+     Inherited     (          ),
+    _writer        (NULL      ),
+    _barrier       (NULL      ),
+    _stopWriter    (false     ),
+    _swapWith      (0         ),
+    _swapConnection(NULL      ),
+    _tilesX        (0         ),
+    _tilesY        (0         ),
+    _tileBufferSize(0         ),
+    _tile          (          ),
+    _readTile      (          ),
+    _writeLeft     (0         ),
+    _writeRight    (0         ),
+    _writeBottom   (0         ),
+    _writeTop      (0         ),
+    _usableServers (0         ),
+    _statistics    (          ),
+    _intDepthMax   (0xffffffff),
+    _shortDepthMax (0xffff    )
 {
 }
 
 BinarySwapComposer::BinarySwapComposer(const BinarySwapComposer &source) :
-    Inherited(source),
-    _writer(NULL),
-    _barrier(NULL),
-    _stopWriter(false),
-    _intDepthMax(0xffffffff),
-    _shortDepthMax(0xffff)
+     Inherited     (source    ),
+    _writer        (NULL      ),
+    _barrier       (NULL      ),
+    _stopWriter    (false     ),
+    _swapWith      (0         ),
+    _swapConnection(NULL      ),
+    _tilesX        (0         ),
+    _tilesY        (0         ),
+    _tileBufferSize(0         ),
+    _tile          (          ),
+    _readTile      (          ),
+    _writeLeft     (0         ),
+    _writeRight    (0         ),
+    _writeBottom   (0         ),
+    _writeTop      (0         ),
+    _usableServers (0         ),
+    _statistics    (          ),
+    _intDepthMax   (0xffffffff),
+    _shortDepthMax (0xffff    )
 {
 }
 

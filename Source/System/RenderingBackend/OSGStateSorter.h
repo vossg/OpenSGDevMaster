@@ -215,6 +215,7 @@ class OSG_SYSTEM_DLLMAPPING StateSorter
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */
+    StateSorter(const StateSorter &other);
     void operator =(const StateSorter &source);    
 };
 

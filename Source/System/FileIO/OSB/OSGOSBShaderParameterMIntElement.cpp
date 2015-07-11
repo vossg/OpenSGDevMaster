@@ -53,8 +53,11 @@ OSBElementRegistrationHelper<OSBShaderParameterMIntElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBShaderParameterMIntElement::OSBShaderParameterMIntElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBShaderParameterMIntElement::OSBShaderParameterMIntElement(
+    OSBRootElement *root) :
+
+     Inherited(root, OSGOSBHeaderVersion200),
+    _value    (                            )
 {
 }
 

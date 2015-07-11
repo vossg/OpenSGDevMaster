@@ -69,7 +69,8 @@ const Int32 BitPacker::BITS_PER_WORD = 32;
 
 BitPacker::BitPacker(UInt32 size, UInt32 max)
     : _numBitsToPack(1),
-      _nextBit      (0)
+      _nextBit      (0),
+      _buffer       ( )
 {
     while(true)
     {

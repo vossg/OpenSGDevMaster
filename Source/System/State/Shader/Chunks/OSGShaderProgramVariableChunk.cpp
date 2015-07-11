@@ -103,7 +103,8 @@ void ShaderProgramVariableChunk::initMethod(InitPhase ePhase)
 
 ShaderProgramVariableChunk::ShaderProgramVariableChunk(void) :
      Inherited( ),
-    _uiVarId  (0)
+    _uiVarId  (0),
+    _uiChunkId(0)
 {
 }
 
@@ -111,7 +112,8 @@ ShaderProgramVariableChunk::ShaderProgramVariableChunk(
     const ShaderProgramVariableChunk &source) :
 
      Inherited(source),
-    _uiVarId  (0     )
+    _uiVarId  (0     ),
+    _uiChunkId(0     )
 {
 }
 

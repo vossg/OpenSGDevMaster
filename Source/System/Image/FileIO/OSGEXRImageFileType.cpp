@@ -147,6 +147,9 @@ class StdIStream : public Imf::IStream
     bool checkError();
 
     std::istream *_is;
+
+    StdIStream(const StdIStream &other);
+    void operator =(const StdIStream &rhs);
 };
 
 //-------------------------------------------------------------------------
@@ -171,6 +174,9 @@ class StdOStream : public Imf::OStream
     void checkError();
 
     std::ostream *_os;
+
+    StdOStream(const StdOStream &other);
+    void operator =(const StdOStream &rhs);
 };
 
 //-------------------------------------------------------------------------

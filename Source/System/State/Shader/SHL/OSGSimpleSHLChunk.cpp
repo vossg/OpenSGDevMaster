@@ -353,12 +353,14 @@ void SimpleSHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleSHLChunk::SimpleSHLChunk(void) :
-    Inherited()
+     Inherited( ),
+    _uiChunkId(0)
 {
 }
 
 SimpleSHLChunk::SimpleSHLChunk(const SimpleSHLChunk &source) :
-    Inherited(source)
+     Inherited(source),
+    _uiChunkId(0     )
 {
 }
 

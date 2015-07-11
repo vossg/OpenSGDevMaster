@@ -43,8 +43,10 @@ OSG_BEGIN_NAMESPACE
 /* Constructor                                                             */
 
 OSBShaderParameterElement::OSBShaderParameterElement(
-    OSBRootElement *root, UInt16 version)
-    : Inherited(root, version)
+    OSBRootElement *root, UInt16 version) :
+
+     Inherited(root, version),
+    _name     (             )
 {
 }
 

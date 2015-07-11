@@ -231,11 +231,16 @@ void PointerSField<PtrTypeT,
 template <class    PtrTypeT, 
           typename RefCountPolicy,
           Int32    NamespaceI    > inline 
-void PointerSField<PtrTypeT,
-                   RefCountPolicy,
-                   NamespaceI    >::operator =(const Self &other)
+const typename PointerSField<PtrTypeT,
+                             RefCountPolicy,
+                             NamespaceI    >::Self &
+    PointerSField<PtrTypeT,
+                  RefCountPolicy,
+                  NamespaceI    >::operator =(const Self &other)
 {
     this->ptrStoreSet(other.ptrStoreGet());
+
+    return *this;
 }
 
 OSG_END_NAMESPACE

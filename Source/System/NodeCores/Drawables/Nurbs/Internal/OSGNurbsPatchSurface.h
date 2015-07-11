@@ -83,6 +83,8 @@ struct SCone
     Vec3d clDirection;
 //	double					dHalfAngle;
     double dThreshold;
+
+    SCone(void) : clDirection(), dThreshold() {}
 };
 
 struct SSurface
@@ -109,6 +111,61 @@ struct SSurface
     Vec2d clMinParam;
     Vec2d clMaxParam;
 #endif
+
+    SSurface(void):
+        dError           ( 0.0),
+        fMinError        ( 0.f),
+        fMaxError        ( 0.f),
+        ucStatus         (   0),
+        vvclBezierCurves (    ),
+        vvcl3DCurves     (    ),
+        vvclEdgeLoops    (    ),
+        vvclEdgeLoops3D  (    ),
+// added to comply with ParSpaceTrimmer when using FORCE_NO_T_VERTICES
+        vvclEdgeLoopsNorm(    ),
+        vvclEdgeLoopsTex (    ),
+        clMin            (    ),
+        clMax            (    ),
+        pclErrorTree     (NULL),
+        uiTriangleCnt    (   0),
+        vbReversed       (    ),
+        vbUsed           (    ),
+        tNormalCone      (    ),
+#ifdef OSG_ARBITRARY_SPLIT
+        clMinParam       (    ),
+        clMaxParam       (    )
+    {
+    }
+#endif
+
+    SSurface(const SSurface &source):
+        dError           (source.dError           ),
+        fMinError        (source.fMinError        ),
+        fMaxError        (source.fMaxError        ),
+        ucStatus         (source.ucStatus         ),
+        vvclBezierCurves (source.vvclBezierCurves ),
+        vvcl3DCurves     (source.vvcl3DCurves     ),
+        vvclEdgeLoops    (source.vvclEdgeLoops    ),
+        vvclEdgeLoops3D  (source.vvclEdgeLoops3D  ),
+// added to comply with ParSpaceTrimmer when using FORCE_NO_T_VERTICES
+        vvclEdgeLoopsNorm(source.vvclEdgeLoopsNorm),
+        vvclEdgeLoopsTex (source.vvclEdgeLoopsTex ),
+        clMin            (source.clMin            ),
+        clMax            (source.clMax            ),
+        pclErrorTree     (source.pclErrorTree     ),
+        uiTriangleCnt    (source.uiTriangleCnt    ),
+        vbReversed       (source.vbReversed       ),
+        vbUsed           (source.vbUsed           ),
+        tNormalCone      (source.tNormalCone      ),
+#ifdef OSG_ARBITRARY_SPLIT
+        clMinParam       (source.clMinParam       ),
+        clMaxParam       (source.clMaxParam       )
+    {
+    }
+#endif
+
+  private:
+    void operator=(const SSurface &rhs);
 };
 
 class OSG_DRAWABLE_DLLMAPPING CNurbsPatchSurface
@@ -256,6 +313,11 @@ class OSG_DRAWABLE_DLLMAPPING CNurbsPatchSurface
 #ifdef OSG_KEEP_2D_POINTS
     std::vector<unsigned int> m_vuiIndex;
 #endif
+
+  private:
+
+    CNurbsPatchSurface(const CNurbsPatchSurface &other);
+    void operator=(const CNurbsPatchSurface &rhs);
 };
 
 OSG_END_NAMESPACE

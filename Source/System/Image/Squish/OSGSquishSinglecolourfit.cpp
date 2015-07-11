@@ -60,7 +60,12 @@ static int FloatToInt( float a, int limit )
 }
 
 SingleColourFit::SingleColourFit( ColourSet const* colours, int flags )
-  : ColourFit( colours, flags )
+  : ColourFit( colours, flags ),
+    m_start(),
+    m_end(),
+    m_index(0),
+    m_error(0),
+    m_besterror(0)
 {
 	// grab the single colour
 	Vec3 const* values = m_colours->GetPoints();

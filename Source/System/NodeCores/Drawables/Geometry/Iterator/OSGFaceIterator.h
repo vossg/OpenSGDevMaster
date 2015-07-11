@@ -131,12 +131,12 @@ class OSG_DRAWABLE_DLLMAPPING FaceIterator : public PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void           seek        (Int32 index);    
-    void           operator ++ (void);
-    FaceIterator & operator =  (const FaceIterator &source);
-    bool           operator <  (const FaceIterator &other) const;
-    bool           operator == (const FaceIterator &other) const;
-    bool           operator != (const FaceIterator &other) const;
+          void          seek        (      Int32         index );    
+    const FaceIterator &operator ++ (      void                );
+    const FaceIterator &operator =  (const FaceIterator &source);
+          bool          operator <  (const FaceIterator &other ) const;
+          bool          operator == (const FaceIterator &other ) const;
+          bool          operator != (const FaceIterator &other ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

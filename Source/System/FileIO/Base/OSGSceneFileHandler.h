@@ -248,7 +248,7 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     {
         UInt32 uiRefPriority;
 
-        bool operator() (SceneFileType *fileTypeP);
+        bool operator() (SceneFileType *fileTypeP);        
     };
 
     /*---------------------------------------------------------------------*/
@@ -315,6 +315,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
         ThreadRefPtr  thread;
         UInt64        length;
         std::istream *is;
+
+        progressS(void) : thread(NULL), length(0), is(NULL) {}
+
+      private:
+
+        progressS(const progressS &other);
+        void operator =(const progressS &rhs);
     };
 
            void initReadProgress     (std::istream &is);

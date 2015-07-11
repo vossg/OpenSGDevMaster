@@ -73,9 +73,10 @@
 OSG_BEGIN_NAMESPACE
 
 ColladaElement::ColladaElement(daeElement *elem, ColladaGlobal *global)
-    : Inherited(      )
-    , _elem    (elem  )
-    , _global  (global)
+    : Inherited (      )
+    , _readState(0     )
+    , _elem     (elem  )
+    , _global   (global)
 {
 }
 

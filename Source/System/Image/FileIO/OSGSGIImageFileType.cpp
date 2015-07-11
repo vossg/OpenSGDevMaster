@@ -110,6 +110,27 @@ struct ImageRec
     std::vector<unsigned char> tmp;
     std::vector<unsigned int> rowStart;
     std::vector<unsigned int> rowSize;
+
+    ImageRec(void) :
+        imagic    (0   ),
+        type      (0   ),
+        dim       (0   ),
+        xsize     (0   ), 
+        ysize     (0   ), 
+        zsize     (0   ),
+        min       (0   ), 
+        max       (0   ),
+        wasteBytes(0   ),
+        colorMap  (0   ),
+        is        (NULL),
+        tmp       (    ),
+        rowStart  (    ),
+        rowSize   (    ) {}
+        
+  private:
+    
+    ImageRec(const ImageRec &other);
+    void operator =(const ImageRec &rhs);
 };
 
 #endif

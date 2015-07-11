@@ -63,11 +63,15 @@ VarianceShadowMapHandler::VarianceShadowMapHandler(
      Inherited     (pSource, 
                     pData,
                     eTargetBufferFormat,
-                    pWindow),
-    _pClearSMapBack(NULL   ),
-    _shadowSHL     (NULL   ),
-    _depthSHL      (NULL   ),
-    _firstRun      (1      )
+                    pWindow            ),
+    _pClearSMapBack(NULL               ),
+    _shadowSHL     (NULL               ),
+    _depthSHL      (NULL               ),
+    _firstRun      (1                  ),
+    _vShadowCmat   (                   ),
+    _vShadowSHLVar (                   ),
+    _vDepthCmat    (                   ),
+    _vDepthSHLVar  (                   )
 {
     _uiMode = ShadowStage::VARIANCE_SHADOW_MAP;
 

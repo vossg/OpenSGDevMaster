@@ -227,6 +227,8 @@ class MemObjPointerMFieldIterator :
   private:
 
     MFieldType  *_pField;
+
+    void operator =(const Self &rhs);
 };
 
 template <class PtrTypeT, class RefCountPolicyT, Int32 NamespaceI>

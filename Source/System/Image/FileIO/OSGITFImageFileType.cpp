@@ -182,8 +182,8 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
             uiOtherIdx = uiIdx - _uiColumns;
 
             _vSampleDescs[uiIdx].setBounds(
-                _vSampleDescs[uiOtherIdx].x0,
-                _vSampleDescs[uiOtherIdx].y1,
+                _vSampleDescs[uiOtherIdx]._x0,
+                _vSampleDescs[uiOtherIdx]._y1,
                 _vImages     [uiIdx     ]->getSize()[0],
                 _vImages     [uiIdx     ]->getSize()[1]);
         }
@@ -191,8 +191,8 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
         for(UInt32 i = 1; i < _uiColumns; ++i)
         {
             _vSampleDescs[i].setBounds(
-                _vSampleDescs[i - 1].x1,
-                _vSampleDescs[i - 1].y0,
+                _vSampleDescs[i - 1]._x1,
+                _vSampleDescs[i - 1]._y0,
                 _vImages     [i    ]->getSize()[0],
                 _vImages     [i    ]->getSize()[1]);
         }
@@ -206,8 +206,8 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
                 uiOtherIdx = (i - 1) * _uiColumns + (j - 1);
 
                 _vSampleDescs[uiIdx].setBounds(
-                    _vSampleDescs[uiOtherIdx].x1,
-                    _vSampleDescs[uiOtherIdx].y1,
+                    _vSampleDescs[uiOtherIdx]._x1,
+                    _vSampleDescs[uiOtherIdx]._y1,
                     _vImages     [uiIdx     ]->getSize()[0],
                     _vImages     [uiIdx     ]->getSize()[1]);
             }
@@ -221,15 +221,15 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
 
                 fprintf(stderr, "(%d)(%d %d) | %d %d %d %d\n",
                         uiIdx, i, j,
-                        _vSampleDescs[uiIdx].x0,
-                        _vSampleDescs[uiIdx].y0,
-                        _vSampleDescs[uiIdx].x1,
-                        _vSampleDescs[uiIdx].y1);
+                        _vSampleDescs[uiIdx]._x0,
+                        _vSampleDescs[uiIdx]._y0,
+                        _vSampleDescs[uiIdx]._x1,
+                        _vSampleDescs[uiIdx]._y1);
             }
         }
 
-        _vSize.setValues(_vSampleDescs.back().x1,
-                         _vSampleDescs.back().y1);
+        _vSize.setValues(_vSampleDescs.back()._x1,
+                         _vSampleDescs.back()._y1);
                          
         GeoReferenceAttachment *pFirstRef = 
             _vImages.front()->getGeoRef();
@@ -341,8 +341,8 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
     }
     else if(iLow == iHeigh)
     {
-        Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow].x0,
-                               vSampleOrigin.y() - _vSampleDescs[iLow].y0);
+        Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow]._x0,
+                               vSampleOrigin.y() - _vSampleDescs[iLow]._y0);
 
         return _vImages[iLow]->readBlockA16(vNewSampleOrigin,
                                             iTextureSize,
@@ -378,8 +378,8 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
     }
     else if(iLow != -1 && iHeigh == -1)
     {
-        Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow].x0,
-                               vSampleOrigin.y() - _vSampleDescs[iLow].y0);
+        Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow]._x0,
+                               vSampleOrigin.y() - _vSampleDescs[iLow]._y0);
 
         return _vImages[iLow]->readBlockA16(vNewSampleOrigin,
                                             iTextureSize,
@@ -411,8 +411,8 @@ bool TiledImageBlockAccessor::read2HBlocksA16(Int32   iLow,
                                               Int16  *pTarget,
                                               Int32   iTargetSizeBytes)
 {
-    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow].x0,
-                           vSampleOrigin.y() - _vSampleDescs[iLow].y0);
+    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow]._x0,
+                           vSampleOrigin.y() - _vSampleDescs[iLow]._y0);
 
     _vImages[iLow]->readBlockA16(vNewSampleOrigin,
                                  iTextureSize,
@@ -423,7 +423,7 @@ bool TiledImageBlockAccessor::read2HBlocksA16(Int32   iLow,
     _vI16Buffer.resize(iTextureSize * iTextureSize);
 
     vNewSampleOrigin.setValues(0,
-                               vSampleOrigin.y() - _vSampleDescs[iLow  ].y0);
+                               vSampleOrigin.y() - _vSampleDescs[iLow  ]._y0);
 
     _vImages[iHeigh]->readBlockA16(vNewSampleOrigin,
                                    iTextureSize,
@@ -445,7 +445,7 @@ bool TiledImageBlockAccessor::read2HBlocksA16(Int32   iLow,
 
         for(Int32 x = xMin; x < xMax; x++)
         {
-            if(x >= _vSampleDescs[iHeigh].x0)
+            if(x >= _vSampleDescs[iHeigh]._x0)
             {
                 pTarget[destIdx] = _vI16Buffer[srcIdx];
 
@@ -467,8 +467,8 @@ bool TiledImageBlockAccessor::read2VBlocksA16(Int32   iLow,
                                               Int16  *pTarget,
                                               Int32   iTargetSizeBytes)
 {
-    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow].x0,
-                           vSampleOrigin.y() - _vSampleDescs[iLow].y0);
+    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow]._x0,
+                           vSampleOrigin.y() - _vSampleDescs[iLow]._y0);
 
     _vImages[iLow]->readBlockA16(vNewSampleOrigin,
                                  iTextureSize,
@@ -478,7 +478,7 @@ bool TiledImageBlockAccessor::read2VBlocksA16(Int32   iLow,
 
     _vI16Buffer.resize(iTextureSize * iTextureSize);
 
-    vNewSampleOrigin.setValues(vSampleOrigin.x() - _vSampleDescs[iLow  ].x0,
+    vNewSampleOrigin.setValues(vSampleOrigin.x() - _vSampleDescs[iLow  ]._x0,
                                0);
 
     _vImages[iHeigh]->readBlockA16(vNewSampleOrigin,
@@ -499,7 +499,7 @@ bool TiledImageBlockAccessor::read2VBlocksA16(Int32   iLow,
     {
         for(Int32 x = xMin; x < xMax; x++)
         {
-            if(y >= _vSampleDescs[iHeigh].y0)
+            if(y >= _vSampleDescs[iHeigh]._y0)
             {
                 pTarget[destIdx] = _vI16Buffer[srcIdx];
 
@@ -520,8 +520,8 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
                                              Int16  *pTarget,
                                              Int32   iTargetSizeBytes)
 {
-    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow].x0,
-                           vSampleOrigin.y() - _vSampleDescs[iLow].y0);
+    Vec2i vNewSampleOrigin(vSampleOrigin.x() - _vSampleDescs[iLow]._x0,
+                           vSampleOrigin.y() - _vSampleDescs[iLow]._y0);
 
     _vImages[iLow]->readBlockA16(vNewSampleOrigin,
                                  iTextureSize,
@@ -532,7 +532,7 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
     _vI16Buffer.resize(iTextureSize * iTextureSize);
 
     vNewSampleOrigin.setValues(0,
-                               vSampleOrigin.y() - _vSampleDescs[iLow  ].y0);
+                               vSampleOrigin.y() - _vSampleDescs[iLow  ]._y0);
 
     _vImages[iLow + 1]->readBlockA16(vNewSampleOrigin,
                                      iTextureSize,
@@ -554,7 +554,7 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
 
         for(Int32 x = xMin; x < xMax; x++)
         {
-            if(x >= _vSampleDescs[iLow + 1].x0)
+            if(x >= _vSampleDescs[iLow + 1]._x0)
             {
                 pTarget[destIdx] = _vI16Buffer[srcIdx];
 
@@ -565,7 +565,7 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
         }
     }
 
-    vNewSampleOrigin.setValues(vSampleOrigin.x() - _vSampleDescs[iLow  ].x0,
+    vNewSampleOrigin.setValues(vSampleOrigin.x() - _vSampleDescs[iLow  ]._x0,
                                0);
 
     _vImages[iLow + _uiColumns]->readBlockA16(vNewSampleOrigin,
@@ -580,7 +580,7 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
     {
         for(Int32 x = xMin; x < xMax; x++)
         {
-            if(y >= _vSampleDescs[iLow + _uiColumns].y0)
+            if(y >= _vSampleDescs[iLow + _uiColumns]._y0)
             {
                 pTarget[destIdx] = _vI16Buffer[srcIdx];
 
@@ -606,8 +606,8 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
 
         for(Int32 x = xMin; x < xMax; x++)
         {
-            if(x >= _vSampleDescs[iHeigh].x0 &&
-               y >= _vSampleDescs[iHeigh].y0)
+            if(x >= _vSampleDescs[iHeigh]._x0 &&
+               y >= _vSampleDescs[iHeigh]._y0)
             {
                 pTarget[destIdx] = _vI16Buffer[srcIdx];
 

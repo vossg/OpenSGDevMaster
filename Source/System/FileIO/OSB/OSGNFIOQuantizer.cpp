@@ -70,10 +70,13 @@ const UInt8 Quantizer::QRES_24BIT = 3;
 
 /*----------------------------- constructors  -----------------------------*/
 
-Quantizer::Quantizer(Real32 inputMin, Real32 inputMax, UInt8 res)
+Quantizer::Quantizer(Real32 inputMin, Real32 inputMax, UInt8 res) :
+    _inputMin    (inputMin),
+    _inputMax    (inputMax),
+    _resolution  (0       ),
+    _intervalSize(1.f     ),
+    _inputScale  (1.f     )
 {
-    _inputMin = inputMin;
-    _inputMax = inputMax;
 
     switch(res)
     {

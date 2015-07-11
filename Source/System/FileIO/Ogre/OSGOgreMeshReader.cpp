@@ -58,6 +58,7 @@ const std::string OgreMeshReader::_versionString("[MeshSerializer_v1.8]");
 OgreMeshReader::OgreMeshReader(std::istream& is, const OgreOptions &options)
     : Inherited(is),
       _options (options),
+      _matMap  (),
       _rootN   (),
       _skel    ()
 {

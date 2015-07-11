@@ -32,7 +32,12 @@
 namespace osgsquish {
 
 ClusterFit::ClusterFit( ColourSet const* colours, int flags ) 
-  : ColourFit( colours, flags )
+  : ColourFit( colours, flags ),
+    m_iterationCount(0),
+    m_principle(),
+    m_xsum_wsum(),
+    m_metric(),
+    m_besterror()
 {
 	// set the iteration count
 	m_iterationCount = ( m_flags & kColourIterativeClusterFit ) ? kMaxIterations : 1;

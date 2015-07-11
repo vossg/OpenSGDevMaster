@@ -660,12 +660,18 @@ bool MField<ValueT,
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-void MField<ValueT, iNamespace, AllocT>::operator =(const MField &source)
+const MField<ValueT, 
+            iNamespace, 
+            AllocT    > &MField<ValueT, 
+                                iNamespace, 
+                                AllocT    >::operator =(const MField &source)
 {
     if(this == &source)
-       return;
+       return *this;
 
     _values = source._values;
+
+    return *this;
 }
 
 /*-------------------------------------------------------------------------*/

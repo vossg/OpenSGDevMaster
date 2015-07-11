@@ -94,12 +94,14 @@ void CSMViewport::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 CSMViewport::CSMViewport(void) :
-    Inherited()
+     Inherited (),
+    _vViewports()
 {
 }
 
 CSMViewport::CSMViewport(const CSMViewport &source) :
-    Inherited(source)
+     Inherited (source            ),
+    _vViewports(source._vViewports)
 {
 }
 

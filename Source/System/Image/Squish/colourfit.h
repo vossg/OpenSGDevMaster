@@ -37,6 +37,7 @@ class ColourFit
 {
 public:
 	ColourFit( ColourSet const* colours, int flags );
+    virtual ~ColourFit(void) {}
 
 	void Compress( void* block );
 
@@ -46,6 +47,10 @@ protected:
 
 	ColourSet const* m_colours;
 	int m_flags;
+private:
+
+    ColourFit(const ColourFit &other);
+    void operator =(const ColourFit &rhs);
 };
 
 } // namespace squish

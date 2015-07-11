@@ -89,14 +89,16 @@ void SimpleSHLVariableChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleSHLVariableChunk::SimpleSHLVariableChunk(void) :
-    Inherited()
+     Inherited( ),
+    _uiChunkId(0)
 {
 }
 
 SimpleSHLVariableChunk::SimpleSHLVariableChunk(
     const SimpleSHLVariableChunk &source) :
 
-    Inherited(source)
+     Inherited(source),
+    _uiChunkId(0     )
 {
 }
 

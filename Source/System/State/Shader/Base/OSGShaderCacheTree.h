@@ -396,8 +396,8 @@ class VariantPtr
     void setAsT1(Object1T * const rhs);
     void setAsT2(Object2T * const rhs);
 
-    void operator =(Object1T * const rhs);
-    void operator =(Object2T * const rhs);
+    const VariantPtr &operator =(Object1T * const rhs);
+    const VariantPtr &operator =(Object2T * const rhs);
 
     Object2T *operator ->(void) const;
 
@@ -510,6 +510,11 @@ class ShaderCacheTreeV1
         TreeNode       *_pPrev;
         TreeNode       *_pNext;
         ChildPtr        _vChildren[LevelSize];
+
+      private:
+
+        TreeNode(const TreeNode &other);
+        void operator =(const TreeNode &rhs);
     };
 
 #ifdef OSG_DEBUG
@@ -538,6 +543,9 @@ class ShaderCacheTreeV1
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    ShaderCacheTreeV1(const ShaderCacheTreeV1 &other);
+    void operator =(const ShaderCacheTreeV1 &rhs);
 };
 
 #ifdef OSG_SHC_MODE_3
@@ -636,6 +644,11 @@ class ShaderCacheTreeV2
         TreeNode       *_pNext;
         UInt16          _vJumps[LevelSize];
         ChildPtr        _vChildren[LevelSize];
+
+      private:
+
+        TreeNode(const TreeNode &other);
+        void operator =(const TreeNode &rhs);
     };
 
 #ifdef OSG_DEBUG
@@ -664,6 +677,9 @@ class ShaderCacheTreeV2
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    ShaderCacheTreeV2(const ShaderCacheTreeV2 &other);
+    void operator =(const ShaderCacheTreeV2 &rhs);
 };
 
 #ifdef OSG_SHC_MODE_4
@@ -763,6 +779,11 @@ class ShaderCacheTreeV3
         TreeNode       *_pNext;
         UInt16          _vJumps[LevelSize];
         ChildPtr        _vChildren[LevelSize];
+
+      private:
+
+        TreeNode(const TreeNode &other);
+        void operator =(const TreeNode &rhs);
     };
 
 #ifdef OSG_DEBUG
@@ -794,6 +815,9 @@ class ShaderCacheTreeV3
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    ShaderCacheTreeV3(const ShaderCacheTreeV3 &other);
+    void operator =(const ShaderCacheTreeV3 &rhs);
 };
 
 #ifdef OSG_SHC_MODE_5

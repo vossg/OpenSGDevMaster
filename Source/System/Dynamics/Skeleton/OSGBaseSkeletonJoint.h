@@ -89,6 +89,7 @@ class OSG_DYNAMICS_DLLMAPPING BaseSkeletonJoint : public BaseSkeletonJointBase
 
       private:
         JointTraverser(const JointTraverser &other);
+        void operator =(const JointTraverser &rhs);
     };
 
     static const Int16 INVALID_JOINT_ID;

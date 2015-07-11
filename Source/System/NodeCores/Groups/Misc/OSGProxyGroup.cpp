@@ -111,12 +111,14 @@ void ProxyGroup::dump(       UInt32    OSG_CHECK_ARG(uiIndent),
 /*                            Constructors                                 */
 
 ProxyGroup::ProxyGroup(void) :
-    Inherited()
+     Inherited (    ),
+    _loadedRoot(NULL)
 {
 }
 
 ProxyGroup::ProxyGroup(const ProxyGroup &source) :
-    Inherited(source)
+     Inherited (source),
+    _loadedRoot(NULL  )
 {
 }
 

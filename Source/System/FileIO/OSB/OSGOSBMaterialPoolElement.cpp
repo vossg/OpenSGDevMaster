@@ -62,8 +62,10 @@ OSBElementRegistrationHelper<OSBMaterialPoolElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBMaterialPoolElement::OSBMaterialPoolElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBMaterialPoolElement::OSBMaterialPoolElement(OSBRootElement *root) :
+
+     Inherited  (root, OSGOSBHeaderVersion200),
+    _pCollection(NULL                        )
 {
 }
 

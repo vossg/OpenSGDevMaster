@@ -62,7 +62,12 @@ OSG_USING_NAMESPACE
  */
 
 PointSockConnection::PointSockConnection():
-    Inherited(0)
+     Inherited        (0),
+    _acceptSocket     ( ),
+    _socket           ( ),
+    _remoteAddress    ( ),
+    _socketReadBuffer ( ),
+    _socketWriteBuffer( )
 {
     _acceptSocket.open();
     _acceptSocket.setReusePort(true);

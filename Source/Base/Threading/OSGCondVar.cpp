@@ -96,7 +96,8 @@ CondVarCommonBase::~CondVarCommonBase(void)
 /*--------------------------- Constructors --------------------------------*/
 
 PThreadCondVarBase::PThreadCondVarBase(void):
-     Inherited    (),
+     Inherited       (),
+    _pLowLevelLock   (),
     _pLowLevelCondVar()
 {
 }

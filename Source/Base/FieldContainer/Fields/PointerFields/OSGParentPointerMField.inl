@@ -1054,15 +1054,20 @@ void ParentPointerMField<PtrTypeT,
 }
      
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
-void ParentPointerMField<PtrTypeT, 
-                         RefCountPolicy,
-                         NamespaceI>::operator =(const Self &source)
+const typename ParentPointerMField<PtrTypeT, 
+                                   RefCountPolicy,
+                                   NamespaceI    >::Self &
+    ParentPointerMField<PtrTypeT, 
+                        RefCountPolicy,
+                        NamespaceI>::operator =(const Self &source)
 {
     this->ptrStoreAssign(source.begin(),
                          source.end  ());
 
 
     _vParentPos = source._vParentPos;
+
+    return *this;
 }
                    
 OSG_END_NAMESPACE

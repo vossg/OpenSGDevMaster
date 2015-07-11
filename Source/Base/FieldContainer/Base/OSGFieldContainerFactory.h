@@ -91,7 +91,7 @@ class OSG_BASE_DLLMAPPING DerivedFieldContainerTypeIterator
     FieldContainerType *operator->(void);
     FieldContainerType *operator *(void);
 
-    void operator++ (void);
+    const DerivedFieldContainerTypeIterator &operator++ (void);
 
     bool operator ==(const DerivedFieldContainerTypeIterator &lhs);
     bool operator !=(const DerivedFieldContainerTypeIterator &lhs);

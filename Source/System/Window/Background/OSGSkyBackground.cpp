@@ -98,12 +98,16 @@ const Vec3f SkyBackground::_defaultVRMLTexCoords[7][4] =
 /*----------------------- constructors & destructors ----------------------*/
 
 SkyBackground::SkyBackground(void) :
-    Inherited()
+    Inherited(),
+    _cosval(),
+    _sinval()
 {
 }
 
 SkyBackground::SkyBackground(const SkyBackground &source) :
-    Inherited(source)
+     Inherited(source        ),
+    _cosval   (source._cosval),
+    _sinval   (source._sinval)
 {
 }
 

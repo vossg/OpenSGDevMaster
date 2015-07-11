@@ -227,7 +227,8 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TreeBuilderBase &source);    
+    TreeBuilderBase(const TreeBuilderBase &other);
+    void operator =(const TreeBuilderBase &source);
 };
 
 //---------------------------------------------------------------------------

@@ -42,7 +42,9 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------- constructor ----------------------------------*/
 
 template <class MPFieldT> inline
-MPFieldStore<MPFieldT>::MPFieldStore(void)
+MPFieldStore<MPFieldT>::MPFieldStore(void) :
+    _mFieldTypeMap(),
+    _mFieldMap    ()
 {
 }
 

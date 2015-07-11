@@ -101,16 +101,44 @@ void GPUVolRTV2::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 GPUVolRTV2::GPUVolRTV2(void) :
-    Inherited(),
-    bInitialized(false)
+    Inherited      (     ),
+    bInitialized   (false),
+    renderbuffer   (0    ), 
+    framebuffer    (0    ),
+    volume_texture (0    ),
+    backface_buffer(0    ),
+    final_image    (0    ),
+
+    vertexprog     (0    ),
+    fragmentprog   (0    ),
+    shaderprog     (0    ),
+    stepsizeLoc    (0    ),
+    mvLoc          (0    ),
+    mpLoc          (0    ),
+    texLoc         (0    ),
+    volumeTexLoc   (0    )
 {
 //    stepsize = 1.0/50.0;
 //    toggle_visuals = true;
 }
 
 GPUVolRTV2::GPUVolRTV2(const GPUVolRTV2 &source) :
-    Inherited(source),
-    bInitialized(false)
+    Inherited      (source),
+    bInitialized   (false ),
+    renderbuffer   (0     ), 
+    framebuffer    (0     ),
+    volume_texture (0     ),
+    backface_buffer(0     ),
+    final_image    (0     ),
+
+    vertexprog     (0     ),
+    fragmentprog   (0     ),
+    shaderprog     (0     ),
+    stepsizeLoc    (0     ),
+    mvLoc          (0     ),
+    mpLoc          (0     ),
+    texLoc         (0     ),
+    volumeTexLoc   (0     )
 {
 //    stepsize = 1.0/50.0;
 //    toggle_visuals = true;

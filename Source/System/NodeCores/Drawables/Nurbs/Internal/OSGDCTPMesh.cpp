@@ -52,12 +52,19 @@ static char THIS_FILE[] = __FILE__;
 const char DCTPMesh::ff_const_1[] = "BEGINTRIANGLESOUP";
 const char DCTPMesh::ff_const_2[] = "BEGINQUADSOUP";
 
-DCTPMesh::DCTPMesh()
+DCTPMesh::DCTPMesh() :
+    vertices    (    ),
+#ifdef OSG_NO_EDGE_SET
+    edges       (    ),
+#else
+    edges       (    ),
+#endif
+    faces       (    ),
+    vertex_count(0   ),
+    edge_count  (0   ),
+    face_count  (0   ),
+    invalid     (true)
 {
-    vertex_count = 0;
-    edge_count   = 0;
-    face_count   = 0;
-    invalid      = true;
 }
 
 DCTPMesh::~DCTPMesh()

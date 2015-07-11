@@ -162,11 +162,12 @@ TriangleIterator::~TriangleIterator(void)
 /*! The increment operator steps the iterator to the next triangle. If it is
     already beyond the last triangle it does not change.
 */
-void TriangleIterator::operator++()
+
+const TriangleIterator &TriangleIterator::operator++()
 {
     // already at end?
     if(isAtEnd())
-        return;
+        return *this;
     
     ++_triIndex;
 
@@ -176,7 +177,7 @@ void TriangleIterator::operator++()
         ++(static_cast<PrimitiveIterator&>(*this));      
         startPrim();
         
-        return;
+        return *this;
     }
 
     switch(getType())
@@ -263,7 +264,9 @@ void TriangleIterator::operator++()
                  << ", ignoring!" << std::endl;
         startPrim();
         break;
-    }           
+    }     
+
+    return *this;
 }
 
 
@@ -380,7 +383,8 @@ void TriangleIterator::setToEnd(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-TriangleIterator& TriangleIterator::operator =(const TriangleIterator &source)
+const TriangleIterator &
+    TriangleIterator::operator =(const TriangleIterator &source)
 {
     if(this == &source)
         return *this;

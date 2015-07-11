@@ -170,6 +170,9 @@ class OSG_BASE_DLLMAPPING Dgram
 
   private:
 
+    Dgram(const Dgram &other);
+    void operator =(const Dgram &rhs);
+
 };
 
 // class pointer

@@ -119,7 +119,8 @@ void ParticleBSPNode::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 /*----------------------- constructors & destructors ----------------------*/
 
-ParticleBSPTree::ParticleBSPTree(void)
+ParticleBSPTree::ParticleBSPTree(void) :
+    _tree()
 {
 }
 

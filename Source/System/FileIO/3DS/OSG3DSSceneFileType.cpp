@@ -118,7 +118,8 @@ A3DSSceneFileType::A3DSSceneFileType(const Char8  *suffixArray[],
                   suffixByteCount,
                   override,
                   overridePriority,
-                  flags)
+                  flags),
+    _materials()
 {
 }
 

@@ -55,12 +55,17 @@ class OSG_DRAWABLE_DLLMAPPING SimplePolygon
   public:
     SimplePolygon();
     // copy constructor
-    SimplePolygon(const SimplePolygon &p)
+    SimplePolygon(const SimplePolygon &p) :
+        vertices        (p.vertices ),
+        is_marked       (p.is_marked),
+        validThirdPoints(           ),
+        numThirdPoints  (          0),
+        maxCalculated   (          0),
+        v1tp            (         -1),
+        v2tp            (         -1),
+        m_bConvex       (p.m_bConvex)
+        
     {
-        vertices  = p.vertices;
-        is_marked = p.is_marked;
-        v1tp      = -1;
-        m_bConvex = p.m_bConvex;
     }
     ~SimplePolygon() {};
 

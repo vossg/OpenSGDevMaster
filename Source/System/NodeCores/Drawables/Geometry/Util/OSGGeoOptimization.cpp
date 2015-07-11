@@ -55,6 +55,7 @@ namespace
         typedef std::vector<GeoIntegralProperty *> IndexStore;
 
         explicit ITLess(Geometry *geo);
+        ITLess(const ITLess &other);
 
         bool operator()(UInt32 lhs, UInt32 rhs) const;
 
@@ -62,6 +63,10 @@ namespace
 
         Geometry   *_geo;
         IndexStore  _istore;
+
+      private:
+        
+        void operator =(const ITLess &rhs);
     };
 
     /* explicit */
@@ -86,6 +91,13 @@ namespace
                     _istore.push_back(idx);
             }
         }
+    }
+
+    ITLess::ITLess(const ITLess &other)
+        : _geo   (other._geo),
+          _istore(other._istore)
+    {
+        
     }
 
     bool

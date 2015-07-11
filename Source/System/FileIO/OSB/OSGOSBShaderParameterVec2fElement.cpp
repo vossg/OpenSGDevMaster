@@ -53,8 +53,11 @@ OSBElementRegistrationHelper<OSBShaderParameterVec2fElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBShaderParameterVec2fElement::OSBShaderParameterVec2fElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBShaderParameterVec2fElement::OSBShaderParameterVec2fElement(
+    OSBRootElement *root) : 
+    
+     Inherited(root, OSGOSBHeaderVersion200),
+    _value    (                            )
 {
 }
 

@@ -460,10 +460,16 @@ void TrackballEngine::translateZ(Real32 distance)
 /*------------------------- constructors ----------------------------------*/
 
 TrackballEngine::TrackballEngine(Real32 rSize) : 
-     Inherited(       ), 
-    _rRadius  (rSize  ),
-    _ip       (0, 0, 0),
-    _dir      (0, 0, 0)
+     Inherited  (       ), 
+    _rRadius    (rSize  ),
+    _rDistance  (0.f    ),
+    _tMatrix    (       ),
+    _finalMatrix(       ),
+    _pFrom      (       ),
+    _pAt        (       ),
+    _vUp        (       ),
+    _ip         (0, 0, 0),
+    _dir        (0, 0, 0)
 {
     _finalMatrix.setIdentity();
     _tMatrix    .setIdentity();

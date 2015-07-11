@@ -228,8 +228,10 @@ UInt32 NestedPerfTracker::max_samples = 500;
 
 PerfMonitorBase::PerfMonitorBase()
     : mEnabled(false) 
+    , mSamples()
     , mDataLock(NULL)
     , mCurrentFrameNum(0)
+    , mStartTimeMs(0.0)
     , mFlushingRate(600)
     , mOutFile(NULL)
 {      

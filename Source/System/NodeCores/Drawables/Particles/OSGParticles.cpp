@@ -639,12 +639,18 @@ struct PosTraitGeneric : public ParticleTraits
 {
     /*! \nohierarchy
      */
-    typedef struct
+    struct dataType
     {
         GeoVectorProperty *pos;
         Pnt3f              p;
-    }
-    dataType;
+
+        dataType(void) : pos(NULL), p() {}
+
+      private:
+
+        dataType(const dataType &other);
+        void operator =(const dataType &rhs);
+    };
 
     static inline void init(Particles *, DrawEnv *, dataType &data,
         GeoVectorProperty *pos)
@@ -736,6 +742,12 @@ struct SizeTraitGeneric : public ParticleTraits
         const MFVec3f *sizes;
               Vec3f    s;
               bool     perParticle;
+
+        dataType(void): sizes(NULL), s(), perParticle(true) {}
+        
+      private:
+        dataType(const dataType &other);
+        void operator =(const dataType &rhs);
     };
 
     static inline void init(Particles *part, DrawEnv *, dataType &data)
@@ -785,11 +797,12 @@ struct SizeTraitSingle : public ParticleTraits
 {
     /*! \nohierarchy
      */
-    typedef struct
+    struct dataType
     {
         Vec3f    s;
-    }
-    dataType;
+
+        dataType(void) : s() {}
+    };
 
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
@@ -817,6 +830,12 @@ struct SizeTraitParticle : public ParticleTraits
     {
         const MFVec3f *sizes;
               Vec3f    s;
+
+        dataType(void) : sizes(NULL), s(){}
+
+      private:
+        dataType(const dataType &other);
+        void operator =(const dataType &rhs);
     };
 
     static inline void init(Particles *part, DrawEnv *, dataType &data)
@@ -1023,13 +1042,19 @@ struct NormalTraitGeneric : public ParticleTraits
 {
     /*! \nohierarchy
      */
-    typedef struct
+    struct dataType
     {
         GeoVectorProperty *norms;
         Vec3f              n;
         bool               perParticle;
-    }
-    dataType;
+
+        dataType(void) : norms(NULL), n(), perParticle(true) {}
+
+      private:
+
+        dataType(const dataType &other);
+        void operator =(const dataType &rhs);
+    };
 
     static inline void init(Particles *part, DrawEnv *, dataType &data)
     {
@@ -2726,12 +2751,12 @@ struct drawShaderStrips : public ParticlesDrawer
 
 struct sorter
 {
-    sorter() {}
+    sorter() : _value(0.f), _index(0) {}
 
-    sorter(Real32 value, Int32 index)
+    sorter(Real32 value, Int32 index) :
+        _value(value),
+        _index(index)
     {
-        _value=value;
-        _index=index;
     }
 
     bool operator<(const sorter &a) const

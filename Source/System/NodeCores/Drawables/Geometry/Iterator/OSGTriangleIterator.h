@@ -137,13 +137,13 @@ class OSG_DRAWABLE_DLLMAPPING TriangleIterator : public PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void operator ++(void);
-    void seek(Int32 index);
+    const TriangleIterator &operator ++ (      void                    );
+          void              seek        (      Int32            index  );
 
-    TriangleIterator & operator =(const TriangleIterator &source);
-    bool operator < (const TriangleIterator &other) const;
-    bool operator == (const TriangleIterator &other) const;
-    bool operator != (const TriangleIterator &other) const;
+    const TriangleIterator &operator =  (const TriangleIterator &source);
+          bool              operator <  (const TriangleIterator &other ) const;
+          bool              operator == (const TriangleIterator &other ) const;
+          bool              operator != (const TriangleIterator &other ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -63,6 +63,8 @@ struct RenderActionFunctorCallback
     std::string          _createSymbol;
 
     typedef std::allocator<void> Alloc;
+
+    RenderActionFunctorCallback(void): _func(), _uiId(0), _createSymbol() {}
 };
 
 /*! \ingroup GrpGroupStageFieldTraits

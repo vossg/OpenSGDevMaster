@@ -545,7 +545,7 @@ class ParentPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    void operator =(const Self &source);
+    const Self &operator =(const Self &source);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -96,10 +96,11 @@ OSG_USING_NAMESPACE
 
 OSGScanParseLexer::OSGScanParseLexer(std::istream           *arg_yyin,
                                      std::ostream           *arg_yyout) :
-     Inherited       (arg_yyin,
+    Inherited        (arg_yyin,
                       arg_yyout),
 
     lvalp            (        0),
+    tmpStr           (         ),
     expectToken      (        0),
     imageIntsExpected(        0)
 {

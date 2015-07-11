@@ -159,6 +159,8 @@ struct ChangedFunctorCallback
     std::string    _createSymbol;
 
     typedef std::allocator<void> Alloc;
+
+    ChangedFunctorCallback(void) : _func(), _createSymbol() {}
 };
 
 namespace FCLocal

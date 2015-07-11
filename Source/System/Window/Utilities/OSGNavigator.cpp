@@ -162,7 +162,8 @@ Navigator::Navigator() :
     _lastX           (0                        ),
     _lastY           (0                        ),
     _width           (0                        ),
-    _height          (0                        )
+    _height          (0                        ),
+    _theMatrix       (                         )
 {
     setMode(TRACKBALL); // use trackball as default
 }

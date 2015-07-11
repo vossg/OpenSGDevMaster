@@ -84,13 +84,16 @@ OpenGLState::~OpenGLState(void)
 /*                            Constructors                                 */
 
 DrawEnv::DrawEnv(void) :
+    _openGLState            (       ),
     _pRenderAction          (NULL   ),
     _cameraProjection       (       ),
     _cameraProjectionTrans  (       ),
     _cameraViewing          (       ),
     _cameraToWorld          (       ),
     _cameraDecoration       (       ),
+
     _objectToWorld          (       ),
+    _worldToScreen          (       ),
 
     _vpCameraFullProjection (       ),
     _vpCameraProjection     (       ),
@@ -106,6 +109,10 @@ DrawEnv::DrawEnv(void) :
     _iPixelRight            (      1),
     _iPixelBottom           (      0),
     _iPixelTop              (      1),
+
+    _uiTileFullSize         (       ),
+    _vTileRegion            (       ),
+
     _bFull                  (   true),
 
     _iDrawerId              (-1     ),
@@ -125,6 +132,7 @@ DrawEnv::DrawEnv(void) :
     _uiNumShaderParamChanges(0      ),
 
     _pStatCollector         (NULL   ),
+
     _uiActiveShader         (0      ),
     _uiActiveFBO            (0      ),
     _eTargetBufferFormat    (GL_RGBA),

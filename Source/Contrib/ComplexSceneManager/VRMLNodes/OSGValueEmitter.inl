@@ -276,6 +276,7 @@ const Char8 *SValueEmitter<Desc>::getClassname(void)
 template<class Desc> inline
 SValueEmitter<Desc>::SValueEmitter(void) :
      Inherited         (                  ),
+    _sfTrigger         (                  ),
     _sfValue           (Desc::getDefault()),
     _sfIgnoreNextChange(false             )
 {
@@ -284,6 +285,7 @@ SValueEmitter<Desc>::SValueEmitter(void) :
 template<class Desc> inline
 SValueEmitter<Desc>::SValueEmitter(const SValueEmitter &source) :
      Inherited         (source                    ),
+    _sfTrigger         (source._sfTrigger         ),
     _sfValue           (source._sfValue           ),
     _sfIgnoreNextChange(source._sfIgnoreNextChange)
 {

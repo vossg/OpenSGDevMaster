@@ -80,7 +80,9 @@ const char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
 };
 
 GeoBuilder::GeoBuilder(void) :
-    _geo()
+    _geo    (       ),
+    _actLen (0      ),
+    _actType(GL_NONE)
 {
     reset();
 }

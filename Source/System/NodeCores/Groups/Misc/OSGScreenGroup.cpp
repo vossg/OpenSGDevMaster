@@ -104,12 +104,14 @@ void ScreenGroup::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ScreenGroup::ScreenGroup(void) :
-    Inherited()
+     Inherited   (),
+    _camTransform()
 {
 }
 
 ScreenGroup::ScreenGroup(const ScreenGroup &source) :
-    Inherited(source)
+     Inherited   (source              ),
+    _camTransform(source._camTransform)
 {
 }
 

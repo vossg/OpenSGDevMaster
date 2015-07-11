@@ -113,6 +113,11 @@ class OSG_DRAWABLE_DLLMAPPING DCTPEdge
     };
 #endif
 
+
+  private:
+
+    DCTPEdge(const DCTPEdge &other);
+    void operator =(const DCTPEdge &rhs);
 };
 
 #ifdef OSG_NO_EDGE_SET

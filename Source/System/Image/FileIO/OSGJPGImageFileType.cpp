@@ -153,7 +153,10 @@ static void istream_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
 
 static void istream_term_source(j_decompress_ptr cinfo) {} // no action necessary
 
-SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &is)
+SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &is):
+    pub   (    ),
+    is    (NULL),
+    buffer(NULL)
 {
     pub.init_source = istream_init_source;
     pub.fill_input_buffer = istream_fill_input_buffer;
@@ -219,7 +222,10 @@ static void ostream_term_destination(j_compress_ptr cinfo)
     }
 }
 
-DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
+DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os):
+    pub   (    ),
+    os    (NULL),
+    buffer(NULL)
 {
     pub.init_destination = ostream_init_destination;
     pub.empty_output_buffer = ostream_empty_output_buffer;

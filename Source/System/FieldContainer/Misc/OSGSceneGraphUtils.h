@@ -121,6 +121,13 @@ class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
 
     Action::ResultE traverseEnter(Node *node                     );
     Action::ResultE traverseLeave(Node *node, Action::ResultE res);
+
+    /*===========================  PRIVATE  ===============================*/
+
+  private:
+
+    SceneGraphPrinter(const SceneGraphPrinter &other);
+    void operator =(const SceneGraphPrinter &rhs);
 };
 
 /*! \ingroup GrpBaseFieldContainerNodes

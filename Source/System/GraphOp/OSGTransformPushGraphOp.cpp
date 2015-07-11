@@ -80,8 +80,10 @@ const char *TransformPushGraphOp::getClassname(void)
     return "TransformPushGraphOp";
 }
 
-TransformPushGraphOp::TransformPushGraphOp(const char* name)
-    : Inherited(name)
+TransformPushGraphOp::TransformPushGraphOp(const char* name) :
+     Inherited   (name),
+    _pushPossible(true),
+    _pushTargets (    )
 {
     // nothing to do
 }

@@ -77,9 +77,12 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeCreator
     int    finishSubdivisions(DCTPFace *f);
 
   public:
-    QuadTreeCreator(DCTPMesh * mesh /*, bool bForTrimming*/)
+    QuadTreeCreator(DCTPMesh * mesh /*, bool bForTrimming*/) :
+        qtm          (mesh),
+      /*m_bForTrimming = bForTrimming;*/
+        error_epsilon(0.0 )
     {
-        qtm = mesh;                                                        /*m_bForTrimming = bForTrimming;*/
+        
     }
     ~QuadTreeCreator()
     {
@@ -97,6 +100,12 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeCreator
                          const DCTPdvector&         intervals_v); //sets starting leaves
     int  createQuadTree(void); //well... go figure
     void resetMesh(void);
+
+  private:
+
+    QuadTreeCreator(const QuadTreeCreator &other);
+    void operator=(const QuadTreeCreator &rhs);
+    
 };
 
 OSG_END_NAMESPACE

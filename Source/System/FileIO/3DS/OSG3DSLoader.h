@@ -534,7 +534,7 @@ protected:
  */
 class L3DS : public LImporter
 {
-public:
+  public:
     // the default contructor
     L3DS();
     // constructs the object and loads the file
@@ -544,7 +544,7 @@ public:
     // load 3ds file
     virtual bool Load(std::istream &is);
     virtual bool Load(const char *filename);
-protected:
+  protected:
     // used internally for reading
     char m_objName[100];
     // true if end of file is reached
@@ -604,6 +604,12 @@ protected:
     void ReadKeyframeData(const LChunk &parent);
     // reads the keyheader structure from the current offset and returns the frame number
     long ReadKeyheader();
+    
+  private:
+
+    L3DS(const L3DS &other);
+    void operator =(const L3DS &rhs);
+    
 };
 
 //---------------------------------------------------------

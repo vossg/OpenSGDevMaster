@@ -93,7 +93,10 @@ class OSG_BASE_DLLMAPPING NestedSampleInfo
 
     NestedSampleInfo(const std::string& name)
         : mName(name)
+        , mSubSamples()
         , mTimeSummer(0)
+        , mSamples()
+        , mPctSamples()
         , mStartTime(0)
         , mMax(0.0)
         , mAverage(0.0)
@@ -206,8 +209,11 @@ protected:
     friend class OSG::SingletonHolder;
 
     NestedPerfTracker()
-        : mEnabled(false)
+        : mPerfRoot(NULL)
+        , mEnabled(false)
+        , mCurSampleStack()        
         , mLastFrameStart(OSG::getTimeStamp())
+        , mFrameTimes()
         , mFrameRate(0.0)
     {
         mPerfRoot = NestedSampleInfo::create("root");
@@ -365,9 +371,6 @@ public:
      */
     struct SampleData
     {
-        SampleData()
-        {;}
- 
         SampleData(OSG::UInt64 tid, OSG::Real64 timestamp,
                    SampleType type, const std::string& name,
                    OSG::Real32 metricValue = 0.0,
@@ -407,6 +410,11 @@ protected:
 
     PerfMonitorBase();
     ~PerfMonitorBase(void);
+
+private:
+
+    PerfMonitorBase(const PerfMonitorBase &other);
+    void operator =(const PerfMonitorBase&rhs);
 
 public:
     /** Reset the performance collection. */

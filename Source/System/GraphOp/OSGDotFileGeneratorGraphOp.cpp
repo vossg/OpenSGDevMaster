@@ -94,6 +94,17 @@ DotFileGeneratorGraphOp::Info::Info(void) :
 {
 }
 
+DotFileGeneratorGraphOp::Info::Info(const Info &other) :
+    cnt      (other.cnt      ),
+    label    (other.label    ),
+    name     (other.name     ),
+    id       (other.id       ),
+    fontcolor(other.fontcolor),
+    obj_id   (other.obj_id   ),
+    finished (other.finished )
+{
+}
+
 DotFileGeneratorGraphOp::Info::~Info(void)
 {
 }

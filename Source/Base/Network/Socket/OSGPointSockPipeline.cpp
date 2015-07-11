@@ -65,7 +65,10 @@ OSG_USING_NAMESPACE
  */
 
 PointSockPipeline::PointSockPipeline():
-    Inherited(),
+     Inherited  (     ),
+    _next       (     ),
+    _prev       (     ),
+    _last       (false),
     _initialized(false)
 {
     _prev.open();

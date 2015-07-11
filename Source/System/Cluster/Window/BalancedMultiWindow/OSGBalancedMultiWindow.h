@@ -45,6 +45,8 @@
 #include <vector>
 
 #include "OSGBalancedMultiWindowBase.h"
+#include "OSGNode.h"
+#include "OSGViewport.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -141,6 +143,13 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Real32                 pixel;
         Real32                 constant;
         Real32                 ratio;
+
+        LoadGroup(void) :
+            root    (NULL),
+            node    (NULL),
+            pixel   (0.f ),
+            constant(0.f ),
+            ratio   (0.f ) {}
     };
 
     /*! \nohierarchy
@@ -165,6 +174,14 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Int32                  rect[4];
         Real32                 loadCenter[2];
         std::vector<BBox>      bboxes;
+
+        VPort(void) : 
+            serverId  (0   ), 
+            serverPort(NULL), 
+            root      (NULL),
+            id        (0   ),
+            load      (0.f ),
+            bboxes    (    ) {}
     };
 
     /*! \nohierarchy
@@ -176,6 +193,22 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Real32                 load;
         std::vector<VPort>     viewports;
         Window                *window;
+
+        Server(void) :
+            id       (0   ),
+            load     (0.f ),
+            viewports(    ),
+            window   (NULL) {}
+
+        Server(const Server &other) :
+            id       (other.id       ),
+            load     (other.load     ),
+            viewports(other.viewports),
+            window   (other.window   ) {}
+
+      private:
+        
+        void operator =(const Server &other);
     };
 
     /*! \nohierarchy
@@ -216,6 +249,10 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     {
         UInt16                     workpackageId;
         std::vector<Tile>          tiles;
+
+        Area(void) :
+            workpackageId(0),
+            tiles        ( ) {}
     };
 
     /*! \nohierarchy
@@ -229,6 +266,14 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<Server>        servers;
         std::vector<WorkPackage>   workpackages;
         std::vector<Area>          areas;
+
+        Cluster(void) : 
+            load        (0), 
+            rootNodes   ( ), 
+            loadGroups  ( ), 
+            servers     ( ), 
+            workpackages( ), 
+            areas       ( ) {}
     };
 
     /*! \nohierarchy

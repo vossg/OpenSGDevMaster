@@ -70,7 +70,8 @@ Trackball::Trackball(Real32 rSize) :
     _pVal(),
     _qValStart(),
     _pValStart(),
-    _pRotationCenter()
+    _pRotationCenter(),
+    _fullMatrix()
 {
 }
 

@@ -146,6 +146,8 @@ class OSG_UTIL_DLLMAPPING LODSetupGraphOp : public GraphOp
                                          // this set of LOD nodes 
 
         void addLODPair(Int32 LOD, Node *node);
+
+        LODSet(void) : mBaseName(), mLODPairs() {}
     };
 
 

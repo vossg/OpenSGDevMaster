@@ -698,13 +698,18 @@ typename ChildMFieldReferenceProxy<PtrTypeT,
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace> inline
-void ChildMFieldReferenceProxy<PtrTypeT,
-                               RefCountPolicy,
-                               iNamespace    >::operator =(const_value newValue)
+const typename ChildMFieldReferenceProxy<PtrTypeT,
+                                         RefCountPolicy,
+                                         iNamespace    >::Self &
+    ChildMFieldReferenceProxy<PtrTypeT,
+                              RefCountPolicy,
+                              iNamespace    >::operator =(const_value newValue)
 {
     AccessHandler::onReplace(_pField, *_storeIter, newValue);
 
     *_storeIter = newValue;
+
+    return *this;
 }
 
 

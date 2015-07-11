@@ -89,6 +89,8 @@ namespace
 
 LODSetupGraphOp::LODSetupGraphOp(void) : 
      Inherited   ( ),
+    _mLODs       ( ),
+    _mSets       ( ),
     _totalNumMade(0)
 {
 }

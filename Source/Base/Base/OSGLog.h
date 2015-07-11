@@ -194,6 +194,10 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
 
         Chunk(void);
         ~Chunk(void);
+
+      private:
+        Chunk(const Chunk &other);
+        void operator =(const Chunk &rhs);
     };
 
     /*---------------------------------------------------------------------*/

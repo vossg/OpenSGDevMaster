@@ -342,9 +342,13 @@ bool OFTexturePaletteRecord::readTexAttr(TexAttr &attr)
 
 OFTexturePaletteRecord::OFTexturePaletteRecord(const OFRecordHeader &oHeader,
                                                      OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB),
-    pTexObj  (),
-    pTexEnv  ()
+    Inherited  (oHeader, 
+                oDB    ),
+    iPatternIdx(0      ),
+    iPatternX  (0      ),
+    iPatternY  (0      ),
+    pTexObj    (       ),
+    pTexEnv    (       )
 {
 }
 
@@ -486,7 +490,12 @@ OFRecordTransitPtr OFVertexPaletteRecord::create(const OFRecordHeader &oHeader,
 
 OFVertexPaletteRecord::OFVertexPaletteRecord(const OFRecordHeader &oHeader,
                                                    OFDatabase     &oDB     ) :
-    Inherited(oHeader, oDB)
+    Inherited  (oHeader, 
+                oDB    ),
+    vPositions (       ),
+    vNormals   (       ),
+    vTexCoords (       ),
+    vVertexInfo(       )
 {
 }
 
@@ -663,7 +672,20 @@ OFMaterialPaletteRecord::OFMaterialPaletteRecord(
     const OFRecordHeader &oHeader,
           OFDatabase     &oDB     ) :
 
-    Inherited(oHeader, oDB)
+    Inherited   (oHeader, 
+                 oDB    ),
+    iMaterialIdx(0      ),
+    iFlags      (0      ),     
+                    
+                   
+    colAmbient  (       ),   
+    colDiffuse  (       ),
+    colSpecular (       ),
+    colEmissive (       ), 
+    fShininess  (0.0    ),
+    fAlpha      (0.0    ),
+    iPad        (0      )
+
 {
     // nothing to do
 }

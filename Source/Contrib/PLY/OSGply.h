@@ -70,44 +70,122 @@ const bool PLY_LIST   = true;
 
 struct PlyProperty {    /* description of a property */
 
-  std::string name;                     /* property name */
-  int external_type;                    /* file's data type */
-  int internal_type;                    /* program's data type */
-  int offset;                           /* offset bytes of prop in a struct */
+    std::string name;                     /* property name */
+    int         external_type;            /* file's data type */
+    int         internal_type;            /* program's data type */
+    int         offset;                   /* offset bytes of prop in a struct */
 
-  bool is_list;                         /* 1 = list, 0 = scalar */
-  int count_external;                   /* file's count type */
-  int count_internal;                   /* program's count type */
-  int count_offset;                     /* offset byte for list count */
+    bool        is_list;                  /* 1 = list, 0 = scalar */
+    int         count_external;           /* file's count type */
+    int         count_internal;           /* program's count type */
+    int         count_offset;             /* offset byte for list count */
 
+    PlyProperty(std::string name_,
+                int         external_type_,
+                int         internal_type_,
+                int         offset_,
+                
+                bool        is_list_,
+                
+                int         count_external_,
+                int         count_internal_,
+                int         count_offset_  ) :
+        name          (name_     ),
+        external_type (external_type_    ),
+        internal_type (internal_type_    ),
+        offset        (offset_    ),
+
+        is_list       (is_list_),
+        count_external(count_external_    ),
+        count_internal(count_internal_    ),
+        count_offset  (count_offset_    ) {}
+        
+
+    PlyProperty(void) :
+        name          (     ),
+        external_type (0    ),
+        internal_type (0    ),
+        offset        (0    ),
+
+        is_list       (false),
+        count_external(0    ),
+        count_internal(0    ),
+        count_offset  (0    ) {}
 };
 
 struct PlyElement {     /* description of an element */
-  std::string name;               /* element name */
-  int num;                        /* number of elements in this object */
-  int size;                       /* size of element (bytes) or -1 if variable */
-  std::vector<PlyProperty> props; /* list of properties in the file */
-  std::vector<char>   store_prop; /* flags: property wanted by user? */
-  int other_offset;               /* offset to un-asked-for props, or -1 if none*/
-  int other_size;                 /* size of other_props structure */
+    std::string name;               /* element name */
+    int num;                        /* number of elements in this object */
+    int size;                       /* size of element (bytes) or -1 if
+                                     * variable */ 
+    std::vector<PlyProperty> props; /* list of properties in the file */
+    std::vector<char>   store_prop; /* flags: property wanted by user? */
+    int other_offset;               /* offset to un-asked-for props, or -1 if
+                                     * none*/ 
+    int other_size;                 /* size of other_props structure */
+
+    PlyElement(void) :
+        name        ( ),
+        num         (0),
+        size        (0),
+        props       ( ), 
+        store_prop  ( ),
+        other_offset(0),
+        other_size  (0) {}
 };
 
 struct PlyOtherProp {   /* describes other properties in an element */
-  std::string name;             /* element name */
-  int size;                     /* size of other_props */
-  int nprops;                   /* number of properties in other_props */
-  PlyProperty **props;          /* list of properties in other_props */
+    std::string name;             /* element name */
+    int size;                     /* size of other_props */
+    int nprops;                   /* number of properties in other_props */
+    PlyProperty **props;          /* list of properties in other_props */
+
+  PlyOtherProp(void) :
+      name(),
+      size(0),
+      nprops(0),
+      props(NULL) {}
+
+  private:
+
+    PlyOtherProp(const PlyOtherProp &other);
+    void operator =(const PlyOtherProp &rhs);
 };
 
 struct OtherData { /* for storing other_props for an other element */
-  void *other_props;
+    void *other_props;
 };
 
 struct OtherElem {     /* data for one "other" element */
-  std::string elem_name;       /* names of other elements */
-  int elem_count;              /* count of instances of each element */
-  OtherData **other_data;      /* actual property data for the elements */
-  PlyOtherProp *other_props;   /* description of the property data */
+    std::string elem_name;       /* names of other elements */
+    int elem_count;              /* count of instances of each element */
+    OtherData **other_data;      /* actual property data for the elements */
+    PlyOtherProp *other_props;   /* description of the property data */
+
+    OtherElem(void) :
+         elem_name  (    ),
+         elem_count (0   ),
+         other_data (NULL),
+         other_props(NULL) {}
+
+    OtherElem(const OtherElem &other) :
+         elem_name  (other.elem_name  ),
+         elem_count (other.elem_count ),
+         other_data (other.other_data ),
+         other_props(other.other_props) {}
+
+    const OtherElem &operator =(const OtherElem &rhs)
+    {
+         elem_name   = rhs.elem_name;
+         elem_count  = rhs.elem_count;
+         other_data  = rhs.other_data;
+         other_props = rhs.other_props;
+
+         return *this;
+    }
+
+  private:
+
 };
 
 struct PlyFile {             /* description of PLY file */
@@ -121,6 +199,23 @@ struct PlyFile {             /* description of PLY file */
   PlyElement *which_elem;            /* which element we're currently writing */
   std::vector<OtherElem> other_elems; /* Elements not interpreterd by user */
   bool reverse_bytes;
+
+  PlyFile(void) :
+      ofp          (NULL ),
+      ifp          (NULL ),
+      file_type    (0    ),
+      version      (0.f  ),
+      elems        (     ),
+      comments     (     ),
+      obj_info     (     ),
+      which_elem   (NULL ),
+      other_elems  (     ),
+      reverse_bytes(false) {}
+
+  private:
+    
+    PlyFile(const PlyFile &other);
+    void operator =(const PlyFile &rhs);
 };
 
 

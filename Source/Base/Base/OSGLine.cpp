@@ -465,12 +465,17 @@ bool Line::intersect(const FrustumVolume &frustum) const
 
 /*! \nohierarchy */
 
-struct face
-{
-    Pnt3f point;
-    Vec3f inner_vector;
-    Vec3f inner_normal;
-};
+namespace {
+
+    struct face
+    {
+        Pnt3f point;
+        Vec3f inner_vector;
+        Vec3f inner_normal;
+
+        face(void) : point(), inner_vector(), inner_normal() {}
+    };
+}
 
 #endif
 

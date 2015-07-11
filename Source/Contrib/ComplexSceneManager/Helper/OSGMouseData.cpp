@@ -112,7 +112,7 @@ void MouseData::updateData(Real32  x,
     _uiMode    = uiMode;
 }
 
-void MouseData::operator = (const MouseData &rhs)
+const MouseData &MouseData::operator = (const MouseData &rhs)
 {
     _iButton   = rhs._iButton;
     _iState    = rhs._iState;
@@ -122,6 +122,8 @@ void MouseData::operator = (const MouseData &rhs)
     _pWindow   = rhs._pWindow;
     _pViewport = rhs._pViewport;
     _uiMode    = rhs._uiMode;
+
+    return *this;
 }
 
 bool MouseData::operator ==(const MouseData &rhs) const

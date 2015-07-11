@@ -253,6 +253,10 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
 
         // returnvalue required by MS
         Int32 clear    (void);
+
+      private:
+
+        void operator =(const FCInfo &rhs);
     };
 
     //-----------------------------------------------------------------------

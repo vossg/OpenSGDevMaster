@@ -53,8 +53,11 @@ OSBElementRegistrationHelper<OSBShaderParameterMVec3fElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBShaderParameterMVec3fElement::OSBShaderParameterMVec3fElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBShaderParameterMVec3fElement::OSBShaderParameterMVec3fElement(
+    OSBRootElement *root) :
+
+     Inherited(root, OSGOSBHeaderVersion200),
+    _value    (                            )
 {
 }
 

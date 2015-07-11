@@ -66,7 +66,8 @@ OSG_USING_NAMESPACE
  */
 
 GroupSockPipeline::GroupSockPipeline():
-    Inherited(),
+     Inherited  (     ),
+    _next       (     ),
     _initialized(false)
 {
     _next.open();

@@ -39,8 +39,9 @@
 OSG_BEGIN_NAMESPACE
 
 inline BSplineCurve2D::BSplineCurve2D(void) :
-    control_points(),
-    dimension     (-1)     //sets invalid value
+    control_points(  ),
+    dimension     (-1),     //sets invalid value
+    basis_function(  )
 {
     // nothing to do
 }

@@ -57,11 +57,13 @@ PCSSShadowMapHandler::PCSSShadowMapHandler(ShadowStage     *pSource,
      Inherited     (pSource, 
                     pData,
                     eTargetBufferFormat,
-                    pWindow),
-    _pClearSMapBack(NULL   ),
-    _pPoly         (NULL   ),
-    _shadowSHL     (NULL   ),
-    _firstRun      (1      )
+                    pWindow            ),
+    _pClearSMapBack(NULL               ),
+    _pPoly         (NULL               ),
+    _shadowSHL     (NULL               ),
+    _firstRun      (1                  ),
+    _vShadowCmat   (                   ),
+    _vShadowSHLVar (                   )
 {
     _uiMode = ShadowStage::PCSS_SHADOW_MAP;
 

@@ -40,7 +40,10 @@ OSG_BEGIN_NAMESPACE
  **/
 inline 
 TileLoadBalancer::RegionLoad::RegionLoad(TileGeometryLoad *load):
-    _load(load)
+    _visibleFaces  (0.f ),
+    _invisibleFaces(0.f ),
+    _pixel         (0.f ),
+    _load          (load)
 {
 }
 

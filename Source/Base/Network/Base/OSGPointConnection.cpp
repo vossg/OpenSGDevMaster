@@ -58,7 +58,8 @@ OSG_USING_NAMESPACE
  */
 
 PointConnection::PointConnection(int zeroCopyThreshold):
-    Connection(zeroCopyThreshold)
+     Connection  (zeroCopyThreshold),
+    _pointToPoint(true             )
 {
 }
 

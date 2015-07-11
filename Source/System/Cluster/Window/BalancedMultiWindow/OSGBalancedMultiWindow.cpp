@@ -109,14 +109,40 @@ void BalancedMultiWindow::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 BalancedMultiWindow::BalancedMultiWindow(void) :
-     Inherited        (    ),
-    _rebuildLoadGroups(true)
+     Inherited        (     ),
+    _cluster          (     ),
+    _groupOpen        (     ),
+    _groupClose       (     ),
+    _bboxlist         (     ),
+    _foreignPort      (     ),
+    _preloadCache     (false),
+    
+    _triCount         (0    ),
+    _drawTime         (0.0  ),
+    _pixelTime        (0.0  ),
+    _loadTime         (0.0  ),
+    _balanceTime      (0.0  ),
+    _netTime          (0.0  ),
+    _rebuildLoadGroups(true )
 {
 }
 
 BalancedMultiWindow::BalancedMultiWindow(const BalancedMultiWindow &source) :
-     Inherited        (source),
-    _rebuildLoadGroups(true  )
+     Inherited        (source              ),
+    _cluster          (source._cluster     ),
+    _groupOpen        (source._groupOpen   ),
+    _groupClose       (source._groupClose  ),
+    _bboxlist         (source._bboxlist    ),
+    _foreignPort      (source._foreignPort ),
+    _preloadCache     (source._preloadCache),
+    
+    _triCount         (source._triCount    ),
+    _drawTime         (source._drawTime    ),
+    _pixelTime        (source._pixelTime   ),
+    _loadTime         (source._loadTime    ),
+    _balanceTime      (source._balanceTime ),
+    _netTime          (source._netTime     ),
+    _rebuildLoadGroups(true                )
 {
 }
 

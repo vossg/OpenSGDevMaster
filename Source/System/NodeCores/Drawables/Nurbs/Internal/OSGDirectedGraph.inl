@@ -40,9 +40,11 @@ OSG_BEGIN_NAMESPACE
 
 // default constructor
 template <typename T0, typename T1>
-DirectedGraph<T0, T1>::DirectedGraph()
+DirectedGraph<T0, T1>::DirectedGraph() :
+    nodes  (    ),
+    edges  (    ),
+    invalid(true)
 {
-  invalid = true;
 }
 
 // add a new node

@@ -157,11 +157,12 @@ LineIterator::~LineIterator(void)
 /*! The increment operator steps the iterator to the next triangle. If it is
     already beyond the last triangle it does not change.
 */
-void LineIterator::operator++()
+
+const LineIterator &LineIterator::operator++()
 {
     // already at end?
     if(isAtEnd())
-        return;
+        return *this;
     
     ++_lineIndex;
 
@@ -172,7 +173,7 @@ void LineIterator::operator++()
         ++(static_cast<PrimitiveIterator&>(*this));      
         startPrim();
         
-        return;
+        return *this;
     }
 
     switch(getType())
@@ -221,6 +222,8 @@ void LineIterator::operator++()
         startPrim();
         break;
     }           
+
+    return *this;
 }
 
 
@@ -319,7 +322,7 @@ void LineIterator::setToEnd(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-LineIterator& LineIterator::operator =(const LineIterator &source)
+const LineIterator& LineIterator::operator =(const LineIterator &source)
 {
     if(this == &source)
         return *this;

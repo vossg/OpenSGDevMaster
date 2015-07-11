@@ -91,12 +91,14 @@ void ShaderProgramChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderProgramChunk::ShaderProgramChunk(void) :
-    Inherited()
+     Inherited( ),
+    _uiChunkId(0)
 {
 }
 
 ShaderProgramChunk::ShaderProgramChunk(const ShaderProgramChunk &source) :
-    Inherited(source)
+     Inherited(source),
+    _uiChunkId(0     )
 {
 }
 

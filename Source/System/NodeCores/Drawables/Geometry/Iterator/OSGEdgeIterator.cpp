@@ -167,11 +167,12 @@ EdgeIterator::~EdgeIterator(void)
     current one is exhausted. The only tricky part is the left/right swap for
     triangle strips, the rest is pretty simple. \enddev
 */
-void EdgeIterator::operator++()
+
+const EdgeIterator &EdgeIterator::operator++()
 {
     // already at end?
     if(isAtEnd())
-        return;
+        return *this;
     
     ++_edgeIndex;
 
@@ -184,7 +185,7 @@ void EdgeIterator::operator++()
         
         startPrim();
         
-        return;
+        return *this;
     }
 
     switch(getType())
@@ -214,6 +215,8 @@ void EdgeIterator::operator++()
                             startPrim();
                             break;
     }           
+
+    return *this;
 }
 
 
@@ -297,7 +300,7 @@ void EdgeIterator::setToEnd(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-EdgeIterator& EdgeIterator::operator =(const EdgeIterator &source)
+const EdgeIterator& EdgeIterator::operator =(const EdgeIterator &source)
 {
     if(this == &source)
         return *this;

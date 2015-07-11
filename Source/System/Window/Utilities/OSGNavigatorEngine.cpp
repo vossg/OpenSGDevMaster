@@ -67,7 +67,8 @@ OSG_USING_NAMESPACE
 /*------------------------- constructors ----------------------------------*/
 
 NavigatorEngine::NavigatorEngine(void) : 
-    Inherited()
+     Inherited   (                   ),
+    _currentState(NavigatorBase::IDLE)
 {
 }
 

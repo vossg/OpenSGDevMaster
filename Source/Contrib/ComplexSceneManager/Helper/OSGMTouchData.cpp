@@ -58,6 +58,19 @@ MTouchData::MTouchBlob::MTouchBlob(void) :
 {
 }
 
+MTouchData::MTouchBlob::MTouchBlob(const MTouchBlob &other) :
+    _uiEvent        (other._uiEvent        ),
+
+    _iCursorId      (other._iCursorId      ),
+    _vPosition      (other._vPosition      ),
+   
+    _uiCoordSys     (other._uiCoordSys     ),
+    _pWindow        (other._pWindow        ),
+    _pViewport      (other._pViewport      ),
+    _pActiveViewport(other._pActiveViewport)
+{
+}
+
 MTouchData::MTouchBlob::MTouchBlob(UInt32 uiEvent,
                                    Int32  iCursorId,
                                    Real32 rX,
@@ -96,6 +109,21 @@ bool MTouchData::MTouchBlob::operator < (const MTouchBlob &rhs) const
             (_iCursorId == rhs._iCursorId && _uiEvent < rhs._uiEvent));
 }
 
+const MTouchData::MTouchBlob &
+    MTouchData::MTouchBlob::operator =(const MTouchBlob &rhs)
+{
+    _uiEvent         = rhs._uiEvent;
+
+    _iCursorId       = rhs._iCursorId;
+    _vPosition       = rhs._vPosition;
+   
+    _uiCoordSys      = rhs._uiCoordSys;
+    _pWindow         = rhs._pWindow;
+    _pViewport       = rhs._pViewport;
+    _pActiveViewport = rhs._pActiveViewport;
+
+    return *this;
+}
 
 
 MTouchData::MTouchData(void) :
@@ -117,9 +145,11 @@ MTouchData::~MTouchData(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void MTouchData::operator = (const MTouchData &rhs)
+const MTouchData &MTouchData::operator = (const MTouchData &rhs)
 {
     _vBlobs = rhs._vBlobs;
+
+    return *this;
 }
 
 bool MTouchData::operator ==(const MTouchData &rhs) const

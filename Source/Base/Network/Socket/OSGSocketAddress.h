@@ -117,7 +117,7 @@ class OSG_BASE_DLLMAPPING SocketAddress
     /*! \name                   Comparision                                */
     /*! \{                                                                 */
 
-    void operator = (const SocketAddress &other) const;
+    const SocketAddress &operator = (const SocketAddress &other) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

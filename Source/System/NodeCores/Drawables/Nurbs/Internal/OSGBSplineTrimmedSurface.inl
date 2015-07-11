@@ -38,7 +38,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline BSplineTrimmedSurface::BSplineTrimmedSurface(void)
+inline BSplineTrimmedSurface::BSplineTrimmedSurface(void) :
+    surf    (),
+    trimming()
 {
     // nothing to do
 }

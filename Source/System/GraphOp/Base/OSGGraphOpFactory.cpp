@@ -129,7 +129,8 @@ GraphOpFactoryBase::TypeMapConstIt GraphOpFactoryBase::end(void) const
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-GraphOpFactoryBase::GraphOpFactoryBase(void)
+GraphOpFactoryBase::GraphOpFactoryBase(void) :
+    _typeMap()
 {
     // nothing to do
 }

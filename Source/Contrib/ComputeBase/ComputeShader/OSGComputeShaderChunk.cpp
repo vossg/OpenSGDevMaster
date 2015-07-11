@@ -298,12 +298,14 @@ void ComputeShaderChunk::handleDestroyGL(DrawEnv                 *pEnv,
 /*----------------------- constructors & destructors ----------------------*/
 
 ComputeShaderChunk::ComputeShaderChunk(void) :
-    Inherited()
+     Inherited( ),
+    _uiChunkId(0)
 {
 }
 
 ComputeShaderChunk::ComputeShaderChunk(const ComputeShaderChunk &source) :
-    Inherited(source)
+     Inherited(source),
+    _uiChunkId(0     )
 {
 }
 

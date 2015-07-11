@@ -175,6 +175,9 @@ class OSG_FILEIO_DLLMAPPING OSBElementFactorySingleton
 
     RegistryMap             _registry;
     OSBElementCreatorBase *_defaultCreator;
+
+    OSBElementFactorySingleton(const OSBElementFactorySingleton &other);
+    void operator =(const OSBElementFactorySingleton &rhs);
 };
 
 #if defined(WIN32)

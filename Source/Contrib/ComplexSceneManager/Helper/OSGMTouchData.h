@@ -80,6 +80,7 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
         CSMViewport *_pActiveViewport;
 
         MTouchBlob(void);
+        MTouchBlob(const MTouchBlob &other);
 
         MTouchBlob(UInt32 uiEvent,
                    Int32  iCursorId,
@@ -92,6 +93,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
         bool operator ==(const MTouchBlob &rhs) const;
         bool operator !=(const MTouchBlob &rhs) const;
         bool operator < (const MTouchBlob &rhs) const;
+
+        const MTouchBlob &operator=(const MTouchBlob &rhs);
     };
 
     typedef std::vector<MTouchBlob>                 MTouchBlobStore;
@@ -241,8 +244,8 @@ class OSG_CONTRIBCSM_DLLMAPPING MTouchData
 
     /*------------------------- assignment ----------------------------------*/
 
-    void operator = (const MTouchData &rhs);
-    bool operator ==(const MTouchData &rhs) const;
+    const MTouchData &operator = (const MTouchData &rhs);
+          bool        operator ==(const MTouchData &rhs) const;
 
     /*------------------------- comparison ----------------------------------*/
 };

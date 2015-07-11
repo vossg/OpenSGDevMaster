@@ -164,9 +164,10 @@ ColladaInstanceEffect::findTC(
 }
 
 ColladaInstanceEffect::ColladaInstanceEffect(
-    daeElement *elem, ColladaGlobal *global)
-
-    : Inherited(elem, global)
+    daeElement *elem, ColladaGlobal *global) :
+    
+     Inherited(elem, global),
+    _tcMap    (            )
 {
 }
 

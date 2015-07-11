@@ -464,9 +464,14 @@ void NavballEngine::translateZ(Real32 distance)
 /*------------------------- constructors ----------------------------------*/
 
 NavballEngine::NavballEngine(Real32 rSize) : 
-     Inherited(       ), 
-    _ip       (0, 0, 0),
-    _dir      (0, 0, 0)
+     Inherited  (       ), 
+    _rDistance  (0.f    ),
+    _finalMatrix(       ),
+    _pFrom      (       ),
+    _pAt        (       ),
+    _vUp        (       ),
+    _ip         (0, 0, 0),
+    _dir        (0, 0, 0)
 {
     _finalMatrix.setIdentity();
 

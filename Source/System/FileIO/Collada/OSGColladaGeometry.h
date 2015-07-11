@@ -248,6 +248,14 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
         GeoIntegralPropertyUnrecPtr _types;
 
         InstanceMap                 _instMap;
+
+        GeoInfo(void):
+            _matSymbol (    ),
+            _propStore (    ),
+            _indexStore(    ),
+            _lengths   (NULL),
+            _types     (NULL),
+            _instMap   (    ) {}
     };
 
     typedef std::vector<GeoInfo                    > GeoStore;

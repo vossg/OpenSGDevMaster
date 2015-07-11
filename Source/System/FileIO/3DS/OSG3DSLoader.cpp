@@ -216,9 +216,9 @@ LVector4 VectorByMatrix(const LMatrix4 &m, const LVector4 &vec)
 // LObject implementation
 //-------------------------------------------------------
 
-LObject::LObject()
+LObject::LObject() :
+    m_name("")
 {
-    m_name = "";//.clear();
 }
 
 LObject::~LObject()
@@ -246,22 +246,22 @@ bool LObject::IsObject(const std::string &name)
 // LMaterial implementation
 //-------------------------------------------------------
 
-LMaterial::LMaterial()
-: LObject()
+LMaterial::LMaterial() : 
+    LObject       (        ),
+    m_id          (0       ),
+    m_texMap1     (emptyMap),
+    m_texMap2     (emptyMap),
+    m_opacMap     (emptyMap),
+    m_reflMap     (emptyMap),
+    m_bumpMap     (emptyMap),
+    m_specMap     (emptyMap),
+    m_ambient     (black   ),
+    m_diffuse     (black   ),
+    m_specular    (black   ),
+    m_shininess   (0       ),
+    m_transparency(0       ),
+    m_shading     (sGouraud)
 {
-    m_id = 0;
-    m_texMap1 = emptyMap;
-    m_texMap2 = emptyMap;
-    m_opacMap = emptyMap;
-    m_bumpMap = emptyMap;
-    m_reflMap = emptyMap;
-    m_specMap = emptyMap;
-    m_ambient = black;
-    m_diffuse = black;
-    m_specular = black;
-    m_shading = sGouraud;
-    m_shininess = 0;
-    m_transparency = 0;
 }
 
 LMaterial::~LMaterial()
@@ -381,8 +381,23 @@ void LMaterial::SetShadingType(LShading shading)
 // LMesh implementation
 //-------------------------------------------------------
 
-LMesh::LMesh()
-:   LObject()
+LMesh::LMesh() :
+    LObject(),
+    m_vertices(),
+    m_normals(),
+    m_binormals(),
+    m_tangents(),
+    m_uv(),
+
+    m_triangles(),
+
+    m_tris(),
+
+    m_matrix(),
+
+    // the material ID array
+    m_materials()
+
 {
     Clear();
 }
@@ -837,8 +852,14 @@ uint LMesh::GetMaterialCount()
 // LCamera implementation
 //-------------------------------------------------------
 
-LCamera::LCamera()
-:   LObject()
+LCamera::LCamera() :
+   LObject(),
+    m_pos(),
+    m_target(),
+    m_bank(0),
+    m_fov(0),
+    m_near(0),
+    m_far()
 {
     Clear();
 }
@@ -922,8 +943,16 @@ float LCamera::GetFarplane()
 // LLight implementation
 //-------------------------------------------------------
 
-LLight::LLight()
-:   LObject()
+LLight::LLight() :
+    LObject(),
+    m_pos(),
+    m_color(),
+    m_spotlight(),
+    m_target(),
+    m_hotspot(),
+    m_falloff(),
+    m_attenuationstart(),
+    m_attenuationend()
 {
     Clear();
 }
@@ -1026,7 +1055,12 @@ float LLight::GetAttenuationend()
 // LImporter implementation
 //-------------------------------------------------------
 
-LImporter::LImporter()
+LImporter::LImporter():
+    m_cameras(),
+    m_lights(),
+    m_meshes(),
+    m_materials(),
+    m_optLevel()
 {
     Clear();
 }
@@ -1122,22 +1156,23 @@ LOptimizationLevel LImporter::GetOptimizationLevel()
 // L3DS implementation
 //-------------------------------------------------------
 
-L3DS::L3DS()
-: LImporter()
+L3DS::L3DS() : 
+    LImporter(),
+    m_eof(false),
+    m_buffer(0),
+    m_bufferSize(0),
+    m_pos(0)
 {
-    m_buffer = 0;
-    m_bufferSize = 0;
-    m_pos = 0;
-    m_eof = false;
 }
 
-L3DS::L3DS(const char *filename)
-: LImporter()
+L3DS::L3DS(const char *filename) : 
+    LImporter(),
+    m_eof(false),
+    m_buffer(0),
+    m_bufferSize(0),
+    m_pos(0)
+
 {
-    m_buffer = 0;
-    m_bufferSize = 0;
-    m_pos = 0;
-    m_eof = false;
     Load(filename);
 }
 

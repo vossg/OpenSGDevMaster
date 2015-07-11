@@ -71,7 +71,8 @@ OSG_BEGIN_NAMESPACE
 \*-------------------------------------------------------------------------*/
 
 StatCollector::StatCollector(void) :
-    Inherited()
+     Inherited(),
+    _elemVec  ()
 {
     refitElemNum();
 }

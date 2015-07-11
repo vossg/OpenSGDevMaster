@@ -155,9 +155,12 @@ void MemObjPointerSField<PtrTypeT,
 template <class    PtrTypeT, 
           typename RefCountPolicy,
           Int32    NamespaceI    > inline 
-void MemObjPointerSField<PtrTypeT,
-                         RefCountPolicy,
-                         NamespaceI    >::operator =(const Self &other)
+const typename MemObjPointerSField<PtrTypeT,
+                                   RefCountPolicy,
+                                   NamespaceI    >::Self &
+    MemObjPointerSField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI    >::operator =(const Self &other)
 {
     this->ptrStoreSet(other.ptrStoreGet());
 }

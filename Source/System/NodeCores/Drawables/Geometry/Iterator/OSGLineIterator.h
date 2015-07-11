@@ -126,13 +126,13 @@ class OSG_DRAWABLE_DLLMAPPING LineIterator : public PrimitiveIterator
     /*! \name                       Operators                              */
     /*! \{                                                                 */
 
-    void operator ++(void);
-    void seek(Int32 index);
+    const LineIterator &operator ++ (      void                );
+          void          seek        (      Int32         index );
 
-    LineIterator & operator =(const LineIterator &source);
-    bool operator < (const LineIterator &other) const;
-    bool operator == (const LineIterator &other) const;
-    bool operator != (const LineIterator &other) const;
+    const LineIterator &operator =  (const LineIterator &source);
+          bool          operator <  (const LineIterator &other ) const;
+          bool          operator == (const LineIterator &other ) const;
+          bool          operator != (const LineIterator &other ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

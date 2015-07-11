@@ -117,7 +117,7 @@ class OSG_BASE_DLLMAPPING FieldConnectorFactoryBase : public FactoryBase
     typedef std::map<UInt32, 
                      ConnectorMap        *>::const_iterator EntryMapConstIt;
 
-    EntryMap mConnectorMap;
+    EntryMap _mConnectorMap;
 
     /*---------------------------------------------------------------------*/
     /*                             Member                                  */

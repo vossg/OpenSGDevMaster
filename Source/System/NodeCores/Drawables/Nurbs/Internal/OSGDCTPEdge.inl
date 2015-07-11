@@ -38,7 +38,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline DCTPEdge::DCTPEdge(DCTPVertex * vx1, DCTPVertex * vx2, int orient)
+inline DCTPEdge::DCTPEdge(DCTPVertex * vx1, DCTPVertex * vx2, int orient) :
+    v1         (NULL  ),
+    v2         (NULL  ),
+    faces      (      ),
+    orientation(orient),
+    id         (0     ),
+    edgeinfo   (NULL  )
 {
 #ifndef OSG_NO_EDGE_SET
     faces.clear();

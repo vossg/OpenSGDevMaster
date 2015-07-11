@@ -52,13 +52,14 @@ OSG_BEGIN_NAMESPACE
 // Manipulators. Damit besteht ein Problem mit Multi-Parents, das nicht waere,
 // wenn der ManipulatorManager sich den Node merken wuerde!?!
 
-ManipulatorManager::ManipulatorManager()
-    : _maniN             (),
-      _currentType       (),
-      _currentEnablePivot(),
-      _currentPivot      (),
-      _target            (),
-      _viewport          ()
+ManipulatorManager::ManipulatorManager() :
+    _maniN             (NULL     ),
+    _currentType       (TRANSLATE),
+    _currentEnablePivot(         ),
+    _currentPivot      (         ),
+    _target            (NULL     ),
+    _viewport          (NULL     ),
+    _pivotChangePending(false    )
 {
 }
 

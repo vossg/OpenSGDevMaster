@@ -281,6 +281,15 @@ struct RemoteAspectFieldContainerMapper : public ContainerIdMapper
     virtual UInt32 map(UInt32 uiId) const;
 
     RemoteAspect *_remoteAspect;
+
+    RemoteAspectFieldContainerMapper(void) : _remoteAspect(NULL) {}
+
+  private:
+
+    RemoteAspectFieldContainerMapper(
+        const RemoteAspectFieldContainerMapper &other);
+
+    void operator =(const RemoteAspectFieldContainerMapper &other);
 };
 
 OSG_END_NAMESPACE

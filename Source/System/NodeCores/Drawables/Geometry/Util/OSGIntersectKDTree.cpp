@@ -238,6 +238,22 @@ namespace
 
         MFIntersectKDTreeNode *_mfNodes;
         MFUInt32              *_mfTriIndices;
+
+        BuildState(void):
+            _maxDepth    (0   ),
+            _maxTri      (0   ),
+            _triBounds   (    ),
+            _trisBelow   (    ),
+            _trisAbove   (    ),
+            _mfNodes     (NULL),
+            _mfTriIndices(NULL)
+        {
+        }
+        
+      private:
+        
+        BuildState(const BuildState &other);
+        void operator =(const BuildState &rhs);
     };
 
     // =======================================================================

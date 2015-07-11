@@ -76,13 +76,16 @@ static char THIS_FILE[] = __FILE__;
  */
 
 // default constructor
-SimplePolygon::SimplePolygon()
+SimplePolygon::SimplePolygon() :
+    vertices        (     ),
+    is_marked       (    0),
+    validThirdPoints(     ),
+    numThirdPoints  (    0),
+    maxCalculated   (    0),
+    v1tp            (   -1),
+    v2tp            (   -1),
+    m_bConvex       (false)
 {
-    vertices.resize(0);
-    is_marked = 0;
-    validThirdPoints.resize(0);
-    v1tp      = -1;
-    m_bConvex = false;
 }
 
 

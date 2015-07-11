@@ -65,6 +65,8 @@ class OSG_DRAWABLE_DLLMAPPING DirectedEdge
 
     typedef std::vector <DirectedEdge<T1> > edgevector;
 
+    DirectedEdge(void): 
+        direction(true), from(0), to(0), valid(false), edgeinfo() {}
 };
 
 
@@ -76,6 +78,8 @@ class OSG_DRAWABLE_DLLMAPPING DirectedNode
     T0          nodeinfo;
 
     typedef std::vector <DirectedNode<T0> > nodevector;
+
+    DirectedNode(void) : edges(), nodeinfo() {}
 };
 
 template <class T0, class T1>
@@ -85,10 +89,11 @@ class OSG_DRAWABLE_DLLMAPPING DirectedGraph
   public:
     DirectedGraph();
     // copy constructor
-    DirectedGraph(const DirectedGraph &d)
+    DirectedGraph(const DirectedGraph &d) :
+        nodes  (d.nodes  ),
+        edges  (d.edges  ),
+        invalid(d.invalid)
     {
-        nodes = d.nodes;
-        edges = d.edges;
     }
     ~DirectedGraph() {}
 

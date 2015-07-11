@@ -241,6 +241,11 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
 
     NodeUnrecPtr               _rootN;
     GlobalsAttachmentUnrecPtr  _globalsAtt;
+
+  private:
+
+    ColladaGlobal(const ColladaGlobal &other);
+    void operator=(const ColladaGlobal &rhs);
 };
 
 

@@ -53,7 +53,9 @@ OSG_BEGIN_NAMESPACE
 
 /*--------------------------- Constructors --------------------------------*/
 
-NormalQuantifier::NormalQuantifier(UInt32 numberSubdivisions)
+NormalQuantifier::NormalQuantifier(UInt32 numberSubdivisions) :
+    _numberSubdivisions(numberSubdivisions),
+    _normalTable       (                  )
 {
     build(numberSubdivisions);
 }

@@ -27,24 +27,27 @@ OSG_BEGIN_NAMESPACE
 
 template <class charT, class traits> inline
 basic_zip_streambuf<charT, 
-                    traits>::basic_zip_streambuf(ostream_reference ostream,
-                                                 int               level,
-                                                 EStrategy         strategy,
-                                                 int               window_size,
-                                                 int               memory_level,
-                                                 size_t            buffer_size )
-    : _ostream(ostream),
-      _output_buffer(buffer_size, 0),
-      _buffer(buffer_size, 0),
-      _crc(0)
+                    traits>::basic_zip_streambuf(
+                        ostream_reference ostream,
+                        int               level,
+                        EStrategy         strategy,
+                        int               window_size,
+                        int               memory_level,
+                        size_t            buffer_size ) :
+    _ostream      (ostream       ),
+    _zip_stream   (              ),
+    _err          (0             ),
+    _output_buffer(buffer_size, 0),
+    _buffer       (buffer_size, 0),
+    _crc          (0             )
 {
     _zip_stream.zalloc = NULL;
-    _zip_stream.zfree = NULL;
+    _zip_stream.zfree  = NULL;
 
-    _zip_stream.next_in = NULL;
-    _zip_stream.avail_in = 0;
+    _zip_stream.next_in   = NULL;
+    _zip_stream.avail_in  = 0;
     _zip_stream.avail_out = 0;
-    _zip_stream.next_out = NULL;
+    _zip_stream.next_out  = NULL;
 
     if(level > 9)
         level = 9;
@@ -52,11 +55,14 @@ basic_zip_streambuf<charT,
     if(memory_level > 9)
         memory_level = 9;
         
-    _err=deflateInit2(&_zip_stream, level, Z_DEFLATED,
-                      window_size, memory_level,
+    _err=deflateInit2(&_zip_stream, 
+                      level, 
+                      Z_DEFLATED,
+                      window_size, 
+                      memory_level,
                       static_cast<int>(strategy));
 
-    this->setp( &(_buffer[0]), &(_buffer[_buffer.size()-1]));
+    this->setp(&(_buffer[0]), &(_buffer[_buffer.size() - 1]));
 }
 
 #ifdef OSG_DEBUG_OLD_C_CASTS
@@ -304,24 +310,28 @@ bool basic_zip_streambuf<charT, traits>::zip_to_stream(
 #endif
 
 template <class charT, class traits> inline
-basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference istream,
-                                                            int window_size,
-                                                            size_t read_buffer_size,
-                                                            size_t input_buffer_size)
-    : _input_buffer(input_buffer_size),
-      _buffer(read_buffer_size),
-      _streamType ( UNKNOWN_ST ),
-      _istream(istream),
-      _crc(0)
+basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(
+    istream_reference istream,
+    int               window_size,
+    size_t            read_buffer_size,
+    size_t            input_buffer_size) :
+
+    _input_buffer(input_buffer_size),
+    _buffer      (read_buffer_size ),
+    _streamType  (UNKNOWN_ST       ),
+    _istream     (istream          ),
+    _zip_stream  (                 ),
+    _err         (0                ),
+    _crc         (0                )
 {
     // setting zalloc, zfree and opaque
     _zip_stream.zalloc = NULL;
-    _zip_stream.zfree = NULL;
+    _zip_stream.zfree  = NULL;
 
-    _zip_stream.next_in = NULL;
-    _zip_stream.avail_in = 0;
+    _zip_stream.next_in   = NULL;
+    _zip_stream.avail_in  = 0;
     _zip_stream.avail_out = 0;
-    _zip_stream.next_out = NULL;
+    _zip_stream.next_out  = NULL;
 
     _err = inflateInit2(&_zip_stream, window_size);
         

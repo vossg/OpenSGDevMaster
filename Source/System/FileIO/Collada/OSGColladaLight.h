@@ -131,6 +131,11 @@ class OSG_FILEIO_DLLMAPPING ColladaLight : public ColladaInstantiableElement
         /*-----------------------------------------------------------------*/
 
         Node *_beacon;
+
+      private:
+        
+        ColladaLightInstInfo(const ColladaLightInstInfo &other);
+        void operator=(const ColladaLightInstInfo &rhs);
     };
 
     // forward decl

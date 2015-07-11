@@ -45,6 +45,9 @@
 #if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
 #pragma GCC diagnostic ignored "-Wsign-compare"
 #endif
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Weffc++"
+#endif
 
 #ifdef OSG_WIN32_ICL
 #pragma warning (disable : 111 810)

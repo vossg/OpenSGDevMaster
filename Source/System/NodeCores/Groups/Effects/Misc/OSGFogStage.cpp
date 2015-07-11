@@ -584,12 +584,18 @@ Action::ResultE FogStage::renderLeave(Action *action)
 /*----------------------- constructors & destructors ----------------------*/
 
 FogStage::FogStage(void) :
-    Inherited()
+     Inherited     (    ),
+    _pFogShader    (NULL),
+    _pSceneTex     (NULL),
+    _pSceneDepthTex(NULL)
 {
 }
 
 FogStage::FogStage(const FogStage &source) :
-    Inherited(source)
+     Inherited     (source                ),
+    _pFogShader    (source._pFogShader    ),
+    _pSceneTex     (source._pSceneTex     ),
+    _pSceneDepthTex(source._pSceneDepthTex)
 {
 }
 

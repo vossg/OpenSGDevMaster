@@ -78,6 +78,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     {
         std::string semantic;
         std::string target;
+
+        BindInfo(void) : semantic(), target() {}
     };
 
     typedef std::vector<BindInfo>            BindStore;
@@ -91,6 +93,8 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
         std::string semantic;
         std::string inSemantic;
         UInt32      inSet;
+
+        BindVertexInfo(void): semantic(), inSemantic(), inSet() {}
     };
 
     typedef std::vector<BindVertexInfo>      BindVertexStore;

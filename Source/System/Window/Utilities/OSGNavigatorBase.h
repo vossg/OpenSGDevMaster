@@ -97,6 +97,8 @@ class OSG_UTIL_DLLMAPPING NavigatorBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+
+    virtual ~NavigatorBase(void) {}
 };
 
 OSG_END_NAMESPACE

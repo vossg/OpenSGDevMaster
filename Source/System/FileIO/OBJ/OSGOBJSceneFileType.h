@@ -186,15 +186,19 @@ class OSG_FILEIO_DLLMAPPING OBJSceneFileType : public SceneFileType
     struct Face
     {
         std::vector<TiePoint> tieVec;
+        
+        Face(void) : tieVec() {}
     };
 
     /*! \nohierarchy 
      */
     struct Mesh 
     {
-      std::string            name;
-      std::list<Face>        faceList;
-      SimpleMaterialUnrecPtr mtlPtr;
+        std::string            name;
+        std::list<Face>        faceList;
+        SimpleMaterialUnrecPtr mtlPtr;
+
+        Mesh(void) : name(), faceList(), mtlPtr(NULL) {}
     };
 
 

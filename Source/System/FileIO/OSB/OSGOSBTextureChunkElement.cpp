@@ -65,8 +65,10 @@ OSBElementRegistrationHelper<OSBTextureChunkElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBTextureChunkElement::OSBTextureChunkElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBTextureChunkElement::OSBTextureChunkElement(OSBRootElement *root) :
+    Inherited(root, OSGOSBHeaderVersion200),
+    _pTexObj (NULL                        ),
+    _pTexEnv (                            )
 {
 }
 

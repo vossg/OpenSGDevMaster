@@ -381,6 +381,7 @@ ColladaSource::ColladaSource(daeElement *elem, ColladaGlobal *global)
     , _dataMap    ()
     , _nameStore  ()
     , _matrixStore()
+    , _floatStore ()
 {
 }
 

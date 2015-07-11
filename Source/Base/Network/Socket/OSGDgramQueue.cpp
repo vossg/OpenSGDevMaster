@@ -64,7 +64,8 @@ OSG_USING_NAMESPACE
  */
 
 DgramQueue::DgramQueue():
-    _queue(),
+    _barrier(NULL ),
+    _queue  (     ),
     _waiting(false)
 {
     char barrierName[256];

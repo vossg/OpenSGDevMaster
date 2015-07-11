@@ -136,6 +136,8 @@ class OSG_TEXT_DLLMAPPING TextVectorGlyph: public TextGlyph
          * sequence of primitives.
          */
         std::vector<TypeIndex> types;
+
+        PolygonOutline(void) : coords(), contours(), indices(), types() {}
     };
     
     /**

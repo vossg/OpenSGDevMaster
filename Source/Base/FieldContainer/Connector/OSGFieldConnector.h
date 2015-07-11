@@ -81,6 +81,11 @@ class OSG_BASE_DLLMAPPING BasicFieldConnector
     BitVector       _bDstMask;
 
     FieldContainer *_pDst;
+
+  private:
+
+    BasicFieldConnector(const BasicFieldConnector &other);
+    void operator =(const BasicFieldConnector &rhs);
 };
 
 /*! \ingroup GrpBaseFieldContainerConnector
@@ -113,6 +118,11 @@ class SFieldConnector : public BasicFieldConnector
     
     const SrcFieldT *_pSrcField;
           DstFieldT *_pDstField;
+
+  private:
+
+    SFieldConnector(const SFieldConnector &other);
+    void operator =(const SFieldConnector &rhs);
 };
 
 /*! \ingroup GrpBaseFieldContainerConnector
@@ -145,6 +155,11 @@ class MFieldConnector : public BasicFieldConnector
     
     const SrcFieldT *_pSrcField;
           DstFieldT *_pDstField;
+
+  private:
+
+    MFieldConnector(const MFieldConnector &other);
+    void operator =(const MFieldConnector &rhs);
 };
 
 OSG_BASE_DLLMAPPING

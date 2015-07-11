@@ -123,45 +123,46 @@ void DBHeaderFloatParameter::convert(const Char8 *str)
 }
 
 DBHeader::DBHeader(void) :
-    uiMagic     (0  ),
-    uiXSize     (0  ),
-    uiYSize     (0  ),
-    uiZSize     (0  ),
-    uiTSteps    (0  ),
-    uiType      (0  ),
+     uiMagic     (0  ),
+     uiXSize     (0  ),
+     uiYSize     (0  ),
+     uiZSize     (0  ),
+     uiTSteps    (0  ),
+     uiType      (0  ),
 
-    rSWx        (0.f),
-    rSWy        (0.f),
-    rNWx        (0.f),
-    rNWy        (0.f),
+     rSWx        (0.f),
+     rSWy        (0.f),
+     rNWx        (0.f),
+     rNWy        (0.f),
 
-    rNEx        (0.f),
-    rNEy        (0.f),
-    rSEx        (0.f),
-    rSEy        (0.f),
+     rNEx        (0.f),
+     rNEy        (0.f),
+     rSEx        (0.f),
+     rSEy        (0.f),
 
-    rH0         (0.f),
-    rDh         (0.f),
-    rT0         (0.f),
-    rDt         (0.f),
+     rH0         (0.f),
+     rDh         (0.f),
+     rT0         (0.f),
+     rDt         (0.f),
     
-    rScaling    (1.f),
-    rBias       (0.f),
+     rScaling    (1.f),
+     rBias       (0.f),
 
-    uiExtFormat (0  ),
-    uiImplFormat(0  ),
+     uiExtFormat (0  ),
+     uiImplFormat(0  ),
 
-    LLWGS84_rSWx(0.f),
-    LLWGS84_rSWy(0.f),
-    LLWGS84_rNWx(0.f),
-    LLWGS84_rNWy(0.f),
+     LLWGS84_rSWx(0.f),
+     LLWGS84_rSWy(0.f),
+     LLWGS84_rNWx(0.f),
+     LLWGS84_rNWy(0.f),
 
-    LLWGS84_rNEx(0.f),
-    LLWGS84_rNEy(0.f),
-    LLWGS84_rSEx(0.f),
-    LLWGS84_rSEy(0.f),
+     LLWGS84_rNEx(0.f),
+     LLWGS84_rNEy(0.f),
+     LLWGS84_rSEx(0.f),
+     LLWGS84_rSEy(0.f),
 
-    uiBytes     (0  )
+     uiBytes     (0  ),
+    _mParams     (   )
 {
     std::string szParamName("MAGIC");
 
