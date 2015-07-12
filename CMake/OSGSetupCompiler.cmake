@@ -318,12 +318,21 @@ SET(CMAKE_SHARED_LINKER_FLAGS ${OSG_SHARED_LINKER_FLAGS}
 
 IF(CMAKE_COMPILER_IS_GNUCC)
 
-    SET(OSG_CXX_FLAGS_GV " -Wall -Wextra -Wpedantic -Werror -Weffc++")
+    IF(${GCC_VERSION} VERSION_LESS "4.8")
+      SET(OSG_GCC_PEDANTIC_OPTION ""          )
+      SET(OSG_GCC_EFFCPP_OPTION   ""          )
+    ELSE()
+      SET(OSG_GCC_PEDANTIC_OPTION "-Wpedantic")
+      SET(OSG_GCC_EFFCPP_OPTION   "-Weffc++"  )
+    ENDIF()
+
+
+    SET(OSG_CXX_FLAGS_GV " -Wall -Wextra ${OSG_GCC_PEDANTIC_OPTION} -Werror ${OSG_GCC_EFFCPP_OPTION}")
 
     SET(OSG_CXX_FLAGS_GV "${OSG_CXX_FLAGS_GV} -Wreturn-type -Wold-style-cast -Wno-unused-parameter -Wwrite-strings")
     SET(OSG_CXX_FLAGS_GV "${OSG_CXX_FLAGS_GV} -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE")
 
-    SET(OSG_C_FLAGS_GV " -Wall -Wextra -Wpedantic -Werror -Weffc++")
+    SET(OSG_C_FLAGS_GV " -Wall -Wextra ${OSG_GCC_PEDANTIC_OPTION} -Werror ${OSG_GCC_EFFCPP_OPTION}")
     SET(OSG_C_FLAGS_GV "${OSG_C_FLAGS_GV} -Wreturn-type -Wold-style-cast -Wno-unused-parameter -Wwrite-strings ")
     SET(OSG_C_FLAGS_GV "${OSG_C_FLAGS_GV} -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE")
 
