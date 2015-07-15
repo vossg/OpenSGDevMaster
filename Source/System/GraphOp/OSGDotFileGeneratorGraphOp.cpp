@@ -400,7 +400,7 @@ void DotFileGeneratorGraphOp::HandleTransform(      NodeCore * const core,
 
     if(trafo)
     {
-        void *handler = trafo + 1;
+        void *handler = &const_cast<Matrix&>(trafo->getMatrix());
 
         if(!hasInfo(handler))
         {
