@@ -44,6 +44,8 @@ struct AnimInfo
 {
     OSG::AnimationUnrecPtr anim;
     bool                   on;
+
+    AnimInfo(void) : anim(NULL), on(false) {}
 };
 
 typedef std::vector<AnimInfo>              AnimStore;

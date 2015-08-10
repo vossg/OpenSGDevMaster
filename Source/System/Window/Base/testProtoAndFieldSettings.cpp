@@ -326,20 +326,20 @@ void testPrototypeReplacement(void)
     OSG::FieldContainer *pNCProto = 
         OSG::NodeCore::getClassType().getPrototype();
 
-    fprintf(stderr, "node core proto %p\n", pNCProto);
+    fprintf(stderr, "node core proto %p\n", static_cast<void *>(pNCProto));
 
     OSG::FieldContainer *pMCProto =
         OSG::MatrixCamera::getClassType().getPrototype();
 
-    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+    fprintf(stderr, "matrix cam proto %p\n", static_cast<void *>(pMCProto));
 
 
     OSG::GroupUnrecPtr        pGroup     = OSG::Group       ::create();
     OSG::MatrixCameraUnrecPtr pMatrixCam = OSG::MatrixCamera::create();
 
     fprintf(stderr, "tmp group ptr %p | tmp matrix cam ptr %p\n",
-            pGroup.get(),
-            pMatrixCam.get());
+            static_cast<void *>(pGroup.get()),
+            static_cast<void *>(pMatrixCam.get()));
             
 
     fprintf(stderr, "====================================================\n");
@@ -373,11 +373,12 @@ void testPrototypeReplacement(void)
 
     pMCProto = OSG::MatrixCamera::getClassType().getPrototype();
 
-    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+    fprintf(stderr, "matrix cam proto %p\n", static_cast<void *>(pMCProto));
 
     OSG::MatrixCameraUnrecPtr pNewMatrixCam = OSG::MatrixCamera::create();
 
-    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+    fprintf(stderr, "new matrix cam ptr %p\n", 
+            static_cast<void *>(pNewMatrixCam.get()));
 
     fprintf(stderr, "====================================================\n");
     fprintf(stderr, "set same type proto\n");
@@ -389,11 +390,12 @@ void testPrototypeReplacement(void)
     
     pMCProto = OSG::MatrixCamera::getClassType().getPrototype();
 
-    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+    fprintf(stderr, "matrix cam proto %p\n", static_cast<void *>(pMCProto));
 
     pNewMatrixCam = OSG::MatrixCamera::create();
 
-    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+    fprintf(stderr, "new matrix cam ptr %p\n", 
+            static_cast<void *>(pNewMatrixCam.get()));
 
     fprintf(stderr, "====================================================\n");
     fprintf(stderr, "set derived type proto\n");
@@ -401,7 +403,7 @@ void testPrototypeReplacement(void)
 
     OSG::ComponentTransformUnrecPtr pCTr = OSG::ComponentTransform::create();
 
-    fprintf(stderr, "comp tr ptr %p\n", pCTr.get());
+    fprintf(stderr, "comp tr ptr %p\n", static_cast<void *>(pCTr.get()));
 
     rc = OSG::Transform::getClassType().setPrototype(pCTr);
 
@@ -409,11 +411,11 @@ void testPrototypeReplacement(void)
     
     pMCProto = OSG::Transform::getClassType().getPrototype();
 
-    fprintf(stderr, "transform proto %p\n", pMCProto);
+    fprintf(stderr, "transform proto %p\n", static_cast<void *>(pMCProto));
 
     OSG::TransformUnrecPtr pTr = OSG::Transform::create();
 
-    fprintf(stderr, "new tr ptr %p", pTr.get());
+    fprintf(stderr, "new tr ptr %p", static_cast<void *>(pTr.get()));
 
     if(pTr != NULL)
     {
@@ -437,14 +439,14 @@ void testPrototypeReplacementWithFlags(void)
     OSG::FieldContainer *pMCProto =
         OSG::MatrixCamera::getClassType().getPrototype();
 
-    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+    fprintf(stderr, "matrix cam proto %p\n", static_cast<void *>(pMCProto));
 
 
     OSG::MatrixCameraUnrecPtr pMatrixCam = OSG::MatrixCamera::create();
     OSG::UInt32               rc         = 0;
 
     fprintf(stderr, "tmp matrix cam ptr %p\n",
-            pMatrixCam.get());
+            static_cast<void *>(pMatrixCam.get()));
 
 
     OSG::MatrixCamera::getClassType().dumpFieldInfo();
@@ -457,7 +459,8 @@ void testPrototypeReplacementWithFlags(void)
 
     OSG::MatrixCameraUnrecPtr pNewMatrixCam = OSG::MatrixCamera::create();
 
-    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+    fprintf(stderr, "new matrix cam ptr %p\n", 
+            static_cast<void *>(pNewMatrixCam.get()));
 
     pNewMatrixCam->markFieldsThreadLocal(
         OSG::MatrixCamera::NearFieldMask |
@@ -481,7 +484,7 @@ void testPrototypeReplacementWithFlags(void)
     
     pMCProto = OSG::MatrixCamera::getClassType().getPrototype();
 
-    fprintf(stderr, "matrix cam proto %p\n", pMCProto);
+    fprintf(stderr, "matrix cam proto %p\n", static_cast<void *>(pMCProto));
 
     OSG::MatrixCamera::getClassType().dumpFieldInfo();
 
@@ -495,7 +498,8 @@ void testPrototypeReplacementWithFlags(void)
 
     pNewMatrixCam = OSG::MatrixCamera::create();
 
-    fprintf(stderr, "new matrix cam ptr %p\n", pNewMatrixCam.get());
+    fprintf(stderr, "new matrix cam ptr %p\n", 
+            static_cast<void *>(pNewMatrixCam.get()));
 
     OSG::MatrixCamera::getClassType().dumpFieldInfo();
 

@@ -392,7 +392,7 @@ int doMain (int argc, char **argv)
     OSG::GroupUnrecPtr b1  = OSG::Group::create();
 
     fprintf(stderr, "Create b1n %p %d %d \n",
-            b1n.get(),
+            static_cast<void *>(b1n.get()),
             b1n->getRefCount(),
             b1n->getWeakRefCount());
 
@@ -406,7 +406,7 @@ int doMain (int argc, char **argv)
     t1n->addChild(b1n);
 
     fprintf(stderr, "Create t1n %p %d %d \n",
-            t1n.get(),
+            static_cast<void *>(t1n.get()),
             t1n->getRefCount(),
             t1n->getWeakRefCount());
 
@@ -427,7 +427,7 @@ int doMain (int argc, char **argv)
     }
 
     fprintf(stderr, "Create dlight %p %d %d \n",
-            dlight.get(),
+            static_cast<void *>(dlight.get()),
             dlight->getRefCount(),
             dlight->getWeakRefCount());
 
@@ -452,7 +452,7 @@ int doMain (int argc, char **argv)
     root->addChild(dlight);
 
     fprintf(stderr, "Create root %p %d %d \n",
-            root.get(),
+            static_cast<void *>(root.get()),
             root->getRefCount(),
             root->getWeakRefCount());
 
@@ -598,27 +598,27 @@ int doMain (int argc, char **argv)
     tball.setRotationCenter  (tCenter                  );
 
     fprintf(stderr, "Create b1n %p %d %d \n",
-            b1n.get(),
+            static_cast<void *>(b1n.get()),
             b1n->getRefCount(),
             b1n->getWeakRefCount());
 
     fprintf(stderr, "Create t1n %p %d %d \n",
-            t1n.get(),
+            static_cast<void *>(t1n.get()),
             t1n->getRefCount(),
             t1n->getWeakRefCount());
 
     fprintf(stderr, "Create dlight %p %d %d \n",
-            dlight.get(),
+            static_cast<void *>(dlight.get()),
             dlight->getRefCount(),
             dlight->getWeakRefCount());
 
     fprintf(stderr, "Create hdrroot %p %d %d \n",
-            hdrroot.get(),
+            static_cast<void *>(hdrroot.get()),
             hdrroot->getRefCount(),
             hdrroot->getWeakRefCount());
 
     fprintf(stderr, "Create root %p %d %d \n",
-            root.get(),
+            static_cast<void *>(root.get()),
             root->getRefCount(),
             root->getWeakRefCount());
 
@@ -630,12 +630,12 @@ int main (int argc, char **argv)
     doMain(argc, argv);
 
     fprintf(stderr, "Create hdrroot %p %d %d \n",
-            hdrroot.get(),
+            static_cast<void *>(hdrroot.get()),
             hdrroot->getRefCount(),
             hdrroot->getWeakRefCount());
 
     fprintf(stderr, "Create root %p %d %d \n",
-            root.get(),
+            static_cast<void *>(root.get()),
             root->getRefCount(),
             root->getWeakRefCount());
 

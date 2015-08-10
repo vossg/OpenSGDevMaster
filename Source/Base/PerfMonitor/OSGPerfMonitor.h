@@ -209,7 +209,7 @@ protected:
     friend class OSG::SingletonHolder;
 
     NestedPerfTracker()
-        : mPerfRoot(NULL)
+        : mPerfRoot()
         , mEnabled(false)
         , mCurSampleStack()        
         , mLastFrameStart(OSG::getTimeStamp())

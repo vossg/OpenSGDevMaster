@@ -12,18 +12,18 @@ void *runThread(void *)
     fprintf(stderr, "run thread \n");
 
     fprintf(stderr, "th : %p %p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
 
     fprintf(stderr, "th : %p %p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
             
     OSG::NodeUnrecPtr pNode1 = OSG::Node::create();
 
@@ -43,18 +43,18 @@ void runThread1(void *)
     fprintf(stderr, "run thread \n");
 
     fprintf(stderr, "th : %p %p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
 
     fprintf(stderr, "th : %p %p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
             
     OSG::NodeUnrecPtr pNode1 = OSG::Node::create();
 
@@ -110,9 +110,9 @@ void *runThread(void *)
             OSG::Thread::getCurrentAspect       ());
 
     fprintf(stderr, "th : T:%p ",
-            OSG::Thread::getCurrent             ());
+            static_cast<void *>(OSG::Thread::getCurrent             ()));
     fprintf(stderr, "CL:%p ",
-            OSG::Thread::getCurrentChangeList   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()));
 
     fprintf(stderr, "0x%016" PRIx64 " ",
             OSG::Thread::getCurrentNamespaceMask());
@@ -139,18 +139,18 @@ void runThread1(void *)
     fprintf(stderr, "run thread \n");
 
     fprintf(stderr, "th : CL:%p T:%p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
 
     fprintf(stderr, "th : CL:%p T:%p %d 0x%016" PRIx64 " 0x%016" PRIx64 "\n",
-            OSG::Thread::getCurrentChangeList   (),
-            OSG::Thread::getCurrent             (),
-            OSG::Thread::getCurrentAspect       (),
-            OSG::Thread::getCurrentNamespaceMask(),
-            OSG::Thread::getCurrentLocalFlags   ());
+            static_cast<void *>(OSG::Thread::getCurrentChangeList   ()),
+            static_cast<void *>(OSG::Thread::getCurrent             ()),
+                                OSG::Thread::getCurrentAspect       (),
+                                OSG::Thread::getCurrentNamespaceMask(),
+                                OSG::Thread::getCurrentLocalFlags   ());
             
     OSG::NodeUnrecPtr pNode1 = OSG::Node::create();
 

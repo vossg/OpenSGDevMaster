@@ -1120,6 +1120,9 @@ public:
 private:
    OSG::UInt8* mData;
    const size_t mSize;
+
+   ImageData(const ImageData &other);
+   void operator =(const ImageData &other);
 };
 
 typedef boost::shared_ptr<ImageData> ImageDataPtr;

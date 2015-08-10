@@ -35,18 +35,25 @@ int setupGLUT(int* argc, char* argv[]);
 class TextStuff
 {
 public:
-   TextStuff()
-      : mFace(NULL),
-        mFamilyName("SANS"),
-        mNextFamily(0),
-        mStyle(OSG::TextFace::STYLE_PLAIN),
-        mTextGap(1),
-        mTextureWidth(1024),
-        mFaceSize(46),
-        mLineSpacing(1.0f),
-        mMaxExtent(0.0f),
-        mGeoScale(1.0f),
-        mOffset(0.0, 0.0)
+   TextStuff() :
+       mRootNode(NULL),
+       mTextGeom(NULL),
+       mTextMat (NULL),
+       mTextureObjChunk(NULL),
+       mTextureEnvChunk(NULL),
+       mBlendChunk(NULL),
+       mFace(NULL),
+       mFamilyName("SANS"),
+       mFamilies(),
+       mNextFamily(0),
+       mStyle(OSG::TextFace::STYLE_PLAIN),
+       mTextGap(1),
+       mTextureWidth(1024),
+       mFaceSize(46),
+       mLineSpacing(1.0f),
+       mMaxExtent(0.0f),
+       mGeoScale(1.0f),
+       mOffset(0.0, 0.0)
    {;}
 
    // Initialize the scene structures and get everything going

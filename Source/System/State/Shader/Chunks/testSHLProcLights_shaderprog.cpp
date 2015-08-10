@@ -157,7 +157,7 @@ int setupGLUT( int *argc, char *argv[] );
 
 // Shows how to add your own parameter callbacks.
 
-static void light0Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
+static void light0Active(OSG::DrawEnv *pEnv, OSG::Int32 iLoc)
 {
     if(iLoc != -1)
     {
@@ -170,7 +170,7 @@ static void light0Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
     }
 }
 
-static void light1Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
+static void light1Active(OSG::DrawEnv *pEnv, OSG::Int32 iLoc)
 {
     if(iLoc != -1)
     {
@@ -183,7 +183,7 @@ static void light1Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc)
     }
 }
 
-static void light2Active(OSG::DrawEnv *pEnv, OSG::Int32 &iLoc, OSG::Node *pNode)
+static void light2Active(OSG::DrawEnv *pEnv, OSG::Int32 iLoc, OSG::Node *pNode)
 {
     if(iLoc != -1)
     {

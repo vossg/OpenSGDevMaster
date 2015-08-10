@@ -115,6 +115,9 @@ IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         "LIST(APPEND ${PROJECT_NAME}_DEP_SYS_INCDIR \"${CMAKE_SOURCE_DIR}/Source/External\")\n\n")
 
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "LIST(APPEND ${PROJECT_NAME}_DEP_SYS_TEST_INCDIR \"${CMAKE_SOURCE_DIR}/Source/External\")\n\n")
+
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_HDR
             \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_map\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_set\"

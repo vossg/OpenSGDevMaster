@@ -16,7 +16,8 @@ int main(int argc, char **argv)
 
     while(dtIt != dtEnd)
     {
-        fprintf(stderr, "foo %p %s\n", *dtIt, (*dtIt)->getCName());
+        fprintf(stderr, "foo %p %s\n", 
+                static_cast<void *>(*dtIt), (*dtIt)->getCName());
 
         ++dtIt;
     }

@@ -30,6 +30,8 @@ struct AnimInfo
 {
     bool              on;
     AnimationUnrecPtr anim;
+
+    AnimInfo(void) : on(false), anim(NULL) {}
 };
 
 std::vector<AnimInfo> g_anim;

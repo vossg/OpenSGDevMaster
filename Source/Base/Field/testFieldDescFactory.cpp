@@ -32,7 +32,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
     
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {
@@ -45,7 +45,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
 
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {
@@ -59,7 +59,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
     
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {
@@ -72,7 +72,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
 
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {
@@ -87,7 +87,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
     
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {
@@ -100,7 +100,7 @@ int main (int argc, char **argv)
         NULL,
         NULL);
 
-    fprintf(stderr, "got %p\n", pDesc);
+    fprintf(stderr, "got %p\n", static_cast<void *>(pDesc));
 
     if(pDesc != NULL)
     {

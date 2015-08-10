@@ -22,14 +22,14 @@ void doIt(void)
 
     ElemTypeRefPtr pElem = ElemType::get("test1", true);
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
 
     OSG::ThreadManager::the()->remove(pElem);
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
@@ -47,14 +47,14 @@ void doIt(void)
 
     pElem = ElemType::get("test1", false);
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
 
     OSG::ThreadManager::the()->remove(pElem);
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
@@ -72,7 +72,7 @@ void doIt(void)
 
     pElem = ElemType::get("test1", true);
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
@@ -82,14 +82,14 @@ void doIt(void)
 
     pElem = NULL;
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();
 
     pElem = ElemType::find("test1");
 
-    fprintf(stderr, "%p \n", pElem.get());
+    fprintf(stderr, "%p \n", static_cast<void *>(pElem.get()));
 
     fprintf(stderr, "====================================================\n");
     OSG::ThreadManager::the()->dump();

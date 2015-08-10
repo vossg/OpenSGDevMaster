@@ -87,6 +87,8 @@ class OSG_BASE_DLLMAPPING MemoryConsumption
     TypeMemMapConstIt beginAccumMap(void) const;
     TypeMemMapConstIt endAccumMap  (void) const;
     
+    MemoryConsumption(void) : _memMap() {}
+
   private:
 
     TypeMemMap _memMap;
