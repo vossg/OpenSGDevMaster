@@ -164,8 +164,39 @@ struct SSurface
     }
 #endif
 
+#ifdef WIN32
+    const SSurface &operator=(const SSurface &rhs)
+    {
+        dError            = rhs.dError;
+        fMinError         = rhs.fMinError;
+        fMaxError         = rhs.fMaxError;
+        ucStatus          = rhs.ucStatus;
+        vvclBezierCurves  = rhs.vvclBezierCurves;
+        vvcl3DCurves      = rhs.vvcl3DCurves;
+        vvclEdgeLoops     = rhs.vvclEdgeLoops;
+        vvclEdgeLoops3D   = rhs.vvclEdgeLoops3D;
+// added to comply with ParSpaceTrimmer when using FORCE_NO_T_VERTICES
+        vvclEdgeLoopsNorm = rhs.vvclEdgeLoopsNorm;
+        vvclEdgeLoopsTex  = rhs.vvclEdgeLoopsTex;
+        clMin             = rhs.clMin;
+        clMax             = rhs.clMax;
+        pclErrorTree      = rhs.pclErrorTree;
+        uiTriangleCnt     = rhs.uiTriangleCnt;
+        vbReversed        = rhs.vbReversed;
+        vbUsed            = rhs.vbUsed;
+        tNormalCone       = rhs.tNormalCone;
+#ifdef OSG_ARBITRARY_SPLIT
+        clMinParam        = rhs.clMinParam;
+        clMaxParam        = rhs.clMaxParam;
+#endif
+
+        return *this;
+    }
+#else
   private:
-    void operator=(const SSurface &rhs);
+
+    const SSurface &operator=(const SSurface &rhs);
+#endif
 };
 
 class OSG_DRAWABLE_DLLMAPPING CNurbsPatchSurface

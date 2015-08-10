@@ -105,17 +105,31 @@ struct Face {
 };
 
 static PlyProperty vert_props[] = { /* list of property information for a vertex */
+#ifndef WIN32
   {"x", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,x), 0, 0, 0, 0},
   {"y", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,y), 0, 0, 0, 0},
   {"z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,z), 0, 0, 0, 0},
   {"red",   PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,r), 0, 0, 0, 0},
   {"green", PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,g), 0, 0, 0, 0},
-  {"blue",  PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,b), 0, 0, 0, 0},
+  {"blue",  PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,b), 0, 0, 0, 0}
+#else
+  PlyProperty("x", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,x), 0, 0, 0, 0),
+  PlyProperty("y", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,y), 0, 0, 0, 0),
+  PlyProperty("z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex,z), 0, 0, 0, 0),
+  PlyProperty("red",   PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,r), 0, 0, 0, 0),
+  PlyProperty("green", PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,g), 0, 0, 0, 0),
+  PlyProperty("blue",  PLY_UCHAR, PLY_UCHAR, offsetof(Vertex,b), 0, 0, 0, 0)
+#endif
 };
 
 static PlyProperty face_props[] = { /* list of property information for a vertex */
+#ifndef WIN32
   {"vertex_indices", PLY_INT, PLY_INT, offsetof(Face,verts),
-                     1, PLY_UCHAR, PLY_UCHAR, offsetof(Face,nverts)},
+                     1, PLY_UCHAR, PLY_UCHAR, offsetof(Face,nverts)}
+#else
+  PlyProperty("vertex_indices", PLY_INT, PLY_INT, offsetof(Face,verts),
+                     1, PLY_UCHAR, PLY_UCHAR, offsetof(Face,nverts))
+#endif
 };
 
 
