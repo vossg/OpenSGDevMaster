@@ -98,6 +98,11 @@ class NamedNodeFinder
 
     OSG::Node   *_found;
     std::string  _name;
+
+  private:
+
+    NamedNodeFinder(const NamedNodeFinder &other);
+    void operator =(const NamedNodeFinder &other);
 };
 
 // Initialize GLUT & OpenSG and set up the scene

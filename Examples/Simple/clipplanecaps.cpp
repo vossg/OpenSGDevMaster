@@ -91,6 +91,8 @@ struct ClipPlaneData
 {
     OSG::Vec4f _equation;
     bool       _enabled;
+
+    ClipPlaneData(void) : _equation(), _enabled(false) {}
 };
 
 typedef std::vector<ClipPlaneData> VecClipPlaneData;
@@ -105,6 +107,15 @@ struct ClipPlaneDetails
     OSG::TransformRefPtr       _planeTrafoCore;
     OSG::NodeRefPtr            _planeBeaconNode;
     OSG::Color3f               _planeColor;
+
+    ClipPlaneDetails(void):
+        _clipPlaneChunk   (NULL),
+        _planeGeometryCore(NULL),
+        _planeTrafoCore   (NULL),
+        _planeBeaconNode  (NULL),
+        _planeColor       (    )
+    {
+    }
 };
 
 typedef std::vector<ClipPlaneDetails> VecClipPlaneDetailsT;

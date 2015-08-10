@@ -127,6 +127,8 @@ struct ClipPlaneData
 {
     OSG::Vec4f _equation;
     bool       _enabled;
+
+    ClipPlaneData(void) : _equation(), _enabled(false) {}
 };
 
 typedef std::vector<ClipPlaneData> VecCPData;
@@ -155,6 +157,16 @@ struct ClipPlaneDetails
     OSG::TransformRefPtr       _planeTrafoCore;
     OSG::MaterialChunkRefPtr   _planeMaterialChunk;
     OSG::PolygonChunkRefPtr    _planePolygonChunk;
+
+    ClipPlaneDetails(void):
+        _clipPlaneChunk    (NULL),
+        _clipPlaneBeacon   (NULL),
+        _planeGeometryCore (NULL),
+        _planeTrafoCore    (NULL),
+        _planeMaterialChunk(NULL),
+        _planePolygonChunk (NULL)
+    {
+    }
 };
 
 typedef std::vector<ClipPlaneDetails> VecCPDetailsT;
@@ -343,6 +355,7 @@ ClippingSceneManager::ClippingSceneManager(OSG::SimpleSceneManager* mgr)
 , _internalRoot(NULL)
 , _clippingRoot(NULL)
 , _clipPlaneRoot(NULL)
+, _container(NULL)
 , _vecClipPlaneDetails()
 , _vecClipPlaneDataLast()
 {

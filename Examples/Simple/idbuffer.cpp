@@ -92,7 +92,27 @@ struct color_compare
 class IDbuffer
 {
 public:
-    IDbuffer(void)
+    IDbuffer(void) :
+        _grabber        (NULL),
+        _ID_viewport    (NULL),
+        _ID_renderAction(NULL),
+        _window         (NULL),
+        _solidBkg       (NULL),
+        _sky            (NULL),
+
+        _switches       (    ),
+        _mgswitches     (    ),
+
+        _node_index     (    ),
+
+        _ID_buffer      (NULL),
+        _w              (0   ), 
+        _h              (0   ),
+
+        ci              (0   ),
+        cj              (0   ),
+        ck              (0   )
+
     {
         _ID_buffer = NULL;
         
@@ -372,6 +392,10 @@ private:
     int                         _w, _h;            // buffer size
 
     int ci,cj,ck;    // for colors generations
+
+
+    IDbuffer(const IDbuffer &other);
+    void operator =(const IDbuffer &other);
 };
 
 // forward declaration so we can have the interesting stuff upfront

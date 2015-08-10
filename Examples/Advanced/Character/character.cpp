@@ -103,6 +103,27 @@ struct GlobalVars
 
     OSG::SkinnedGeometry::RenderModeE renderMode;
     OSG::ShaderProgramChunkRefPtr     skinShader;
+
+    GlobalVars(void) :
+        mgr          (NULL                              ),
+        win          (NULL                              ),
+
+        rootN        (NULL                              ),
+        xform        (NULL                              ),
+        angle        (0.f                               ),
+        angleVel     (0.f                               ),
+
+        charState    (CharIdle                          ),
+        prevCharState(CharIdle                          ),
+
+        skinGeos     (                                  ),
+        materials    (                                  ),
+        texMap       (                                  ),
+
+        renderMode   (OSG::SkinnedGeometry::RMSkinnedCPU),
+        skinShader   (NULL                              )
+    {
+    }
 };
 
 const OSG::Real32 idleAngleVel = 0.f;

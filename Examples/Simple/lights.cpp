@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     // Args given?
     if(argc > 1)
     {
-        if(sscanf(argv[1], "%d", &nlights) != 1)
+        if(sscanf(argv[1], "%u", &nlights) != 1)
         {
             FWARNING(("Number of lights '%s' not understood.\n", argv[1]));
             nlights = 3;

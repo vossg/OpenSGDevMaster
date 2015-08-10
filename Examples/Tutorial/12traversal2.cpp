@@ -37,9 +37,8 @@ class counter
 {
     public:
         //constructor
-        counter(void)
-        {
-            mCount = 0;
+        counter(void) : mCount(0)
+        {           
         }
         
         //method that will be called when entering

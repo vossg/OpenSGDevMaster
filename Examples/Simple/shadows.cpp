@@ -77,6 +77,23 @@ struct GlobalObjects
     OSG::TransformRefPtr          box_trans;
     OSG::TransformRefPtr          cylinder1_trans;
     OSG::TransformRefPtr          cylinder2_trans;
+
+    GlobalObjects(void) :
+        mgr            (NULL),
+
+        gwin           (NULL),
+
+        rootNode       (NULL),
+        spot1_core     (NULL),
+        spot2_core     (NULL),
+        dir_core       (NULL),
+        point1_core    (NULL),
+        point2_core    (NULL),
+        box_trans      (NULL),
+        cylinder1_trans(NULL),
+        cylinder2_trans(NULL)
+    {
+    }
 };
 
 GlobalObjects *globals = NULL;

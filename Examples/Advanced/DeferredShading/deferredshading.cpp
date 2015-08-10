@@ -79,6 +79,20 @@ struct LightInfo
     ShaderProgramUnrecPtr      lightVP;
     ShaderProgramUnrecPtr      lightFP;
     ShaderProgramChunkUnrecPtr lightSH;
+
+    LightInfo(void) :
+        lightType (LightEngine::Spot),
+        shadowType(ST_NONE          ),
+        light     (NULL             ),
+        lightN    (NULL             ),
+        beaconN   (NULL             ),
+
+        lightVP   (NULL             ),
+        lightFP   (NULL             ),
+        lightSH   (NULL             )
+    {
+    }
+
 };
 
 std::ostream &operator << (std::ostream &os, const LightInfo &li);
@@ -108,6 +122,33 @@ struct GlobalValues
 
     UInt32                         shadowMapWidth;
     UInt32                         shadowMapHeight;
+
+    GlobalValues(void) :
+        mgr            (NULL             ),
+        glutWin        (NULL             ),
+
+        rootN          (NULL             ),
+
+        dsStageN       (NULL             ),
+        dsStage        (NULL             ),
+
+        sceneN         (NULL             ),
+        objN           (NULL             ),
+
+        lightInfos     (                 ),
+
+        animateLights  (false            ),
+        colorLights    (false            ),
+
+        newLightType   (LightEngine::Spot),
+        newShadowType  (ST_NONE          ),
+
+        currentLight   (0                ),
+
+        shadowMapWidth (128              ),
+        shadowMapHeight(128              )
+    {
+    }
 };
 
 GlobalValues *gv;

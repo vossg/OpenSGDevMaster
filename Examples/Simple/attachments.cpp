@@ -180,7 +180,7 @@ typedef SimpleAttachment<MyAttachmentDesc> MyAttachment;
 /*
     Generate all the different pointer types.
 */
-OSG_GEN_CONTAINERPTR(MyAttachment)
+OSG_GEN_CONTAINERPTR(MyAttachment);
 
 OSG_END_NAMESPACE
 

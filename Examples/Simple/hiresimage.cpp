@@ -76,7 +76,7 @@
 #include <OpenSG/OSGImage.h>
 #endif
 
-OSG_USING_NAMESPACE; // just for convenience but not recommended
+OSG_USING_NAMESPACE // just for convenience but not recommended
 
 //
 // function forward declarations
