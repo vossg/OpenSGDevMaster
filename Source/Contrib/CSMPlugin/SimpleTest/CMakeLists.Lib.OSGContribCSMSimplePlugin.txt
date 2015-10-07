@@ -8,7 +8,8 @@ IF(${OSGBUILD_OSGContribCSMSimplePlugin})
 
     PROJECT(SimplePluginApp)
 
-    ADD_EXECUTABLE(simplePluginApp ${OSGEXCLUDE_TESTS} simplePluginApp.cpp)
+    ADD_EXECUTABLE(simplePluginApp ${OSGEXCLUDE_TESTS} 
+                                   simplePluginApp.cpp ${OSG_ADD_GLOBAL_EXE_SRC})
 
     IF(UNIX)
       TARGET_LINK_LIBRARIES(simplePluginApp ${OSG_DL_LIB} ${OPENGL_gl_LIBRARY})
