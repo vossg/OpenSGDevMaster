@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+   name="FBOBackground"
+   parent="Background"
+   library="Window"
+   structure="concrete"
+   pointerfieldtypes="single"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpWindowPassive"
+   >
+  <Field
+	  name="frameBufferObject"
+	  type="FrameBufferObjectPtr"
+	  cardinality="single"
+	  visibility="external"
+	  access="public"
+	  >
+    The FramebufferObject to clear from.
+  </Field>
+</FieldContainer>
