@@ -307,6 +307,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
           void           addOverride        (UInt32      uiSlot, 
                                              StateChunk *pChunk);
 
+          void           subOverride        (UInt32      uiSlot, 
+                                             StateChunk *pChunk);
+
     const StateOverride *getCurrentOverrides(void              ) const;
 
     /*-------------------------- comparison ---------------------------------*/

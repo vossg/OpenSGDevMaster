@@ -295,3 +295,152 @@ void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
         this->addOverride(uiSlot, pSPChunk);
     }
 }
+
+void StateOverride::subOverride(UInt32 uiSlot, ShaderProgramChunk *pChunk)
+{
+    if(pChunk == NULL)
+    {
+        return;
+    }
+
+    ShaderProgramChunk::MFVertexShaderType::const_iterator sIt  =
+        pChunk->getMFVertexShader()->begin();
+
+    ShaderProgramChunk::MFVertexShaderType::const_iterator sEnd =
+        pChunk->getMFVertexShader()->end();
+
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        UInt16    uiProgId = (*sIt)->getProgramId();
+
+        std::pair<IdStoreIt, IdStoreIt> pairIt
+            = std::equal_range(_vProgIds.begin(),
+                               _vProgIds.end  (),
+                               uiProgId         );
+
+        if(pairIt.first != pairIt.second)
+        {
+            _vProgIds.erase(pairIt.first);
+        }
+    }
+
+    sIt  = pChunk->getMFGeometryShader()->begin();
+    sEnd = pChunk->getMFGeometryShader()->end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        UInt16    uiProgId = (*sIt)->getProgramId();
+
+        std::pair<IdStoreIt, IdStoreIt> pairIt
+            = std::equal_range(_vProgIds.begin(),
+                               _vProgIds.end  (),
+                               uiProgId         );
+
+        if(pairIt.first != pairIt.second)
+        {
+            _vProgIds.erase(pairIt.first);
+        }
+    }
+
+    sIt  = pChunk->getMFFragmentShader()->begin();
+    sEnd = pChunk->getMFFragmentShader()->end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        UInt16    uiProgId = (*sIt)->getProgramId();
+
+        std::pair<IdStoreIt, IdStoreIt> pairIt
+            = std::equal_range(_vProgIds.begin(),
+                               _vProgIds.end  (),
+                               uiProgId         );
+
+        if(pairIt.first != pairIt.second)
+        {
+            _vProgIds.erase(pairIt.first);
+        }
+    }
+
+    ProgramChunkStore::const_iterator sIt2
+        = std::find(_vProgChunks.begin(), _vProgChunks.end(), pChunk);
+
+    if(sIt2 != _vProgChunks.end())
+        _vProgChunks.erase(sIt2);
+}
+
+void StateOverride::subOverride(UInt32                      uiSlot,
+                                ShaderProgramVariableChunk *pChunk)
+{
+    if(pChunk == NULL)
+    {
+        return;
+    }
+
+    UInt16    uiVarId = pChunk->getVariableId();
+
+    std::pair<IdStoreIt, IdStoreIt> pairIt
+            = std::equal_range(_vProgVarIds.begin(),
+                               _vProgVarIds.end  (),
+                               uiVarId             );
+
+    if(pairIt.first != pairIt.second)
+    {
+        _vProgVarIds.erase(pairIt.first);
+    }
+
+    ProgramVarChunkStore::const_iterator sIt2
+        = std::find(_vProgVarChunks.begin(), _vProgVarChunks.end(), pChunk);
+
+    if(sIt2 != _vProgVarChunks.end())
+        _vProgVarChunks.erase(sIt2);
+}
+
+void StateOverride::subOverride(UInt32          uiSlot,
+                                SimpleSHLChunk *pChunk)
+{
+    eraseOverride(uiSlot, pChunk);
+}
+
+void StateOverride::eraseOverride(UInt32      uiSlot,
+                                  StateChunk *pChunk)
+{
+    ChunkElement newElem(uiSlot, pChunk);
+
+    std::pair<ChunkStoreIt, ChunkStoreIt> pairIt
+        = std::equal_range(_vChunks.begin(),
+                           _vChunks.end  (),
+                            newElem        );
+
+    for(; pairIt.first != pairIt.second; ++pairIt.first)
+    {
+        if(pairIt.first->first == uiSlot)
+        {
+            _vChunks.erase(pairIt.first);
+            break;
+        }
+    }
+}
+
+void StateOverride::subOverride(UInt32 uiSlot, StateChunk *pChunk)
+{
+    ShaderProgramChunk *pSPChunk = dynamic_cast<ShaderProgramChunk *>(pChunk);
+
+    if(pSPChunk == NULL)
+    {
+        ShaderProgramVariableChunk *pSPVChunk =
+            dynamic_cast<ShaderProgramVariableChunk *>(pChunk);
+
+        if(pSPVChunk == NULL)
+        {
+            eraseOverride(uiSlot, pChunk);
+        }
+        else
+        {
+            this->subOverride(uiSlot, pSPVChunk);
+        }
+    }
+    else
+    {
+        this->subOverride(uiSlot, pSPChunk);
+    }
+}

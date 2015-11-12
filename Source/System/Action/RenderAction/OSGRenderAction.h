@@ -157,6 +157,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
           void           addOverride        (UInt32      uiSlot, 
                                              StateChunk *pChunk);
+          void           subOverride        (UInt32      uiSlot, 
+                                             StateChunk *pChunk);
 
     const StateOverride *getCurrentOverrides(void              ) const;
 

@@ -224,8 +224,17 @@ Action::ResultE ChunkOverrideGroup::renderEnter(Action *action)
         while(chIt != chEnd)
         {
             if(*chIt != NULL && (*chIt)->getIgnore() == false)
-                pAction->addOverride(uiSlot, *chIt);
-            
+            {
+                if (getSubOverride())
+                {
+                    pAction->subOverride(uiSlot, *chIt);
+                }
+                else
+                {
+                    pAction->addOverride(uiSlot, *chIt);
+                }
+            }
+
             ++uiSlot;
             ++chIt;
         }

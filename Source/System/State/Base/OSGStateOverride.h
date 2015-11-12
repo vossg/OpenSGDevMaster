@@ -148,6 +148,17 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     void addOverride  (UInt32                      uiSlot, 
                        ShaderProgramVariableChunk *pChunk);
 
+
+    void subOverride  (UInt32                      uiSlot, 
+                       StateChunk                 *pChunk);
+    void subOverride  (UInt32                      uiSlot, 
+                       SimpleSHLChunk             *pChunk);
+    void subOverride  (UInt32                      uiSlot, 
+                       ShaderProgramChunk         *pChunk);
+    void subOverride  (UInt32                      uiSlot, 
+                       ShaderProgramVariableChunk *pChunk);
+
+
     bool empty        (void                      );
 
     bool isTransparent(void                      );
@@ -212,6 +223,9 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \{                                                                 */
 
     void insertOverride(UInt32      uiSlot, 
+                        StateChunk *pChunk);
+
+    void eraseOverride (UInt32      uiSlot, 
                         StateChunk *pChunk);
 
     /*! \}                                                                 */

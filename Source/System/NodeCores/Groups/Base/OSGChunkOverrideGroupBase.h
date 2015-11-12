@@ -66,6 +66,7 @@
 #include "OSGGroup.h" // Parent
 
 #include "OSGChunkBlockFields.h"        // FallbackChunkBlock type
+#include "OSGSysFields.h"               // SubOverride type
 
 #include "OSGChunkOverrideGroupFields.h"
 
@@ -95,15 +96,19 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     enum
     {
         FallbackChunkBlockFieldId = Inherited::NextFieldId,
-        NextFieldId = FallbackChunkBlockFieldId + 1
+        SubOverrideFieldId = FallbackChunkBlockFieldId + 1,
+        NextFieldId = SubOverrideFieldId + 1
     };
 
     static const OSG::BitVector FallbackChunkBlockFieldMask =
         (TypeTraits<BitVector>::One << FallbackChunkBlockFieldId);
+    static const OSG::BitVector SubOverrideFieldMask =
+        (TypeTraits<BitVector>::One << SubOverrideFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecChunkBlockPtr SFFallbackChunkBlockType;
+    typedef SFBool            SFSubOverrideType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -131,8 +136,14 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
             const SFUnrecChunkBlockPtr *getSFFallbackChunkBlock(void) const;
                   SFUnrecChunkBlockPtr *editSFFallbackChunkBlock(void);
 
+                  SFBool              *editSFSubOverride    (void);
+            const SFBool              *getSFSubOverride     (void) const;
+
 
                   ChunkBlock * getFallbackChunkBlock(void) const;
+
+                  bool                &editSubOverride    (void);
+                  bool                 getSubOverride     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -140,6 +151,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \{                                                                 */
 
             void setFallbackChunkBlock(ChunkBlock * const value);
+            void setSubOverride    (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -205,6 +217,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \{                                                                 */
 
     SFUnrecChunkBlockPtr _sfFallbackChunkBlock;
+    SFBool            _sfSubOverride;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,6 +248,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 
      GetFieldHandlePtr  getHandleFallbackChunkBlock (void) const;
      EditFieldHandlePtr editHandleFallbackChunkBlock(void);
+     GetFieldHandlePtr  getHandleSubOverride     (void) const;
+     EditFieldHandlePtr editHandleSubOverride    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

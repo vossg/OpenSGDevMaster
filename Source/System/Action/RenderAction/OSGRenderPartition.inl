@@ -386,6 +386,12 @@ void RenderPartition::addOverride(UInt32 uiSlot, StateChunk *pChunk)
 }
 
 inline
+void RenderPartition::subOverride(UInt32 uiSlot, StateChunk *pChunk)
+{
+    _sStateOverrides.top()->subOverride(uiSlot, pChunk);
+}
+
+inline
 const StateOverride *RenderPartition::getCurrentOverrides(void) const
 {
     return _sStateOverrides.top();

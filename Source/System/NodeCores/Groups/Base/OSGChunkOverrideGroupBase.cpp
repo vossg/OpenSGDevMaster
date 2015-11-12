@@ -78,7 +78,7 @@ OSG_BEGIN_NAMESPACE
     ChunkOverrideGroup is a simple group node that allows for material chunks
     to be set that will override all chunks stored in materials in the entire 
     subtree. Currently the last chunk override wins (note the difference to
-    the material group). This might change in future
+    the material group). This might change in future.
  */
 
 /***************************************************************************\
@@ -87,6 +87,12 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var ChunkBlock *    ChunkOverrideGroupBase::_sfFallbackChunkBlock
     
+*/
+
+/*! \var bool            ChunkOverrideGroupBase::_sfSubOverride
+    If true, the ChunkOverrideGroup group does not add new override chunks, 
+    but subtract the chunks from the list of already defined override chunks.
+    Basically, that allows to negate overrides at a deeper level in the scene graph.
 */
 
 
@@ -132,6 +138,20 @@ void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ChunkOverrideGroup::getHandleFallbackChunkBlock));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "subOverride",
+        "If true, the ChunkOverrideGroup group does not add new override chunks, \n"
+        "but subtract the chunks from the list of already defined override chunks.\n"
+        "Basically, that allows to negate overrides at a deeper level in the scene graph.\n",
+        SubOverrideFieldId, SubOverrideFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ChunkOverrideGroup::editHandleSubOverride),
+        static_cast<FieldGetMethodSig >(&ChunkOverrideGroup::getHandleSubOverride));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -163,7 +183,7 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     "  ChunkOverrideGroup is a simple group node that allows for material chunks\n"
     "  to be set that will override all chunks stored in materials in the entire \n"
     "  subtree. Currently the last chunk override wins (note the difference to\n"
-    "  the material group). This might change in future\n"
+    "  the material group). This might change in future.\n"
     "\n"
     "  <Field\n"
     "\t name=\"fallbackChunkBlock\"\n"
@@ -173,12 +193,26 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     "\t access=\"public\"\n"
     "\t >\n"
     "  </Field>\n"
+    "\n"
+    "<Field\n"
+    "        name=\"subOverride\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"false\"\n"
+    "        access=\"public\"\n"
+    "\t>\n"
+    "                If true, the ChunkOverrideGroup group does not add new override chunks, \n"
+    "                but subtract the chunks from the list of already defined override chunks.\n"
+    "                Basically, that allows to negate overrides at a deeper level in the scene graph.\n"
+    "</Field>\n"
+    "\n"
     "</FieldContainer>\n"
     "\n",
     "ChunkOverrideGroup is a simple group node that allows for material chunks\n"
     "to be set that will override all chunks stored in materials in the entire \n"
     "subtree. Currently the last chunk override wins (note the difference to\n"
-    "the material group). This might change in future\n"
+    "the material group). This might change in future.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -229,6 +263,19 @@ void ChunkOverrideGroupBase::setFallbackChunkBlock(ChunkBlock * const value)
 }
 
 
+SFBool *ChunkOverrideGroupBase::editSFSubOverride(void)
+{
+    editSField(SubOverrideFieldMask);
+
+    return &_sfSubOverride;
+}
+
+const SFBool *ChunkOverrideGroupBase::getSFSubOverride(void) const
+{
+    return &_sfSubOverride;
+}
+
+
 
 
 
@@ -243,6 +290,10 @@ SizeT ChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFallbackChunkBlock.getBinSize();
     }
+    if(FieldBits::NoField != (SubOverrideFieldMask & whichField))
+    {
+        returnValue += _sfSubOverride.getBinSize();
+    }
 
     return returnValue;
 }
@@ -256,6 +307,10 @@ void ChunkOverrideGroupBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFallbackChunkBlock.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SubOverrideFieldMask & whichField))
+    {
+        _sfSubOverride.copyToBin(pMem);
+    }
 }
 
 void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
@@ -267,6 +322,11 @@ void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(FallbackChunkBlockFieldMask);
         _sfFallbackChunkBlock.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SubOverrideFieldMask & whichField))
+    {
+        editSField(SubOverrideFieldMask);
+        _sfSubOverride.copyFromBin(pMem);
     }
 }
 
@@ -393,13 +453,15 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 
 ChunkOverrideGroupBase::ChunkOverrideGroupBase(void) :
     Inherited(),
-    _sfFallbackChunkBlock     (NULL)
+    _sfFallbackChunkBlock     (NULL),
+    _sfSubOverride            (bool(false))
 {
 }
 
 ChunkOverrideGroupBase::ChunkOverrideGroupBase(const ChunkOverrideGroupBase &source) :
     Inherited(source),
-    _sfFallbackChunkBlock     (NULL)
+    _sfFallbackChunkBlock     (NULL),
+    _sfSubOverride            (source._sfSubOverride            )
 {
 }
 
@@ -446,6 +508,31 @@ EditFieldHandlePtr ChunkOverrideGroupBase::editHandleFallbackChunkBlock(void)
                     static_cast<ChunkOverrideGroup *>(this), _1));
 
     editSField(FallbackChunkBlockFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ChunkOverrideGroupBase::getHandleSubOverride     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfSubOverride,
+             this->getType().getFieldDesc(SubOverrideFieldId),
+             const_cast<ChunkOverrideGroupBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ChunkOverrideGroupBase::editHandleSubOverride    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfSubOverride,
+             this->getType().getFieldDesc(SubOverrideFieldId),
+             this));
+
+
+    editSField(SubOverrideFieldMask);
 
     return returnValue;
 }

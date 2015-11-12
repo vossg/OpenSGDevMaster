@@ -15,7 +15,7 @@
   ChunkOverrideGroup is a simple group node that allows for material chunks
   to be set that will override all chunks stored in materials in the entire 
   subtree. Currently the last chunk override wins (note the difference to
-  the material group). This might change in future
+  the material group). This might change in future.
 
   <Field
 	 name="fallbackChunkBlock"
@@ -25,5 +25,19 @@
 	 access="public"
 	 >
   </Field>
+
+<Field
+        name="subOverride"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+	>
+                If true, the ChunkOverrideGroup group does not add new override chunks, 
+                but subtract the chunks from the list of already defined override chunks.
+                Basically, that allows to negate overrides at a deeper level in the scene graph.
+</Field>
+
 </FieldContainer>
 

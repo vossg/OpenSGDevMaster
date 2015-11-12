@@ -74,6 +74,31 @@ OSG::UInt16 ChunkOverrideGroupBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the ChunkOverrideGroup::_sfSubOverride field.
+
+inline
+bool &ChunkOverrideGroupBase::editSubOverride(void)
+{
+    editSField(SubOverrideFieldMask);
+
+    return _sfSubOverride.getValue();
+}
+
+//! Get the value of the ChunkOverrideGroup::_sfSubOverride field.
+inline
+      bool  ChunkOverrideGroupBase::getSubOverride(void) const
+{
+    return _sfSubOverride.getValue();
+}
+
+//! Set the value of the ChunkOverrideGroup::_sfSubOverride field.
+inline
+void ChunkOverrideGroupBase::setSubOverride(const bool value)
+{
+    editSField(SubOverrideFieldMask);
+
+    _sfSubOverride.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -88,6 +113,9 @@ void ChunkOverrideGroupBase::execSync (      ChunkOverrideGroupBase *pFrom,
 
     if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
         _sfFallbackChunkBlock.syncWith(pFrom->_sfFallbackChunkBlock);
+
+    if(FieldBits::NoField != (SubOverrideFieldMask & whichField))
+        _sfSubOverride.syncWith(pFrom->_sfSubOverride);
 }
 #endif
 
