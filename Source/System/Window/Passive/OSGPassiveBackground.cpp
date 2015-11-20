@@ -171,13 +171,13 @@ void PassiveBackground::clear(DrawEnv *pEnv)
             // FixMe breaks if source size != target size
             osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
                                  pEnv->getPixelBottom(), 
-                                 pEnv->getPixelRight (), 
-                                 pEnv->getPixelTop   (),
+                                 pEnv->getPixelRight () + 1, 
+                                 pEnv->getPixelTop   () + 1,
                              
                                  pEnv->getPixelLeft  (), 
                                  pEnv->getPixelBottom(), 
-                                 pEnv->getPixelRight (), 
-                                 pEnv->getPixelTop   (),
+                                 pEnv->getPixelRight () + 1, 
+                                 pEnv->getPixelTop   () + 1,
                                  
                                  (GL_COLOR_BUFFER_BIT  |
                                   GL_DEPTH_BUFFER_BIT  |

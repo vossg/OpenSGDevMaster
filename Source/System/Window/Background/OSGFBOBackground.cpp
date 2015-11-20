@@ -169,8 +169,8 @@ void FBOBackground::clear(DrawEnv *pEnv)
 
             pEnv->getPixelLeft  (),
             pEnv->getPixelBottom(),
-            pEnv->getPixelRight (),
-            pEnv->getPixelTop   (),
+            pEnv->getPixelRight () + 1,
+            pEnv->getPixelTop   () + 1,
 
             (GL_COLOR_BUFFER_BIT  |
              GL_DEPTH_BUFFER_BIT  |

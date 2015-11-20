@@ -837,13 +837,13 @@ void ShadowTreeHandler::blitZBuffer(DrawEnv *pEnv)
 
         osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
                              pEnv->getPixelBottom(), 
-                             pEnv->getPixelRight (), 
-                             pEnv->getPixelTop   (),
+                             pEnv->getPixelRight () + 1, 
+                             pEnv->getPixelTop   () + 1,
                           
                              pEnv->getPixelLeft  (), 
                              pEnv->getPixelBottom(), 
-                             pEnv->getPixelRight (), 
-                             pEnv->getPixelTop   (),
+                             pEnv->getPixelRight () + 1, 
+                             pEnv->getPixelTop   () + 1,
                       
                              GL_DEPTH_BUFFER_BIT,
                              GL_NEAREST); 
@@ -871,13 +871,13 @@ void ShadowTreeHandler::blitZBufferCB(DrawEnv *pEnv)
 
     osgGlBlitFramebuffer(pEnv->getPixelLeft  (), 
                          pEnv->getPixelBottom(), 
-                         pEnv->getPixelRight (), 
-                         pEnv->getPixelTop   (),
+                         pEnv->getPixelRight () + 1, 
+                         pEnv->getPixelTop   () + 1,
                           
                          pEnv->getPixelLeft  (), 
                          pEnv->getPixelBottom(), 
-                         pEnv->getPixelRight (), 
-                         pEnv->getPixelTop   (),
+                         pEnv->getPixelRight () + 1, 
+                         pEnv->getPixelTop   () + 1,
                          
                          GL_DEPTH_BUFFER_BIT,
                          GL_NEAREST); 
