@@ -60,13 +60,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-UInt32 FBOBackground::_uiFramebufferObjectExt  = 
+UInt32 FBOBackground::_uiFramebufferObjectExt  =
     Window::invalidExtensionID;
 
-UInt32 FBOBackground::_uiFramebufferBlitExt    = 
+UInt32 FBOBackground::_uiFramebufferBlitExt    =
     Window::invalidExtensionID;
 
-UInt32 FBOBackground::_uiFuncBindFramebuffer   = 
+UInt32 FBOBackground::_uiFuncBindFramebuffer   =
     Window::invalidFunctionID;
 
 UInt32 FBOBackground::_uiFuncBlitFramebuffer   =
@@ -97,19 +97,19 @@ void FBOBackground::initMethod (InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        _uiFramebufferObjectExt   = 
+        _uiFramebufferObjectExt   =
             Window::registerExtension("GL_EXT_framebuffer_object");
-        _uiFramebufferBlitExt   = 
+        _uiFramebufferBlitExt   =
             Window::registerExtension("GL_EXT_framebuffer_blit");
 
-        _uiFuncBindFramebuffer          = 
+        _uiFuncBindFramebuffer          =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glBindFramebufferEXT",
                 _uiFramebufferObjectExt);
 
         _uiFuncBlitFramebuffer  =
             Window::registerFunction (
-                 OSG_DLSYM_UNDERSCORE"glBlitFramebufferEXT", 
+                 OSG_DLSYM_UNDERSCORE"glBlitFramebufferEXT",
                 _uiFramebufferBlitExt);
     }
 }
@@ -132,7 +132,7 @@ FBOBackground::~FBOBackground(void)
 {
 }
 
-void FBOBackground::changed(ConstFieldMaskArg whichField, 
+void FBOBackground::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
@@ -146,7 +146,7 @@ void FBOBackground::clear(DrawEnv *pEnv)
     if(_sfFrameBufferObject.getValue() != NULL)
     {
         Window *win = pEnv->getWindow();
-        
+
         OSGGETGLFUNCBYID_GL3_ES( glBindFramebuffer,
                                  osgGlBindFramebuffer,
                                 _uiFuncBindFramebuffer,
@@ -158,24 +158,24 @@ void FBOBackground::clear(DrawEnv *pEnv)
                               win                  );
 
         osgGlBindFramebuffer(
-            GL_READ_FRAMEBUFFER_EXT, 
+            GL_READ_FRAMEBUFFER_EXT,
             win->getGLObjectId(_sfFrameBufferObject.getValue()->getGLId()));
 
         osgGlBlitFramebuffer(
-             0, 
-             0, 
-            _sfFrameBufferObject.getValue()->getWidth (), 
+             0,
+             0,
+            _sfFrameBufferObject.getValue()->getWidth (),
             _sfFrameBufferObject.getValue()->getHeight(),
-            
-            pEnv->getPixelLeft  (), 
-            pEnv->getPixelBottom(), 
-            pEnv->getPixelRight (), 
+
+            pEnv->getPixelLeft  (),
+            pEnv->getPixelBottom(),
+            pEnv->getPixelRight (),
             pEnv->getPixelTop   (),
-                 
+
             (GL_COLOR_BUFFER_BIT  |
              GL_DEPTH_BUFFER_BIT  |
              GL_STENCIL_BUFFER_BIT),
-            GL_NEAREST); 
+            GL_NEAREST);
 
         if(pEnv->getActiveFBO() != 0)
         {
@@ -192,7 +192,7 @@ void FBOBackground::clear(DrawEnv *pEnv)
 
 /*------------------------------- dump ----------------------------------*/
 
-void FBOBackground::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
+void FBOBackground::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
                          const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
     SLOG << "Dump FBOBackground NI" << std::endl;
