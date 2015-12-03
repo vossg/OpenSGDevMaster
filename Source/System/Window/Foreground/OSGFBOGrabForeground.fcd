@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="FBOGrabForeground"
+   parent="Foreground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpWindowForeground"
+   >
+  The FBOGrabForeground is used for grabbing a rendered viewport into a FBO.
+  See \ref PageSystemWindowForegroundGrab for a description.
+  <Field
+	  name="frameBufferObject"
+	  type="FrameBufferObjectPtr"
+	  cardinality="single"
+	  visibility="external"
+	  access="public"
+	  >
+    The FramebufferObject to write to.
+  </Field>
+  <Field
+	 name="autoResize"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
+	Automatically resize the fbo when the viewport size changes.
+  </Field>
+</FieldContainer>
