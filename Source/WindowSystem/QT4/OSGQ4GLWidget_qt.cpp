@@ -203,7 +203,7 @@ void OSGQGLWidget::glDraw(void)
 void OSGQGLWidget::paintEvent(QPaintEvent *) 
 { 
     paintGL(); 
-};
+}
 
 void OSGQGLWidget::doMakeCurrent(void)
 {

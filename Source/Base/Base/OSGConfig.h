@@ -846,6 +846,11 @@
 # error Could not determine compiler / os combination
 #endif
 
+
+#include "OSGExportDefines.h"
+#include "OSGConfigured.h"
+
+
 /* Mixed bag defines... */
 
 // STLPORT doesn't support all of std::math
@@ -955,9 +960,6 @@
 #else
 #define OSGLL(ARG) ARG
 #endif
-
-#include "OSGExportDefines.h"
-#include "OSGConfigured.h"
 
 #ifdef OSG_1_COMPAT
 #define osg OSG

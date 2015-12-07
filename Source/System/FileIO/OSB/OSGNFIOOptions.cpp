@@ -73,7 +73,8 @@ NFIOOptions::NFIOOptions(void)
       _quantizeNormals(Quantizer::QRES_OFF),
       _quantizeTexCoords(Quantizer::QRES_OFF),
       _packIndices(false),
-      _unpack16BitIndices(true)
+      _unpack16BitIndices(true),
+      _forceVolumeExport(false)
 {
 }
 
@@ -97,6 +98,7 @@ void NFIOOptions::init(const std::string &options)
     _quantizeTexCoords          = Quantizer::QRES_OFF;
     _packIndices                = false;
     _unpack16BitIndices         = false;
+    _forceVolumeExport          = false;
     
     std::string option;
     std::string::size_type i = 0;
@@ -156,6 +158,9 @@ void NFIOOptions::init(const std::string &options)
         _unpack16BitIndices = true;
     if(options.find("unpack16BitIndices=false") != std::string::npos)
         _unpack16BitIndices = false;
+
+    if(options.find("forceVolumeExport=true") != std::string::npos)
+        _forceVolumeExport = true;
 }
 
 void NFIOOptions::init(const OptionSet &options)
@@ -170,7 +175,8 @@ void NFIOOptions::init(const OptionSet &options)
     _quantizeTexCoords          = Quantizer::QRES_OFF;
     _packIndices                = false;
     _unpack16BitIndices         = false;
-    
+    _forceVolumeExport          = false;
+
     OptionSet::const_iterator oIt  = options.begin();
     OptionSet::const_iterator oEnd = options.end  ();
     
@@ -202,6 +208,9 @@ void NFIOOptions::init(const OptionSet &options)
             
         if(oIt->first == "unpack16BitIndices")
             _unpack16BitIndices = getBoolOption(oIt->second);
+
+        if(oIt->first == "forceVolumeExport")
+            _forceVolumeExport = getBoolOption(oIt->second);
     }
 }
 
@@ -250,6 +259,11 @@ bool NFIOOptions::packIndices(void) const
 bool NFIOOptions::unpack16BitIndices(void) const
 {
     return _unpack16BitIndices;
+}
+
+bool NFIOOptions::forceVolumeExport(void) const
+{
+    return _forceVolumeExport;
 }
 
 /*------------------------ helper functions ------------------------------*/

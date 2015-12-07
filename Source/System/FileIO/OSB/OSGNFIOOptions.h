@@ -106,6 +106,8 @@ class NFIOOptions
     bool packIndices(void) const;
     bool unpack16BitIndices(void) const;
     
+    bool forceVolumeExport(void) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 protected:
@@ -134,6 +136,8 @@ private:
     
     bool        _packIndices;
     bool        _unpack16BitIndices;
+
+    bool        _forceVolumeExport;
 };
 
 OSG_END_NAMESPACE

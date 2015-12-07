@@ -132,11 +132,13 @@ OSBNodeElement::write(void)
     wh->putValue(OSBCommonElement::FCPtrNode);
     wh->putValue(getVersion()               );
 
-    Node*       node       = dynamic_cast<Node*>(getContainer());
-    std::string skipFields = "";
+    const OSBRootElement *root       = getRoot();
+          Node           *node       = dynamic_cast<Node*>(getContainer());
+          std::string     skipFields = "";
 
-    if(node->getVolume().isStatic  () == false &&
-       node->getVolume().isInfinite() == false   )
+    if(node->getVolume ().isStatic         () == false &&
+       node->getVolume ().isInfinite       () == false &&
+       root->getOptions().forceVolumeExport() == false  )
     {
         skipFields += "'volume'";
     }
