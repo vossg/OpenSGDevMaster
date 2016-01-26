@@ -219,7 +219,8 @@ StringAttributeMapTransitPtr stringAttributeMap(
 
         if ( attr_map == NULL )
         {
-            FFATAL(("stringAttributeMap: StringAttributeMap Attachment is not castable to StringAttributeMap?!?\n"));
+            FFATAL(("StringAttributeMap: StringAttributeMap Attachment is "
+                    "not castable to StringAttributeMap?!?\n"));
             return StringAttributeMapTransitPtr(NULL);
         }
     }

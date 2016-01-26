@@ -45,7 +45,8 @@ OSG_BEGIN_NAMESPACE
     this attribute map.
  */
 
-inline const MFString& StringAttributeMap::getKeys() const
+inline 
+const MFString& StringAttributeMap::getKeys(void) const
 {
     return *StringAttributeMapBase::getMFKeys();
 }
@@ -55,7 +56,8 @@ inline const MFString& StringAttributeMap::getKeys() const
     returned.
  */
 
-inline bool StringAttributeMap::hasAttribute(const std::string& key) const
+inline 
+bool StringAttributeMap::hasAttribute(const std::string &key) const
 {
     return getKeys().find(key) != getKeys().end();
 }
@@ -66,8 +68,8 @@ inline bool StringAttributeMap::hasAttribute(const std::string& key) const
     with the named key is returned.
  */
  
-inline const std::string StringAttributeMap::getAttribute(const std::string& key)
-    const
+inline 
+const std::string StringAttributeMap::getAttribute(const std::string &key) const
 {
     std::string value;
     getAttribute(key, value);
@@ -93,7 +95,8 @@ inline const std::string StringAttributeMap::getAttribute(const std::string& key
     @see getAttribute()
  */
 
-inline std::string& StringAttributeMap::operator[](const std::string& key)
+inline 
+std::string &StringAttributeMap::operator[](const std::string &key)
 {
     MFString *keys   = this->StringAttributeMapBase::editMFKeys();
     MFString *values = this->StringAttributeMapBase::editMFValues();

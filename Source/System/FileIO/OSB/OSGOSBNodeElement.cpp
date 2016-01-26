@@ -97,7 +97,91 @@ OSBNodeElement::read(const std::string &typeName)
     NodeUnrecPtr node = Node::create();
 
     setContainer(node);
-    readFields("", "");
+
+    if(version == OSGOSBHeaderVersion100)
+    {
+        std::string    fieldName;
+        std::string    fieldTypeName;
+        UInt32         fieldSize;
+        PtrFieldListIt ptrFieldIt;
+    
+        while(readFieldHeader("", fieldName, fieldTypeName, fieldSize))
+        {
+            // some fields need to be duplicated for the two replacement chunks
+            if(fieldName == "volume")
+            {
+                // parent fields are ignored
+                UInt32 fieldType = 0;
+                rh->getValue(fieldType);
+
+                switch(fieldSize)
+                {
+                    case 30:
+                    {
+                        UInt16 sState;
+                        Pnt3f  vMin;
+                        Pnt3f  vMax;
+                        
+                        rh->getValue(sState );
+
+                        rh->getValue(vMin[0]);
+                        rh->getValue(vMin[1]);
+                        rh->getValue(vMin[2]);
+                        rh->getValue(vMax[0]);
+                        rh->getValue(vMax[1]);
+                        rh->getValue(vMax[2]);
+
+                        node->editVolume().setState (sState    );
+                        node->editVolume().setBounds(vMin, vMax);
+                    }
+                    break;
+
+                    case 22: 
+                    {
+                        UInt16 sState;
+                        Pnt3f  vCenter;
+                        Real32 fRadius;
+
+                        rh->getValue(sState    );
+
+                        rh->getValue(vCenter[0]);
+                        rh->getValue(vCenter[1]);
+                        rh->getValue(vCenter[2]);
+                        rh->getValue(fRadius);
+
+                        node->editVolume().setState (sState              );
+                        node->editVolume().setBounds(vCenter[0] - fRadius,
+                                                     vCenter[1] - fRadius,
+                                                     vCenter[2] - fRadius,
+                                                     vCenter[0] + fRadius,
+                                                     vCenter[1] + fRadius,
+                                                     vCenter[2] + fRadius);
+                    }
+                    break;
+
+                    default:
+                        fprintf(stderr, 
+                                "unknown volume type with size %d, skipping\n",
+                                fieldSize                                     );
+
+                        rh->skip(fieldSize - sizeof(UInt32)); 
+
+                        break;
+                }
+            }    
+            else
+            {
+                readFieldContent(fieldName, 
+                                 fieldTypeName, 
+                                 fieldSize, "", 
+                                 ptrFieldIt   );
+            }
+        }
+    }
+    else
+    {
+        readFields("", "");
+    }
 }
 
 void

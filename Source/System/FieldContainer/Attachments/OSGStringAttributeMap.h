@@ -123,7 +123,6 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
 
     static void initMethod(InitPhase ePhase);
 
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
