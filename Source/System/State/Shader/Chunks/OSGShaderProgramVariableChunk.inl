@@ -161,6 +161,60 @@ bool ShaderProgramVariableChunk::getUniformBlock(const Char8  *name,
 }
 
 inline
+bool ShaderProgramVariableChunk::addShaderStorageBlock(const Char8  *name, 
+                                                             UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::create();
+
+        setVariables(pParam);
+    }
+
+#if 0
+    return _sfVariables.getValue()->addShaderStorageBlock(
+        name, 
+        value,
+        editMFBlockLocations(),
+        NULL                     );
+#else
+    return _sfVariables.getValue()->addShaderStorageBlock(
+        name, 
+        value,
+        NULL,
+        NULL                     );
+#endif
+}
+
+inline
+bool ShaderProgramVariableChunk::updateShaderStorageBlock(const Char8  *name, 
+                                                                UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::create();
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateShaderStorageBlock(name, value);
+}
+
+inline
+bool ShaderProgramVariableChunk::getShaderStorageBlock(const Char8  *name, 
+                                                             UInt32 &value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getShaderStorageBlock(name, value);
+    }
+
+    return false;
+}
+
+inline
 UInt16 ShaderProgramVariableChunk::getVariableId(void)
 {
     return _uiVarId;

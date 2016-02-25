@@ -167,6 +167,59 @@ bool ShaderProgram::getUniformBlock(const Char8  *name, UInt32 &value)
 }
 
 inline
+bool ShaderProgram::addShaderStorageBlock(const Char8 *name, UInt32 value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+#if 0
+    return _sfVariables.getValue()->addShaderStorageBlock(
+        name, 
+        value,
+        editMFVariableLocations          (),
+        editMFProceduralVariableLocations());
+#else
+    return _sfVariables.getValue()->addShaderStorageBlock(
+        name, 
+        value,
+        NULL,
+        NULL);
+#endif
+}
+
+inline
+bool ShaderProgram::updateShaderStorageBlock(const Char8  *name, UInt32 value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateShaderStorageBlock(name, value);
+}
+
+inline
+bool ShaderProgram::getShaderStorageBlock(const Char8  *name, UInt32 &value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getShaderStorageBlock(name, value);
+    }
+
+    return false;
+}
+
+inline
 void ShaderProgram::addDestroyedFunctor(ChangedFunctor func,
                                         std::string    createSymbol)
 {
@@ -267,6 +320,18 @@ inline
 UInt32 ShaderProgram::getExtIdUniformBufferObject(void)
 {
     return _extUniformBufferObject;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdProgramInterfaceQuery(void)
+{
+    return _extProgramInterfaceQuery;
+}
+
+inline
+UInt32 ShaderProgram::getExtIdShaderStorageBufferObject(void)
+{
+    return _extShaderStorageBufferObject;
 }
 
 inline
@@ -603,6 +668,24 @@ inline
 UInt16 ShaderProgram::getProgramId(void)
 {
     return _uiProgId;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdGetProgramResourceIndex(void)
+{
+    return FuncIdGetProgramResourceIndex;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdGetProgramResourceiv(void)
+{
+    return FuncIdGetProgramResourceiv;
+}
+
+inline
+UInt32 ShaderProgram::getFuncIdShaderStorageBlockBinding(void)
+{
+    return FuncIdShaderStorageBlockBinding;
 }
 
 OSG_END_NAMESPACE

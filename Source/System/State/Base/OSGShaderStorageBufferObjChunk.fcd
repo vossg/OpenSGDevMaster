@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ShaderStorageBufferObjChunk"
+    parent="StateChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+    >
+    See \ref PageSystemShaderStorageBufferObjChunk for a description.
+
+    This chunk wraps the OpenGL shader storage buffer object extension (ARB_shader_storage_buffer_object). 
+
+    <Field
+        name="GLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+	>
+            The OpenGL object id for this shader storage buffer object.
+    </Field>
+    <Field
+        name="usage"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="GL_STATIC_DRAW"
+        potential_values="GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY, GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, GL_DYNAMIC_COPY"
+	>
+                Specifies the expected usage pattern of the data store. The symbolic constant must be 
+                 GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY, 
+                 GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, 
+                 GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY.
+    </Field>
+    <Field
+        name="blockName"
+        type="std::string"
+        cardinality="single"
+        visibility="external"
+        access="public"
+	>
+                The name of the shader storage block.
+    </Field>
+    <Field
+        name="fundamentalTypes"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                Stores the fundamental type of  a block entry. This can be any of the set {NONE_T, FLOAT_T, DOUBLE_T, INT_T, UINT_T, BOOL_T}.
+    </Field>
+    <Field
+        name="mainTypes"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                Stores the main type of  a block entry. This can be any of the set {SIMPLE_T, VEC2_T, VEC3_T, VEC4_T, MAT2_T, MAT3_T, MAT4_T, 
+                MAT2X3_T, MAT2X4_T, MAT3X4_T, MAT3X2_T, MAT4X2_T, MAT4X3_T, STRUCT_BEGIN_T, STRUCT_END_T}.
+    </Field>
+    <Field
+        name="cardinality"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                Stores the cardinality of array structure elements.
+    </Field>
+    <Field
+        name="index"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                Stores the index pointer into the value containers.
+    </Field>
+    <Field
+        name="names"
+        type="std::string"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                Stores the index pointer into the value containers.
+    </Field>
+    <Field
+        name="nameToIndex"
+        type="StringToUInt32Map"
+        cardinality="single"
+        visibility="external"
+        access="protected"
+	>
+                Stores the mapping from names into the index container.
+    </Field>
+    <Field
+        name="floatValues"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                The float values.
+    </Field>
+    <Field
+        name="doubleValues"
+        type="Real64"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                The double values.
+    </Field>
+    <Field
+        name="intValues"
+        type="Int32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                The int values.
+    </Field>
+    <Field
+        name="uIntValues"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                The unsigned int values.
+    </Field>
+    <Field
+        name="boolValues"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+                The bool values.
+    </Field>
+</FieldContainer>

@@ -603,4 +603,76 @@ void osgUniformShaderUniformBlockBinding(DrawEnv        *pEnv,
     }
 }
 
+inline
+void osgUniformShaderStorageBlockLocation(DrawEnv        *pEnv, 
+                                          ShaderVariable *pVar, 
+                                          Int32          &loc, 
+                                          UInt32          uiProgram)
+{
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdProgramInterfaceQuery(), 0x0420))
+    {
+        SWARNING << "Shader Storage are not supported, could not "
+                 << "find extension 'GL_ARB_program_interface_query'!"
+                 << std::endl;
+        return;
+    }
+
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0430))
+    {
+        SWARNING << "Shader Storage are not supported, could not "
+                 << "find extension 'GL_ARB_shader_storage_buffer_object'!"
+                 << std::endl;
+        return;
+    }
+
+    if(loc == -1)
+    {
+        OSGGETGLFUNC_GL3_ES(glGetProgramResourceIndex,
+                            osgGlGetProgramResourceIndex,
+                            ShaderProgram::getFuncIdGetProgramResourceIndex());
+
+        loc = osgGlGetProgramResourceIndex(uiProgram, GL_SHADER_STORAGE_BLOCK, pVar->getName().c_str());
+#ifdef OSG_MULTISHADER_VARCHUNK
+        if(loc == -1)
+            loc = -2;
+#endif
+     }
+}
+
+inline
+void osgUniformShaderStorageBlockBinding(DrawEnv        *pEnv,
+                                         ShaderVariable *pVar,
+                                         Int32          &loc,
+                                         UInt32          uiProgram,
+                                         bool            warnUnknown)
+{
+    if(!pEnv->getWindow()->hasExtOrVersion(
+        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0430))
+    {
+        SWARNING << "Shader Storage blocks are not supported, could not "
+                 << "find extension 'GL_ARB_shader_storage_buffer_object'!"
+                 << std::endl;
+        return;
+    }
+
+    ShaderVariableShaderStorageBlock *p = dynamic_cast<ShaderVariableShaderStorageBlock *>(pVar);
+
+    if(loc > -1)
+    {
+        OSGGETGLFUNC_GL3_ES(glShaderStorageBlockBinding,
+                            osgGlShaderStorageBlockBinding,
+                            ShaderProgram::getFuncIdShaderStorageBlockBinding());
+
+        osgGlShaderStorageBlockBinding(uiProgram, loc, p->getValue());
+    }
+    else if(warnUnknown == true)
+    {
+        SWARNING << "Block '" << p->getName() << "'" 
+                 << "not found in active shader program '" << uiProgram << "'" 
+                 << std::endl;
+    }
+}
+
 OSG_END_NAMESPACE

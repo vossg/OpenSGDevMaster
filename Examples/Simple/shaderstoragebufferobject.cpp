@@ -11,6 +11,9 @@
 // It is however, important the the order and the cardinality of the
 // members is matched exactly.
 //
+// Internally, the shader uniform block is queried for the offsets,
+// array and matrix strides of the block variables.
+//
 
 #include <sstream>
 #include <boost/random/mersenne_twister.hpp>
@@ -149,7 +152,7 @@ struct Light
 typedef std::vector<Light>       VecLightsT;        // multiple lights
 typedef std::vector<Light::Type> VecLightTypesT;    // helper to create lights
 
-VecLightsT inialize_lights(const VecLightTypesT& types)         // helper to create lights
+VecLightsT initialize_lights(const VecLightTypesT& types)         // helper to create lights
 {
     VecLightsT lights;
 
@@ -162,7 +165,7 @@ VecLightsT inialize_lights(const VecLightTypesT& types)         // helper to cre
 const std::size_t num_lights = 1;                   // simple example with just one light
 VecLightTypesT vecTypes(num_lights, Light::directional_light);
 
-VecLightsT lights = inialize_lights(vecTypes);    // the lights
+VecLightsT lights = initialize_lights(vecTypes);    // the lights
 
 
 //
@@ -190,7 +193,7 @@ struct Material
 
 typedef std::vector<Material> VecMaterialsT;        // multiple lights
 
-VecMaterialsT inialize_materials(std::size_t num)   // helper to create materials
+VecMaterialsT initialize_materials(std::size_t num) // helper to create materials
 {
     VecMaterialsT materials;
 
@@ -212,7 +215,7 @@ VecMaterialsT inialize_materials(std::size_t num)   // helper to create material
 }
 
 const std::size_t num_materials = 100;                          // any numnber of materials
-VecMaterialsT materials = inialize_materials(num_materials);    // the material database
+VecMaterialsT materials = initialize_materials(num_materials);  // the material database
 
 
 //

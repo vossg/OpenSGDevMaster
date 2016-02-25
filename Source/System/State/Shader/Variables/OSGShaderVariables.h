@@ -69,6 +69,7 @@
 #include "OSGShaderVariableOSG.h"
 
 #include "OSGShaderVariableUniformBlock.h"
+#include "OSGShaderVariableShaderStorageBlock.h"
 
 #include "OSGGLFuncProtos.h"
 #include "OSGShaderProgram.h"
@@ -196,6 +197,19 @@ void osgUniformShaderUniformBlockLocation
                                       UInt32          uiProgram  );
 
 void osgUniformShaderUniformBlockBinding
+                                     (DrawEnv        *pEnv,      
+                                      ShaderVariable *pVar,  
+                                      Int32          &loc,
+                                      UInt32          uiProgram, 
+                                      bool            warnUnknown);
+
+void osgUniformShaderStorageBlockLocation
+                                     (DrawEnv        *pEnv,      
+                                      ShaderVariable *pVar,       
+                                      Int32          &loc,
+                                      UInt32          uiProgram  );
+
+void osgUniformShaderStorageBlockBinding
                                      (DrawEnv        *pEnv,      
                                       ShaderVariable *pVar,  
                                       Int32          &loc,

@@ -133,7 +133,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariable : public ShaderVariableBase
         SHVTypeMString,          // missing
         SHVTypeOSG,
         SHVTypeFunctor,
-        SHVTypeUniformBlock
+        SHVTypeUniformBlock,
+        SHVTypeShaderStorageBlock
     };
 
     enum SHVFlags

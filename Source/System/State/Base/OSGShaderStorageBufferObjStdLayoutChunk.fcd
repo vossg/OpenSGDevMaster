@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ShaderStorageBufferObjStdLayoutChunk"
+    parent="StateChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+    >
+    See \ref PageSystemShaderStorageBufferObjStdLayoutChunk for a description.
+
+    This chunk wraps the OpenGL shader storage buffer object extension (ARB_shader_storage_buffer_object). 
+    Basically, it holds a raw memory buffer and a buffer object binding point. The raw memory 
+    buffer is expected to be provided by the chunk user in either an OpenGL std140 or std430 compatible format. 
+    Any shader, binding a shader storage block to the very same binding point, is expected to respect 
+    the corresponding block layout.
+
+    <Field
+        name="GLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+	>
+            The OpenGL object id for this shader storage buffer object.
+    </Field>
+    <Field
+        name="usage"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="GL_STATIC_DRAW"
+        potential_values="GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY, GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, GL_DYNAMIC_COPY"
+	>
+                Specifies the expected usage pattern of the data store. The symbolic constant must be 
+                 GL_STREAM_DRAW, GL_STREAM_READ, GL_STREAM_COPY, 
+                 GL_STATIC_DRAW, GL_STATIC_READ, GL_STATIC_COPY, 
+                 GL_DYNAMIC_DRAW, GL_DYNAMIC_READ, or GL_DYNAMIC_COPY.
+    </Field>
+<Field
+        name="buffer"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+	>
+	The shader storage buffer storage. The layout of this memory block is governed by the
+                shader storage block layout according to OpenGL std140 or std430 specification.
+    </Field>
+</FieldContainer>

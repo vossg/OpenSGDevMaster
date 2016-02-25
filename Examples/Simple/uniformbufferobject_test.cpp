@@ -164,7 +164,7 @@
 #include <OpenSG/OSGShaderProgramVariableChunk.h>
 #endif
 
-#define HAS_FP64_EXTENSION
+//#define HAS_FP64_EXTENSION
 
 //
 // The SimpleSceneManager to manage simple applications

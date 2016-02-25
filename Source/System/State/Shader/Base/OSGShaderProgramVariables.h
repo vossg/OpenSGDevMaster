@@ -355,6 +355,23 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
+    bool addShaderStorageBlock      (const Char8    *name,
+                                           UInt32    value,
+                                           MFInt32  *pVarLoc,
+                                           MFInt32  *pProcVarLoc                );
+
+    bool updateShaderStorageBlock   (const Char8    *name,       UInt32    value);
+
+    bool getShaderStorageBlock      (const Char8    *name,       UInt32   &value);
+
+    bool subShaderStorageBlock      (const Char8    *name,
+                                           MFInt32  *pVarLoc,
+                                           MFInt32  *pProcVarLoc                );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

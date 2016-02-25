@@ -85,6 +85,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static UInt32 getExtIdGPUShader4                (void);
     static UInt32 getExtIdTransformFeedback2        (void);
     static UInt32 getExtIdUniformBufferObject       (void);
+    static UInt32 getExtIdProgramInterfaceQuery     (void);
+    static UInt32 getExtIdShaderStorageBufferObject (void);
 
     static UInt32 getFuncIdCreateShader             (void);
     static UInt32 getFuncIdDeleteShader             (void);
@@ -155,6 +157,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
 
     static UInt32 getFuncIdGetUniformBlockIndex     (void);
     static UInt32 getFuncIdUniformBlockBinding      (void);
+
+    static UInt32 getFuncIdGetProgramResourceIndex  (void);
+    static UInt32 getFuncIdGetProgramResourceiv     (void);
+    static UInt32 getFuncIdShaderStorageBlockBinding(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -248,6 +254,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
+    bool addShaderStorageBlock      (const Char8 *name, UInt32  value);
+    bool updateShaderStorageBlock   (const Char8 *name, UInt32  value);
+    bool getShaderStorageBlock      (const Char8 *name, UInt32& value);
+    bool subShaderStorageBlock      (const Char8 *name               );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
     void setProgramParameter(GLenum name, UInt32 value);
     void subProgramParameter(GLenum name              );
@@ -328,6 +343,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     static       UInt32  _extGPUShader4;
     static       UInt32  _extTransformFeedback2;
     static       UInt32  _extUniformBufferObject;
+    static       UInt32  _extProgramInterfaceQuery;
+    static       UInt32  _extShaderStorageBufferObject;
 
     static       UInt32  FuncIdCreateShader;
     static       UInt32  FuncIdDeleteShader;
@@ -396,6 +413,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
     
     static       UInt32  FuncIdGetUniformBlockIndex;
     static       UInt32  FuncIdUniformBlockBinding;
+
+    static       UInt32  FuncIdGetProgramResourceIndex;
+    static       UInt32  FuncIdGetProgramResourceiv;
+    static       UInt32  FuncIdShaderStorageBlockBinding;
     
     static const Char8  *NextBufferToken;
 

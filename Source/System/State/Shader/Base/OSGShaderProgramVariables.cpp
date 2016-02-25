@@ -1396,6 +1396,33 @@ bool ShaderProgramVariables::subUniformBlock(const Char8   *name,
     return this->subMapVariable(name, pVarLoc, pProcVarLoc);
 }
 
+bool ShaderProgramVariables::addShaderStorageBlock(const Char8    *name,
+                                                         UInt32    value,
+                                                         MFInt32  *pVarLoc,
+                                                         MFInt32  *pProcVarLoc)
+{
+    return this->addMapSVariable<ShaderVariableShaderStorageBlock>(name, 
+                                                                   value, 
+                                                                   pVarLoc,
+                                                                   pProcVarLoc);
+}
+
+bool ShaderProgramVariables::updateShaderStorageBlock(const Char8 *name, UInt32 value)
+{
+    return this->updateMapSVariable<ShaderVariableShaderStorageBlock>(name, value);
+}
+
+bool ShaderProgramVariables::getShaderStorageBlock(const Char8 *name, UInt32 &value)
+{
+    return this->getMapSVariable<ShaderVariableShaderStorageBlock>(name, value);
+}
+
+bool ShaderProgramVariables::subShaderStorageBlock(const Char8   *name,
+                                                   MFInt32 *pVarLoc,
+                                                   MFInt32 *pProcVarLoc)
+{
+    return this->subMapVariable(name, pVarLoc, pProcVarLoc);
+}
 
 void ShaderProgramVariables::onDestroyAspect(UInt32 uiContainerId,
                                              UInt32 uiAspect     )

@@ -56,43 +56,47 @@
 
 #include "OSGDrawEnv.h"
 
-#include "OSGUniformBufferObjStd140Chunk.h"
+#include "OSGShaderStorageBufferObjStdLayoutChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGUniformBufferObjStd140ChunkBase.cpp file.
-// To modify it, please change the .fcd file (OSGUniformBufferObjStd140Chunk.fcd) and
+// OSGShaderStorageBufferObjStdLayoutChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGShaderStorageBufferObjStdLayoutChunk.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass UniformBufferObjStd140Chunk::_class("UniformBuffer", osgMaxUniformBufferBindings, 30);
+StateChunkClass ShaderStorageBufferObjStdLayoutChunk::_class("ShaderStorageBuffer", 
+                                                             osgMaxShaderStorageBufferBindings, // number if slots
+                                                             30);                               // priority
 
-volatile UInt16 UniformBufferObjStd140Chunk::_uiChunkCounter = 1;
+volatile UInt16 ShaderStorageBufferObjStdLayoutChunk::_uiChunkCounter = 1;
 
 typedef OSG::Window Win;
 
-UInt32 UniformBufferObjStd140Chunk::_extUniformBufferObject   = Win::invalidExtensionID;
-UInt32 UniformBufferObjStd140Chunk::_extVertexBufferObject    = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_extUniformBufferObject        = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_extVertexBufferObject         = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_extProgramInterfaceQuery      = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_extShaderStorageBufferObject  = Win::invalidExtensionID;
 
-UInt32 UniformBufferObjStd140Chunk::_funcBindBuffer           = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcMapBuffer            = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcUnmapBuffer          = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcBufferData           = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcBufferSubData        = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcGenBuffers           = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcDeleteBuffers        = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcBindBufferBase       = Win::invalidFunctionID;
-UInt32 UniformBufferObjStd140Chunk::_funcGetBufferParameteriv = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcBindBuffer                = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcMapBuffer                 = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcUnmapBuffer               = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcBufferData                = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcBufferSubData             = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcGenBuffers                = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcDeleteBuffers             = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcBindBufferBase            = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjStdLayoutChunk::_funcGetBufferParameteriv      = Win::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
 
-void UniformBufferObjStd140Chunk::initMethod(InitPhase ePhase)
+void ShaderStorageBufferObjStdLayoutChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -140,9 +144,15 @@ void UniformBufferObjStd140Chunk::initMethod(InitPhase ePhase)
         _funcBindBufferBase     = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glBindBufferBase",   
             _extUniformBufferObject);
+
+
+        _extProgramInterfaceQuery =
+            Window::registerExtension("GL_ARB_program_interface_query");
+
+        _extShaderStorageBufferObject =
+            Window::registerExtension("GL_ARB_shader_storage_buffer_object");
     }
 }
-
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -154,19 +164,20 @@ void UniformBufferObjStd140Chunk::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-UniformBufferObjStd140Chunk::UniformBufferObjStd140Chunk(void) :
-    Inherited ( ),
+ShaderStorageBufferObjStdLayoutChunk::ShaderStorageBufferObjStdLayoutChunk(void) :
+    Inherited(),
     _uiChunkId(0)
 {
 }
 
-UniformBufferObjStd140Chunk::UniformBufferObjStd140Chunk(const UniformBufferObjStd140Chunk &source) :
-    Inherited (source),
-    _uiChunkId(     0)
+ShaderStorageBufferObjStdLayoutChunk::ShaderStorageBufferObjStdLayoutChunk(
+    const ShaderStorageBufferObjStdLayoutChunk &source) :
+    Inherited(source),
+    _uiChunkId(0)
 {
 }
 
-UniformBufferObjStd140Chunk::~UniformBufferObjStd140Chunk(void)
+ShaderStorageBufferObjStdLayoutChunk::~ShaderStorageBufferObjStdLayoutChunk(void)
 {
 }
 
@@ -174,14 +185,14 @@ UniformBufferObjStd140Chunk::~UniformBufferObjStd140Chunk(void)
 
 /*------------------------- Chunk Class Access ---------------------------*/
 
-const StateChunkClass *UniformBufferObjStd140Chunk::getClass(void) const
+const StateChunkClass *ShaderStorageBufferObjStdLayoutChunk::getClass(void) const
 {
     return &_class;
 }
 
-void UniformBufferObjStd140Chunk::changed(ConstFieldMaskArg whichField, 
-                                          UInt32            origin,
-                                          BitVector         details)
+void ShaderStorageBufferObjStdLayoutChunk::changed(ConstFieldMaskArg whichField, 
+                                                   UInt32            origin,
+                                                   BitVector         details)
 {
     GLenum id = _sfGLId.getValue();
 
@@ -195,7 +206,7 @@ void UniformBufferObjStd140Chunk::changed(ConstFieldMaskArg whichField,
 
 /*----------------------------- onCreate --------------------------------*/
 
-void UniformBufferObjStd140Chunk::onCreate(const UniformBufferObjStd140Chunk *source)
+void ShaderStorageBufferObjStdLayoutChunk::onCreate(const ShaderStorageBufferObjStdLayoutChunk *source)
 {
     Inherited::onCreate(source);
 
@@ -205,21 +216,22 @@ void UniformBufferObjStd140Chunk::onCreate(const UniformBufferObjStd140Chunk *so
     _uiChunkId = _uiChunkCounter++;
 
     setGLId(Window::registerGLObject(
-                boost::bind(&UniformBufferObjStd140Chunk::handleGL, 
-                            UniformBufferObjStd140ChunkMTUncountedPtr(this), 
+                boost::bind(&ShaderStorageBufferObjStdLayoutChunk::handleGL, 
+                            ShaderStorageBufferObjStdLayoutChunkMTUncountedPtr(this), 
                             _1, _2, _3, _4),
-                &UniformBufferObjStd140Chunk::handleDestroyGL));
+                &ShaderStorageBufferObjStdLayoutChunk::handleDestroyGL));
 }
 
-void UniformBufferObjStd140Chunk::onCreateAspect(const UniformBufferObjStd140Chunk *createAspect,
-                                                 const UniformBufferObjStd140Chunk *source      )
+void ShaderStorageBufferObjStdLayoutChunk::onCreateAspect(
+    const ShaderStorageBufferObjStdLayoutChunk *createAspect,
+    const ShaderStorageBufferObjStdLayoutChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
 
     _uiChunkId = createAspect->_uiChunkId;
 }
 
-void UniformBufferObjStd140Chunk::onDestroy(UInt32 uiContainerId)
+void ShaderStorageBufferObjStdLayoutChunk::onDestroy(UInt32 uiContainerId)
 {
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);
@@ -229,9 +241,11 @@ void UniformBufferObjStd140Chunk::onDestroy(UInt32 uiContainerId)
 
 /*------------------------------ Output ----------------------------------*/
 
-void UniformBufferObjStd140Chunk::dump(      UInt32    uiIndent,
-                                       const BitVector bvFlags) const
+void ShaderStorageBufferObjStdLayoutChunk::dump(      UInt32    uiIndent,
+                                                const BitVector bvFlags) const
 {
+    SLOG << "Dump ShaderStorageBufferObjStdLayoutChunk NI" << std::endl;
+
     Inherited::dump(uiIndent, bvFlags);
 
     if((bvFlags & UsageFieldMask) != 0)
@@ -249,10 +263,11 @@ void UniformBufferObjStd140Chunk::dump(      UInt32    uiIndent,
 /*------------------------------ GL -----------------------------------------*/
 
 /*! GL object handler                                                        */
-UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv, 
-                                             UInt32                   osgid, 
-                                             Window::GLObjectStatusE  mode,
-                                             UInt64                   uiOptions)
+UInt32 ShaderStorageBufferObjStdLayoutChunk::handleGL(
+    DrawEnv                 *pEnv, 
+    UInt32                   osgid, 
+    Window::GLObjectStatusE  mode,
+    UInt64                   uiOptions)
 {
     Window *pWin = pEnv->getWindow();
     GLuint  id  = pWin->getGLObjectId(osgid);
@@ -261,16 +276,34 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
     if(!hasVBO)
     {
         FWARNING(
-            ("UniformBufferObjStd140Chunk::handleGL: vertex buffer objects not "
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: vertex buffer objects not "
              "supported for this window!\n"));
         return 0;
     }
 
-    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0300);
+    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0310);
     if(!hasUBO)
     {
         FWARNING(
-            ("UniformBufferObjStd140Chunk::handleGL: uniform buffer objects not "
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: uniform buffer objects not "
+             "supported for this window!\n"));
+        return 0;
+    }
+
+    bool hasSSBO = pWin->hasExtOrVersion(_extShaderStorageBufferObject, 0x0430);
+    if(!hasSSBO)
+    {
+        FWARNING(
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: GL_ARB_uniform_buffer_object not "
+             "supported for this window!\n"));
+        return 0;
+    }
+
+    bool hasPIQ = pWin->hasExtOrVersion(_extProgramInterfaceQuery, 0x0420);
+    if(!hasPIQ)
+    {
+        FWARNING(
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: GL_ARB_program_interface_query not "
              "supported for this window!\n"));
         return 0;
     }
@@ -280,9 +313,9 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
         case Window::initialize:
             {
                 OSGGETGLFUNCBYID_GL3_ES( glGenBuffers, 
-                                     osgGlGenBuffers,
-                                    _funcGenBuffers, 
-                                     pWin);
+                                         osgGlGenBuffers,
+                                        _funcGenBuffers, 
+                                         pWin);
 
                 OSGGETGLFUNCBYID_GL3_ES( glBindBuffer,
                                          osgGlBindBuffer,
@@ -305,12 +338,12 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
                 std::size_t sz = _mfBuffer.size();
                 if (sz > 0)
                 {
-                    osgGlBindBuffer    (GL_UNIFORM_BUFFER, id);
-                    osgGlBufferData    (GL_UNIFORM_BUFFER, sz, &_mfBuffer[0], _sfUsage.getValue());
-                    osgGlBindBuffer    (GL_UNIFORM_BUFFER, 0);
+                    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, id);
+                    osgGlBufferData    (GL_SHADER_STORAGE_BUFFER, sz, &_mfBuffer[0], _sfUsage.getValue());
+                    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, 0);
                 }
 
-                glErr("UniformBufferObjStd140Chunk::handleGL initialize");
+                glErr("ShaderStorageBufferObjStdLayoutChunk::handleGL initialize");
             }
             break;
         case Window::reinitialize:
@@ -348,22 +381,22 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
                                             _funcBindBufferBase, 
                                              pWin);
 
-                    osgGlBindBuffer(GL_UNIFORM_BUFFER, id);
+                    osgGlBindBuffer(GL_SHADER_STORAGE_BUFFER, id);
 
                     GLint curr_size;
-                    osgGlGetBufferParameteriv( GL_UNIFORM_BUFFER, 
+                    osgGlGetBufferParameteriv( GL_SHADER_STORAGE_BUFFER, 
                                                GL_BUFFER_SIZE, 
                                               &curr_size);
 
                     GLint curr_usage;
-                    osgGlGetBufferParameteriv( GL_UNIFORM_BUFFER, 
+                    osgGlGetBufferParameteriv( GL_SHADER_STORAGE_BUFFER, 
                                                GL_BUFFER_USAGE, 
                                               &curr_usage);
 
                     if ( sz                 != SizeT (curr_size ) || 
                         _sfUsage.getValue() != GLenum(curr_usage)  )
                     {
-                        osgGlBufferData(  GL_UNIFORM_BUFFER, 
+                        osgGlBufferData(  GL_SHADER_STORAGE_BUFFER, 
                                           sz, 
                                         &_mfBuffer[0], 
                                          _sfUsage.getValue());
@@ -371,18 +404,18 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
                     else
                     {
                         GLubyte* pBuffer = static_cast<GLubyte*>(
-                            osgGlMapBuffer(GL_UNIFORM_BUFFER, 
+                            osgGlMapBuffer(GL_SHADER_STORAGE_BUFFER, 
                                            GL_WRITE_ONLY_ARB));
 
                         UInt8* p = &_mfBuffer[0];
                         memcpy(pBuffer, p, sizeof(UInt8) * _mfBuffer.size());
             
-                        osgGlUnmapBuffer(GL_UNIFORM_BUFFER);
+                        osgGlUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
                     }
                     
-                    osgGlBindBuffer    (GL_UNIFORM_BUFFER, 0);
+                    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, 0);
 
-                    glErr("UniformBufferObjStd140Chunk::handleGL reinitialize");
+                    glErr("ShaderStorageBufferObjStdLayoutChunk::handleGL reinitialize");
                 }
             }
             break;
@@ -405,20 +438,20 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
 
                 osgGlBindBuffer(GL_UNIFORM_BUFFER, id);
                 GLubyte* pBuffer = static_cast<GLubyte*>(
-                                    osgGlMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY_ARB));
+                                    osgGlMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY_ARB));
 
                 UChar8* p = &_mfBuffer[0];
                 memcpy(pBuffer, p, sizeof(UChar8) * _mfBuffer.size());
     
-                osgGlUnmapBuffer(GL_UNIFORM_BUFFER);
-                osgGlBindBuffer (GL_UNIFORM_BUFFER, 0);
+                osgGlUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+                osgGlBindBuffer (GL_SHADER_STORAGE_BUFFER, 0);
 
-                glErr("UniformBufferObjStd140Chunk::handleGL needrefresh");
+                glErr("ShaderStorageBufferObjStdLayoutChunk::handleGL needrefresh");
             }
             break;
         default:
             {
-                SWARNING << "UniformBufferObjStd140Chunk(" << this << "::handleGL: Illegal mode: "
+                SWARNING << "ShaderStorageBufferObjStdLayoutChunk(" << this << "::handleGL: Illegal mode: "
                          << mode << " for id " << id << std::endl;
             }
     }
@@ -429,12 +462,22 @@ UInt32 UniformBufferObjStd140Chunk::handleGL(DrawEnv                 *pEnv,
 /*! GL object handler
     destroy it
 */
-void UniformBufferObjStd140Chunk::handleDestroyGL(DrawEnv                 *pEnv, 
-                                                  UInt32                   osgid, 
-                                                  Window::GLObjectStatusE  mode)
+void ShaderStorageBufferObjStdLayoutChunk::handleDestroyGL(
+    DrawEnv                 *pEnv, 
+    UInt32                   osgid, 
+    Window::GLObjectStatusE  mode)
 {
     Window *pWin = pEnv->getWindow();
     GLuint  id   = pWin->getGLObjectId(osgid);
+
+    bool hasVBO = pWin->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200);
+    if(!hasVBO)
+    {
+        FWARNING(
+            ("ShaderStorageBufferObjStdLayoutChunk::handleDestroyGL: vertex buffer objects not "
+             "supported for this window!\n"));
+        return;
+    }
 
     if(mode == Window::destroy)
     {
@@ -446,7 +489,7 @@ void UniformBufferObjStd140Chunk::handleDestroyGL(DrawEnv                 *pEnv,
         osgGlDeleteBuffers(1, &id);
         pWin->setGLObjectId(osgid, 0);
 
-        glErr("UniformBufferObjStd140Chunk::handleDestroyGL");
+        glErr("ShaderStorageBufferObjStdLayoutChunk::handleDestroyGL");
     }
     else if(mode == Window::finaldestroy)
     {
@@ -454,28 +497,27 @@ void UniformBufferObjStd140Chunk::handleDestroyGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "UniformBufferObjStd140Chunk::handleDestroyGL: Illegal mode: "
+        SWARNING << "ShaderStorageBufferObjStdLayoutChunk::handleDestroyGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
-
 }
 
 /*------------------------------ tools --------------------------------------*/
 
-void UniformBufferObjStd140Chunk::validate(DrawEnv *pEnv)
+void ShaderStorageBufferObjStdLayoutChunk::validate(DrawEnv *pEnv)
 {
     pEnv->getWindow()->validateGLObject(this->getGLId(),
                                         pEnv           );
 }
 
-Int32 UniformBufferObjStd140Chunk::getOpenGLId(DrawEnv *pEnv)
+Int32 ShaderStorageBufferObjStdLayoutChunk::getOpenGLId(DrawEnv *pEnv)
 {
     return pEnv->getWindow()->getGLObjectId(this->getGLId());
 }
 
 /*------------------------------ activate -----------------------------------*/
 
-void UniformBufferObjStd140Chunk::activate(DrawEnv *pEnv, UInt32 idx)
+void ShaderStorageBufferObjStdLayoutChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     Window *pWin = pEnv->getWindow();
 
@@ -493,15 +535,15 @@ void UniformBufferObjStd140Chunk::activate(DrawEnv *pEnv, UInt32 idx)
                             _funcBindBufferBase, 
                              pWin);
 
-    osgGlBindBuffer    (GL_UNIFORM_BUFFER, id);
-    osgGlBindBufferBase(GL_UNIFORM_BUFFER, idx, id);
+    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, id);
+    osgGlBindBufferBase(GL_SHADER_STORAGE_BUFFER, idx, id);
 
-    glErr("UniformBufferObjStd140Chunk::activate");
+    glErr("ShaderStorageBufferObjStdLayoutChunk::activate");
 }
 
 /*------------------------------ deactivate ---------------------------------*/
 
-void UniformBufferObjStd140Chunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void ShaderStorageBufferObjStdLayoutChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     Window *pWin = pEnv->getWindow();
 
@@ -515,15 +557,15 @@ void UniformBufferObjStd140Chunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                             _funcBindBufferBase, 
                              pWin);
 
-    osgGlBindBufferBase(GL_UNIFORM_BUFFER, idx, 0);
-    osgGlBindBuffer    (GL_UNIFORM_BUFFER, 0);
+    osgGlBindBufferBase(GL_SHADER_STORAGE_BUFFER, idx, 0);
+    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, 0);
 
-    glErr("UniformBufferObjStd140Chunk::deactivate");
+    glErr("ShaderStorageBufferObjStdLayoutChunk::deactivate");
 }
 
 /*------------------------------ changeFrom ---------------------------------*/
 
-void UniformBufferObjStd140Chunk::changeFrom(DrawEnv    *pEnv,
+void ShaderStorageBufferObjStdLayoutChunk::changeFrom(DrawEnv    *pEnv,
                                        StateChunk *old,
                                        UInt32      idx )
 {
@@ -538,4 +580,3 @@ void UniformBufferObjStd140Chunk::changeFrom(DrawEnv    *pEnv,
 }
 
 OSG_END_NAMESPACE
-

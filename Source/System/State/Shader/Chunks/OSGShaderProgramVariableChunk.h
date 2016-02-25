@@ -134,6 +134,15 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariableChunk :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+    bool addShaderStorageBlock   (const Char8 *name, UInt32  value);
+    bool updateShaderStorageBlock(const Char8 *name, UInt32  value);
+    bool getShaderStorageBlock   (const Char8 *name, UInt32 &value);
+    bool subShaderStorageBlock   (const Char8 *name               );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 

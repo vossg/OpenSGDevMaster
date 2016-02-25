@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_
-#define _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_
+#ifndef _OSGSHADERSTORAGEBUFFEROBJSTDLAYOUTCHUNK_H_
+#define _OSGSHADERSTORAGEBUFFEROBJSTDLAYOUTCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGUniformBufferObjStd140ChunkBase.h"
+#include "OSGShaderStorageBufferObjStdLayoutChunkBase.h"
 #include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief UniformBufferObjStd140Chunk class. See \ref
-           PageSystemUniformBufferObjStd140Chunk for a description.
+/*! \brief ShaderStorageBufferObjStdLayoutChunk class. See \ref
+           PageSystemShaderStorageBufferObjStdLayoutChunk for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferObjStd140ChunkBase
+class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjStdLayoutChunk : public ShaderStorageBufferObjStdLayoutChunkBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
 
   public:
 
-    typedef UniformBufferObjStd140ChunkBase Inherited;
-    typedef UniformBufferObjStd140Chunk     Self;
+    typedef ShaderStorageBufferObjStdLayoutChunkBase Inherited;
+    typedef ShaderStorageBufferObjStdLayoutChunk     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -130,26 +130,26 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
 
     UInt16 _uiChunkId;
 
-    // Variables should all be in UniformBufferObjStd140ChunkBase.
+    // Variables should all be in ShaderStorageBufferObjStdLayoutChunkBase.
 
-    void onCreate      (const UniformBufferObjStd140Chunk *source      = NULL);
-    void onCreateAspect(const UniformBufferObjStd140Chunk *createAspect,
-                        const UniformBufferObjStd140Chunk *source      = NULL);
-    void onDestroy     (      UInt32                 uiContainerId     );
+    void onCreate      (const ShaderStorageBufferObjStdLayoutChunk *source      = NULL);
+    void onCreateAspect(const ShaderStorageBufferObjStdLayoutChunk *createAspect,
+                        const ShaderStorageBufferObjStdLayoutChunk *source      = NULL);
+    void onDestroy     (      UInt32                                uiContainerId     );
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    UniformBufferObjStd140Chunk(void);
-    UniformBufferObjStd140Chunk(const UniformBufferObjStd140Chunk &source);
+    ShaderStorageBufferObjStdLayoutChunk(void);
+    ShaderStorageBufferObjStdLayoutChunk(const ShaderStorageBufferObjStdLayoutChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~UniformBufferObjStd140Chunk(void);
+    virtual ~ShaderStorageBufferObjStdLayoutChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,7 +162,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
 
     // extension indices for used extensions;
     static UInt32 _extVertexBufferObject;
-
     static UInt32 _funcBindBuffer;
     static UInt32 _funcMapBuffer;
     static UInt32 _funcUnmapBuffer;
@@ -173,10 +172,11 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
     static UInt32 _funcGetBufferParameteriv;
 
 
-    static UInt32 _extUniformBufferObject;
-
+    static UInt32 _extUniformBufferObject;    
     static UInt32 _funcBindBufferBase;
 
+    static UInt32 _extProgramInterfaceQuery;
+    static UInt32 _extShaderStorageBufferObject;
 
     static StateChunkClass _class;
     static volatile UInt16 _uiChunkCounter;
@@ -186,7 +186,7 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
   private:
 
     friend class FieldContainer;
-    friend class UniformBufferObjStd140ChunkBase;
+    friend class ShaderStorageBufferObjStdLayoutChunkBase;
 
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */
@@ -204,14 +204,14 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
     /*! \}                                                                 */
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const UniformBufferObjStd140Chunk &source);
+    void operator =(const ShaderStorageBufferObjStdLayoutChunk &source);
 };
 
-typedef UniformBufferObjStd140Chunk *UniformBufferObjStd140ChunkP;
+typedef ShaderStorageBufferObjStdLayoutChunk *ShaderStorageBufferObjStdLayoutChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGUniformBufferObjStd140ChunkBase.inl"
-#include "OSGUniformBufferObjStd140Chunk.inl"
+#include "OSGShaderStorageBufferObjStdLayoutChunkBase.inl"
+#include "OSGShaderStorageBufferObjStdLayoutChunk.inl"
 
-#endif /* _OSGUNIFORMBUFFEROBJSTD140CHUNK_H_ */
+#endif /* _OSGSHADERSTORAGEBUFFEROBJSTDLAYOUTCHUNK_H_ */

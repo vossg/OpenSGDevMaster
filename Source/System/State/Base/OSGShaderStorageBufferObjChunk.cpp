@@ -56,48 +56,49 @@
 
 #include "OSGDrawEnv.h"
 
-#include "OSGUniformBufferObjChunk.h"
+#include "OSGShaderStorageBufferObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGUniformBufferObjChunkBase.cpp file.
-// To modify it, please change the .fcd file (OSGUniformBufferObjChunk.fcd) and
+// OSGShaderStorageBufferObjChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGShaderStorageBufferObjChunk.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass UniformBufferObjChunk::_class("UniformBuffer", osgMaxUniformBufferBindings, 30);
+StateChunkClass ShaderStorageBufferObjChunk::_class("ShaderStorageBuffer", osgMaxShaderStorageBufferBindings, 30);
 
-volatile UInt16 UniformBufferObjChunk::_uiChunkCounter = 1;
+volatile UInt16 ShaderStorageBufferObjChunk::_uiChunkCounter = 1;
 
 typedef OSG::Window Win;
 
-UInt32 UniformBufferObjChunk::_extUniformBufferObject      = Win::invalidExtensionID;
-UInt32 UniformBufferObjChunk::_extVertexBufferObject       = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjChunk::_extVertexBufferObject              = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjChunk::_extUniformBufferObject             = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjChunk::_extProgramInterfaceQuery           = Win::invalidExtensionID;
+UInt32 ShaderStorageBufferObjChunk::_extShaderStorageBufferObject       = Win::invalidExtensionID;
 
-UInt32 UniformBufferObjChunk::_funcBindBuffer              = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcMapBuffer               = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcUnmapBuffer             = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcBufferData              = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcBufferSubData           = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGenBuffers              = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcDeleteBuffers           = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGetBufferParameteriv    = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcBindBuffer                     = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcMapBuffer                      = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcUnmapBuffer                    = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcBufferData                     = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcBufferSubData                  = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcGenBuffers                     = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcDeleteBuffers                  = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcGetBufferParameteriv           = Win::invalidFunctionID;
 
-UInt32 UniformBufferObjChunk::_funcBindBufferBase          = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGetUniformBlockIndex    = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGetActiveUniformBlockiv = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGetActiveUniformsiv     = Win::invalidFunctionID;
-UInt32 UniformBufferObjChunk::_funcGetUniformIndices       = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcBindBufferBase                 = Win::invalidFunctionID;
+
+UInt32 ShaderStorageBufferObjChunk::_funcGetProgramResourceIndex        = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcGetProgramResourceiv           = Win::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
 
-void UniformBufferObjChunk::initMethod(InitPhase ePhase)
+void ShaderStorageBufferObjChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -126,12 +127,12 @@ void UniformBufferObjChunk::initMethod(InitPhase ePhase)
             OSG_DLSYM_UNDERSCORE"glBufferSubDataARB",   
             _extVertexBufferObject);
 
-        _funcDeleteBuffers = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glDeleteBuffersARB",   
-            _extVertexBufferObject);
-
         _funcGenBuffers = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glGenBuffersARB",   
+            _extVertexBufferObject);
+
+        _funcDeleteBuffers = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glDeleteBuffersARB",   
             _extVertexBufferObject);
 
         _funcGetBufferParameteriv = Window::registerFunction(
@@ -139,28 +140,28 @@ void UniformBufferObjChunk::initMethod(InitPhase ePhase)
             _extVertexBufferObject);
 
 
-        _extUniformBufferObject  =
-            Window::registerExtension("GL_ARB_uniform_buffer_object"  );
+        _extShaderStorageBufferObject  =
+            Window::registerExtension("GL_ARB_shader_storage_buffer_object"  );
 
         _funcBindBufferBase = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glBindBufferBase",   
-            _extUniformBufferObject);
+            _extShaderStorageBufferObject);
 
-        _funcGetUniformBlockIndex = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glGetUniformBlockIndex",   
-            _extUniformBufferObject);
 
-        _funcGetActiveUniformBlockiv = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glGetActiveUniformBlockiv",   
-            _extUniformBufferObject);
+        _extProgramInterfaceQuery  =
+            Window::registerExtension("GL_ARB_program_interface_query"  );
 
-        _funcGetActiveUniformsiv = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glGetActiveUniformsiv",   
-            _extUniformBufferObject);
+        _funcGetProgramResourceIndex = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glGetProgramResourceIndex",   
+            _extProgramInterfaceQuery);
 
-        _funcGetUniformIndices = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glGetUniformIndices",   
-            _extUniformBufferObject);
+        _funcGetProgramResourceiv = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glGetProgramResourceiv",   
+            _extProgramInterfaceQuery);
+
+
+        _extShaderStorageBufferObject  =
+            Window::registerExtension("GL_ARB_shader_storage_buffer_object"  );
     }
 }
 
@@ -175,19 +176,19 @@ void UniformBufferObjChunk::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-UniformBufferObjChunk::UniformBufferObjChunk(void) :
-    Inherited ( ),
+ShaderStorageBufferObjChunk::ShaderStorageBufferObjChunk(void) :
+    Inherited(),
     _uiChunkId(0)
 {
 }
 
-UniformBufferObjChunk::UniformBufferObjChunk(const UniformBufferObjChunk &source) :
-    Inherited (source),
+ShaderStorageBufferObjChunk::ShaderStorageBufferObjChunk(const ShaderStorageBufferObjChunk &source) :
+    Inherited(source),
     _uiChunkId(     0)
 {
 }
 
-UniformBufferObjChunk::~UniformBufferObjChunk(void)
+ShaderStorageBufferObjChunk::~ShaderStorageBufferObjChunk(void)
 {
 }
 
@@ -195,14 +196,14 @@ UniformBufferObjChunk::~UniformBufferObjChunk(void)
 
 /*------------------------- Chunk Class Access ---------------------------*/
 
-const StateChunkClass *UniformBufferObjChunk::getClass(void) const
+const StateChunkClass *ShaderStorageBufferObjChunk::getClass(void) const
 {
     return &_class;
 }
 
-void UniformBufferObjChunk::changed(ConstFieldMaskArg whichField, 
-                                    UInt32            origin,
-                                    BitVector         details)
+void ShaderStorageBufferObjChunk::changed(ConstFieldMaskArg whichField, 
+                                          UInt32            origin,
+                                          BitVector         details)
 {
     GLenum id = _sfGLId.getValue();
 
@@ -228,7 +229,7 @@ void UniformBufferObjChunk::changed(ConstFieldMaskArg whichField,
 
 /*----------------------------- onCreate --------------------------------*/
 
-void UniformBufferObjChunk::onCreate(const UniformBufferObjChunk *source)
+void ShaderStorageBufferObjChunk::onCreate(const ShaderStorageBufferObjChunk *source)
 {
     Inherited::onCreate(source);
 
@@ -238,21 +239,22 @@ void UniformBufferObjChunk::onCreate(const UniformBufferObjChunk *source)
     _uiChunkId = _uiChunkCounter++;
 
     setGLId(Window::registerGLObject(
-                boost::bind(&UniformBufferObjChunk::handleGL, 
-                            UniformBufferObjChunkMTUncountedPtr(this), 
+                boost::bind(&ShaderStorageBufferObjChunk::handleGL, 
+                            ShaderStorageBufferObjChunkMTUncountedPtr(this), 
                             _1, _2, _3, _4),
-                &UniformBufferObjChunk::handleDestroyGL));
+                &ShaderStorageBufferObjChunk::handleDestroyGL));
 }
 
-void UniformBufferObjChunk::onCreateAspect(const UniformBufferObjChunk *createAspect,
-                                           const UniformBufferObjChunk *source      )
+void ShaderStorageBufferObjChunk::onCreateAspect(
+    const ShaderStorageBufferObjChunk *createAspect,
+    const ShaderStorageBufferObjChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
 
     _uiChunkId = createAspect->_uiChunkId;
 }
 
-void UniformBufferObjChunk::onDestroy(UInt32 uiContainerId)
+void ShaderStorageBufferObjChunk::onDestroy(UInt32 uiContainerId)
 {
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);
@@ -262,8 +264,8 @@ void UniformBufferObjChunk::onDestroy(UInt32 uiContainerId)
 
 /*------------------------------ Output ----------------------------------*/
 
-void UniformBufferObjChunk::dump(      UInt32    uiIndent,
-                                 const BitVector bvFlags) const
+void ShaderStorageBufferObjChunk::dump(      UInt32    uiIndent,
+                                       const BitVector bvFlags) const
 {
     Inherited::dump(uiIndent, bvFlags);
 
@@ -282,10 +284,10 @@ void UniformBufferObjChunk::dump(      UInt32    uiIndent,
 /*------------------------------ GL -----------------------------------------*/
 
 /*! GL object handler                                                        */
-UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv, 
-                                       UInt32                   osgid, 
-                                       Window::GLObjectStatusE  mode,
-                                       UInt64                   uiOptions)
+UInt32 ShaderStorageBufferObjChunk::handleGL(DrawEnv                 *pEnv, 
+                                             UInt32                   osgid, 
+                                             Window::GLObjectStatusE  mode,
+                                             UInt64                   uiOptions)
 {
     Window *pWin = pEnv->getWindow();
     GLuint  id  = pWin->getGLObjectId(osgid);
@@ -294,16 +296,34 @@ UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv,
     if(!hasVBO)
     {
         FWARNING(
-            ("UniformBufferObjChunk::handleGL: vertex buffer objects not "
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: vertex buffer objects not "
              "supported for this window!\n"));
         return 0;
     }
 
-    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0300);
+    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0310);
     if(!hasUBO)
     {
         FWARNING(
-            ("UniformBufferObjChunk::handleGL: uniform buffer objects not "
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: uniform buffer objects not "
+             "supported for this window!\n"));
+        return 0;
+    }
+
+    bool hasSSBO = pWin->hasExtOrVersion(_extShaderStorageBufferObject, 0x0430);
+    if(!hasSSBO)
+    {
+        FWARNING(
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: GL_ARB_uniform_buffer_object not "
+             "supported for this window!\n"));
+        return 0;
+    }
+
+    bool hasPIQ = pWin->hasExtOrVersion(_extProgramInterfaceQuery, 0x0420);
+    if(!hasPIQ)
+    {
+        FWARNING(
+            ("ShaderStorageBufferObjStdLayoutChunk::handleGL: GL_ARB_program_interface_query not "
              "supported for this window!\n"));
         return 0;
     }
@@ -313,9 +333,9 @@ UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv,
         case Window::initialize:
             {
                 OSGGETGLFUNCBYID_GL3_ES( glGenBuffers, 
-                                     osgGlGenBuffers,
-                                    _funcGenBuffers, 
-                                     pWin);
+                                         osgGlGenBuffers,
+                                        _funcGenBuffers, 
+                                         pWin);
 
                 OSGGETGLFUNCBYID_GL3_ES( glBindBuffer,
                                          osgGlBindBuffer,
@@ -340,12 +360,12 @@ UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv,
                 std::size_t sz = buffer.size();
                 if (sz > 0)
                 {
-                    osgGlBindBuffer    (GL_UNIFORM_BUFFER, id);
-                    osgGlBufferData    (GL_UNIFORM_BUFFER, sz, &buffer[0], _sfUsage.getValue());
-                    osgGlBindBuffer    (GL_UNIFORM_BUFFER, 0);
+                    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, id);
+                    osgGlBufferData    (GL_SHADER_STORAGE_BUFFER, sz, &buffer[0], _sfUsage.getValue());
+                    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, 0);
                 }
 
-                glErr("UniformBufferObjChunk::handleGL initialize");
+                glErr("ShaderStorageBufferObjChunk::handleGL initialize");
             }
             break;
 
@@ -366,23 +386,23 @@ UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv,
                                         _funcUnmapBuffer, 
                                          pWin);
 
-                osgGlBindBuffer(GL_UNIFORM_BUFFER, id);
+                osgGlBindBuffer(GL_SHADER_STORAGE_BUFFER, id);
                 GLubyte* pBuffer = static_cast<GLubyte*>(
-                                    osgGlMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY_ARB));
+                                    osgGlMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY_ARB));
 
                 std::vector<GLubyte> buffer = createBuffer(pEnv);
                 if (!buffer.empty())
                     memcpy(pBuffer, &buffer[0], sizeof(GLubyte) * buffer.size());
     
-                osgGlUnmapBuffer(GL_UNIFORM_BUFFER);
-                osgGlBindBuffer (GL_UNIFORM_BUFFER, 0);
+                osgGlUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+                osgGlBindBuffer (GL_SHADER_STORAGE_BUFFER, 0);
 
-                glErr("UniformBufferObjChunk::handleGL needrefresh");
+                glErr("ShaderStorageBufferObjChunk::handleGL needrefresh");
             }
             break;
         default:
             {
-                SWARNING << "UniformBufferObjChunk(" << this << "::handleGL: Illegal mode: "
+                SWARNING << "ShaderStorageBufferObjChunk(" << this << "::handleGL: Illegal mode: "
                          << mode << " for id " << id << std::endl;
             }
     }
@@ -393,9 +413,9 @@ UInt32 UniformBufferObjChunk::handleGL(DrawEnv                 *pEnv,
 /*! GL object handler
     destroy it
 */
-void UniformBufferObjChunk::handleDestroyGL(DrawEnv                 *pEnv, 
-                                            UInt32                   osgid, 
-                                            Window::GLObjectStatusE  mode)
+void ShaderStorageBufferObjChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                                                  UInt32                   osgid, 
+                                                  Window::GLObjectStatusE  mode)
 {
     Window *pWin = pEnv->getWindow();
     GLuint  id   = pWin->getGLObjectId(osgid);
@@ -410,7 +430,7 @@ void UniformBufferObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
         osgGlDeleteBuffers(1, &id);
         pWin->setGLObjectId(osgid, 0);
 
-        glErr("UniformBufferObjChunk::handleDestroyGL");
+        glErr("ShaderStorageBufferObjChunk::handleDestroyGL");
     }
     else if(mode == Window::finaldestroy)
     {
@@ -418,7 +438,7 @@ void UniformBufferObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
     }
     else
     {
-        SWARNING << "UniformBufferObjChunk::handleDestroyGL: Illegal mode: "
+        SWARNING << "ShaderStorageBufferObjChunk::handleDestroyGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
 
@@ -426,20 +446,20 @@ void UniformBufferObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
 
 /*------------------------------ tools --------------------------------------*/
 
-void UniformBufferObjChunk::validate(DrawEnv *pEnv)
+void ShaderStorageBufferObjChunk::validate(DrawEnv *pEnv)
 {
     pEnv->getWindow()->validateGLObject(this->getGLId(),
                                         pEnv           );
 }
 
-Int32 UniformBufferObjChunk::getOpenGLId(DrawEnv *pEnv)
+Int32 ShaderStorageBufferObjChunk::getOpenGLId(DrawEnv *pEnv)
 {
     return pEnv->getWindow()->getGLObjectId(this->getGLId());
 }
 
 /*------------------------------ activate -----------------------------------*/
 
-void UniformBufferObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
+void ShaderStorageBufferObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     Window *pWin = pEnv->getWindow();
 
@@ -457,15 +477,15 @@ void UniformBufferObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
                             _funcBindBufferBase, 
                              pWin);
 
-    osgGlBindBuffer    (GL_UNIFORM_BUFFER, id);
-    osgGlBindBufferBase(GL_UNIFORM_BUFFER, idx, id);
+    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, id);
+    osgGlBindBufferBase(GL_SHADER_STORAGE_BUFFER, idx, id);
 
-    glErr("UniformBufferObjChunk::activate");
+    glErr("ShaderStorageBufferObjChunk::activate");
 }
 
 /*------------------------------ deactivate ---------------------------------*/
 
-void UniformBufferObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void ShaderStorageBufferObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     Window *pWin = pEnv->getWindow();
 
@@ -479,15 +499,15 @@ void UniformBufferObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                             _funcBindBufferBase, 
                              pWin);
 
-    osgGlBindBufferBase(GL_UNIFORM_BUFFER, idx, 0);
-    osgGlBindBuffer    (GL_UNIFORM_BUFFER, 0);
+    osgGlBindBufferBase(GL_SHADER_STORAGE_BUFFER, idx, 0);
+    osgGlBindBuffer    (GL_SHADER_STORAGE_BUFFER, 0);
 
-    glErr("UniformBufferObjChunk::deactivate");
+    glErr("ShaderStorageBufferObjChunk::deactivate");
 }
 
 /*------------------------------ changeFrom ---------------------------------*/
 
-void UniformBufferObjChunk::changeFrom(DrawEnv    *pEnv,
+void ShaderStorageBufferObjChunk::changeFrom(DrawEnv    *pEnv,
                                        StateChunk *old,
                                        UInt32      idx )
 {
@@ -503,68 +523,82 @@ void UniformBufferObjChunk::changeFrom(DrawEnv    *pEnv,
 
 /*------------------------------ buffer -------------------------------------*/
 
-std::vector<GLubyte> UniformBufferObjChunk::createBuffer(DrawEnv *pEnv)
+std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
 {
     Window *pWin = pEnv->getWindow();
 
-    OSGGETGLFUNCBYID_GL3_ES(   glGetUniformBlockIndex, 
-                            osgGlGetUniformBlockIndex,
-                            _funcGetUniformBlockIndex, 
+    OSGGETGLFUNCBYID_GL3_ES(   glGetProgramResourceIndex, 
+                            osgGlGetProgramResourceIndex,
+                            _funcGetProgramResourceIndex, 
                             pWin);
 
-    OSGGETGLFUNCBYID_GL3_ES(   glGetActiveUniformBlockiv, 
-                            osgGlGetActiveUniformBlockiv,
-                            _funcGetActiveUniformBlockiv, 
-                            pWin);
-
-    OSGGETGLFUNCBYID_GL3_ES(   glGetActiveUniformsiv, 
-                            osgGlGetActiveUniformsiv,
-                            _funcGetActiveUniformsiv, 
-                            pWin);
-
-    OSGGETGLFUNCBYID_GL3_ES(   glGetUniformIndices, 
-                            osgGlGetUniformIndices,
-                            _funcGetUniformIndices, 
+    OSGGETGLFUNCBYID_GL3_ES(   glGetProgramResourceiv, 
+                            osgGlGetProgramResourceiv,
+                            _funcGetProgramResourceiv, 
                             pWin);
 
     std::vector<GLubyte> buffer;
 
-    GLuint index = osgGlGetUniformBlockIndex(pEnv->getActiveShader(), _sfBlockName.getValue().c_str());
+    GLint index = osgGlGetProgramResourceIndex(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, _sfBlockName.getValue().c_str());
     if (index == GL_INVALID_INDEX) {
-        SWARNING << "UniformBufferObjChunk::createBuffer: Invalid block index" << std::endl;
+        SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid block index" << std::endl;
         return buffer;
     }
 
-    GLint num;
-    osgGlGetActiveUniformBlockiv(pEnv->getActiveShader(), index, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &num);
+    const GLenum       block_prop_query[2] = { GL_BUFFER_DATA_SIZE, GL_NUM_ACTIVE_VARIABLES };
+    std::vector<GLint> block_prop_query_result(2);
+
+    osgGlGetProgramResourceiv(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, index, 2, block_prop_query, 2, NULL, &block_prop_query_result[0]);
+
+    GLint size = block_prop_query_result[0];
+    GLint num  = block_prop_query_result[1];
 
     if (SizeT(num) != _mfIndex.size())
     {
-        SWARNING << "UniformBufferObjChunk::createBuffer: Invalid number of active uniforms in block" << std::endl;
+        SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid number of active variables in block" << std::endl;
         return buffer;
     }
 
-    std::vector<const GLchar*> names;
-    for (std::size_t i = 0; i < _mfNames.size(); ++i)
-        names.push_back(_mfNames[i].c_str());
-
     std::vector<GLuint> indices(num);
-    osgGlGetUniformIndices(pEnv->getActiveShader(), num, &names[0], &indices[0]);
-    for (std::size_t i = 0; i < indices.size(); ++i) {
-        if (indices[i] == GL_INVALID_INDEX) {
-            SWARNING << "UniformBufferObjChunk::createBuffer: Invalid block indices" << std::endl;
+    const GLenum indices_query[1] = { GL_ACTIVE_VARIABLES };
+
+    osgGlGetProgramResourceiv(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, index, 1, indices_query, num, NULL, reinterpret_cast<GLint*>(&indices[0]));
+
+    for (std::size_t i = 0; i < indices.size(); ++i)
+    {
+        if (indices[i] == GL_INVALID_INDEX)
+        {
+            SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid index of active variables in block" << std::endl;
             return buffer;
         }
     }
 
-    std::vector<GLint> offsets(num), array_strides(num), matrix_strides(num);
+    std::vector<GLint> offsets(num), 
+                       array_strides(num), 
+                       matrix_strides(num) 
+                       ;
 
-    osgGlGetActiveUniformsiv(pEnv->getActiveShader(), num, &indices[0], GL_UNIFORM_OFFSET,        &offsets[0]);
-    osgGlGetActiveUniformsiv(pEnv->getActiveShader(), num, &indices[0], GL_UNIFORM_ARRAY_STRIDE,  &array_strides[0]);
-    osgGlGetActiveUniformsiv(pEnv->getActiveShader(), num, &indices[0], GL_UNIFORM_MATRIX_STRIDE, &matrix_strides[0]);
-    
-    GLint size;
-    osgGlGetActiveUniformBlockiv(pEnv->getActiveShader(), index, GL_UNIFORM_BLOCK_DATA_SIZE, &size);
+    for(int idx = 0; idx < num; ++idx)
+    {
+        const GLint num_queries = 3;
+        const GLenum query[num_queries] = { 
+            //GL_TYPE, 
+            GL_OFFSET, 
+            //GL_ARRAY_SIZE, 
+            GL_ARRAY_STRIDE, 
+            GL_MATRIX_STRIDE 
+            //GL_IS_ROW_MAJOR, 
+            //GL_TOP_LEVEL_ARRAY_SIZE, 
+            //GL_TOP_LEVEL_ARRAY_STRIDE, 
+            //GL_NAME_LENGTH
+        };
+        GLint query_result[num_queries];
+        osgGlGetProgramResourceiv(pEnv->getActiveShader(), GL_BUFFER_VARIABLE, indices[idx], num_queries, query, num_queries, NULL, query_result);
+
+        offsets[idx]        = query_result[1];
+        array_strides[idx]  = query_result[2];
+        matrix_strides[idx] = query_result[3];
+    }
 
     buffer.resize(size);
 
@@ -674,7 +708,7 @@ std::vector<GLubyte> UniformBufferObjChunk::createBuffer(DrawEnv *pEnv)
 
 /*------------------------------ add-interface ------------------------------*/
 
-UInt32 UniformBufferObjChunk::addFloat(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addFloat(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -702,7 +736,7 @@ UInt32 UniformBufferObjChunk::addFloat(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDouble(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDouble(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -730,7 +764,7 @@ UInt32 UniformBufferObjChunk::addDouble(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addInt(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addInt(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -758,7 +792,7 @@ UInt32 UniformBufferObjChunk::addInt(const std::string& name, UInt32 cardinality
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addUInt(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addUInt(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -786,7 +820,7 @@ UInt32 UniformBufferObjChunk::addUInt(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addBool(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addBool(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -814,7 +848,7 @@ UInt32 UniformBufferObjChunk::addBool(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addVec2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addVec2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -845,7 +879,7 @@ UInt32 UniformBufferObjChunk::addVec2(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addVec3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addVec3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -876,7 +910,7 @@ UInt32 UniformBufferObjChunk::addVec3(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addVec4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addVec4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -907,7 +941,7 @@ UInt32 UniformBufferObjChunk::addVec4(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDVec2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDVec2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -938,7 +972,7 @@ UInt32 UniformBufferObjChunk::addDVec2(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDVec3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDVec3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -969,7 +1003,7 @@ UInt32 UniformBufferObjChunk::addDVec3(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDVec4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDVec4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1000,7 +1034,7 @@ UInt32 UniformBufferObjChunk::addDVec4(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addIVec2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addIVec2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1031,7 +1065,7 @@ UInt32 UniformBufferObjChunk::addIVec2(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addIVec3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addIVec3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1062,7 +1096,7 @@ UInt32 UniformBufferObjChunk::addIVec3(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addIVec4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addIVec4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1093,7 +1127,7 @@ UInt32 UniformBufferObjChunk::addIVec4(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addUVec2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addUVec2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1124,7 +1158,7 @@ UInt32 UniformBufferObjChunk::addUVec2(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addUVec3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addUVec3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1155,7 +1189,7 @@ UInt32 UniformBufferObjChunk::addUVec3(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addUVec4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addUVec4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1186,7 +1220,7 @@ UInt32 UniformBufferObjChunk::addUVec4(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addBVec2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addBVec2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1217,7 +1251,7 @@ UInt32 UniformBufferObjChunk::addBVec2(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addBVec3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addBVec3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1248,7 +1282,7 @@ UInt32 UniformBufferObjChunk::addBVec3(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addBVec4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addBVec4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1279,7 +1313,7 @@ UInt32 UniformBufferObjChunk::addBVec4(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1312,7 +1346,7 @@ UInt32 UniformBufferObjChunk::addMat2(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1345,7 +1379,7 @@ UInt32 UniformBufferObjChunk::addMat3(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1378,7 +1412,7 @@ UInt32 UniformBufferObjChunk::addMat4(const std::string& name, UInt32 cardinalit
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1411,7 +1445,7 @@ UInt32 UniformBufferObjChunk::addDMat2(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1444,7 +1478,7 @@ UInt32 UniformBufferObjChunk::addDMat3(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1477,7 +1511,7 @@ UInt32 UniformBufferObjChunk::addDMat4(const std::string& name, UInt32 cardinali
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat2x3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat2x3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1510,7 +1544,7 @@ UInt32 UniformBufferObjChunk::addMat2x3(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat3x2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat3x2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1542,7 +1576,7 @@ UInt32 UniformBufferObjChunk::addMat3x2(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat2x4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat2x4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1575,7 +1609,7 @@ UInt32 UniformBufferObjChunk::addMat2x4(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat4x2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat4x2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1608,7 +1642,7 @@ UInt32 UniformBufferObjChunk::addMat4x2(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat3x4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat3x4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1641,7 +1675,7 @@ UInt32 UniformBufferObjChunk::addMat3x4(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addMat4x3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addMat4x3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1674,7 +1708,7 @@ UInt32 UniformBufferObjChunk::addMat4x3(const std::string& name, UInt32 cardinal
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat2x3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat2x3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1707,7 +1741,7 @@ UInt32 UniformBufferObjChunk::addDMat2x3(const std::string& name, UInt32 cardina
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat3x2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat3x2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1740,7 +1774,7 @@ UInt32 UniformBufferObjChunk::addDMat3x2(const std::string& name, UInt32 cardina
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat2x4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat2x4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1773,7 +1807,7 @@ UInt32 UniformBufferObjChunk::addDMat2x4(const std::string& name, UInt32 cardina
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat4x2(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat4x2(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1806,7 +1840,7 @@ UInt32 UniformBufferObjChunk::addDMat4x2(const std::string& name, UInt32 cardina
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat3x4(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat3x4(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1839,7 +1873,7 @@ UInt32 UniformBufferObjChunk::addDMat3x4(const std::string& name, UInt32 cardina
     return index;
 }
 
-UInt32 UniformBufferObjChunk::addDMat4x3(const std::string& name, UInt32 cardinality)
+UInt32 ShaderStorageBufferObjChunk::addDMat4x3(const std::string& name, UInt32 cardinality)
 {
     editMField(FundamentalTypesFieldMask,   _mfFundamentalTypes);
     editMField(MainTypesFieldMask,          _mfMainTypes);
@@ -1874,7 +1908,7 @@ UInt32 UniformBufferObjChunk::addDMat4x3(const std::string& name, UInt32 cardina
 
 /*------------------------------ set-interface I ----------------------------*/
 
-void UniformBufferObjChunk::setFloat(UInt32 handle, Real32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setFloat(UInt32 handle, Real32 value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1882,7 +1916,7 @@ void UniformBufferObjChunk::setFloat(UInt32 handle, Real32 value, UInt32 array_i
     _mfFloatValues[_mfIndex[handle] + array_idx] = value;
 }
 
-void UniformBufferObjChunk::setDouble(UInt32 handle, Real64 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDouble(UInt32 handle, Real64 value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1890,7 +1924,7 @@ void UniformBufferObjChunk::setDouble(UInt32 handle, Real64 value, UInt32 array_
     _mfDoubleValues[_mfIndex[handle] + array_idx] = value;
 }
 
-void UniformBufferObjChunk::setInt(UInt32 handle, Int32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setInt(UInt32 handle, Int32 value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1898,7 +1932,7 @@ void UniformBufferObjChunk::setInt(UInt32 handle, Int32 value, UInt32 array_idx)
     _mfIntValues[_mfIndex[handle] + array_idx] = value;
 }
 
-void UniformBufferObjChunk::setUInt(UInt32 handle, UInt32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUInt(UInt32 handle, UInt32 value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1906,7 +1940,7 @@ void UniformBufferObjChunk::setUInt(UInt32 handle, UInt32 value, UInt32 array_id
     _mfUIntValues[_mfIndex[handle] + array_idx] = value;
 }
 
-void UniformBufferObjChunk::setBool(UInt32 handle, bool value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBool(UInt32 handle, bool value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1914,7 +1948,7 @@ void UniformBufferObjChunk::setBool(UInt32 handle, bool value, UInt32 array_idx)
     _mfBoolValues[_mfIndex[handle] + array_idx] = static_cast<UInt8>(value);
 }
 
-void UniformBufferObjChunk::setVec2(UInt32 handle, const Vec2f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec2(UInt32 handle, const Vec2f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1925,7 +1959,7 @@ void UniformBufferObjChunk::setVec2(UInt32 handle, const Vec2f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec2(UInt32 handle, const Pnt2f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec2(UInt32 handle, const Pnt2f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1936,7 +1970,7 @@ void UniformBufferObjChunk::setVec2(UInt32 handle, const Pnt2f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec3(UInt32 handle, const Vec3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(UInt32 handle, const Vec3f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1947,7 +1981,7 @@ void UniformBufferObjChunk::setVec3(UInt32 handle, const Vec3f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec3(UInt32 handle, const Pnt3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(UInt32 handle, const Pnt3f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1958,7 +1992,7 @@ void UniformBufferObjChunk::setVec3(UInt32 handle, const Pnt3f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec3(UInt32 handle, const Color3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(UInt32 handle, const Color3f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1969,7 +2003,7 @@ void UniformBufferObjChunk::setVec3(UInt32 handle, const Color3f& value, UInt32 
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec4(UInt32 handle, const Vec4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(UInt32 handle, const Vec4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1980,7 +2014,7 @@ void UniformBufferObjChunk::setVec4(UInt32 handle, const Vec4f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec4(UInt32 handle, const Pnt4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(UInt32 handle, const Pnt4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -1991,7 +2025,7 @@ void UniformBufferObjChunk::setVec4(UInt32 handle, const Pnt4f& value, UInt32 ar
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setVec4(UInt32 handle, const Color4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(UInt32 handle, const Color4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2002,7 +2036,7 @@ void UniformBufferObjChunk::setVec4(UInt32 handle, const Color4f& value, UInt32 
         _mfFloatValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec2(UInt32 handle, const Vec2d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec2(UInt32 handle, const Vec2d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2013,7 +2047,7 @@ void UniformBufferObjChunk::setDVec2(UInt32 handle, const Vec2d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec2(UInt32 handle, const Pnt2d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec2(UInt32 handle, const Pnt2d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2024,7 +2058,7 @@ void UniformBufferObjChunk::setDVec2(UInt32 handle, const Pnt2d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec3(UInt32 handle, const Vec3d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec3(UInt32 handle, const Vec3d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2035,7 +2069,7 @@ void UniformBufferObjChunk::setDVec3(UInt32 handle, const Vec3d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec3(UInt32 handle, const Pnt3d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec3(UInt32 handle, const Pnt3d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2046,7 +2080,7 @@ void UniformBufferObjChunk::setDVec3(UInt32 handle, const Pnt3d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec4(UInt32 handle, const Vec4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec4(UInt32 handle, const Vec4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2057,7 +2091,7 @@ void UniformBufferObjChunk::setDVec4(UInt32 handle, const Vec4d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setDVec4(UInt32 handle, const Pnt4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec4(UInt32 handle, const Pnt4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2068,7 +2102,7 @@ void UniformBufferObjChunk::setDVec4(UInt32 handle, const Pnt4d& value, UInt32 a
         _mfDoubleValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setIVec2(UInt32 handle, const Vec2i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec2(UInt32 handle, const Vec2i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2079,7 +2113,7 @@ void UniformBufferObjChunk::setIVec2(UInt32 handle, const Vec2i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setIVec2(UInt32 handle, const Pnt2i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec2(UInt32 handle, const Pnt2i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2090,7 +2124,7 @@ void UniformBufferObjChunk::setIVec2(UInt32 handle, const Pnt2i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 
-void UniformBufferObjChunk::setIVec3(UInt32 handle, const Vec3i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec3(UInt32 handle, const Vec3i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2101,7 +2135,7 @@ void UniformBufferObjChunk::setIVec3(UInt32 handle, const Vec3i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 /*
-void UniformBufferObjChunk::setIVec3(UInt32 handle, const Pnt3i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec3(UInt32 handle, const Pnt3i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2112,7 +2146,7 @@ void UniformBufferObjChunk::setIVec3(UInt32 handle, const Pnt3i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 */
-void UniformBufferObjChunk::setIVec4(UInt32 handle, const Vec4i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec4(UInt32 handle, const Vec4i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2123,7 +2157,7 @@ void UniformBufferObjChunk::setIVec4(UInt32 handle, const Vec4i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 /*
-void UniformBufferObjChunk::setIVec4(UInt32 handle, const Pnt4i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec4(UInt32 handle, const Pnt4i& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2134,7 +2168,7 @@ void UniformBufferObjChunk::setIVec4(UInt32 handle, const Pnt4i& value, UInt32 a
         _mfIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 */
-void UniformBufferObjChunk::setUVec2(UInt32 handle, const Vec2u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec2(UInt32 handle, const Vec2u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2145,7 +2179,7 @@ void UniformBufferObjChunk::setUVec2(UInt32 handle, const Vec2u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 /*
-void UniformBufferObjChunk::setUVec2(UInt32 handle, const Pnt2u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec2(UInt32 handle, const Pnt2u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2156,7 +2190,7 @@ void UniformBufferObjChunk::setUVec2(UInt32 handle, const Pnt2u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 */
-void UniformBufferObjChunk::setUVec3(UInt32 handle, const Vec3u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec3(UInt32 handle, const Vec3u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2167,7 +2201,7 @@ void UniformBufferObjChunk::setUVec3(UInt32 handle, const Vec3u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 /*
-void UniformBufferObjChunk::setUVec3(UInt32 handle, const Pnt3u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec3(UInt32 handle, const Pnt3u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2178,7 +2212,7 @@ void UniformBufferObjChunk::setUVec3(UInt32 handle, const Pnt3u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 */
-void UniformBufferObjChunk::setUVec4(UInt32 handle, const Vec4u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec4(UInt32 handle, const Vec4u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2189,7 +2223,7 @@ void UniformBufferObjChunk::setUVec4(UInt32 handle, const Vec4u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 /*
-void UniformBufferObjChunk::setUVec4(UInt32 handle, const Pnt4u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec4(UInt32 handle, const Pnt4u& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2200,7 +2234,7 @@ void UniformBufferObjChunk::setUVec4(UInt32 handle, const Pnt4u& value, UInt32 a
         _mfUIntValues[_mfIndex[handle] + (array_idx * size) + i] = value[i];
 }
 */
-void UniformBufferObjChunk::setBVec2(UInt32 handle, const Vec2b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec2(UInt32 handle, const Vec2b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2211,7 +2245,7 @@ void UniformBufferObjChunk::setBVec2(UInt32 handle, const Vec2b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setBVec2(UInt32 handle, const Pnt2b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec2(UInt32 handle, const Pnt2b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2222,7 +2256,7 @@ void UniformBufferObjChunk::setBVec2(UInt32 handle, const Pnt2b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setBVec3(UInt32 handle, const Vec3b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec3(UInt32 handle, const Vec3b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2233,7 +2267,7 @@ void UniformBufferObjChunk::setBVec3(UInt32 handle, const Vec3b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setBVec3(UInt32 handle, const Pnt3b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec3(UInt32 handle, const Pnt3b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2244,7 +2278,7 @@ void UniformBufferObjChunk::setBVec3(UInt32 handle, const Pnt3b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setBVec4(UInt32 handle, const Vec4b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec4(UInt32 handle, const Vec4b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2255,7 +2289,7 @@ void UniformBufferObjChunk::setBVec4(UInt32 handle, const Vec4b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setBVec4(UInt32 handle, const Pnt4b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec4(UInt32 handle, const Pnt4b& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2266,7 +2300,7 @@ void UniformBufferObjChunk::setBVec4(UInt32 handle, const Pnt4b& value, UInt32 a
         _mfBoolValues[_mfIndex[handle] + (array_idx * size) + i] = static_cast<UInt8>(value[i]);
 }
 
-void UniformBufferObjChunk::setMat2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2283,7 +2317,7 @@ void UniformBufferObjChunk::setMat2(UInt32 handle, const Matrix4f& value, UInt32
     }
 }
 
-void UniformBufferObjChunk::setMat3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2300,7 +2334,7 @@ void UniformBufferObjChunk::setMat3(UInt32 handle, const Matrix4f& value, UInt32
     }
 }
 
-void UniformBufferObjChunk::setMat4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2317,7 +2351,7 @@ void UniformBufferObjChunk::setMat4(UInt32 handle, const Matrix4f& value, UInt32
     }
 }
 
-void UniformBufferObjChunk::setDMat2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2334,7 +2368,7 @@ void UniformBufferObjChunk::setDMat2(UInt32 handle, const Matrix4d& value, UInt3
     }
 }
 
-void UniformBufferObjChunk::setDMat3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2351,7 +2385,7 @@ void UniformBufferObjChunk::setDMat3(UInt32 handle, const Matrix4d& value, UInt3
     }
 }
 
-void UniformBufferObjChunk::setDMat4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2368,7 +2402,7 @@ void UniformBufferObjChunk::setDMat4(UInt32 handle, const Matrix4d& value, UInt3
     }
 }
 
-void UniformBufferObjChunk::setMat2x3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2x3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2385,7 +2419,7 @@ void UniformBufferObjChunk::setMat2x3(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setMat3x2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3x2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2402,7 +2436,7 @@ void UniformBufferObjChunk::setMat3x2(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setMat2x4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2x4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2419,7 +2453,7 @@ void UniformBufferObjChunk::setMat2x4(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setMat4x2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4x2(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2436,7 +2470,7 @@ void UniformBufferObjChunk::setMat4x2(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setMat3x4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3x4(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2453,7 +2487,7 @@ void UniformBufferObjChunk::setMat3x4(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setMat4x3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4x3(UInt32 handle, const Matrix4f& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2470,7 +2504,7 @@ void UniformBufferObjChunk::setMat4x3(UInt32 handle, const Matrix4f& value, UInt
     }
 }
 
-void UniformBufferObjChunk::setDMat2x3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2x3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2487,7 +2521,7 @@ void UniformBufferObjChunk::setDMat2x3(UInt32 handle, const Matrix4d& value, UIn
     }
 }
 
-void UniformBufferObjChunk::setDMat3x2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3x2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2504,7 +2538,7 @@ void UniformBufferObjChunk::setDMat3x2(UInt32 handle, const Matrix4d& value, UIn
     }
 }
 
-void UniformBufferObjChunk::setDMat2x4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2x4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2521,7 +2555,7 @@ void UniformBufferObjChunk::setDMat2x4(UInt32 handle, const Matrix4d& value, UIn
     }
 }
 
-void UniformBufferObjChunk::setDMat4x2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4x2(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2538,7 +2572,7 @@ void UniformBufferObjChunk::setDMat4x2(UInt32 handle, const Matrix4d& value, UIn
     }
 }
 
-void UniformBufferObjChunk::setDMat3x4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3x4(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2555,7 +2589,7 @@ void UniformBufferObjChunk::setDMat3x4(UInt32 handle, const Matrix4d& value, UIn
     }
 }
 
-void UniformBufferObjChunk::setDMat4x3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4x3(UInt32 handle, const Matrix4d& value, UInt32 array_idx)
 {
     OSG_ASSERT(array_idx < _mfCardinality[handle]);
 
@@ -2574,385 +2608,385 @@ void UniformBufferObjChunk::setDMat4x3(UInt32 handle, const Matrix4d& value, UIn
 
 /*------------------------------ set-interface II ---------------------------*/
 
-void UniformBufferObjChunk::setFloat(const std::string& name, Real32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setFloat(const std::string& name, Real32 value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setFloat(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDouble(const std::string& name, Real64 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDouble(const std::string& name, Real64 value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDouble(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setInt(const std::string& name, Int32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setInt(const std::string& name, Int32 value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setInt(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setUInt(const std::string& name, UInt32 value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUInt(const std::string& name, UInt32 value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUInt(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBool(const std::string& name, bool value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBool(const std::string& name, bool value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBool(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec2(const std::string& name, const Vec2f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec2(const std::string& name, const Vec2f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec2(const std::string& name, const Pnt2f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec2(const std::string& name, const Pnt2f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec3(const std::string& name, const Vec3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(const std::string& name, const Vec3f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec3(const std::string& name, const Pnt3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(const std::string& name, const Pnt3f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec3(const std::string& name, const Color3f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec3(const std::string& name, const Color3f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec4(const std::string& name, const Vec4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(const std::string& name, const Vec4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec4(const std::string& name, const Pnt4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(const std::string& name, const Pnt4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setVec4(const std::string& name, const Color4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setVec4(const std::string& name, const Color4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec2(const std::string& name, const Vec2d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec2(const std::string& name, const Vec2d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec2(const std::string& name, const Pnt2d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec2(const std::string& name, const Pnt2d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec3(const std::string& name, const Vec3d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec3(const std::string& name, const Vec3d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec3(const std::string& name, const Pnt3d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec3(const std::string& name, const Pnt3d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec4(const std::string& name, const Vec4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec4(const std::string& name, const Vec4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDVec4(const std::string& name, const Pnt4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDVec4(const std::string& name, const Pnt4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setIVec2(const std::string& name, const Vec2i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec2(const std::string& name, const Vec2i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setIVec2(const std::string& name, const Pnt2i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec2(const std::string& name, const Pnt2i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setIVec3(const std::string& name, const Vec3i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec3(const std::string& name, const Vec3i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec3(iter->second, value, array_idx);
 }
 /*
-void UniformBufferObjChunk::setIVec3(const std::string& name, const Pnt3i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec3(const std::string& name, const Pnt3i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec3(iter->second, value, array_idx);
 }
 */
-void UniformBufferObjChunk::setIVec4(const std::string& name, const Vec4i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec4(const std::string& name, const Vec4i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec4(iter->second, value, array_idx);
 }
 /*
-void UniformBufferObjChunk::setIVec4(const std::string& name, const Pnt4i& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setIVec4(const std::string& name, const Pnt4i& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setIVec4(iter->second, value, array_idx);
 }
 */
-void UniformBufferObjChunk::setUVec2(const std::string& name, const Vec2u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec2(const std::string& name, const Vec2u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec2(iter->second, value, array_idx);
 }
 /*
-void UniformBufferObjChunk::setUVec2(const std::string& name, const Pnt2u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec2(const std::string& name, const Pnt2u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec2(iter->second, value, array_idx);
 }
 */
-void UniformBufferObjChunk::setUVec3(const std::string& name, const Vec3u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec3(const std::string& name, const Vec3u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec3(iter->second, value, array_idx);
 }
 /*
-void UniformBufferObjChunk::setUVec3(const std::string& name, const Pnt3u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec3(const std::string& name, const Pnt3u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec3(iter->second, value, array_idx);
 }
 */
-void UniformBufferObjChunk::setUVec4(const std::string& name, const Vec4u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec4(const std::string& name, const Vec4u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec4(iter->second, value, array_idx);
 }
 /*
-void UniformBufferObjChunk::setUVec4(const std::string& name, const Pnt4u& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setUVec4(const std::string& name, const Pnt4u& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setUVec4(iter->second, value, array_idx);
 }
 */
-void UniformBufferObjChunk::setBVec2(const std::string& name, const Vec2b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec2(const std::string& name, const Vec2b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBVec2(const std::string& name, const Pnt2b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec2(const std::string& name, const Pnt2b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBVec3(const std::string& name, const Vec3b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec3(const std::string& name, const Vec3b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBVec3(const std::string& name, const Pnt3b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec3(const std::string& name, const Pnt3b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBVec4(const std::string& name, const Vec4b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec4(const std::string& name, const Vec4b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setBVec4(const std::string& name, const Pnt4b& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setBVec4(const std::string& name, const Pnt4b& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setBVec4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat2x3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2x3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat2x3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat3x2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3x2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat3x2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat2x4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat2x4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat2x4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat4x2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4x2(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat4x2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat3x4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat3x4(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat3x4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setMat4x3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setMat4x3(const std::string& name, const Matrix4f& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setMat4x3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat2x3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2x3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat2x3(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat3x2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3x2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat3x2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat2x4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat2x4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat2x4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat4x2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4x2(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat4x2(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat3x4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat3x4(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
     setDMat3x4(iter->second, value, array_idx);
 }
 
-void UniformBufferObjChunk::setDMat4x3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
+void ShaderStorageBufferObjChunk::setDMat4x3(const std::string& name, const Matrix4d& value, UInt32 array_idx)
 {
     StringToUInt32Map::const_iterator iter = _sfNameToIndex.getValue().find(name);
     OSG_ASSERT(iter != _sfNameToIndex.getValue().end());
@@ -2961,7 +2995,7 @@ void UniformBufferObjChunk::setDMat4x3(const std::string& name, const Matrix4d& 
 
 /*------------------------------ Invariants ---------------------------------*/
 
-bool UniformBufferObjChunk::invariantOnStorageSize()
+bool ShaderStorageBufferObjChunk::invariantOnStorageSize()
 {
     std::size_t sz = _mfFundamentalTypes.size();
     if (sz != _mfMainTypes  .size() || 

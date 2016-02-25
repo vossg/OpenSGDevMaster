@@ -76,9 +76,6 @@
 #include <OpenSG/OSGShaderProgramVariableChunk.h>
 #endif
 
-//#define USE_TEST_VP_SHADER
-//#define USE_TEST_FP_SHADER
-
 //
 // The SimpleSceneManager to manage simple applications
 //
@@ -161,7 +158,7 @@ struct Light
 typedef std::vector<Light>       VecLightsT;        // multiple lights
 typedef std::vector<Light::Type> VecLightTypesT;    // helper to create lights
 
-VecLightsT inialize_lights(const VecLightTypesT& types)         // helper to create lights
+VecLightsT initialize_lights(const VecLightTypesT& types)         // helper to create lights
 {
     VecLightsT lights;
 
@@ -174,7 +171,7 @@ VecLightsT inialize_lights(const VecLightTypesT& types)         // helper to cre
 const std::size_t num_lights = 1;                   // simple example with just one light
 VecLightTypesT vecTypes(num_lights, Light::directional_light);
 
-VecLightsT lights = inialize_lights(vecTypes);    // the lights
+VecLightsT lights = initialize_lights(vecTypes);    // the lights
 
 
 //
@@ -202,7 +199,7 @@ struct Material
 
 typedef std::vector<Material> VecMaterialsT;        // multiple lights
 
-VecMaterialsT inialize_materials(std::size_t num)   // helper to create materials
+VecMaterialsT initialize_materials(std::size_t num) // helper to create materials
 {
     VecMaterialsT materials;
 
@@ -224,7 +221,7 @@ VecMaterialsT inialize_materials(std::size_t num)   // helper to create material
 }
 
 const std::size_t num_materials = 100;                          // any number of materials
-VecMaterialsT materials = inialize_materials(num_materials);    // the material database
+VecMaterialsT materials = initialize_materials(num_materials);  // the material database
 
 
 //
@@ -244,11 +241,7 @@ struct GeomState
 //
 std::size_t align_offset(std::size_t base_alignment, std::size_t base_offset)
 {
-    if (base_offset == 0) return 0;
-
-    std::size_t n = 1;
-    while (n * base_alignment < base_offset) ++n;
-    return n * base_alignment;
+    return base_alignment * ((base_alignment + base_offset - 1) / base_alignment);
 }
 
 //
@@ -366,8 +359,8 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
         bo = ao + sizeof(OSG::Vec4f);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<float*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
-        bo = ao + sizeof(float);
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
         *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
@@ -850,7 +843,6 @@ int setupGLUT(int *argc, char *argv[])
 //
 std::string get_vp_program()
 {
-#ifndef USE_TEST_VP_SHADER
     std::string vp_program =
             "\n"
             "#version 330 compatibility\n"
@@ -883,21 +875,7 @@ std::string get_vp_program()
             "}\n"
             "\n"
             ;
-#else
-        std::string vp_program =
-            "\n"
-            "#version 330 compatibility\n"
-            "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
-            "\n"
-            "void main()\n"
-            "{\n"
-            "    gl_Position = ftransform();\n"
-            "}\n"
-            "\n"
-            ;
-#endif
+
     return vp_program;
 }
 
@@ -906,7 +884,6 @@ std::string get_vp_program()
 //
 std::string get_fp_program()
 {
-#ifndef USE_TEST_FP_SHADER
     std::string fp_program =
             "\n"
             "#version 330 compatibility\n"
@@ -917,8 +894,8 @@ std::string get_fp_program()
             "smooth in vec3 vNormalES;         // eye space normal\n"
             "smooth in vec3 vPositionES;       // eye space position\n"
             "\n"
-            "const int num_lights    = 100;\n"
-            "const int num_materials = 500;\n"
+            "const int num_lights    =   1;\n"
+            "const int num_materials = 100;\n"
             "\n"
             "struct Light\n"
             "{\n"
@@ -1140,23 +1117,6 @@ std::string get_fp_program()
             "}\n"
             "\n"
             ;
-#else
-    std::string fp_program =
-            "\n"
-            "#version 330 compatibility\n"
-            "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
-            "\n"
-            "\n"
-            "layout(location = 0) out vec4 vFragColor;\n"
-            "\n"
-            "void main()\n"
-            "{\n"
-            "    vFragColor = vec4(0.0, 1.0, 1.0, 1.0);\n"
-            "}\n"
-            "\n"
-            ;
-#endif
+
     return fp_program;
 }

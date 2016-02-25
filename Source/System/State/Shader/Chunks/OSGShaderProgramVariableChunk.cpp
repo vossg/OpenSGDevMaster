@@ -267,6 +267,18 @@ bool ShaderProgramVariableChunk::subUniformBlock(const Char8 *name)
     }
 }
 
+bool ShaderProgramVariableChunk::subShaderStorageBlock(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->subShaderStorageBlock(name, NULL, NULL);
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void ShaderProgramVariableChunk::clearUniformVariables(void)
 {
     if(_sfVariables.getValue() == NULL)
