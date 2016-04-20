@@ -12,7 +12,7 @@ IF(${OSGBUILD_OSGContribCSMSimplePlugin})
                                    simplePluginApp.cpp ${OSG_ADD_GLOBAL_EXE_SRC})
 
     IF(OSG_GLOBAL_LIB)
-      TARGET_LINK_LIBRARIES(simplePluginApp ${OSG_GLOBAL_LIB})
+      TARGET_LINK_LIBRARIES(simplePluginApp ${${OSG_GLOBAL_LIB}})
     ENDIF()
 
     IF(UNIX)
