@@ -830,6 +830,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
                                                          ${OSG_JPEG_STATIC_LIBRARY}
                                                          ${OSG_PNG_STATIC_LIBRARY}
                                                          ${OSG_ZLIB_STATIC_LIBRARY})
+    IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "19")
+      TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget}
+                            legacy_stdio_definitions.lib legacy_stdio_wide_specifiers.lib)
+    ENDIF()
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                 CONFIGURATIONS Release

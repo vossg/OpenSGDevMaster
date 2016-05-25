@@ -228,6 +228,7 @@ MFieldVector<Ty, A>::~MFieldVector()
 template<class Ty, class A> inline
 void MFieldVector<Ty, A>::shareValues(Self &other, bool bDeleteOld)
 {
+#if _MSC_VER < 1900
     if(bDeleteOld == true)
     {
         delete this->MYFIRST;
@@ -236,14 +237,21 @@ void MFieldVector<Ty, A>::shareValues(Self &other, bool bDeleteOld)
     this->MYFIRST = other.MYFIRST; 
     this->MYLAST  = other.MYLAST;
     this->MYEND   = other.MYEND;
+#else
+    *this = other;
+#endif
 }
 
 template <class Tp, class A> inline
 void MFieldVector<Tp, A>::resolveShare(void)
 {
+#if _MSC_VER < 1900
     this->MYFIRST = NULL;
     this->MYLAST  = NULL;
     this->MYEND   = NULL;
+#else
+    this->clear();
+#endif
 }
 
 template <> inline
@@ -263,6 +271,7 @@ template <class Tp, class A> inline
 void MFieldVector<Tp, A>::dump(      UInt32    uiIndent,
                                const BitVector) const
 {
+#if _MSC_VER < 1900
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");
 
@@ -270,6 +279,7 @@ void MFieldVector<Tp, A>::dump(      UInt32    uiIndent,
             this->MYFIRST,
             this->MYLAST,
             this->MYEND);
+#endif
 }
 
 #endif

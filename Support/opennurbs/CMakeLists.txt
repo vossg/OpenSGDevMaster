@@ -295,9 +295,15 @@ IF(OSGOpenNurbsSrcDir)
   ENDFOREACH()
 
   FOREACH(_ON_PATCH ${OSG_OPENNURBS_PATCHES})
-    EXECUTE_PROCESS(COMMAND "patch" "-p1" 
-                    INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_ON_PATCH}"
-                    WORKING_DIRECTORY "${OSGOpenNurbsSrcDir}/patched")
+    IF(WIN32)
+      MESSAGE(STATUS "apply patch ${_ON_PATCH}")
+      EXECUTE_PROCESS(COMMAND python -m patch -p 1 -v "${CMAKE_CURRENT_SOURCE_DIR}/${_ON_PATCH}"
+                      WORKING_DIRECTORY "${OSGOpenNurbsSrcDir}/patched")
+    ELSE()
+      EXECUTE_PROCESS(COMMAND "patch" "-p1" 
+                      INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_ON_PATCH}"
+                      WORKING_DIRECTORY "${OSGOpenNurbsSrcDir}/patched")
+    ENDIF()
   ENDFOREACH()
 
   PROCESS_FILES(. "OSG_OPENNURBS_SRCS" OSG_OPENNURBS_LSRCS)
