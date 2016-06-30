@@ -203,6 +203,24 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
+    bool addUniformBlock         (const Char8 *name, UInt32  value);
+    bool updateUniformBlock      (const Char8 *name, UInt32  value);
+    bool getUniformBlock         (const Char8 *name, UInt32& value);
+    bool subUniformBlock         (const Char8 *name);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+    bool addShaderStorageBlock   (const Char8 *name, UInt32  value);
+    bool updateShaderStorageBlock(const Char8 *name, UInt32  value);
+    bool getShaderStorageBlock   (const Char8 *name, UInt32& value);
+    bool subShaderStorageBlock   (const Char8 *name);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
 
     bool addProceduralVariable       (const Char8              *name,
                                             ProcVarFunctor      pFunc,

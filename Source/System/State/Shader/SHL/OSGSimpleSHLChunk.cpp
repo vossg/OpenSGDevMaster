@@ -1049,6 +1049,118 @@ bool SimpleSHLChunk::subUniformVariable(const Char8 *name)
     return false;
 }
 
+bool SimpleSHLChunk::addUniformBlock(const Char8 *name, UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->addUniformBlock(
+        name, 
+        value,
+        editMFVariableLocations          (),
+        editMFProceduralVariableLocations());
+}
+
+bool SimpleSHLChunk::updateUniformBlock(const Char8 *name, UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateUniformBlock(name, value);
+}
+
+bool SimpleSHLChunk::getUniformBlock(const Char8 *name, UInt32& value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getUniformBlock(name, value);
+    }
+
+    return false;
+}
+
+bool SimpleSHLChunk::subUniformBlock(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->subUniformBlock(
+            name,
+            editMFVariableLocations(),
+            editMFProceduralVariableLocations());
+                                                     
+    }
+
+    return false;
+}
+
+bool SimpleSHLChunk::addShaderStorageBlock(const Char8 *name, UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->addShaderStorageBlock(
+        name, 
+        value,
+        editMFVariableLocations          (),
+        editMFProceduralVariableLocations());
+}
+
+bool SimpleSHLChunk::updateShaderStorageBlock(const Char8 *name, UInt32  value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        ShaderProgramVariablesUnrecPtr pParam = 
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
+
+        setVariables(pParam);
+    }
+
+    return _sfVariables.getValue()->updateShaderStorageBlock(name, value);
+}
+
+bool SimpleSHLChunk::getShaderStorageBlock(const Char8 *name, UInt32& value)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->getShaderStorageBlock(name, value);
+    }
+
+    return false;
+}
+
+bool SimpleSHLChunk::subShaderStorageBlock(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->subShaderStorageBlock(
+            name,
+            editMFVariableLocations(),
+            editMFProceduralVariableLocations());
+                                                     
+    }
+
+    return false;
+}
+
 void SimpleSHLChunk::clearUniformVariables(void)
 {
     if(_sfVariables.getValue() != NULL)
