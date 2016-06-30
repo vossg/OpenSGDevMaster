@@ -26,6 +26,7 @@ SET(OSG_COMPONENTS OSGBase
                    OSGDrawable
                    OSGFileIO
                    OSGGroup
+                   OSGEffectGroups
                    OSGImageFileIO
                    OSGState
                    OSGSystem

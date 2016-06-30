@@ -1,0 +1,565 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="HDR2Stage"
+   parent="Stage"
+   library="EffectGroups"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   docGroupBase="GrpEffectsGroupsHDR"
+   >
+  This HDR stage performs the complete post processing task from rendering into a HDR render buffer, calculating the
+  average luminance of the scene, time adapting of the average luminance, tone mapping and blooming. Especially, it
+  implements various tone mapping operators allowing to get comfortable with the different techniques available.
+
+  Currently, only global average (geometric mean) of the luminace is implemented. Future version might implement
+  local averaging methods (histogram).
+  <Field
+	 name="applyGamma"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        If set gamma correction is performed just before writing to the final
+        draw buffer at the end of the pipeline.
+  </Field>
+  <Field
+	 name="accurateGamma"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        If set correct gamma calculation is performed, i.e. respect linear near black.
+        This parameter is only in use if parameter applyGamma is set to true.
+        See http://www.poynton.com/notes/colour_and_gamma/GammaFAQ.html 
+        https://en.wikipedia.org/wiki/SRGB and https://en.wikipedia.org/wiki/Rec._709
+        for reference.
+  </Field>
+  <Field
+	 name="adjustLuminance"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        Enable or disable time dependent luminance adaptation.
+  </Field>
+  <Field
+	 name="tau"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.25f"
+	 access="public"
+     >
+        Adjusted luminance adaptation time parameter.
+        Reasonable values are in the interval [0.f, 4.f].
+        See http://www.cs.ucf.edu/~sumant/publications/sig00.pdf,
+        http://www.cs.bris.ac.uk/Publications/Papers/2000126.pdf,
+        and http://www.gamedev.net/topic/659990-adapting-luminance-map-no-adaptation-according-to-my-eye/
+        for reference.
+  </Field>
+  <Field
+	 name="performBloom"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        If true a bloom / blur pass is performed, which can have a performance impact.
+  </Field>
+  <Field
+	 name="bloomThreshold"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="2.f"
+	 access="public"
+     >
+        The bloom threshold used in the brightness filter pass. Reasonable values are in the interval
+        [0.f, 10.f].
+  </Field>
+  <Field
+	 name="bloomBackground"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        If set to true the background, i.e. fragments with depth value 1.0 are also bloomed. If render
+        background is a solid background it might be preferable to exclude it from the blooming in order
+        to avoid background color bleeding into the rendered geometry.
+  </Field>
+  <Field
+	 name="bloomMagnitude"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+     >
+        This value determines how much of the blooming is mixed into the final image. Reasonable values
+        are in the interval [0.f, 2.f].
+  </Field>
+  <Field
+	 name="numTaps"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="4"
+	 access="public"
+     >
+        Number if tap iterations used in the Bloom Blur shader. Reasonable values are in the interval [2, 10].
+  </Field>
+  <Field
+	 name="blurGaussSigma"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.8f"
+	 access="public"
+     >
+        The standard deviation of the gaussian normal distribution used in the blur pass. Reasonable values
+        are in the interval [0.5f, 1.5f].
+  </Field>
+
+  <Field
+	 name="toneMappingMode"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="4"
+	 access="public"
+     >
+        Tonemapping technique to use. Valid values are 
+        NO_TONE_MAPPING, LOGARITHMIC_TONE_MAPPING, EXPONENTIAL_TONE_MAPPING, DRAGO_LOGARITHMIC_TONE_MAPPING, 
+        REINHARD_TONE_MAPPING, REINHARD_MODIFIED_TONE_MAPPING, FILMIC_HABLE_TONE_MAPPING, FILMIC_UNCHARTE2D_TONE_MAPPING
+
+        For details about the different tone mapping techniques lookup the following references:
+        Adaptive Logarithmic Mapping for Displaying High Contrast Scenes
+        F. Drago, K. Myszkowski, T. Annen, and N. Chiba
+        In Eurographics 2003 
+        http://resources.mpi-inf.mpg.de/tmo/logmap/logmap.pdf
+
+        Photographic Tone Reproduction for Digital Images
+        Erik Reinhard, Michael Stark, Peter Shirley, James Ferwerda
+        http://www.cmap.polytechnique.fr/~peyre/cours/x2005signal/hdr_photographic.pdf
+
+        http://filmicgames.com/archives/75
+        http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff
+
+        High Dynamic Range Imaging
+        Aquisition, Display, and Image-Based Lighing
+        Erik Reinhard et al.
+        Second Edition 2010
+        ISBN 978-0-12-374914-7
+  </Field>
+  <Field
+	 name="forceBackground"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+     >
+        If a normal color background is used it might be desirable to let the background not be paritcipating
+        in the tone mapping procedure.
+  </Field>
+  <Field
+	 name="use_ITU_R_BT_709"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        Calculate linear Y luminance from ITU-BT-709 to CIE XYZ if set to true. Otherwise calculate  linearY luminance
+        according to the American NTSC coding system.
+        See  http://www.poynton.com/ColorFAQ.html and http://www.poynton.com/PDFs/coloureq.pdf for reference.
+  </Field>
+
+  <Field
+	 name="autoExposureMode"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="2"
+	 access="public"
+     >
+        Three exposure working modes are allowed: MANUAL, KEY_VALUE, AUTOMATIC.
+        If set to manual mode the Exposure parameter is used directly. If key value mode is set the KeyValue is
+        used for calculation of the used exposure value. If mode is set to automatic, then the KeyValue is also
+        automatically calculated from the average luminance of the scene. The key value is a scalar that controls 
+        how brightly or darkly the algorithm will expose your scene.
+  </Field>
+  <Field
+	 name="exposure"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.f"
+	 access="public"
+     >
+        Exposure mimics the camera shutter time. You're controlling how much light hits the film by modifying 
+        how long the shutter stays open. This parameter is only valid if the auto exposure mode is set to MANUAL.
+        Otherwise it is calculated either by the keyValue parameter or directly by the luminance of the scene.
+        Reasonable values are in the interval [-10.f, 10.f]. 
+  </Field>
+  <Field
+	 name="keyValue"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.18f"
+	 access="public"
+     >
+        This parameter is mimics the mood of the scene. It is meant to be chosen based on whether the 
+        scene is high-key (bright, low contrast) or low-key (dark, high contrast). This value is used
+        for calculating a proper exposure value given that the auto exposure mode is set to KEY_VALUE.
+        Reasonable values are in the interval [0.f, 1.f]. 
+        See http://www.cis.rit.edu/jaf/publications/sig02_paper.pdf for reference.
+  </Field>
+  <Field
+	 name="whiteLevel"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="5.f"
+	 access="public"
+     >
+        This parameter is the smallest luminance that will be mapped to pure white. It is used in the
+        following tone mapping techiques: logarithmic, exponential, drago_logarithmic and reinhard_modified.
+        Reasonable values are in the interval [0.f, 25.f]. 
+        See http://www.cis.rit.edu/jaf/publications/sig02_paper.pdf for reference.
+  </Field>
+  <Field
+	 name="saturation"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="1.f"
+	 access="public"
+     >
+        This parameter allows to control the satuarion of the tone mapped scene. It allows color
+        correction applied after tone mapping.
+        Reasonable values are in the interval [0.f, 4.f]. 
+        See https://www.cs.ubc.ca/~heidrich/Papers/EG.09_1.pdf for reference.
+  </Field>
+  <Field
+	 name="useLinChromCorrection"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        Use a linear chromatic correction function. This works with parameter 'saturation'.
+        See https://www.cs.ubc.ca/~heidrich/Papers/EG.09_1.pdf for reference.
+  </Field>
+
+  <Field
+	 name="filmicShoulderStrenght"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.15f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 2.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicLinearStrength"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.5f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 5.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicLinearAngle"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.1f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 1.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicToeStrength"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.2f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 2.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicToeNumerator"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.02f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 0.5f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicToeDenominator"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.3f"
+	 access="public"
+     >
+        Approx77imation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 2.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="filmicLinearWhite"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="11.2f"
+	 access="public"
+     >
+        Approximation parameter of the Kodak film curve.
+        This parameter is only used by the filmic_uncharte2d tone mapping technique.
+        Reasonable values are in the interval [0.f, 20.f]. 
+        See http://filmicgames.com/archives/75 and  http://de.slideshare.net/ozlael/hable-john-uncharted2-hdr-lighting slide 53ff.
+        for reference.
+  </Field>
+  <Field
+	 name="dragoBias"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0.85f"
+	 access="public"
+     >
+        The bias function is a power function defined over the unit interval, 
+        an intuitive parameter dragoBias remaps an input value to a higher or lower value.
+        This parameter is only used by the drago_logarithmic tone mapping technique.
+        Reasonable values are in the interval [0.f, 1.f]. 
+        See http://resources.mpi-inf.mpg.de/tmo/logmap/logmap.pdf for reference.
+  </Field>
+  <Field
+	 name="target"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="5"
+	 access="public"
+     >
+        This convenience parameter allows to redirect the intermediate texture image results
+        to the final screen instead of the default COMPOSITE_TEXTURE which represents the
+        final rendering result of this stage. This is useful for debugging purpose.
+        Reasonable values are SCENE_TEXTURE, INITIAL_LUMINANCE_TEXTURE, ADAPTED_LUMINANCE_TEXTURE,
+        BLOOM_TEXTURE, BLURRED_TEXTURE, COMPOSITE_TEXTURE, EXPOSURE_TEXTURE, DEPTH_TEXTURE,
+        LINEARIZED_DEPTH_TEXTURE
+  </Field>
+
+  <Field
+	 name="carryDepth"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="true"
+	 access="public"
+     >
+        If set the scene depth values are carried to the final render target. Useful if post rendering operations are necessary.
+  </Field>
+  <Field
+	 name="colorBufferInternalFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_RGBA16F"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Internal format used for hdr color buffer. Defaults to GL_RGBA16F.
+  </Field>
+  <Field
+	 name="colorBufferPixelFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_RGBA"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Pixel format used for hdr color buffer. Defaults to GL_RGBA.
+  </Field>
+  <Field
+	 name="colorBufferType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FLOAT"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Type used for hdr color buffer. Defaults to GL_FLOAT.
+  </Field>
+  <Field
+	 name="depthBufferInternalFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_DEPTH24_STENCIL8"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Internal format used for depth color buffer. Defaults to GL_DEPTH24_STENCIL8.
+  </Field>
+  <Field
+	 name="depthBufferPixelFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_DEPTH_STENCIL"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Pixel format used for hdr depth buffer. Defaults to GL_DEPTH_STENCIL.
+  </Field>
+  <Field
+	 name="depthBufferType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_UNSIGNED_INT_24_8"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Type used for hdr depth buffer. Defaults to GL_UNSIGNED_INT_24_8.
+  </Field>
+  <Field
+	 name="lumBufferInternalFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_R32F"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Internal format used for luminance calculation. Defaults to GL_R32F.
+  </Field>
+  <Field
+	 name="lumBufferPixelFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_RED"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Pixel format used for hdr lum buffer. Defaults to GL_RED.
+  </Field>
+  <Field
+	 name="lumBufferType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FLOAT"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Type used for hdr lum buffer. Defaults to GL_FLOAT.
+  </Field>
+  <Field
+	 name="imageBufferInternalFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_RGB16F"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Internal format used for hdr image color buffer. Defaults to GL_RGBA16F.
+  </Field>
+  <Field
+	 name="imageBufferPixelFormat"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_RGB"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Pixel format used for hdr image color buffer. Defaults to GL_RGB.
+  </Field>
+  <Field
+	 name="imageBufferType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_FLOAT"
+	 defaultHeader="&quot;OSGGLEXT.h&quot;"
+	 access="public"
+     >
+        Type used for hdr image color buffer. Defaults to GL_FLOAT.
+  </Field>
+  <Field
+	 name="numSamples"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="4"
+	 access="public"
+     >
+        Number of multi samples to use. If 0 no multisampling is performed. which does save the resolve pass.
+  </Field>
+  <Field
+	 name="mipmapLevel"
+	 type="Int32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="-1"
+	 access="public"
+     >
+        The mipmap Level to use for accessing the average luminance map. Normally, this value is set to -1 which
+        means that the highest mipmap level is used. This corresponds to the 1 pixel mipmap texture lookup. Other
+        values are meant for testing purposes only.
+  </Field>
+</FieldContainer>
