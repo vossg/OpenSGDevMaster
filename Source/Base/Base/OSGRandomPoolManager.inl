@@ -23,7 +23,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 inline
 RandomPoolManagerBase::RandomPoolManagerBase(void) :
@@ -93,3 +93,5 @@ void RandomPoolManagerBase::setDefaultGeneratorPool(const UInt32 uiPool)
 {
     _uiDefaultGeneratorPool = uiPool;
 }
+
+OSG_END_NAMESPACE
