@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="CallbackAlgorithmForeground"
+   parent="Foreground"
+   library="Window"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpWindowForeground"
+   >
+  The CallbackAlgorithmForeground provides a callback for rendering arbitrary stuff.
+
+  This foreground was created in order to conveniently use the AntTweakBar GUI
+  library together with OpenSG. The example tonemapping uses the forground for this purpose.
+  <Field
+	 name="callbackAlgorithm"
+	 type="CallbackAlgorithm"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="NULL"
+	 access="public"
+         category="pointer"
+	 >
+	A CallbackAlgorithm object that is executed on drawing of the forground.
+  </Field>
+</FieldContainer>
