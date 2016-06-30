@@ -361,7 +361,7 @@ void StateOverride::subOverride(UInt32 uiSlot, ShaderProgramChunk *pChunk)
         }
     }
 
-    ProgramChunkStore::const_iterator sIt2
+    ProgramChunkStore::iterator sIt2
         = std::find(_vProgChunks.begin(), _vProgChunks.end(), pChunk);
 
     if(sIt2 != _vProgChunks.end())
@@ -388,7 +388,7 @@ void StateOverride::subOverride(UInt32                      uiSlot,
         _vProgVarIds.erase(pairIt.first);
     }
 
-    ProgramVarChunkStore::const_iterator sIt2
+    ProgramVarChunkStore::iterator sIt2
         = std::find(_vProgVarChunks.begin(), _vProgVarChunks.end(), pChunk);
 
     if(sIt2 != _vProgVarChunks.end())
