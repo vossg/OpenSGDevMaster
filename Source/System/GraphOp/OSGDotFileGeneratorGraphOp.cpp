@@ -109,6 +109,20 @@ DotFileGeneratorGraphOp::Info::~Info(void)
 {
 }
 
+DotFileGeneratorGraphOp::Info&
+DotFileGeneratorGraphOp::Info::operator=(const Info& rhs)
+{
+    cnt       = rhs.cnt;
+    label     = rhs.label;
+    name      = rhs.name;
+    id        = rhs.id;
+    fontcolor = rhs.fontcolor;
+    obj_id    = rhs.obj_id;
+    finished  = rhs.finished;
+
+    return *this;
+}
+
 DotFileGeneratorGraphOp::BrewerColor::BrewerColor(const std::string &scheme,
                                                   const std::string &number) :
   scheme(scheme),

@@ -135,6 +135,8 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
         Info(const Info &other);
         ~Info(void);
 
+        Info& operator =(const Info &rhs);
+
         int         cnt;
         std::string label;
         std::string name;
@@ -142,9 +144,6 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
         std::string fontcolor;
         void*       obj_id;
         bool        finished;
-
-      private:
-        void operator =(const Info &rhs);
     };
 
     struct BrewerColor

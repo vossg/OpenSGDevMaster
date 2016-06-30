@@ -164,8 +164,7 @@ struct SSurface
     }
 #endif
 
-#ifdef WIN32
-    const SSurface &operator=(const SSurface &rhs)
+    SSurface &operator=(const SSurface &rhs)
     {
         dError            = rhs.dError;
         fMinError         = rhs.fMinError;
@@ -192,11 +191,6 @@ struct SSurface
 
         return *this;
     }
-#else
-  private:
-
-    const SSurface &operator=(const SSurface &rhs);
-#endif
 };
 
 class OSG_DRAWABLE_DLLMAPPING CNurbsPatchSurface

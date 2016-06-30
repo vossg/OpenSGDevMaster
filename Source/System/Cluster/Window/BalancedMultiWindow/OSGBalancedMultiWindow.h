@@ -206,8 +206,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
             viewports(other.viewports),
             window   (other.window   ) {}
 
-#ifdef WIN32
-        const Server &operator =(const Server &rhs)
+        Server &operator =(const Server &rhs)
         {
             id        = rhs.id;
             load      = rhs.load;
@@ -216,12 +215,6 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 
             return *this;
         }
-#else
-      private:
-
-        const Server &operator =(const Server &rhs);
-#endif
-        
     };
 
     /*! \nohierarchy

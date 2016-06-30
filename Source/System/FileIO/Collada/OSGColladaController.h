@@ -188,10 +188,16 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
             colJointNode (other.colJointNode ),
             jointId      (other.jointId      ),
             invBindMatrix(other.invBindMatrix) {}
-        
-      private:
 
-        void operator =(const JointInfo &other);
+        JointInfo& operator =(const JointInfo &other)
+        {
+            jointNode     = other.jointNode;
+            colJointNode  = other.colJointNode;
+            jointId       = other.jointId;
+            invBindMatrix = other.invBindMatrix;
+
+            return *this;
+        }
     };
 
     typedef std::vector<JointInfo>         JointInfoStore;
