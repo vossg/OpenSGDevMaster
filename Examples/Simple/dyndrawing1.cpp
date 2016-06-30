@@ -107,9 +107,9 @@ public:
             , pixel_format(Image::OSG_RGBA_PF)
             , type(Image::OSG_UINT8_IMAGEDATA)
             , main_memory(true)
-            , texObj(nullptr)
-            , image(nullptr) {}
-       ~TextureData() {texObj = nullptr; image = nullptr; }
+            , texObj(NULL)
+            , image(NULL) {}
+       ~TextureData() {texObj = NULL; image = NULL; }
 
         bool enable;
         UInt32 pixel_format;
@@ -147,18 +147,18 @@ FrameBufferObjectTransitPtr FBOBuilder::operator()(
     //
     // multiple color buffers
     //
-    for (UINT32 idx = 0; idx < _buffers.size(); ++idx) {
+    for (UInt32 idx = 0; idx < _buffers.size(); ++idx) {
         //
         // use textures?
         //
         if (_buffers[idx].enable) {
-            ImageUnrecPtr           texImg = (_buffers[idx].image  == nullptr ? Image::create()           : _buffers[idx].image);
-            TextureObjChunkUnrecPtr texObj = (_buffers[idx].texObj == nullptr ? TextureObjChunk::create() : _buffers[idx].texObj);
+            ImageUnrecPtr           texImg = (_buffers[idx].image  == NULL ? Image::create()           : _buffers[idx].image);
+            TextureObjChunkUnrecPtr texObj = (_buffers[idx].texObj == NULL ? TextureObjChunk::create() : _buffers[idx].texObj);
             TextureBufferUnrecPtr   texBuf = TextureBuffer::create();
 
-            if (_buffers[idx].image == nullptr)
+            if (_buffers[idx].image == NULL)
                 texImg->set(_buffers[idx].pixel_format, 
-                            width, height, 1, 1, 1, 0.f, nullptr,
+                            width, height, 1, 1, 1, 0.f, NULL,
                             _buffers[idx].type, 
                             _buffers[idx].main_memory);
 
@@ -185,19 +185,19 @@ FrameBufferObjectTransitPtr FBOBuilder::operator()(
         // use textures?
         //
         if (_ds_buffer.enable) {
-            ImageUnrecPtr           texImg = (_ds_buffer.image  == nullptr ? Image::create()           : _ds_buffer.image);
-            TextureObjChunkUnrecPtr texObj = (_ds_buffer.texObj == nullptr ? TextureObjChunk::create() : _ds_buffer.texObj);
+            ImageUnrecPtr           texImg = (_ds_buffer.image  == NULL ? Image::create()           : _ds_buffer.image);
+            TextureObjChunkUnrecPtr texObj = (_ds_buffer.texObj == NULL ? TextureObjChunk::create() : _ds_buffer.texObj);
             TextureBufferUnrecPtr   texBuf = TextureBuffer::create();
 
-            if (_ds_buffer.image == nullptr)
+            if (_ds_buffer.image == NULL)
                 texImg->set(_ds_buffer.pixel_format, 
-                            width, height, 1, 1, 1, 0.f, nullptr,
+                            width, height, 1, 1, 1, 0.f, NULL,
                             _ds_buffer.type, 
                             _ds_buffer.main_memory);
 
             texObj->setImage(texImg);
 
-            if (_ds_buffer.texObj == nullptr) {
+            if (_ds_buffer.texObj == NULL) {
                 texObj->setInternalFormat(GL_DEPTH_COMPONENT24);
                 texObj->setExternalFormat(GL_DEPTH_COMPONENT24);
             }
@@ -222,13 +222,13 @@ FrameBufferObjectTransitPtr FBOBuilder::operator()(
         // use textures?
         //
         if (_ds_buffer.enable) {
-            ImageUnrecPtr           texImg = (_ds_buffer.image  == nullptr ? Image::create()           : _ds_buffer.image);
-            TextureObjChunkUnrecPtr texObj = (_ds_buffer.texObj == nullptr ? TextureObjChunk::create() : _ds_buffer.texObj);
+            ImageUnrecPtr           texImg = (_ds_buffer.image  == NULL ? Image::create()           : _ds_buffer.image);
+            TextureObjChunkUnrecPtr texObj = (_ds_buffer.texObj == NULL ? TextureObjChunk::create() : _ds_buffer.texObj);
             TextureBufferUnrecPtr   texBuf = TextureBuffer::create();
 
-            if (_ds_buffer.image == nullptr)
+            if (_ds_buffer.image == NULL)
                 texImg->set(GL_DEPTH_STENCIL_EXT, 
-                            width, height, 1, 1, 1, 0.f, nullptr,
+                            width, height, 1, 1, 1, 0.f, NULL,
                             GL_UNSIGNED_INT_24_8, 
                             _ds_buffer.main_memory);
 
@@ -278,14 +278,14 @@ public:
                           bool stencil, 
                           const FBOBuilder::TextureData& ds_buffer);
 
-               ~SimpleFBO() { _fbo = nullptr; }
+               ~SimpleFBO() { _fbo = NULL; }
 
 public:
     FrameBufferObject*     fbo             () const { return _fbo; }
 
-    FrameBufferAttachment* colorBuffer     (UInt32 idx = 0) const { return _fbo ? _fbo->getColorAttachments(idx) : nullptr; }
-    FrameBufferAttachment* depthBuffer     () const               { return _fbo ? _fbo->getDepthAttachment()     : nullptr; }
-    FrameBufferAttachment* stencilBuffer   () const               { return _fbo ? _fbo->getStencilAttachment()   : nullptr;}
+    FrameBufferAttachment* colorBuffer     (UInt32 idx = 0) const { return _fbo ? _fbo->getColorAttachments(idx) : NULL; }
+    FrameBufferAttachment* depthBuffer     () const               { return _fbo ? _fbo->getDepthAttachment()     : NULL; }
+    FrameBufferAttachment* stencilBuffer   () const               { return _fbo ? _fbo->getStencilAttachment()   : NULL;}
 
     TextureObjChunk*       colorTexObj     (UInt32 idx = 0) const;
     TextureObjChunk*       depthTexObj     () const;
@@ -302,7 +302,7 @@ SimpleFBO::SimpleFBO(
     bool depth_stencil_textured,
     bool read_back_color,
     bool read_back_depth_stencil)
-: _fbo(nullptr)
+: _fbo(NULL)
 {
     FBOBuilder::TextureData color_data;
     color_data.enable = color_textured;
@@ -327,7 +327,7 @@ SimpleFBO::SimpleFBO(
     bool depth, 
     bool stencil, 
     const FBOBuilder::TextureData& ds_buffer)
-: _fbo(nullptr)
+: _fbo(NULL)
 {
     FBOBuilder fbo_builder(buffers, depth, stencil, ds_buffer);
 
@@ -340,7 +340,7 @@ TextureObjChunk* SimpleFBO::colorTexObj(UInt32 idx) const
     if (texBuf)
         return texBuf->getTexture();
 
-    return nullptr;
+    return NULL;
 }
 
 TextureObjChunk* SimpleFBO::depthTexObj() const
@@ -349,7 +349,7 @@ TextureObjChunk* SimpleFBO::depthTexObj() const
     if (texBuf)
         return texBuf->getTexture();
 
-    return nullptr;
+    return NULL;
 }
 
 TextureObjChunk* SimpleFBO::stencilTexObj() const
@@ -358,7 +358,7 @@ TextureObjChunk* SimpleFBO::stencilTexObj() const
     if (texBuf)
         return texBuf->getTexture();
 
-    return nullptr;
+    return NULL;
 }
 
 
@@ -403,11 +403,11 @@ boost::scoped_ptr<SimpleFBO> spSimpleFBO;
 
 static void cleanup(void)
 {
-    mgr   = nullptr;
-    staticScene = nullptr;
-    dynamicScene = nullptr;
-    win   = nullptr;
-    dynamicVp = nullptr;
+    mgr   = NULL;
+    staticScene = NULL;
+    dynamicScene = NULL;
+    win   = NULL;
+    dynamicVp = NULL;
     spSimpleFBO.reset();
 }
 
@@ -736,7 +736,7 @@ static void createDynamicViewport()
 static void enableStaticScene()
 {
     win->subPortByObj(dynamicVp);
-    dynamicVp = nullptr;
+    dynamicVp = NULL;
 
     NodeUnrecPtr root = makeCoredNode<Group>();
     root->addChild(staticScene);
@@ -751,7 +751,7 @@ static void enableStaticScene()
 
 static Node* rootNode(Node* node)
 {
-    Node* root = nullptr;
+    Node* root = NULL;
     while (node) {
         root = node;
         node = node->getParent();
