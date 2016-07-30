@@ -5,8 +5,6 @@
 // The example uses the Antweak bar for gui rendering on top of OpenSG.
 //
 
-// #define HAS_ANTTWEAKBAR
-
 #define USE_MIRROR_SPHERE
 
 #include <cstddef>
@@ -15,7 +13,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/assign/std/vector.hpp>
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
 #include <AntTweakBar.h>
 #endif
 
@@ -259,7 +257,7 @@ private:
     void                        create_hdr_stage                    ();
     void                        setup_hdr_stage                     ();
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
 private:
     void    setupTweakBar   ();
 
@@ -355,7 +353,7 @@ private:
 
     bool                                    _pause;
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     TwBar*                                  _tweakbar; 
 #endif
 };
@@ -403,7 +401,7 @@ Example::Example(int argc, char *argv[])
 , _bloom_background(true)
 , _carry_depth(true)
 , _pause(true)
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
 , _tweakbar(NULL)
 #endif
 {
@@ -440,7 +438,7 @@ void Example::initialize(int argc, char *argv[])
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     TwInit(TW_OPENGL_CORE, NULL);
 #endif
 
@@ -480,7 +478,7 @@ void Example::initialize(int argc, char *argv[])
     // show the whole scene
     _mgr->showAll();
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     setupTweakBar();
 #endif
 }
@@ -867,7 +865,7 @@ int Example::setupGLUT(int *argc, char *argv[])
     glutKeyboardFunc(keyboardCB);
     glutSpecialFunc(specialCB);
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     TwGLUTModifiersFunc(glutGetModifiers);
 #endif
 
@@ -921,7 +919,7 @@ void Example::reshape(int w, int h)
 {
     _mgr->resize(w, h);
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     TwWindowSize(w, h);
 #endif
 
@@ -933,7 +931,7 @@ void Example::reshape(int w, int h)
 //
 void Example::mouse(int button, int state, int x, int y)
 {
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     if(TwEventMouseButtonGLUT(button, state, x, y))
     {
         glutPostRedisplay();
@@ -954,7 +952,7 @@ void Example::mouse(int button, int state, int x, int y)
 //
 void Example::motion(int x, int y)
 {
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     if(TwEventMouseMotionGLUT(x, y))
     {
         glutPostRedisplay();
@@ -972,7 +970,7 @@ void Example::motion(int x, int y)
 //
 void Example::keyboard(unsigned char k, int x, int y)
 {
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     if(TwEventKeyboardGLUT(k, x, y))
     {
         glutPostRedisplay();
@@ -1024,7 +1022,7 @@ void Example::keyboard(unsigned char k, int x, int y)
 
 void Example::special(int key, int x, int y)
 {
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     if(TwEventSpecialGLUT(key, x, y))
     {
         glutPostRedisplay();
@@ -1035,7 +1033,7 @@ void Example::special(int key, int x, int y)
 
 void Example::tweakbar(OSG::DrawEnv* drawEnv)
 {
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     //
     // Save the current state
     //
@@ -1427,7 +1425,7 @@ int main(int argc, char **argv)
     // GLUT main loop
     glutMainLoop();
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
     TwTerminate();
 #endif
 
@@ -1978,7 +1976,7 @@ HDRShaderData HDRShaderData::create_max_shader_data()
 
 /*---- AntTweakBar --------------------------------------------------------*/
 
-#ifdef HAS_ANTTWEAKBAR
+#ifdef OSG_WITH_ANTTWEAKBAR
 
 std::string sGenTwDefinition(float vMin, float vMax, float steps, int precision, const char* keyinc, const char* keydec, const char* msg, const char* grp = NULL)
 {

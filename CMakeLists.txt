@@ -779,6 +779,16 @@ IF(NOT OSG_BUILD_DEPENDEND)
     OSG_ADD_OPT(OPENNURBS_INCLUDE_DIR)
     OSG_ADD_OPT(OPENNURBS_LIBRARIES)
 
+    #################
+    #### AntTweakBar
+    #################
+
+    OSG_CONFIGURE_ANTTWEAKBAR()
+
+    OSG_ADD_OPT(OSG_ANTTWEAKBAR_FOUND)
+    OSG_ADD_OPT(OSG_ANTTWEAKBAR_INCLUDE_DIR)
+    OSG_ADD_OPT(OSG_ANTTWEAKBAR_LIBRARIES)
+
     #############
     #### Python
     #############

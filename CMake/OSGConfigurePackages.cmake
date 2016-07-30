@@ -1067,6 +1067,94 @@ MACRO(OSG_CONFIGURE_LIBMINI)
 ENDMACRO(OSG_CONFIGURE_LIBMINI)
 
 ##############################################################################
+# AntTweakBar
+##############################################################################
+
+MACRO(OSG_CONFIGURE_ANTTWEAKBAR)
+
+    IF(OSG_USE_OSGSUPPORT_LIBS)
+        IF(EXISTS ${OSG_SUPPORT_ROOT}/include${OSG_SUPPORT_INC_SUBDIR}/AntTweakBar/include/AntTweakBar.h)
+            SET(ANTTWEAKBAR_INCLUDE_DIR ${OSG_SUPPORT_ROOT}/include${OSG_SUPPORT_INC_SUBDIR}/AntTweakBar/include CACHE PATH "" FORCE)
+        ENDIF()
+
+        SET(ANTTWEAKBAR_LIBRARY_RELEASE "" CACHE INTERNAL "" FORCE)
+        SET(ANTTWEAKBAR_LIBRARY_DEBUG  "" CACHE INTERNAL "" FORCE)
+        SET(ANTTWEAKBAR_FOUND FALSE CACHE INTERNAL "" FORCE)
+
+        IF(UNIX)
+
+          IF(OSG_PLATFORM_64)
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libanttweakbar64.a)
+                SET(ANTTWEAKBAR_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libanttweakbar64.a)
+              ENDIF()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgmini64.a)
+                SET(ANTTWEAKBAR_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libanttweakbar64.a)
+              ENDIF()
+          ELSE()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libanttweakbar.a)
+                SET(ANTTWEAKBAR_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/libanttweakbar.a)
+              ENDIF()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libosgmini.a)
+                SET(ANTTWEAKBAR_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/debug/libanttweakbar.a)
+              ENDIF()
+          ENDIF()
+
+        ELSEIF(WIN32)
+
+          IF(OSG_PLATFORM_64)
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar64.lib)
+                  SET(ANTTWEAKBAR_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar64.lib)
+              ENDIF()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar64.lib)
+                  SET(ANTTWEAKBAR_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar64.lib)
+              ENDIF()
+          ELSE()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar.lib)
+                  SET(ANTTWEAKBAR_LIBRARY_RELEASE ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar.lib)
+              ENDIF()
+              IF(EXISTS ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar.lib)
+                  SET(ANTTWEAKBAR_LIBRARY_DEBUG ${OSG_SUPPORT_ROOT}/lib${OSG_LIBDIR_BASE_SUFFIX}/AntTweakBar.lib)
+              ENDIF()
+          ENDIF()
+
+        ENDIF()
+
+        IF(ANTTWEAKBAR_INCLUDE_DIR)
+            IF(ANTTWEAKBAR_LIBRARY_DEBUG OR ANTTWEAKBAR_LIBRARY_RELEASE)
+                SET(ANTTWEAKBAR_FOUND TRUE CACHE INTERNAL "" FORCE)
+            ENDIF()
+        ENDIF()
+
+        IF(ANTTWEAKBAR_FOUND)
+          OSG_ADD_IMPORT_LIB(ANTTWEAKBAR_TARGETS ANTTWEAKBAR_LIBRARY)
+          SET(ANTTWEAKBAR_LIBRARIES ${ANTTWEAKBAR_TARGETS} CACHE STRING "" FORCE)
+        ENDIF(ANTTWEAKBAR_FOUND)
+
+    ENDIF(OSG_USE_OSGSUPPORT_LIBS)
+
+    IF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT ANTTWEAKBAR_FOUND)
+      IF(WIN32)
+        OSG_FIND_PACKAGE(AntTweakBar_OpenSG)
+
+        IF(ANTTWEAKBAR_FOUND)
+          OSG_ADD_IMPORT_LIB(ANTTWEAKBAR_TARGETS ANTTWEAKBAR_LIBRARY)
+
+          SET(ANTTWEAKBAR_LIBRARIES ${ANTTWEAKBAR_TARGETS} CACHE STRING "" FORCE)
+        ENDIF(ANTTWEAKBAR_FOUND)
+
+      ELSE(WIN32)
+        OSG_FIND_PACKAGE(AntTweakBar_OpenSG)
+      ENDIF(WIN32)
+
+    ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT ANTTWEAKBAR_FOUND)
+
+    IF(ANTTWEAKBAR_FOUND)
+        OSG_SET(OSG_WITH_ANTTWEAKBAR 1)
+    ENDIF(ANTTWEAKBAR_FOUND)
+
+ENDMACRO(OSG_CONFIGURE_ANTTWEAKBAR)
+
+##############################################################################
 # VTK
 ##############################################################################
 
