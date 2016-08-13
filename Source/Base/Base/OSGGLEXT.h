@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 #define osgMaxTexImages 16
 #define osgMaxTexCoords 8
