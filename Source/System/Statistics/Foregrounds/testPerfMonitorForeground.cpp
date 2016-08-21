@@ -205,7 +205,7 @@ void doStuff()
       x += x_inc;
    }   
    
-   OSG::PerfMonitorGuard g("doStuff");
+   OSG::PerfMonitorGuard gG("doStuff");
 
    {
       OSG::PerfMonitorGuard g("Work1");

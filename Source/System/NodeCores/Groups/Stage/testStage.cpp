@@ -49,10 +49,10 @@
 
 OSG::RenderActionRefPtr rentravact = NULL;
 
-OSG::NodeRecPtr  root;
+//OSG::NodeRecPtr  root;
 OSG::NodeRecPtr  animRoot;
 
-OSG::NodeRecPtr  file;
+//OSG::NodeRecPtr  file;
 
 OSG::FBOViewportRecPtr vpScene;
 OSG::ViewportRecPtr    vpPlane;
@@ -211,10 +211,10 @@ void key(unsigned char key, int x, int y)
 
             rentravact = NULL;
 
-            root       = NULL;
+//            root       = NULL;
             animRoot   = NULL;
 
-            file       = NULL;
+//            file       = NULL;
 
             vpScene    = NULL;
             vpPlane    = NULL;
@@ -521,11 +521,11 @@ void initPlaneSetup(void)
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
-    OSG::TransformUnrecPtr scene_trans = OSG::Transform::create();
-    OSG::NodeUnrecPtr      sceneTrN    = OSG::Node     ::create();
+    OSG::TransformUnrecPtr scene_trans1 = OSG::Transform::create();
+    OSG::NodeUnrecPtr      sceneTrN     = OSG::Node     ::create();
 
-    sceneTrN->setCore (scene_trans);
-    sceneTrN->addChild(file       );
+    sceneTrN->setCore (scene_trans1);
+    sceneTrN->addChild(file        );
 
     dlight->addChild(sceneTrN);
 

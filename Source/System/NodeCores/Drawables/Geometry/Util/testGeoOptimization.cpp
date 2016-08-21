@@ -253,9 +253,9 @@ doPrintGeoInfoFunc(OSG::Node *node)
 }
 
 void
-doPrintGeoInfo(OSG::Node *scene)
+doPrintGeoInfo(OSG::Node *pScene)
 {
-    OSG::traverse(scene,
+    OSG::traverse(pScene,
                   boost::bind(&doPrintGeoInfoFunc, _1));
 }
 
@@ -275,11 +275,11 @@ doMakeSingleIndexedFunc(OSG::Node *node)
 }
 
 void
-doMakeSingleIndexed(OSG::Node *scene)
+doMakeSingleIndexed(OSG::Node *pScene)
 {
     OSG::Time start = OSG::getSystemTime();
 
-    OSG::traverse(scene,
+    OSG::traverse(pScene,
                   boost::bind(&doMakeSingleIndexedFunc, _1));
 
     std::cout << "time for doMakeSingleIndexed on scene: " << (OSG::getSystemTime() - start)
@@ -302,11 +302,11 @@ doMakeIndexedTrianglesFunc(OSG::Node *node)
 }
 
 void
-doMakeIndexedTriangles(OSG::Node *scene)
+doMakeIndexedTriangles(OSG::Node *pScene)
 {
     OSG::Time start = OSG::getSystemTime();
 
-    OSG::traverse(scene,
+    OSG::traverse(pScene,
                   boost::bind(&doMakeIndexedTrianglesFunc, _1));
 
     std::cout << "time for doMakeIndexedTriangles on scene: " << (OSG::getSystemTime() - start)
@@ -329,11 +329,11 @@ doMakeOptimizedIndexFunc(OSG::Node *node)
 }
 
 void
-doMakeOptimizedIndex(OSG::Node *scene)
+doMakeOptimizedIndex(OSG::Node *pScene)
 {
     OSG::Time start = OSG::getSystemTime();
 
-    OSG::traverse(scene,
+    OSG::traverse(pScene,
                   boost::bind(&doMakeOptimizedIndexFunc, _1));
 
     std::cout << "time for doMakeOptimizedIndex on scene: " << (OSG::getSystemTime() - start)
@@ -356,11 +356,11 @@ doMakeOptimizedPropertiesFunc(OSG::Node *node)
 }
 
 void
-doMakeOptimizedProperties(OSG::Node *scene)
+doMakeOptimizedProperties(OSG::Node *pScene)
 {
     OSG::Time start = OSG::getSystemTime();
 
-    OSG::traverse(scene,
+    OSG::traverse(pScene,
                   boost::bind(&doMakeOptimizedPropertiesFunc, _1));
 
     std::cout << "time for doMakeOptimizedProperties on scene: " << (OSG::getSystemTime() - start)

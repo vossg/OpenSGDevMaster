@@ -102,7 +102,7 @@ void LoadGLTextures(void)
 }
 
 /* A general OpenGL initialization function.  Sets all of the initial parameters. */
-GLvoid InitGL(GLsizei Width, GLsizei Height)  // We call this right after our OpenGL window is created.
+GLvoid InitGL(GLsizei sWidth, GLsizei sHeight)  // We call this right after our OpenGL window is created.
 {
     LoadGLTextures();                        // Load the textures
     
@@ -115,7 +115,7 @@ GLvoid InitGL(GLsizei Width, GLsizei Height)  // We call this right after our Op
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();                        // Reset The Projection Matrix
     
-    gluPerspective(45.0, GLfloat(Width)/GLfloat(Height),0.1f,100.0f);    // Calculate The Aspect Ratio Of The Window  
+    gluPerspective(45.0, GLfloat(sWidth)/GLfloat(sHeight),0.1f,100.0f);    // Calculate The Aspect Ratio Of The Window  
     quadric=gluNewQuadric();                  // Create A Pointer To The Quadric Object ( NEW )
     
     // Can also use GLU_NONE, GLU_FLAT

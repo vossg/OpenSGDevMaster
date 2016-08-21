@@ -37,11 +37,11 @@ OSG::StatElemDesc<OSG::StatStringElem> dirDesc("direction", "The direction (hori
 OSG::StatElemDesc<OSG::StatStringElem> horiDirDesc("horizontal direction", "The horizontal direction (left-to-right or right-to-left)");
 OSG::StatElemDesc<OSG::StatStringElem> vertDirDesc("vertical direction", "The vertical direction (top-to-bottom or bottom-to-top)");
 
-OSG::TextPixmapFaceRefPtr face;
+OSG::TextPixmapFaceRefPtr pFace;
 string family = "SANS";
 vector<string> families;
 OSG::TextFace::Style style = OSG::TextFace::STYLE_PLAIN;
-OSG::TextLayoutParam layoutParam;
+OSG::TextLayoutParam oLayoutParam;
 vector<string> lines;
 
 int mainMenuID;
@@ -356,8 +356,8 @@ OSG::NodeTransitPtr createMetrics(OSG::TextFace *face, OSG::Real32 scale, const 
     {
         typesPtr->push_back(GL_LINE_LOOP);
         lensPtr->push_back(4);
-        OSG::Real32 left = pos.x();
-        OSG::Real32 top = pos.y();
+        left = pos.x();
+        top = pos.y();
         if (layoutParam.horizontal == true)
             if (layoutParam.leftToRight == true)
                 switch (layoutParam.majorAlignment)
@@ -413,10 +413,10 @@ OSG::NodeTransitPtr createMetrics(OSG::TextFace *face, OSG::Real32 scale, const 
                         break;
                 }
         left *= scale;
-        OSG::Real32 right = left + lbIt->x() * scale;
+        right = left + lbIt->x() * scale;
         top *= scale;
-        OSG::Real32 bottom = top - lbIt->y() * scale;
-        OSG::UInt32 posOffset = posPtr->size();
+        bottom = top - lbIt->y() * scale;
+        posOffset = posPtr->size();
         posPtr->push_back(OSG::Vec3f(left, bottom, 0.f));
         posPtr->push_back(OSG::Vec3f(right, bottom, 0.f));
         posPtr->push_back(OSG::Vec3f(right, top, 0.f));
@@ -467,15 +467,15 @@ void updateFace(void)
     OSG::TextPixmapFaceRefPtr newFace = OSG::TextPixmapFace::create(family, style, 78);
     if (newFace == 0)
         return;
-    face = newFace;
+    pFace = newFace;
 
     // Update information on the screen
-    family = face->getFamily();
+    family = pFace->getFamily();
 
     if(statfg->getCollector() != NULL)
     {
         statfg->getCollector()->getElem(familyDesc)->set(family);
-        style = face->getStyle();
+        style = pFace->getStyle();
         OSG::StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
         switch (style)
         {
@@ -516,23 +516,23 @@ void updateScene(void)
 {
     if(statfg->getCollector() != NULL)
     {
-        statfg->getCollector()->getElem(majorAlignDesc)->set(alignmentToString(layoutParam.majorAlignment));
-        statfg->getCollector()->getElem(minorAlignDesc)->set(alignmentToString(layoutParam.minorAlignment));
-        statfg->getCollector()->getElem(dirDesc)->set(layoutParam.horizontal ? "Horizontal" : "Vertical");
-        statfg->getCollector()->getElem(horiDirDesc)->set(layoutParam.leftToRight ? "Left to right" : "Right to left");
-        statfg->getCollector()->getElem(vertDirDesc)->set(layoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
+        statfg->getCollector()->getElem(majorAlignDesc)->set(alignmentToString(oLayoutParam.majorAlignment));
+        statfg->getCollector()->getElem(minorAlignDesc)->set(alignmentToString(oLayoutParam.minorAlignment));
+        statfg->getCollector()->getElem(dirDesc)->set(oLayoutParam.horizontal ? "Horizontal" : "Vertical");
+        statfg->getCollector()->getElem(horiDirDesc)->set(oLayoutParam.leftToRight ? "Left to right" : "Right to left");
+        statfg->getCollector()->getElem(vertDirDesc)->set(oLayoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
     }
 
-    if(face == NULL)
+    if(pFace == NULL)
         return;
 
     OSG::TextLayoutResult layoutResult;
-    face->layout(lines, layoutParam, layoutResult);
+    pFace->layout(lines, oLayoutParam, layoutResult);
     OSG::Vec2f offset;
-    OSG::ImageUnrecPtr imagePtr = face->makeImage(layoutResult, offset);
+    OSG::ImageUnrecPtr imagePtr = pFace->makeImage(layoutResult, offset);
     OSG::Real32 width = imagePtr->getWidth();
     OSG::Real32 height = imagePtr->getHeight();
-    OSG::Real32 scale = 2.f / (face->getHoriAscent() - face->getHoriDescent());
+    OSG::Real32 scale = 2.f / (pFace->getHoriAscent() - pFace->getHoriDescent());
 
     // Put it all together into a Geometry NodeCore.
     OSG::GeometryUnrecPtr geo = OSG::makePlaneGeo(width * scale, height * scale, 1, 1);
@@ -586,7 +586,7 @@ void updateScene(void)
 
     scene->clearChildren();
     scene->addChild(createCoordinateCross());
-    scene->addChild(createMetrics(face, scale, layoutParam, layoutResult));
+    scene->addChild(createMetrics(pFace, scale, oLayoutParam, layoutResult));
     scene->addChild(transNodePtr);
 }
 
@@ -608,10 +608,10 @@ int main(int argc, char **argv)
         lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
         lines.push_back("Powered by OpenSG");
         lines.push_back("3rd line");
-        layoutParam.spacing = 1.5f;
-        //layoutParam.length.push_back(10.f * 78.f);
-        //layoutParam.length.push_back(7.f * 78.f);
-        //layoutParam.length.push_back(-1.f * 78.f);
+        oLayoutParam.spacing = 1.5f;
+        //oLayoutParam.length.push_back(10.f * 78.f);
+        //oLayoutParam.length.push_back(7.f * 78.f);
+        //oLayoutParam.length.push_back(-1.f * 78.f);
     
         // put the geometry core into a node
         scene = OSG::Node::create();
@@ -700,7 +700,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             mgr    = NULL;
-            face   = NULL;
+            pFace  = NULL;
             scene  = NULL;
             statfg = NULL;
 
@@ -767,56 +767,56 @@ void menu(int command)
             updateFace();
             break;
         case COMMAND_MAJORALIGNMENT_FIRST:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
             break;
         case COMMAND_MAJORALIGNMENT_BEGIN:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
             break;
         case COMMAND_MAJORALIGNMENT_MIDDLE:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
             break;
         case COMMAND_MAJORALIGNMENT_END:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_END;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_END;
             break;
         case COMMAND_MINORALIGNMENT_FIRST:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
             break;
         case COMMAND_MINORALIGNMENT_BEGIN:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
             break;
         case COMMAND_MINORALIGNMENT_MIDDLE:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
             break;
         case COMMAND_MINORALIGNMENT_END:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_END;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_END;
             break;
         case COMMAND_HORIZONTAL:
-            layoutParam.horizontal = true;
+            oLayoutParam.horizontal = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(5, "Vertical", COMMAND_VERTICAL);
             break;
         case COMMAND_VERTICAL:
-            layoutParam.horizontal = false;
+            oLayoutParam.horizontal = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(5, "Horizontal", COMMAND_HORIZONTAL);
             break;
         case COMMAND_LEFTTORIGHT:
-            layoutParam.leftToRight = true;
+            oLayoutParam.leftToRight = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(6, "Right to left", COMMAND_RIGHTTOLEFT);
             break;
         case COMMAND_RIGHTTOLEFT:
-            layoutParam.leftToRight = false;
+            oLayoutParam.leftToRight = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(6, "Left to right", COMMAND_LEFTTORIGHT);
             break;
         case COMMAND_TOPTOBOTTOM:
-            layoutParam.topToBottom = true;
+            oLayoutParam.topToBottom = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(7, "Bottom to top", COMMAND_BOTTOMTOTOP);
             break;
         case COMMAND_BOTTOMTOTOP:
-            layoutParam.topToBottom = false;
+            oLayoutParam.topToBottom = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(7, "Top to bottom", COMMAND_TOPTOBOTTOM);
             break;

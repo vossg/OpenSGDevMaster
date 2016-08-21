@@ -49,7 +49,7 @@ int                           winwidth=300, winheight=300;
 int                           winx=-1, winy=-1;
 OSG::NodeRecPtr                    root;
 OSG::TransformRecPtr               cam_trans;
-OSG::PerspectiveCameraRecPtr       cam;
+//OSG::PerspectiveCameraRecPtr       cam;
 OSG::ClusterWindowRecPtr           clusterWindow;
 OSG::RenderActionRefPtr            ract;
 OSG::GLUTWindowRecPtr              clientWindow;
@@ -98,7 +98,7 @@ void cleanup(void)
 {
     root                 = NULL;
     cam_trans            = NULL;
-    cam                  = NULL;
+//    cam                  = NULL;
     clusterWindow        = NULL;
     clientWindow         = NULL;
     sortfirst            = NULL;

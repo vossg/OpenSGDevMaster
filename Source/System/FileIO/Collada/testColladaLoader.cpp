@@ -121,10 +121,10 @@ int setupGLUT( int *argc, char *argv[] );
 void init     (int argc, char *argv[]);
 void cleanup  (void);
 void printHelp(void);
-void collectGeometry    (OSG::Node *node );
-void constructNormalsGeo(OSG::Node *rootN);
+void collectGeometry    (OSG::Node *node  );
+void constructNormalsGeo(OSG::Node *pRootN);
 
-void processAnim        (OSG::Node *node);
+void processAnim        (OSG::Node *node  );
 
 
 // Initialize GLUT & OpenSG and set up the scene
@@ -293,9 +293,9 @@ OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
     return OSG::Action::Continue;
 }
 
-void collectGeometry(OSG::Node *rootN)
+void collectGeometry(OSG::Node *pRootN)
 {
-    OSG::traverse(rootN, &doCollectGeometry);
+    OSG::traverse(pRootN, &doCollectGeometry);
 
     std::cout << "collectGeometry: num geo [" << geoN.size()
               << "] num skinned geo [" << skinnedGeoN.size()
@@ -303,7 +303,7 @@ void collectGeometry(OSG::Node *rootN)
 }
 
 
-void constructNormalsGeo(OSG::Node *rootN)
+void constructNormalsGeo(OSG::Node *pRootN)
 {
     NodeStore::const_iterator nIt  = normalsGeoN.begin();
     NodeStore::const_iterator nEnd = normalsGeoN.end  ();

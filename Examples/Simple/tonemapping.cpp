@@ -470,7 +470,7 @@ void Example::initialize(int argc, char *argv[])
     _solidBgnd = OSG::SolidBackground::create();
     _solidBgnd->setColor(_clear_color);
 
-    if (_skyBgnd_index >= 0 && _skyBgnd_index < _vecSkyBgnd.size())
+    if (_skyBgnd_index >= 0 && _skyBgnd_index < int(_vecSkyBgnd.size()))
         _mgr->setBackground(_vecSkyBgnd[_skyBgnd_index].second);
     else
         _mgr->setBackground(_solidBgnd);
@@ -627,15 +627,15 @@ void Example::initialize_skybackgrounds()
                 }
                 else if (fs::is_regular_file(iter->status()))
                 {
-                    const fs::path file = *iter;
-                    std::string ext = file.extension().string();
+                    const fs::path filePath = *iter;
+                    std::string ext = filePath.extension().string();
                     boost::to_lower(ext);
                     if (ext == ".chdr")
                     {
-                        std::string skybox_name = file.filename().stem().string();
+                        std::string skybox_name = filePath.filename().stem().string();
 
                         OSG::SkyBackgroundRefPtr skyBgnd = OSG::SkyBackground::create();
-                        OSG::ImageUnrecPtr image = OSG::ImageFileHandler::the()->read(file.string().c_str());
+                        OSG::ImageUnrecPtr image = OSG::ImageFileHandler::the()->read(filePath.string().c_str());
                         OSG::TextureObjChunkUnrecPtr texObj = OSG::TextureObjChunk::create();
 
                         texObj->setImage(image);

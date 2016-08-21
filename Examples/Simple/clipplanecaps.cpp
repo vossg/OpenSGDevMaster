@@ -271,7 +271,7 @@ void updateClipPlanes(const VecClipPlaneData& vec)
 //    For each active clip plane copies of the left two branches need to be
 //    added.
 //
-OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
+OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *pScene,
                                        OSG::Geometry *geo1,
                                  const OSG::Matrix   &matrix)
 {

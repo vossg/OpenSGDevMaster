@@ -129,12 +129,25 @@ namespace OSG
         Vec3f row1;
         Vec3f row2;
         Vec3f row3;
+
+        Matrix3f(void) :
+            row1(0.f, 0.f, 0.f),
+            row2(0.f, 0.f, 0.f),
+            row3(0.f, 0.f, 0.f)
+        {
+        }
     };
 
     struct Matrix2x3f
     {
         Vec3f row1;
         Vec3f row2;
+
+        Matrix2x3f(void) :
+            row1(0.f, 0.f, 0.f),
+            row2(0.f, 0.f, 0.f)
+        {
+        }
     };
 }
 
@@ -142,6 +155,12 @@ struct S0
 {
     OSG::Int32 d;
     OSG::Vec2b e;
+
+    S0(void) :
+        d(0   ),
+        e(0, 0)
+    {
+    }
 };
 
 struct S1
@@ -151,6 +170,13 @@ struct S1
     OSG::Real32 l[2];
     OSG::Vec2f m;
     OSG::Matrix3f n[2];
+
+    S1(void) :
+        j(0, 0, 0),
+        k(0.f, 0.f, 0.f),
+        m(0.f, 0.f)
+    {
+    }
 };
 
 struct TestBlock
@@ -163,6 +189,16 @@ struct TestBlock
     OSG::Real32 h[2];
     OSG::Matrix2x3f i;
     S1 o[2];
+
+    TestBlock(void) :
+        a(0.f),
+        b(0.f, 0.f),
+        c(0.f, 0.f, 0.f),
+        f(),
+        g(0.f),
+        i() 
+    {
+    }
 };
 
 TestBlock initialize_test_block()
@@ -211,7 +247,7 @@ TestBlock initialize_test_block()
     return test_block;
 }
 
-TestBlock test_block = initialize_test_block();
+TestBlock global_test_block = initialize_test_block();
 
 //
 // simple light data structure
@@ -868,7 +904,7 @@ void update_test_block_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, co
 //
 // ii) the light shader storage buffer object 
 //
-std::size_t calc_light_buffer_size(const VecLightsT& lights)
+std::size_t calc_light_buffer_size(const VecLightsT& vLights)
 {
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
@@ -884,28 +920,28 @@ std::size_t calc_light_buffer_size(const VecLightsT& lights)
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_exponent;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
-    ao *= lights.size();        bo = ao;                        // array
+    ao *= vLights.size();       bo = ao;                        // array
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     return ao;
 }
 
-std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
+std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& vLights)
 {
-    std::size_t size = calc_light_buffer_size(lights);
+    std::size_t size = calc_light_buffer_size(vLights);
 
     std::vector<OSG::UInt8> buffer(size);
 
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    for (std::size_t i = 0; i < lights.size(); ++i)
+    for (std::size_t i = 0; i < vLights.size(); ++i)
     {
-        OSG::Pnt3f position_es       = transform_to_eye_space(lights[i].position,       mgr);
-        OSG::Vec3f spot_direction_es = transform_to_eye_space(lights[i].spot_direction, mgr);
+        OSG::Pnt3f position_es       = transform_to_eye_space(vLights[i].position,       mgr);
+        OSG::Vec3f spot_direction_es = transform_to_eye_space(vLights[i].spot_direction, mgr);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].type[0], sizeof(OSG::Vec3i));
+        memcpy(&buffer[0] + ao, &vLights[i].type[0], sizeof(OSG::Vec3i));
         bo = ao + sizeof(OSG::Vec4i);
 
         ao = align_offset(16, bo);
@@ -917,31 +953,31 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
         bo = ao + sizeof(OSG::Vec4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Ia[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Ia[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Id[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Id[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Is[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Is[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].attenuation[0], sizeof(OSG::Vec3f));
+        memcpy(&buffer[0] + ao, &vLights[i].attenuation[0], sizeof(OSG::Vec3f));
         bo = ao + sizeof(OSG::Vec4f);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_cos_cutoff;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_cos_cutoff;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_exponent;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_exponent;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
@@ -950,11 +986,11 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
     return buffer;
 }
 
-OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_light_state(const VecLightsT& lights)
+OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_light_state(const VecLightsT& vLights)
 {
     OSG::ShaderStorageBufferObjStdLayoutChunkRefPtr ssbo = OSG::ShaderStorageBufferObjStdLayoutChunk::create();
 
-    std::vector<OSG::UInt8> buffer = create_light_buffer(lights);
+    std::vector<OSG::UInt8> buffer = create_light_buffer(vLights);
 
     ssbo->editMFBuffer()->setValues(buffer);
     ssbo->setUsage(GL_DYNAMIC_DRAW);
@@ -962,10 +998,10 @@ OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_light_state(const Vec
     return OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr(ssbo);
 }
 
-void update_light_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, const VecLightsT& lights)
+void update_light_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, const VecLightsT& vLights)
 {
     if (ssbo) {
-        std::vector<OSG::UInt8> buffer = create_light_buffer(lights);
+        std::vector<OSG::UInt8> buffer = create_light_buffer(vLights);
         ssbo->editMFBuffer()->setValues(buffer);
     }
 }
@@ -973,7 +1009,7 @@ void update_light_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, const V
 //
 // iii) the material shader storage buffer object
 //
-std::size_t calc_material_database_buffer_size(const VecMaterialsT& materials)
+std::size_t calc_material_database_buffer_size(const VecMaterialsT& vMaterials)
 {
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
@@ -986,45 +1022,45 @@ std::size_t calc_material_database_buffer_size(const VecMaterialsT& materials)
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  shininess;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
-    ao *= materials.size();     bo = ao;                        // array
+    ao *= vMaterials.size();    bo = ao;                        // array
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     return ao;
 }
 
-std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& materials)
+std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& vMaterials)
 {
-    std::size_t size = calc_material_database_buffer_size(materials);
+    std::size_t size = calc_material_database_buffer_size(vMaterials);
 
     std::vector<OSG::UInt8> buffer(size);
 
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    for (std::size_t i = 0; i < materials.size(); ++i)
+    for (std::size_t i = 0; i < vMaterials.size(); ++i)
     {
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].ambient[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].ambient[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].diffuse[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].diffuse[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].specular[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].specular[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].emissive[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].emissive[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = materials[i].opacity;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vMaterials[i].opacity;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = materials[i].shininess;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vMaterials[i].shininess;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
@@ -1033,11 +1069,11 @@ std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& mat
     return buffer;
 }
 
-OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_material_database_state(const VecMaterialsT& materials)
+OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_material_database_state(const VecMaterialsT& vMaterials)
 {
     OSG::ShaderStorageBufferObjStdLayoutChunkRefPtr ssbo = OSG::ShaderStorageBufferObjStdLayoutChunk::create();
 
-    std::vector<OSG::UInt8> buffer = create_material_database_buffer(materials);
+    std::vector<OSG::UInt8> buffer = create_material_database_buffer(vMaterials);
 
     ssbo->editMFBuffer()->setValues(buffer);
     ssbo->setUsage(GL_STATIC_DRAW);
@@ -1045,10 +1081,10 @@ OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr create_material_database_sta
     return OSG::ShaderStorageBufferObjStdLayoutChunkTransitPtr(ssbo);
 }
 
-void update_material_database_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, const VecMaterialsT& materials)
+void update_material_database_state(OSG::ShaderStorageBufferObjStdLayoutChunk* ssbo, const VecMaterialsT& vMaterials)
 {
     if (ssbo) {
-        std::vector<OSG::UInt8> buffer = create_material_database_buffer(materials);
+        std::vector<OSG::UInt8> buffer = create_material_database_buffer(vMaterials);
         ssbo->editMFBuffer()->setValues(buffer);
     }
 }
@@ -1266,7 +1302,7 @@ int main(int argc, char **argv)
         OSG::ShaderStorageBufferObjStdLayoutChunkRefPtr ssbo_material_database = create_material_database_state(materials);
                                                         ssbo_light_state       = create_light_state(lights);
 
-        OSG::ShaderStorageBufferObjStdLayoutChunkRefPtr ssbo_test_block        = create_test_block_state(test_block);
+        OSG::ShaderStorageBufferObjStdLayoutChunkRefPtr ssbo_test_block        = create_test_block_state(global_test_block);
 
         OSG::PolygonChunkRefPtr polygon_chunk = OSG::PolygonChunk::create();
         polygon_chunk->setFrontMode(GL_FILL);

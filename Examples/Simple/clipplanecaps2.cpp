@@ -290,7 +290,7 @@ public:
     void        mouseMove               (OSG::Int16 x, OSG::Int16 y)                        { _mgr->mouseMove(x,y); }
     void        mouseButtonPress        (OSG::UInt16 button, OSG::Int16 x, OSG::Int16 y)    { _mgr->mouseButtonPress(button,x,y); }
     void        mouseButtonRelease      (OSG::UInt16 button, OSG::Int16 x, OSG::Int16 y)    { _mgr->mouseButtonRelease(button,x,y); }
-    void        key                     (OSG::UChar8 key,    OSG::Int16 x, OSG::Int16 y)    { _mgr->key(key,x,y); }
+    void        key                     (OSG::UChar8 cKey,    OSG::Int16 x, OSG::Int16 y)   { _mgr->key(cKey,x,y); }
 
     void        updateClipPlanes        (const VecCPData& vec);
     void        createClipPlaneDetails  ();
@@ -340,16 +340,16 @@ private:
 //----- create ----------------------------------------------------------------
 
 ClippingSceneManagerPtr 
-ClippingSceneManager::create(OSG::SimpleSceneManager* mgr)
+ClippingSceneManager::create(OSG::SimpleSceneManager* pMgr)
 {
-    assert(mgr);
-    return ClippingSceneManagerPtr(new ClippingSceneManager(mgr));
+    assert(pMgr);
+    return ClippingSceneManagerPtr(new ClippingSceneManager(pMgr));
 }
 
 //----- ctor ------------------------------------------------------------------
 
-ClippingSceneManager::ClippingSceneManager(OSG::SimpleSceneManager* mgr)
-: _mgr(mgr)
+ClippingSceneManager::ClippingSceneManager(OSG::SimpleSceneManager* pMgr)
+: _mgr(pMgr)
 , _overrideMaterial(NULL)
 , _root(NULL)
 , _internalRoot(NULL)
@@ -823,8 +823,8 @@ OSG::ChunkMaterialTransitPtr ClippingSceneManager::material_3(std::size_t i) con
     mat->addChunk(_vecClipPlaneDetails[i]._planeMaterialChunk);
     mat->addChunk(_vecClipPlaneDetails[i]._planePolygonChunk);
 
-    std::size_t iNumClipPlanes = _vecClipPlaneDetails.size();
-    for (std::size_t j = 0; j < iNumClipPlanes; ++j) {
+    std::size_t sNumClipPlanes = _vecClipPlaneDetails.size();
+    for (std::size_t j = 0; j < sNumClipPlanes; ++j) {
         if (i != j && _vecClipPlaneDetails[j]._clipPlaneChunk->getEnable())
             mat->addChunk(_vecClipPlaneDetails[j]._clipPlaneChunk);
     }

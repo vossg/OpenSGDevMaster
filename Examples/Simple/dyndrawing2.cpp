@@ -60,7 +60,7 @@
 
 #endif
 
-OSG_USING_NAMESPACE; // just for convenience but not recommended
+OSG_USING_NAMESPACE // just for convenience but not recommended
 
 //#define USE_MULTISAMPLING
 
@@ -362,7 +362,9 @@ static void             applyRenderMode();
 static void             enableStaticRendering();
 static void             enableDynamicRendering();
 
+#if 0
 static Node*            rootNode(Node* node);
+#endif
 
 //
 // global state of example
@@ -608,8 +610,8 @@ static void applyRenderMode()
 
 static void enableStaticRendering()
 {
-    UInt32 width  = win->getWidth();
-    UInt32 height = win->getHeight();
+//    UInt32 width  = win->getWidth();
+//    UInt32 height = win->getHeight();
 
     FBOGrabForegroundUnrecPtr fboGrabForeground = FBOGrabForeground::create();
     fboGrabForeground->setFrameBufferObject(spSimpleFBO->fbo());
@@ -636,6 +638,7 @@ static void enableDynamicRendering()
     mgr->setRoot(root);
 }
 
+#if 0
 static Node* rootNode(Node* node)
 {
     Node* root = NULL;
@@ -645,6 +648,7 @@ static Node* rootNode(Node* node)
     }
     return root;
 }
+#endif
 
 //
 // main entry point

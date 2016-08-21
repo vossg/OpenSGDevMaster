@@ -294,7 +294,7 @@ OSG::Vec3f transform_to_eye_space(const OSG::Vec3f& v, OSG::SimpleSceneManager* 
 // the light uniform buffer object 
 // see comment *) at the top of the file
 //
-std::size_t calc_light_buffer_size(const VecLightsT& lights)
+std::size_t calc_light_buffer_size(const VecLightsT& vLights)
 {
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
@@ -310,28 +310,28 @@ std::size_t calc_light_buffer_size(const VecLightsT& lights)
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_exponent;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
-    ao *= lights.size();        bo = ao;                        // array
+    ao *= vLights.size();       bo = ao;                        // array
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     return ao;
 }
 
-std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
+std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& vLights)
 {
-    std::size_t size = calc_light_buffer_size(lights);
+    std::size_t size = calc_light_buffer_size(vLights);
 
     std::vector<OSG::UInt8> buffer(size);
 
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    for (std::size_t i = 0; i < lights.size(); ++i)
+    for (std::size_t i = 0; i < vLights.size(); ++i)
     {
-        OSG::Pnt3f position_es       = transform_to_eye_space(lights[i].position,       mgr);
-        OSG::Vec3f spot_direction_es = transform_to_eye_space(lights[i].spot_direction, mgr);
+        OSG::Pnt3f position_es       = transform_to_eye_space(vLights[i].position,       mgr);
+        OSG::Vec3f spot_direction_es = transform_to_eye_space(vLights[i].spot_direction, mgr);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].type[0], sizeof(OSG::Vec3i));
+        memcpy(&buffer[0] + ao, &vLights[i].type[0], sizeof(OSG::Vec3i));
         bo = ao + sizeof(OSG::Vec4i);
 
         ao = align_offset(16, bo);
@@ -343,31 +343,31 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
         bo = ao + sizeof(OSG::Vec4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Ia[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Ia[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Id[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Id[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].Is[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vLights[i].Is[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].attenuation[0], sizeof(OSG::Vec3f));
+        memcpy(&buffer[0] + ao, &vLights[i].attenuation[0], sizeof(OSG::Vec3f));
         bo = ao + sizeof(OSG::Vec4f);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_cos_cutoff;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_cos_cutoff;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_exponent;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_exponent;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
@@ -376,11 +376,11 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& lights)
     return buffer;
 }
 
-OSG::UniformBufferObjStd140ChunkTransitPtr create_light_state(const VecLightsT& lights)
+OSG::UniformBufferObjStd140ChunkTransitPtr create_light_state(const VecLightsT& vLights)
 {
     OSG::UniformBufferObjStd140ChunkRefPtr ubo = OSG::UniformBufferObjStd140Chunk::create();
 
-    std::vector<OSG::UInt8> buffer = create_light_buffer(lights);
+    std::vector<OSG::UInt8> buffer = create_light_buffer(vLights);
 
     ubo->editMFBuffer()->setValues(buffer);
     ubo->setUsage(GL_DYNAMIC_DRAW);
@@ -388,10 +388,10 @@ OSG::UniformBufferObjStd140ChunkTransitPtr create_light_state(const VecLightsT& 
     return OSG::UniformBufferObjStd140ChunkTransitPtr(ubo);
 }
 
-void update_light_state(OSG::UniformBufferObjStd140Chunk* ubo, const VecLightsT& lights)
+void update_light_state(OSG::UniformBufferObjStd140Chunk* ubo, const VecLightsT& vLights)
 {
     if (ubo) {
-        std::vector<OSG::UInt8> buffer = create_light_buffer(lights);
+        std::vector<OSG::UInt8> buffer = create_light_buffer(vLights);
         ubo->editMFBuffer()->setValues(buffer);
     }
 }
@@ -400,7 +400,7 @@ void update_light_state(OSG::UniformBufferObjStd140Chunk* ubo, const VecLightsT&
 // the material uniform buffer object
 // see comment *) at the top of the file
 //
-std::size_t calc_material_database_buffer_size(const VecMaterialsT& materials)
+std::size_t calc_material_database_buffer_size(const VecMaterialsT& vMaterials)
 {
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
@@ -413,45 +413,45 @@ std::size_t calc_material_database_buffer_size(const VecMaterialsT& materials)
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  shininess;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
-    ao *= materials.size();     bo = ao;                        // array
+    ao *= vMaterials.size();    bo = ao;                        // array
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     return ao;
 }
 
-std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& materials)
+std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& vMaterials)
 {
-    std::size_t size = calc_material_database_buffer_size(materials);
+    std::size_t size = calc_material_database_buffer_size(vMaterials);
 
     std::vector<OSG::UInt8> buffer(size);
 
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    for (std::size_t i = 0; i < materials.size(); ++i)
+    for (std::size_t i = 0; i < vMaterials.size(); ++i)
     {
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].ambient[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].ambient[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].diffuse[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].diffuse[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].specular[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].specular[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &materials[i].emissive[0], sizeof(OSG::Color3f));
+        memcpy(&buffer[0] + ao, &vMaterials[i].emissive[0], sizeof(OSG::Color3f));
         bo = ao + sizeof(OSG::Color4f);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = materials[i].opacity;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vMaterials[i].opacity;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = materials[i].shininess;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vMaterials[i].shininess;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
@@ -460,11 +460,11 @@ std::vector<OSG::UInt8> create_material_database_buffer(const VecMaterialsT& mat
     return buffer;
 }
 
-OSG::UniformBufferObjStd140ChunkTransitPtr create_material_database_state(const VecMaterialsT& materials)
+OSG::UniformBufferObjStd140ChunkTransitPtr create_material_database_state(const VecMaterialsT& vMaterials)
 {
     OSG::UniformBufferObjStd140ChunkRefPtr ubo = OSG::UniformBufferObjStd140Chunk::create();
 
-    std::vector<OSG::UInt8> buffer = create_material_database_buffer(materials);
+    std::vector<OSG::UInt8> buffer = create_material_database_buffer(vMaterials);
 
     ubo->editMFBuffer()->setValues(buffer);
     ubo->setUsage(GL_STATIC_DRAW);
@@ -472,10 +472,10 @@ OSG::UniformBufferObjStd140ChunkTransitPtr create_material_database_state(const 
     return OSG::UniformBufferObjStd140ChunkTransitPtr(ubo);
 }
 
-void update_material_database_state(OSG::UniformBufferObjStd140Chunk* ubo, const VecMaterialsT& materials)
+void update_material_database_state(OSG::UniformBufferObjStd140Chunk* ubo, const VecMaterialsT& vMaterials)
 {
     if (ubo) {
-        std::vector<OSG::UInt8> buffer = create_material_database_buffer(materials);
+        std::vector<OSG::UInt8> buffer = create_material_database_buffer(vMaterials);
         ubo->editMFBuffer()->setValues(buffer);
     }
 }

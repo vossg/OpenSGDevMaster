@@ -25,12 +25,12 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
   public:
 
-    MyOSGQGLWidget(      QWidget                      *parent      = 0,
-                   const char                         *name        = 0);
-    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *context,
-                         QWidget                      *parent      = 0,
-                   const QGLWidget                    *shareWidget = 0,
-                         Qt::WindowFlags               f           = 0);
+    MyOSGQGLWidget(      QWidget                      *pParent      = 0,
+                   const char                         *szName       = 0);
+    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *pContext,
+                         QWidget                      *pParent      = 0,
+                   const QGLWidget                    *pShareWidget = 0,
+                         Qt::WindowFlags               f            = 0);
     
     virtual ~MyOSGQGLWidget(void);
     
@@ -51,20 +51,22 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 MyOSGQGLWidget    *glWidgets[nwindows];
 QApplication      *a;
 
-MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *parent, 
-                               const char    *name  ) :
-    OSGQGLWidget(parent, name)
+MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *pParent, 
+                               const char    *szName ) :
+    OSGQGLWidget(pParent, szName),
+    m_manager   (nullptr        )
 {
     m_manager = OSG::SimpleSceneManager::create();
 
     m_manager->setUseTraversalAction(true);
 }
 
-MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *context,
-                                     QWidget                 *parent,
-                               const QGLWidget               *shareWidget,
-                                     Qt::WindowFlags          f          ) :
-    OSGQGLWidget(context, parent, shareWidget, f)
+MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *pContext,
+                                     QWidget                 *pParent,
+                               const QGLWidget               *pShareWidget,
+                                     Qt::WindowFlags          f           ) :
+    OSGQGLWidget(pContext, pParent, pShareWidget, f),
+    m_manager   (nullptr                           )
 {
     m_manager = OSG::SimpleSceneManager::create();
     m_manager->setUseTraversalAction(true);

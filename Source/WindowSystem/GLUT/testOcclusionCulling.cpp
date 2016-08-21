@@ -51,7 +51,7 @@ OSG::RenderActionRefPtr       debugact = NULL;
 // create the scene
 OSG::NodeRecPtr scene;
 
-OSG::GLUTWindowRecPtr mainwin;
+//OSG::GLUTWindowRecPtr mainwin;
 OSG::GLUTWindowRecPtr debugwin;
 int mainwinid = -1, debugwinid = -1;
 
@@ -345,7 +345,7 @@ void keyboard(unsigned char k, int, int)
             debugact = NULL;
             
             scene    = NULL;
-            mainwin  = NULL;
+//            mainwin  = NULL;
             debugwin = NULL;
             statfg   = NULL;
 

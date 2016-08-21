@@ -279,26 +279,27 @@ OSG::Vec3f transform_to_eye_space(const OSG::Vec3f& v, OSG::SimpleSceneManager* 
 //
 // The light state
 //
-void update_light_state(OSG::UniformBufferObjChunk* ubo, const VecLightsT& lights)
+void update_light_state(OSG::UniformBufferObjChunk* ubo, 
+                        const VecLightsT& vLights)
 {
     if (ubo) {
-        for (std::size_t i = 0; i < lights.size(); ++i) {
+        for (std::size_t i = 0; i < vLights.size(); ++i) {
             std::stringstream stream;
             stream << "Lights.light[" << i << "]." << std::flush;
             std::string name;
 #ifndef USE_TEST_FP_SHADER
-            OSG::Pnt3f position_es       = transform_to_eye_space(lights[i].position,       mgr);
-            OSG::Vec3f spot_direction_es = transform_to_eye_space(lights[i].spot_direction, mgr);
+            OSG::Pnt3f position_es       = transform_to_eye_space(vLights[i].position,       mgr);
+            OSG::Vec3f spot_direction_es = transform_to_eye_space(vLights[i].spot_direction, mgr);
 
-            name = stream.str() + "type";               ubo->setIVec3(name,  lights[i].type);
+            name = stream.str() + "type";               ubo->setIVec3(name,  vLights[i].type);
             name = stream.str() + "position";           ubo->setVec3 (name,  position_es);
             name = stream.str() + "spot_direction";     ubo->setVec3 (name,  spot_direction_es);
-            name = stream.str() + "Ia";                 ubo->setVec3 (name,  lights[i].Ia);
-            name = stream.str() + "Id";                 ubo->setVec3 (name,  lights[i].Id);
-            name = stream.str() + "Is";                 ubo->setVec3 (name,  lights[i].Is);
-            name = stream.str() + "attenuation";        ubo->setVec3 (name,  lights[i].attenuation);
-            name = stream.str() + "spot_cos_cutoff";    ubo->setFloat(name,  lights[i].spot_cos_cutoff);
-            name = stream.str() + "spot_exponent";      ubo->setFloat(name,  lights[i].spot_exponent);
+            name = stream.str() + "Ia";                 ubo->setVec3 (name,  vLights[i].Ia);
+            name = stream.str() + "Id";                 ubo->setVec3 (name,  vLights[i].Id);
+            name = stream.str() + "Is";                 ubo->setVec3 (name,  vLights[i].Is);
+            name = stream.str() + "attenuation";        ubo->setVec3 (name,  vLights[i].attenuation);
+            name = stream.str() + "spot_cos_cutoff";    ubo->setFloat(name,  vLights[i].spot_cos_cutoff);
+            name = stream.str() + "spot_exponent";      ubo->setFloat(name,  vLights[i].spot_exponent);
 #else
             name = stream.str() + "type";               ubo->setIVec3(name,  OSG::Vec3i(1, 2, 3));
             name = stream.str() + "position";           ubo->setVec3 (name,  OSG::Pnt3f(1.1f, 2.2f, 3.3f));
@@ -314,14 +315,14 @@ void update_light_state(OSG::UniformBufferObjChunk* ubo, const VecLightsT& light
     }
 }
 
-OSG::UniformBufferObjChunkTransitPtr create_light_state(const VecLightsT& lights)
+OSG::UniformBufferObjChunkTransitPtr create_light_state(const VecLightsT& vLights)
 {
     OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
 
     ubo->setBlockName("Lights");
     ubo->setUsage(GL_STREAM_DRAW);
 
-    for (std::size_t i = 0; i < lights.size(); ++i) {
+    for (std::size_t i = 0; i < vLights.size(); ++i) {
         std::stringstream stream;
         stream << "Lights.light[" << i << "]." << std::flush;
         std::string name;
@@ -337,7 +338,7 @@ OSG::UniformBufferObjChunkTransitPtr create_light_state(const VecLightsT& lights
         name = stream.str() + "spot_exponent";      ubo->addFloat(name);
     }
 
-    update_light_state(ubo, lights);
+    update_light_state(ubo, vLights);
 
     return OSG::UniformBufferObjChunkTransitPtr(ubo);
 }
@@ -345,20 +346,20 @@ OSG::UniformBufferObjChunkTransitPtr create_light_state(const VecLightsT& lights
 //
 // The material state
 //
-void update_material_database_state(OSG::UniformBufferObjChunk* ubo, const VecMaterialsT& materials)
+void update_material_database_state(OSG::UniformBufferObjChunk* ubo, const VecMaterialsT& vMaterials)
 {
     if (ubo) {
-        for (std::size_t i = 0; i < materials.size(); ++i) {
+        for (std::size_t i = 0; i < vMaterials.size(); ++i) {
             std::stringstream stream;
             stream << "Materials.material[" << i << "]." << std::flush;
             std::string name;
 #ifndef USE_TEST_FP_SHADER
-            name = stream.str() + "ambient";    ubo->setVec3 (name, materials[i].ambient);
-            name = stream.str() + "diffuse";    ubo->setVec3 (name, materials[i].diffuse);
-            name = stream.str() + "specular";   ubo->setVec3 (name, materials[i].specular);
-            name = stream.str() + "emissive";   ubo->setVec3 (name, materials[i].emissive);
-            name = stream.str() + "opacity";    ubo->setFloat(name, materials[i].opacity);
-            name = stream.str() + "shininess";  ubo->setFloat(name, materials[i].shininess);
+            name = stream.str() + "ambient";    ubo->setVec3 (name, vMaterials[i].ambient);
+            name = stream.str() + "diffuse";    ubo->setVec3 (name, vMaterials[i].diffuse);
+            name = stream.str() + "specular";   ubo->setVec3 (name, vMaterials[i].specular);
+            name = stream.str() + "emissive";   ubo->setVec3 (name, vMaterials[i].emissive);
+            name = stream.str() + "opacity";    ubo->setFloat(name, vMaterials[i].opacity);
+            name = stream.str() + "shininess";  ubo->setFloat(name, vMaterials[i].shininess);
 #else
             name = stream.str() + "ambient";    ubo->setVec3 (name, OSG::Color3f(0.1f,0.2f,0.3f));
             name = stream.str() + "diffuse";    ubo->setVec3 (name, OSG::Color3f(0.2f,0.4f,0.6f));
@@ -371,14 +372,14 @@ void update_material_database_state(OSG::UniformBufferObjChunk* ubo, const VecMa
     }
 }
 
-OSG::UniformBufferObjChunkTransitPtr create_material_database_state(const VecMaterialsT& materials)
+OSG::UniformBufferObjChunkTransitPtr create_material_database_state(const VecMaterialsT& vMaterials)
 {
     OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
 
     ubo->setBlockName("Materials");
     ubo->setUsage(GL_STATIC_DRAW);
 
-    for (std::size_t i = 0; i < materials.size(); ++i) {
+    for (std::size_t i = 0; i < vMaterials.size(); ++i) {
         std::stringstream stream;
         stream << "Materials.material[" << i << "]." << std::flush;
         std::string name;
@@ -391,7 +392,7 @@ OSG::UniformBufferObjChunkTransitPtr create_material_database_state(const VecMat
         name = stream.str() + "shininess";  ubo->addFloat(name);
     }
 
-    update_material_database_state(ubo, materials);
+    update_material_database_state(ubo, vMaterials);
 
     return OSG::UniformBufferObjChunkTransitPtr(ubo);
 }

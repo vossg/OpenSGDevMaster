@@ -27,7 +27,7 @@ OSG::RenderActionRefPtr rentravact = NULL;
 
 OSG::NodeRecPtr  hdrroot = NULL;
 OSG::NodeRecPtr  root    = NULL;
-OSG::NodeRecPtr  file    = NULL;
+//OSG::NodeRecPtr  file    = NULL;
 
 OSG::PerspectiveCameraRecPtr cam = NULL;
 OSG::ViewportRecPtr          vp  = NULL;
@@ -221,7 +221,7 @@ void key(unsigned char key, int x, int y)
 
             hdrroot = NULL;
             root    = NULL;
-            file    = NULL;
+//            file    = NULL;
 
             cam = NULL;
             vp  = NULL;

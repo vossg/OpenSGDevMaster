@@ -59,11 +59,11 @@ OSG::StatElemDesc<OSG::StatStringElem> dirDesc("direction", "The direction (hori
 OSG::StatElemDesc<OSG::StatStringElem> horiDirDesc("horizontal direction", "The horizontal direction (left-to-right or right-to-left)");
 OSG::StatElemDesc<OSG::StatStringElem> vertDirDesc("vertical direction", "The vertical direction (top-to-bottom or bottom-to-top)");
 
-OSG::TextTXFFaceRefPtr face = 0;
+OSG::TextTXFFaceRefPtr pFace = 0;
 string family= "SANS";
 vector<string> families;
 OSG::TextFace::Style style = OSG::TextFace::STYLE_PLAIN;
-OSG::TextLayoutParam layoutParam;
+OSG::TextLayoutParam oLayoutParam;
 vector<string> lines;
 string filename;
 
@@ -379,8 +379,8 @@ OSG::NodeTransitPtr createMetrics(OSG::TextFace *face, OSG::Real32 scale, const 
     {
         typesPtr->push_back(GL_LINE_LOOP);
         lensPtr->push_back(4);
-        OSG::Real32 left = pos.x();
-        OSG::Real32 top = pos.y();
+        left = pos.x();
+        top = pos.y();
         if (layoutParam.horizontal == true)
             if (layoutParam.leftToRight == true)
                 switch (layoutParam.majorAlignment)
@@ -436,10 +436,10 @@ OSG::NodeTransitPtr createMetrics(OSG::TextFace *face, OSG::Real32 scale, const 
                         break;
                 }
         left *= scale;
-        OSG::Real32 right = left + lbIt->x() * scale;
+        right = left + lbIt->x() * scale;
         top *= scale;
-        OSG::Real32 bottom = top - lbIt->y() * scale;
-        OSG::UInt32 posOffset = posPtr->size();
+        bottom = top - lbIt->y() * scale;
+        posOffset = posPtr->size();
         posPtr->push_back(OSG::Vec3f(left, bottom, 0.f));
         posPtr->push_back(OSG::Vec3f(right, bottom, 0.f));
         posPtr->push_back(OSG::Vec3f(right, top, 0.f));
@@ -491,10 +491,10 @@ void updateFace(void)
     OSG::TextTXFFaceRefPtr newFace = OSG::TextTXFFace::create(family, style);
     if (newFace == 0)
         return;
-    face = newFace;
+    pFace = newFace;
 
     // Update information on the screen
-    family = face->getFamily();
+    family = pFace->getFamily();
 
     if(statfg->getCollector() != NULL)
     {
@@ -506,7 +506,7 @@ void updateFace(void)
                 filename.erase(i, 1);
             else
                 ++i;
-        style = face->getStyle();
+        style = pFace->getStyle();
         OSG::StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
         switch (style)
         {
@@ -553,27 +553,27 @@ void updateScene(void)
 {
     if(statfg->getCollector() != NULL)
     {
-        statfg->getCollector()->getElem(majorAlignDesc)->set(alignmentToString(layoutParam.majorAlignment));
-        statfg->getCollector()->getElem(minorAlignDesc)->set(alignmentToString(layoutParam.minorAlignment));
-        statfg->getCollector()->getElem(dirDesc)->set(layoutParam.horizontal ? "Horizontal" : "Vertical");
-        statfg->getCollector()->getElem(horiDirDesc)->set(layoutParam.leftToRight ? "Left to right" : "Right to left");
-        statfg->getCollector()->getElem(vertDirDesc)->set(layoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
+        statfg->getCollector()->getElem(majorAlignDesc)->set(alignmentToString(oLayoutParam.majorAlignment));
+        statfg->getCollector()->getElem(minorAlignDesc)->set(alignmentToString(oLayoutParam.minorAlignment));
+        statfg->getCollector()->getElem(dirDesc)->set(oLayoutParam.horizontal ? "Horizontal" : "Vertical");
+        statfg->getCollector()->getElem(horiDirDesc)->set(oLayoutParam.leftToRight ? "Left to right" : "Right to left");
+        statfg->getCollector()->getElem(vertDirDesc)->set(oLayoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
     }
 
-    if(face == NULL)
+    if(pFace == NULL)
         return;
 
     // Put it all together into a Geometry NodeCore.
     OSG::TextLayoutResult layoutResult;
     OSG::Real32 scale = 2.f;
-    face->layout(lines, layoutParam, layoutResult);
+    pFace->layout(lines, oLayoutParam, layoutResult);
 #if 0
     GeometryUnrecPtr geo = Geometry::create();
-    face->fillGeo(geo, layoutResult, scale);
+    pFace->fillGeo(geo, layoutResult, scale);
     NodeUnrecPtr textNode = Node::create();
     textNode->setCore(geo);
 #else
-    OSG::NodeUnrecPtr textNode = face->makeNode(layoutResult, scale);
+    OSG::NodeUnrecPtr textNode = pFace->makeNode(layoutResult, scale);
     OSG::GeometryUnrecPtr geo = dynamic_cast<OSG::Geometry *>(textNode->getCore());
 #endif
     OSG::NodeUnrecPtr transNodePtr = OSG::Node::create();
@@ -584,7 +584,7 @@ void updateScene(void)
     transNodePtr->setCore(transPtr);
     transNodePtr->addChild(textNode);
 
-    OSG::ImageUnrecPtr imagePtr = face->getTexture();
+    OSG::ImageUnrecPtr imagePtr = pFace->getTexture();
     OSG::TextureObjChunkUnrecPtr texObjChunk = OSG::TextureObjChunk::create();
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
@@ -615,7 +615,7 @@ void updateScene(void)
 
     scene->clearChildren();
     scene->addChild(createCoordinateCross());
-    scene->addChild(createMetrics(face, scale, layoutParam, layoutResult));
+    scene->addChild(createMetrics(pFace, scale, oLayoutParam, layoutResult));
     scene->addChild(transNodePtr);
 
     mgr->showAll();
@@ -640,7 +640,7 @@ int main(int argc, char **argv)
         lines.push_back(argc >= 2 ? argv[1] : "Hello World!");
         lines.push_back("Powered by OpenSG");
         lines.push_back("3rd line");
-        layoutParam.spacing = 1.5f;
+        oLayoutParam.spacing = 1.5f;
         //layoutParam.length.push_back(10.f);
         //layoutParam.length.push_back(7.f);
         //layoutParam.length.push_back(-1.f);
@@ -729,7 +729,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             mgr    = NULL;
-            face   = NULL;
+            pFace  = NULL;
             scene  = NULL;
             statfg = NULL;
 
@@ -780,75 +780,75 @@ void menu(int command)
             updateScene();
             break;
         case COMMAND_MAJORALIGNMENT_FIRST:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
             updateScene();
             break;
         case COMMAND_MAJORALIGNMENT_BEGIN:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
             updateScene();
             break;
         case COMMAND_MAJORALIGNMENT_MIDDLE:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
             updateScene();
             break;
         case COMMAND_MAJORALIGNMENT_END:
-            layoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_END;
+            oLayoutParam.majorAlignment = OSG::TextLayoutParam::ALIGN_END;
             updateScene();
             break;
         case COMMAND_MINORALIGNMENT_FIRST:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_FIRST;
             updateScene();
             break;
         case COMMAND_MINORALIGNMENT_BEGIN:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_BEGIN;
             updateScene();
             break;
         case COMMAND_MINORALIGNMENT_MIDDLE:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_MIDDLE;
             updateScene();
             break;
         case COMMAND_MINORALIGNMENT_END:
-            layoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_END;
+            oLayoutParam.minorAlignment = OSG::TextLayoutParam::ALIGN_END;
             updateScene();
             break;
         case COMMAND_HORIZONTAL:
-            layoutParam.horizontal = true;
+            oLayoutParam.horizontal = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(5, "Vertical", COMMAND_VERTICAL);
             updateScene();
             break;
         case COMMAND_VERTICAL:
-            layoutParam.horizontal = false;
+            oLayoutParam.horizontal = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(5, "Horizontal", COMMAND_HORIZONTAL);
             updateScene();
             break;
         case COMMAND_LEFTTORIGHT:
-            layoutParam.leftToRight = true;
+            oLayoutParam.leftToRight = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(6, "Right to left", COMMAND_RIGHTTOLEFT);
             updateScene();
             break;
         case COMMAND_RIGHTTOLEFT:
-            layoutParam.leftToRight = false;
+            oLayoutParam.leftToRight = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(6, "Left to right", COMMAND_LEFTTORIGHT);
             updateScene();
             break;
         case COMMAND_TOPTOBOTTOM:
-            layoutParam.topToBottom = true;
+            oLayoutParam.topToBottom = true;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(7, "Bottom to top", COMMAND_BOTTOMTOTOP);
             updateScene();
             break;
         case COMMAND_BOTTOMTOTOP:
-            layoutParam.topToBottom = false;
+            oLayoutParam.topToBottom = false;
             glutSetMenu(mainMenuID);
             glutChangeToMenuEntry(7, "Top to bottom", COMMAND_TOPTOBOTTOM);
             updateScene();
             break;
         case COMMAND_WRITE_TO_FILE:
-            face->writeToFile(filename);
+            pFace->writeToFile(filename);
             break;
         default:
             if (command < COMMAND_FAMILY_BASE)

@@ -59,13 +59,13 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
   public:
 
-    MyOSGQGLWidget(      QWidget *parent = 0, 
-                   const char    *name   = 0);
+    MyOSGQGLWidget(      QWidget *pParent = 0, 
+                   const char    *szName  = 0);
 
-    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *context,
-                         QWidget                      *parent      = 0,
-                   const QGLWidget                    *shareWidget = 0,
-                         Qt::WindowFlags               f           = 0);
+    MyOSGQGLWidget(      OSG::OSGQGLWidget::GLContext *pContext,
+                         QWidget                      *pParent      = 0,
+                   const QGLWidget                    *pShareWidget = 0,
+                         Qt::WindowFlags               f            = 0);
 
     static void initOpenGL(void);
 
@@ -89,29 +89,44 @@ class MyOSGQGLWidget : public OSG::OSGQGLWidget
 };
 
 MyOSGQGLWidget               *glWidget = NULL;
-QApplication                 *a        = NULL;
+QApplication                 *app      = NULL;
 
 OSG::RenderActionRefPtr       ract;
 OSG::NodeRecPtr               root;
-OSG::NodeRecPtr               file;
+//OSG::NodeRecPtr               file;
 OSG::ViewportRecPtr           vp;
 OSG::TransformRecPtr          cam_trans;
-OSG::PerspectiveCameraRecPtr  cam;
+//OSG::PerspectiveCameraRecPtr  cam;
 
 OSG::QT4WindowRecPtr osgTWin;
 bool bRun = true;
 
-MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *parent, 
-                               const char    *name  ) :
-    OSG::OSGQGLWidget(parent, name)
+MyOSGQGLWidget::MyOSGQGLWidget(      QWidget *pParent, 
+                               const char    *szName ) :
+    OSG::OSGQGLWidget(pParent, 
+                      szName ),
+        
+    tball            (       ),
+    osgWin           (nullptr),
+    mouseb           (0      ),
+    lastx            (0      ),
+    lasty            (0      )
 {
 }
 
-MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *context,
-                                     QWidget                 *parent,
-                               const QGLWidget               *shareWidget,
-                                     Qt::WindowFlags          f          ) :
-    OSG::OSGQGLWidget(context, parent, shareWidget, f)
+MyOSGQGLWidget::MyOSGQGLWidget(      OSGQGLWidget::GLContext *pContext,
+                                     QWidget                 *pParent,
+                               const QGLWidget               *pShareWidget,
+                                     Qt::WindowFlags          f           ) :
+    OSG::OSGQGLWidget(pContext, 
+                      pParent, 
+                      pShareWidget, 
+                      f           ),
+    tball            (            ),
+    osgWin           (nullptr     ),
+    mouseb           (0           ),
+    lastx            (0           ),
+    lasty            (0           )
 {
 }
 
@@ -230,7 +245,7 @@ void MyOSGQGLWidget::keyPressEvent(QKeyEvent *ke)
 {
     if(ke->key() == Qt::Key_Escape)
     {
-        a->quit();
+        app->quit();
         bRun = false;
     }
 }
@@ -326,7 +341,7 @@ int main( int argc, char **argv )
 
     // QT init
     QApplication::setColorSpec( QApplication::CustomColor );
-    a = new QApplication( argc, argv );
+    app = new QApplication( argc, argv );
 
     if ( !QGLFormat::hasOpenGL() )
     {
@@ -350,24 +365,24 @@ int main( int argc, char **argv )
     glWidget->osgWin->addPort( vp );
     glWidget->osgWin->init(&MyOSGQGLWidget::initOpenGL);
 
-    a->processEvents();
+    app->processEvents();
 
     glWidget->show();
 
-    a->exec(); // execute QT main loop
+    app->exec(); // execute QT main loop
 
     root      = NULL;
-    file      = NULL;
+//    file      = NULL;
     vp        = NULL;
     cam_trans = NULL;
-    cam       = NULL;
+//    cam       = NULL;
     osgTWin   = NULL;
 
     delete glWidget;
 
     glWidget = NULL;
 
-    delete a;
+    delete app;
 
     return 0;
 }
