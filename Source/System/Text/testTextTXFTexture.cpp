@@ -60,7 +60,7 @@ OSG::StatElemDesc<OSG::StatIntElem> sizeDesc("size", "The height of the characte
 OSG::StatElemDesc<OSG::StatIntElem> gapDesc("gap", "The gap between characters");
 OSG::StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
 
-OSG::TextTXFFaceRefPtr face = 0;
+OSG::TextTXFFaceRefPtr pFace = 0;
 string family;
 vector<string> families;
 OSG::TextFace::Style style = OSG::TextFace::STYLE_PLAIN;
@@ -160,13 +160,13 @@ void updateFace(void)
         OSG::TextTXFFaceRefPtr newFace = OSG::TextTXFFace::create(family, style, param);
         if (newFace == 0)
             return;
-        face = newFace;
+        pFace = newFace;
     }
-    if (face == 0)
+    if (pFace == 0)
         return;
 
     // Update information on the screen
-    family = face->getFamily();
+    family = pFace->getFamily();
 
     if(statfg->getCollector() != NULL)
     {
@@ -178,7 +178,7 @@ void updateFace(void)
                 filename.erase(i, 1);
             else
                 ++i;
-        style = face->getStyle();
+        style = pFace->getStyle();
         OSG::StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
         switch (style)
         {
@@ -199,9 +199,9 @@ void updateFace(void)
                 filename.append("-BoldItalic.txf");
                 break;
         }
-        statfg->getCollector()->getElem(sizeDesc)->set(face->getParam().size);
-        statfg->getCollector()->getElem(gapDesc)->set(face->getParam().gap);
-        OSG::ImageUnrecPtr imagePtr = face->getTexture();
+        statfg->getCollector()->getElem(sizeDesc)->set(pFace->getParam().size);
+        statfg->getCollector()->getElem(gapDesc)->set(pFace->getParam().gap);
+        OSG::ImageUnrecPtr imagePtr = pFace->getTexture();
         ostringstream os;
         os << imagePtr->getWidth() << 'x' << imagePtr->getHeight();
         statfg->getCollector()->getElem(textureSizeDesc)->set(os.str());
@@ -213,11 +213,11 @@ void updateFace(void)
 
 void updateScene(void)
 {
-    if(face == NULL)
+    if(pFace == NULL)
         return;
 
     // Put it all together into a Geometry NodeCore.
-    OSG::ImageUnrecPtr imagePtr = face->getTexture();
+    OSG::ImageUnrecPtr imagePtr = pFace->getTexture();
     OSG::GeometryUnrecPtr geo = OSG::makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
     OSG::NodeUnrecPtr textNode = OSG::Node::create();
     textNode->setCore(geo);
@@ -258,7 +258,7 @@ void updateScene(void)
     geo->setMaterial(m);
 
     scene->clearChildren();
-    scene->addChild(createMetrics(face, imagePtr->getWidth(), imagePtr->getHeight()));
+    scene->addChild(createMetrics(pFace, imagePtr->getWidth(), imagePtr->getHeight()));
     scene->addChild(transNodePtr);
 }
 
@@ -297,8 +297,8 @@ int main(int argc, char **argv)
     
         if (argc > 1)
         {
-            face = OSG::TextTXFFace::createFromFile(argv[1]);
-            if (face == 0)
+            pFace = OSG::TextTXFFace::createFromFile(argv[1]);
+            if (pFace == 0)
                 family = "SANS";
             else
             {
@@ -374,7 +374,7 @@ void keyboard(unsigned char k, int x, int y)
         case 27:
         {
             mgr    = NULL;
-            face   = NULL;
+            pFace  = NULL;
             scene  = NULL;
             statfg = NULL;
 
@@ -483,7 +483,7 @@ void menu(int command)
             updateFace();
             break;
         case COMMAND_WRITE_TO_FILE:
-            face->writeToFile(filename);
+            pFace->writeToFile(filename);
             break;
         default:
             if (command < COMMAND_FAMILY_BASE)

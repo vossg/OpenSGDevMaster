@@ -40,7 +40,7 @@ class OpenSGWidget : public QGLWidget
 {
   public:
 
-    OpenSGWidget(const QGLFormat &f, QWidget *parent=0);
+    OpenSGWidget(const QGLFormat &oF, QWidget *pParent=0);
 
     OSG::SimpleSceneManager *getManager(void);
 
@@ -61,8 +61,10 @@ class OpenSGWidget : public QGLWidget
     OSG::PassiveWindowRecPtr      pwin;
 };
 
-OpenSGWidget::OpenSGWidget(const QGLFormat &f, QWidget *parent) : 
-    QGLWidget(f, parent)
+OpenSGWidget::OpenSGWidget(const QGLFormat &oF, QWidget *pParent) : 
+    QGLWidget(oF, pParent),
+    mgr      (nullptr    ),
+    pwin     (nullptr    )
 {
     setAutoBufferSwap(false);
 
@@ -78,9 +80,9 @@ OSG::SimpleSceneManager *OpenSGWidget::getManager(void)
 }
 
 
-void OpenSGWidget::resizeGL( int width, int height )
+void OpenSGWidget::resizeGL( int iWidth, int iHeight )
 {
-    mgr->resize(width,height);
+    mgr->resize(iWidth, iHeight);
 }
 
 void OpenSGWidget::paintGL(void)
@@ -177,7 +179,7 @@ int main( int argc, char **argv )
     
     QApplication::setColorSpec(QApplication::CustomColor);
 
-    QApplication *a = new QApplication(argc, argv);
+    a = new QApplication(argc, argv);
 
     if(!QGLFormat::hasOpenGL()) 
     {

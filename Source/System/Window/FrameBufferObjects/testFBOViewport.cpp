@@ -55,7 +55,7 @@ OSG::RenderActionRefPtr rentravact;
 
 OSG::NodeRecPtr  root;
 
-OSG::NodeRecPtr  file;
+//OSG::NodeRecPtr  file;
 
 OSG::PerspectiveCameraRecPtr cam;
 OSG::ViewportRecPtr vp;
@@ -261,7 +261,7 @@ void key(unsigned char key, int x, int y)
     {
         case 27:    
             root        = NULL;
-            file        = NULL;
+//            file        = NULL;
             cam         = NULL;
             vp          = NULL;
             win         = NULL;
