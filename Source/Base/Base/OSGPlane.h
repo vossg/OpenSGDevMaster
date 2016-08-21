@@ -124,12 +124,12 @@ class OSG_BASE_DLLMAPPING Plane
     /*! \{                                                                 */
 
     void set(const Vec3f  &normal, 
-                   Real32  distance);
+                   Real32  dist  );
     void set(      Real32   x, 
                    Real32   y, 
                    Real32   z, 
-                   Real32   distance);
-    void set(const Vec4f  &plane    );
+                   Real32   dist );
+    void set(const Vec4f  &plane );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

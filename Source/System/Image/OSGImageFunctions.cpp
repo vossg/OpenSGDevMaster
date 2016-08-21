@@ -191,7 +191,7 @@ bool createNormalVolume (      Image       *inImage,
                          const std::string &outputFormat)
 {
   const Real32 gMax = 441.67295593f, gF = 255.0f/gMax;
-  const OSG::Real32 TwoPi = 2 * OSG::Pi;
+//  const OSG::Real32 TwoPi = 2 * OSG::Pi;
 
   enum DataIndex { SCALAR_DI,
                    SCALAR_NULLEDGE_DI,
@@ -1514,10 +1514,8 @@ bool convertCrossToCubeMap(Image const *pIn,
           Real32 *pDst = reinterpret_cast<      Real32 *>(pOut->editData());
     const Real32 *pSrc = reinterpret_cast<const Real32 *>(pIn ->getData ());
 
-    OSG::UInt32 j;
-
     // - X
-    for(j = 0; j < face_height; j++) 
+    for(OSG::UInt32 j = 0; j < face_height; j++) 
     {
         for(OSG::UInt32 i = 0;  i < face_width; i++) 
         {
@@ -1535,7 +1533,7 @@ bool convertCrossToCubeMap(Image const *pIn,
 
    
     // +X
-    for (j=0; j < face_height; j++) 
+    for (OSG::UInt32 j=0; j < face_height; j++) 
     {
         for (OSG::UInt32 i = 0;  i < face_width; i++) 
         {

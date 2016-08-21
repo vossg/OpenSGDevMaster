@@ -199,17 +199,17 @@ ColladaElementFactorySingleton::create(daeElement        *daeElem,
         }
         else
         {
-            daeString elemName =
+            daeString dsElemName =
                 daeElem->getElementName() != NULL ?
                 daeElem->getElementName()         : "??";
-            daeString typeName =
+            daeString dsTypeName =
                 daeElem->getTypeName   () != NULL ?
                 daeElem->getTypeName   ()         : "??";
 
             SWARNING << "ColladaElementFactory::create: No element registered "
                      << "for [" << lookupName
-                     << "] - elemName [" << elemName
-                     << "] typeName [" << typeName
+                     << "] - elemName [" << dsElemName
+                     << "] typeName [" << dsTypeName
                      << "] id [" << daeElem->typeID() << "]."
                      << std::endl;
         }

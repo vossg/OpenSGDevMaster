@@ -139,9 +139,9 @@ class OSG_SYSTEM_DLLMAPPING OSGLoader :
     /*! \name                Skel replacements                             */
     /*! \{                                                                 */
 
-    NodeTransitPtr           scanStream         (std::istream &is,
+    NodeTransitPtr           scanStream         (std::istream &iStream,
                                                  Resolver      fResolver);
-    FieldContainerTransitPtr scanStreamContainer(std::istream &is,
+    FieldContainerTransitPtr scanStreamContainer(std::istream &iStream,
                                                  Resolver      fResolver);
 
     /*! \}                                                                 */

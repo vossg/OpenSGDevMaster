@@ -304,9 +304,9 @@ void NavigationManager::mouseButtonRelease(UInt16 button, Int16 x, Int16 y)
     updateMouseButtonRelease(button, x, y);
 }
 
-void NavigationManager::key(UChar8 key, Int16 x, Int16 y)
+void NavigationManager::key(UChar8 cKey, Int16 x, Int16 y)
 {
-    switch ( key )
+    switch ( cKey )
     {
         case 'j': 
             _navigator.keyPress(Navigator::LEFT, x, y); 

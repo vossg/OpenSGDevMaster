@@ -923,11 +923,11 @@ NodeTransitPtr OFObjectRecord::convertFaceGroup(
             }
             else
             {
-                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
+                TextureEnvChunkUnrecPtr pNewTexEnv = TextureEnvChunk::create();
 
-                pTexEnv->setEnvMode(GL_MODULATE);
+                pNewTexEnv->setEnvMode(GL_MODULATE);
 
-                pChunkMat->addChunk(pTexEnv);
+                pChunkMat->addChunk(pNewTexEnv);
             }
         }
         else
@@ -1932,11 +1932,11 @@ NodeTransitPtr OFMeshRecord::convertToNode(void)
             }
             else
             {
-                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
+                TextureEnvChunkUnrecPtr pNewTexEnv = TextureEnvChunk::create();
 
-                pTexEnv->setEnvMode(GL_MODULATE);
+                pNewTexEnv->setEnvMode(GL_MODULATE);
 
-                pChunkMat->addChunk(pTexEnv);
+                pChunkMat->addChunk(pNewTexEnv);
             }
         }
         else

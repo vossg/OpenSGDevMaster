@@ -170,8 +170,8 @@ class OSG_EXGPUVOLRT_DLLMAPPING GPUVolRTV0 : public GPUVolRTV0Base
 
     void drawQuads              (float x, float y, float z                 );
 
-    void set_tex_param          (GLuint texLoc, GLuint tex, GLuint prog, 
-                                 GLuint unit,   GLuint target              );
+    void set_tex_param          (GLuint texLocU, GLuint tex, GLuint prog, 
+                                 GLuint unit,    GLuint target             );
 
     void reshape_ortho          (int w, int h                              );
     void draw_fullscreen_quad   (void                                      );

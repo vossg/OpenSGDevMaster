@@ -128,8 +128,8 @@ ColladaController::read(ColladaElement *colElemParent)
 Node *
 ColladaController::createInstance(ColladaInstInfo *colInstInfo)
 {
-    typedef ColladaInstanceController::MaterialMap        MaterialMap;
-    typedef ColladaInstanceController::MaterialMapConstIt MaterialMapConstIt;
+    typedef ColladaInstanceController::MaterialMap        ColMaterialMap;
+    typedef ColladaInstanceController::MaterialMapConstIt ColMaterialMapConstIt;
 
     domControllerRef ctrl = getDOMElementAs<domController>();
 
@@ -157,7 +157,7 @@ ColladaController::createInstance(ColladaInstInfo *colInstInfo)
 
     // create SkinnedGeometry
 
-    const MaterialMap &matMap = colInstCtrl->getMaterialMap();
+    const ColMaterialMap &matMap = colInstCtrl->getMaterialMap();
 
     // iterate over all parts of geometry
     GeoStoreIt gsIt   = _geoStore.begin();
@@ -168,8 +168,8 @@ ColladaController::createInstance(ColladaInstInfo *colInstInfo)
         OSG_ASSERT(gsIt->_propStore.size() == gsIt->_indexStore.size());
 
         // find the material associated with the geometry's material symbol
-        MaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
-        std::string        matTarget;
+        ColMaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
+        std::string           matTarget;
 
         if(mmIt != matMap.end())
         {

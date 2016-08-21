@@ -91,17 +91,17 @@ class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
 
-    StatElem *getElem(Int32             elemId       ) const;
+    StatElem *getElem(Int32             elemId         ) const;
 
     StatElem *getElem(Int32             elemId,
-                      bool              create = true);
+                      bool              doCreate = true);
 
     StatElem *getElem(StatElemDescBase &desc,
-                      bool              create = true);
+                      bool              docreate = true);
 
     template <class T>
     T        *getElem(StatElemDesc<T>  &desc,
-                      bool              create = true);
+                      bool              doCreate = true);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

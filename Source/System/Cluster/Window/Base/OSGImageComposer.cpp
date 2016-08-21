@@ -133,17 +133,17 @@ void ImageComposer::dump(      UInt32    ,
 
 /*! initialize the composer
  */
-void ImageComposer::setup(bool           isClient,
-                          UInt32         clusterId,
-                          Window        *localWindow, 
-                          ClusterWindow *clusterWindow)
+void ImageComposer::setup(bool           bIsClient,
+                          UInt32         uiClusterId,
+                          Window        *pLocalWindow, 
+                          ClusterWindow *pClusterWindow)
 {
-    _isClient      = isClient;
-    _clusterId     = clusterId;
-    _localWindow   = localWindow;
-    _clusterWindow = clusterWindow;
-    _clusterSize   = clusterWindow->getMFServers()->size32() + 1;
-    _serverCount   = clusterWindow->getMFServers()->size32();
+    _isClient      = bIsClient;
+    _clusterId     = uiClusterId;
+    _localWindow   = pLocalWindow;
+    _clusterWindow = pClusterWindow;
+    _clusterSize   = pClusterWindow->getMFServers()->size32() + 1;
+    _serverCount   = pClusterWindow->getMFServers()->size32();
 }
 
 /*----------------------------- composition ------------------------------*/

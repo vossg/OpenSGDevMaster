@@ -104,9 +104,9 @@ class MemObjPointerMFieldCommon : public MemObjPointerMFieldBase
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             MemObjPointerMFieldCommon(void                );
-             MemObjPointerMFieldCommon(const Self   &source);
-    explicit MemObjPointerMFieldCommon(const UInt32  size  );
+             MemObjPointerMFieldCommon(void                  );
+             MemObjPointerMFieldCommon(const Self   &source  );
+    explicit MemObjPointerMFieldCommon(const UInt32  initSize);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,8 +164,8 @@ class MemObjPointerMFieldCommon : public MemObjPointerMFieldBase
                                    const size_type      endIndex  );
 
     PtrStoreItType ptrStoreErase  (      PtrStoreItType pos       );
-    PtrStoreItType ptrStoreErase  (      PtrStoreItType begin,
-                                         PtrStoreItType end       );
+    PtrStoreItType ptrStoreErase  (      PtrStoreItType beginIt,
+                                         PtrStoreItType endIt     );
 
     void           ptrStoreClear  (      void                     );
 

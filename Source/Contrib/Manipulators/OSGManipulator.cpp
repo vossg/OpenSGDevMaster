@@ -216,7 +216,7 @@ void Manipulator::updateHandleTransform()
     if ( getTarget() != NULL )
     {
         Transform *t = dynamic_cast<Transform *>(getTarget()->getCore());
-        Matrix     m,n,o;
+        Matrix     m,o;
 
         Vec3f      translation;
         Quaternion rotation;

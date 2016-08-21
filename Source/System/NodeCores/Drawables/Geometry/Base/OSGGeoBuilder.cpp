@@ -106,22 +106,22 @@ void GeoBuilder::reset(void)
 }
 
 // Property Helper
-GeoVectorProperty *GeoBuilder::getProperty(UInt32 index)
+GeoVectorProperty *GeoBuilder::getProperty(UInt32 propIndex)
 {
     GeoVectorPropertyUnrecPtr att;
 
-    if(index >= _geo->getMFProperties()->size() ||
-       _geo->getProperty(index) == NULL)
+    if(propIndex >= _geo->getMFProperties()->size() ||
+       _geo->getProperty(propIndex) == NULL)
     {
         att = dynamic_pointer_cast<GeoVectorProperty>(
                 FieldContainerFactory::the()->createContainer(
-                    _defaultPropTypes[index]));
+                    _defaultPropTypes[propIndex]));
 
-        _geo->setProperty(att, index);
+        _geo->setProperty(att, propIndex);
     }
     else
     {
-        att = _geo->getProperty(index);
+        att = _geo->getProperty(propIndex);
     }
 
     return att;
@@ -181,7 +181,7 @@ void GeoBuilder::addLength(UInt32 length)
     _geo->getLengths()->addValue(length);
 }
 
-void GeoBuilder::index(UInt32 index)
+void GeoBuilder::index(UInt32 newIndex)
 {
     if(_actType == -1)
     {
@@ -195,7 +195,7 @@ void GeoBuilder::index(UInt32 index)
         _geo->setIndices(i);
     }
 
-    _geo->getIndices()->push_back(index);
+    _geo->getIndices()->push_back(newIndex);
 }
 
 // Face Creation

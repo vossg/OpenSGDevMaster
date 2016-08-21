@@ -98,41 +98,41 @@ namespace
     }
 }
 
-CSMQT4GLWidget::CSMQT4GLWidget(      QWidget         *parent     ,
-                               const Char8           *name       ,
-                               const QGLWidget       *shareWidget,
-                                     Qt::WindowFlags  f          ) :
-     Inherited (parent, 
-                name, 
-                shareWidget, 
-                f          ),
+CSMQT4GLWidget::CSMQT4GLWidget(      QWidget         *pParent     ,
+                               const Char8           *szName      ,
+                               const QGLWidget       *pShareWidget,
+                                     Qt::WindowFlags  f           ) :
+     Inherited (pParent, 
+                szName, 
+                pShareWidget, 
+                f           ),
     _pOSGWindow(NULL        )
 {
 }
 
-CSMQT4GLWidget::CSMQT4GLWidget(      GLContext       *context    ,
-                                     QWidget         *parent     ,
-                               const QGLWidget       *shareWidget,
-                                     Qt::WindowFlags  f          ) :
-     Inherited (context, 
-                parent, 
-                shareWidget, 
-                f          ),
-    _pOSGWindow(NULL       )
+CSMQT4GLWidget::CSMQT4GLWidget(      GLContext       *pContext    ,
+                                     QWidget         *pParent     ,
+                               const QGLWidget       *pShareWidget,
+                                     Qt::WindowFlags  f           ) :
+     Inherited (pContext, 
+                pParent, 
+                pShareWidget, 
+                f           ),
+    _pOSGWindow(NULL        )
 {
 }
 
-CSMQT4GLWidget::CSMQT4GLWidget(const QGLFormat       &format     ,
-                                     QWidget         *parent     ,
-                               const Char8           *name       ,
-                               const QGLWidget       *shareWidget,
-                                     Qt::WindowFlags  f          ) :
-     Inherited (format, 
-                parent, 
-                name, 
-                shareWidget, 
-                f          ),
-    _pOSGWindow(NULL       )
+CSMQT4GLWidget::CSMQT4GLWidget(const QGLFormat       &oFormat     ,
+                                     QWidget         *pParent     ,
+                               const Char8           *szName      ,
+                               const QGLWidget       *pShareWidget,
+                                     Qt::WindowFlags  f           ) :
+     Inherited (oFormat, 
+                pParent, 
+                szName, 
+                pShareWidget, 
+                f           ),
+    _pOSGWindow(NULL        )
 {
 }
 

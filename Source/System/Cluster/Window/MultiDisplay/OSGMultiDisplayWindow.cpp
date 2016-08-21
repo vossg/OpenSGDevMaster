@@ -511,7 +511,7 @@ void MultiDisplayWindow::serverSwap(Window *window, UInt32 id)
 
 void MultiDisplayWindow::clientInit(void)
 {
-    bool      changed = false;
+    bool      bChanged = false;
     Viewport *vp, *cvp;
 
     if(getManageClientViewports() == false ||
@@ -523,7 +523,7 @@ void MultiDisplayWindow::clientInit(void)
     // check if something changed
     if(getMFPort()->size() == getClientWindow()->getMFPort()->size())
     {
-        for(UInt32 v = 0 ; v < getMFPort()->size() && !changed ; v++)
+        for(UInt32 v = 0 ; v < getMFPort()->size() && !bChanged ; v++)
         {
             vp  = getPort(v);
 
@@ -538,16 +538,16 @@ void MultiDisplayWindow::clientInit(void)
                 vp->getMFForegrounds()->size() != 
                     cvp->getMFForegrounds()->size() )
             {
-                changed = true;
+                bChanged = true;
             }
         }
     }
     else
     {
-        changed = true;
+        bChanged = true;
     }
 
-    if(changed)
+    if(bChanged)
     {
         // remove all viewports
 #if 0

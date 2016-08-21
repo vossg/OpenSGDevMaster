@@ -158,9 +158,9 @@ MemObjPointerMFieldBase::difference_type
 }
 
 inline 
-void MemObjPointerMFieldBase::reserve(size_type size)
+void MemObjPointerMFieldBase::reserve(size_type newSize)
 {
-    return _ptrStore.reserve(size);
+    return _ptrStore.reserve(newSize);
 }
 
 inline 

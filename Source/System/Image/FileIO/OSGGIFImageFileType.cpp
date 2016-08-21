@@ -166,7 +166,7 @@ static int        GIFFree   (const GIFStream *);
 
 //--- GIF INCLUDE END ----------------------------------------------------
 
-static const OSG::Char8 *suffixArray[] = 
+static const OSG::Char8 *gifSuffixArray[] = 
 {
     "gif"
 };
@@ -174,8 +174,8 @@ static const OSG::Char8 *suffixArray[] =
 OSG_USING_NAMESPACE
 
 GIFImageFileType GIFImageFileType::_the("image/gif",
-                                        suffixArray, 
-                                        sizeof(suffixArray));
+                                        gifSuffixArray, 
+                                        sizeof(gifSuffixArray));
 
 
 
@@ -1049,7 +1049,7 @@ static void initLWZ(int input_code_size)
 }
 
 /* */
-static int nextCode(std::istream &is, int code_size)
+static int nextCode(std::istream &is, int code_size_in)
 {
     static unsigned char    buf[280];
     static int              maskTbl[16] =
@@ -1079,7 +1079,7 @@ static int nextCode(std::istream &is, int code_size)
         return clear_code;
     }
 
-    end = curbit + code_size;
+    end = curbit + code_size_in;
 
     if(end >= lastbit)
     {
@@ -1105,7 +1105,7 @@ static int nextCode(std::istream &is, int code_size)
         curbit = (curbit - lastbit) + 16;
         lastbit = (2 + count) * 8;
 
-        end = curbit + code_size;
+        end = curbit + code_size_in;
     }
 
     j = end / 8;
@@ -1120,9 +1120,9 @@ static int nextCode(std::istream &is, int code_size)
         ret = buf[i] | (buf[i + 1] << 8) | (buf[i + 2] << 16);
     }
 
-    ret = (ret >> (curbit % 8)) & maskTbl[code_size];
+    ret = (ret >> (curbit % 8)) & maskTbl[code_size_in];
 
-    curbit += code_size;
+    curbit += code_size_in;
 
     return ret;
 }
@@ -2133,11 +2133,11 @@ static void cl_block(void)
 }
 
 /* */
-static void cl_hash(count_int hsize)    /* reset code table */
+static void cl_hash(count_int hsizeIn)    /* reset code table */
 {
     int i;
 
-    for(i = 0; i < hsize; i++)
+    for(i = 0; i < hsizeIn; i++)
         htab[i] = -1;
 }
 

@@ -550,7 +550,7 @@ bool ShaderCacheTreeV0<ObjectT, LevelBits>::add(const IdStore &vIds,
     
     if(pCurrNode != NULL)
     {
-        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits];
+        pNextNode = pCurrNode->_vChildren[uiCurrBits];
         
         if(pNextNode != NULL)
         {
@@ -1402,7 +1402,7 @@ bool ShaderCacheTreeV1<ObjectT, LevelBits>::add(const IdStore &vIds,
     
     if(pCurrNode != NULL)
     {
-        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
         
         if(pNextNode != NULL)
         {
@@ -2297,7 +2297,7 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
     
     if(pCurrNode != NULL)
     {
-        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
         
         if(pNextNode != NULL)
         {
@@ -3247,7 +3247,7 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
     
     if(pCurrNode != NULL)
     {
-        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
         
         if(pNextNode != NULL)
         {

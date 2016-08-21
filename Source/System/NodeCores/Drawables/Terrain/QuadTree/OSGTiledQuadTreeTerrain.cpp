@@ -1177,25 +1177,25 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
           
 #ifdef OSG_DEBUG
           UInt32 dup;
-          for (UInt32 i=0; i<roi2; ++i) 
+          for (UInt32 k=0; k<roi2; ++k) 
           {
               Node *pParent = dynamic_cast<Node *>(getParents()[0]);
-              node = pParent->getChild(i);
+              node = pParent->getChild(k);
 
               core = dynamic_cast<QuadTreeTerrain *>(node->getCore());
 
               if(node->getTravMask()) 
               {
-                  std::cout << "tile " << i << "(" 
+                  std::cout << "tile " << k << "(" 
                             << core->getOriginX() << "," 
                             << core->getOriginY() << "):";
                   dup = 0;
 
-                  for(UInt32 j=0; j<roi2; ++j) 
+                  for(UInt32 l=0; l<roi2; ++l) 
                   {
                       Node            *pParent2 = 
                           dynamic_cast<Node *>(getParents()[0]);
-                      Node            *node2 = pParent2->getChild(j);
+                      Node            *node2 = pParent2->getChild(l);
                       QuadTreeTerrain *core2 = 
                           dynamic_cast<QuadTreeTerrain *>(node2->getCore());
 
@@ -1203,7 +1203,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                           core->getOriginX() == core2->getOriginX() && 
                           core->getOriginY() == core2->getOriginY()) 
                       {
-                          std::cout << " " << j; 
+                          std::cout << " " << l; 
                           ++dup;
                       }
                   }

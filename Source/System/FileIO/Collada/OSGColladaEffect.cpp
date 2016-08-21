@@ -248,14 +248,14 @@ void ColladaEffect::read(ColladaElement *colElemParent)
         if(_extraHandlers.size() == 0)
             continue;
 
-        for(UInt32 i = 0; i < pProfileExtras->getCount(); ++i)
+        for(UInt32 j = 0; j < pProfileExtras->getCount(); ++j)
         {
             ExtraHandlerStoreIt      ehIt  = _extraHandlers.begin();
             ExtraHandlerStoreConstIt ehEnd = _extraHandlers.end  ();
     
             for(; ehIt != ehEnd; ++ehIt)
             {
-                (*ehIt)->readProfileExtraElements(this, (*pProfileExtras)[i]);
+                (*ehIt)->readProfileExtraElements(this, (*pProfileExtras)[j]);
             }
         }
     }

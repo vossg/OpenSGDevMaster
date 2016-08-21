@@ -1089,8 +1089,6 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
         fprintf(pFile, "normalIndex [\n");
         pWriter->incIndent(4);
 
-        TriangleIterator it;
-
         for(it = pGeo->beginTriangles(); it != pGeo->endTriangles(); ++it)
         {
             pWriter->printIndent();
@@ -1122,8 +1120,6 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
         fprintf(pFile, "colorIndex [\n");
         pWriter->incIndent(4);
 
-        TriangleIterator it;
-
         for(it = pGeo->beginTriangles(); it != pGeo->endTriangles(); ++it)
         {
             pWriter->printIndent();
@@ -1153,8 +1149,6 @@ void VRMLWriteAction::writeIndex(Geometry        *pGeo,
         pWriter->printIndent();
         fprintf(pFile, "texCoordIndex [\n");
         pWriter->incIndent(4);
-
-        TriangleIterator it;
 
         for(it = pGeo->beginTriangles(); it != pGeo->endTriangles(); ++it)
         {
@@ -1258,9 +1252,6 @@ void VRMLWriteAction::writeLineIndex(Geometry        *pGeo,
         fprintf(pFile, "colorIndex [\n");
         pWriter->incIndent(4);
 
-        PrimitiveIterator it;
-        UInt32            i;
-        
         for(it = pGeo->beginPrimitives(); it != pGeo->endPrimitives(); ++it)
         {
             if(it.getType() == GL_LINES)

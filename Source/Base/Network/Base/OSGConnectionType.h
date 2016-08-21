@@ -74,11 +74,11 @@ class OSG_BASE_DLLMAPPING ConnectionType
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ConnectionType(CreateGroupFunction,
-                   const std::string &name);
-    ConnectionType(CreatePointFunction,
-                   const std::string &name);
-    ConnectionType(const ConnectionType &source);
+    ConnectionType(CreateGroupFunction   fCreateGroup,
+                   const std::string    &name        );
+    ConnectionType(CreatePointFunction   fCreatePoint,
+                   const std::string    &name        );
+    ConnectionType(const ConnectionType &source      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -529,10 +529,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
         // standard function not available? try extension
         if(osgGlTexImage3D == NULL)
         {
-            OSGGETGLFUNCBYID_GL3( glTexImage3D,
-                                  osgGlTexImage3D,
-                                 _funcTexImage3DExt,
-                                  win);
+            OSGGETGLFUNCBYID_NV_GL3( glTexImage3D,
+                                     osgGlTexImage3D,
+                                    _funcTexImage3DExt,
+                                     win);
         }
 
         OSGGETGLFUNCBYID_GL3( glTexSubImage3D,
@@ -543,10 +543,10 @@ void TextureObjChunk::handleTexture(Window                  *win,
         // standard function not available? try extension
         if(osgGlTexSubImage3D == NULL)
         {
-            OSGGETGLFUNCBYID_GL3( glTexSubImage3D,
-                                  osgGlTexSubImage3D,
-                                 _funcTexSubImage3DExt,
-                                  win);
+            OSGGETGLFUNCBYID_NV_GL3( glTexSubImage3D,
+                                     osgGlTexSubImage3D,
+                                    _funcTexSubImage3DExt,
+                                     win);
         }
 
 #ifndef OSG_OGL_ES2

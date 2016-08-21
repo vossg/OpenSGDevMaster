@@ -463,10 +463,8 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "Vertex Shader Code:\n";
 
-                        MFVertexShaderType::const_iterator vIt  = 
-                            getMFVertexShader()->begin();
-                        MFVertexShaderType::const_iterator vEnd = 
-                            getMFVertexShader()->end  ();
+                        vIt  = getMFVertexShader()->begin();
+                        vEnd = getMFVertexShader()->end  ();
 
                         for(; vIt != vEnd; ++vIt)
                         {
@@ -479,10 +477,8 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "TessControl Shader Code:\n";
 
-                        MFTessControlShaderType::const_iterator tcIt  = 
-                            getMFTessControlShader()->begin();
-                        MFTessControlShaderType::const_iterator tcEnd = 
-                            getMFTessControlShader()->end  ();
+                        tcIt  = getMFTessControlShader()->begin();
+                        tcEnd = getMFTessControlShader()->end  ();
 
                         for(; tcIt != tcEnd; ++tcIt)
                         {
@@ -495,10 +491,8 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "TessEvaluation Shader Code:\n";
 
-                        MFTessEvaluationShaderType::const_iterator teIt  = 
-                            getMFTessEvaluationShader()->begin();
-                        MFTessEvaluationShaderType::const_iterator teEnd = 
-                            getMFTessEvaluationShader()->end  ();
+                        teIt  = getMFTessEvaluationShader()->begin();
+                        teEnd = getMFTessEvaluationShader()->end  ();
 
                         for(; teIt != teEnd; ++teIt)
                         {
@@ -511,10 +505,8 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "Geometry Shader Code:\n";
 
-                        MFGeometryShaderType::const_iterator gIt  = 
-                            getMFGeometryShader()->begin();
-                        MFGeometryShaderType::const_iterator gEnd = 
-                            getMFGeometryShader()->end  ();
+                        gIt  = getMFGeometryShader()->begin();
+                        gEnd = getMFGeometryShader()->end  ();
 
                         for(; gIt != gEnd; ++gIt)
                         {
@@ -527,10 +519,8 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
                     {
                         SINFO << "Fragment Shader Code:\n";
 
-                        MFFragmentShaderType::const_iterator fIt  = 
-                            getMFFragmentShader()->begin();
-                        MFFragmentShaderType::const_iterator fEnd = 
-                            getMFFragmentShader()->end  ();
+                        fIt  = getMFFragmentShader()->begin();
+                        fEnd = getMFFragmentShader()->end  ();
 
                         for(; fIt != fEnd; ++fIt)
                         {

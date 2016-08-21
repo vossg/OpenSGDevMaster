@@ -161,9 +161,9 @@ PointerMFieldBase::difference_type
 }
 
 inline 
-void PointerMFieldBase::reserve(size_type size)
+void PointerMFieldBase::reserve(size_type newSize)
 {
-    return _ptrStore.reserve(size);
+    return _ptrStore.reserve(newSize);
 }
 
 inline 

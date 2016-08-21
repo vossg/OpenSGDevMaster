@@ -1080,9 +1080,9 @@ void ChildPointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void ChildPointerMField<PtrTypeT,
                         RefCountPolicy,
-                        NamespaceI    >::reserve(size_type size)
+                        NamespaceI    >::reserve(size_type newSize)
 {
-    this->_ptrStore.reserve(size);
+    this->_ptrStore.reserve(newSize);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline

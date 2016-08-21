@@ -371,16 +371,16 @@ public:
      */
     struct SampleData
     {
-        SampleData(OSG::UInt64 tid, OSG::Real64 timestamp,
-                   SampleType type, const std::string& name,
+        SampleData(OSG::UInt64 tid, OSG::Real64 rTimestamp,
+                   SampleType eType, const std::string& szName,
                    OSG::Real32 metricValue = 0.0,
-                   const std::string& desc = "")
+                   const std::string& szDesc = "")
             : thread_id(tid)
-            , timestamp(timestamp)
-            , type(type)
+            , timestamp(rTimestamp)
+            , type(eType)
             , metric_value(metricValue)
-            , name(name)
-            , desc(desc)
+            , name(szName)
+            , desc(szDesc)
         {
         }
 

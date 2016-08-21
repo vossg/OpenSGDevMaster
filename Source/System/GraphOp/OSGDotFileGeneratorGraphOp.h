@@ -148,7 +148,7 @@ class OSG_UTIL_DLLMAPPING DotFileGeneratorGraphOp : public GraphOp
 
     struct BrewerColor
     {
-        BrewerColor(const std::string &scheme, const std::string &number);
+        BrewerColor(const std::string &schemeIn, const std::string &numberIn);
         ~BrewerColor(void);
 
         std::string scheme;

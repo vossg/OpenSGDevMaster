@@ -85,10 +85,11 @@ PointerMFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
 PointerMFieldCommon<AccessHandlerT,
-                    NamespaceI    >::PointerMFieldCommon(const UInt32 size) :
+                    NamespaceI    >::PointerMFieldCommon(
+                        const UInt32 initSize) :
     Inherited()
 {
-    Self::ptrStoreResize(size, NULL);
+    Self::ptrStoreResize(initSize, NULL);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -283,13 +284,13 @@ template <class AccessHandlerT, Int32 NamespaceI> inline
 typename PointerMFieldCommon<AccessHandlerT,
                              NamespaceI    >::PtrStoreItType
     PointerMFieldCommon<AccessHandlerT,
-                        NamespaceI    >::ptrStoreErase(PtrStoreItType begin, 
-                                                       PtrStoreItType end  )
+                        NamespaceI    >::ptrStoreErase(PtrStoreItType beginIt, 
+                                                       PtrStoreItType endIt  )
 {
-    for(PtrStoreConstItType sI = begin; sI != end; ++sI)
+    for(PtrStoreConstItType sI = beginIt; sI != endIt; ++sI)
         AccessHandler::onSub(this, *sI);
 
-    return _ptrStore.erase(begin, end);
+    return _ptrStore.erase(beginIt, endIt);
 }
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 

@@ -591,9 +591,9 @@ class PointerMField :
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
 
-             PointerMField(      void         );
-             PointerMField(const Self   &other);
-    explicit PointerMField(const UInt32  size );
+             PointerMField(      void            );
+             PointerMField(const Self   &other   );
+    explicit PointerMField(const UInt32  initSize);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -696,7 +696,7 @@ class PointerMField :
     void                   resize   (size_t         newSize,
                                      const_value    value   = NULL  );
 
-    void                   reserve  (size_type      size            );
+    void                   reserve  (size_type      newSize         );
 
     void                   clear    (void                           );
 

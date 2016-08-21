@@ -762,8 +762,8 @@ PointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMField<PtrTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerMField(UInt32 const size) :
-    Inherited(size)
+              NamespaceI    >::PointerMField(UInt32 const initSize) :
+    Inherited(initSize)
 {
 }
 
@@ -1119,9 +1119,9 @@ void PointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::reserve(size_type size)
+                   NamespaceI    >::reserve(size_type newSize)
 {
-    this->_ptrStore.reserve(size);
+    this->_ptrStore.reserve(newSize);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline

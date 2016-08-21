@@ -772,7 +772,7 @@ void ShadowStage::checkLights(RenderActionBase *action,
 
     vLightStates.clear();
 
-    bool changed = false;
+    bool bChanged = false;
 
     if(vLights.size() > 0 && vLights.size() == vOldLights.size())
     {
@@ -793,15 +793,15 @@ void ShadowStage::checkLights(RenderActionBase *action,
             vLightStates.push_back(light_state ? 1 : 0);
 
             if(vLights[i] != vOldLights[i])
-                changed = true;
+                bChanged = true;
         }
     }
     else
     {
-        changed = true;
+        bChanged = true;
     }
 
-    if(!changed)
+    if(!bChanged)
     {
         updateLights(action, pData);
         return;
@@ -910,7 +910,7 @@ void ShadowStage::updateLights(RenderActionBase *action,
                 // Preparation for PointLight -- In this version just a hack
             {
                 Vec3f   dir;
-                Pnt3f   center;
+//                Pnt3f   center;
 
                 tmpPoint = dynamic_cast<PointLight *>(vLights[i].second.get());
                 FDEBUG(("Found PointLight!\n"));

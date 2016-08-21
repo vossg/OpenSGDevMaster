@@ -4207,9 +4207,9 @@ bool Image::scaleData(const UInt8 *srcData,
     //  Int32 destDize = destW * destH * destD;
 
     Int32   x, y, z, p;
-    const UInt8  *slice;
-    const UInt8  *line;
-    const UInt8  *pixel;
+    const UInt8  *pSlice;
+    const UInt8  *pLine;
+    const UInt8  *pPixel;
 
     if(destW == srcW && destH == srcH && destD == srcD)
     {
@@ -4220,21 +4220,21 @@ bool Image::scaleData(const UInt8 *srcData,
     {       // different size, to 'nearest' copy
         for(z = 0; z < destD; z++)
         {
-            slice = srcData + int(sz * z) * getBpp() * srcW * srcH;
+            pSlice = srcData + int(sz * z) * getBpp() * srcW * srcH;
 
             for(y = 0; y < destH; y++)
             {
-                line = slice + int(sy * y) * getBpp() * srcW;
+                pLine = pSlice + int(sy * y) * getBpp() * srcW;
 
                 for(x = 0; x < destW; x++)
                 {
-                    pixel = line + int(sx * x) * getBpp();
+                    pPixel = pLine + int(sx * x) * getBpp();
 
                     p = getBpp();
 
                     while(p--)
                     {
-                        *destData++ = *pixel++;
+                        *destData++ = *pPixel++;
                     }
                 }
             }

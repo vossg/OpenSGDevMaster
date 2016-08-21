@@ -208,9 +208,9 @@ class OSGScanParseLexer : public OSGScanParseSkel_FlexLexer
 
     /*------------------------- your_category -------------------------------*/
 
-    inline int yylex(YYSTYPE *lvalp)
+    inline int yylex(YYSTYPE *plval)
     {
-        this->lvalp = lvalp;
+        this->lvalp = plval;
         return yylex();
     }
 
@@ -219,8 +219,8 @@ class OSGScanParseLexer : public OSGScanParseSkel_FlexLexer
     inline void expectType(OSG::Int32 iType)
     { expectToken = iType; }
 
-    inline void expectImageInts(OSG::Int32 imageIntsExpected)
-    { this->imageIntsExpected = imageIntsExpected; }
+    inline void expectImageInts(OSG::Int32 iImageIntsExpected)
+    { this->imageIntsExpected = iImageIntsExpected; }
 
     /*------------------------- assignment ----------------------------------*/
 

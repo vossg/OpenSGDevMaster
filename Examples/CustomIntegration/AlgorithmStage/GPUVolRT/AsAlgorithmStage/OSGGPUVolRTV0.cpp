@@ -669,13 +669,13 @@ void GPUVolRTV0::drawQuads(float x, float y, float z)
 	
 }
 
-void GPUVolRTV0::set_tex_param(GLuint texLoc, GLuint tex, GLuint prog, 
-                               GLuint unit,   GLuint target) 
+void GPUVolRTV0::set_tex_param(GLuint texLocU, GLuint tex, GLuint prog, 
+                               GLuint unit,    GLuint target) 
 {
     glActiveTexture(unit);
     glBindTexture(target, tex);
 
-    glUniform1i(texLoc, unit - GL_TEXTURE0);
+    glUniform1i(texLocU, unit - GL_TEXTURE0);
 
     glActiveTexture(GL_TEXTURE0);
 }

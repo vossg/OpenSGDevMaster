@@ -217,7 +217,7 @@ void DrawableStatsAttachment::validate(void)
     if(n != NULL)
     {
         // Validate the core
-        Drawable *g = dynamic_cast<Drawable *>(n->getCore());
+        g = dynamic_cast<Drawable *>(n->getCore());
         if(g != NULL)
         {
             DrawableStatsAttachmentUnrecPtr s = get(g);

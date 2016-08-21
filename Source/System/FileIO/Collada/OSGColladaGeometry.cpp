@@ -177,8 +177,8 @@ ColladaGeometry::read(ColladaElement *colElemParent)
 Node *
 ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
 {
-    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
-    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+    typedef ColladaInstanceGeometry::MaterialMap        ColMaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt ColMaterialMapConstIt;
 
     domGeometryRef geometry = getDOMElementAs<domGeometry>();
     NodeUnrecPtr   groupN   = makeCoredNode<Group>();
@@ -194,7 +194,7 @@ ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
 
     ColladaInstanceGeometryRefPtr  colInstGeo =
         dynamic_cast<ColladaInstanceGeometry *>(colInstInfo->getColInst());
-    const MaterialMap             &matMap     =
+    const ColMaterialMap          &matMap     =
         colInstGeo->getMaterialMap();
 
     // iterate over all parts of geometry
@@ -206,8 +206,8 @@ ColladaGeometry::createInstance(ColladaInstInfo *colInstInfo)
         OSG_ASSERT(gsIt->_propStore.size() == gsIt->_indexStore.size());
 
         // find the material associated with the geometry's material symbol
-        MaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
-        std::string        matTarget;
+        ColMaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
+        std::string           matTarget;
 
         if(mmIt != matMap.end())
         {
@@ -1314,11 +1314,11 @@ void
 ColladaGeometry::handleBindMaterial(
     const GeoInfo &geoInfo, Geometry *geo, ColladaInstanceGeometry *colInstGeo)
 {
-    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
-    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+    typedef ColladaInstanceGeometry::MaterialMap        ColMaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt ColMaterialMapConstIt;
 
-    const MaterialMap       &matMap        = colInstGeo->getMaterialMap();
-    MaterialMapConstIt       mmIt          = matMap.find(geoInfo._matSymbol);
+    const ColMaterialMap    &matMap        = colInstGeo->getMaterialMap();
+    ColMaterialMapConstIt    mmIt          = matMap.find(geoInfo._matSymbol);
     Material                *material      = NULL;
     ColladaInstanceMaterial *colInstMat    = NULL;
     ColladaInstanceEffect   *colInstEffect = NULL;

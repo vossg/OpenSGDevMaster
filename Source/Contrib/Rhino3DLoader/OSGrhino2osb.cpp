@@ -322,7 +322,7 @@ OSG::NodeTransitPtr rhino2osb::process_trimcurve(
     double   dbg_ks[2];
     // GL knot count = TL knot count + 2
     GLint    nknots = nurb_order + cv_count; 
-    GLfloat *knot   = (GLfloat*) onmalloc(nknots * sizeof(*knot));
+    GLfloat *knot   = static_cast<GLfloat*>(onmalloc(nknots * sizeof(*knot)));
 
     convert_knots(nurb_order, 
                   cv_count, 
@@ -334,7 +334,7 @@ OSG::NodeTransitPtr rhino2osb::process_trimcurve(
     // TRIMMING!
     GLint    stride   = cv_stride;
     GLfloat *ctlarray = 
-        (GLfloat *)onmalloc(stride * cv_count * sizeof(*ctlarray));
+        static_cast<GLfloat *>(onmalloc(stride * cv_count * sizeof(*ctlarray)));
 
 //    printf("trim dim: %d is_rat: %d stride: %d order: %d\n", dim, is_rat,
 //    stride, nurb_order); 
@@ -400,7 +400,7 @@ OSG::NodeTransitPtr rhino2osb::convert_surface_to_osg(
           GLfloat         *tknot)
 {
     ON_NurbsSurface s = sOrig;
-    int i, j;
+//    int i, j;
 
 //    const int cv_size     = s.CVSize();
     const int cv_count[2] = {s.CVCount(0), s.CVCount(1)};
@@ -424,9 +424,9 @@ OSG::NodeTransitPtr rhino2osb::convert_surface_to_osg(
         {
             cps4->clear();
             
-            for(i = 0; i < cv_count[0]; i++)
+            for(int i = 0; i < cv_count[0]; i++)
             {
-                for(j = 0; j < cv_count[1]; j++)
+                for(int j = 0; j < cv_count[1]; j++)
                 {
                     ON_4dPoint tmpON_Point;
                     
@@ -509,13 +509,13 @@ OSG::NodeTransitPtr rhino2osb::convert_surface_to_osg(
         surface->editMFKnotsU()->clear();
         surface->editMFKnotsV()->clear();
 
-        for(i = 0; i < sknot_count; ++i)
+        for(int i = 0; i < sknot_count; ++i)
         {
             surface->editMFKnotsU()->push_back(sknot[i]);
 //            printf( "knot s %f\n", (float)sknot[i] );
         }
 
-        for(i = 0; i < tknot_count; ++i)
+        for(int i = 0; i < tknot_count; ++i)
         {
             surface->editMFKnotsV()->push_back(tknot[i]);
 //            printf( "knot t %f\n", (float)tknot[i] );
@@ -564,7 +564,7 @@ OSG::NodeTransitPtr rhino2osb::process_NURBS_surface(
 
     // GL "s" knots
     GLint    sknot_count = s.KnotCount(0) + 2;
-    GLfloat *sknot       = (GLfloat*)onmalloc(sknot_count * sizeof(*sknot));
+    GLfloat *sknot       = static_cast<GLfloat*>(onmalloc(sknot_count * sizeof(*sknot)));
 
     convert_knots(s.Order  (0), 
                   s.CVCount(0), 
@@ -575,7 +575,7 @@ OSG::NodeTransitPtr rhino2osb::process_NURBS_surface(
 
     // GL "t" knots
     GLint    tknot_count = s.KnotCount(1) + 2;
-    GLfloat *tknot       = (GLfloat*)onmalloc(tknot_count * sizeof(*tknot));
+    GLfloat *tknot       = static_cast<GLfloat*>(onmalloc(tknot_count * sizeof(*tknot)));
 
     convert_knots(s.Order  (1), 
                   s.CVCount(1), 
@@ -591,8 +591,8 @@ OSG::NodeTransitPtr rhino2osb::process_NURBS_surface(
     GLint s_stride = cv_size * cv_count[1];
     GLint t_stride = cv_size;
 
-    GLfloat *ctlarray = (GLfloat*)onmalloc(
-        s_stride * cv_count[0] * sizeof(*ctlarray));
+    GLfloat *ctlarray = static_cast<GLfloat*>(onmalloc(
+        s_stride * cv_count[0] * sizeof(*ctlarray)));
 
     for(i = 0; i < cv_count[0]; i++) 
     {

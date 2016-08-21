@@ -157,15 +157,15 @@ QuaternionBase<ValueTypeT>::QuaternionBase(const ValueTypeT*     values)
 }
 
 template <class ValueTypeT> inline
-QuaternionBase<ValueTypeT>::QuaternionBase(const  ValueTypeT  x,
-                                           const  ValueTypeT  y,
-                                           const  ValueTypeT  z,
-                                           const  ValueTypeT  w)
+QuaternionBase<ValueTypeT>::QuaternionBase(const  ValueTypeT  xVal,
+                                           const  ValueTypeT  yVal,
+                                           const  ValueTypeT  zVal,
+                                           const  ValueTypeT  wVal)
 {
-    _quat[0] = x;
-    _quat[1] = y;
-    _quat[2] = z;
-    _quat[3] = w;
+    _quat[0] = xVal;
+    _quat[1] = yVal;
+    _quat[2] = zVal;
+    _quat[3] = wVal;
 }
 
 template <class ValueTypeT> inline
@@ -265,21 +265,21 @@ void QuaternionBase<ValueTypeT>::setValueAsQuat(
 */
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const ValueTypeT x,
-                                                   const ValueTypeT y,
-                                                   const ValueTypeT z,
-                                                   const ValueTypeT w)
+void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const ValueTypeT xVal,
+                                                   const ValueTypeT yVal,
+                                                   const ValueTypeT zVal,
+                                                   const ValueTypeT wVal)
 {
-    ValueTypeT rTmp = osgSqrt(x * x + y * y + z * z);
+    ValueTypeT rTmp = osgSqrt(xVal * xVal + yVal * yVal + zVal * zVal);
 
     if(rTmp > TypeTraits<ValueTypeT>::getDefaultEps())
     {
-        rTmp = osgSin(w / 2.0f) / rTmp;
+        rTmp = osgSin(wVal / 2.0f) / rTmp;
 
-        _quat[0] = x * rTmp;
-        _quat[1] = y * rTmp;
-        _quat[2] = z * rTmp;
-        _quat[3] = osgCos(w / 2.0f);
+        _quat[0] = xVal * rTmp;
+        _quat[1] = yVal * rTmp;
+        _quat[2] = zVal * rTmp;
+        _quat[3] = osgCos(wVal / 2.0f);
     }
     else
     {
@@ -292,12 +292,12 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const ValueTypeT x,
 */
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const ValueTypeT x,
-                                                   const ValueTypeT y,
-                                                   const ValueTypeT z,
-                                                   const ValueTypeT w)
+void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const ValueTypeT xVal,
+                                                   const ValueTypeT yVal,
+                                                   const ValueTypeT zVal,
+                                                   const ValueTypeT wVal)
 {
-    setValueAsAxisRad(x,y,z,osgDegree2Rad(w));
+    setValueAsAxisRad(xVal ,yVal ,zVal, osgDegree2Rad(wVal));
 }
 
 /*! \brief Sets value of rotation from 4 individual components interpreted as
@@ -305,15 +305,15 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const ValueTypeT x,
 */
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::setValueAsQuat(const ValueTypeT x,
-                                                const ValueTypeT y,
-                                                const ValueTypeT z,
-                                                const ValueTypeT w)
+void QuaternionBase<ValueTypeT>::setValueAsQuat(const ValueTypeT xVal,
+                                                const ValueTypeT yVal,
+                                                const ValueTypeT zVal,
+                                                const ValueTypeT wVal)
 {
-    _quat[0] = x;
-    _quat[1] = y;
-    _quat[2] = z;
-    _quat[3] = w;
+    _quat[0] = xVal;
+    _quat[1] = yVal;
+    _quat[2] = zVal;
+    _quat[3] = wVal;
 }
 
 template <class ValueTypeT> inline
@@ -754,14 +754,14 @@ const ValueTypeT *QuaternionBase<ValueTypeT>::getValues(void) const
 */
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::getValueAsAxisRad(ValueTypeT &x,
-                                                   ValueTypeT &y,
-                                                   ValueTypeT &z,
-                                                   ValueTypeT &w) const
+void QuaternionBase<ValueTypeT>::getValueAsAxisRad(ValueTypeT &xVal,
+                                                   ValueTypeT &yVal,
+                                                   ValueTypeT &zVal,
+                                                   ValueTypeT &wVal) const
 {
-    getValueAsAxisDeg(x, y, z, w);
+    getValueAsAxisDeg(xVal, yVal, zVal, wVal);
 
-    w = osgDegree2Rad(w);
+    wVal = osgDegree2Rad(wVal);
 }
 
 /*! \brief Returns 4 individual components of rotation quaternion as axis and
@@ -769,10 +769,10 @@ void QuaternionBase<ValueTypeT>::getValueAsAxisRad(ValueTypeT &x,
 */
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(ValueTypeT &x,
-                                                   ValueTypeT &y,
-                                                   ValueTypeT &z,
-                                                   ValueTypeT &w) const
+void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(ValueTypeT &xVal,
+                                                   ValueTypeT &yVal,
+                                                   ValueTypeT &zVal,
+                                                   ValueTypeT &wVal) const
 {
     ValueTypeT len;
 
@@ -782,36 +782,36 @@ void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(ValueTypeT &x,
 
     if(len > TypeTraits<ValueTypeT>::getDefaultEps())
     {
-        q *= (TypeTraits<ValueTypeT>::getOneElement() / len);
+        q    *= (TypeTraits<ValueTypeT>::getOneElement() / len);
 
-        x  = q[0];
-        y  = q[1];
-        z  = q[2];
+        xVal  = q[0];
+        yVal  = q[1];
+        zVal  = q[2];
 
-        w = osgRad2Degree(2.0f * osgACos(_quat[3]));
+        wVal  = osgRad2Degree(2.0f * osgACos(_quat[3]));
     }
     else
     {
-        x = TypeTraits<ValueTypeT>::getZeroElement();
-        y = TypeTraits<ValueTypeT>::getZeroElement();
-        z = TypeTraits<ValueTypeT>::getOneElement();
+        xVal = TypeTraits<ValueTypeT>::getZeroElement();
+        yVal = TypeTraits<ValueTypeT>::getZeroElement();
+        zVal = TypeTraits<ValueTypeT>::getOneElement();
 
-        w = TypeTraits<ValueTypeT>::getZeroElement();
+        wVal = TypeTraits<ValueTypeT>::getZeroElement();
     }
 }
 
 //! Returns 4 individual components of rotation quaternion
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::getValueAsQuat(ValueTypeT &x,
-                                                ValueTypeT &y,
-                                                ValueTypeT &z,
-                                                ValueTypeT &w) const
+void QuaternionBase<ValueTypeT>::getValueAsQuat(ValueTypeT &xVal,
+                                                ValueTypeT &yVal,
+                                                ValueTypeT &zVal,
+                                                ValueTypeT &wVal) const
 {
-    x = _quat[0];
-    y = _quat[1];
-    z = _quat[2];
-    w = _quat[3];
+    xVal = _quat[0];
+    yVal = _quat[1];
+    zVal = _quat[2];
+    wVal = _quat[3];
 }
 
 //! Returns corresponding 3D rotation axis vector and angle in rad
@@ -820,16 +820,16 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::getValueAsAxisRad(VectorType &axis,
                                                    ValueTypeT &radians) const
 {
-    ValueTypeT x;
-    ValueTypeT y;
-    ValueTypeT z;
-    ValueTypeT w;
+    ValueTypeT xVal;
+    ValueTypeT yVal;
+    ValueTypeT zVal;
+    ValueTypeT wVal;
 
-    getValueAsAxisRad(x, y, z, w);
+    getValueAsAxisRad(xVal, yVal, zVal, wVal);
 
-    axis.setValues(x, y, z);
+    axis.setValues(xVal, yVal, zVal);
 
-    radians = w;
+    radians = wVal;
 }
 
 //! Returns corresponding 3D rotation axis vector and angle in degrees
@@ -838,16 +838,16 @@ template <class ValueTypeT> inline
 void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(VectorType &axis,
                                                    ValueTypeT &degrees) const
 {
-    ValueTypeT x;
-    ValueTypeT y;
-    ValueTypeT z;
-    ValueTypeT w;
+    ValueTypeT xVal;
+    ValueTypeT yVal;
+    ValueTypeT zVal;
+    ValueTypeT wVal;
 
-    getValueAsAxisDeg(x, y, z, w);
+    getValueAsAxisDeg(xVal, yVal, zVal, wVal);
 
-    axis.setValues(x, y, z);
+    axis.setValues(xVal, yVal, zVal);
 
-    degrees = w;
+    degrees = wVal;
 }
 
 template <class ValueTypeT> inline

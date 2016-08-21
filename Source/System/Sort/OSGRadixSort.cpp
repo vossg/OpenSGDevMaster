@@ -180,14 +180,14 @@ void RadixSort(UInt32 size, const MFReal32 &floats, MFUInt32 &indices)
                 const UChar8* InputBytes = 
                     reinterpret_cast<const UChar8 *>(input);
 
-                UInt32 *index    =  sortPtr;
+                UInt32 *indexIt  =  sortPtr;
                 UInt32 *indexEnd = &sortPtr[size];
 
                 InputBytes += j;
 
-                while(index != indexEnd)
+                while(indexIt != indexEnd)
                 {
-                    UInt32 id = *index++;
+                    UInt32 id = *indexIt++;
 
                     sort2Ptr[sOffset[InputBytes[id << 2]]++] = id;
                 }

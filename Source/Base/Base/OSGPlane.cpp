@@ -121,10 +121,10 @@ Plane::Plane(const Pnt3f &p0,
 }
 
 
-Plane::Plane(const Vec3f &normal, Real32 distance) : 
-    _normalVec     (normal  ), 
-    _distance      (distance),
-    _directionIndex(0       )
+Plane::Plane(const Vec3f &normal, Real32 dist) : 
+    _normalVec     (normal), 
+    _distance      (dist  ),
+    _directionIndex(0     )
     
 {
     _normalVec.normalize();

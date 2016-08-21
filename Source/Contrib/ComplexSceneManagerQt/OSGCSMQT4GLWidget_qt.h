@@ -77,20 +77,20 @@ class OSG_CONTRIBCSMQT_DLLMAPPING CSMQT4GLWidget : public OSGQGLWidget
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CSMQT4GLWidget(      QWidget         *parent,
-                   const Char8           *name         = 0,
-                   const QGLWidget       *shareWidget  = 0,
+    CSMQT4GLWidget(      QWidget         *pParent,
+                   const Char8           *szName       = 0,
+                   const QGLWidget       *pShareWidget = 0,
                          Qt::WindowFlags  f            = 0                   );
-    CSMQT4GLWidget(      GLContext       *context,
-                         QWidget         *parent      = 0,
-                   const QGLWidget       *shareWidget = 0,
-                         Qt::WindowFlags  f           = 0                    );
+    CSMQT4GLWidget(      GLContext       *pContext,
+                         QWidget         *pParent      = 0,
+                   const QGLWidget       *pShareWidget = 0,
+                         Qt::WindowFlags  f            = 0                    );
 
-    CSMQT4GLWidget(const QGLFormat       &format = QGLFormat::defaultFormat(),
-                         QWidget         *parent      = 0,
-                   const Char8           *name        = 0,
-                   const QGLWidget       *shareWidget = 0,
-                         Qt::WindowFlags  f           = 0                   );
+    CSMQT4GLWidget(const QGLFormat       &oformat = QGLFormat::defaultFormat(),
+                         QWidget         *pParent      = 0,
+                   const Char8           *szName       = 0,
+                   const QGLWidget       *pShareWidget = 0,
+                         Qt::WindowFlags  f            = 0                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

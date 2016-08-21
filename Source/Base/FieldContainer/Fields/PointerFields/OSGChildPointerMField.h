@@ -687,7 +687,7 @@ class ChildPointerMField :
     void                   resize   (size_t         newSize,
                                      const_value    value   = NULL  );
 
-    void                   reserve  (size_type      newsize         );
+    void                   reserve  (size_type      newSize         );
 
     void                   clear    (void                           );
 

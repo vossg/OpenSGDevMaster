@@ -193,12 +193,12 @@ SkeletonSkinningAlgorithm::renderEnter(Action *action)
     }
 #endif // #ifndef OSG_SKELETON_SKINNING_ALGO_DRAW_AXIS
 
-    DrawEnv::DrawFunctor  drawFunc =
+    DrawEnv::DrawFunctor   drawFuncSkinAlgo =
         boost::bind(&SkeletonSkinningAlgorithm::drawFunc, this, _1);
-    PrimeMaterial         *skelMat  = getDefaultUnlitMaterial();
-    State                 *state    = skelMat->getState      ();
+    PrimeMaterial         *skelMat          = getDefaultUnlitMaterial();
+    State                 *state            = skelMat->getState      ();
 
-    ract->dropFunctor(drawFunc, state, skelMat->getSortKey());
+    ract->dropFunctor(drawFuncSkinAlgo, state, skelMat->getSortKey());
 
     return res;
 }

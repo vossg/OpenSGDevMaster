@@ -123,10 +123,10 @@ DotFileGeneratorGraphOp::Info::operator=(const Info& rhs)
     return *this;
 }
 
-DotFileGeneratorGraphOp::BrewerColor::BrewerColor(const std::string &scheme,
-                                                  const std::string &number) :
-  scheme(scheme),
-  number(number)
+DotFileGeneratorGraphOp::BrewerColor::BrewerColor(const std::string &schemeIn,
+                                                  const std::string &numberIn) :
+  scheme(schemeIn),
+  number(numberIn)
 {
 }
 

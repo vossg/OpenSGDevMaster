@@ -395,13 +395,13 @@ void calcVertexNormals(Geometry *geo,
     std::vector < std::vector < UInt32 > > pntFaceDic;
 
     TriangleIterator ti;
-    UInt32 i, pN = positions->size32();
+    UInt32 iTri, pN = positions->size32();
 
     pntFaceDic.resize(pN);
 
-    for(  ti  = geo->beginTriangles(), i = 0; 
+    for(  ti  = geo->beginTriangles(), iTri = 0; 
           ti != geo->endTriangles(); 
-        ++ti, ++i)
+        ++ti, ++iTri)
     {
         Int32 v0 = ti.getPositionIndex(0);
         Int32 v1 = ti.getPositionIndex(1);
@@ -420,9 +420,9 @@ void calcVertexNormals(Geometry *geo,
 
                 faceNormals.push_back(d1);
 
-                pntFaceDic[ti.getPositionIndex(0)].push_back(i);
-                pntFaceDic[ti.getPositionIndex(1)].push_back(i);
-                pntFaceDic[ti.getPositionIndex(2)].push_back(i);
+                pntFaceDic[ti.getPositionIndex(0)].push_back(iTri);
+                pntFaceDic[ti.getPositionIndex(1)].push_back(iTri);
+                pntFaceDic[ti.getPositionIndex(2)].push_back(iTri);
             }
             else
             {
@@ -640,11 +640,11 @@ void calcVertexTangentsProp(Geometry *geo,
     binormal.resize(posIdxCount, Vec3f::Null);
     normal  .resize(posIdxCount, Vec3f::Null);
 
-    Int32 i = 0;
+    Int32 iTri = 0;
 
-    for(  tI  = geo->beginTriangles(), i = 0; 
+    for(  tI  = geo->beginTriangles(), iTri = 0; 
           tI != geo->endTriangles(); 
-        ++tI, ++i) 
+        ++tI, ++iTri) 
     {       
         for(k = 0; k < 3; ++k) 
         {
@@ -948,7 +948,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
 
     GeoIntegralPropertyUnrecPtr posIndexPtr  = NULL;
 
-    Int32 index, i, pi, typei, primitiveN = 0, vN = 0;
+    Int32 index, pi, typei, primitiveN = 0, vN = 0; // i
     Int32 pType = 0, localPType;
     Int32 maxPType = (faceSet ? 5 : 3);
     Int32 minPType = (faceSet ? 3 : 2);
@@ -1034,7 +1034,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
 
         if(piN)
         {
-            for(i = 0; i <= piN; i++)
+            for(Int32 i = 0; i <= piN; i++)
             {
                 index = (i == piN) ? -1 : coordIndex[i];
 
@@ -1080,7 +1080,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
             if(niN >= piN)
             {
                 // valid normal index number
-                for(i = 0; i < piN; i++)
+                for(Int32 i = 0; i < piN; i++)
                 {   // check if normal index equals the coord index
                     if(normalIndex[i] != coordIndex[i])
                     {
@@ -1158,7 +1158,7 @@ else
             if(ciN >= piN)
             {
                 // valid color index number
-                for(i = 0; i < piN; i++)
+                for(Int32 i = 0; i < piN; i++)
                 {   // check if color index equals the coord index
                     if(colorIndex[i] != coordIndex[i])
                     {
@@ -1223,7 +1223,7 @@ else
         if(tiN >= piN)
         {
             // valid texture index number
-            for(i = 0; i < piN; i++)
+            for(Int32 i = 0; i < piN; i++)
             {       // check if texture index equals the coord index
                 if(texCoordIndex[i] != coordIndex[i])
                 {
@@ -1287,7 +1287,7 @@ else
         posIndexPtr->clear();
     }
 
-    for(i = 1; i < 4; ++i)
+    for(Int32 i = 1; i < 4; ++i)
     { 
         indexOutBag[i] = geoPtr->getIndex(indexOutBagID[i]);
         
@@ -1373,7 +1373,7 @@ else
             primitiveN = 0;
             beginIndex = endIndex = -1;
 
-            for(i = 0; i <= piN; i++)
+            for(Int32 i = 0; i <= piN; i++)
             {
                 if(((i == piN) && (coordIndex[i - 1] >= 0)) ||
                    ((i < piN) && (coordIndex[i] < 0)))

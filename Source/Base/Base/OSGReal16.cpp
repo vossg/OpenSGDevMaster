@@ -16779,7 +16779,7 @@ operator >> (std::istream &is, Real16 &h)
 void
 printBits (std::ostream &os, Real16 h)
 {
-    unsigned short b = h.bits();
+    unsigned short b = h.getBits();
 
     for (int i = 15; i >= 0; i--)
     {
@@ -16810,7 +16810,7 @@ printBits (std::ostream &os, float f)
 void
 printBits (char c[19], Real16 h)
 {
-    unsigned short b = h.bits();
+    unsigned short b = h.getBits();
 
     for (int i = 15, j = 0; i >= 0; i--, j++)
     {

@@ -1173,11 +1173,12 @@ void EditFCPtrMFieldHandle<FieldT>::cloneValues(
             
         for(SizeT i = 0; i < pSrcField->size(); ++i)
         {
-            StoredPtrType pSrc = dynamic_cast<StoredPtrType>((*pSrcField)[i]);
+            StoredPtrType pSrcTyped = 
+                dynamic_cast<StoredPtrType>((*pSrcField)[i]);
 
-            if(pSrc != NULL)
+            if(pSrcTyped != NULL)
             {
-                pDst = deepClone(pSrc,
+                pDst = deepClone(pSrcTyped,
                                  shareTypes,
                                  ignoreTypes,
                                  shareGroupIds,

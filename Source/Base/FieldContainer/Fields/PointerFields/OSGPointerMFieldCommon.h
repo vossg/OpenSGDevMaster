@@ -108,9 +108,9 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-             PointerMFieldCommon(void                );
-             PointerMFieldCommon(const Self   &source);
-    explicit PointerMFieldCommon(const UInt32  size  );
+             PointerMFieldCommon(void                  );
+             PointerMFieldCommon(const Self   &source  );
+    explicit PointerMFieldCommon(const UInt32  initSize);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -168,8 +168,8 @@ class PointerMFieldCommon : public PointerMFieldBase
                                    const size_type      endIndex  );
 
     PtrStoreItType ptrStoreErase  (      PtrStoreItType pos       );
-    PtrStoreItType ptrStoreErase  (      PtrStoreItType begin,
-                                         PtrStoreItType end       );
+    PtrStoreItType ptrStoreErase  (      PtrStoreItType beginIt,
+                                         PtrStoreItType endIt     );
 
     void           ptrStoreClear  (      void                     );
 

@@ -86,10 +86,10 @@ class OSG_CLUSTER_DLLMAPPING ImageComposer : public ImageComposerBase
     /*! \name      setup                                                   */
     /*! \{                                                                 */
 
-    void setup(bool           isClient,
-               UInt32         clusterId,
-               Window        *localWindow, 
-               ClusterWindow *clusterWindow);
+    void setup(bool           bIsClient,
+               UInt32         uiClusterId,
+               Window        *pLocalWindow, 
+               ClusterWindow *pClusterWindow);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

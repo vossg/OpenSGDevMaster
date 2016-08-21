@@ -127,7 +127,7 @@ VRMLFile::~VRMLFile(void)
 /*-------------------------------------------------------------------------*/
 /*                           Skel Replacements                             */
 
-NodeTransitPtr VRMLFile::scanStream(std::istream &is)
+NodeTransitPtr VRMLFile::scanStream(std::istream &iStream)
 {
     startTime = getSystemTime();
 
@@ -140,9 +140,9 @@ NodeTransitPtr VRMLFile::scanStream(std::istream &is)
     VRMLNodeHelper::resetIndent();
 #endif
 
-    if(is)
+    if(iStream)
     {
-        Inherited::scanStream(is);
+        Inherited::scanStream(iStream);
     }
 
     SceneFileHandler::the()->updateReadProgress(100);

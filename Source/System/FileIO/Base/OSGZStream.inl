@@ -560,7 +560,7 @@ basic_unzip_streambuf<charT, traits>::fill_input_buffer(void)
  */
 template <class charT, class traits> inline
 basic_zip_ostream<charT, traits>::basic_zip_ostream(ostream_reference ostream,
-                                                    bool is_gzip,
+                                                    bool isGzip,
                                                     int level,
                                                     EStrategy strategy,
                                                     int window_size,
@@ -569,7 +569,7 @@ basic_zip_ostream<charT, traits>::basic_zip_ostream(ostream_reference ostream,
     basic_zip_streambuf<charT, traits>(ostream, level, strategy, window_size,
                                        memory_level, buffer_size),
     std::basic_ostream<charT, traits>(this),
-    _is_gzip(is_gzip),
+    _is_gzip(isGzip),
     _added_footer(false)
 {
     if(_is_gzip)
@@ -762,7 +762,7 @@ int
 basic_zip_istream<charT, traits>::check_header(void)
 {
     int method; /* method byte */
-    int flags;  /* flags byte */
+    int localFlags;  /* flags byte */
     uInt len;
     int c;
     int err=0;
@@ -788,8 +788,8 @@ basic_zip_istream<charT, traits>::check_header(void)
     
     _is_gzip = true;
     method = int(this->get_istream().get());
-    flags  = int(this->get_istream().get());
-    if (method != Z_DEFLATED || (flags & detail::gz_reserved) != 0) 
+    localFlags  = int(this->get_istream().get());
+    if (method != Z_DEFLATED || (localFlags & detail::gz_reserved) != 0) 
     {
         err = Z_DATA_ERROR;
         return err;
@@ -799,7 +799,7 @@ basic_zip_istream<charT, traits>::check_header(void)
     for (len = 0; len < 6; len++) 
         this->get_istream().get();
     
-    if ((flags & detail::gz_extra_field) != 0) 
+    if ((localFlags & detail::gz_extra_field) != 0) 
     { 
         /* skip the extra field */
         len  =  uInt(this->get_istream().get());
@@ -807,17 +807,17 @@ basic_zip_istream<charT, traits>::check_header(void)
         /* len is garbage if EOF but the loop below will quit anyway */
         while (len-- != 0 && this->get_istream().get() != EOF) ;
     }
-    if ((flags & detail::gz_orig_name) != 0) 
+    if ((localFlags & detail::gz_orig_name) != 0) 
     { 
         /* skip the original file name */
         while ((c = this->get_istream().get()) != 0 && c != EOF) ;
     }
-    if ((flags & detail::gz_comment) != 0) 
+    if ((localFlags & detail::gz_comment) != 0) 
     {   
         /* skip the .gz file comment */
         while ((c = this->get_istream().get()) != 0 && c != EOF) ;
     }
-    if ((flags & detail::gz_head_crc) != 0) 
+    if ((localFlags & detail::gz_head_crc) != 0) 
     {  /* skip the header crc */
         for (len = 0; len < 2; len++) 
             this->get_istream().get();

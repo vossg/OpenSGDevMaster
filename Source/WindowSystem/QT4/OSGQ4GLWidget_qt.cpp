@@ -48,8 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSGQGLWidget::GLContext::GLContext(const QGLFormat & format) :
-    QGLContext(format)
+OSGQGLWidget::GLContext::GLContext(const QGLFormat &oFormat) :
+    QGLContext(oFormat)
 {
 }
  
@@ -109,31 +109,31 @@ The class for QT-based windows. See \ref PageWindowQT for a description.
 */
 
 
-OSGQGLWidget::OSGQGLWidget(      QWidget        *parent,
-                           const char           *name,
-                           const QGLWidget      *shareWidget,
+OSGQGLWidget::OSGQGLWidget(      QWidget        *pParent,
+                           const char           *szName,
+                           const QGLWidget      *pShareWidget,
                                  Qt::WindowFlags f           ) :
     QGLWidget(new GLContext(QGLFormat::defaultFormat()),
-              parent, 
-              shareWidget, 
+              pParent, 
+              pShareWidget, 
               f                                        ) 
 {
 }
 
-OSGQGLWidget::OSGQGLWidget(      GLContext       *context,
-                                 QWidget         *parent ,
-                           const QGLWidget       *shareWidget,
+OSGQGLWidget::OSGQGLWidget(      GLContext       *pContext,
+                                 QWidget         *pParent ,
+                           const QGLWidget       *pShareWidget,
                                  Qt::WindowFlags  f           ) :
-    QGLWidget(context, parent, shareWidget, f)
+    QGLWidget(pContext, pParent, pShareWidget, f)
 {
 }
 
-OSGQGLWidget::OSGQGLWidget(const QGLFormat       &format,
-                                 QWidget         *parent,
-                           const char            *name,
-                           const QGLWidget       *shareWidget,
+OSGQGLWidget::OSGQGLWidget(const QGLFormat       &oFormat,
+                                 QWidget         *pParent,
+                           const char            *szName,
+                           const QGLWidget       *pShareWidget,
                                  Qt::WindowFlags  f           ) :
-    QGLWidget(new GLContext(format), parent, shareWidget, f)
+    QGLWidget(new GLContext(oFormat), pParent, pShareWidget, f)
 {
 }
 

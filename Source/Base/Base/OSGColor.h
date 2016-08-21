@@ -86,11 +86,11 @@ class Color3 : public Vector<ValueTypeT, 3>
     /*! \name                      Constructors                            */
     /*! \{                                                                 */
 
-    Color3(      void                         );
-    Color3(const Vector<ValueTypeT, 3> &source);
-    Color3(      ValueType              red,
-                 ValueType              green,
-                 ValueType              blue  );
+    Color3(      void                           );
+    Color3(const Vector<ValueTypeT, 3> &source  );
+    Color3(      ValueType              redVal,
+                 ValueType              greenVal,
+                 ValueType              blueVal );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -106,9 +106,9 @@ class Color3 : public Vector<ValueTypeT, 3>
 
     void clear        (     void               );
 
-    void setValuesRGB(const ValueType  red,
-                      const ValueType  green,
-                      const ValueType  blue    );
+    void setValuesRGB(const ValueType  redVal,
+                      const ValueType  greenVal,
+                      const ValueType  blueVal );
 
     void setValuesHSV(const Real32     h,
                       const Real32     s,
@@ -124,22 +124,22 @@ class Color3 : public Vector<ValueTypeT, 3>
     /*! \name                           Get                                */
     /*! \{                                                                 */
 
-          UInt32     getRGB       (void           ) const;
+          UInt32     getRGB       (void              ) const;
 
-          void       getValuesRGB(ValueType &red,
-                                  ValueType &green,
-                                  ValueType &blue ) const;
+          void       getValuesRGB(ValueType &redVal,
+                                  ValueType &greenVal,
+                                  ValueType &blueVal ) const;
 
           void       getValuesHSV(Real32    &h,
                                   Real32    &s,
-                                  Real32    &v    ) const;
+                                  Real32    &v       ) const;
 
-          ValueType  red         (void            ) const;
-          ValueType  green       (void            ) const;
-          ValueType  blue        (void            ) const;
+          ValueType  red         (void               ) const;
+          ValueType  green       (void               ) const;
+          ValueType  blue        (void               ) const;
 
-          ValueType *getValuesRGB(void            );
-    const ValueType *getValuesRGB(void            ) const;
+          ValueType *getValuesRGB(void               );
+    const ValueType *getValuesRGB(void               ) const;
 
 
     /*! \}                                                                 */
@@ -172,12 +172,12 @@ class Color4 : public Vector< ValueTypeT, 4 >
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Color4(      void                           );
-    Color4(const Vector< ValueTypeT, 4 > &source);
-    Color4(const ValueType                red,
-           const ValueType                green,
-           const ValueType                blue,
-           const ValueType                alpha );
+    Color4(      void                             );
+    Color4(const Vector< ValueTypeT, 4 > &source  );
+    Color4(const ValueType                redVal,
+           const ValueType                greenVal,
+           const ValueType                blueVal,
+           const ValueType                alphaVal);
 
     
     /*! \}                                                                 */
@@ -192,45 +192,45 @@ class Color4 : public Vector< ValueTypeT, 4 >
     /*! \name                       Set                                    */
     /*! \{                                                                 */
 
-    void clear        (      void           );
+    void clear        (      void              );
 
-    void setValuesRGBA(const ValueType red,
-                       const ValueType green,
-                       const ValueType blue,
-                       const ValueType alpha);
+    void setValuesRGBA(const ValueType redVal,
+                       const ValueType greenVal,
+                       const ValueType blueVal,
+                       const ValueType alphaVal);
 
     void setValuesHSV (const Real32 h,
                        const Real32 s,
-                       const Real32 v       );
+                       const Real32 v          );
 
-    void setRandom    (      void           );
-    void setRGBA      (      UInt32 rgbPack );    
+    void setRandom    (      void              );
+    void setRGBA      (      UInt32 rgbPack    );    
 
-    void setValue     (const Char8 *szString);
+    void setValue     (const Char8 *szString   );
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Get                                    */
     /*! \{                                                                 */
     
-          UInt32    getRGBA       (void            ) const;
+          UInt32    getRGBA       (void               ) const;
 
-          void      getValuesRGBA (ValueType &red,
-                                   ValueType &green,
-                                   ValueType &blue,
-                                   ValueType &alpha) const;
+          void      getValuesRGBA (ValueType &redVal,
+                                   ValueType &greenVal,
+                                   ValueType &blueVal,
+                                   ValueType &alphaVal) const;
 
           void      getValuesHSV  (Real32    &h,
                                    Real32    &s,
-                                   Real32    &v    ) const;
+                                   Real32    &v       ) const;
 
-          ValueType red           (void            ) const;
-          ValueType green         (void            ) const;
-          ValueType blue          (void            ) const;
-          ValueType alpha         (void            ) const;
+          ValueType red           (void               ) const;
+          ValueType green         (void               ) const;
+          ValueType blue          (void               ) const;
+          ValueType alpha         (void               ) const;
 
-          ValueType *getValuesRGBA(void            );
-    const ValueType *getValuesRGBA(void            ) const;
+          ValueType *getValuesRGBA(void               );
+    const ValueType *getValuesRGBA(void               ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

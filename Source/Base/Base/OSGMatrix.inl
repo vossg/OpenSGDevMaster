@@ -596,7 +596,7 @@ inline void
     TransformationMatrix<ValueTypeT>::polarDecompose(
         TransformationMatrix &Q,
         TransformationMatrix &S,
-        ValueType            &det) const
+        ValueType            &determinat) const
 {
     ValueType const TOL = ValueType(1.0e-6);
 
@@ -670,7 +670,7 @@ inline void
         }
     }
     
-    det = Mk_det;
+    determinat = Mk_det;
 }
 
 /*! Computes a spectral decomposition of a symmetric positive
@@ -798,7 +798,7 @@ inline void
     TransformationMatrix Q;
     TransformationMatrix S;
     TransformationMatrix SO;
-    ValueType            det;
+    ValueType            detA;
 
     t[0] = A[3][0];
     t[1] = A[3][1];
@@ -812,9 +812,9 @@ inline void
     A[1][3] = 0.0;
     A[2][3] = 0.0;
     
-    A.polarDecompose(Q, S, det);
+    A.polarDecompose(Q, S, detA);
     
-    if(det < 0.0)
+    if(detA < 0.0)
     {
         Q.negate();
         f = - 1.0;
@@ -1398,7 +1398,7 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
                                               VectorType3f         &t,
                                               TransformationMatrix &proj) const
 {
-    Real64               det;
+    Real64               detA;
     Real64               det_sign;
     Real64               scratch;
     Int32                i;
@@ -1434,11 +1434,11 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
 
     /* (3) Compute det A. If negative, set sign = -1, else sign = 1 */
 
-    det      = a.det3();
+    detA     = a.det3();
 
-    det_sign = (det < 0.0 ? -1.0 : 1.0);
+    det_sign = (detA < 0.0 ? -1.0 : 1.0);
 
-    if(det_sign * det < 1e-12)
+    if(det_sign * detA < 1e-12)
         return false;      // singular
 
     /* (4) B = A * A^  (here A^ means A transpose) */
@@ -2939,12 +2939,12 @@ bool TransformationMatrix<ValueTypeT>::calcInverse3(
     ValueTypeT det2A1 = det2_calc(sM[1][0], sM[1][2], sM[2][0], sM[2][2]);
     ValueTypeT det2A2 = det2_calc(sM[1][0], sM[1][1], sM[2][0], sM[2][1]);
 
-    ValueTypeT det3   = sM[0][0] * det2A0 -
+    ValueTypeT det3SM = sM[0][0] * det2A0 -
                         sM[0][1] * det2A1 +
                         sM[0][2] * det2A2;
 
     
-    if(osgAbs(det3) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(det3SM) < TypeTraits<ValueTypeT>::ZeroEps())
     {
         FWARNING(("TransformationMatrix<>::calcInverse3: "
                   "Singular matrix, no inverse!\n"));
@@ -2954,7 +2954,7 @@ bool TransformationMatrix<ValueTypeT>::calcInverse3(
         return false;
     }
 
-    ValueTypeT det3Inv = TypeTraits<ValueTypeT>::getOneElement() / det3;
+    ValueTypeT det3Inv = TypeTraits<ValueTypeT>::getOneElement() / det3SM;
 
     dM[0][0] =   det2A0 * det3Inv;
     dM[0][1] = - det2_calc(sM[0][1], sM[0][2], sM[2][1], sM[2][2]) * det3Inv;

@@ -655,15 +655,15 @@ void LMesh::CalcNormals(bool useSmoothingGroups)
                     m_tangents.push_back(m_tangents[i]);
                     m_binormals.push_back(m_binormals[i]);
 
-                    uint t = uint(m_vertices.size())-1;
+                    uint ts = uint(m_vertices.size())-1;
                     for (uint h=0; h<smList[j].size(); h++)
                     {
                         if (m_tris[smList[j][h]].a == i)
-                            m_tris[smList[j][h]].a = t;
+                            m_tris[smList[j][h]].a = ts;
                         if (m_tris[smList[j][h]].b == i)
-                            m_tris[smList[j][h]].b = t;
+                            m_tris[smList[j][h]].b = ts;
                         if (m_tris[smList[j][h]].c == i)
-                            m_tris[smList[j][h]].c = t;
+                            m_tris[smList[j][h]].c = ts;
                     }
                 }
         }

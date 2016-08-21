@@ -64,9 +64,9 @@ OSG_USING_NAMESPACE
     To create a new connection, the given functions for group and
     point are called
  */
-ConnectionType::ConnectionType(      CreateGroupFunction  createGroup,
+ConnectionType::ConnectionType(      CreateGroupFunction  fCreateGroup,
                                const std::string         &name        ) :
-    _createGroup(createGroup),
+    _createGroup(fCreateGroup),
     _createPoint(NULL),
     _name(name)
 {
@@ -77,10 +77,10 @@ ConnectionType::ConnectionType(      CreateGroupFunction  createGroup,
     To create a new connection, the given functions for group and
     point are called
  */
-ConnectionType::ConnectionType(      CreatePointFunction  createPoint,
+ConnectionType::ConnectionType(      CreatePointFunction  fCreatePoint,
                                const std::string         &name        ) :
     _createGroup(NULL),
-    _createPoint(createPoint),
+    _createPoint(fCreatePoint),
     _name(name)
 {
     ConnectionFactory::the()->addPointType(this);

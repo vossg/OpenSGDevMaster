@@ -127,7 +127,7 @@ void ExceptionBinaryDataHandler::putValue(const Int64 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Real16 &value)
 {
-    UInt16 v = osgHostToNet<UInt16>(value.bits());
+    UInt16 v = osgHostToNet<UInt16>(value.getBits());
 
     put(&v, sizeof(Real16));
 }

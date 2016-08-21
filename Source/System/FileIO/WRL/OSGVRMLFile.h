@@ -112,7 +112,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*! \name                   Skel replacements                          */
     /*! \{                                                                 */
 
-    virtual NodeTransitPtr scanStream(std::istream &is);
+    virtual NodeTransitPtr scanStream(std::istream &iStream);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

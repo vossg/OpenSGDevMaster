@@ -363,7 +363,7 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
         return;
     }
     Connection::Channel channel;
-    UInt32 bbcount,id,vp,vpcount,wpcount;
+    UInt32 bbcount,vp,vpcount,wpcount;
     double frameTime = -getSystemTime();
 
     if(_cluster.servers.size() == 0)
@@ -371,7 +371,7 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
         // reset server list
         _cluster.servers.resize(getMFServers()->size()+1);
 
-        for(UInt32 id=0 ; id < getMFServers()->size()+1 ; ++id)
+        for(UInt32 id = 0 ; id < getMFServers()->size()+1 ; ++id)
             _cluster.servers[id].id = id;
 
         getNetwork()->connectAllGroupToPoint(getMFServers()->size32(),
@@ -416,6 +416,7 @@ void BalancedMultiWindow::clientRender(RenderActionBase *action)
     _netTime = 0;
     // read bboxes from all servers
     GroupConnection *conn = getNetwork()->getMainGroupConnection();
+    UInt32 id;
     while(conn->getSelectionCount())
     {
         channel = conn->selectChannel();

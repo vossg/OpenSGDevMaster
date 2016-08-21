@@ -101,11 +101,11 @@ ScanParseSkel::~ScanParseSkel(void)
 extern int OSGScanParseSkel_parse(void *);
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
-void ScanParseSkel::scanStream(std::istream &is)
+void ScanParseSkel::scanStream(std::istream &iStream)
 {
-    if(is.good())
+    if(iStream.good())
     {
-        _pLexer->switch_streams(&is, 0);
+        _pLexer->switch_streams(&iStream, 0);
         OSGScanParseSkel_parse(this);
     }
 }
@@ -117,15 +117,15 @@ void ScanParseSkel::scanFile(const Char8 *szFilename)
         return;
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
-    std::ifstream is(szFilename);
+    std::ifstream iStream(szFilename);
 
-    if(is.good())
+    if(iStream.good())
     {
         PNOTICE << "Loading Stream: " << szFilename << std::endl;
 
-        scanStream(is);
+        scanStream(iStream);
 
-        is.close();
+        iStream.close();
     }
 #else
     FILE *pInFile = fopen(szFilename, "r");

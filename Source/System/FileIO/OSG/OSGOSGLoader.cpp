@@ -581,12 +581,12 @@ OSGLoader::~OSGLoader(void)
 
 /*------------------------------ access -----------------------------------*/
 
-NodeTransitPtr OSGLoader::scanStream(std::istream &is,
+NodeTransitPtr OSGLoader::scanStream(std::istream &iStream,
                                      Resolver      fResolver)
 {
     NodeTransitPtr returnValue(NULL);
 
-    if(is)
+    if(iStream)
     {
         _pRootNode         = NULL;
         _pRootContainer    = NULL;
@@ -600,7 +600,7 @@ NodeTransitPtr OSGLoader::scanStream(std::istream &is,
 
         _defMap .clear();
 
-        Inherited::scanStream(is);
+        Inherited::scanStream(iStream);
 
         returnValue = _pRootNode;
 
@@ -613,12 +613,12 @@ NodeTransitPtr OSGLoader::scanStream(std::istream &is,
     return returnValue;
 }
 
-FieldContainerTransitPtr OSGLoader::scanStreamContainer(std::istream &is,
+FieldContainerTransitPtr OSGLoader::scanStreamContainer(std::istream &iStream,
                                                         Resolver      fResolver)
 {
     FieldContainerTransitPtr returnValue(NULL);
 
-    if(is)
+    if(iStream)
     {
         _pRootNode         = NULL;
         _pRootContainer    = NULL;
@@ -632,7 +632,7 @@ FieldContainerTransitPtr OSGLoader::scanStreamContainer(std::istream &is,
 
         _defMap .clear();
 
-        Inherited::scanStream(is);
+        Inherited::scanStream(iStream);
 
         returnValue = _pRootContainer;
 

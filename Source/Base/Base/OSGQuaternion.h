@@ -109,11 +109,11 @@ class QuaternionBase
                                const ValueTypeT      angle              );
                 QuaternionBase(const VectorType     &rotateFrom,
                                const VectorType     &rotateTo           );
-                QuaternionBase(const ValueTypeT*     values             );
-                QuaternionBase(const  ValueTypeT  x,
-                               const  ValueTypeT  y,
-                               const  ValueTypeT  z,
-                               const  ValueTypeT  w                     );
+                QuaternionBase(const ValueTypeT     *values             );
+                QuaternionBase(const  ValueTypeT     xVal,
+                               const  ValueTypeT     yVal,
+                               const  ValueTypeT     zVal,
+                               const  ValueTypeT     wVal               );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -133,18 +133,18 @@ class QuaternionBase
     void setValueAsAxisDeg(const  ValueTypeT *valsP     );
     void setValueAsQuat   (const  ValueTypeT *valsP     );
 
-    void setValueAsAxisRad(const  ValueTypeT  x,
-                           const  ValueTypeT  y,
-                           const  ValueTypeT  z,
-                           const  ValueTypeT  w         );
-    void setValueAsAxisDeg(const  ValueTypeT  x,
-                           const  ValueTypeT  y,
-                           const  ValueTypeT  z,
-                           const  ValueTypeT  w         );
-    void setValueAsQuat   (const  ValueTypeT  x,
-                           const  ValueTypeT  y,
-                           const  ValueTypeT  z,
-                           const  ValueTypeT  w         );
+    void setValueAsAxisRad(const  ValueTypeT  xVal,
+                           const  ValueTypeT  yVal,
+                           const  ValueTypeT  zVal,
+                           const  ValueTypeT  wVal      );
+    void setValueAsAxisDeg(const  ValueTypeT  xVal,
+                           const  ValueTypeT  yVal,
+                           const  ValueTypeT  zVal,
+                           const  ValueTypeT  wVal      );
+    void setValueAsQuat   (const  ValueTypeT  xVal,
+                           const  ValueTypeT  yVal,
+                           const  ValueTypeT  zVal,
+                           const  ValueTypeT  wVal      );
 
     void setValue         (const  Self       &quat      );
     void setValue         (const  MatrixType &matrix    );
@@ -157,9 +157,9 @@ class QuaternionBase
     void setValue         (const  VectorType &rotateFrom,
                            const  VectorType &rotateTo  );
 
-    void setValueAsAxisRad(const  Char8       *str      );
-    void setValueAsAxisDeg(const  Char8       *str      );
-    void setValueAsQuat   (const  Char8       *str      );
+    void setValueAsAxisRad(const  Char8      *str       );
+    void setValueAsAxisDeg(const  Char8      *str       );
+    void setValueAsQuat   (const  Char8      *str       );
 
     void setValue         (const  ValueTypeT alpha,
                            const  ValueTypeT beta,
@@ -181,18 +181,18 @@ class QuaternionBase
 
     const ValueTypeT *getValues        (void               ) const;
 
-          void        getValueAsAxisDeg(ValueTypeT &x,
-                                        ValueTypeT &y,
-                                        ValueTypeT &z,
-                                        ValueTypeT &w      ) const;
-          void        getValueAsAxisRad(ValueTypeT &x,
-                                        ValueTypeT &y,
-                                        ValueTypeT &z,
-                                        ValueTypeT &w      ) const;
-          void        getValueAsQuat   (ValueTypeT &x,
-                                        ValueTypeT &y,
-                                        ValueTypeT &z,
-                                        ValueTypeT &w      ) const;
+          void        getValueAsAxisDeg(ValueTypeT &xVal,
+                                        ValueTypeT &yVal,
+                                        ValueTypeT &zVal,
+                                        ValueTypeT &wVal   ) const;
+          void        getValueAsAxisRad(ValueTypeT &xVal,
+                                        ValueTypeT &yVal,
+                                        ValueTypeT &zVal,
+                                        ValueTypeT &wVal   ) const;
+          void        getValueAsQuat   (ValueTypeT &xVal,
+                                        ValueTypeT &yVal,
+                                        ValueTypeT &zVal,
+                                        ValueTypeT &wVal   ) const;
 
           void       getValueAsAxisRad (VectorType &axis, 
                                         ValueTypeT &radians) const;

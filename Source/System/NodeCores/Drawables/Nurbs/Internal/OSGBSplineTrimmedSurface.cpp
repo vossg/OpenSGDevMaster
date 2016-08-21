@@ -264,60 +264,60 @@ void BSplineTrimmedSurface::flip(void)
         for(ui_curve = 0; ui_curve < ui_curve_cnt; ++ui_curve)
         {
             // mirror the knot vector
-            DCTPdvector &      rvd_knots     = trimming[ui_loop][ui_curve].getKnotVector();
-            const unsigned int cui_knot_cnt  = UInt32(rvd_knots.size());
-            const double       cd_min_cparam = rvd_knots[0];
-            const double       cd_max_cparam = rvd_knots[cui_knot_cnt - 1];
+            DCTPdvector &      rvd_knots_     = trimming[ui_loop][ui_curve].getKnotVector();
+            const unsigned int cui_knot_cnt_  = UInt32(rvd_knots_.size());
+            const double       cd_min_cparam = rvd_knots_[0];
+            const double       cd_max_cparam = rvd_knots_[cui_knot_cnt_ - 1];
 
 /*            std::cerr.precision( 15 );
             std::cerr<<"--------------------------------------------"<<std::endl;
             std::cerr <<"Before: ";*/
-            for(ui_swap = 0; ui_swap < cui_knot_cnt; ++ui_swap)
+            for(ui_swap = 0; ui_swap < cui_knot_cnt_; ++ui_swap)
             {
-//                std::cerr << rvd_knots[ ui_swap ] << " ";
-                rvd_knots[ui_swap] = cd_min_cparam + cd_max_cparam - rvd_knots[ui_swap];
+//                std::cerr << rvd_knots_[ ui_swap ] << " ";
+                rvd_knots_[ui_swap] = cd_min_cparam + cd_max_cparam - rvd_knots_[ui_swap];
             }
 
 /*
             std::cerr <<std::endl<<"After1: ";
-            for( ui_swap = 0; ui_swap < cui_knot_cnt; ++ui_swap )
+            for( ui_swap = 0; ui_swap < cui_knot_cnt_; ++ui_swap )
             {
-                std::cerr << rvd_knots[ ui_swap ] << " ";
+                std::cerr << rvd_knots_[ ui_swap ] << " ";
             }
 */
-            for(ui_swap = 0; ui_swap < (cui_knot_cnt >> 1); ++ui_swap)
+            for(ui_swap = 0; ui_swap < (cui_knot_cnt_ >> 1); ++ui_swap)
             {
-                d_swap                                = rvd_knots[ui_swap];
-                rvd_knots[ui_swap]                    = rvd_knots[cui_knot_cnt - 1 - ui_swap];
-                rvd_knots[cui_knot_cnt - 1 - ui_swap] = d_swap;
+                d_swap                                = rvd_knots_[ui_swap];
+                rvd_knots_[ui_swap]                    = rvd_knots_[cui_knot_cnt_ - 1 - ui_swap];
+                rvd_knots_[cui_knot_cnt_ - 1 - ui_swap] = d_swap;
             }
 
 /*
             std::cerr <<std::endl<<"After2: ";
-            for( ui_swap = 0; ui_swap < cui_knot_cnt; ++ui_swap )
+            for( ui_swap = 0; ui_swap < cui_knot_cnt_; ++ui_swap )
             {
-                std::cerr << rvd_knots[ ui_swap ] << " ";
+                std::cerr << rvd_knots_[ ui_swap ] << " ";
             }
             std::cerr << std::endl;
             std::cerr.precision( 6 );
 */
             // swap and mirror the control points
             DCTPVec3dvector &  rvcl_control_points = trimming[ui_loop][ui_curve].getControlPointVector();
-            const unsigned int cui_cp_cnt          = UInt32(rvcl_control_points.size());
+            const unsigned int cui_cp_cnt_         = UInt32(rvcl_control_points.size());
             Vec3d              cl_swap;
 
-            for(ui_swap = 0; ui_swap < cui_cp_cnt; ++ui_swap)
+            for(ui_swap = 0; ui_swap < cui_cp_cnt_; ++ui_swap)
             {
                 rvcl_control_points[ui_swap][0] =
                     (cd_min_param + cd_max_param) * rvcl_control_points[ui_swap][2]
                     - rvcl_control_points[ui_swap][0];
             }
 
-            for(ui_swap = 0; ui_swap < (cui_cp_cnt >> 1); ++ui_swap)
+            for(ui_swap = 0; ui_swap < (cui_cp_cnt_ >> 1); ++ui_swap)
             {
                 cl_swap                                       = rvcl_control_points[ui_swap];
-                rvcl_control_points[ui_swap]                  = rvcl_control_points[cui_cp_cnt - 1 - ui_swap];
-                rvcl_control_points[cui_cp_cnt - 1 - ui_swap] = cl_swap;
+                rvcl_control_points[ui_swap]                  = rvcl_control_points[cui_cp_cnt_ - 1 - ui_swap];
+                rvcl_control_points[cui_cp_cnt_ - 1 - ui_swap] = cl_swap;
             }
         }
 

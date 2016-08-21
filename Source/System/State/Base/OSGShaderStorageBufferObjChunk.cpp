@@ -539,7 +539,7 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
 
     std::vector<GLubyte> buffer;
 
-    GLint index = osgGlGetProgramResourceIndex(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, _sfBlockName.getValue().c_str());
+    GLuint index = osgGlGetProgramResourceIndex(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, _sfBlockName.getValue().c_str());
     if (index == GL_INVALID_INDEX) {
         SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid block index" << std::endl;
         return buffer;

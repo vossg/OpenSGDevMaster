@@ -101,7 +101,7 @@ struct SourceManager
     struct jpeg_source_mgr pub;
     std::istream *is;
     char *buffer;
-    SourceManager(j_decompress_ptr cinfo, std::istream &is);
+    SourceManager(j_decompress_ptr cinfo, std::istream &iStream);
 };
 
 static void istream_init_source(j_decompress_ptr cinfo)
@@ -153,7 +153,7 @@ static void istream_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
 
 static void istream_term_source(j_decompress_ptr cinfo) {} // no action necessary
 
-SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &is):
+SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &iStream):
     pub   (    ),
     is    (NULL),
     buffer(NULL)
@@ -165,7 +165,7 @@ SourceManager::SourceManager(j_decompress_ptr cinfo, std::istream &is):
     pub.term_source = istream_term_source;
     pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
     pub.next_input_byte = 0; /* until buffer loaded */
-    this->is = &is;
+    this->is = &iStream;
     buffer = static_cast<char*>((*cinfo->mem->alloc_small)(j_common_ptr(cinfo), 
                                                            JPOOL_IMAGE, 
                                                            BUFFERSIZE));
@@ -176,7 +176,7 @@ struct DestinationManager
     struct jpeg_destination_mgr pub;
     std::ostream *os;
     char *buffer;
-    DestinationManager(j_compress_ptr cinfo, std::ostream &os);
+    DestinationManager(j_compress_ptr cinfo, std::ostream &oStream);
 };
 
 static void ostream_init_destination(j_compress_ptr cinfo)
@@ -222,7 +222,8 @@ static void ostream_term_destination(j_compress_ptr cinfo)
     }
 }
 
-DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os):
+DestinationManager::DestinationManager(j_compress_ptr cinfo, 
+                                       std::ostream &oStream):
     pub   (    ),
     os    (NULL),
     buffer(NULL)
@@ -230,7 +231,7 @@ DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os):
     pub.init_destination = ostream_init_destination;
     pub.empty_output_buffer = ostream_empty_output_buffer;
     pub.term_destination = ostream_term_destination;
-    this->os = &os;
+    this->os = &oStream;
     buffer = static_cast<char *>(
         (*cinfo->mem->alloc_small)(j_common_ptr(cinfo), 
                                    JPOOL_IMAGE, 

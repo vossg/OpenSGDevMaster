@@ -139,8 +139,8 @@ class MField : public Field
     /*! \{                                                                 */
 
              MField(void);
-             MField(const MField  &obj);
-    explicit MField(const UInt32   size);
+             MField(const MField  &obj     );
+    explicit MField(const UInt32   initSize);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

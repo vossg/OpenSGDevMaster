@@ -918,15 +918,15 @@ void Geometry::drawPrimitives(DrawEnv *pEnv, UInt32 uiNumInstances)
                 }
                 else // fallback 
                 {
-                    GeoPumpGroup::GeoPump pump = 
+                    GeoPumpGroup::GeoPump pumpFallback = 
                         GeoPumpGroup::findGeoPump(pEnv, 
                                                   prop);
-                    if(pump != NULL)
+                    if(pumpFallback != NULL)
                     {
-                        pump(pEnv,
-                             getLengths(),      getTypes(),
-                             getMFProperties(), getMFPropIndices(),
-                             uiNumInstances                       );
+                        pumpFallback(pEnv,
+                                     getLengths(),      getTypes(),
+                                     getMFProperties(), getMFPropIndices(),
+                                     uiNumInstances                       );
                     }
                 }
             }
@@ -1093,22 +1093,21 @@ Action::ResultE Geometry::intersectEnter(Action * action)
     {
         Real32 range_sq  = ia->getTestLineWidth();
         range_sq         = range_sq * range_sq;
-        LineIterator it  = this->beginLines();
-        LineIterator end = this->endLines  ();
+        LineIterator lIt  = this->beginLines();
+        LineIterator lEnd = this->endLines  ();
         Pnt3f  pt1, pt2;
-        OSG::Vec3f  norm;
 
         // Find closest points and if they are within the range, then add a hit
-        for(; it != end; ++it)
+        for(; lIt != lEnd; ++lIt)
         {
-            Line cur_line(it.getPosition(0), it.getPosition(1));
+            Line cur_line(lIt.getPosition(0), lIt.getPosition(1));
             ia_line.getClosestPoints(cur_line, pt1, pt2);
             Real32 dist_sq( pt1.dist2(pt2) );
 
             if (dist_sq <= range_sq)
             {
                 t = ia_line.getPosition().dist(pt1);
-                ia->setHit(t, ia->getActNode(), -1, norm, it.getIndex());
+                ia->setHit(t, ia->getActNode(), -1, norm, lIt.getIndex());
             }
         }
     }
@@ -1289,12 +1288,12 @@ Geometry::IndexBag Geometry::getUniqueIndexBag(void) const
 
         if(bFoundProp == false && _mfPropIndices[j] != NULL)
         {
-            IndexBagEntry oEntry;
+            IndexBagEntry oEntryProp;
 
-            oEntry.first = _mfPropIndices[j];
-            oEntry.second.push_back(j);
+            oEntryProp.first = _mfPropIndices[j];
+            oEntryProp.second.push_back(j);
             
-            returnValue.push_back(oEntry);
+            returnValue.push_back(oEntryProp);
         }
     }
 

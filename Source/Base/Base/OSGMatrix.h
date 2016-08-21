@@ -464,17 +464,17 @@ class TransformationMatrix
     ValueType norm1_3x3   (void) const;
     ValueType normInf_3x3 (void) const;
     
-    void adjointT_3x3     (TransformationMatrix       &result) const;
+    void adjointT_3x3     (TransformationMatrix       &result    ) const;
     void polarDecompose   (TransformationMatrix       &Q,
                            TransformationMatrix       &S,
-                           ValueType                  &det   ) const;
+                           ValueType                  &determinat) const;
     void spectralDecompose(TransformationMatrix       &SO,
-                           VectorType3f               &k     ) const;
+                           VectorType3f               &k         ) const;
     void decompose        (VectorType3f               &t,
                            ValueType                  &f,
                            QuaternionType             &r,
                            QuaternionType             &so,
-                           VectorType3f               &s     ) const;
+                           VectorType3f               &s         ) const;
                           
 #ifdef __sgi
 #pragma set woff 1424

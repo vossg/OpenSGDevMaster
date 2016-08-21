@@ -86,9 +86,9 @@ bool StatCollector::isValidID(Int32 elemId) const
 */
 
 inline
-StatElem *StatCollector::getElem(Int32 elemId, bool create)
+StatElem *StatCollector::getElem(Int32 elemId, bool doCreate)
 {
-    if(create == true)
+    if(doCreate == true)
     {
         // This only happens when dynamically adding StatElems
         // but it's really nasty if it happens.
@@ -136,9 +136,9 @@ inline StatElem *StatCollector::getElem(Int32 elemId) const
  */
 
 inline
-StatElem *StatCollector::getElem(StatElemDescBase &desc, bool create)
+StatElem *StatCollector::getElem(StatElemDescBase &desc, bool doCreate)
 {
-    return getElem(desc.getID(), create);
+    return getElem(desc.getID(), doCreate);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -156,9 +156,9 @@ StatElem *StatCollector::getElem(StatElemDescBase &desc, bool create)
  */
 
 template<class T> inline
-T *StatCollector::getElem(StatElemDesc<T> &desc, bool create)
+T *StatCollector::getElem(StatElemDesc<T> &desc, bool doCreate)
 {
-    return reinterpret_cast<T*>(getElem(desc.getID(), create));
+    return reinterpret_cast<T*>(getElem(desc.getID(), doCreate));
 }
 
 OSG_END_NAMESPACE

@@ -206,7 +206,7 @@ class OSG_BASE_DLLMAPPING Real16
     // Access to the internal representation
     //--------------------------------------
 
-    unsigned short    bits () const;
+    unsigned short    getBits () const;
     void        setBits (unsigned short bits);
 
 
@@ -751,7 +751,7 @@ Real16::sNan ()
 
 
 inline unsigned short
-Real16::bits () const
+Real16::getBits () const
 {
     return _h;
 }

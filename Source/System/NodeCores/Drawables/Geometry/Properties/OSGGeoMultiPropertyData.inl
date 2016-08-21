@@ -65,9 +65,9 @@ UInt8 *GeoMultiPropertyData::editData(void)
 }
 
 inline 
-void GeoMultiPropertyData::resize(SizeT size)
+void GeoMultiPropertyData::resize(SizeT newSize)
 {
-    editMFIData()->resize(size);
+    editMFIData()->resize(newSize);
 }
 
 inline 

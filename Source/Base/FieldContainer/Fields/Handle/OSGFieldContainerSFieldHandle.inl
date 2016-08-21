@@ -614,11 +614,11 @@ void EditFCPtrSFieldHandle<FieldT>::cloneValues(
 
     if(pSrcBase != NULL && pSrcBase->isValid() == true)
     {
-        StoredPtrType pSrc = dynamic_cast<StoredPtrType>(pSrcBase->get());
+        StoredPtrType pSrcTyped = dynamic_cast<StoredPtrType>(pSrcBase->get());
 
-        if(pSrc != NULL)
+        if(pSrcTyped != NULL)
         {
-            FieldContainerUnrecPtr pDst = deepClone(pSrc,
+            FieldContainerUnrecPtr pDst = deepClone(pSrcTyped,
                                                     shareTypes,
                                                     ignoreTypes,
                                                     shareGroupIds,

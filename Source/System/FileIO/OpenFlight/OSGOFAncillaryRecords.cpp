@@ -70,10 +70,10 @@ bool OFColorPaletteRecord::read(std::istream &is)
     Char8 reserved1[128];
     Inherited::readChar8(is, reserved1, 128);
 
-    bool   hasNames  = _sLength > 4228;
+    bool   bHasNames = _sLength > 4228;
     UInt32 numColors = 1024;
 
-    if(hasNames == false)
+    if(bHasNames == false)
     {
         // number of colors derived from record size
         UInt32 numColors2 = (_sLength - 132) / 4;
@@ -97,7 +97,7 @@ bool OFColorPaletteRecord::read(std::istream &is)
                                  blue / 255.f, alpha / 255.f ));
     }
 
-    if(hasNames == true)
+    if(bHasNames == true)
     {
         colorNames.resize(numColors);
 

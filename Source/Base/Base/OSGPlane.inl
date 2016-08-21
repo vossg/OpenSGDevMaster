@@ -100,10 +100,10 @@ bool Plane::isOutHalfSpace(const Pnt3f  &min, const Pnt3f &max) const
     The normal needs to be normalized!
  */
 inline
-void Plane::set(const Vec3f &normal, Real32 distance)
+void Plane::set(const Vec3f &normal, Real32 dist)
 {
     _normalVec = normal;
-    _distance = distance;   
+    _distance  = dist;   
 
     updateDirectionIndex();
 }
@@ -117,11 +117,11 @@ inline
 void Plane::set(Real32 x, 
                 Real32 y, 
                 Real32 z, 
-                Real32 distance)
+                Real32 dist)
 {
     _normalVec.setValues(x, y, z);
 
-    _distance = distance;    
+    _distance = dist;    
 
     updateDirectionIndex();
 }

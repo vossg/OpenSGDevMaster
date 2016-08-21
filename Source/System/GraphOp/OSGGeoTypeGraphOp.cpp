@@ -167,8 +167,8 @@ void GeoTypeGraphOp::processIndices(Geometry *geo)
                 
                 for(UInt32 j = 0; j < srcF->size(); ++j)
                 {
-                    UInt32 i = (*srcF)[j];
-                    dstF->push_back(i);
+                    UInt32 k = (*srcF)[j];
+                    dstF->push_back(k);
                 }
                 
                 // set index for all properties that use it

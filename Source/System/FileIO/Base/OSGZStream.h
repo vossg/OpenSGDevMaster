@@ -265,7 +265,7 @@ class basic_zip_ostream :
     typedef std::basic_ostream<charT, traits>& ostream_reference;
 
     explicit basic_zip_ostream(ostream_reference ostream,
-                               bool is_gzip = false,
+                               bool isGzip = false,
                                int level = Z_DEFAULT_COMPRESSION,
                                EStrategy strategy = DefaultStrategy,
                                int window_size = -15 /*windowBits is passed < 0 to suppress zlib header */,

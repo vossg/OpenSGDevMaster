@@ -293,7 +293,6 @@ void TextureBackground::clear(DrawEnv  *pEnv)
             // could not cover th whole window
 	        glClearColor(.5f, 0.5f, 0.5f, 1.0f);
 	        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	        std::vector<UInt32>::iterator i;
 	        UInt32 yMax=getVert()+1;
 	        for(UInt32 y=0;y<yMax;y++)
 	        {

@@ -239,7 +239,7 @@ void OSBChunkBlockElement::write(void)
                          "MFUnrecStateChunkPtr", 
                          _mfSlots.size() * sizeof(UInt32));
 
-        BinaryWriteHandler *wh = editRoot()->getWriteHandler();
+        wh = editRoot()->getWriteHandler();
         
         _mfSlots.copyToBin(*wh);
     }

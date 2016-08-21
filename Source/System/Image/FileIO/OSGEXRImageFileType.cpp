@@ -181,8 +181,8 @@ class StdOStream : public Imf::OStream
 
 //-------------------------------------------------------------------------
 
-StdIStream::StdIStream(std::istream &is, const char fileName[]) :
-    Imf::IStream(fileName), _is(&is) 
+StdIStream::StdIStream(std::istream &is, const char aFileName[]) :
+    Imf::IStream(aFileName), _is(&is) 
 {
 }
 
@@ -231,8 +231,8 @@ bool StdIStream::checkError()
 }
 
 //-------------------------------------------------------------------------
-StdOStream::StdOStream(std::ostream &os, const char fileName[]) :
-    Imf::OStream(fileName), _os(&os) { }
+StdOStream::StdOStream(std::ostream &os, const char aFileName[]) :
+    Imf::OStream(aFileName), _os(&os) { }
 
 StdOStream::~StdOStream() { }
 

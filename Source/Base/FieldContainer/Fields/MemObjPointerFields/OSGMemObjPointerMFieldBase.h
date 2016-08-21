@@ -210,7 +210,7 @@ class OSG_BASE_DLLMAPPING MemObjPointerMFieldBase : public Field
     /*! \name                  Assignment                                  */
     /*! \{                                                                 */
 
-    void reserve(size_type size);
+    void reserve(size_type newSize);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

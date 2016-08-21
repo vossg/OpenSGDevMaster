@@ -239,11 +239,11 @@ Color3<ValueTypeT>::Color3(const
 
 
 template <class ValueTypeT> inline
-Color3<ValueTypeT>::Color3(const ValueType red,
-                           const ValueType green,
-                           const ValueType blue)
+Color3<ValueTypeT>::Color3(const ValueType redVal,
+                           const ValueType greenVal,
+                           const ValueType blueVal )
 {
-    this->setValues(red, green, blue);
+    this->setValues(redVal, greenVal, blueVal);
 }
 
 
@@ -262,11 +262,11 @@ void Color3<ValueTypeT>::clear(void)
 
 
 template <class ValueTypeT> inline
-void Color3<ValueTypeT>::setValuesRGB(const ValueType red,
-                                      const ValueType green,
-                                      const ValueType blue)
+void Color3<ValueTypeT>::setValuesRGB(const ValueType redVal,
+                                      const ValueType greenVal,
+                                      const ValueType blueVal )
 {
-    this->setValues(red, green, blue);
+    this->setValues(redVal, greenVal, blueVal);
 }
 
 
@@ -334,13 +334,13 @@ UInt32 Color3<ValueTypeT>::getRGB(void) const
 
 
 template <class ValueTypeT> inline
-void Color3<ValueTypeT>::getValuesRGB(ValueType &red,
-                                      ValueType &green,
-                                      ValueType &blue) const
+void Color3<ValueTypeT>::getValuesRGB(ValueType &redVal,
+                                      ValueType &greenVal,
+                                      ValueType &blueVal ) const
 {
-    red   = (*this)[0];
-    green = (*this)[1];
-    blue  = (*this)[2];
+    redVal   = (*this)[0];
+    greenVal = (*this)[1];
+    blueVal  = (*this)[2];
 }
 
 
@@ -415,12 +415,12 @@ Color4<ValueTypeT>::Color4(const
 
 
 template <class ValueTypeT> inline
-Color4<ValueTypeT>::Color4(const ValueType red,
-                           const ValueType green,
-                           const ValueType blue,
-                           const ValueType alpha)
+Color4<ValueTypeT>::Color4(const ValueType redVal,
+                           const ValueType greenVal,
+                           const ValueType blueVal,
+                           const ValueType alphaVal)
 {
-    this->setValues(red, green, blue, alpha);
+    this->setValues(redVal, greenVal, blueVal, alphaVal);
 }
 
 
@@ -440,12 +440,12 @@ void Color4<ValueTypeT>::clear(void)
 
 
 template <class ValueTypeT> inline
-void Color4<ValueTypeT>::setValuesRGBA(const ValueType red,
-                                       const ValueType green,
-                                       const ValueType blue,
-                                       const ValueType alpha)
+void Color4<ValueTypeT>::setValuesRGBA(const ValueType redVal,
+                                       const ValueType greenVal,
+                                       const ValueType blueVal,
+                                       const ValueType alphaVal)
 {
-    this->setValues(red, green, blue, alpha);
+    this->setValues(redVal, greenVal, blueVal, alphaVal);
 }
 
 template <class ValueTypeT> inline
@@ -516,15 +516,15 @@ UInt32 Color4<ValueTypeT>::getRGBA(void) const
 
 
 template <class ValueTypeT> inline
-void Color4<ValueTypeT>::getValuesRGBA(ValueType &red,
-                                       ValueType &green,
-                                       ValueType &blue,
-                                       ValueType &alpha) const
+void Color4<ValueTypeT>::getValuesRGBA(ValueType &redVal,
+                                       ValueType &greenVal,
+                                       ValueType &blueVal,
+                                       ValueType &alphaVal) const
 {
-    red   = (*this)[0];
-    green = (*this)[1];
-    blue  = (*this)[2];
-    alpha = (*this)[3];
+    redVal   = (*this)[0];
+    greenVal = (*this)[1];
+    blueVal  = (*this)[2];
+    alphaVal = (*this)[3];
 }
 
 

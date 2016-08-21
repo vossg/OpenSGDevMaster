@@ -673,14 +673,14 @@ Real32 setVecLen(Vec3f &vec, Real32 length)
 
 Real32 calcTexS(Vec3f &n, Real32 theta)
 {
-    const Real32 TwoPi  = 6.283185307179586f;
-    const Real32 HalfPi = 1.570796326794897f;
+    const Real32 TwoPiConst = 6.283185307179586f;
+    const Real32 HalfPi     = 1.570796326794897f;
 
     Real32 phi = osgATan2(-n[2], n[0]) - HalfPi;
 
     if (phi <= -TypeTraits<Real32>::getDefaultEps())
-        phi += TwoPi;
-    phi /= TwoPi;
+        phi += TwoPiConst;
+    phi /= TwoPiConst;
 
     return phi;
 }

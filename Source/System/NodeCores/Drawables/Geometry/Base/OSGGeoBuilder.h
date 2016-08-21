@@ -98,11 +98,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     }
 
     template <class Type>
-    UInt32 prop(UInt16 index, Type data)
+    UInt32 prop(UInt16 propIndex, Type data)
     {
-        getProperty(index)->addValue(data);
+        getProperty(propIndex)->addValue(data);
 
-        if(index == 0)
+        if(propIndex == 0)
             return finishVertex();
         else
             return 0;
@@ -139,7 +139,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
 
     void begin(UInt32 type);
 
-    void index(UInt32 index);
+    void index(UInt32 newIndex);
 
     void end(void);
 

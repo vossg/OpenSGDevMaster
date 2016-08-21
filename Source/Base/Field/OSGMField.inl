@@ -62,14 +62,14 @@ MField<ValueT, iNamespace, AllocT>::MField(const MField &obj) :
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-MField<ValueT, iNamespace, AllocT>::MField(const UInt32 size) :
-     Inherited   ( ),
-    _values      ( )
+MField<ValueT, iNamespace, AllocT>::MField(const UInt32 initSize) :
+     Inherited    ( ),
+    _values       ( )
 #ifdef OSG_MT_CPTR_ASPECT
     ,_uiSharedWith(0)
 #endif
 {
-    _values.resize(size);
+    _values.resize(initSize);
 }
 
 /*-------------------------------------------------------------------------*/

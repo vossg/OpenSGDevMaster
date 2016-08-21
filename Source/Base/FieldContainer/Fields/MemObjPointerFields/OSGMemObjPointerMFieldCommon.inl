@@ -89,11 +89,11 @@ MemObjPointerMFieldCommon<AccessHandlerT,
 template <class AccessHandlerT, Int32 NamespaceI> inline
 MemObjPointerMFieldCommon<AccessHandlerT,
                           NamespaceI    >::MemObjPointerMFieldCommon(
-                              const UInt32 size) :
+                              const UInt32 initSize) :
 
     Inherited()
 {
-    Self::ptrStoreResize(size, NULL);
+    Self::ptrStoreResize(initSize, NULL);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -203,7 +203,7 @@ typename MemObjPointerMFieldCommon<AccessHandlerT,
      MemObjPointerMFieldCommon<AccessHandlerT,
                                NamespaceI     >::ptrStoreInsert(
                                    PtrStoreItType pos, 
-                                   const_value     pNewObj)
+                                   const_value    pNewObj)
 {
     AccessHandler::onAdd(this, pNewObj);
 
@@ -293,13 +293,13 @@ typename MemObjPointerMFieldCommon<AccessHandlerT,
                                    NamespaceI    >::PtrStoreItType
     MemObjPointerMFieldCommon<AccessHandlerT,
                               NamespaceI    >::ptrStoreErase(
-                                  PtrStoreItType begin, 
-                                  PtrStoreItType end  )
+                                  PtrStoreItType beginIt, 
+                                  PtrStoreItType endIt  )
 {
-    for(PtrStoreConstItType sI = begin; sI != end; ++sI)
+    for(PtrStoreConstItType sI = beginIt; sI != endIt; ++sI)
         AccessHandler::onSub(this, *sI);
 
-    return _ptrStore.erase(begin, end);
+    return _ptrStore.erase(beginIt, endIt);
 }
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 

@@ -3018,9 +3018,9 @@ void ParSpaceTrimmer::ScanLineIntersect(SScanLineEntry *ptEntry1, SScanLineEntry
             const double cd_ppx = ad_s1[0] - ad_s2[0];
             const double cd_ppy = ad_s1[1] - ad_s2[1];
             const double cd_a   = cd_ppx * cd_v1y - cd_ppy * cd_v1x;
-            const double cd_b   = cd_v2x * cd_v1y - cd_v2y * cd_v1x;
-            double       d_q    = cd_a / cd_b;
-//			std::cerr << cd_a << " / " << cd_b << " = " << d_q;
+            const double cd_b_  = cd_v2x * cd_v1y - cd_v2y * cd_v1x;
+            double       d_q    = cd_a / cd_b_;
+//			std::cerr << cd_a << " / " << cd_b_ << " = " << d_q;
 //			std::cerr << cd_r1 << " " << cd_r2 << " " << cd_r3 << " " << cd_r4 << std::endl;
 
             if(d_q < DCTP_EPS)

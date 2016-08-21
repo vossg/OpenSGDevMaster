@@ -554,12 +554,12 @@ FieldContainer *findNamedComponentImpl(      ContainerVisitRecord &oVisited,
         {
             SizeT mfSize = (*mfFCPtr)->size();
             
-            for(SizeT i = 0; i < mfSize; i++)
+            for(SizeT j = 0; j < mfSize; j++)
             {
-                if((**mfFCPtr)[i] != NULL)
+                if((**mfFCPtr)[j] != NULL)
                 {
                     FieldContainer *rc = findNamedComponentImpl(oVisited,
-                                                                (**mfFCPtr)[i],
+                                                                (**mfFCPtr)[j],
                                                                 szName);
 
                     if(rc != NULL)

@@ -273,13 +273,13 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
             indexEnd = tIt->second;
             OSG_ASSERT(indexEnd >= indexBegin);
             lensPtr->push_back(indexEnd - indexBegin);
-            UInt32 i;
-            for (i = indexBegin; i < indexEnd; ++i)
+            UInt32 j;
+            for (j = indexBegin; j < indexEnd; ++j)
             {
                 // the interleaved multi-index blocks have the layout
                 // Position | Normal | TexCoord
-                OSG_ASSERT(i < outline.indices.size());
-                UInt32 index = outline.indices[i];
+                OSG_ASSERT(j < outline.indices.size());
+                UInt32 index = outline.indices[j];
                 OSG_ASSERT(coordOffset + index < posPtr->size());
                 posIndicesPtr->push_back(coordOffset + index);
                 normalIndicesPtr->push_back(0);
@@ -315,50 +315,49 @@ void TextVectorFace::fillGeo(Geometry *geoPtr, const TextLayoutResult &layoutRes
             // vertices is uneven, we simply flip the vertices. When the number of
             // vertices is even, we have to add an additional vertex before we flip the
             // vertices.
-            vector<TextVectorGlyph::PolygonOutline::TypeIndex>::const_iterator tIt;
-            UInt32 indexBegin = 0, indexEnd;
+//            UInt32 indexBegin = 0, indexEnd;
             for (tIt = outline.types.begin(); tIt != outline.types.end(); ++tIt)
             {
                 typesPtr->push_back(tIt->first);
                 indexEnd = tIt->second;
                 OSG_ASSERT(indexEnd >= indexBegin);
                 UInt32 len = indexEnd - indexBegin;
-                UInt32 i = indexEnd;
+                UInt32 j = indexEnd;
                 if (tIt->first == GL_TRIANGLE_FAN)
                 {
-                    i = indexBegin;
+                    j = indexBegin;
                     ++indexBegin;
                 }
                 if ((tIt->first == GL_TRIANGLE_STRIP) && ((len & 1) == 0))
                 {
                     OSG_ASSERT((indexEnd >= 2) && (indexEnd - 2 >= indexBegin));
-                    i = indexEnd - 2;
+                    j = indexEnd - 2;
                     ++len;
                 }
-                if (i != indexEnd)
+                if (j != indexEnd)
                 {
                     // the interleaved multi-index blocks have the layout
                     // Position | Normal | TexCoord
-                    OSG_ASSERT(i < outline.indices.size());
-                    UInt32 index = outline.indices[i];
+                    OSG_ASSERT(j < outline.indices.size());
+                    UInt32 index = outline.indices[j];
                     OSG_ASSERT(backCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(backCoordOffset + index);
                     normalIndicesPtr->push_back(1);
                     OSG_ASSERT(texCoordOffset + index < texPtr->size());
                     texCoordIndicesPtr->push_back(texCoordOffset + index);
-                    i = indexEnd;
+                    j = indexEnd;
                 }
                 lensPtr->push_back(len);
                 while (true)
                 {
-                    if (i <= indexBegin)
+                    if (j <= indexBegin)
                         break;
-                    --i;
+                    --j;
 
                     // the interleaved multi-index blocks have the layout
                     // Position | Normal | TexCoord
-                    OSG_ASSERT(i < outline.indices.size());
-                    UInt32 index = outline.indices[i];
+                    OSG_ASSERT(j < outline.indices.size());
+                    UInt32 index = outline.indices[j];
                     OSG_ASSERT(backCoordOffset + index < posPtr->size());
                     posIndicesPtr->push_back(backCoordOffset + index);
                     normalIndicesPtr->push_back(1);

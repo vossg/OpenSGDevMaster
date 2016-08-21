@@ -165,15 +165,15 @@ void Inline::postOSGLoading(FileContextAttachment * const pContext)
             {
                 SceneFileHandler::the()->pushOptions(urlExt);
 
-                for(UInt32 i = 0; i < _mfOptions.size(); ++i)
+                for(UInt32 j = 0; j < _mfOptions.size(); ++j)
                 {
-                    SizeT uiSplit = _mfOptions[i].find('=');
+                    SizeT uiSplit = _mfOptions[j].find('=');
 
                     if(uiSplit != std::string::npos)
                     {
-                        std::string name  = _mfOptions[i].substr(0,
+                        std::string name  = _mfOptions[j].substr(0,
                                                                  uiSplit    );
-                        std::string value = _mfOptions[i].substr(uiSplit + 1);
+                        std::string value = _mfOptions[j].substr(uiSplit + 1);
 
                         SceneFileHandler::the()->setOption(urlExt,
                                                            name,

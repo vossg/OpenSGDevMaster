@@ -104,18 +104,18 @@ namespace Aspect
                 {
                     SizeT mfSize = (*mfFCPtr)->size();
                     
-                    for(SizeT i = 0; i < mfSize; i++)
+                    for(SizeT j = 0; j < mfSize; j++)
                     {
 #if 0
                         fprintf(stderr, 
                                 "initializing mfield[%" PRIUSize
                                 "] %s, cnt: %s\n",
-                                i,
+                                j,
                                 fDesc->getCName(),
-                                (**mfFCPtr)[i]->getType().getCName());
+                                (**mfFCPtr)[j]->getType().getCName());
 #endif
 
-                        initializeContainersFrom((**mfFCPtr)[i]);
+                        initializeContainersFrom((**mfFCPtr)[j]);
                     }
                 }
             }
