@@ -75,12 +75,12 @@
 #endif
 
 #define OSG_GEN_CONTAINERPTR(CLASST)                                          \
-    OSG_GEN_COMPAT_CONTAINERPTR(CLASST)                                       \
     typedef TransitPtr   < CLASST                  > CLASST##TransitPtr;      \
     typedef MTRefCountPtr< CLASST,                                            \
                            NoRefCountPolicy        > CLASST##MTUncountedPtr;  \
     typedef RefCountPtr  < CLASST,                                            \
                            RecordedRefCountPolicy  > CLASST##RecPtr;          \
+    OSG_GEN_COMPAT_CONTAINERPTR(CLASST)                                       \
     typedef RefCountPtr  < CLASST,                                            \
                            UnrecordedRefCountPolicy> CLASST##UnrecPtr;        \
     typedef RefCountPtr  < CLASST,                                            \
