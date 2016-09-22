@@ -131,7 +131,7 @@ class FieldContainer(FCDElement):
         if self.getFCD("docGroupBase") != "":
             self["DocGroupBase"] = self.getFCD("docGroupBase")
         else:
-            self["DocGroupBase"] = "Grp" + self["Libname"]
+            self["DocGroupBase"] = "Grp" + str(self["Libname"])
         
         if self.getFCD("name") != "":
             self["Classname"] = self.getFCD("name");
