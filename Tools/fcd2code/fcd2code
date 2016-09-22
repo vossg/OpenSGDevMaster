@@ -102,10 +102,10 @@ class FCDProcess:
                 rootPath = os.environ["OSG_ROOT"];
             else:
                 rootPath = os.getcwd();
-                rootPath = rootPath.replace("/Tools/fcd2code", "");
+                rootPath = rootPath.replace(os.path.sep + "Tools" + os.path.sep + "fcd2code", "");
         
         if rootPath != "":
-            tmplPath = os.path.join(rootPath, "Tools/fcd2code");
+            tmplPath = os.path.join(rootPath, "Tools" + os.path.sep + "fcd2code");
             self.m_log.info("Setting tmplPath \"%s\"", tmplPath);
 
         if OptionHandler.getOptionActive("templatePath"):
