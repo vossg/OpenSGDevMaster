@@ -280,8 +280,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@else // isAbstract
     reinterpret_cast<PrototypeCreateF>(&@!Classname!@Base::createEmptyLocal),
 @@endif // isAbstract
-    @!Classname!@::initMethod,
-    @!Classname!@::exitMethod,
+    reinterpret_cast<InitContainerF>(&@!Classname!@::initMethod),
+    reinterpret_cast<ExitContainerF>(&@!Classname!@::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@::classDescInserter),
     @!TypeDescAddable!@,
     @!FieldsUnmarkedOnCreate!@,
