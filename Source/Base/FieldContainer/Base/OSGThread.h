@@ -422,10 +422,10 @@ class WinThreadBase : public ThreadCommonBase
     /*! \{                                                                 */
 
 #if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
-    static UInt32 _aspectKey;
-    static UInt32 _changeListKey;
-    static UInt32 _namespaceMaskKey;
-    static UInt32 _localFlagsKey;
+    OSG_BASE_DLLMAPPING static UInt32 _aspectKey;
+    OSG_BASE_DLLMAPPING static UInt32 _changeListKey;
+    OSG_BASE_DLLMAPPING static UInt32 _namespaceMaskKey;
+    OSG_BASE_DLLMAPPING static UInt32 _localFlagsKey;
 #else
     static __declspec (thread) UInt32      _uiAspectLocal;
     static __declspec (thread) ChangeList *_pChangeListLocal;
