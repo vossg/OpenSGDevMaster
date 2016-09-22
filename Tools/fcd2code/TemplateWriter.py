@@ -33,7 +33,7 @@ class TemplateWriter:
         fileObj = open(self.m_fileName, openMode);
         
         self.m_log.debug("write: writing template.");
-        fileObj.writelines(self.m_filledTemplate);
+        fileObj.writelines(map(lambda (x): x.encode("UTF-8"), self.m_filledTemplate));
         
         self.m_log.debug("write: closing file.");
         fileObj.close();
