@@ -43,13 +43,13 @@
 #include <map>
 #include <sstream>
 
-#include <OSGConfig.h>
-#include <OSGContribWebInterfaceDef.h>
+#include <OpenSG/OSGConfig.h>
+#include <OpenSG/OSGContribWebInterfaceDef.h>
 
-#include <OSGStreamSocket.h>
-#include <OSGBaseTypes.h>
-#include <OSGMemoryObject.h>
-#include <OSGNode.h>
+#include <OpenSG/OSGStreamSocket.h>
+#include <OpenSG/OSGBaseTypes.h>
+#include <OpenSG/OSGMemoryObject.h>
+#include <OpenSG/OSGNode.h>
 
 OSG_BEGIN_NAMESPACE
 
