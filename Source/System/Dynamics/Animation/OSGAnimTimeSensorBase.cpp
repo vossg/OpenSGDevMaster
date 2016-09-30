@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGAnimTimeSensor.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -299,8 +300,8 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimTimeSensorBase::createEmptyLocal),
-    AnimTimeSensor::initMethod,
-    AnimTimeSensor::exitMethod,
+    reinterpret_cast<InitContainerF>(&AnimTimeSensor::initMethod),
+    reinterpret_cast<ExitContainerF>(&AnimTimeSensor::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AnimTimeSensor::classDescInserter),
     false,
     0,

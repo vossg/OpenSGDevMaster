@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGVRMLPositionInterpolator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -145,8 +146,8 @@ VRMLPositionInterpolatorBase::TypeObject VRMLPositionInterpolatorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLPositionInterpolatorBase::createEmptyLocal),
-    VRMLPositionInterpolator::initMethod,
-    VRMLPositionInterpolator::exitMethod,
+    reinterpret_cast<InitContainerF>(&VRMLPositionInterpolator::initMethod),
+    reinterpret_cast<ExitContainerF>(&VRMLPositionInterpolator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VRMLPositionInterpolator::classDescInserter),
     false,
     0,

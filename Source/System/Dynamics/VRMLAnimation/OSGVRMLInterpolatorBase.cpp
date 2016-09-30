@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGVRMLInterpolator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -161,8 +162,8 @@ VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLInterpolatorBase::createEmptyLocal),
-    VRMLInterpolator::initMethod,
-    VRMLInterpolator::exitMethod,
+    reinterpret_cast<InitContainerF>(&VRMLInterpolator::initMethod),
+    reinterpret_cast<ExitContainerF>(&VRMLInterpolator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VRMLInterpolator::classDescInserter),
     false,
     ResortIndexFieldMask,

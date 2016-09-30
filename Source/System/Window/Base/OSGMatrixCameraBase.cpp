@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGMatrixCamera.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -173,8 +174,8 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraBase::createEmptyLocal),
-    MatrixCamera::initMethod,
-    MatrixCamera::exitMethod,
+    reinterpret_cast<InitContainerF>(&MatrixCamera::initMethod),
+    reinterpret_cast<ExitContainerF>(&MatrixCamera::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&MatrixCamera::classDescInserter),
     false,
     0,

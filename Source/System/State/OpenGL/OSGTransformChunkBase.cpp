@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGTransformChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -139,8 +140,8 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TransformChunkBase::createEmptyLocal),
-    TransformChunk::initMethod,
-    TransformChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&TransformChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&TransformChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TransformChunk::classDescInserter),
     false,
     0,

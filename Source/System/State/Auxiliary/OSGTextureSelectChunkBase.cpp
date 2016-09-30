@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGTextureSelectChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -157,8 +158,8 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureSelectChunkBase::createEmptyLocal),
-    TextureSelectChunk::initMethod,
-    TextureSelectChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&TextureSelectChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&TextureSelectChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TextureSelectChunk::classDescInserter),
     false,
     0,

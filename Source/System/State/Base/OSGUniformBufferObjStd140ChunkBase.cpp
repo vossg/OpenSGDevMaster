@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGUniformBufferObjStd140Chunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -183,8 +184,8 @@ UniformBufferObjStd140ChunkBase::TypeObject UniformBufferObjStd140ChunkBase::_ty
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&UniformBufferObjStd140ChunkBase::createEmptyLocal),
-    UniformBufferObjStd140Chunk::initMethod,
-    UniformBufferObjStd140Chunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&UniformBufferObjStd140Chunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&UniformBufferObjStd140Chunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&UniformBufferObjStd140Chunk::classDescInserter),
     false,
     0,

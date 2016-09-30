@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGAnimTargetAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -154,8 +155,8 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     "AnimTargetAttachment",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimTargetAttachmentBase::createEmptyLocal),
-    AnimTargetAttachment::initMethod,
-    AnimTargetAttachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&AnimTargetAttachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&AnimTargetAttachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AnimTargetAttachment::classDescInserter),
     false,
     0,

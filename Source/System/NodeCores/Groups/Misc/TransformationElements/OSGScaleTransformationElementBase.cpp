@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGScaleTransformationElement.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ ScaleTransformationElementBase::TypeObject ScaleTransformationElementBase::_type
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ScaleTransformationElementBase::createEmptyLocal),
-    ScaleTransformationElement::initMethod,
-    ScaleTransformationElement::exitMethod,
+    reinterpret_cast<InitContainerF>(&ScaleTransformationElement::initMethod),
+    reinterpret_cast<ExitContainerF>(&ScaleTransformationElement::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ScaleTransformationElement::classDescInserter),
     false,
     0,

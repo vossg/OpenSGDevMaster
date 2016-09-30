@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGTextureBuffer.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -190,8 +191,8 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     "TextureBuffer",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureBufferBase::createEmptyLocal),
-    TextureBuffer::initMethod,
-    TextureBuffer::exitMethod,
+    reinterpret_cast<InitContainerF>(&TextureBuffer::initMethod),
+    reinterpret_cast<ExitContainerF>(&TextureBuffer::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TextureBuffer::classDescInserter),
     false,
     0,

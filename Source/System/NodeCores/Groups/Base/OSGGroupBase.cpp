@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGGroup.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -121,8 +122,8 @@ GroupBase::TypeObject GroupBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GroupBase::createEmptyLocal),
-    Group::initMethod,
-    Group::exitMethod,
+    reinterpret_cast<InitContainerF>(&Group::initMethod),
+    reinterpret_cast<ExitContainerF>(&Group::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&Group::classDescInserter),
     false,
     0,

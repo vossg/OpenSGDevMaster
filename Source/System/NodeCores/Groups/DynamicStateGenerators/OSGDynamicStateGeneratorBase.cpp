@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGDynamicStateGenerator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -140,8 +141,8 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorBase::createEmptyLocal),
-    DynamicStateGenerator::initMethod,
-    DynamicStateGenerator::exitMethod,
+    reinterpret_cast<InitContainerF>(&DynamicStateGenerator::initMethod),
+    reinterpret_cast<ExitContainerF>(&DynamicStateGenerator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGenerator::classDescInserter),
     false,
     0,

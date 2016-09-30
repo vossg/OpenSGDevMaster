@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGTextureGrabBackground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -184,8 +185,8 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextureGrabBackgroundBase::createEmptyLocal),
-    TextureGrabBackground::initMethod,
-    TextureGrabBackground::exitMethod,
+    reinterpret_cast<InitContainerF>(&TextureGrabBackground::initMethod),
+    reinterpret_cast<ExitContainerF>(&TextureGrabBackground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TextureGrabBackground::classDescInserter),
     false,
     0,

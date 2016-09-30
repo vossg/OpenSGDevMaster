@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGAnimVec3fDataSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -233,8 +234,8 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fDataSourceBase::createEmptyLocal),
-    AnimVec3fDataSource::initMethod,
-    AnimVec3fDataSource::exitMethod,
+    reinterpret_cast<InitContainerF>(&AnimVec3fDataSource::initMethod),
+    reinterpret_cast<ExitContainerF>(&AnimVec3fDataSource::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AnimVec3fDataSource::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGShaderShadowMapEngine.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -214,8 +215,8 @@ ShaderShadowMapEngineBase::TypeObject ShaderShadowMapEngineBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderShadowMapEngineBase::createEmptyLocal),
-    ShaderShadowMapEngine::initMethod,
-    ShaderShadowMapEngine::exitMethod,
+    reinterpret_cast<InitContainerF>(&ShaderShadowMapEngine::initMethod),
+    reinterpret_cast<ExitContainerF>(&ShaderShadowMapEngine::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ShaderShadowMapEngine::classDescInserter),
     false,
     0,

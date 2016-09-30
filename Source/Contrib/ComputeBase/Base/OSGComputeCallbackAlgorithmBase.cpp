@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGComputeCallbackAlgorithm.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ ComputeCallbackAlgorithmBase::TypeObject ComputeCallbackAlgorithmBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComputeCallbackAlgorithmBase::createEmptyLocal),
-    ComputeCallbackAlgorithm::initMethod,
-    ComputeCallbackAlgorithm::exitMethod,
+    reinterpret_cast<InitContainerF>(&ComputeCallbackAlgorithm::initMethod),
+    reinterpret_cast<ExitContainerF>(&ComputeCallbackAlgorithm::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ComputeCallbackAlgorithm::classDescInserter),
     false,
     0,

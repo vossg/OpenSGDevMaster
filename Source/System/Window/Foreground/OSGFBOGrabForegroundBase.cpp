@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGFBOGrabForeground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -155,8 +156,8 @@ FBOGrabForegroundBase::TypeObject FBOGrabForegroundBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FBOGrabForegroundBase::createEmptyLocal),
-    FBOGrabForeground::initMethod,
-    FBOGrabForeground::exitMethod,
+    reinterpret_cast<InitContainerF>(&FBOGrabForeground::initMethod),
+    reinterpret_cast<ExitContainerF>(&FBOGrabForeground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&FBOGrabForeground::classDescInserter),
     false,
     0,

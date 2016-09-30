@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGGPUVolRTV1.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -119,8 +120,8 @@ GPUVolRTV1Base::TypeObject GPUVolRTV1Base::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GPUVolRTV1Base::createEmptyLocal),
-    GPUVolRTV1::initMethod,
-    GPUVolRTV1::exitMethod,
+    reinterpret_cast<InitContainerF>(&GPUVolRTV1::initMethod),
+    reinterpret_cast<ExitContainerF>(&GPUVolRTV1::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&GPUVolRTV1::classDescInserter),
     false,
     0,

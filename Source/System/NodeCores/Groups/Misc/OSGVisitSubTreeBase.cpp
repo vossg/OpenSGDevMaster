@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGVisitSubTree.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -171,8 +172,8 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VisitSubTreeBase::createEmptyLocal),
-    VisitSubTree::initMethod,
-    VisitSubTree::exitMethod,
+    reinterpret_cast<InitContainerF>(&VisitSubTree::initMethod),
+    reinterpret_cast<ExitContainerF>(&VisitSubTree::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VisitSubTree::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGComponentTransform.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -201,8 +202,8 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComponentTransformBase::createEmptyLocal),
-    ComponentTransform::initMethod,
-    ComponentTransform::exitMethod,
+    reinterpret_cast<InitContainerF>(&ComponentTransform::initMethod),
+    reinterpret_cast<ExitContainerF>(&ComponentTransform::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ComponentTransform::classDescInserter),
     false,
     0,

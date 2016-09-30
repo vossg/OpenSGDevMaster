@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGMaterialDrawable.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,8 +139,8 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     "NULL",
     nsOSG, //Namespace
     NULL,
-    MaterialDrawable::initMethod,
-    MaterialDrawable::exitMethod,
+    reinterpret_cast<InitContainerF>(&MaterialDrawable::initMethod),
+    reinterpret_cast<ExitContainerF>(&MaterialDrawable::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&MaterialDrawable::classDescInserter),
     false,
     0,

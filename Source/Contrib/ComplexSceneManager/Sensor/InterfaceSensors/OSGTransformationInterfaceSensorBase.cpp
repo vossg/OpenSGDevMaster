@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGTransformationInterfaceSensor.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -193,8 +194,8 @@ TransformationInterfaceSensorBase::TypeObject TransformationInterfaceSensorBase:
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TransformationInterfaceSensorBase::createEmptyLocal),
-    TransformationInterfaceSensor::initMethod,
-    TransformationInterfaceSensor::exitMethod,
+    reinterpret_cast<InitContainerF>(&TransformationInterfaceSensor::initMethod),
+    reinterpret_cast<ExitContainerF>(&TransformationInterfaceSensor::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TransformationInterfaceSensor::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGColorBufferViewport.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -189,8 +190,8 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ColorBufferViewportBase::createEmptyLocal),
-    ColorBufferViewport::initMethod,
-    ColorBufferViewport::exitMethod,
+    reinterpret_cast<InitContainerF>(&ColorBufferViewport::initMethod),
+    reinterpret_cast<ExitContainerF>(&ColorBufferViewport::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ColorBufferViewport::classDescInserter),
     false,
     0,

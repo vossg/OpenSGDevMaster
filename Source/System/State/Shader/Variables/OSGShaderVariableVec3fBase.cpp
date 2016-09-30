@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGShaderVariableVec3f.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ ShaderVariableVec3fBase::TypeObject ShaderVariableVec3fBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableVec3fBase::createEmptyLocal),
-    ShaderVariableVec3f::initMethod,
-    ShaderVariableVec3f::exitMethod,
+    reinterpret_cast<InitContainerF>(&ShaderVariableVec3f::initMethod),
+    reinterpret_cast<ExitContainerF>(&ShaderVariableVec3f::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableVec3f::classDescInserter),
     false,
     0,

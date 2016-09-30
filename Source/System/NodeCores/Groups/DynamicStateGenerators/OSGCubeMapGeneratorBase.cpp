@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -66,10 +71,6 @@
 #include "OSGCubeMapGenerator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -309,8 +310,8 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorBase::createEmptyLocal),
-    CubeMapGenerator::initMethod,
-    CubeMapGenerator::exitMethod,
+    reinterpret_cast<InitContainerF>(&CubeMapGenerator::initMethod),
+    reinterpret_cast<ExitContainerF>(&CubeMapGenerator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CubeMapGenerator::classDescInserter),
     false,
     0,

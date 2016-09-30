@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGCheckerboardCalibFilter.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -185,8 +186,8 @@ CheckerboardCalibFilterBase::TypeObject CheckerboardCalibFilterBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CheckerboardCalibFilterBase::createEmptyLocal),
-    CheckerboardCalibFilter::initMethod,
-    CheckerboardCalibFilter::exitMethod,
+    reinterpret_cast<InitContainerF>(&CheckerboardCalibFilter::initMethod),
+    reinterpret_cast<ExitContainerF>(&CheckerboardCalibFilter::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CheckerboardCalibFilter::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -65,10 +70,6 @@
 #include "OSGHDRStageData.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -260,8 +261,8 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&HDRStageDataBase::createEmptyLocal),
-    HDRStageData::initMethod,
-    HDRStageData::exitMethod,
+    reinterpret_cast<InitContainerF>(&HDRStageData::initMethod),
+    reinterpret_cast<ExitContainerF>(&HDRStageData::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&HDRStageData::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGSkewTransformationElement.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -169,8 +170,8 @@ SkewTransformationElementBase::TypeObject SkewTransformationElementBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkewTransformationElementBase::createEmptyLocal),
-    SkewTransformationElement::initMethod,
-    SkewTransformationElement::exitMethod,
+    reinterpret_cast<InitContainerF>(&SkewTransformationElement::initMethod),
+    reinterpret_cast<ExitContainerF>(&SkewTransformationElement::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&SkewTransformationElement::classDescInserter),
     false,
     0,

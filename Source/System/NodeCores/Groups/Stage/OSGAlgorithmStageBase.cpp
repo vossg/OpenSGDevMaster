@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGAlgorithmStage.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -178,8 +179,8 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AlgorithmStageBase::createEmptyLocal),
-    AlgorithmStage::initMethod,
-    AlgorithmStage::exitMethod,
+    reinterpret_cast<InitContainerF>(&AlgorithmStage::initMethod),
+    reinterpret_cast<ExitContainerF>(&AlgorithmStage::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AlgorithmStage::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGConnectorAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -119,8 +120,8 @@ ConnectorAttachmentBase::TypeObject ConnectorAttachmentBase::_type(
     "ConnectorAttachment",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ConnectorAttachmentBase::createEmptyLocal),
-    ConnectorAttachment::initMethod,
-    ConnectorAttachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&ConnectorAttachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&ConnectorAttachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ConnectorAttachment::classDescInserter),
     false,
     0,

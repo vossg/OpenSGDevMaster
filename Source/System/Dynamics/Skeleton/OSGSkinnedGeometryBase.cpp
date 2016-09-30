@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -64,10 +69,6 @@
 #include "OSGSkinnedGeometry.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -271,8 +272,8 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SkinnedGeometryBase::createEmptyLocal),
-    SkinnedGeometry::initMethod,
-    SkinnedGeometry::exitMethod,
+    reinterpret_cast<InitContainerF>(&SkinnedGeometry::initMethod),
+    reinterpret_cast<ExitContainerF>(&SkinnedGeometry::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&SkinnedGeometry::classDescInserter),
     false,
     0,

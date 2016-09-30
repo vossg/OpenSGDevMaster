@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGDepthChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -207,8 +208,8 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DepthChunkBase::createEmptyLocal),
-    DepthChunk::initMethod,
-    DepthChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&DepthChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&DepthChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DepthChunk::classDescInserter),
     false,
     0,

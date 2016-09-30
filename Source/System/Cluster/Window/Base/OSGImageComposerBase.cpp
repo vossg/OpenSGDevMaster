@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGImageComposer.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -153,8 +154,8 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(
     "NULL",
     nsOSG, //Namespace
     NULL,
-    ImageComposer::initMethod,
-    ImageComposer::exitMethod,
+    reinterpret_cast<InitContainerF>(&ImageComposer::initMethod),
+    reinterpret_cast<ExitContainerF>(&ImageComposer::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ImageComposer::classDescInserter),
     false,
     0,

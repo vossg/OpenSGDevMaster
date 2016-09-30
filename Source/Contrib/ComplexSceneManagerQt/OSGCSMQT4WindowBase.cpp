@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGCSMQT4Window.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -153,8 +154,8 @@ CSMQT4WindowBase::TypeObject CSMQT4WindowBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMQT4WindowBase::createEmptyLocal),
-    CSMQT4Window::initMethod,
-    CSMQT4Window::exitMethod,
+    reinterpret_cast<InitContainerF>(&CSMQT4Window::initMethod),
+    reinterpret_cast<ExitContainerF>(&CSMQT4Window::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CSMQT4Window::classDescInserter),
     false,
     0,

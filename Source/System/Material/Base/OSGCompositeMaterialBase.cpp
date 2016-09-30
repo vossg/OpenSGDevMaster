@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGCompositeMaterial.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -119,8 +120,8 @@ CompositeMaterialBase::TypeObject CompositeMaterialBase::_type(
     "NULL",
     nsOSG, //Namespace
     NULL,
-    CompositeMaterial::initMethod,
-    CompositeMaterial::exitMethod,
+    reinterpret_cast<InitContainerF>(&CompositeMaterial::initMethod),
+    reinterpret_cast<ExitContainerF>(&CompositeMaterial::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CompositeMaterial::classDescInserter),
     false,
     0,

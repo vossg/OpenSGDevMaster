@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGDrawableStatsAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -261,8 +262,8 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     "DrawableStatsAttachment",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DrawableStatsAttachmentBase::createEmptyLocal),
-    DrawableStatsAttachment::initMethod,
-    DrawableStatsAttachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&DrawableStatsAttachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&DrawableStatsAttachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DrawableStatsAttachment::classDescInserter),
     false,
     0,

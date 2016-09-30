@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGGPUSkinningDataAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -154,8 +155,8 @@ GPUSkinningDataAttachmentBase::TypeObject GPUSkinningDataAttachmentBase::_type(
     "GPUSkinningDataAttachment",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&GPUSkinningDataAttachmentBase::createEmptyLocal),
-    GPUSkinningDataAttachment::initMethod,
-    GPUSkinningDataAttachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&GPUSkinningDataAttachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&GPUSkinningDataAttachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&GPUSkinningDataAttachment::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -68,10 +73,6 @@
 #include "OSGDisplayFilterStage.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -303,8 +304,8 @@ DisplayFilterStageBase::TypeObject DisplayFilterStageBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterStageBase::createEmptyLocal),
-    DisplayFilterStage::initMethod,
-    DisplayFilterStage::exitMethod,
+    reinterpret_cast<InitContainerF>(&DisplayFilterStage::initMethod),
+    reinterpret_cast<ExitContainerF>(&DisplayFilterStage::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStage::classDescInserter),
     false,
     0,

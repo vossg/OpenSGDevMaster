@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGLinuxEventOptions.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -178,8 +179,8 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LinuxEventOptionsBase::createEmptyLocal),
-    LinuxEventOptions::initMethod,
-    LinuxEventOptions::exitMethod,
+    reinterpret_cast<InitContainerF>(&LinuxEventOptions::initMethod),
+    reinterpret_cast<ExitContainerF>(&LinuxEventOptions::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&LinuxEventOptions::classDescInserter),
     false,
     0,

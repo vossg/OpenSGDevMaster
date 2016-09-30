@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGLightEnv.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -111,8 +112,8 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&LightEnvBase::createEmptyLocal),
-    LightEnv::initMethod,
-    LightEnv::exitMethod,
+    reinterpret_cast<InitContainerF>(&LightEnv::initMethod),
+    reinterpret_cast<ExitContainerF>(&LightEnv::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&LightEnv::classDescInserter),
     false,
     0,

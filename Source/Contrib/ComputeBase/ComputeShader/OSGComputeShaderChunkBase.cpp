@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -64,10 +69,6 @@
 #include "OSGComputeShaderChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -219,8 +220,8 @@ ComputeShaderChunkBase::TypeObject ComputeShaderChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComputeShaderChunkBase::createEmptyLocal),
-    ComputeShaderChunk::initMethod,
-    ComputeShaderChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&ComputeShaderChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&ComputeShaderChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ComputeShaderChunk::classDescInserter),
     false,
     ComputeProgramFieldMask,

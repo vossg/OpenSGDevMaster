@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGTwoSidedLightingChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -111,8 +112,8 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TwoSidedLightingChunkBase::createEmptyLocal),
-    TwoSidedLightingChunk::initMethod,
-    TwoSidedLightingChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&TwoSidedLightingChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&TwoSidedLightingChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TwoSidedLightingChunk::classDescInserter),
     false,
     0,

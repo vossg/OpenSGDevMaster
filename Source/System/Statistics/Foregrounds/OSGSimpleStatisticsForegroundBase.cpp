@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGSimpleStatisticsForeground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -333,8 +334,8 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&SimpleStatisticsForegroundBase::createEmptyLocal),
-    SimpleStatisticsForeground::initMethod,
-    SimpleStatisticsForeground::exitMethod,
+    reinterpret_cast<InitContainerF>(&SimpleStatisticsForeground::initMethod),
+    reinterpret_cast<ExitContainerF>(&SimpleStatisticsForeground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&SimpleStatisticsForeground::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGVertexProgramChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -121,8 +122,8 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VertexProgramChunkBase::createEmptyLocal),
-    VertexProgramChunk::initMethod,
-    VertexProgramChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&VertexProgramChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&VertexProgramChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VertexProgramChunk::classDescInserter),
     false,
     0,

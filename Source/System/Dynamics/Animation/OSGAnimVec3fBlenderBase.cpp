@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGAnimVec3fBlender.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -154,8 +155,8 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fBlenderBase::createEmptyLocal),
-    AnimVec3fBlender::initMethod,
-    AnimVec3fBlender::exitMethod,
+    reinterpret_cast<InitContainerF>(&AnimVec3fBlender::initMethod),
+    reinterpret_cast<ExitContainerF>(&AnimVec3fBlender::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AnimVec3fBlender::classDescInserter),
     false,
     0,

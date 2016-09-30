@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGDistortionDisplayFilter.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -169,8 +170,8 @@ DistortionDisplayFilterBase::TypeObject DistortionDisplayFilterBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DistortionDisplayFilterBase::createEmptyLocal),
-    DistortionDisplayFilter::initMethod,
-    DistortionDisplayFilter::exitMethod,
+    reinterpret_cast<InitContainerF>(&DistortionDisplayFilter::initMethod),
+    reinterpret_cast<ExitContainerF>(&DistortionDisplayFilter::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DistortionDisplayFilter::classDescInserter),
     false,
     0,

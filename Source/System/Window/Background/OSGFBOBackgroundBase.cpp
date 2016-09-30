@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGFBOBackground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -135,8 +136,8 @@ FBOBackgroundBase::TypeObject FBOBackgroundBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FBOBackgroundBase::createEmptyLocal),
-    FBOBackground::initMethod,
-    FBOBackground::exitMethod,
+    reinterpret_cast<InitContainerF>(&FBOBackground::initMethod),
+    reinterpret_cast<ExitContainerF>(&FBOBackground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&FBOBackground::classDescInserter),
     false,
     0,

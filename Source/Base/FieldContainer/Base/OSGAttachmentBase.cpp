@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -206,8 +207,8 @@ AttachmentBase::TypeObject AttachmentBase::_type(
     "FieldContainer",
     nsOSG, //Namespace
     NULL,
-    Attachment::initMethod,
-    Attachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&Attachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&Attachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&Attachment::classDescInserter),
     false,
     0,

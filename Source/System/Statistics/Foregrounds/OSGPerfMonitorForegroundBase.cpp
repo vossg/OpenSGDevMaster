@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGPerfMonitorForeground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -253,8 +254,8 @@ PerfMonitorForegroundBase::TypeObject PerfMonitorForegroundBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PerfMonitorForegroundBase::createEmptyLocal),
-    PerfMonitorForeground::initMethod,
-    PerfMonitorForeground::exitMethod,
+    reinterpret_cast<InitContainerF>(&PerfMonitorForeground::initMethod),
+    reinterpret_cast<ExitContainerF>(&PerfMonitorForeground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&PerfMonitorForeground::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGAnimQuaternionDataSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -265,8 +266,8 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionDataSourceBase::createEmptyLocal),
-    AnimQuaternionDataSource::initMethod,
-    AnimQuaternionDataSource::exitMethod,
+    reinterpret_cast<InitContainerF>(&AnimQuaternionDataSource::initMethod),
+    reinterpret_cast<ExitContainerF>(&AnimQuaternionDataSource::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&AnimQuaternionDataSource::classDescInserter),
     false,
     0,

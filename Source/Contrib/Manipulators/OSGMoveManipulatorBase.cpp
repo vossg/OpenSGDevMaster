@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGMoveManipulator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -161,8 +162,8 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MoveManipulatorBase::createEmptyLocal),
-    MoveManipulator::initMethod,
-    MoveManipulator::exitMethod,
+    reinterpret_cast<InitContainerF>(&MoveManipulator::initMethod),
+    reinterpret_cast<ExitContainerF>(&MoveManipulator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&MoveManipulator::classDescInserter),
     false,
     0,

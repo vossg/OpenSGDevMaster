@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -64,10 +69,6 @@
 #include "OSGColorDisplayFilter.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -251,8 +252,8 @@ ColorDisplayFilterBase::TypeObject ColorDisplayFilterBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ColorDisplayFilterBase::createEmptyLocal),
-    ColorDisplayFilter::initMethod,
-    ColorDisplayFilter::exitMethod,
+    reinterpret_cast<InitContainerF>(&ColorDisplayFilter::initMethod),
+    reinterpret_cast<ExitContainerF>(&ColorDisplayFilter::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ColorDisplayFilter::classDescInserter),
     false,
     0,

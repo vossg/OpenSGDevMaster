@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -65,10 +70,6 @@
 #include "OSGCSMClusterWindow.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -285,8 +286,8 @@ CSMClusterWindowBase::TypeObject CSMClusterWindowBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CSMClusterWindowBase::createEmptyLocal),
-    CSMClusterWindow::initMethod,
-    CSMClusterWindow::exitMethod,
+    reinterpret_cast<InitContainerF>(&CSMClusterWindow::initMethod),
+    reinterpret_cast<ExitContainerF>(&CSMClusterWindow::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CSMClusterWindow::classDescInserter),
     false,
     0,

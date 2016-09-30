@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGFBOViewport.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -140,8 +141,8 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FBOViewportBase::createEmptyLocal),
-    FBOViewport::initMethod,
-    FBOViewport::exitMethod,
+    reinterpret_cast<InitContainerF>(&FBOViewport::initMethod),
+    reinterpret_cast<ExitContainerF>(&FBOViewport::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&FBOViewport::classDescInserter),
     false,
     0,

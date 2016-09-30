@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGVRMLScalarInterpolator.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -145,8 +146,8 @@ VRMLScalarInterpolatorBase::TypeObject VRMLScalarInterpolatorBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLScalarInterpolatorBase::createEmptyLocal),
-    VRMLScalarInterpolator::initMethod,
-    VRMLScalarInterpolator::exitMethod,
+    reinterpret_cast<InitContainerF>(&VRMLScalarInterpolator::initMethod),
+    reinterpret_cast<ExitContainerF>(&VRMLScalarInterpolator::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VRMLScalarInterpolator::classDescInserter),
     false,
     0,

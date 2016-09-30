@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGTrapezoidalShadowMapEngine.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -120,8 +121,8 @@ TrapezoidalShadowMapEngineBase::TypeObject TrapezoidalShadowMapEngineBase::_type
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TrapezoidalShadowMapEngineBase::createEmptyLocal),
-    TrapezoidalShadowMapEngine::initMethod,
-    TrapezoidalShadowMapEngine::exitMethod,
+    reinterpret_cast<InitContainerF>(&TrapezoidalShadowMapEngine::initMethod),
+    reinterpret_cast<ExitContainerF>(&TrapezoidalShadowMapEngine::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&TrapezoidalShadowMapEngine::classDescInserter),
     false,
     0,

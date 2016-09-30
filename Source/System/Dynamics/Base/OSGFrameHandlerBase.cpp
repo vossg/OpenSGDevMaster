@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGFrameHandler.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -262,8 +263,8 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&FrameHandlerBase::createEmptyLocal),
-    FrameHandler::initMethod,
-    FrameHandler::exitMethod,
+    reinterpret_cast<InitContainerF>(&FrameHandler::initMethod),
+    reinterpret_cast<ExitContainerF>(&FrameHandler::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&FrameHandler::classDescInserter),
     false,
     0,

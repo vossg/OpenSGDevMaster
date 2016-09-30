@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGCgFXPassChunk.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,8 +139,8 @@ CgFXPassChunkBase::TypeObject CgFXPassChunkBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&CgFXPassChunkBase::createEmptyLocal),
-    CgFXPassChunk::initMethod,
-    CgFXPassChunk::exitMethod,
+    reinterpret_cast<InitContainerF>(&CgFXPassChunk::initMethod),
+    reinterpret_cast<ExitContainerF>(&CgFXPassChunk::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&CgFXPassChunk::classDescInserter),
     false,
     0,

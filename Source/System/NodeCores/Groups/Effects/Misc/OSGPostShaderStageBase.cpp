@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGPostShaderStage.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -214,8 +215,8 @@ PostShaderStageBase::TypeObject PostShaderStageBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PostShaderStageBase::createEmptyLocal),
-    PostShaderStage::initMethod,
-    PostShaderStage::exitMethod,
+    reinterpret_cast<InitContainerF>(&PostShaderStage::initMethod),
+    reinterpret_cast<ExitContainerF>(&PostShaderStage::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&PostShaderStage::classDescInserter),
     false,
     0,

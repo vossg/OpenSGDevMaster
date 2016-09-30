@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGShaderVariableMVec4f.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ ShaderVariableMVec4fBase::TypeObject ShaderVariableMVec4fBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMVec4fBase::createEmptyLocal),
-    ShaderVariableMVec4f::initMethod,
-    ShaderVariableMVec4f::exitMethod,
+    reinterpret_cast<InitContainerF>(&ShaderVariableMVec4f::initMethod),
+    reinterpret_cast<ExitContainerF>(&ShaderVariableMVec4f::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMVec4f::classDescInserter),
     false,
     0,

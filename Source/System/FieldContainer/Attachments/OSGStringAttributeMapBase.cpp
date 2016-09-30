@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGStringAttributeMap.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -152,8 +153,8 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     "StringAttributeMap",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&StringAttributeMapBase::createEmptyLocal),
-    StringAttributeMap::initMethod,
-    StringAttributeMap::exitMethod,
+    reinterpret_cast<InitContainerF>(&StringAttributeMap::initMethod),
+    reinterpret_cast<ExitContainerF>(&StringAttributeMap::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&StringAttributeMap::classDescInserter),
     false,
     0,

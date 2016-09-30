@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGResolutionDisplayFilter.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ ResolutionDisplayFilterBase::TypeObject ResolutionDisplayFilterBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ResolutionDisplayFilterBase::createEmptyLocal),
-    ResolutionDisplayFilter::initMethod,
-    ResolutionDisplayFilter::exitMethod,
+    reinterpret_cast<InitContainerF>(&ResolutionDisplayFilter::initMethod),
+    reinterpret_cast<ExitContainerF>(&ResolutionDisplayFilter::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ResolutionDisplayFilter::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -64,10 +69,6 @@
 #include "OSGComplexSceneManager.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -307,8 +308,8 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ComplexSceneManagerBase::createEmptyLocal),
-    ComplexSceneManager::initMethod,
-    ComplexSceneManager::exitMethod,
+    reinterpret_cast<InitContainerF>(&ComplexSceneManager::initMethod),
+    reinterpret_cast<ExitContainerF>(&ComplexSceneManager::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ComplexSceneManager::classDescInserter),
     false,
     0,

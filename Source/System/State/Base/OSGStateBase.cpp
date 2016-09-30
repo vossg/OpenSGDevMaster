@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGState.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -156,8 +157,8 @@ StateBase::TypeObject StateBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&StateBase::createEmptyLocal),
-    State::initMethod,
-    State::exitMethod,
+    reinterpret_cast<InitContainerF>(&State::initMethod),
+    reinterpret_cast<ExitContainerF>(&State::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&State::classDescInserter),
     false,
     0,

@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -67,10 +72,6 @@
 #include "OSGDepthPeelingStageData.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -326,8 +327,8 @@ DepthPeelingStageDataBase::TypeObject DepthPeelingStageDataBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DepthPeelingStageDataBase::createEmptyLocal),
-    DepthPeelingStageData::initMethod,
-    DepthPeelingStageData::exitMethod,
+    reinterpret_cast<InitContainerF>(&DepthPeelingStageData::initMethod),
+    reinterpret_cast<ExitContainerF>(&DepthPeelingStageData::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&DepthPeelingStageData::classDescInserter),
     false,
     0,

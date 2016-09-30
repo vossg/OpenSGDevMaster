@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -62,10 +67,6 @@
 #include "OSGVRMLAttachment.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -137,8 +138,8 @@ VRMLAttachmentBase::TypeObject VRMLAttachmentBase::_type(
     "VRMLAttachment",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&VRMLAttachmentBase::createEmptyLocal),
-    VRMLAttachment::initMethod,
-    VRMLAttachment::exitMethod,
+    reinterpret_cast<InitContainerF>(&VRMLAttachment::initMethod),
+    reinterpret_cast<ExitContainerF>(&VRMLAttachment::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&VRMLAttachment::classDescInserter),
     false,
     0,

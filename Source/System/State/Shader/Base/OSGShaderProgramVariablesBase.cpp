@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -64,10 +69,6 @@
 #include "OSGShaderProgramVariables.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -183,8 +184,8 @@ ShaderProgramVariablesBase::TypeObject ShaderProgramVariablesBase::_type(
     "ShaderProgramVariables",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramVariablesBase::createEmptyLocal),
-    ShaderProgramVariables::initMethod,
-    ShaderProgramVariables::exitMethod,
+    reinterpret_cast<InitContainerF>(&ShaderProgramVariables::initMethod),
+    reinterpret_cast<ExitContainerF>(&ShaderProgramVariables::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramVariables::classDescInserter),
     false,
     0,

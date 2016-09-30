@@ -53,6 +53,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+#ifdef WIN32 
+#pragma warning(disable: 4355) // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable: 4290) // disable exception specification warning
+#endif
+
 #include "OSGConfig.h"
 
 
@@ -63,10 +68,6 @@
 #include "OSGPolygonForeground.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -273,8 +274,8 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     "NULL",
     nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PolygonForegroundBase::createEmptyLocal),
-    PolygonForeground::initMethod,
-    PolygonForeground::exitMethod,
+    reinterpret_cast<InitContainerF>(&PolygonForeground::initMethod),
+    reinterpret_cast<ExitContainerF>(&PolygonForeground::exitMethod),
     reinterpret_cast<InitalInsertDescFunc>(&PolygonForeground::classDescInserter),
     false,
     0,
