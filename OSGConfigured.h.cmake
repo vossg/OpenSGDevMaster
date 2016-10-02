@@ -1,7 +1,9 @@
 #ifndef _OSGCONFIGURED_H_
 #define _OSGCONFIGURED_H_
 
+#if !defined(__GCCXML__)
 #cmakedefine OSG_USE_OSG2_NAMESPACE 1
+#endif
 
 /* Disable interface that will go away in the future */
 #cmakedefine OSG_DISABLE_DEPRECATED 1
