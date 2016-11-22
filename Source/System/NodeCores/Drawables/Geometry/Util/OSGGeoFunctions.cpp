@@ -2896,17 +2896,16 @@ Int32 createSingleIndex(Geometry *geo)
                                     pP->getDimension () +
                                     pP->getStride    ());
                   
-                UInt32 memSize   = pP->size32() * valueSize;
+                const UInt8 *data = pP->getData();
 
-                UInt8 *data  = new UInt8[memSize];
+                GeoPropertyRefPtr pCloneProp = pP->clone();
 
-                UInt8 *pData = pP->editData();
+                GeoVectorProperty *pClone = 
+                    dynamic_cast<GeoVectorProperty *>(pCloneProp.get());
+
+                pClone->resize(vCount);
                 
-                memcpy(data, pData, memSize);
-
-                pP->resize(vCount);
-                
-                pData = pP->editData();
+                UInt8 *pData = pClone->editData();
 
                 for(Int32 k = 0; k < vCount; k++)
                 {
@@ -2917,7 +2916,9 @@ Int32 createSingleIndex(Geometry *geo)
                            valueSize);
                 }
                     
-                delete[] data;
+                geo->setProperty(pClone, 
+                                 oGeoIndexBag[i].second[j]);
+
             }
         }
 
