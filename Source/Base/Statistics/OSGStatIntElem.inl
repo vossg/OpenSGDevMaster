@@ -39,25 +39,25 @@
 OSG_BEGIN_NAMESPACE
 
 inline 
-void StatIntElem::set(Int32 value) 
+void StatIntElem::set(Int64 value) 
 { 
     _value = value; 
 }
 
 inline 
-Int32 StatIntElem::get(void) const
+Int64 StatIntElem::get(void) const
 { 
     return _value; 
 }
 
 inline 
-void StatIntElem::add(Int32 v) 
+void StatIntElem::add(Int64 v) 
 { 
     _value += v; 
 }
     
 inline 
-void StatIntElem::sub(Int32 v) 
+void StatIntElem::sub(Int64 v) 
 { 
     _value -= v; 
 }

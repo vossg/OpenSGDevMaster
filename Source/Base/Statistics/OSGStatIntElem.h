@@ -71,11 +71,11 @@ class OSG_BASE_DLLMAPPING StatIntElem : public StatElem
     /*! \name                    instance                                  */
     /*! \{                                                                 */
    
-            void  set  (Int32 value);
-            Int32 get  (void       ) const;
+            void  set  (Int64 value);
+            Int64 get  (void       ) const;
     
-            void  add  (Int32 v    );
-            void  sub  (Int32 v    );
+            void  add  (Int64 v    );
+            void  sub  (Int64 v    );
     virtual void  reset(void       );
     
             void  inc  (void       );
@@ -134,7 +134,7 @@ class OSG_BASE_DLLMAPPING StatIntElem : public StatElem
 
     typedef StatElem Inherited;
    
-    Int32 _value;
+    Int64 _value;
 
     // prohibit default functions (move to 'public' if you need one)
     StatIntElem(const StatIntElem &source);

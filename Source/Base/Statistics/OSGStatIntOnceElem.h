@@ -81,14 +81,14 @@ class OSG_BASE_DLLMAPPING StatIntOnceElem : public StatElem
     virtual void  reset(void                );
 
             void  add  (UInt32 contributorId, 
-                         Int32 v            );
+                         Int64 v            );
             void  sub  (UInt32 contributorId, 
-                         Int32 v            );
+                         Int64 v            );
 
             void  inc  (UInt32 contributorId);
             void  dec  (UInt32 contributorId);
 
-            Int32 get  (void                ) const;
+            Int64 get  (void                ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,7 +142,7 @@ class OSG_BASE_DLLMAPPING StatIntOnceElem : public StatElem
 
     typedef StatElem Inherited;
 
-    Int32   _value;
+    Int64   _value;
     
     IdHash  _ids;
 

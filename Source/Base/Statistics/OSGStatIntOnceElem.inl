@@ -40,7 +40,7 @@ OSG_BEGIN_NAMESPACE
 
 
 inline 
-void StatIntOnceElem::add(UInt32 contributorId, Int32 v)
+void StatIntOnceElem::add(UInt32 contributorId, Int64 v)
 {
     if(_ids.find(contributorId) == _ids.end())
     {
@@ -50,7 +50,7 @@ void StatIntOnceElem::add(UInt32 contributorId, Int32 v)
 }
 
 inline 
-void StatIntOnceElem::sub(UInt32 contributorId, Int32 v)
+void StatIntOnceElem::sub(UInt32 contributorId, Int64 v)
 {
     if(_ids.find(contributorId) == _ids.end())
     {
@@ -80,7 +80,7 @@ void StatIntOnceElem::dec(UInt32 contributorId)
 }
 
 inline 
-Int32 StatIntOnceElem::get() const
+Int64 StatIntOnceElem::get() const
 {
     return _value;
 }

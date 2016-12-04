@@ -91,13 +91,13 @@ void StatIntElem::putToString(
 {
     if(format.empty())
     {
-        FieldTraits<Int32>::putToString(_value, str);
+        FieldTraits<Int64>::putToString(_value, str);
     }
     else
     {
         std::string            formatCopy = format;
         std::string::size_type pos        = formatCopy.find("%");
-        Real32                 val        = _value;
+        Real64                 val        = _value;
         
         if(pos != std::string::npos)
         {
@@ -128,7 +128,7 @@ void StatIntElem::putToString(
 
 bool StatIntElem::getFromCString(const Char8 *&inVal)
 {
-    return FieldTraits<Int32>::getFromCString(_value, inVal);
+    return FieldTraits<Int64>::getFromCString(_value, inVal);
 }
 
 Real64 StatIntElem::getValue(void) const
