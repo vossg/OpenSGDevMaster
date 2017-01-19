@@ -24,8 +24,7 @@
 #include <OSGTextureObjChunk.h>
 #include <OSGTextureEnvChunk.h>
 #include <OSGGradientBackground.h>
-#include <OSGSHLChunk.h>
-//#include <OSGShadowMapViewport.h>
+#include <OSGSimpleSHLChunk.h>
 #else
 // Headers
 #include <OpenSG/OSGGLUT.h>
@@ -45,14 +44,15 @@
 #include <OpenSG/OSGTextureObjChunk.h>
 #include <OpenSG/OSGTextureEnvChunk.h>
 #include <OpenSG/OSGGradientBackground.h>
-#include <OpenSG/OSGSHLChunk.h>
-//#include <OpenSG/OSGShadowMapViewport.h>
+#include <OpenSG/OSGSimpleSHLChunk.h>
 #endif
+
+using namespace OSG;
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManagerRefPtr _mgr = NULL;
 NodeRefPtr               _scene;
-SHLChunkRefPtr           _shl;
+SimpleSHLChunkRefPtr     _shl;
 
 // vertex shader program.
 static std::string _vp_program =
@@ -162,9 +162,9 @@ int main(int argc, char **argv)
         NodeRefPtr point1_beacon = makeCoredNode<Transform >(&point1_trans);
         point1_trans->editMatrix().setTranslate(0.0, 100.0, 0.0);
     
-        point1_core->setAmbient(0.15,0.15,0.15,1);
-        point1_core->setDiffuse(0.8,0.8,0.8,1);
-        point1_core->setSpecular(0.0,0.0,0.0,1);
+        point1_core->setAmbient (0.15f,0.15f,0.15f,1.f);
+        point1_core->setDiffuse (0.8f, 0.8f, 0.8f, 1.f);
+        point1_core->setSpecular(0.0f, 0.0f, 0.0f, 1.f);
         point1_core->setBeacon(point1_beacon);
         point1_core->setOn(true);
     
@@ -187,8 +187,8 @@ int main(int argc, char **argv)
         bottom_tex_env->setEnvMode(GL_MODULATE);
     
         SimpleMaterialRefPtr bottom_mat = SimpleMaterial::create();
-        bottom_mat->setAmbient(Color3f(0.3,0.3,0.3));
-        bottom_mat->setDiffuse(Color3f(1.0,1.0,1.0));
+        bottom_mat->setAmbient(Color3f(0.3f,0.3f,0.3f));
+        bottom_mat->setDiffuse(Color3f(1.0f,1.0f,1.0f));
         bottom_mat->addChunk(bottom_tex);
         bottom_mat->addChunk(bottom_tex_env);
         
@@ -208,7 +208,7 @@ int main(int argc, char **argv)
         
         // create the shader material
         ChunkMaterialRefPtr cmat = ChunkMaterial::create();
-        _shl = SHLChunk::create();
+        _shl = SimpleSHLChunk::create();
         _shl->setVertexProgram  (_vp_program);
         _shl->setFragmentProgram(_fp_program);
         _shl->addUniformVariable("groundHeight", 1.0f);

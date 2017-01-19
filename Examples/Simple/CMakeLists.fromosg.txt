@@ -15,8 +15,6 @@ FILE(GLOB SRCFILES "*.cpp")
 # stuff that is broken -- these examples need to be fixed
 LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterclientshader.cpp")
 LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/geometryshader.cpp")
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/phongshaderwithglmaterials.cpp")
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/shader.cpp")
 
 #############################################################################
 # get dependencies

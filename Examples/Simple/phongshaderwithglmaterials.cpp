@@ -13,7 +13,7 @@
 #include <OSGSimpleSceneManager.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGSceneFileHandler.h>
-#include <OSGSHLChunk.h>
+#include <OSGSimpleSHLChunk.h>
 #include <OSGMaterialGroup.h>
 #include <OSGGradientBackground.h>
 #else
@@ -24,17 +24,19 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 #include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGSceneFileHandler.h>
-#include <OpenSG/OSGSHLChunk.h>
+#include <OpenSG/OSGSimpleSHLChunk.h>
 #include <OpenSG/OSGMaterialGroup.h>
 #include <OpenSG/OSGGradientBackground.h>
 #endif
+
+using namespace OSG;
 
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManagerRefPtr          _mgr         = NULL;
 
 bool                              phong_active = false;
 std::vector<ChunkMaterialRefPtr>  materials;
-SHLChunkRefPtr                    phong_chunk;
+SimpleSHLChunkRefPtr              phong_chunk;
 
 NodeRefPtr                        scene;
 
@@ -116,14 +118,14 @@ void update(void)
 
 // ---------------------------------------------------------------------------------
 
-SHLChunkTransitPtr createPhongShaderMaterial(void)
+SimpleSHLChunkTransitPtr createPhongShaderMaterial(void)
 {
-    SHLChunkRefPtr _shl = SHLChunk::create();
+    SimpleSHLChunkRefPtr _shl = SimpleSHLChunk::create();
 
     _shl->setVertexProgram(_vp_program);
     _shl->setFragmentProgram(_fp_program);
 
-    return SHLChunkTransitPtr(_shl);
+    return SimpleSHLChunkTransitPtr(_shl);
 }
 
 // ---------------------------------------------------------------------------------
@@ -160,7 +162,7 @@ void getAllMaterials(Node *node, std::vector<ChunkMaterialRefPtr> &mats)
         mats.push_back(cm);
     }
     
-    for(int i = 0; i < node->getNChildren(); ++i)
+    for(UInt32 i = 0; i < node->getNChildren(); ++i)
         getAllMaterials(node->getChild(i), mats);
 }
 
@@ -181,7 +183,7 @@ int main(int argc, char **argv)
         scene = SceneFileHandler::the()->read("Data/tie.wrl");
     
     if(scene == NULL)
-        scene = makeTorus(0.3, 4, 16, 64);
+        scene = makeTorus(0.3f, 4.0f, 16, 64);
 
     // init material
     phong_chunk = createPhongShaderMaterial();
@@ -221,8 +223,8 @@ int main(int argc, char **argv)
         // create a gradient background.
         GradientBackgroundRefPtr gbg = GradientBackground::create();
         gbg->clearLines();
-        gbg->addLine(Color3f(0.7, 0.7, 0.8), 0);
-        gbg->addLine(Color3f(0.0, 0.1, 0.3), 1);
+        gbg->addLine(Color3f(0.7f, 0.7f, 0.8f), 0.f);
+        gbg->addLine(Color3f(0.0f, 0.1f, 0.3f), 1.f);
         
         //set gradient background
         ViewportRefPtr vp = gwin->getPort(0);
