@@ -146,6 +146,26 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrix &projection,
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
+
+    see http://www.terathon.com/gdc07_lengyel.pdf
+ */
+OSG_BASE_DLLMAPPING bool MatrixInfinitePerspective(OSG::Matrix &result, 
+                                                   OSG::Real32  rFovy, 
+                                                   OSG::Real32  rAspect,
+                                                   OSG::Real32  rNear     );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+
+    see http://www.terathon.com/gdc07_lengyel.pdf
+ */
+OSG_BASE_DLLMAPPING bool MatrixEpsInfinitePerspective(OSG::Matrix &result, 
+                                                      OSG::Real32  rFovy, 
+                                                      OSG::Real32  rAspect,
+                                                      OSG::Real32  rNear,
+                                                      OSG::Real32  rEps = OSG::TypeTraits<OSG::Real32>::getDefaultEps() );
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
  */
 OSG_BASE_DLLMAPPING bool MatrixLookAt           (OSG::Matrix &result, 
                                                  OSG::Real32  fromx, 

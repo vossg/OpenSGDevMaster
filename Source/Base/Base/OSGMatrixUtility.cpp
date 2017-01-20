@@ -545,6 +545,133 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrix &projection,
     return false;
 }
 
+OSG_BASE_DLLMAPPING bool MatrixInfinitePerspective(OSG::Matrix &result,
+                                                   OSG::Real32  rFovy,
+                                                   OSG::Real32  rAspect,
+                                                   OSG::Real32  rNear)
+{
+    // see http://www.terathon.com/gdc07_lengyel.pdf
+
+    bool   error = false;
+
+    if(rFovy <= TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixInfinitePerspective: fovy " << rFovy << " very small!\n"
+                 << std::endl;
+
+        error = true;
+    }
+
+    if(rAspect < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixInfinitePerspective: aspect ratio " << rAspect
+                 << " very small!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(error)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    Real32 r  = osgTan(rFovy) * rNear;
+    Real32 dx = 2.f * r * rAspect;
+    Real32 dy = 2.f * r;
+    Real32 n2 = 2.f * rNear;
+
+    result.setValueTransposed(
+         n2 / dx, 
+         0.f, 
+         0.f, 
+         0.f,
+
+         0.f,
+         n2 / dy, 
+         0.f, 
+         0.f,
+
+         0.f,
+         0.f,
+        -1.f, 
+        -1.f,
+
+         0.f, 
+         0.f, 
+        -n2, 
+         0.f);
+
+    return false;
+}
+
+OSG_BASE_DLLMAPPING bool MatrixEpsInfinitePerspective(OSG::Matrix &result,
+                                                      OSG::Real32  rFovy,
+                                                      OSG::Real32  rAspect,
+                                                      OSG::Real32  rNear,
+                                                      OSG::Real32  rEps)
+{
+    // see http://www.terathon.com/gdc07_lengyel.pdf
+
+    bool   error = false;
+
+    if(rFovy <= TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixEpsInfinitePerspective: fovy " << rFovy << " very small!\n"
+                 << std::endl;
+
+        error = true;
+    }
+
+    if(rAspect < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixEpsInfinitePerspective: aspect ratio " << rAspect
+                 << " very small!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(rEps <= 2.4E-7)
+    {
+        SWARNING << "MatrixEpsInfinitePerspective: epsilon " << rEps << " to small!\n"
+                 << std::endl;
+    }
+
+    if(error)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    Real32 r  = osgTan(rFovy) * rNear;
+    Real32 dx = 2.f * r * rAspect;
+    Real32 dy = 2.f * r;
+    Real32 n2 = 2.f * rNear;
+
+    result.setValueTransposed(
+         n2 / dx, 
+         0.f, 
+         0.f, 
+         0.f,
+
+         0.f,
+         n2 / dy, 
+         0.f, 
+         0.f,
+
+         0.f,
+         0.f,
+         rEps - 1.f, 
+        -1.f,
+
+         0.f, 
+         0.f, 
+         (rEps - 2.f) * rNear, 
+         0.f);
+
+    return false;
+}
+
 /*! \warning This matrix is meant to used for setting up the 
       beacon transformation of a OSG::Camera! They are inverted compared to
       the similarly named OpenGl function!
