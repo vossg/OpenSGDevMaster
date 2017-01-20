@@ -762,6 +762,108 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(OSG::Matrix &result,
     return false;
 }
 
+/*! \warning This matrix is the classical OpenGL lookAt function.
+    For setting up the beacon transformation of a OSG::Camera you
+    should go for the MatrixLookAt(...) functions.
+*/
+OSG_BASE_DLLMAPPING bool MatrixLookAtGL(OSG::Matrix &result,
+                                        OSG::Real32  fromx,
+                                        OSG::Real32  fromy,
+                                        OSG::Real32  fromz,
+                                        OSG::Real32  atx,
+                                        OSG::Real32  aty,
+                                        OSG::Real32  atz,
+                                        OSG::Real32  upx,
+                                        OSG::Real32  upy,
+                                        OSG::Real32  upz)
+{
+    Vec3f view;
+    Vec3f right;
+    Vec3f newup;
+    Vec3f up;
+
+    view.setValues(fromx - atx , fromy - aty, fromz - atz);
+    view.normalize();
+
+    up.setValues(upx, upy, upz);
+
+    right = up.cross(view);
+
+    if(right.dot(right) < TypeTraits<Real32>::getDefaultEps())
+    {
+        return true;
+    }
+
+    right.normalize();
+
+    newup = view.cross(right);
+
+    Pnt3f from(fromx, fromy, fromz);
+
+    result.setIdentity ();
+    result.setTranslate(-right.dot(from), -newup.dot(from), -view.dot(from));
+
+    Matrix tmpm;
+
+    tmpm.setValue(right, newup, view);
+
+    result.mult(tmpm);
+    result.transpose();
+
+    return false;
+}
+
+/*! \warning This matrix is the classical OpenGL lookAt function.
+    For setting up the beacon transformation of a OSG::Camera you
+    should go for the MatrixLookAt(...) functions.
+*/
+OSG_BASE_DLLMAPPING bool MatrixLookAtGL(OSG::Matrix &result,
+                                        OSG::Pnt3f   from, 
+                                        OSG::Pnt3f   at, 
+                                        OSG::Vec3f   up    )
+{
+    Vec3f view;
+    Vec3f right;
+    Vec3f newup;
+    Vec3f tmp;
+
+    view = from - at;
+    view.normalize();
+
+    right = up.cross(view);
+
+    if(right.dot(right) < TypeTraits<Real32>::getDefaultEps())
+    {
+        return true;
+    }
+
+    right.normalize();
+
+    newup = view.cross(right);
+
+    result.setValue(
+         right[0], 
+         right[1], 
+         right[2], 
+        -right.dot(from),
+
+         newup[0],
+         newup[1],
+         newup[2],
+        -newup.dot(from),
+
+         view[0],
+         view[1],
+         view[2],
+        -view.dot(from),
+
+         0.f, 
+         0.f, 
+         0.f, 
+         1.f);
+
+    return false;
+}
 
 OSG_BASE_DLLMAPPING bool MatrixProjection(OSG::Matrix &OSG_CHECK_ARG(result),
                                           OSG::Real32  OSG_CHECK_ARG(rLeft),
