@@ -293,9 +293,9 @@ OSG_BASE_DLLMAPPING bool MatrixFrustum(OSG::Matrix &result,
                                        OSG::Real32  rNear,
                                        OSG::Real32  rFar)
 {
-    Real32 dz = rFar   - rNear;
     Real32 dx = rRight - rLeft;
     Real32 dy = rTop   - rBottom;
+    Real32 dz = rFar   - rNear;
     Real32 n2 = 2.f    * rNear;
 
     result.setValueTransposed(
@@ -906,8 +906,8 @@ void makeViewFromUVND(      Matrix &Result,
     Result[3][2] = D.z();
 
     //Clear up the rest of the matrix
-    Result[3][3] = 1.0;
-    Result[0][3] = Result[1][3] = Result[2][3] = 0.0;
+    Result[3][3] = 1.f;
+    Result[0][3] = Result[1][3] = Result[2][3] = 0.f;
 }
 
 void getUVNDFromMat(const Matrix &Mat,
