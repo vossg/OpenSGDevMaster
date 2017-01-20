@@ -123,6 +123,16 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective      (OSG::Matrix &result,
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix
  */
+OSG_BASE_DLLMAPPING bool MatrixPerspective      (OSG::Matrix &result, 
+                                                 OSG::Real32  rFovy, 
+                                                 OSG::Real32  rWidth,
+                                                 OSG::Real32  rHeight,
+                                                 OSG::Real32  rNear, 
+                                                 OSG::Real32  rFar        );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
 OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrix &projection, 
                                                  OSG::Matrix &projtrans, 
                                                  OSG::Real32  rFovy, 

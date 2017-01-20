@@ -381,6 +381,74 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrix &result,
     return false;
 }
 
+OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrix &result,
+                                           OSG::Real32  rFovy,
+                                           OSG::Real32  rWidth,
+                                           OSG::Real32  rHeight,
+                                           OSG::Real32  rNear,
+                                           OSG::Real32  rFar)
+{
+    bool   error = false;
+
+    if(rNear > rFar)
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " > far " << rFar
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(rFovy <= TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixPerspective: fovy " << rFovy << " very small!\n"
+                 << std::endl;
+
+        error = true;
+    }
+
+    if(osgAbs(rNear - rFar) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(rWidth < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixPerspective: width " << rWidth << " very small!\n"
+                 << std::endl;
+
+        error = true;
+    }
+
+    if(rHeight < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixPerspective: height " << rHeight << " very small!\n"
+                 << std::endl;
+
+        error = true;
+    }
+
+    if(error)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    Real32 rAspect = rWidth / rHeight;
+    Real32 ct      = osgTan(rFovy);
+
+    MatrixFrustum( result, 
+                  -rNear * ct * rAspect, 
+                   rNear * ct * rAspect,
+                  -rNear * ct, 
+                   rNear * ct, 
+                   rNear, 
+                   rFar                );
+
+    return false;
+}
 
 OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrix &projection,
                                                  OSG::Matrix &projtrans,
