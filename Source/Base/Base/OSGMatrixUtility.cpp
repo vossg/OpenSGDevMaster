@@ -329,7 +329,6 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrix &result,
                                            OSG::Real32  rNear,
                                            OSG::Real32  rFar)
 {
-    Real32 ct    = osgTan(rFovy);
     bool   error = false;
 
     if(rNear > rFar)
@@ -369,6 +368,8 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrix &result,
         result.setIdentity();
         return true;
     }
+
+    Real32 ct = osgTan(rFovy);
 
     MatrixFrustum( result, 
                   -rNear * ct * rAspect, 
