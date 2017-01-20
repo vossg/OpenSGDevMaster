@@ -52,6 +52,15 @@ OSG_BEGIN_NAMESPACE
     Matrix utility functions to create and analyze special kinds 
     of matrices.
 
+    Remarks: 1. fovy parameters are measured from the y-axis to the
+                border of the view, i.e. the half of the full fovy
+                value must be given to the functions below.
+
+             2. All projection matrices are right handed systems.
+                If you need a left hand system instead, multiply by
+                a scale matrix S(1, 1,-1, 1) in the diagonal.
+
+             3. All projection matrices map to OpenGL NDC cube [-1,1]^3
     \{
  */
 
@@ -64,7 +73,32 @@ OSG_BASE_DLLMAPPING bool MatrixOrthogonal        (OSG::Matrix &result,
                                                   OSG::Real32  rBottom, 
                                                   OSG::Real32  rTop, 
                                                   OSG::Real32  rNear, 
-                                                  OSG::Real32  rFar        );
+                                                  OSG::Real32  rFar       );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal        (OSG::Matrix &result, 
+                                                  OSG::Real32  rWidth, 
+                                                  OSG::Real32  rHeight, 
+                                                  OSG::Real32  rNear, 
+                                                  OSG::Real32  rFar       );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal2D      (OSG::Matrix &result, 
+                                                  OSG::Real32  rLeft, 
+                                                  OSG::Real32  rRight, 
+                                                  OSG::Real32  rBottom, 
+                                                  OSG::Real32  rTop       );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal2D      (OSG::Matrix &result, 
+                                                  OSG::Real32  rWidth, 
+                                                  OSG::Real32  rHeight    );
 
 /*! \ingroup GrpBaseBaseMathMatrixFn
     \relatesalso TransformationMatrix

@@ -108,11 +108,182 @@ OSG_BASE_DLLMAPPING bool MatrixOrthogonal(OSG::Matrix &result,
         -(rRight + rLeft  ) / (rRight - rLeft  ),
         -(rTop   + rBottom) / (rTop   - rBottom),
         -(rFar   + rNear  ) / (rFar   - rNear  ), 
-         1.);
+         1.f);
 
     return false;
 }
 
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal(OSG::Matrix &result,
+                                          OSG::Real32  rWidth,
+                                          OSG::Real32  rHeight,
+                                          OSG::Real32  rNear,
+                                          OSG::Real32  rFar)
+{
+    bool error = false;
+
+    if(rWidth < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: width " << rWidth << " very small " 
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(rHeight < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: height " << rHeight << " very small " 
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(osgAbs(rFar - rNear) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal: near " << rNear << " ~= far " << rFar
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+
+    if(error == true)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    result.setValueTransposed(
+
+         2.f / rWidth, 
+         0.f, 
+         0.f, 
+         0.f,
+
+         0.f, 
+         2.f / rHeight, 
+         0.f, 
+         0.f,
+
+         0.f, 
+         0.f, 
+        -2.f / (rFar - rNear), 
+         0.f,
+
+         0.f,
+         0.f,
+        -(rFar + rNear) / (rFar - rNear), 
+         1.f);
+
+    return false;
+}
+
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal2D(OSG::Matrix &result,
+                                            OSG::Real32  rLeft,
+                                            OSG::Real32  rRight,
+                                            OSG::Real32  rBottom,
+                                            OSG::Real32  rTop)
+{
+    bool error = false;
+
+    if(osgAbs(rRight - rLeft) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal2D: right " << rRight << " ~= left " 
+                 << rLeft << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(osgAbs(rTop - rBottom) < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal2D: top " << rTop << " ~= bottom " 
+                 << rBottom << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(error == true)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    result.setValueTransposed(
+
+         2.f / (rRight - rLeft), 
+         0.f, 
+         0.f, 
+         0.f,
+
+         0.f, 
+         2.f / (rTop - rBottom), 
+         0.f, 
+         0.f,
+
+         0.f, 
+         0.f, 
+        -1.f, 
+         0.f,
+
+        -(rRight + rLeft  ) / (rRight - rLeft  ),
+        -(rTop   + rBottom) / (rTop   - rBottom),
+         0.f, 
+         1.f);
+
+    return false;
+}
+
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal2D(OSG::Matrix &result,
+                                            OSG::Real32  rWidth,
+                                            OSG::Real32  rHeight)
+{
+    bool error = false;
+
+    if(rWidth < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal2D: width " << rWidth << " very small " 
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(rHeight < TypeTraits<Real32>::getDefaultEps())
+    {
+        SWARNING << "MatrixOrthogonal2D: height " << rHeight << " very small " 
+                 << "!\n" << std::endl;
+
+        error = true;
+    }
+
+    if(error == true)
+    {
+        result.setIdentity();
+        return true;
+    }
+
+    result.setValueTransposed(
+
+         2.f / rWidth, 
+         0.f, 
+         0.f, 
+         0.f,
+
+         0.f, 
+         2.f / rHeight, 
+         0.f, 
+         0.f,
+
+         0.f, 
+         0.f, 
+        -1.f, 
+         0.f,
+
+         0.f,
+         0.f,
+         0.f, 
+         1.f);
+
+    return false;
+}
 
 OSG_BASE_DLLMAPPING bool MatrixFrustum(OSG::Matrix &result,
                                        OSG::Real32  rLeft,
