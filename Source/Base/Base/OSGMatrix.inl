@@ -243,6 +243,18 @@ void TransformationMatrix<ValueTypeT>::setValue(const VectorType3f &vector1,
 }
 
 template<class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::setValue(const VectorType &vector1,
+                                                const VectorType &vector2,
+                                                const VectorType &vector3,
+                                                const VectorType &vector4)
+{
+    _matrix[0].setValue(vector1);
+    _matrix[1].setValue(vector2);
+    _matrix[2].setValue(vector3);
+    _matrix[3].setValue(vector4);
+}
+
+template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::setValue(const ValueTypeT rVal00,
                                                 const ValueTypeT rVal10,
                                                 const ValueTypeT rVal20,

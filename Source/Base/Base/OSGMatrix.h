@@ -171,6 +171,11 @@ class TransformationMatrix
                             const VectorType3f         &vector3,
                             const VectorType3f         &vector4            );
 
+    void setValue          (const VectorType           &vector1,
+                            const VectorType           &vector2,
+                            const VectorType           &vector3,
+                            const VectorType           &vector4            );
+
     void setValue          (const ValueTypeT            rVal00,
                             const ValueTypeT            rVal10,
                             const ValueTypeT            rVal20,
