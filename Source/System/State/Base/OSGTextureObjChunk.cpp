@@ -480,7 +480,8 @@ void TextureObjChunk::handleTexture(Window                  *win,
         }
 
         if((imgtarget == GL_TEXTURE_1D_ARRAY ||
-            imgtarget == GL_TEXTURE_2D_ARRAY  )              &&
+            imgtarget == GL_TEXTURE_2D_ARRAY ||
+            imgtarget == GL_TEXTURE_CUBE_MAP_ARRAY)              &&
            !win->hasExtOrVersion(_extTextureArray, 0x0300))
         {
             FWARNING(("texture arrays not supported on Window %p!\n",
@@ -596,18 +597,21 @@ void TextureObjChunk::handleTexture(Window                  *win,
             glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER, getMagFilter());
             glTexParameteri(paramtarget, GL_TEXTURE_WRAP_S, getWrapS());
 
-            if(paramtarget == GL_TEXTURE_2D           ||
-               paramtarget == GL_TEXTURE_2D_ARRAY     ||
-               paramtarget == GL_TEXTURE_3D           ||
-               paramtarget == GL_TEXTURE_CUBE_MAP_ARB ||
-               paramtarget == GL_TEXTURE_RECTANGLE_ARB )
+            if(paramtarget == GL_TEXTURE_2D             ||
+               paramtarget == GL_TEXTURE_2D_ARRAY       ||
+               paramtarget == GL_TEXTURE_3D             ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARB   ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARRAY ||
+               paramtarget == GL_TEXTURE_RECTANGLE_ARB   )
             {
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_T, getWrapT());
             }
 
-            if(paramtarget == GL_TEXTURE_2D_ARRAY     ||
-               paramtarget == GL_TEXTURE_3D           ||
-               paramtarget == GL_TEXTURE_CUBE_MAP_ARB  )
+            if(paramtarget == GL_TEXTURE_2D_ARRAY       ||
+               paramtarget == GL_TEXTURE_3D             ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARB   ||
+               paramtarget == GL_TEXTURE_CUBE_MAP_ARRAY  )
+               
             {
                 glTexParameteri(paramtarget, GL_TEXTURE_WRAP_R, getWrapR());
             }
@@ -748,6 +752,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                 break;
                             case GL_TEXTURE_3D:
                             case GL_TEXTURE_2D_ARRAY:
+                            case GL_TEXTURE_CUBE_MAP_ARRAY:
                                 osgGlCompressedTexImage3D(
                                     imgtarget, 
                                     i - baseLevel, 
@@ -802,6 +807,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                 break;
                             case GL_TEXTURE_3D:
                             case GL_TEXTURE_2D_ARRAY:
+                            case GL_TEXTURE_CUBE_MAP_ARRAY:
                                 osgGlTexImage3D(imgtarget, 
                                                 i - baseLevel, 
                                                 internalFormat,
@@ -1124,6 +1130,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                break;
                            case GL_TEXTURE_3D:
                            case GL_TEXTURE_2D_ARRAY:
+                           case GL_TEXTURE_CUBE_MAP_ARRAY:
                                osgGlCompressedTexImage3D(imgtarget, 0, 
                                                          internalFormat,
                                                          osgNextPower2(width),
@@ -1192,6 +1199,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                                break;
                            case GL_TEXTURE_3D:
                            case GL_TEXTURE_2D_ARRAY:
+                           case GL_TEXTURE_CUBE_MAP_ARRAY:
                                osgGlTexImage3D(imgtarget, 
                                                0, 
                                                internalFormat,
@@ -1269,6 +1277,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                             break;
                         case GL_TEXTURE_3D:
                         case GL_TEXTURE_2D_ARRAY:
+                        case GL_TEXTURE_CUBE_MAP_ARRAY:
                             osgGlCompressedTexImage3D(imgtarget, 0, 
                                                       internalFormat,
                                                       width, height, depth, 
@@ -1315,6 +1324,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                             break;
                         case GL_TEXTURE_3D:
                         case GL_TEXTURE_2D_ARRAY:
+                        case GL_TEXTURE_CUBE_MAP_ARRAY:
                             osgGlTexImage3D(imgtarget, 0, internalFormat,
                                             width, height, depth, 
                                             getBorderWidth(),
@@ -1470,6 +1480,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         break;
                     case GL_TEXTURE_3D:
                     case GL_TEXTURE_2D_ARRAY:
+                    case GL_TEXTURE_CUBE_MAP_ARRAY:
                         osgGlCompressedTexSubImage3D(imgtarget, 0,  
                                                      ix, iy, iz,
                                                      w, h, d,
@@ -1515,6 +1526,7 @@ void TextureObjChunk::handleTexture(Window                  *win,
                         break;
                     case GL_TEXTURE_3D:
                     case GL_TEXTURE_2D_ARRAY:
+                    case GL_TEXTURE_CUBE_MAP_ARRAY:
                         osgGlTexSubImage3D(imgtarget, 0,  ix, iy, iz,
                                            w, h, d,
                                            externalFormat, type,

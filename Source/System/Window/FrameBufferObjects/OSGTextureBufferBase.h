@@ -99,8 +99,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         TextureFieldId = Inherited::NextFieldId,
         TexTargetFieldId = TextureFieldId + 1,
         LevelFieldId = TexTargetFieldId + 1,
-        ZoffsetFieldId = LevelFieldId + 1,
-        NextFieldId = ZoffsetFieldId + 1
+        LayerFieldId = LevelFieldId + 1,
+        NextFieldId = LayerFieldId + 1
     };
 
     static const OSG::BitVector TextureFieldMask =
@@ -109,15 +109,15 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         (TypeTraits<BitVector>::One << TexTargetFieldId);
     static const OSG::BitVector LevelFieldMask =
         (TypeTraits<BitVector>::One << LevelFieldId);
-    static const OSG::BitVector ZoffsetFieldMask =
-        (TypeTraits<BitVector>::One << ZoffsetFieldId);
+    static const OSG::BitVector LayerFieldMask =
+        (TypeTraits<BitVector>::One << LayerFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecTextureObjChunkPtr SFTextureType;
     typedef SFGLenum          SFTexTargetType;
     typedef SFUInt32          SFLevelType;
-    typedef SFUInt32          SFZoffsetType;
+    typedef SFUInt32          SFLayerType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -151,8 +151,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
                   SFUInt32            *editSFLevel          (void);
             const SFUInt32            *getSFLevel           (void) const;
 
-                  SFUInt32            *editSFZoffset        (void);
-            const SFUInt32            *getSFZoffset         (void) const;
+                  SFUInt32            *editSFLayer          (void);
+            const SFUInt32            *getSFLayer           (void) const;
 
 
                   TextureObjChunk * getTexture        (void) const;
@@ -163,8 +163,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
                   UInt32              &editLevel          (void);
                   UInt32               getLevel           (void) const;
 
-                  UInt32              &editZoffset        (void);
-                  UInt32               getZoffset         (void) const;
+                  UInt32              &editLayer          (void);
+                  UInt32               getLayer           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -174,7 +174,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
             void setTexture        (TextureObjChunk * const value);
             void setTexTarget      (const GLenum &value);
             void setLevel          (const UInt32 value);
-            void setZoffset        (const UInt32 value);
+            void setLayer          (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -242,7 +242,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     SFUnrecTextureObjChunkPtr _sfTexture;
     SFGLenum          _sfTexTarget;
     SFUInt32          _sfLevel;
-    SFUInt32          _sfZoffset;
+    SFUInt32          _sfLayer;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -277,8 +277,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
      EditFieldHandlePtr editHandleTexTarget      (void);
      GetFieldHandlePtr  getHandleLevel           (void) const;
      EditFieldHandlePtr editHandleLevel          (void);
-     GetFieldHandlePtr  getHandleZoffset         (void) const;
-     EditFieldHandlePtr editHandleZoffset        (void);
+     GetFieldHandlePtr  getHandleLayer           (void) const;
+     EditFieldHandlePtr editHandleLayer          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -143,6 +143,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     static UInt32 _uiFuncFramebufferTexture1D;
     static UInt32 _uiFuncFramebufferTexture2D;
     static UInt32 _uiFuncFramebufferTexture3D;
+    static UInt32 _uiFuncFramebufferTextureLayer;
     static UInt32 _uiFuncGenerateMipmap;
 
     /*! \}                                                                 */

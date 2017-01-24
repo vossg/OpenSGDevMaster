@@ -98,8 +98,8 @@ OSG_BEGIN_NAMESPACE
     The mipmap level in the texture to target.
 */
 
-/*! \var UInt32          TextureBufferBase::_sfZoffset
-    UNUSED.
+/*! \var UInt32          TextureBufferBase::_sfLayer
+    The layer specifies the layer of a 2-dimensional image within a 3-dimensional texture.
 */
 
 
@@ -173,13 +173,13 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
-        "zoffset",
-        "UNUSED.\n",
-        ZoffsetFieldId, ZoffsetFieldMask,
+        "layer",
+        "The layer specifies the layer of a 2-dimensional image within a 3-dimensional texture.\n",
+        LayerFieldId, LayerFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleZoffset),
-        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleZoffset));
+        static_cast<FieldEditMethodSig>(&TextureBuffer::editHandleLayer),
+        static_cast<FieldGetMethodSig >(&TextureBuffer::getHandleLayer));
 
     oType.addInitialDesc(pDesc);
 }
@@ -243,14 +243,14 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     "    The mipmap level in the texture to target.\n"
     "  </Field>\n"
     "  <Field\n"
-    "     name=\"zoffset\"\n"
+    "     name=\"layer\"\n"
     "     type=\"UInt32\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"0\"\n"
     "     >\n"
-    "    UNUSED.\n"
+    "    The layer specifies the layer of a 2-dimensional image within a 3-dimensional texture.\n"
     "  </Field>\n"
     "</FieldContainer>\n",
     "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
@@ -332,16 +332,16 @@ const SFUInt32 *TextureBufferBase::getSFLevel(void) const
 }
 
 
-SFUInt32 *TextureBufferBase::editSFZoffset(void)
+SFUInt32 *TextureBufferBase::editSFLayer(void)
 {
-    editSField(ZoffsetFieldMask);
+    editSField(LayerFieldMask);
 
-    return &_sfZoffset;
+    return &_sfLayer;
 }
 
-const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
+const SFUInt32 *TextureBufferBase::getSFLayer(void) const
 {
-    return &_sfZoffset;
+    return &_sfLayer;
 }
 
 
@@ -367,9 +367,9 @@ SizeT TextureBufferBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLevel.getBinSize();
     }
-    if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
+    if(FieldBits::NoField != (LayerFieldMask & whichField))
     {
-        returnValue += _sfZoffset.getBinSize();
+        returnValue += _sfLayer.getBinSize();
     }
 
     return returnValue;
@@ -392,9 +392,9 @@ void TextureBufferBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLevel.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
+    if(FieldBits::NoField != (LayerFieldMask & whichField))
     {
-        _sfZoffset.copyToBin(pMem);
+        _sfLayer.copyToBin(pMem);
     }
 }
 
@@ -418,10 +418,10 @@ void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
         editSField(LevelFieldMask);
         _sfLevel.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
+    if(FieldBits::NoField != (LayerFieldMask & whichField))
     {
-        editSField(ZoffsetFieldMask);
-        _sfZoffset.copyFromBin(pMem);
+        editSField(LayerFieldMask);
+        _sfLayer.copyFromBin(pMem);
     }
 }
 
@@ -551,7 +551,7 @@ TextureBufferBase::TextureBufferBase(void) :
     _sfTexture                (NULL),
     _sfTexTarget              (GLenum(GL_NONE)),
     _sfLevel                  (UInt32(0)),
-    _sfZoffset                (UInt32(0))
+    _sfLayer                  (UInt32(0))
 {
 }
 
@@ -560,7 +560,7 @@ TextureBufferBase::TextureBufferBase(const TextureBufferBase &source) :
     _sfTexture                (NULL),
     _sfTexTarget              (source._sfTexTarget              ),
     _sfLevel                  (source._sfLevel                  ),
-    _sfZoffset                (source._sfZoffset                )
+    _sfLayer                  (source._sfLayer                  )
 {
 }
 
@@ -661,27 +661,27 @@ EditFieldHandlePtr TextureBufferBase::editHandleLevel          (void)
     return returnValue;
 }
 
-GetFieldHandlePtr TextureBufferBase::getHandleZoffset         (void) const
+GetFieldHandlePtr TextureBufferBase::getHandleLayer           (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfZoffset,
-             this->getType().getFieldDesc(ZoffsetFieldId),
+             &_sfLayer,
+             this->getType().getFieldDesc(LayerFieldId),
              const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr TextureBufferBase::editHandleZoffset        (void)
+EditFieldHandlePtr TextureBufferBase::editHandleLayer          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfZoffset,
-             this->getType().getFieldDesc(ZoffsetFieldId),
+             &_sfLayer,
+             this->getType().getFieldDesc(LayerFieldId),
              this));
 
 
-    editSField(ZoffsetFieldMask);
+    editSField(LayerFieldMask);
 
     return returnValue;
 }

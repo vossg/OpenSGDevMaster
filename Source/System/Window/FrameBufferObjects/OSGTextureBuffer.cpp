@@ -59,10 +59,11 @@ OSG_BEGIN_NAMESPACE
 UInt32 TextureBuffer::_uiFramebuffer_object_extension = 
     Window::invalidExtensionID;
 
-UInt32 TextureBuffer::_uiFuncFramebufferTexture1D =  Window::invalidFunctionID;
-UInt32 TextureBuffer::_uiFuncFramebufferTexture2D =  Window::invalidFunctionID;
-UInt32 TextureBuffer::_uiFuncFramebufferTexture3D =  Window::invalidFunctionID;
-UInt32 TextureBuffer::_uiFuncGenerateMipmap       =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncFramebufferTexture1D    =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncFramebufferTexture2D    =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncFramebufferTexture3D    =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncFramebufferTextureLayer =  Window::invalidFunctionID;
+UInt32 TextureBuffer::_uiFuncGenerateMipmap          =  Window::invalidFunctionID;
 
 // Documentation for this class is emited in the
 // OSGTextureBufferBase.cpp file.
@@ -144,9 +145,27 @@ void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
                     target,
                     pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
                     getLevel(),
-                    getZoffset());
+                    getLayer());
             }
             break;
+
+            case GL_TEXTURE_2D_ARRAY:
+            case GL_TEXTURE_CUBE_MAP_ARRAY:
+            {
+                OSGGETGLFUNCBYID_GL3( glFramebufferTextureLayer,
+                                      osgGlFramebufferTextureLayer,
+                                     _uiFuncFramebufferTextureLayer,
+                                      pWindow);
+
+                osgGlFramebufferTextureLayer(
+                    GL_FRAMEBUFFER, 
+                    index,
+                    pWindow->getGLObjectId(_sfTexture.getValue()->getGLId()),
+                    getLevel(),
+                    getLayer());
+            }
+            break;
+
         }
     }
 }
@@ -362,6 +381,11 @@ void TextureBuffer::initMethod(InitPhase ePhase)
         _uiFuncFramebufferTexture3D =
             Window::registerFunction (
                  OSG_DLSYM_UNDERSCORE"glFramebufferTexture3D", 
+                _uiFramebuffer_object_extension);
+
+        _uiFuncFramebufferTextureLayer =
+            Window::registerFunction (
+                 OSG_DLSYM_UNDERSCORE"glFramebufferTextureLayer", 
                 _uiFramebuffer_object_extension);
 
         _uiFuncGenerateMipmap =

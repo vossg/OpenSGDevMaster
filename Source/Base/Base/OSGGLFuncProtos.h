@@ -519,6 +519,12 @@ typedef void (OSG_APIENTRY *osgGlFramebufferTexture3DProc)(GLenum target,
                                                            GLint  level, 
                                                            GLint  zoffset   );
 
+typedef void (OSG_APIENTRY *osgGlFramebufferTextureLayerProc)(GLenum target,
+                                                              GLenum attachment,
+                                                              GLuint texture,
+                                                              GLint  level,
+                                                              GLint  layer);
+
 typedef void   (OSG_APIENTRY *osgGlGenerateMipmapProc    )(GLenum target    );
 
 /*! \}                                                                       */

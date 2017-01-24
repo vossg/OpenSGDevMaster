@@ -45,13 +45,13 @@
     The mipmap level in the texture to target.
   </Field>
   <Field
-     name="zoffset"
+     name="layer"
      type="UInt32"
      cardinality="single"
      visibility="external"
      access="public"
      defaultValue="0"
      >
-    UNUSED.
+    The layer specifies the layer of a 2-dimensional image within a 3-dimensional texture.
   </Field>
 </FieldContainer>

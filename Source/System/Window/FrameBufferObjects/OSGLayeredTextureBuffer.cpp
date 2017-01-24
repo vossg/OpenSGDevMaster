@@ -100,6 +100,7 @@ void LayeredTextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
             
         switch(target)
         {
+            case GL_TEXTURE_CUBE_MAP_ARRAY:
             case GL_TEXTURE_2D_ARRAY:
             case GL_TEXTURE_3D:
             {
@@ -271,8 +272,8 @@ void LayeredTextureBuffer::processPostDeactivate(DrawEnv *pEnv)
         return;
         
     GLenum target = pTexObj->determineTextureTarget(win);
-    
-    if((target                  == GL_TEXTURE_2D_ARRAY       ||
+    if((target                  == GL_TEXTURE_CUBE_MAP_ARRAY ||
+        target                  == GL_TEXTURE_2D_ARRAY       ||
         target                  == GL_TEXTURE_3D               )   &&
        (pTexObj->getMinFilter() == GL_NEAREST_MIPMAP_NEAREST ||
         pTexObj->getMinFilter() == GL_LINEAR_MIPMAP_NEAREST  ||

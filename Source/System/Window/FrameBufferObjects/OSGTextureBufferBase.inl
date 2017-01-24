@@ -124,30 +124,30 @@ void TextureBufferBase::setLevel(const UInt32 value)
 
     _sfLevel.setValue(value);
 }
-//! Get the value of the TextureBuffer::_sfZoffset field.
+//! Get the value of the TextureBuffer::_sfLayer field.
 
 inline
-UInt32 &TextureBufferBase::editZoffset(void)
+UInt32 &TextureBufferBase::editLayer(void)
 {
-    editSField(ZoffsetFieldMask);
+    editSField(LayerFieldMask);
 
-    return _sfZoffset.getValue();
+    return _sfLayer.getValue();
 }
 
-//! Get the value of the TextureBuffer::_sfZoffset field.
+//! Get the value of the TextureBuffer::_sfLayer field.
 inline
-      UInt32  TextureBufferBase::getZoffset(void) const
+      UInt32  TextureBufferBase::getLayer(void) const
 {
-    return _sfZoffset.getValue();
+    return _sfLayer.getValue();
 }
 
-//! Set the value of the TextureBuffer::_sfZoffset field.
+//! Set the value of the TextureBuffer::_sfLayer field.
 inline
-void TextureBufferBase::setZoffset(const UInt32 value)
+void TextureBufferBase::setLayer(const UInt32 value)
 {
-    editSField(ZoffsetFieldMask);
+    editSField(LayerFieldMask);
 
-    _sfZoffset.setValue(value);
+    _sfLayer.setValue(value);
 }
 
 
@@ -170,8 +170,8 @@ void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
     if(FieldBits::NoField != (LevelFieldMask & whichField))
         _sfLevel.syncWith(pFrom->_sfLevel);
 
-    if(FieldBits::NoField != (ZoffsetFieldMask & whichField))
-        _sfZoffset.syncWith(pFrom->_sfZoffset);
+    if(FieldBits::NoField != (LayerFieldMask & whichField))
+        _sfLayer.syncWith(pFrom->_sfLayer);
 }
 #endif
 
