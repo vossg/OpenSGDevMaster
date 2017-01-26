@@ -644,11 +644,11 @@ MACRO(OSG_CONFIGURE_BOOST)
         SET(Boost_USE_STATIC_LIBS OFF CACHE INTERNAL "")
     ENDIF(NOT Boost_USE_STATIC_LIBS)
 
-    IF(APPLE AND IOS)
-      FIND_PACKAGE(BoostIOS COMPONENTS filesystem system)
-    ELSE()
+#    IF(APPLE AND IOS)
+#      FIND_PACKAGE(BoostIOS COMPONENTS filesystem system)
+#    ELSE()
       FIND_PACKAGE(Boost COMPONENTS filesystem system)
-    ENDIF()
+#    ENDIF()
 
     IF(Boost_FOUND)
 
@@ -688,11 +688,11 @@ MACRO(OSG_CONFIGURE_BOOST)
         ENDIF(WIN32)
 
         IF(APPLE)
-            IF(IOS)
-              FIND_PACKAGE(BoostIOS COMPONENTS system)
-            ELSE()
+#            IF(IOS)
+#              FIND_PACKAGE(BoostIOS COMPONENTS system)
+#            ELSE()
               FIND_PACKAGE(Boost COMPONENTS system)
-            ENDIF()
+#            ENDIF()
 
             IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
                CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
