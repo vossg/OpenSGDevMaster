@@ -45,21 +45,21 @@ BoxVolume::BoxVolume(void) :
 inline
 BoxVolume::BoxVolume(Real32 xmin, Real32 ymin, Real32 zmin,
                      Real32 xmax, Real32 ymax, Real32 zmax) :
-     Inherited(                ), 
-    _min      (xmin, ymin, zmin), 
-    _max      (xmax, ymax, zmax)
+     Inherited(             ), 
+    _min      (0.f, 0.f, 0.f), 
+    _max      (0.f, 0.f, 0.f)
 { 
-    setEmpty(false);
+    setBounds(xmin, ymin, zmin, xmax, ymax, zmax);
 }
 
 
 inline
 BoxVolume::BoxVolume(const Pnt3f &min, const Pnt3f &max) :
-     Inherited(   ), 
-    _min      (min), 
-    _max      (max)
+     Inherited(             ), 
+    _min      (0.f, 0.f, 0.f), 
+    _max      (0.f, 0.f, 0.f)
 { 
-    setEmpty(false); 
+    setBounds(min, max);
 }
 
 
@@ -154,8 +154,8 @@ void BoxVolume::setBounds(Real32 xmin,
                           Real32 ymax, 
                           Real32 zmax)
 {
-    _min.setValues(xmin, ymin, zmin);
-    _max.setValues(xmax, ymax, zmax);
+    _min.setValues(osgMin(xmin,xmax), osgMin(ymin,ymax), osgMin(zmin,zmax));
+    _max.setValues(osgMax(xmin,xmax), osgMax(ymin,ymax), osgMax(zmin,zmax));
 
     Volume::setValid   (true );
     Volume::setEmpty   (false);
@@ -166,12 +166,7 @@ void BoxVolume::setBounds(Real32 xmin,
 inline
 void BoxVolume::setBounds(const Pnt3f &min, const Pnt3f &max)
 {
-    _min = min; 
-    _max = max;
-
-    Volume::setValid   (true );
-    Volume::setEmpty   (false);
-    Volume::setInfinite(false);
+    setBounds(min[0],min[1],min[2], max[0],max[1],max[2]);
 }
 
 inline
@@ -192,7 +187,6 @@ void BoxVolume::extendBy(const BoxVolume &volume)
 {
     OSG::extend(*this, volume);
 }
-
 
 inline
 bool BoxVolume::operator !=(const BoxVolume &rhs) const

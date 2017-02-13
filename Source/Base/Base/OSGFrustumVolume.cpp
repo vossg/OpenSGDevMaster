@@ -52,7 +52,6 @@
 #include "OSGMatrix.h"
 #include "OSGLine.h"
 
-
 /*! \class OSG::FrustumVolume
 
     
@@ -204,18 +203,62 @@ void FrustumVolume::getCorners(Pnt3f &nlt, Pnt3f &nlb,
     _planeVec[PLANE_FAR ].intersectInfinite(edges[3], frb);
 }
 
+Pnt3f FrustumVolume::getCorner(Corner cornerId) const
+{
+    Pnt3f cornerPnt;
+    Line edge;
+    switch (cornerId)
+    {
+        case NEAR_LEFT_BOTTOM:
+            _planeVec[PLANE_LEFT  ].intersect(_planeVec[PLANE_BOTTOM], edge);
+            _planeVec[PLANE_NEAR].intersectInfinite(edge, cornerPnt);
+            break;
+        case NEAR_RIGHT_BOTTOM:
+            _planeVec[PLANE_BOTTOM].intersect(_planeVec[PLANE_RIGHT ], edge);
+            _planeVec[PLANE_NEAR].intersectInfinite(edge, cornerPnt);
+            break;
+        case NEAR_RIGHT_TOP:
+            _planeVec[PLANE_RIGHT ].intersect(_planeVec[PLANE_TOP   ], edge);
+            _planeVec[PLANE_NEAR].intersectInfinite(edge, cornerPnt);
+            break;
+        case NEAR_LEFT_TOP:
+            _planeVec[PLANE_TOP   ].intersect(_planeVec[PLANE_LEFT  ], edge);
+            _planeVec[PLANE_NEAR].intersectInfinite(edge, cornerPnt);
+            break;
+        case FAR_LEFT_BOTTOM:
+            _planeVec[PLANE_LEFT  ].intersect(_planeVec[PLANE_BOTTOM], edge);
+            _planeVec[PLANE_FAR ].intersectInfinite(edge, cornerPnt);
+            break;
+        case FAR_RIGHT_BOTTOM:
+            _planeVec[PLANE_BOTTOM].intersect(_planeVec[PLANE_RIGHT ], edge);
+            _planeVec[PLANE_FAR ].intersectInfinite(edge, cornerPnt);
+            break;
+        case FAR_RIGHT_TOP:
+            _planeVec[PLANE_RIGHT ].intersect(_planeVec[PLANE_TOP   ], edge);
+            _planeVec[PLANE_FAR ].intersectInfinite(edge, cornerPnt);
+            break;
+        case FAR_LEFT_TOP:
+            _planeVec[PLANE_TOP   ].intersect(_planeVec[PLANE_LEFT  ], edge);
+            _planeVec[PLANE_FAR ].intersectInfinite(edge, cornerPnt);
+            break;
+        default:
+            SWARNING << "FrustumVolume::getCorner: invalid corner type!" << std::endl;
+    }
+    return cornerPnt;
+}
+
 /*------------------------------ feature ----------------------------------*/
 
 void FrustumVolume::setPlanes(const Plane &pnear, const Plane &pfar,
-                              const Plane &left,  const Plane &right,
-                              const Plane &top,   const Plane &bottom)
+                              const Plane &pleft, const Plane &pright,
+                              const Plane &ptop,  const Plane &pbottom)
 {
     _planeVec[0] = pnear;
     _planeVec[1] = pfar;
-    _planeVec[2] = left;
-    _planeVec[3] = right;
-    _planeVec[4] = top;
-    _planeVec[5] = bottom;
+    _planeVec[2] = pleft;
+    _planeVec[3] = pright;
+    _planeVec[4] = ptop;
+    _planeVec[5] = pbottom;
 }
 
 
@@ -249,31 +292,37 @@ void FrustumVolume::setPlanes(const Matrix &objectClipMat)
     Real32 vectorLength;
     Vec3f  normal;
 
+    // right plane
     planeEquation[0][0] = objectClipMat[0][3] - objectClipMat[0][0];
     planeEquation[0][1] = objectClipMat[1][3] - objectClipMat[1][0];
     planeEquation[0][2] = objectClipMat[2][3] - objectClipMat[2][0];
     planeEquation[0][3] = objectClipMat[3][3] - objectClipMat[3][0];
 
+    // left plane
     planeEquation[1][0] = objectClipMat[0][3] + objectClipMat[0][0];
     planeEquation[1][1] = objectClipMat[1][3] + objectClipMat[1][0];
     planeEquation[1][2] = objectClipMat[2][3] + objectClipMat[2][0];
     planeEquation[1][3] = objectClipMat[3][3] + objectClipMat[3][0];
 
+    // bottom plane
     planeEquation[2][0] = objectClipMat[0][3] + objectClipMat[0][1];
     planeEquation[2][1] = objectClipMat[1][3] + objectClipMat[1][1];
     planeEquation[2][2] = objectClipMat[2][3] + objectClipMat[2][1];
     planeEquation[2][3] = objectClipMat[3][3] + objectClipMat[3][1];
 
+    // top plane
     planeEquation[3][0] = objectClipMat[0][3] - objectClipMat[0][1];
     planeEquation[3][1] = objectClipMat[1][3] - objectClipMat[1][1];
     planeEquation[3][2] = objectClipMat[2][3] - objectClipMat[2][1];
     planeEquation[3][3] = objectClipMat[3][3] - objectClipMat[3][1];
 
+    // near plane
     planeEquation[4][0] = objectClipMat[0][3] + objectClipMat[0][2];
     planeEquation[4][1] = objectClipMat[1][3] + objectClipMat[1][2];
     planeEquation[4][2] = objectClipMat[2][3] + objectClipMat[2][2];
     planeEquation[4][3] = objectClipMat[3][3] + objectClipMat[3][2];
 
+    // far plane
     planeEquation[5][0] = objectClipMat[0][3] - objectClipMat[0][2];
     planeEquation[5][1] = objectClipMat[1][3] - objectClipMat[1][2];
     planeEquation[5][2] = objectClipMat[2][3] - objectClipMat[2][2];
@@ -312,6 +361,79 @@ void FrustumVolume::setPlanes(const Matrix &objectClipMat)
 }
 
 
+void FrustumVolume::setPlanesOutwards(const Matrix &objectClipMat)
+{
+    Vec4f  planeEquation[6];
+    Real32 vectorLength;
+    Vec3f  normal;
+
+    // right plane
+    planeEquation[0][0] = objectClipMat[0][3] - objectClipMat[0][0];
+    planeEquation[0][1] = objectClipMat[1][3] - objectClipMat[1][0];
+    planeEquation[0][2] = objectClipMat[2][3] - objectClipMat[2][0];
+    planeEquation[0][3] = objectClipMat[3][3] - objectClipMat[3][0];
+
+    // left plane
+    planeEquation[1][0] = objectClipMat[0][3] + objectClipMat[0][0];
+    planeEquation[1][1] = objectClipMat[1][3] + objectClipMat[1][0];
+    planeEquation[1][2] = objectClipMat[2][3] + objectClipMat[2][0];
+    planeEquation[1][3] = objectClipMat[3][3] + objectClipMat[3][0];
+
+    // bottom plane
+    planeEquation[2][0] = objectClipMat[0][3] + objectClipMat[0][1];
+    planeEquation[2][1] = objectClipMat[1][3] + objectClipMat[1][1];
+    planeEquation[2][2] = objectClipMat[2][3] + objectClipMat[2][1];
+    planeEquation[2][3] = objectClipMat[3][3] + objectClipMat[3][1];
+
+    // top plane
+    planeEquation[3][0] = objectClipMat[0][3] - objectClipMat[0][1];
+    planeEquation[3][1] = objectClipMat[1][3] - objectClipMat[1][1];
+    planeEquation[3][2] = objectClipMat[2][3] - objectClipMat[2][1];
+    planeEquation[3][3] = objectClipMat[3][3] - objectClipMat[3][1];
+
+    // near plane
+    planeEquation[4][0] = objectClipMat[0][3] + objectClipMat[0][2];
+    planeEquation[4][1] = objectClipMat[1][3] + objectClipMat[1][2];
+    planeEquation[4][2] = objectClipMat[2][3] + objectClipMat[2][2];
+    planeEquation[4][3] = objectClipMat[3][3] + objectClipMat[3][2];
+
+    // far plane
+    planeEquation[5][0] = objectClipMat[0][3] - objectClipMat[0][2];
+    planeEquation[5][1] = objectClipMat[1][3] - objectClipMat[1][2];
+    planeEquation[5][2] = objectClipMat[2][3] - objectClipMat[2][2];
+    planeEquation[5][3] = objectClipMat[3][3] - objectClipMat[3][2];
+
+    for(Int32  i = 0; i < 6; i++) 
+    {
+        vectorLength = 
+            osgSqrt(planeEquation[i][0] * planeEquation[i][0] +
+                    planeEquation[i][1] * planeEquation[i][1] +
+                    planeEquation[i][2] * planeEquation[i][2]);
+ 
+        planeEquation[i][0] /= -vectorLength;
+        planeEquation[i][1] /= -vectorLength;
+        planeEquation[i][2] /= -vectorLength;
+        planeEquation[i][3] /=  vectorLength;
+    }
+
+  // right
+  _planeVec[3].set(planeEquation[0]);
+
+  // left
+  _planeVec[2].set(planeEquation[1]);
+
+  // bottom
+  _planeVec[5].set(planeEquation[2]);
+
+  // top
+  _planeVec[4].set(planeEquation[3]);
+
+  // near
+  _planeVec[0].set(planeEquation[4]);
+
+  // far
+  _planeVec[1].set(planeEquation[5]);
+}
 
 /*-------------------------- extending ------------------------------------*/
 

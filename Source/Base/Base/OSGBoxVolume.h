@@ -41,6 +41,7 @@
 #define _OSGBOXVOLUME_H_
 
 #include "OSGVolume.h"
+#include "OSGPlane.h"
 #include "OSGVolumeFunctions.h"
 
 OSG_BEGIN_NAMESPACE
@@ -57,6 +58,30 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    enum Corner
+    {
+        NEAR_LEFT_BOTTOM = 0,         // Min-Min-Min
+        NEAR_RIGHT_BOTTOM,            // Max-Min-Min
+        NEAR_RIGHT_TOP,               // Max-Max-Min
+        NEAR_LEFT_TOP,                // Min-Max-Min
+        FAR_LEFT_BOTTOM,              // Min-Min-Max
+        FAR_RIGHT_BOTTOM,             // Max-Min-Max
+        FAR_RIGHT_TOP,                // Max-Max-Max
+        FAR_LEFT_TOP,                 // Min-Max-Max
+        CORNER_COUNT
+    };
+
+    enum AABBPlane
+    {
+        PLANE_NEAR = 0,
+        PLANE_FAR,
+        PLANE_LEFT,
+        PLANE_RIGHT,
+        PLANE_BOTTOM,
+        PLANE_TOP,
+        AABB_PLANE_COUNT
+    };
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -108,6 +133,9 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
                                          Pnt3f  &nrt,    Pnt3f &nrb,
                                          Pnt3f  &flt,    Pnt3f &flb,
                                          Pnt3f  &frt,    Pnt3f &frb ) const;
+
+                  Pnt3f  getCorner      (Corner cornerId) const;
+                  Plane  getPlane       (AABBPlane planeId) const;
     
 
                   void   getOrigin      (Real32 &originX, 

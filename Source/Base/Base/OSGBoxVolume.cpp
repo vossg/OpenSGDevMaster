@@ -106,6 +106,71 @@ void BoxVolume::getCorners(Pnt3f &nlt,    Pnt3f &nlb,
     frb.setValues(_max[0], _min[1], _max[2]);
 }
 
+Pnt3f BoxVolume::getCorner(Corner cornerId) const
+{
+    Pnt3f cornerPnt;
+    switch (cornerId)
+    {
+        case NEAR_LEFT_BOTTOM:
+            cornerPnt.setValues(_min[0], _min[1], _min[2]);
+            break;
+        case NEAR_RIGHT_BOTTOM:
+            cornerPnt.setValues(_max[0], _min[1], _min[2]);
+            break;
+        case NEAR_RIGHT_TOP:
+            cornerPnt.setValues(_max[0], _max[1], _min[2]);
+            break;
+        case NEAR_LEFT_TOP:
+            cornerPnt.setValues(_min[0], _max[1], _min[2]);
+            break;
+        case FAR_LEFT_BOTTOM:
+            cornerPnt.setValues(_min[0], _min[1], _max[2]);
+            break;
+        case FAR_RIGHT_BOTTOM:
+            cornerPnt.setValues(_max[0], _min[1], _max[2]);
+            break;
+        case FAR_RIGHT_TOP:
+            cornerPnt.setValues(_max[0], _max[1], _max[2]);
+            break;
+        case FAR_LEFT_TOP:
+            cornerPnt.setValues(_min[0], _max[1], _max[2]);
+            break;
+        default:
+            SWARNING << "BoxVolume::getCorner: invalid corner type!" << std::endl;
+    }
+    return cornerPnt;
+}
+
+Plane BoxVolume::getPlane(AABBPlane planeId) const
+{
+    Plane plane;
+
+    switch (planeId)
+    {
+        case PLANE_NEAR:
+            plane.set( 0.f, 0.f,-1.f,-_min[2]);
+            break;
+        case PLANE_FAR:
+            plane.set( 0.f, 0.f, 1.f, _max[2]);
+            break;
+        case PLANE_LEFT:
+            plane.set(-1.f, 0.f, 0.f,-_min[0]);
+            break;
+        case PLANE_RIGHT:
+            plane.set( 1.f, 0.f, 0.f, _max[0]);
+            break;
+        case PLANE_BOTTOM:
+            plane.set( 0.f,-1.f, 0.f,-_min[1]);
+            break;
+        case PLANE_TOP:
+            plane.set( 0.f, 1.f, 0.f, _max[1]);
+            break;
+        default:
+            SWARNING << "BoxVolume::getPlane: invalid plane type!" << std::endl;
+    }
+
+    return plane;
+}
 
 //! set method
 void BoxVolume::setBoundsByCenterAndSize(const Pnt3f &center,
@@ -152,7 +217,6 @@ void BoxVolume::extendBy(const Pnt3f &pt)
     _max[1] = osgMax(pt[1], _max[1]);
     _max[2] = osgMax(pt[2], _max[2]);
 }
-
 
 void BoxVolume::extendBy(const Volume &volume)
 {

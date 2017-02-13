@@ -59,6 +59,30 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
 
   public:
     
+    enum Corner
+    {
+        NEAR_LEFT_BOTTOM = 0,
+        NEAR_RIGHT_BOTTOM,
+        NEAR_RIGHT_TOP,
+        NEAR_LEFT_TOP,
+        FAR_LEFT_BOTTOM,
+        FAR_RIGHT_BOTTOM,
+        FAR_RIGHT_TOP,
+        FAR_LEFT_TOP,
+        CORNER_COUNT
+    };
+
+    enum FrustumPlane
+    {
+        PLANE_NEAR = 0,
+        PLANE_FAR,
+        PLANE_LEFT,
+        PLANE_RIGHT,
+        PLANE_TOP,
+        PLANE_BOTTOM,
+        PLANE_COUNT
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Plane Selection                              */
     /*! \{                                                                 */
@@ -82,8 +106,8 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
       
     FrustumVolume(      void                                     ); 
     FrustumVolume(const Plane         &pnear, const Plane &pfar,
-                  const Plane         &left,  const Plane &right,
-                  const Plane         &top,   const Plane &bottom);
+                  const Plane         &pleft, const Plane &pright,
+                  const Plane         &ptop,  const Plane &pbottom);
     FrustumVolume(const FrustumVolume &obj                       );
 
     /*! \}                                                                 */
@@ -115,20 +139,25 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
                                           Pnt3f &nrt,    Pnt3f &nrb,
                                           Pnt3f &flt,    Pnt3f &flb,
                                           Pnt3f &frt,    Pnt3f &frb ) const;
-    
+
+                  Pnt3f   getCorner      (Corner cornerId) const;
+            const Plane  &getPlane       (FrustumPlane planeId) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Get                                       */
     /*! \{                                                                 */
 
-    void setPlanes(const Plane   &pnear, const Plane &pfar,
-                   const Plane   &left,  const Plane &right,
-                   const Plane   &top,   const Plane &bottom);
-    void setPlanes(const Pnt3f   &nlt,   const Pnt3f &nlb,
-                   const Pnt3f   &nrt,   const Pnt3f &nrb,
-                   const Pnt3f   &flt,   const Pnt3f &flb,
-                   const Pnt3f   &frt,   const Pnt3f &frb   );
-    void setPlanes(const Matrix  &matrix                    );
+    void setPlanes          (const Plane   &pnear, const Plane &pfar,
+                             const Plane   &left,  const Plane &right,
+                             const Plane   &top,   const Plane &bottom  );
+    void setPlanes          (const Pnt3f   &nlt,   const Pnt3f &nlb,
+                             const Pnt3f   &nrt,   const Pnt3f &nrb,
+                             const Pnt3f   &flt,   const Pnt3f &flb,
+                             const Pnt3f   &frt,   const Pnt3f &frb     );
+
+    void setPlanes          (const Matrix  &matrix                      );
+    void setPlanesOutwards  (const Matrix  &matrix                      );
                                     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,23 +214,12 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
   protected:
 
     typedef Volume Inherited;
-
-    enum 
-    {
-        PLANE_NEAR   = 0,
-        PLANE_FAR    = 1,
-        PLANE_LEFT   = 2,
-        PLANE_RIGHT  = 3,
-        PLANE_TOP    = 4,
-        PLANE_BOTTOM = 5
-    };
     
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    Plane _planeVec[6];
-
+    Plane                       _planeVec[6];
 };
 
 /*! \ingroup GrpBaseBaseVolume

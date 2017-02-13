@@ -59,16 +59,16 @@ FrustumVolume::FrustumVolume() :
 
 inline
 FrustumVolume::FrustumVolume(const Plane &pnear, const Plane &pfar,
-                             const Plane &left,  const Plane &right,
-                             const Plane &top,   const Plane &bottom) :
+                             const Plane &pleft, const Plane &pright,
+                             const Plane &ptop,  const Plane &pbottom) :
     Inherited()
 {
     _planeVec[0] = pnear;
     _planeVec[1] = pfar;
-    _planeVec[2] = left;
-    _planeVec[3] = right;
-    _planeVec[4] = top;
-    _planeVec[5] = bottom;
+    _planeVec[2] = pleft;
+    _planeVec[3] = pright;
+    _planeVec[4] = ptop;
+    _planeVec[5] = pbottom;
 }
 
 /*! Copy Constructor
@@ -158,6 +158,12 @@ inline
 const Plane *FrustumVolume::getPlanes(void) const
 {
     return _planeVec;
+}
+
+inline
+const Plane &FrustumVolume::getPlane(FrustumPlane planeId) const
+{
+    return _planeVec[planeId];
 }
 
 /*-------------------------- extending ------------------------------------*/
