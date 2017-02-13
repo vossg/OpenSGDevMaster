@@ -86,6 +86,10 @@ class OSG_BASE_DLLMAPPING Line
     
     bool  operator ==(const Line &rhs) const;
     bool  operator !=(const Line &rhs) const;
+
+    bool  equals     (const Line &rhs, 
+                      Real32 tolerance = 
+                            TypeTraits<OSG::Real32>::getDefaultEps()) const;
     
     Line &operator = (const Line &rhs);
     
