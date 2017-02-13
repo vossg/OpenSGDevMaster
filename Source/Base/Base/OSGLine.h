@@ -129,7 +129,8 @@ class OSG_BASE_DLLMAPPING Line
     /*! \{                                                                 */
 
     const Pnt3f &getPosition (void) const; 
-    const Vec3f &getDirection(void) const; 
+    const Vec3f &getDirection(void) const;
+          Pnt3f  getPoint    (Real32 t) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

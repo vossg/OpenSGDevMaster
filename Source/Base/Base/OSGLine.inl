@@ -50,6 +50,12 @@ const Pnt3f &Line::getPosition(void) const
     return _pos;
 }
 
+inline
+Pnt3f Line::getPoint(Real32 t) const
+{
+    return _pos + t * _dir;
+}
+
 /*! Accessors for direction
  */
 
