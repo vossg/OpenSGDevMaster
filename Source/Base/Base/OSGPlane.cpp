@@ -49,6 +49,7 @@
 #include "OSGPlane.h"
 #include "OSGLine.h"
 #include "OSGMatrix.h"
+#include "OSGQuaternion.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -80,7 +81,7 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------- constructor ----------------------------------*/
 
 Plane::Plane(void) : 
-    _normalVec      (0.f, 0.f, 0.f), 
+    _normal         (0.f, 0.f, 0.f), 
     _distance       (0.f          ),
     _directionIndex (0)
 {
@@ -88,7 +89,7 @@ Plane::Plane(void) :
 
 
 Plane::Plane(const Plane &obj) : 
-    _normalVec      (obj._normalVec     ), 
+    _normal         (obj._normal        ), 
     _distance       (obj._distance      ),
     _directionIndex (obj._directionIndex)
 {
@@ -104,44 +105,96 @@ Plane::Plane(const Plane &obj) :
 Plane::Plane(const Pnt3f &p0, 
              const Pnt3f &p1, 
              const Pnt3f &p2) :
-    _normalVec     (0.f, 0.f, 0.f),
+    _normal        (0.f, 0.f, 0.f),
     _distance      (          0.f),
     _directionIndex(0            )
 {
     Vec3f vec2(p2 - p0);
 
-    _normalVec = p1 - p0;
+    _normal = p1 - p0;
 
-    _normalVec.crossThis(vec2);
-    _normalVec.normalize();
+    _normal.crossThis(vec2);
+    _normal.normalize();
     
-    _distance = _normalVec.dot(p0);
+    _distance = _normal.dot(p0);
 
     updateDirectionIndex();
 }
 
+/*! Construct a plane given 3 points.
+    Orientation is computed by taking either (p1 - p0) x (p2 - p0) 
+    or (p2 - p0) x (p1 - p0) depending on the given vertex order
+    and pointing the normal in that direction.
+ */
+Plane::Plane(const Pnt3f &p0, 
+             const Pnt3f &p1, 
+             const Pnt3f &p2,
+             Polygon::VertexOrder order) :
+    _normal        (0.f, 0.f, 0.f),
+    _distance      (          0.f),
+    _directionIndex(0            )
+{
+    Vec3f vec2;
+    switch (order)
+    {
+        case Polygon::ccw:
+            vec2    = p2 - p0;
+            _normal = p1 - p0;
+            break;
+        case Polygon::cw:
+            vec2    = p1 - p0;
+            _normal = p2 - p0;
+            break;
+    }
+    
+    _normal.crossThis(vec2);
+    _normal.normalize();
+    
+    _distance = _normal.dot(p0);
 
+    updateDirectionIndex();
+}
 Plane::Plane(const Vec3f &normal, Real32 dist) : 
-    _normalVec     (normal), 
+    _normal        (normal), 
     _distance      (dist  ),
     _directionIndex(0     )
     
 {
-    _normalVec.normalize();
+    _normal.normalize();
 
     updateDirectionIndex();
 }
 
 
 Plane::Plane(const Vec3f &normal, const Pnt3f &point) :
-    _normalVec     (normal),
+    _normal        (normal),
     _distance      (   0.f),
     _directionIndex(0     )
 {
-    _normalVec.normalize();
+    _normal.normalize();
+    _distance = _normal.dot(point);
 
-    _distance = _normalVec.dot(point);
+    updateDirectionIndex();
+}
 
+/*! This constructor initializes the Plane object by a homogenous
+    plane equation represented by a Vec4f instance. The plane distance
+    is therefore minus of the forth equation component.
+
+    Plane: {q | n*(q - p) == 0, p,q,n element of R^3}
+       <=> {q |  n*q + D  == 0 with D  := -n*p, D element of R}
+       <=> {q | n0*q + D0 == 0 with D0 := -n0*p}
+       <=> {q | n0*q - d  == 0 with d  := -D0, follows with p := d*n0}     Hesse normal form
+       <=> {q | L*q'      == 0 with L  := (n0,D0) = (n0,-d) and q' := (q,1), L,q' element of R^4}
+    
+    Internally Plane stores and works with n0 and d not D0
+ */
+Plane::Plane(const Vec4f &equation) :
+    _normal        ( equation   ),
+    _distance      (-equation[3]),
+    _directionIndex(0            )
+{
+    calcHessNorm();
     updateDirectionIndex();
 }
 
@@ -170,7 +223,7 @@ void Plane::offset(Real32 d)
 
 bool Plane::intersect(const Plane &pl, Line &is) const
 {
-    Vec3f  dir = _normalVec.cross(pl.getNormal());
+    Vec3f  dir = _normal.cross(pl.getNormal());
     Pnt3f  pnt;
 
     Real32 len = dir.length();
@@ -202,25 +255,25 @@ bool Plane::intersect(const Plane &pl, Line &is) const
             pnt.setValues(
                 0.f,
                 (pl.getNormal            ()[2] * _distance     - 
-                 pl.getDistanceFromOrigin()    * _normalVec[2]) / dir[0],
-                (pl.getDistanceFromOrigin()    * _normalVec[1] -
+                 pl.getDistanceFromOrigin()    * _normal[2]) / dir[0],
+                (pl.getDistanceFromOrigin()    * _normal[1] -
                  pl.getNormal            ()[1] * _distance    ) / dir[0]);
             break;
 
         case 1:
             pnt.setValues(
-                (pl.getDistanceFromOrigin()    * _normalVec[2] -
+                (pl.getDistanceFromOrigin()    * _normal[2] -
                  pl.getNormal            ()[2] * _distance    ) / dir[1],
                 0.f,
                 (pl.getNormal            ()[0] * _distance     -
-                 pl.getDistanceFromOrigin()    * _normalVec[0]) / dir[1]);
+                 pl.getDistanceFromOrigin()    * _normal[0]) / dir[1]);
             break;
 
         case 2: 
             pnt.setValues(
                 (pl.getNormal            ()[1] * _distance     -
-                 pl.getDistanceFromOrigin()    * _normalVec[1]) / dir[2],
-                (pl.getDistanceFromOrigin()    * _normalVec[0] -
+                 pl.getDistanceFromOrigin()    * _normal[1]) / dir[2],
+                (pl.getDistanceFromOrigin()    * _normal[0] -
                  pl.getNormal            ()[0] * _distance)     / dir[2],
                 0.f);
             break;
@@ -282,18 +335,18 @@ bool Plane::intersectInfinite(const Line &line, Real32 &t) const
 {
     Real32 a;
 
-    a = _normalVec.dot(line.getDirection());
+    a = _normal.dot(line.getDirection());
 
     if(a != 0.0f)
     {
-        t = _normalVec.dot(
-            Pnt3f(_normalVec * _distance) -  line.getPosition()) / a;
+        t = _normal.dot(
+            Pnt3f(_normal * _distance) -  line.getPosition()) / a;
 
         return true;
     }
     else
     {
-        if(_normalVec.dot(line.getPosition()) - _distance == 0.f)
+        if(_normal.dot(line.getPosition()) - _distance == 0.f)
         {
             t = 0.f;
 
@@ -322,6 +375,52 @@ bool Plane::intersectInfinite(const Line &line, Pnt3f &point) const
     {
         return false;
     }
+}
+
+/*! Intersect line segment with plane with respect to given tolerance. 
+ */
+bool Plane::intersect(
+    const LineSegment& segment, 
+    Real32&            t,
+    Real32             tolerance) const
+{
+    Real32 a;
+
+    a = _normal.dot(segment.getDirection());
+
+    if(osgAbs(a) < tolerance)
+    {
+        t = 0.f;
+        return false;
+    }
+
+    t = _normal.dot(
+            Pnt3f(_normal * _distance) -  segment.getStartPoint()) / a;
+
+    if (t < - tolerance || t > 1.f + tolerance)
+    {
+        t = 0.f;
+        return false;
+    }
+    return true;
+}
+
+/*! Intersect line with plane with respect to given tolerance. The
+    line does only intersect the plane in the provided interval.
+ */
+bool Plane::intersect(
+    const LineSegment& segment, 
+    Pnt3f&             intersection,
+    Real32             tolerance) const
+{
+    Real32 t;
+    if (intersect(segment, t, tolerance) == true)
+    {
+        intersection = segment.getPoint(t);
+        return true;
+    }
+
+    return false;
 }
 
 /*! Clip Polygon, defined by count points through polyIn, at plane, 
@@ -362,22 +461,51 @@ int Plane::clip(Pnt3f *polyIn, Pnt3f *polyOut, int count) const
     return n;
 }
 
-void Plane::transform(const Matrix &matrix)
+/*! Transform the plane. If flag ortho is true given matrix is
+    expected to be orthogonal (i.e. M^-1 == M^T). If the flag is
+    false the mathematical correct transposed inverve of the
+    given matrix is used for transformation.
+ */
+
+void Plane::transform(const Matrix &matrix, bool ortho)
 {
     // point in plane
-    Pnt3f o(_normalVec[0] * _distance,
-            _normalVec[1] * _distance,
-            _normalVec[2] * _distance );
-
+    Pnt3f o(_normal[0] * _distance,
+            _normal[1] * _distance,
+            _normal[2] * _distance );
+    
     matrix.multFull(o, o);
 
-    // This should use the inverse, transpose of matrix in order to work with
-    // arbitrary matrices - as is matrix needs to be orthogonal
-    matrix.mult(_normalVec, _normalVec);
+    if (ortho)
+    {
+        // This should use the inverse, transpose of matrix in order to work with
+        // arbitrary matrices - as is matrix needs to be orthogonal
+        matrix.mult(_normal, _normal);
+    }
+    else
+    {
+        Matrix F;
+        matrix.inverse(F);
+        F.transpose();
 
-    _normalVec.normalize();
-    _distance = _normalVec.dot(o);
+        F.mult(_normal, _normal);
+    }
 
+    _normal.normalize();
+    _distance = _normal.dot(o);
+
+    updateDirectionIndex();
+}
+
+/*! Transform plane equation by the given matrix. This function
+    expects the given transformation matrix to be already transposed
+    and inverted. I.e. it calculates the Matrix * <noraml, -distance>
+    and brings the result back to Hesse normalization.
+ */
+
+void Plane::transformTransposedInverse(const Matrix &matrix)
+{
+    setEquation(matrix * getEquation());
     updateDirectionIndex();
 }
 
@@ -385,11 +513,11 @@ void Plane::updateDirectionIndex(void)
 {
     UInt8 ind = 0;
     
-    if(_normalVec[0] > 0.f)
+    if(_normal[0] > 0.f)
         ind |= 0x1;
-    if(_normalVec[1] > 0.f)
+    if(_normal[1] > 0.f)
         ind |= 0x2;
-    if(_normalVec[2] > 0.f)
+    if(_normal[2] > 0.f)
         ind |= 0x4; 
     
     _directionIndex = ind;
@@ -403,7 +531,7 @@ Plane &Plane::operator =(const Plane &source)
     if(this == &source)
         return *this;
     
-    _normalVec      = source._normalVec;
+    _normal         = source._normal;
     _distance       = source._distance;
     _directionIndex = source._directionIndex;
     
@@ -416,7 +544,7 @@ Plane &Plane::operator =(const Plane &source)
 bool Plane::operator ==(const Plane &rhs) const
 {
     return ((_distance  == rhs._distance ) &&
-            (_normalVec == rhs._normalVec)   );
+            (_normal    == rhs._normal)   );
 }
 
 

@@ -44,6 +44,9 @@
 
 #include "OSGVector.h"
 #include "OSGMatrixFwd.h"
+#include "OSGLine.h"
+#include "OSGLineSegment.h"
+#include "OSGPolygon.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,8 +71,10 @@ class OSG_BASE_DLLMAPPING Plane
     Plane(      void                                        );
     Plane(const Plane &obj                                  );
     Plane(const Pnt3f &p0, const Pnt3f  &p1, const Pnt3f &p2);
+    Plane(const Pnt3f &p0, const Pnt3f  &p1, const Pnt3f &p2, Polygon::VertexOrder order);
     Plane(const Vec3f &n,        Real32  d                  );
     Plane(const Vec3f &n, const  Pnt3f  &p                  );
+    Plane(const Vec4f &equation                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -96,13 +101,26 @@ class OSG_BASE_DLLMAPPING Plane
                                    Pnt3f   &intersection) const;
     bool   intersect        (const Line    &l,  
                                    Real32  &t           ) const;
-
     bool   intersectInfinite(const Line    &l,  
                                    Real32  &t           ) const;
     bool   intersectInfinite(const Line    &l,  
                                    Pnt3f   &intersection) const;
 
-    void   transform        (const Matrix  &matrix      );
+    bool   intersect        (const LineSegment &segment,
+                                   Real32      &t,
+                                   Real32      tolerance = 
+                        TypeTraits<OSG::Real32>::getDefaultEps()) const;
+
+    bool   intersect        (const LineSegment &segment,
+                                   Pnt3f       &intersection,
+                                   Real32      tolerance = 
+                        TypeTraits<OSG::Real32>::getDefaultEps()) const;
+
+    void   transform        (const Matrix  &matrix,
+                                   bool    ortho = true );
+
+    void   transformTransposedInverse
+                            (const Matrix  &matrix      );
 
     int    clip             (      Pnt3f  *polyIn, 
                                    Pnt3f  *polyOut, 
@@ -111,6 +129,7 @@ class OSG_BASE_DLLMAPPING Plane
 
     bool   isOnPlane        (const Pnt3f  &point        ) const;
     bool   isInHalfSpace    (const Pnt3f  &point        ) const;
+    bool   isBehind         (const Pnt3f  &point        ) const;
     Real32 distance         (const Pnt3f  &point        ) const;
 
     bool   isInHalfSpace    (const Pnt3f  &min, 
@@ -130,6 +149,7 @@ class OSG_BASE_DLLMAPPING Plane
                    Real32   z, 
                    Real32   dist );
     void set(const Vec4f  &plane );
+    void setEquation    (const Vec4f& equation);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,6 +162,8 @@ class OSG_BASE_DLLMAPPING Plane
 
     void  setDirectionIndexPoint(const Pnt3f &min,   const Pnt3f &max,
                                  const UInt8  index,       Pnt3f &pnt) const;
+
+    Vec4f getEquation           (void) const;
  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,8 +186,9 @@ class OSG_BASE_DLLMAPPING Plane
   private:
    
     void updateDirectionIndex(void);
+    void calcHessNorm        (void);
 
-    Vec3f  _normalVec;
+    Vec3f  _normal;
     Real32 _distance;
     UInt8  _directionIndex;
 };

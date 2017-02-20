@@ -47,7 +47,7 @@ OSG_BEGIN_NAMESPACE
 inline
 Real32 Plane::distance(const Pnt3f &pnt) const 
 { 
-    return _normalVec.dot(pnt) - _distance; 
+    return _normal.dot(pnt) - _distance; 
 }
 
 /*! Check if the point is on the plane.
@@ -55,7 +55,7 @@ Real32 Plane::distance(const Pnt3f &pnt) const
 inline
 bool Plane::isOnPlane(const Pnt3f &point) const
 {
-    Real32 scalar = _normalVec.dot(point) - _distance;
+    Real32 scalar = _normal.dot(point) - _distance;
 
     return osgAbs(scalar) < TypeTraits<Real32>::getDefaultEps() ? true : false;
 }
@@ -66,7 +66,7 @@ bool Plane::isOnPlane(const Pnt3f &point) const
 inline
 bool Plane::isInHalfSpace(const Pnt3f &point) const
 {
-    Real32 scalar = _normalVec.dot(point) - _distance;
+    Real32 scalar = distance(point);
 
     return scalar >= 0.f ? true : false;
 }
@@ -81,6 +81,12 @@ bool Plane::isInHalfSpace(const Pnt3f &min, const Pnt3f &max) const
     setDirectionIndexPoint(min, max, _directionIndex, p);
     
     return isInHalfSpace(p);
+}
+
+inline
+bool Plane::isBehind(const Pnt3f  &point) const
+{
+    return !isInHalfSpace(point);
 }
 
 /*! Check if the box formed by min/max is fully outside the Plane's halfspace.
@@ -102,8 +108,8 @@ bool Plane::isOutHalfSpace(const Pnt3f  &min, const Pnt3f &max) const
 inline
 void Plane::set(const Vec3f &normal, Real32 dist)
 {
-    _normalVec = normal;
-    _distance  = dist;   
+    _normal   = normal;
+    _distance = dist;   
 
     updateDirectionIndex();
 }
@@ -119,9 +125,9 @@ void Plane::set(Real32 x,
                 Real32 z, 
                 Real32 dist)
 {
-    _normalVec.setValues(x, y, z);
+    _normal.setValues(x, y, z);
 
-    _distance = dist;    
+    _distance = dist;
 
     updateDirectionIndex();
 }
@@ -134,18 +140,38 @@ void Plane::set(Real32 x,
 inline
 void Plane::set(const Vec4f &plane)
 {
-    _normalVec.setValues(plane[0], plane[1], plane[2]);
+    _normal.setValues(plane[0], plane[1], plane[2]);
 
     _distance = plane[3];    
 
     updateDirectionIndex();
 }
 
+/*! Set the plane by a homogenous plane equation.
+    See corresponding Plane constructor for explanations.
+ */
+inline
+void Plane::setEquation(const Vec4f& equation)
+{
+    _normal.setValues(equation[0], equation[1], equation[2]);
+    _distance = -equation[3];
+
+    calcHessNorm();
+    updateDirectionIndex();
+}
+
+inline
+Vec4f Plane::getEquation(void) const
+{
+    Vec4f equation(_normal);
+    equation[3] = -_distance;
+    return equation;
+}
 
 inline
 const Vec3f &Plane::getNormal(void) const 
 { 
-    return _normalVec; 
+    return _normal; 
 }
 
 
@@ -196,6 +222,13 @@ void Plane::setDirectionIndexPoint(const Pnt3f &min,
     }
 }
 
+inline
+void Plane::calcHessNorm(void)
+{
+    Real32 len = _normal.length();
+    _normal    = _normal   / len;
+    _distance  = _distance / len;
+}
 
 OSG_END_NAMESPACE
 
