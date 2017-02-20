@@ -1155,6 +1155,26 @@ MACRO(OSG_CONFIGURE_ANTTWEAKBAR)
 ENDMACRO(OSG_CONFIGURE_ANTTWEAKBAR)
 
 ##############################################################################
+# Qhull
+##############################################################################
+
+MACRO(OSG_CONFIGURE_QHULL)
+
+    IF(OSG_USE_OSGSUPPORT_LIBS)
+        # ToDo
+    ENDIF(OSG_USE_OSGSUPPORT_LIBS)
+
+    IF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT QHULL_FOUND)
+        OSG_FIND_PACKAGE(Qhull_OpenSG)
+    ENDIF(NOT OSG_USE_OSGSUPPORT_LIBS OR NOT QHULL_FOUND)
+
+    IF(QHULL_FOUND)
+        OSG_SET(OSG_WITH_QHULL 1)
+    ENDIF(QHULL_FOUND)
+
+ENDMACRO(OSG_CONFIGURE_QHULL)
+
+##############################################################################
 # VTK
 ##############################################################################
 

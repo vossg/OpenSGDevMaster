@@ -790,6 +790,16 @@ IF(NOT OSG_BUILD_DEPENDEND)
     OSG_ADD_OPT(OSG_ANTTWEAKBAR_INCLUDE_DIR)
     OSG_ADD_OPT(OSG_ANTTWEAKBAR_LIBRARIES)
 
+    ###########
+    #### QHull
+    ###########
+
+    OSG_CONFIGURE_QHULL()
+
+    OSG_ADD_OPT(OSG_QHULL_FOUND)
+    OSG_ADD_OPT(OSG_QHULL_INCLUDE_DIR)
+    OSG_ADD_OPT(OSG_QHULL_LIBRARIES)
+
     #############
     #### Python
     #############
