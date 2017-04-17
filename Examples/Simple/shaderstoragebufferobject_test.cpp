@@ -1,11 +1,16 @@
-// OpenSG Tutorial Example: ShaderStorageBufferObject
+// OpenSG Test Example: ShaderStorageBufferObject_Test
 //
 // This example allows to research the capabilities of the shader
 // storage buffer object extension on your graphics platform.
 //
+// This example is similar to the ShaderStorageBufferObject_Test_1
+// example. This one uses a non array block layout, whereas the
+// test_1 example uses an even more complex setup with an array
+// block layout.
+//
 // The example does use the ShaderStorageObjChunk which allows the
 // host application to provide the shader storage block member values 
-// directly to the chunk. The layout of the uniform block is determined 
+// directly to the chunk. The layout of the shader storage block is determined 
 // by the shader code. Any of the layout values of the specification (shared, 
 // packed, std140, std430) are allowed.
 //
@@ -23,11 +28,12 @@
 //          - On ATI/AMD the usage of double and dvec2 fails at the time
 //            writing the example on the authors Radeon 5700 series
 //            platform.
+//
 //  3. animated gold looking cylinder and torus
 //      => the shader is not working at all. Something is miserabely
 //         wrong on your platform.
 //
-// The example uses the following uniform block named 'ExampleBlock' 
+// The example uses the following shader storage block named 'ExampleBlock' 
 // which is declared in the shader code below.
 //
 // struct Test
@@ -37,7 +43,7 @@
 //     int w;
 // };
 //
-// layout(shared) uniform ExampleBlock {
+// layout(shared) buffer ExampleBlock {
 //     float a;
 //     vec2 b;
 //     vec3 c;
@@ -64,8 +70,7 @@
 //     } y;
 // } example;
 //
-// For this example the values must be provided in the exact order for the
-// following data slots:
+// For this example the values must be provided for the following data slots:
 //
 // "ExampleBlock.a"
 // "ExampleBlock.b"
@@ -114,6 +119,7 @@
 // "ExampleBlock.y.x[3].v[1]"
 // "ExampleBlock.y.x[3].v[2]"
 // "ExampleBlock.y.x[3].w"
+//
 
 #ifdef OSG_BUILD_ACTIVE
 // Headers
@@ -134,7 +140,7 @@
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialGroup.h>
 #include <OSGMaterialChunkOverrideGroup.h>
-#include <OSGUniformBufferObjChunk.h>
+#include <OSGShaderStorageBufferObjChunk.h>
 #include <OSGPolygonChunk.h>
 #include <OSGDepthChunk.h>
 #include <OSGShaderProgramVariableChunk.h>
@@ -158,7 +164,7 @@
 #include <OpenSG/OSGChunkMaterial.h>
 #include <OpenSG/OSGMaterialGroup.h>
 #include <OpenSG/OSGMaterialChunkOverrideGroup.h>
-#include <OpenSG/OSGUniformBufferObjChunk.h>
+#include <OpenSG/OSGShaderStorageBufferObjChunk.h>
 #include <OpenSG/OSGPolygonChunk.h>
 #include <OpenSG/OSGDepthChunk.h>
 #include <OpenSG/OSGShaderProgramVariableChunk.h>
@@ -172,92 +178,87 @@
 OSG::SimpleSceneManagerRefPtr mgr;
 
 //
-// Create a OpenSG UniformBufferObjChunk object which does
-// perform the uniform buffer object abstraction.
+// Create a OpenSG ShaderStorageBufferObjChunk object which does
+// perform the shader storage buffer object abstraction.
 // For each block member entry (declared in the shader) a
 // corresponding addXXX call is to be performed on the
-// ubo chunk. These order of these calls must match the
-// the order of the members in the block declaration.
-// Additionally, the cardinality for arrays must be provided
+// ssbo chunk. The cardinality for arrays must be provided
 // to the function calls (defaults to 1). 
 // The matrix functions are defined in column-major order
 // matching the default definition of GLSL. I.e. a addMat2x3(2)
 // call would request space and layout for an array of two
 // matrices with two columns and three rows.
 //
-OSG::UniformBufferObjChunkTransitPtr create_example_block_state()
+OSG::ShaderStorageBufferObjChunkTransitPtr create_example_block_state()
 {
-    OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
+    OSG::ShaderStorageBufferObjChunkRefPtr ssbo = OSG::ShaderStorageBufferObjChunk::create();
 
-    ubo->setBlockName("ExampleBlock");
-    ubo->setUsage(GL_STREAM_DRAW);
+    ssbo->setBlockName("ExampleBlock");
+    ssbo->setUsage(GL_STREAM_DRAW);
 
-    ubo->addFloat   ("ExampleBlock.a");
-    ubo->addVec2    ("ExampleBlock.b");
-    ubo->addVec3    ("ExampleBlock.c");
-    ubo->addInt     ("ExampleBlock.f.d");
-    ubo->addBVec2   ("ExampleBlock.f.e");
+    ssbo->addFloat   ("ExampleBlock.a");
+    ssbo->addVec2    ("ExampleBlock.b");
+    ssbo->addVec3    ("ExampleBlock.c");
+    ssbo->addInt     ("ExampleBlock.f.d");
+    ssbo->addBVec2   ("ExampleBlock.f.e");
+    ssbo->addFloat   ("ExampleBlock.g");
+    ssbo->addFloat   ("ExampleBlock.h", 2);
+    ssbo->addMat2x3  ("ExampleBlock.i");     // 2 columns and 3 rows
+    ssbo->addUVec3   ("ExampleBlock.o[0].j");
+    ssbo->addVec2    ("ExampleBlock.o[0].k");
+    ssbo->addFloat   ("ExampleBlock.o[0].l", 2);
+    ssbo->addVec2    ("ExampleBlock.o[0].m");
+    ssbo->addMat3    ("ExampleBlock.o[0].n", 2);
 
-    ubo->addFloat   ("ExampleBlock.g");
-    ubo->addFloat   ("ExampleBlock.h", 2);
-    ubo->addMat2x3  ("ExampleBlock.i");     // 2 columns and 3 rows
-
-    ubo->addUVec3   ("ExampleBlock.o[0].j");
-    ubo->addVec2    ("ExampleBlock.o[0].k");
-    ubo->addFloat   ("ExampleBlock.o[0].l", 2);
-    ubo->addVec2    ("ExampleBlock.o[0].m");
-    ubo->addMat3    ("ExampleBlock.o[0].n", 2);
-
-    ubo->addUVec3   ("ExampleBlock.o[1].j");
-    ubo->addVec2    ("ExampleBlock.o[1].k");
-    ubo->addFloat   ("ExampleBlock.o[1].l", 2);
-    ubo->addVec2    ("ExampleBlock.o[1].m");
-    ubo->addMat3    ("ExampleBlock.o[1].n", 2);
+    ssbo->addUVec3   ("ExampleBlock.o[1].j");
+    ssbo->addVec2    ("ExampleBlock.o[1].k");
+    ssbo->addFloat   ("ExampleBlock.o[1].l", 2);
+    ssbo->addVec2    ("ExampleBlock.o[1].m");
+    ssbo->addMat3    ("ExampleBlock.o[1].n", 2);
 
 #ifdef HAS_FP64_EXTENSION
-    ubo->addDouble  ("ExampleBlock.p");
+    ssbo->addDouble  ("ExampleBlock.p");
 #endif
-    ubo->addBool    ("ExampleBlock.q");
+    ssbo->addBool    ("ExampleBlock.q");
 
 #ifdef HAS_FP64_EXTENSION
-    ubo->addDVec2   ("ExampleBlock.y.r");
+    ssbo->addDVec2   ("ExampleBlock.y.r");
 #endif
-    ubo->addInt     ("ExampleBlock.y.s");
+    ssbo->addInt     ("ExampleBlock.y.s");
 
-    ubo->addFloat   ("ExampleBlock.y.x[0].t");
-    ubo->addIVec3   ("ExampleBlock.y.x[0].v", 3);
-    ubo->addInt     ("ExampleBlock.y.x[0].w");
+    ssbo->addFloat   ("ExampleBlock.y.x[0].t");
+    ssbo->addIVec3   ("ExampleBlock.y.x[0].v", 3);
+    ssbo->addInt     ("ExampleBlock.y.x[0].w");
 
-    ubo->addFloat   ("ExampleBlock.y.x[1].t");
-    ubo->addIVec3   ("ExampleBlock.y.x[1].v", 3);
-    ubo->addInt     ("ExampleBlock.y.x[1].w");
+    ssbo->addFloat   ("ExampleBlock.y.x[1].t");
+    ssbo->addIVec3   ("ExampleBlock.y.x[1].v", 3);
+    ssbo->addInt     ("ExampleBlock.y.x[1].w");
 
-    ubo->addFloat   ("ExampleBlock.y.x[2].t");
-    ubo->addIVec3   ("ExampleBlock.y.x[2].v", 3);
-    ubo->addInt     ("ExampleBlock.y.x[2].w");
+    ssbo->addFloat   ("ExampleBlock.y.x[2].t");
+    ssbo->addIVec3   ("ExampleBlock.y.x[2].v", 3);
+    ssbo->addInt     ("ExampleBlock.y.x[2].w");
 
-    ubo->addFloat   ("ExampleBlock.y.x[3].t");
-    ubo->addIVec3   ("ExampleBlock.y.x[3].v", 3);
-    ubo->addInt     ("ExampleBlock.y.x[3].w");
+    ssbo->addFloat   ("ExampleBlock.y.x[3].t");
+    ssbo->addIVec3   ("ExampleBlock.y.x[3].v", 3);
+    ssbo->addInt     ("ExampleBlock.y.x[3].w");
 
-    return OSG::UniformBufferObjChunkTransitPtr(ubo);
+    return OSG::ShaderStorageBufferObjChunkTransitPtr(ssbo);
 }
 
 //
-// Fill the ubo chunk with values.
+// Fill the ssbo chunk with values.
 //
-void update_example_block_state(OSG::UniformBufferObjChunk* ubo)
+void update_example_block_state(OSG::ShaderStorageBufferObjChunk* ssbo)
 {
-    ubo->setFloat ("ExampleBlock.a", 23.7f);
-    ubo->setVec2  ("ExampleBlock.b", OSG::Vec2f(1.4f, 8.6f));
-    ubo->setVec3  ("ExampleBlock.c", OSG::Vec3f(0.1f, 0.2f, 0.3f));
+    ssbo->setFloat ("ExampleBlock.a", 23.7f);
+    ssbo->setVec2  ("ExampleBlock.b", OSG::Vec2f(1.4f, 8.6f));
+    ssbo->setVec3  ("ExampleBlock.c", OSG::Vec3f(0.1f, 0.2f, 0.3f));
 
-    ubo->setInt   ("ExampleBlock.f.d", 14);
-    ubo->setBVec2 ("ExampleBlock.f.e", OSG::Vec2b(true, false));
-
-    ubo->setFloat ("ExampleBlock.g", 15.3f);
-    ubo->setFloat ("ExampleBlock.h", 17.6f, 0);
-    ubo->setFloat ("ExampleBlock.h", 19.3f, 1);
+    ssbo->setInt   ("ExampleBlock.f.d", 14);
+    ssbo->setBVec2 ("ExampleBlock.f.e", OSG::Vec2b(true, false));
+    ssbo->setFloat ("ExampleBlock.g", 15.3f);
+    ssbo->setFloat ("ExampleBlock.h", 17.6f, 0);
+    ssbo->setFloat ("ExampleBlock.h", 19.3f, 1);
 
     // Matrix mxn (m rows and n columns): 
     // ----------------------------------
@@ -272,7 +273,7 @@ void update_example_block_state(OSG::UniformBufferObjChunk* ubo)
                         41,42,43,44 );  // row 4
 
     // ... and provides elements in column-major order
-//    OSG::Real32* storage = mat1.getValues();
+    //    OSG::Real32* storage = mat1.getValues();
     OSG::Vec4f   column1 = mat1[1];
     OSG::Vec4f   column2 = mat1[2];
     OSG::Vec4f   column3 = mat1[3];
@@ -284,81 +285,81 @@ void update_example_block_state(OSG::UniformBufferObjChunk* ubo)
     //            a21 a22
     //            a31 a32
 
-    ubo->setMat2x3("ExampleBlock.i", mat1);
+    ssbo->setMat2x3("ExampleBlock.i", mat1);
 
-    ubo->setUVec3 ("ExampleBlock.o[0].j", OSG::Vec3u(1, 2, 3));
-    ubo->setVec2  ("ExampleBlock.o[0].k", OSG::Vec2f(1.1f, 2.2f));
-    ubo->setFloat ("ExampleBlock.o[0].l", 11.1f, 0);
-    ubo->setFloat ("ExampleBlock.o[0].l", 22.2f, 1);
-    ubo->setVec2  ("ExampleBlock.o[0].m", OSG::Vec2f(22.2f, 33.3f));
+    ssbo->setUVec3 ("ExampleBlock.o[0].j", OSG::Vec3u(1, 2, 3));
+    ssbo->setVec2  ("ExampleBlock.o[0].k", OSG::Vec2f(1.1f, 2.2f));
+    ssbo->setFloat ("ExampleBlock.o[0].l", 11.1f, 0);
+    ssbo->setFloat ("ExampleBlock.o[0].l", 22.2f, 1);
+    ssbo->setVec2  ("ExampleBlock.o[0].m", OSG::Vec2f(22.2f, 33.3f));
 
     OSG::Matrix4f mat2( 1.1f, 1.2f, 1.3f, 1.4f,     // row 1
                         2.1f, 2.2f, 2.3f, 2.4f,     // row 2
                         3.1f, 3.2f, 3.3f, 3.4f,     // row 3
                         4.1f, 4.2f, 4.3f, 4.4f );   // row 4
 
-    ubo->setMat3  ("ExampleBlock.o[0].n", mat2, 0);
+    ssbo->setMat3  ("ExampleBlock.o[0].n", mat2, 0);
 
     OSG::Matrix4f mat3( 10.1f, 10.2f, 10.3f, 10.4f,     // row 1
                         20.1f, 20.2f, 20.3f, 20.4f,     // row 2
                         30.1f, 30.2f, 30.3f, 30.4f,     // row 3
                         40.1f, 40.2f, 40.3f, 40.4f );   // row 4
 
-    ubo->setMat3  ("ExampleBlock.o[0].n", mat3, 1);
+    ssbo->setMat3  ("ExampleBlock.o[0].n", mat3, 1);
 
-    ubo->setUVec3 ("ExampleBlock.o[1].j", OSG::Vec3u(7, 8, 9));
-    ubo->setVec2  ("ExampleBlock.o[1].k", OSG::Vec2f(7.7f, 8.8f));
-    ubo->setFloat ("ExampleBlock.o[1].l", 77.7f, 0);
-    ubo->setFloat ("ExampleBlock.o[1].l", 88.8f, 1);
-    ubo->setVec2  ("ExampleBlock.o[1].m", OSG::Vec2f(88.8f, 99.9f));
+    ssbo->setUVec3 ("ExampleBlock.o[1].j", OSG::Vec3u(7, 8, 9));
+    ssbo->setVec2  ("ExampleBlock.o[1].k", OSG::Vec2f(7.7f, 8.8f));
+    ssbo->setFloat ("ExampleBlock.o[1].l", 77.7f, 0);
+    ssbo->setFloat ("ExampleBlock.o[1].l", 88.8f, 1);
+    ssbo->setVec2  ("ExampleBlock.o[1].m", OSG::Vec2f(88.8f, 99.9f));
 
     OSG::Matrix4f mat4( 100.1f, 100.2f, 100.3f, 100.4f,     // row 1
                         200.1f, 200.2f, 200.3f, 200.4f,     // row 2
                         300.1f, 300.2f, 300.3f, 300.4f,     // row 3
                         400.1f, 400.2f, 400.3f, 400.4f );   // row 4
 
-    ubo->setMat3  ("ExampleBlock.o[1].n", mat4, 0);
+    ssbo->setMat3  ("ExampleBlock.o[1].n", mat4, 0);
 
     OSG::Matrix4f mat5( 1000.1f, 1000.2f, 1000.3f, 1000.4f,     // row 1
                         2000.1f, 2000.2f, 2000.3f, 2000.4f,     // row 2
                         3000.1f, 3000.2f, 3000.3f, 3000.4f,     // row 3
                         4000.1f, 4000.2f, 4000.3f, 4000.4f );   // row 4
 
-    ubo->setMat3  ("ExampleBlock.o[1].n", mat5, 1);
+    ssbo->setMat3  ("ExampleBlock.o[1].n", mat5, 1);
 
 #ifdef HAS_FP64_EXTENSION
-    ubo->setDouble("ExampleBlock.p", 17856.23456);
+    ssbo->setDouble("ExampleBlock.p", 17856.23456);
 #endif
-    ubo->setBool  ("ExampleBlock.q", true);
+    ssbo->setBool  ("ExampleBlock.q", true);
 
 #ifdef HAS_FP64_EXTENSION
-    ubo->setDVec2 ("ExampleBlock.y.r", OSG::Vec2d(9567.123, 2345.63456));
+    ssbo->setDVec2 ("ExampleBlock.y.r", OSG::Vec2d(9567.123, 2345.63456));
 #endif
-    ubo->setInt   ("ExampleBlock.y.s", 123);
+    ssbo->setInt   ("ExampleBlock.y.s", 123);
 
-    ubo->setFloat ("ExampleBlock.y.x[0].t", 1.001f);
-    ubo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(1,0,1), 0);
-    ubo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(2,0,2), 1);
-    ubo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(3,0,3), 2);
-    ubo->setInt   ("ExampleBlock.y.x[0].w", 1);
+    ssbo->setFloat ("ExampleBlock.y.x[0].t", 1.001f);
+    ssbo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(1,0,1), 0);
+    ssbo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(2,0,2), 1);
+    ssbo->setIVec3 ("ExampleBlock.y.x[0].v", OSG::Vec3i(3,0,3), 2);
+    ssbo->setInt   ("ExampleBlock.y.x[0].w", 1);
 
-    ubo->setFloat ("ExampleBlock.y.x[1].t", 2.002f);
-    ubo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(4,0,4), 0);
-    ubo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(5,0,5), 1);
-    ubo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(6,0,6), 2);
-    ubo->setInt   ("ExampleBlock.y.x[1].w", 2);
+    ssbo->setFloat ("ExampleBlock.y.x[1].t", 2.002f);
+    ssbo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(4,0,4), 0);
+    ssbo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(5,0,5), 1);
+    ssbo->setIVec3 ("ExampleBlock.y.x[1].v", OSG::Vec3i(6,0,6), 2);
+    ssbo->setInt   ("ExampleBlock.y.x[1].w", 2);
 
-    ubo->setFloat ("ExampleBlock.y.x[2].t", 3.003f);
-    ubo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(7,0,7), 0);
-    ubo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(8,0,8), 1);
-    ubo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(9,0,9), 2);
-    ubo->setInt   ("ExampleBlock.y.x[2].w", 3);
+    ssbo->setFloat ("ExampleBlock.y.x[2].t", 3.003f);
+    ssbo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(7,0,7), 0);
+    ssbo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(8,0,8), 1);
+    ssbo->setIVec3 ("ExampleBlock.y.x[2].v", OSG::Vec3i(9,0,9), 2);
+    ssbo->setInt   ("ExampleBlock.y.x[2].w", 3);
 
-    ubo->setFloat ("ExampleBlock.y.x[3].t", 4.004f);
-    ubo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(1,4,6), 0);
-    ubo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(2,5,7), 1);
-    ubo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(3,6,8), 2);
-    ubo->setInt   ("ExampleBlock.y.x[3].w", 4);
+    ssbo->setFloat ("ExampleBlock.y.x[3].t", 4.004f);
+    ssbo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(1,4,6), 0);
+    ssbo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(2,5,7), 1);
+    ssbo->setIVec3 ("ExampleBlock.y.x[3].v", OSG::Vec3i(3,6,8), 2);
+    ssbo->setInt   ("ExampleBlock.y.x[3].w", 4);
 }
 
 //
@@ -479,22 +480,22 @@ int main(int argc, char **argv)
         fragShader->setProgram(get_fp_program());
 
         //
-        // binding the unifrom block to a buffer binding point can be performed 
-        // either by calling the shaders's addUniformBlock method or by
-        // adding a 'uniform block' variable to a ShaderProgramVariableChunk.
+        // binding the shader storage block to a buffer binding point can be performed 
+        // either by calling the shaders's addShaderStorageBlock method or by
+        // adding a 'buffer block' variable to a ShaderProgramVariableChunk.
         // In the following we use both variants for illustration.
         //
-        fragShader->addUniformBlock("ExampleBlock", 1); // block binding point
+        fragShader->addShaderStorageBlock("ExampleBlock", 1); // block binding point
 
         prog_chunk->addShader(vertShader);
         prog_chunk->addShader(fragShader);
 
         //
-        // create uniform buffer object for uniform block 'ExampleBlock'
+        // create shader storage buffer object for block 'ExampleBlock'
         //
-        OSG::UniformBufferObjChunkRefPtr ubo_example_block = create_example_block_state();
+        OSG::ShaderStorageBufferObjChunkRefPtr ssbo_example_block = create_example_block_state();
 
-        update_example_block_state(ubo_example_block);
+        update_example_block_state(ssbo_example_block);
 
         OSG::PolygonChunkRefPtr polygon_chunk = OSG::PolygonChunk::create();
         polygon_chunk->setFrontMode(GL_FILL);
@@ -505,7 +506,7 @@ int main(int argc, char **argv)
         depth_chunk->setEnable(true);
 
         OSG::ChunkMaterialRefPtr prog_state = OSG::ChunkMaterial::create();
-        prog_state->addChunk(ubo_example_block, 1);      // buffer binding point 1
+        prog_state->addChunk(ssbo_example_block, 1);      // buffer binding point 1
         prog_state->addChunk(prog_chunk);
         prog_state->addChunk(polygon_chunk);
         prog_state->addChunk(depth_chunk);
@@ -641,10 +642,11 @@ std::string get_fp_program()
 {
     std::string fp_program =
             "\n"
-            "#version 330 compatibility\n"
+            "#version 440 compatibility\n"
             "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
+            "#extension GL_ARB_separate_shader_objects:      enable\n"
+            "#extension GL_ARB_shader_storage_buffer_object: enable\n"
+            "\n"
 #ifdef HAS_FP64_EXTENSION
             "#extension GL_ARB_gpu_shader_fp64:         enable\n"
 #endif
@@ -656,7 +658,7 @@ std::string get_fp_program()
             "    int w;\n"
             "};\n"
             "\n"
-            "layout(shared) uniform ExampleBlock\n"
+            "layout (shared) buffer ExampleBlock\n"
             "{\n"
             "     float a;\n"
             "     vec2 b;\n"

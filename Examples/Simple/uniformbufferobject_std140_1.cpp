@@ -7,6 +7,11 @@
 // host application to directly provide a buffer to the chunk according
 // to the std140 specification.
 //
+// This example differs from the uniformbufferobject_std140.cpp example
+// that it uses the SimpleSHLChunk instead of the ShaderProgramChunk in
+// combination with the ShaderProgram class.
+//
+//
 
 //
 // * - Attention
@@ -86,15 +91,14 @@ struct Light
 {
     enum Type
     {
-        directional_light,
+        directional_light = 0,
         point_light,
         spot_light,
         no_light
     };
 
     Light() 
-    : type(0, 0, 0)
-    , position(0.f, 0.f, 0.f)
+    : position(0.f, 0.f, 0.f)
     , spot_direction(0.f, 1.f, 0.f)
     , Ia(1.f, 1.f, 1.f)
     , Id(1.f, 1.f, 1.f)
@@ -102,31 +106,13 @@ struct Light
     , attenuation(1.f, 0.f, 0.f)
     , spot_cos_cutoff(cosf(45.f))
     , spot_exponent(1.f)
+    , type(no_light)
     {}
-
-    bool isEnabled()
-    {
-        if (type[0] == 1 || type[1] == 1 || type[2] == 1)
-            return true;
-        else
-            return false;
-    }
-
-    static OSG::Vec3i getLightType(Type e)
-    {
-        switch (e) {
-            case directional_light: return OSG::Vec3i(1.f, 0.f, 0.f);
-            case       point_light: return OSG::Vec3i(0.f, 1.f, 0.f);
-            case        spot_light: return OSG::Vec3i(0.f, 0.f, 1.f);
-            case          no_light: return OSG::Vec3i(0.f, 0.f, 0.f);
-            default:                return OSG::Vec3i(0.f, 0.f, 0.f);
-        }
-    }
 
     static Light create_light(Type e)
     {
         Light l;
-        l.type = getLightType(e);
+        l.type = e;
 
         switch (e) {
             case directional_light:                                          l.spot_direction = OSG::Vec3f(1.f, 0.f, 0.f);
@@ -141,7 +127,6 @@ struct Light
         return l;
     }
 
-    OSG::Vec3i   type;               // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1
     OSG::Pnt3f   position;           // in object space
     OSG::Vec3f   spot_direction;     // in object space, also used for dir of directional lights (see shader code)
     OSG::Color3f Ia;                 // ambient  max. Intensity
@@ -151,26 +136,25 @@ struct Light
     OSG::Vec3f   attenuation;        // (constant, linear, quadratic) with constant >= 1 and linear,quadratic >= 0
     OSG::Real32  spot_cos_cutoff;    // cosine cut of angle
     OSG::Real32  spot_exponent;      // [0-128]
+    OSG::Int32   type;               // directional_light, point_light, spot_light, no_light
 };
 
 typedef std::vector<Light>       VecLightsT;        // multiple lights
-typedef std::vector<Light::Type> VecLightTypesT;    // helper to create lights
 
-VecLightsT initialize_lights(const VecLightTypesT& types)         // helper to create lights
+const std::size_t num_lights = 1;                   // simple example with just one light
+
+VecLightsT initialize_lights()         // helper to create lights
 {
     VecLightsT lights;
 
-    for (std::size_t i = 0; i < types.size(); ++i)
-        lights.push_back(Light::create_light(types[i]));
+    lights.push_back(Light::create_light(Light::directional_light));
+
+    assert(lights.size() == num_lights);
 
     return lights;
 }
 
-const std::size_t num_lights = 1;                   // simple example with just one light
-VecLightTypesT vecTypes(num_lights, Light::directional_light);
-
-VecLightsT lights = initialize_lights(vecTypes);    // the lights
-
+VecLightsT lights = initialize_lights();    // the lights
 
 //
 // Simple material data structure
@@ -195,7 +179,7 @@ struct Material
     OSG::Real32  shininess;
 };
 
-typedef std::vector<Material> VecMaterialsT;        // multiple lights
+typedef std::vector<Material> VecMaterialsT;        // multiple materials
 
 VecMaterialsT initialize_materials(std::size_t num) // helper to create materials
 {
@@ -297,7 +281,6 @@ std::size_t calc_light_buffer_size(const VecLightsT& vLights)
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4i);   // OSG::Vec3i   type;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Pnt4f);   // OSG::Pnt3f   position;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4f);   // OSG::Vec3f   spot_direction;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Color4f); // OSG::Color3f Ia;
@@ -306,6 +289,7 @@ std::size_t calc_light_buffer_size(const VecLightsT& vLights)
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4f);   // OSG::Vec3f   attenuation;
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_cos_cutoff;
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_exponent;
+    ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Int32);   // OSG::Int32   type;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     ao *= vLights.size();       bo = ao;                        // array
@@ -327,10 +311,6 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& vLights)
     {
         OSG::Pnt3f position_es       = transform_to_eye_space(vLights[i].position,       mgr);
         OSG::Vec3f spot_direction_es = transform_to_eye_space(vLights[i].spot_direction, mgr);
-
-        ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &vLights[i].type[0], sizeof(OSG::Vec3i));
-        bo = ao + sizeof(OSG::Vec4i);
 
         ao = align_offset(16, bo);
         memcpy(&buffer[0] + ao, &position_es[0], sizeof(OSG::Pnt3f));
@@ -361,12 +341,12 @@ std::vector<OSG::UInt8> create_light_buffer(const VecLightsT& vLights)
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_exponent;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = vLights[i].spot_exponent;
-        bo = ao + sizeof(OSG::Real32);
+        *(reinterpret_cast<OSG::Int32*>(&buffer[0] + ao)) = vLights[i].type;
+        bo = ao + sizeof(OSG::Int32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
     }
@@ -697,7 +677,7 @@ int main(int argc, char **argv)
         OSG::ChunkMaterialRefPtr geom2_state = OSG::ChunkMaterial::create();
         ubo_geom_state_2 = create_geometry_material_state(geom2);
         geom2_state->addChunk(ubo_geom_state_2, 3);     // buffer binding point 3
-        geom1_state->addChunk(shader_var_chunk);        // block binding point
+        geom2_state->addChunk(shader_var_chunk);        // block binding point
        
         cylgeo  ->setMaterial(geom1_state);
         torusgeo->setMaterial(geom2_state);
@@ -879,9 +859,13 @@ std::string get_fp_program()
             "const int num_lights    =   1;\n"
             "const int num_materials = 100;\n"
             "\n"
+            "const int directional_light = 0;\n"
+            "const int point_light = 1;\n"
+            "const int spot_light = 2;\n"
+            "const int no_light = 3;\n"
+            "\n"
             "struct Light\n"
             "{\n"
-            "    ivec4 type;             // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1\n"
             "    vec4 position;          // in eye space\n"
             "    vec4 spot_direction;    // in eye space\n"
             "\n"
@@ -894,6 +878,7 @@ std::string get_fp_program()
             "    float spot_cos_cutoff;  // cosine cut of angle\n"
             "\n"
             "    float spot_exponent;    // [0-128]\n"
+            "    int  type;              // directional_light, point_light, spot_light, no_light\n"
             "};\n"
             "\n"
             "layout (std140) uniform Lights\n"
@@ -936,7 +921,7 @@ std::string get_fp_program()
             "    in vec3 n,  // vertex normal in eye space\n"
             "    in vec3 v)  // view direction in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[0] == 0)\n"
+            "    if (lights.light[i].type != directional_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    //\n"
@@ -977,7 +962,7 @@ std::string get_fp_program()
             "    in vec3 v,  // view direction in eye space\n"
             "    in vec3 p)  // vertex position in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[1] == 0)\n"
+            "    if (lights.light[i].type != point_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    vec3  l = vec3(lights.light[i].position.xyz) - p;    // direction from surface to light position\n"
@@ -1026,7 +1011,7 @@ std::string get_fp_program()
             "    in vec3 v,  // view direction in eye space\n"
             "    in vec3 p)  // vertex position in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[2] == 0)\n"
+            "    if (lights.light[i].type != spot_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    vec3  l = vec3(lights.light[i].position.xyz) - p;   // direction from surface to light position\n"

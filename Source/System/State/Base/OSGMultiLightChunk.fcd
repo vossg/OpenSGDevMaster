@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="MultiLightChunk"
+    parent="ShaderStorageBufferObjStdLayoutChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+>
+See \ref PageSystemMultiLightChunk for a description.
+
+This chunk represents a number of lights that are exposed to shader code
+in form of a buffer in OpenGL std430 layout format.
+A shader, binding a shader storage block to the very same binding point, 
+is expected to respect the corresponding block layout. The layout is regulated
+by the hasXXX fields of the chunk. If one is set to false the corresponding
+struct entry is omitted.
+
+    struct Light
+    {
+        mat4  worldToLightSpaceMatrix;
+        mat4  lightToWorldSpaceMatrix;
+        mat4  eyeToLightSpaceMatrix;
+        mat4  lightToEyeSpaceMatrix;
+        mat4  lightPerspectiveMatrix;
+        mat4  invLightPerspectiveMatrix;
+        vec3  position;
+        vec3  direction;
+        vec3  color;
+        vec3  ambientIntensity;
+        vec3  diffuseIntensity;
+        vec3  specularIntensity;
+        float intensity;
+        float constantAttenuation;
+        float linearAttenuation;
+        float quadraticAttenuation;
+        float rangeCutOn;
+        float rangeCutOff;
+        float rangeNearZone;
+        float rangeFarZone;
+        float spotlightAngle;
+        float spotExponent;
+        float innerSuperEllipsesWidth;
+        float innerSuperEllipsesHeight;
+        float outerSuperEllipsesWidth;
+        float outerSuperEllipsesHeight;
+        float superEllipsesRoundness;
+        int   type;
+        bool  enabled;
+    };
+
+    layout (std430) buffer Lights
+    {
+        Light light[];
+    } lights;
+
+The chunk provides a convenient function that allows to adjust the struct layout
+for standard OpenGL lights 
+
+    struct Light
+    {
+        vec3  position;
+        vec3  direction;
+        vec3  ambientIntensity;
+        vec3  diffuseIntensity;
+        vec3  specularIntensity;
+        float constantAttenuation;
+        float linearAttenuation;
+        float quadraticAttenuation;
+        float spotlightAngle;
+        float spotExponent;
+        int   type;
+        bool  enabled;
+    };
+
+or for simple range lights:
+
+    struct Light
+    {
+        vec3  position;
+        vec3  direction;
+        vec3  color;
+        float intensity;
+        float rangeCutOff;
+        float spotlightAngle;
+        int   type;
+        bool  enabled;
+    };
+
+    <Field
+        name="hasWorldToLightSpaceMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the worldToLightSpaceMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  worldToLightSpaceMatrix;" 
+        entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasLightToWorldSpaceMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the lightToWorldSpaceMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  lightToWorldSpaceMatrix;" 
+        entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasEyeToLightSpaceMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the eyeToLightSpaceMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  eyeToLightSpaceMatrix;" 
+        entry is contained in the shader struct for the Light.
+        Attention: If this flag is set the light shader storage block has to
+        be updated with every redraw operation.
+    </Field>
+
+    <Field
+        name="hasLightToEyeSpaceMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the lightToEyeSpaceMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  lightToEyeSpaceMatrix;" 
+        entry is contained in the shader struct for the Light.
+        Attention: If this flag is set the light shader storage block has to
+        be updated with every redraw operation.
+    </Field>
+
+    <Field
+        name="hasLightPerspectiveMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the lightPerspectiveMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  lightPerspectiveMatrix;" 
+        entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasInvLightPerspectiveMatrix"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the lightToEyeSpaceMatrix attribute is part of 
+        the shader storage block, i.e. if the "mat4  invLightToEyeSpaceMatrix;" 
+        entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasColor"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the color attribute is part of the shader storage block, i.e.
+        if the "vec3  color;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasIntensity"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the intensity attribute is part of the shader storage block, i.e.
+        if the "float intensity;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasSeparateIntensities"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+    >
+        This flag determines if the color intensity attributes are part of the shader storage block, i.e.
+        if the "vec3  Ia;", "vec3  Id;" and "vec3 Is;" entries are contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasAttenuation"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+    >
+        This flag determines if the attenuation attributes are part of the shader storage block, i.e.
+        if the "float constantAttenuation;", "float linearAttenuation;" and "float quadraticAttenuation;"
+        entries are contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="autoCalcRanges"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+    >
+        If this flag is active and the lights have attenuations, then the cut on and cut off ranges
+        are automatically calculated. They are, however, not provided automatically to the shader.
+        For that, you have to set the hasRangeCutOn and hasRangeCutOff flags, respectively.
+    </Field>
+
+    <Field
+        name="hasRangeCutOn"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the rangeCutOn attribute is part of the shader storage block, i.e.
+        if the "float rangeCutOn;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasRangeCutOff"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the hasRangeCutOff attribute is part of the shader storage block, i.e.
+        if the "float hasRangeCutOff;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasRangeNearZone"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the hasRangeNearZone attribute is part of the shader storage block, i.e.
+        if the "float hasRangeNearZone;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasRangeFarZone"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the hasRangeFarZone attribute is part of the shader storage block, i.e.
+        if the "float hasRangeFarZone;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasSpotExponent"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+    >
+        This flag determines if the spot expenent attribute is part of the shader storage block, i.e.
+        if the "float  spotExponent;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasCinemaLight"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the cinema light attributes are part of the shader storage block, i.e.
+        if the "float innerSuperEllipsesWidth;", ... entries are contained in the shader struct for the Light.
+        If true this flag overrides the hasRangeCutOn, hasRangeCutOff, hasRangeNearZone and hasRangeFarZone
+        flags, because cinema lights are described the corresponding attributes.
+        See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+             http://www.yaldex.com/open-gl/ch12lev1sec4.html
+             https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="position"
+        type="Pnt3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+        >
+        The light's position for point and spotlights in beacon space.
+    </Field>
+
+    <Field
+        name="direction"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's direction for directional and spotlights in beacon space.
+    </Field>
+
+    <Field
+        name="color"
+        type="Color3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's color.
+    </Field>
+
+    <Field
+        name="intensity"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's intensity.
+    </Field>
+
+    <Field
+        name="ambientIntensity"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's ambient intensity.
+    </Field>
+
+    <Field
+        name="diffuseIntensity"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's diffuse intensity.
+    </Field>
+
+    <Field
+        name="specularIntensity"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's specular intensity.
+    </Field>
+
+    <Field
+        name="attenuation"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's attenuation consiting of the constant, linear and quadratic attenuation parts.
+    </Field>
+
+    <Field
+        name="spotlightAngle"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The spot angle in degree.
+    </Field>
+
+    <Field
+        name="spotExponent"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The spot angle in degree.
+    </Field>
+
+    <Field
+        name="innerSuperEllipsesWidth"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by an inner ellipses. This is
+    the width of this ellipse.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="innerSuperEllipsesHeight"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by an inner ellipses. This is
+    the height of this ellipse.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="outerSuperEllipsesWidth"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by an outer ellipses. This is
+    the width of this ellipse.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="outerSuperEllipsesHeight"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by an outer ellipses. This is
+    the height of this ellipse.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="superEllipsesRoundness"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by a roundness parameter. 
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="rangeCutOn"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by a rangeCutOn parameter.
+    In the interval rangeCutOn to rangeCutOff the lighted fragments are
+    fully lit.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="rangeCutOff"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by a rangeCutOff parameter.
+    In the interval rangeCutOn to rangeCutOff the lighted fragments are
+    fully lit.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="rangeNearZone"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The cinema light is described among others by a rangeNearZone parameter.
+    In the interval rangeCutOn-rangeNearZone to rangeCutOn the lighted fragments are
+    partly lit.
+    See: http://http.developer.nvidia.com/GPUGems/gpugems_ch10.html
+         http://www.yaldex.com/open-gl/ch12lev1sec4.html
+         https://en.wikipedia.org/wiki/Superellipse
+    </Field>
+
+    <Field
+        name="rangeFarZone"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    In the interval rangeCutOff to rangeCutOff+rangeFarZone the lighted fragments are
+    partly lit.
+    </Field>
+
+    <Field
+        name="type"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    Stores the light's type. This can be any of the set {POINT_LIGHT, DIRECTIONAL_LIGHT, SPOT_LIGHT, CINEMA_LIGHT}.
+    </Field>
+
+    <Field
+        name="enabled"
+        type="bool"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The on/off state of the light.
+    </Field>
+
+    <Field
+        name="beacon"
+        type="Node"
+        category="weakpointer"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The light's beacon determining its position or direction.
+    </Field>
+
+    <Field
+        name="beaconMatrix"
+        type="Matrix"
+        cardinality="multi"
+        visibility="internal"
+        access="protected"
+    >
+        The beacon matrices used for the last render pass.
+    </Field>
+
+    <Field
+        name="eyeSpace"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+    The lights position and direction are transformed to eye space before loading into the shader. 
+    On default they are provided in world space.
+    </Field>
+
+    <Field
+        name="lastCamNear"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        defaultValue="0.f"
+    >
+        The camera last near value.
+    </Field>
+
+    <Field
+        name="lastCamFar"
+        type="Real32"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+        defaultValue="0.f"
+    >
+        The camera last far value.
+    </Field>
+
+    <Field
+        name="lastCamToWorld"
+        type="Matrix"
+        cardinality="single"
+        visibility="internal"
+        access="protected"
+    >
+        The camera last to world matrix.
+    </Field>
+
+</FieldContainer>

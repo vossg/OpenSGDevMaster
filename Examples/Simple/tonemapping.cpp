@@ -90,7 +90,7 @@ struct Light
 {
     enum Type
     {
-        directional_light,
+        directional_light = 0,
         point_light,
         spot_light,
         no_light
@@ -98,13 +98,8 @@ struct Light
 
     Light();
 
-    bool                isEnabled();
-
-    static OSG::Vec3i   getLightType(Type e);
     static Light        create_light(Type e);
 
-
-    OSG::Vec3i   type;               // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1
     OSG::Pnt3f   position;           // in object space
     OSG::Vec3f   spot_direction;     // in object space, also used for dir of directional lights (see shader code)
     OSG::Color3f Ia;                 // ambient  max. Intensity
@@ -114,16 +109,25 @@ struct Light
     OSG::Vec3f   attenuation;        // (constant, linear, quadratic) with constant >= 1 and linear,quadratic >= 0
     OSG::Real32  spot_cos_cutoff;    // cosine cut of angle
     OSG::Real32  spot_exponent;      // [0-128]
+    OSG::Int32   type;               // directional_light, point_light, spot_light, no_light
 };
 
 typedef std::vector<Light>       VecLightsT;        // multiple lights
-typedef std::vector<Light::Type> VecLightTypesT;    // helper to create lights
-
-VecLightsT initialize_lights(const VecLightTypesT& types);  // helper to create lights
 
 const std::size_t num_lights = 1;                   // simple example with just one light
 
-VecLightTypesT vecTypes(num_lights, Light::directional_light);
+VecLightsT initialize_lights()         // helper to create lights
+{
+    VecLightsT lights;
+
+    lights.push_back(Light::create_light(Light::directional_light));
+
+    assert(lights.size() == num_lights);
+
+    return lights;
+}
+
+VecLightsT lights = initialize_lights();    // the lights
 
 /*---- Material -----------------------------------------------------------*/
 
@@ -140,7 +144,7 @@ struct Material
     OSG::Real32  shininess;
 };
 
-typedef std::vector<Material> VecMaterialsT;        // multiple lights
+typedef std::vector<Material> VecMaterialsT;        // multiple materials
 
 VecMaterialsT initialize_materials(std::size_t num); // helper to create materials
 
@@ -371,7 +375,7 @@ Example* Example::_pExample = NULL;
 
 Example::Example(int argc, char *argv[])
 : _mgr(NULL)
-, _lights(initialize_lights(vecTypes))
+, _lights(initialize_lights())
 , _materials(initialize_materials(num_materials))
 , _hdrRoot(NULL)
 , _hdrStage(NULL)
@@ -1118,7 +1122,6 @@ std::size_t Example::calc_light_buffer_size(const VecLightsT& lights)
     std::size_t ao = 0; // aligned offset
     std::size_t bo = 0; // base offset
 
-    ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4i);   // OSG::Vec3i   type;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Pnt4f);   // OSG::Pnt3f   position;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4f);   // OSG::Vec3f   spot_direction;
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Color4f); // OSG::Color3f Ia;
@@ -1127,6 +1130,7 @@ std::size_t Example::calc_light_buffer_size(const VecLightsT& lights)
     ao = align_offset( 16, bo); bo = ao + sizeof(OSG::Vec4f);   // OSG::Vec3f   attenuation;
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_cos_cutoff;
     ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Real32);  // OSG::Real32  spot_exponent;
+    ao = align_offset(  4, bo); bo = ao + sizeof(OSG::Int32);   // OSG::Int32   type;
     ao = align_offset( 16, bo); bo = ao;                        // padding
 
     ao *= lights.size();        bo = ao;                        // array
@@ -1148,10 +1152,6 @@ std::vector<OSG::UInt8> Example::create_light_buffer(const VecLightsT& lights)
     {
         OSG::Pnt3f position_es       = transform_to_eye_space(lights[i].position,       _mgr);
         OSG::Vec3f spot_direction_es = transform_to_eye_space(lights[i].spot_direction, _mgr);
-
-        ao = align_offset(16, bo);
-        memcpy(&buffer[0] + ao, &lights[i].type[0], sizeof(OSG::Vec3i));
-        bo = ao + sizeof(OSG::Vec4i);
 
         ao = align_offset(16, bo);
         memcpy(&buffer[0] + ao, &position_es[0], sizeof(OSG::Pnt3f));
@@ -1182,12 +1182,12 @@ std::vector<OSG::UInt8> Example::create_light_buffer(const VecLightsT& lights)
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_cos_cutoff;
+        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_exponent;
         bo = ao + sizeof(OSG::Real32);
 
         ao = align_offset( 4, bo);
-        *(reinterpret_cast<OSG::Real32*>(&buffer[0] + ao)) = lights[i].spot_exponent;
-        bo = ao + sizeof(OSG::Real32);
+        *(reinterpret_cast<OSG::Int32*>(&buffer[0] + ao)) = lights[i].type;
+        bo = ao + sizeof(OSG::Int32);
 
         ao = align_offset( 16, bo); bo = ao;    // padding
     }
@@ -1441,40 +1441,40 @@ int main(int argc, char **argv)
 //
 std::string Example::get_vp_program()
 {
-    std::stringstream ost;
+    using namespace std;
 
-    ost << 
-            ""                                                                                                                                      SHADER_EOL
-            "#version 330 compatibility"                                                                                                            SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "#extension GL_ARB_separate_shader_objects: enable"                                                                                     SHADER_EOL
-            "#extension GL_ARB_uniform_buffer_object:   enable"                                                                                     SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "out vec3 vNormalES;        // eye space normal"                                                                                        SHADER_EOL
-            "out vec3 vPositionES;      // eye space position"                                                                                      SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "void main()"                                                                                                                           SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // multiply the object space vertex position with the modelview matrix "                                                           SHADER_EOL
-            "    // to get the eye space vertex position"                                                                                           SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vPositionES = (gl_ModelViewMatrix * gl_Vertex).xyz;"                                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // multiply the object space normal with the normal matrix (transpose of the inverse "                                             SHADER_EOL
-            "    // model view matrix) to get the eye space normal"                                                                                 SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vNormalES = gl_NormalMatrix * gl_Normal;"                                                                                          SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // multiply the combiend modelview projection matrix with the object space vertex"                                                 SHADER_EOL
-            "    // position to get the clip space position"                                                                                        SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    gl_Position = ftransform();"                                                                                                       SHADER_EOL
-            "}"                                                                                                                                     SHADER_EOL
-            ""
-            ;
+    stringstream ost;
+
+    ost << "#version 330 compatibility"
+    << endl << ""
+    << endl << "#extension GL_ARB_separate_shader_objects: enable"
+    << endl << "#extension GL_ARB_uniform_buffer_object:   enable"
+    << endl << ""
+    << endl << "out vec3 vNormalES;        // eye space normal"
+    << endl << "out vec3 vPositionES;      // eye space position"
+    << endl << ""
+    << endl << "void main()"
+    << endl << "{"
+    << endl << "    //"
+    << endl << "    // multiply the object space vertex position with the modelview matrix "
+    << endl << "    // to get the eye space vertex position"
+    << endl << "    //"
+    << endl << "    vPositionES = (gl_ModelViewMatrix * gl_Vertex).xyz;"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // multiply the object space normal with the normal matrix (transpose of the inverse "
+    << endl << "    // model view matrix) to get the eye space normal"
+    << endl << "    //"
+    << endl << "    vNormalES = gl_NormalMatrix * gl_Normal;"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // multiply the combiend modelview projection matrix with the object space vertex"
+    << endl << "    // position to get the clip space position"
+    << endl << "    //"
+    << endl << "    gl_Position = ftransform();"
+    << endl << "}"
+    << endl << ""
+    << endl;
 
     return ost.str();
 }
@@ -1484,258 +1484,263 @@ std::string Example::get_vp_program()
 //
 std::string Example::get_fp_program()
 {
-    std::stringstream ost;
+    using namespace std;
 
-    ost << 
-            ""                                                                                                                                      SHADER_EOL
-            "#version 330 compatibility"                                                                                                            SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "#extension GL_ARB_separate_shader_objects: enable"                                                                                     SHADER_EOL
-            "#extension GL_ARB_uniform_buffer_object:   enable"                                                                                     SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "in vec3 vNormalES;         // eye space normal"                                                                                        SHADER_EOL
-            "in vec3 vPositionES;       // eye space position"                                                                                      SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "uniform bool uRenderAmbient;"                                                                                                          SHADER_EOL
-            "uniform bool uRenderDiffuse;"                                                                                                          SHADER_EOL
-            "uniform bool uRenderSpecular;"                                                                                                         SHADER_EOL
-            "uniform bool uRenderEmissive;"                                                                                                         SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "const int num_lights    =   1;"                                                                                                        SHADER_EOL
-            "const int num_materials = 100;"                                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "struct Light"                                                                                                                          SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    ivec4 type;             // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1"                             SHADER_EOL
-            "    vec4 position;          // in eye space"                                                                                           SHADER_EOL
-            "    vec4 spot_direction;    // in eye space"                                                                                           SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec4 Ia;                // ambient  max. Intensity"                                                                                SHADER_EOL
-            "    vec4 Id;                // diffuse  max. Intensity"                                                                                SHADER_EOL
-            "    vec4 Is;                // specular max. Intensity"                                                                                SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec4 attenuation;       // (constant, linear, quadratic) with constant >= 1 and linear,quadratic >= 0"                             SHADER_EOL
-            "    "                                                                                                                                  SHADER_EOL
-            "    float spot_cos_cutoff;  // cosine cut of angle"                                                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float spot_exponent;    // [0-128]"                                                                                                SHADER_EOL
-            "};"                                                                                                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "layout (std140) uniform Lights"                                                                                                        SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    Light light[num_lights];"                                                                                                          SHADER_EOL
-            "} lights;"                                                                                                                             SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "struct Material"                                                                                                                       SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    vec4 ambient;"                                                                                                                     SHADER_EOL
-            "    vec4 diffuse;"                                                                                                                     SHADER_EOL
-            "    vec4 specular;"                                                                                                                    SHADER_EOL
-            "    vec4 emissive;"                                                                                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float opacity;"                                                                                                                    SHADER_EOL
-            "    float shininess;"                                                                                                                  SHADER_EOL
-            "};"                                                                                                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "layout (std140) uniform Materials"                                                                                                     SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    Material material[num_materials];"                                                                                                 SHADER_EOL
-            "} materials;"                                                                                                                          SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "layout (std140) uniform GeomState"                                                                                                     SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    int material_index;"                                                                                                               SHADER_EOL
-            "} geom_state;"                                                                                                                         SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "const vec3 cCameraPositionES = vec3(0,0,0); // eye is at vec3(0,0,0) in eye space!"                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "layout(location = 0) out vec4 vFragColor;"                                                                                             SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "// directional light contribution"                                                                                                     SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "vec3 directionalLight("                                                                                                                SHADER_EOL
-            "    in int i,   // light identifier, i.e. current light"                                                                               SHADER_EOL
-            "    in int j,   // material identifier"                                                                                                SHADER_EOL
-            "    in vec3 n,  // vertex normal in eye space"                                                                                         SHADER_EOL
-            "    in vec3 v)  // view direction in eye space"                                                                                        SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    if (lights.light[i].type[0] == 0)"                                                                                                 SHADER_EOL
-            "        return vec3(0.0, 0.0, 0.0);"                                                                                                   SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // the light direction in eye space"                                                                                               SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 l = -lights.light[i].spot_direction.xyz;    // we carry the directional light direction in the spot_direction slot"           SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // the half vector"                                                                                                                SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 h = normalize(l + v);"                                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float n_dot_l = max(0.0, dot(n, l));"                                                                                              SHADER_EOL
-            "    float n_dot_h = max(0.0, dot(n, h));"                                                                                              SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float m = materials.material[j].shininess;"                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float pf;           // power factor"                                                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (n_dot_l == 0.0)"                                                                                                               SHADER_EOL
-            "       pf = 0.0;"                                                                                                                      SHADER_EOL
-            "    else"                                                                                                                              SHADER_EOL
-            "       pf = pow(n_dot_h, m);"                                                                                                          SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec3 result = vec3(0);"                                                                                                            SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"                                                                SHADER_EOL
-            "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"                                        SHADER_EOL
-            "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"           SHADER_EOL
-            "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)" SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    return result;"                                                                                                                    SHADER_EOL
-            "}"                                                                                                                                     SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "// point light contribution"                                                                                                           SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "vec3 pointLight("                                                                                                                      SHADER_EOL
-            "    in int i,   // light identifier, i.e. current light"                                                                               SHADER_EOL
-            "    in int j,   // material identifier"                                                                                                SHADER_EOL
-            "    in vec3 n,  // vertex normal in eye space"                                                                                         SHADER_EOL
-            "    in vec3 v,  // view direction in eye space"                                                                                        SHADER_EOL
-            "    in vec3 p)  // vertex position in eye space"                                                                                       SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    if (lights.light[i].type[1] == 0)"                                                                                                 SHADER_EOL
-            "        return vec3(0.0, 0.0, 0.0);"                                                                                                   SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec3  l = vec3(lights.light[i].position.xyz) - p;    // direction from surface to light position"                                  SHADER_EOL
-            "    float d = length(l);                                 // distance from surface to light source"                                     SHADER_EOL
-            "    l = normalize(l);                                    // normalized direction from surface to light position"                       SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // the half vector"                                                                                                                SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 h = normalize(l + v);"                                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float n_dot_l = max(0.0, dot(n, l));"                                                                                              SHADER_EOL
-            "    float n_dot_h = max(0.0, dot(n, h));"                                                                                              SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float m = materials.material[j].shininess;"                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float pf;           // power factor"                                                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (n_dot_l == 0.0)"                                                                                                               SHADER_EOL
-            "       pf = 0.0;"                                                                                                                      SHADER_EOL
-            "    else"                                                                                                                              SHADER_EOL
-            "       pf = pow(n_dot_h, m);"                                                                                                          SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // Compute attenuation"                                                                                                            SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    float attenuation = 1.0 / (lights.light[i].attenuation.x + "                                                                       SHADER_EOL
-            "                              (lights.light[i].attenuation.y * d) + "                                                                  SHADER_EOL
-            "                              (lights.light[i].attenuation.z * d * d));"                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    attenuation = clamp(attenuation, 0.0, 1.0);"                                                                                       SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec3 result = vec3(0);"                                                                                                            SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"                                                                SHADER_EOL
-            "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"                                        SHADER_EOL
-            "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"           SHADER_EOL
-            "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)" SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    return result;"                                                                                                                    SHADER_EOL
-            "}"                                                                                                                                     SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "// spot light contribution"                                                                                                            SHADER_EOL
-            "//"                                                                                                                                    SHADER_EOL
-            "vec3 spotLight("                                                                                                                       SHADER_EOL
-            "    in int i,   // light identifier, i.e. current light"                                                                               SHADER_EOL
-            "    in int j,   // material identifier"                                                                                                SHADER_EOL
-            "    in vec3 n,  // vertex normal in eye space"                                                                                         SHADER_EOL
-            "    in vec3 v,  // view direction in eye space"                                                                                        SHADER_EOL
-            "    in vec3 p)  // vertex position in eye space"                                                                                       SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    if (lights.light[i].type[2] == 0)"                                                                                                 SHADER_EOL
-            "        return vec3(0.0, 0.0, 0.0);"                                                                                                   SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec3  l = vec3(lights.light[i].position.xyz) - p;   // direction from surface to light position"                                   SHADER_EOL
-            "    float d = length(l);                                // distance from surface to light source"                                      SHADER_EOL
-            "    l = normalize(l);                                   // normalized direction from surface to light position"                        SHADER_EOL
-            "    "                                                                                                                                  SHADER_EOL
-            "    vec3 s = lights.light[i].spot_direction.xyz;        // spot direction"                                                             SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // the half vector"                                                                                                                SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 h = normalize(l + v);"                                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float n_dot_l = max(0.0, dot(n, l));"                                                                                              SHADER_EOL
-            "    float n_dot_h = max(0.0, dot(n, h));"                                                                                              SHADER_EOL
-            "    float l_dot_s = dot(-l, s);"                                                                                                       SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float m = materials.material[j].shininess;"                                                                                        SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    float pf;           // power factor"                                                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (n_dot_l == 0.0)"                                                                                                               SHADER_EOL
-            "       pf = 0.0;"                                                                                                                      SHADER_EOL
-            "    else"                                                                                                                              SHADER_EOL
-            "       pf = pow(n_dot_h, m);"                                                                                                          SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // Compute attenuation"                                                                                                            SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    float attenuation = 1.0 / (lights.light[i].attenuation.x + "                                                                       SHADER_EOL
-            "                              (lights.light[i].attenuation.y * d) + "                                                                  SHADER_EOL
-            "                              (lights.light[i].attenuation.z * d * d));"                                                               SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    attenuation = clamp(attenuation, 0.0, 1.0);"                                                                                       SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (l_dot_s < lights.light[i].spot_cos_cutoff) "                                                                                   SHADER_EOL
-            "        attenuation = 0.0;"                                                                                                            SHADER_EOL
-            "    else"                                                                                                                              SHADER_EOL
-            "        attenuation *= pow(l_dot_s, lights.light[i].spot_exponent);"                                                                   SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    vec3 result = vec3(0);"                                                                                                            SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"                                                                SHADER_EOL
-            "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"                                        SHADER_EOL
-            "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"           SHADER_EOL
-            "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)" SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    return result;"                                                                                                                    SHADER_EOL
-            "}"                                                                                                                                     SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "void main()"                                                                                                                           SHADER_EOL
-            "{"                                                                                                                                     SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // normalize the eye space normal"                                                                                                 SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 N = normalize(vNormalES);"                                                                                                    SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // get the view vector and normalize it"                                                                                           SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 V = normalize(cCameraPositionES - vPositionES);"                                                                              SHADER_EOL
-            ""                                                                                                                                      SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    // Integrate over all lights: Any unused light does not contribute and each light"                                                 SHADER_EOL
-            "    // contribute either from the directional light, the point light or the spot light."                                               SHADER_EOL
-            "    //"                                                                                                                                SHADER_EOL
-            "    vec3 color = vec3(0.0, 0.0, 0.0);"                                                                                                 SHADER_EOL
-            "    for (int i = 0; i < num_lights; ++i) {"                                                                                            SHADER_EOL
-            "        color += directionalLight(i, geom_state.material_index, N, V) "                                                                SHADER_EOL
-            "              +        pointLight(i, geom_state.material_index, N, V, vPositionES) "                                                   SHADER_EOL
-            "              +         spotLight(i, geom_state.material_index, N, V, vPositionES);"                                                   SHADER_EOL
-            "    }"                                                                                                                                 SHADER_EOL
-            "    vFragColor = vec4(color, materials.material[geom_state.material_index  ].opacity);"                                                SHADER_EOL
-            "}"                                                                                                                                     SHADER_EOL
-            ""
-            ;
+    stringstream ost;
+
+    ost << "#version 330 compatibility"
+    << endl << ""
+    << endl << "#extension GL_ARB_separate_shader_objects: enable"
+    << endl << "#extension GL_ARB_uniform_buffer_object:   enable"
+    << endl << ""
+    << endl << "in vec3 vNormalES;         // eye space normal"
+    << endl << "in vec3 vPositionES;       // eye space position"
+    << endl << ""
+    << endl << "uniform bool uRenderAmbient;"
+    << endl << "uniform bool uRenderDiffuse;"
+    << endl << "uniform bool uRenderSpecular;"
+    << endl << "uniform bool uRenderEmissive;"
+    << endl << ""
+    << endl << "const int num_lights    =   1;"
+    << endl << "const int num_materials = 100;"
+    << endl << ""
+    << endl << "const int directional_light = 0;"
+    << endl << "const int point_light = 1;"
+    << endl << "const int spot_light = 2;"
+    << endl << "const int no_light = 3;"
+    << endl << ""
+    << endl << "struct Light"
+    << endl << "{"
+    << endl << "    vec4 position;          // in eye space"
+    << endl << "    vec4 spot_direction;    // in eye space"
+    << endl << ""
+    << endl << "    vec4 Ia;                // ambient  max. Intensity"
+    << endl << "    vec4 Id;                // diffuse  max. Intensity"
+    << endl << "    vec4 Is;                // specular max. Intensity"
+    << endl << ""
+    << endl << "    vec4 attenuation;       // (constant, linear, quadratic) with constant >= 1 and linear,quadratic >= 0"
+    << endl << "    "
+    << endl << "    float spot_cos_cutoff;  // cosine cut of angle"
+    << endl << ""
+    << endl << "    float spot_exponent;    // [0-128]"
+    << endl << "    int  type;              // directional_light, point_light, spot_light, no_light"
+    << endl << "};"
+    << endl << ""
+    << endl << "layout (std140) uniform Lights"
+    << endl << "{"
+    << endl << "    Light light[num_lights];"
+    << endl << "} lights;"
+    << endl << ""
+    << endl << "struct Material"
+    << endl << "{"
+    << endl << "    vec4 ambient;"
+    << endl << "    vec4 diffuse;"
+    << endl << "    vec4 specular;"
+    << endl << "    vec4 emissive;"
+    << endl << ""
+    << endl << "    float opacity;"
+    << endl << "    float shininess;"
+    << endl << "};"
+    << endl << ""
+    << endl << "layout (std140) uniform Materials"
+    << endl << "{"
+    << endl << "    Material material[num_materials];"
+    << endl << "} materials;"
+    << endl << ""
+    << endl << ""
+    << endl << "layout (std140) uniform GeomState"
+    << endl << "{"
+    << endl << "    int material_index;"
+    << endl << "} geom_state;"
+    << endl << ""
+    << endl << "const vec3 cCameraPositionES = vec3(0,0,0); // eye is at vec3(0,0,0) in eye space!"
+    << endl << ""
+    << endl << "layout(location = 0) out vec4 vFragColor;"
+    << endl << ""
+    << endl << "//"
+    << endl << "// directional light contribution"
+    << endl << "//"
+    << endl << "vec3 directionalLight("
+    << endl << "    in int i,   // light identifier, i.e. current light"
+    << endl << "    in int j,   // material identifier"
+    << endl << "    in vec3 n,  // vertex normal in eye space"
+    << endl << "    in vec3 v)  // view direction in eye space"
+    << endl << "{"
+    << endl << "    if (lights.light[i].type != directional_light)"
+    << endl << "        return vec3(0.0, 0.0, 0.0);"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // the light direction in eye space"
+    << endl << "    //"
+    << endl << "    vec3 l = -lights.light[i].spot_direction.xyz;    // we carry the directional light direction in the spot_direction slot"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // the half vector"
+    << endl << "    //"
+    << endl << "    vec3 h = normalize(l + v);"
+    << endl << ""
+    << endl << "    float n_dot_l = max(0.0, dot(n, l));"
+    << endl << "    float n_dot_h = max(0.0, dot(n, h));"
+    << endl << ""
+    << endl << "    float m = materials.material[j].shininess;"
+    << endl << ""
+    << endl << "    float pf;           // power factor"
+    << endl << ""
+    << endl << "    if (n_dot_l == 0.0)"
+    << endl << "       pf = 0.0;"
+    << endl << "    else"
+    << endl << "       pf = pow(n_dot_h, m);"
+    << endl << ""
+    << endl << "    vec3 result = vec3(0);"
+    << endl << ""
+    << endl << "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"
+    << endl << "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"
+    << endl << "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"
+    << endl << "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)"
+    << endl << ""
+    << endl << "    return result;"
+    << endl << "}"
+    << endl << ""
+    << endl << "//"
+    << endl << "// point light contribution"
+    << endl << "//"
+    << endl << "vec3 pointLight("
+    << endl << "    in int i,   // light identifier, i.e. current light"
+    << endl << "    in int j,   // material identifier"
+    << endl << "    in vec3 n,  // vertex normal in eye space"
+    << endl << "    in vec3 v,  // view direction in eye space"
+    << endl << "    in vec3 p)  // vertex position in eye space"
+    << endl << "{"
+    << endl << "    if (lights.light[i].type != point_light)"
+    << endl << "        return vec3(0.0, 0.0, 0.0);"
+    << endl << ""
+    << endl << "    vec3  l = vec3(lights.light[i].position.xyz) - p;    // direction from surface to light position"
+    << endl << "    float d = length(l);                                 // distance from surface to light source"
+    << endl << "    l = normalize(l);                                    // normalized direction from surface to light position"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // the half vector"
+    << endl << "    //"
+    << endl << "    vec3 h = normalize(l + v);"
+    << endl << ""
+    << endl << "    float n_dot_l = max(0.0, dot(n, l));"
+    << endl << "    float n_dot_h = max(0.0, dot(n, h));"
+    << endl << ""
+    << endl << "    float m = materials.material[j].shininess;"
+    << endl << ""
+    << endl << "    float pf;           // power factor"
+    << endl << ""
+    << endl << "    if (n_dot_l == 0.0)"
+    << endl << "       pf = 0.0;"
+    << endl << "    else"
+    << endl << "       pf = pow(n_dot_h, m);"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // Compute attenuation"
+    << endl << "    //"
+    << endl << "    float attenuation = 1.0 / (lights.light[i].attenuation.x + "
+    << endl << "                              (lights.light[i].attenuation.y * d) + "
+    << endl << "                              (lights.light[i].attenuation.z * d * d));"
+    << endl << ""
+    << endl << "    attenuation = clamp(attenuation, 0.0, 1.0);"
+    << endl << ""
+    << endl << "    vec3 result = vec3(0);"
+    << endl << ""
+    << endl << "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"
+    << endl << "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"
+    << endl << "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"
+    << endl << "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)"
+    << endl << ""
+    << endl << "    return result;"
+    << endl << "}"
+    << endl << ""
+    << endl << "//"
+    << endl << "// spot light contribution"
+    << endl << "//"
+    << endl << "vec3 spotLight("
+    << endl << "    in int i,   // light identifier, i.e. current light"
+    << endl << "    in int j,   // material identifier"
+    << endl << "    in vec3 n,  // vertex normal in eye space"
+    << endl << "    in vec3 v,  // view direction in eye space"
+    << endl << "    in vec3 p)  // vertex position in eye space"
+    << endl << "{"
+    << endl << "    if (lights.light[i].type != spot_light)"
+    << endl << "        return vec3(0.0, 0.0, 0.0);"
+    << endl << ""
+    << endl << "    vec3  l = vec3(lights.light[i].position.xyz) - p;   // direction from surface to light position"
+    << endl << "    float d = length(l);                                // distance from surface to light source"
+    << endl << "    l = normalize(l);                                   // normalized direction from surface to light position"
+    << endl << "    "
+    << endl << "    vec3 s = lights.light[i].spot_direction.xyz;        // spot direction"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // the half vector"
+    << endl << "    //"
+    << endl << "    vec3 h = normalize(l + v);"
+    << endl << ""
+    << endl << "    float n_dot_l = max(0.0, dot(n, l));"
+    << endl << "    float n_dot_h = max(0.0, dot(n, h));"
+    << endl << "    float l_dot_s = dot(-l, s);"
+    << endl << ""
+    << endl << "    float m = materials.material[j].shininess;"
+    << endl << ""
+    << endl << "    float pf;           // power factor"
+    << endl << ""
+    << endl << "    if (n_dot_l == 0.0)"
+    << endl << "       pf = 0.0;"
+    << endl << "    else"
+    << endl << "       pf = pow(n_dot_h, m);"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // Compute attenuation"
+    << endl << "    //"
+    << endl << "    float attenuation = 1.0 / (lights.light[i].attenuation.x + "
+    << endl << "                              (lights.light[i].attenuation.y * d) + "
+    << endl << "                              (lights.light[i].attenuation.z * d * d));"
+    << endl << ""
+    << endl << "    attenuation = clamp(attenuation, 0.0, 1.0);"
+    << endl << ""
+    << endl << "    if (l_dot_s < lights.light[i].spot_cos_cutoff) "
+    << endl << "        attenuation = 0.0;"
+    << endl << "    else"
+    << endl << "        attenuation *= pow(l_dot_s, lights.light[i].spot_exponent);"
+    << endl << ""
+    << endl << "    vec3 result = vec3(0);"
+    << endl << ""
+    << endl << "    if (uRenderEmissive) result += materials.material[j].emissive.rgb;"
+    << endl << "    if (uRenderAmbient)  result += lights.light[i].Ia.rgb * materials.material[j].ambient.rgb;"
+    << endl << "    if (uRenderDiffuse)  result += lights.light[i].Id.rgb * materials.material[j].diffuse.rgb  * n_dot_l;           // / PI"
+    << endl << "    if (uRenderSpecular) result += lights.light[i].Is.rgb * materials.material[j].specular.rgb * (m+8)*0.0125 * pf; // * (m+8)/(8*PI)"
+    << endl << ""
+    << endl << "    return result;"
+    << endl << "}"
+    << endl << ""
+    << endl << "void main()"
+    << endl << "{"
+    << endl << "    //"
+    << endl << "    // normalize the eye space normal"
+    << endl << "    //"
+    << endl << "    vec3 N = normalize(vNormalES);"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // get the view vector and normalize it"
+    << endl << "    //"
+    << endl << "    vec3 V = normalize(cCameraPositionES - vPositionES);"
+    << endl << ""
+    << endl << "    //"
+    << endl << "    // Integrate over all lights: Any unused light does not contribute and each light"
+    << endl << "    // contribute either from the directional light, the point light or the spot light."
+    << endl << "    //"
+    << endl << "    vec3 color = vec3(0.0, 0.0, 0.0);"
+    << endl << "    for (int i = 0; i < num_lights; ++i) {"
+    << endl << "        color += directionalLight(i, geom_state.material_index, N, V) "
+    << endl << "              +        pointLight(i, geom_state.material_index, N, V, vPositionES) "
+    << endl << "              +         spotLight(i, geom_state.material_index, N, V, vPositionES);"
+    << endl << "    }"
+    << endl << "    vFragColor = vec4(color, materials.material[geom_state.material_index  ].opacity);"
+    << endl << "}"
+    << endl << ""
+    << endl;
 
     return ost.str();
 }
@@ -1743,8 +1748,7 @@ std::string Example::get_fp_program()
 /*---- Light --------------------------------------------------------------*/
 
 Light::Light() 
-: type(0, 0, 0)
-, position(0.f, 0.f, 0.f)
+: position(0.f, 0.f, 0.f)
 , spot_direction(0.f, 1.f, 0.f)
 , Ia(1.f, 1.f, 1.f)
 , Id(1.f, 1.f, 1.f)
@@ -1752,31 +1756,13 @@ Light::Light()
 , attenuation(1.f, 0.f, 0.f)
 , spot_cos_cutoff(cosf(45.f))
 , spot_exponent(1.f)
+, type(no_light)
 {}
-
-bool Light::isEnabled()
-{
-    if (type[0] == 1 || type[1] == 1 || type[2] == 1)
-        return true;
-    else
-        return false;
-}
-
-OSG::Vec3i Light::getLightType(Type e)
-{
-    switch (e) {
-        case directional_light: return OSG::Vec3i(1.f, 0.f, 0.f);
-        case       point_light: return OSG::Vec3i(0.f, 1.f, 0.f);
-        case        spot_light: return OSG::Vec3i(0.f, 0.f, 1.f);
-        case          no_light: return OSG::Vec3i(0.f, 0.f, 0.f);
-        default:                return OSG::Vec3i(0.f, 0.f, 0.f);
-    }
-}
 
 Light Light::create_light(Type e)
 {
     Light l;
-    l.type = getLightType(e);
+    l.type = e;
 
     switch (e) {
         case directional_light:
@@ -1792,16 +1778,6 @@ Light Light::create_light(Type e)
             break;
     }
     return l;
-}
-
-VecLightsT initialize_lights(const VecLightTypesT& types)         // helper to create lights
-{
-    VecLightsT lights;
-
-    for (std::size_t i = 0; i < types.size(); ++i)
-        lights.push_back(Light::create_light(types[i]));
-
-    return lights;
 }
 
 /*---- Material -----------------------------------------------------------*/

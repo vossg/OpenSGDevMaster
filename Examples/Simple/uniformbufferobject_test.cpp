@@ -1,4 +1,4 @@
-// OpenSG Tutorial Example: UniformBufferObject
+// OpenSG Test Example: UniformBufferObject_Test
 //
 // This example allows to research the capabilities of the uniform
 // buffer object extension on your graphics platform.

@@ -1,17 +1,15 @@
-// OpenSG Tutorial Example: UniformBufferObject
+// OpenSG Tutorial Example: ShaderStorageBufferObject
 //
-// This example shows how to create a shader uniform block and binding it 
-// to a uniform buffer object.
+// This example shows how to create a shader storage block and binding it 
+// to a shader storage buffer object.
 //
-// The example does use the UniformBufferObjChunk which allows the host
-// application to provide the uniform block member values directly to 
-// the chunk. The layout of the uniform block is determined by the 
-// shader code. Any of the layout values of the specification (shared, 
-// packed, std140) are allowed.
-// It is however, important the the order and the cardinality of the
-// members is matched exactly.
+// The example does use the ShaderStorageBufferObjChunk which allows the
+// host application to provide the shader storage block member values 
+// directly to the chunk. The layout of the shader storage block is determined 
+// by the shader code. Any of the layout values of the specification (shared, 
+// packed, std140, std430) are allowed.
 //
-// Internally, the shader uniform block is queried for the offsets,
+// Internally, the shader storage block is queried for the offsets,
 // array and matrix strides of the block variables.
 //
 
@@ -38,7 +36,7 @@
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialGroup.h>
 #include <OSGMaterialChunkOverrideGroup.h>
-#include <OSGUniformBufferObjChunk.h>
+#include <OSGShaderStorageBufferObjChunk.h>
 #include <OSGPolygonChunk.h>
 #include <OSGDepthChunk.h>
 #include <OSGShaderProgramVariableChunk.h>
@@ -62,12 +60,20 @@
 #include <OpenSG/OSGChunkMaterial.h>
 #include <OpenSG/OSGMaterialGroup.h>
 #include <OpenSG/OSGMaterialChunkOverrideGroup.h>
-#include <OpenSG/OSGUniformBufferObjChunk.h>
+#include <OpenSG/OSGShaderStorageBufferObjChunk.h>
 #include <OpenSG/OSGPolygonChunk.h>
 #include <OpenSG/OSGDepthChunk.h>
 #include <OpenSG/OSGShaderProgramVariableChunk.h>
 #endif
 
+//
+// USE_TEST_FP_SHADER
+// ------------------
+// Activate a test mode that does test the material and light at index 0,
+// respectively, against specific values set by the application. If all
+// values are read correctly in the shader the geometry is colored in green.
+// Otherwise the geometry is colored red indicating failure.
+//
 //#define USE_TEST_FP_SHADER
 
 //
@@ -82,15 +88,14 @@ struct Light
 {
     enum Type
     {
-        directional_light,
+        directional_light = 0,
         point_light,
         spot_light,
         no_light
     };
 
     Light() 
-    : type(0, 0, 0)
-    , position(0.f, 0.f, 0.f)
+    : position(0.f, 0.f, 0.f)
     , spot_direction(0.f, 1.f, 0.f)
     , Ia(1.f, 1.f, 1.f)
     , Id(1.f, 1.f, 1.f)
@@ -98,31 +103,13 @@ struct Light
     , attenuation(1.f, 0.f, 0.f)
     , spot_cos_cutoff(cosf(45.f))
     , spot_exponent(1.f)
+    , type(no_light)
     {}
-
-    bool isEnabled()
-    {
-        if (type[0] == 1 || type[1] == 1 || type[2] == 1)
-            return true;
-        else
-            return false;
-    }
-
-    static OSG::Vec3i getLightType(Type e)
-    {
-        switch (e) {
-            case directional_light: return OSG::Vec3i(1.f, 0.f, 0.f);
-            case       point_light: return OSG::Vec3i(0.f, 1.f, 0.f);
-            case        spot_light: return OSG::Vec3i(0.f, 0.f, 1.f);
-            case          no_light: return OSG::Vec3i(0.f, 0.f, 0.f);
-            default:                return OSG::Vec3i(0.f, 0.f, 0.f);
-        }
-    }
 
     static Light create_light(Type e)
     {
         Light l;
-        l.type = getLightType(e);
+        l.type = e;
 
         switch (e) {
             case directional_light:                                          l.spot_direction = OSG::Vec3f(1.f, 0.f, 0.f);
@@ -137,7 +124,6 @@ struct Light
         return l;
     }
 
-    OSG::Vec3i   type;               // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1
     OSG::Pnt3f   position;           // in object space
     OSG::Vec3f   spot_direction;     // in object space, also used for dir of directional lights (see shader code)
     OSG::Color3f Ia;                 // ambient  max. Intensity
@@ -147,25 +133,26 @@ struct Light
     OSG::Vec3f   attenuation;        // (constant, linear, quadratic) with constant >= 1 and linear,quadratic >= 0
     OSG::Real32  spot_cos_cutoff;    // cosine cut of angle
     OSG::Real32  spot_exponent;      // [0-128]
+    OSG::Int32   type;               // directional_light, point_light, spot_light, no_light
 };
 
 typedef std::vector<Light>       VecLightsT;        // multiple lights
-typedef std::vector<Light::Type> VecLightTypesT;    // helper to create lights
 
-VecLightsT initialize_lights(const VecLightTypesT& types)         // helper to create lights
+const std::size_t num_lights = 2;                   // simple example with just one light
+
+VecLightsT initialize_lights()         // helper to create lights
 {
     VecLightsT lights;
 
-    for (std::size_t i = 0; i < types.size(); ++i)
-        lights.push_back(Light::create_light(types[i]));
+    lights.push_back(Light::create_light(Light::directional_light));
+    lights.push_back(Light::create_light(Light::point_light));
+
+    assert(lights.size() == num_lights);
 
     return lights;
 }
 
-const std::size_t num_lights = 1;                   // simple example with just one light
-VecLightTypesT vecTypes(num_lights, Light::directional_light);
-
-VecLightsT lights = initialize_lights(vecTypes);    // the lights
+VecLightsT lights = initialize_lights();    // the lights
 
 
 //
@@ -191,7 +178,7 @@ struct Material
     OSG::Real32  shininess;
 };
 
-typedef std::vector<Material> VecMaterialsT;        // multiple lights
+typedef std::vector<Material> VecMaterialsT;        // multiple materials
 
 VecMaterialsT initialize_materials(std::size_t num) // helper to create materials
 {
@@ -214,7 +201,7 @@ VecMaterialsT initialize_materials(std::size_t num) // helper to create material
     return materials;
 }
 
-const std::size_t num_materials = 100;                          // any numnber of materials
+const std::size_t num_materials = 5000;                         // any numnber of materials
 VecMaterialsT materials = initialize_materials(num_materials);  // the material database
 
 
@@ -279,10 +266,9 @@ OSG::Vec3f transform_to_eye_space(const OSG::Vec3f& v, OSG::SimpleSceneManager* 
 //
 // The light state
 //
-void update_light_state(OSG::UniformBufferObjChunk* ubo, 
-                        const VecLightsT& vLights)
+void update_light_state(OSG::ShaderStorageBufferObjChunk* ssbo, const VecLightsT& vLights)
 {
-    if (ubo) {
+    if (ssbo) {
         for (std::size_t i = 0; i < vLights.size(); ++i) {
             std::stringstream stream;
             stream << "Lights.light[" << i << "]." << std::flush;
@@ -291,138 +277,138 @@ void update_light_state(OSG::UniformBufferObjChunk* ubo,
             OSG::Pnt3f position_es       = transform_to_eye_space(vLights[i].position,       mgr);
             OSG::Vec3f spot_direction_es = transform_to_eye_space(vLights[i].spot_direction, mgr);
 
-            name = stream.str() + "type";               ubo->setIVec3(name,  vLights[i].type);
-            name = stream.str() + "position";           ubo->setVec3 (name,  position_es);
-            name = stream.str() + "spot_direction";     ubo->setVec3 (name,  spot_direction_es);
-            name = stream.str() + "Ia";                 ubo->setVec3 (name,  vLights[i].Ia);
-            name = stream.str() + "Id";                 ubo->setVec3 (name,  vLights[i].Id);
-            name = stream.str() + "Is";                 ubo->setVec3 (name,  vLights[i].Is);
-            name = stream.str() + "attenuation";        ubo->setVec3 (name,  vLights[i].attenuation);
-            name = stream.str() + "spot_cos_cutoff";    ubo->setFloat(name,  vLights[i].spot_cos_cutoff);
-            name = stream.str() + "spot_exponent";      ubo->setFloat(name,  vLights[i].spot_exponent);
+            name = stream.str() + "position";           ssbo->setVec3 (name,  position_es);
+            name = stream.str() + "spot_direction";     ssbo->setVec3 (name,  spot_direction_es);
+            name = stream.str() + "Ia";                 ssbo->setVec3 (name,  vLights[i].Ia);
+            name = stream.str() + "Id";                 ssbo->setVec3 (name,  vLights[i].Id);
+            name = stream.str() + "Is";                 ssbo->setVec3 (name,  vLights[i].Is);
+            name = stream.str() + "attenuation";        ssbo->setVec3 (name,  vLights[i].attenuation);
+            name = stream.str() + "spot_cos_cutoff";    ssbo->setFloat(name,  vLights[i].spot_cos_cutoff);
+            name = stream.str() + "spot_exponent";      ssbo->setFloat(name,  vLights[i].spot_exponent);
+            name = stream.str() + "type";               ssbo->setInt  (name,  vLights[i].type);
 #else
-            name = stream.str() + "type";               ubo->setIVec3(name,  OSG::Vec3i(1, 2, 3));
-            name = stream.str() + "position";           ubo->setVec3 (name,  OSG::Pnt3f(1.1f, 2.2f, 3.3f));
-            name = stream.str() + "spot_direction";     ubo->setVec3 (name,  OSG::Vec3f(4.4f, 5.5f, 6.6f));
-            name = stream.str() + "Ia";                 ubo->setVec3 (name,  OSG::Color3f(0.2f, 0.2f, 0.2f));
-            name = stream.str() + "Id";                 ubo->setVec3 (name,  OSG::Color3f(0.4f, 0.4f, 0.4f));
-            name = stream.str() + "Is";                 ubo->setVec3 (name,  OSG::Color3f(0.6f, 0.6f, 0.6f));
-            name = stream.str() + "attenuation";        ubo->setVec3 (name,  OSG::Vec3f(0.8f, 0.8f, 0.8f));
-            name = stream.str() + "spot_cos_cutoff";    ubo->setFloat(name,  0.8f);
-            name = stream.str() + "spot_exponent";      ubo->setFloat(name,  12.3f);
+            name = stream.str() + "position";           ssbo->setVec3 (name,  OSG::Pnt3f(1.1f, 2.2f, 3.3f));
+            name = stream.str() + "spot_direction";     ssbo->setVec3 (name,  OSG::Vec3f(4.4f, 5.5f, 6.6f));
+            name = stream.str() + "Ia";                 ssbo->setVec3 (name,  OSG::Color3f(0.2f, 0.2f, 0.2f));
+            name = stream.str() + "Id";                 ssbo->setVec3 (name,  OSG::Color3f(0.4f, 0.4f, 0.4f));
+            name = stream.str() + "Is";                 ssbo->setVec3 (name,  OSG::Color3f(0.6f, 0.6f, 0.6f));
+            name = stream.str() + "attenuation";        ssbo->setVec3 (name,  OSG::Vec3f(0.8f, 0.8f, 0.8f));
+            name = stream.str() + "spot_cos_cutoff";    ssbo->setFloat(name,  0.8f);
+            name = stream.str() + "spot_exponent";      ssbo->setFloat(name,  12.3f);
+            name = stream.str() + "type";               ssbo->setInt  (name,  Light::point_light);
 #endif
         }
     }
 }
 
-OSG::UniformBufferObjChunkTransitPtr create_light_state(const VecLightsT& vLights)
+OSG::ShaderStorageBufferObjChunkTransitPtr create_light_state(const VecLightsT& vLights)
 {
-    OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
+    OSG::ShaderStorageBufferObjChunkRefPtr ssbo = OSG::ShaderStorageBufferObjChunk::create();
 
-    ubo->setBlockName("Lights");
-    ubo->setUsage(GL_STREAM_DRAW);
+    ssbo->setBlockName("Lights");
+    ssbo->setUsage(GL_STREAM_DRAW);
 
     for (std::size_t i = 0; i < vLights.size(); ++i) {
         std::stringstream stream;
         stream << "Lights.light[" << i << "]." << std::flush;
         std::string name;
 
-        name = stream.str() + "type";               ubo->addIVec3(name);
-        name = stream.str() + "position";           ubo->addVec3 (name);
-        name = stream.str() + "spot_direction";     ubo->addVec3 (name);
-        name = stream.str() + "Ia";                 ubo->addVec3 (name);
-        name = stream.str() + "Id";                 ubo->addVec3 (name);
-        name = stream.str() + "Is";                 ubo->addVec3 (name);
-        name = stream.str() + "attenuation";        ubo->addVec3 (name);
-        name = stream.str() + "spot_cos_cutoff";    ubo->addFloat(name);
-        name = stream.str() + "spot_exponent";      ubo->addFloat(name);
+        name = stream.str() + "position";           ssbo->addVec3 (name);
+        name = stream.str() + "spot_direction";     ssbo->addVec3 (name);
+        name = stream.str() + "Ia";                 ssbo->addVec3 (name);
+        name = stream.str() + "Id";                 ssbo->addVec3 (name);
+        name = stream.str() + "Is";                 ssbo->addVec3 (name);
+        name = stream.str() + "attenuation";        ssbo->addVec3 (name);
+        name = stream.str() + "spot_cos_cutoff";    ssbo->addFloat(name);
+        name = stream.str() + "spot_exponent";      ssbo->addFloat(name);
+        name = stream.str() + "type";               ssbo->addInt  (name);
     }
 
-    update_light_state(ubo, vLights);
+    update_light_state(ssbo, vLights);
 
-    return OSG::UniformBufferObjChunkTransitPtr(ubo);
+    return OSG::ShaderStorageBufferObjChunkTransitPtr(ssbo);
 }
 
 //
 // The material state
 //
-void update_material_database_state(OSG::UniformBufferObjChunk* ubo, const VecMaterialsT& vMaterials)
+void update_material_database_state(OSG::ShaderStorageBufferObjChunk* ssbo, const VecMaterialsT& vMaterials)
 {
-    if (ubo) {
+    if (ssbo) {
         for (std::size_t i = 0; i < vMaterials.size(); ++i) {
             std::stringstream stream;
             stream << "Materials.material[" << i << "]." << std::flush;
             std::string name;
 #ifndef USE_TEST_FP_SHADER
-            name = stream.str() + "ambient";    ubo->setVec3 (name, vMaterials[i].ambient);
-            name = stream.str() + "diffuse";    ubo->setVec3 (name, vMaterials[i].diffuse);
-            name = stream.str() + "specular";   ubo->setVec3 (name, vMaterials[i].specular);
-            name = stream.str() + "emissive";   ubo->setVec3 (name, vMaterials[i].emissive);
-            name = stream.str() + "opacity";    ubo->setFloat(name, vMaterials[i].opacity);
-            name = stream.str() + "shininess";  ubo->setFloat(name, vMaterials[i].shininess);
+            name = stream.str() + "ambient";    ssbo->setVec3 (name, vMaterials[i].ambient);
+            name = stream.str() + "diffuse";    ssbo->setVec3 (name, vMaterials[i].diffuse);
+            name = stream.str() + "specular";   ssbo->setVec3 (name, vMaterials[i].specular);
+            name = stream.str() + "emissive";   ssbo->setVec3 (name, vMaterials[i].emissive);
+            name = stream.str() + "opacity";    ssbo->setFloat(name, vMaterials[i].opacity);
+            name = stream.str() + "shininess";  ssbo->setFloat(name, vMaterials[i].shininess);
 #else
-            name = stream.str() + "ambient";    ubo->setVec3 (name, OSG::Color3f(0.1f,0.2f,0.3f));
-            name = stream.str() + "diffuse";    ubo->setVec3 (name, OSG::Color3f(0.2f,0.4f,0.6f));
-            name = stream.str() + "specular";   ubo->setVec3 (name, OSG::Color3f(0.4f,0.6f,0.8f));
-            name = stream.str() + "emissive";   ubo->setVec3 (name, OSG::Color3f(0.6f,0.8f,1.0f));
-            name = stream.str() + "opacity";    ubo->setFloat(name, 0.7f);
-            name = stream.str() + "shininess";  ubo->setFloat(name, 25.4f);
+            name = stream.str() + "ambient";    ssbo->setVec3 (name, OSG::Color3f(0.1f,0.2f,0.3f));
+            name = stream.str() + "diffuse";    ssbo->setVec3 (name, OSG::Color3f(0.2f,0.4f,0.6f));
+            name = stream.str() + "specular";   ssbo->setVec3 (name, OSG::Color3f(0.4f,0.6f,0.8f));
+            name = stream.str() + "emissive";   ssbo->setVec3 (name, OSG::Color3f(0.6f,0.8f,1.0f));
+            name = stream.str() + "opacity";    ssbo->setFloat(name, 0.7f);
+            name = stream.str() + "shininess";  ssbo->setFloat(name, 25.4f);
 #endif
         }
     }
 }
 
-OSG::UniformBufferObjChunkTransitPtr create_material_database_state(const VecMaterialsT& vMaterials)
+OSG::ShaderStorageBufferObjChunkTransitPtr create_material_database_state(const VecMaterialsT& vMaterials)
 {
-    OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
+    OSG::ShaderStorageBufferObjChunkRefPtr ssbo = OSG::ShaderStorageBufferObjChunk::create();
 
-    ubo->setBlockName("Materials");
-    ubo->setUsage(GL_STATIC_DRAW);
+    ssbo->setBlockName("Materials");
+    ssbo->setUsage(GL_STATIC_DRAW);
 
     for (std::size_t i = 0; i < vMaterials.size(); ++i) {
         std::stringstream stream;
         stream << "Materials.material[" << i << "]." << std::flush;
         std::string name;
 
-        name = stream.str() + "ambient";    ubo->addVec3 (name);
-        name = stream.str() + "diffuse";    ubo->addVec3 (name);
-        name = stream.str() + "specular";   ubo->addVec3 (name);
-        name = stream.str() + "emissive";   ubo->addVec3 (name);
-        name = stream.str() + "opacity";    ubo->addFloat(name);
-        name = stream.str() + "shininess";  ubo->addFloat(name);
+        name = stream.str() + "ambient";    ssbo->addVec3 (name);
+        name = stream.str() + "diffuse";    ssbo->addVec3 (name);
+        name = stream.str() + "specular";   ssbo->addVec3 (name);
+        name = stream.str() + "emissive";   ssbo->addVec3 (name);
+        name = stream.str() + "opacity";    ssbo->addFloat(name);
+        name = stream.str() + "shininess";  ssbo->addFloat(name);
     }
 
-    update_material_database_state(ubo, vMaterials);
+    update_material_database_state(ssbo, vMaterials);
 
-    return OSG::UniformBufferObjChunkTransitPtr(ubo);
+    return OSG::ShaderStorageBufferObjChunkTransitPtr(ssbo);
 }
 
 //
 // The geometry material state
 //
-void update_geometry_material_state(OSG::UniformBufferObjChunk* ubo, const GeomState& geom_state)
+void update_geometry_material_state(OSG::ShaderStorageBufferObjChunk* ssbo, const GeomState& geom_state)
 {
-    if (ubo) {
+    if (ssbo) {
 #ifndef USE_TEST_FP_SHADER
-        ubo->setInt("GeomState.material_index", geom_state.material_index);
+        ssbo->setInt("GeomState.material_index", geom_state.material_index);
 #else
-        ubo->setInt("GeomState.material_index", 7);
+        ssbo->setInt("GeomState.material_index", 7);
 #endif
     }
 }
 
-OSG::UniformBufferObjChunkTransitPtr create_geometry_material_state(const GeomState& geom_state)
+OSG::ShaderStorageBufferObjChunkTransitPtr create_geometry_material_state(const GeomState& geom_state)
 {
-    OSG::UniformBufferObjChunkRefPtr ubo = OSG::UniformBufferObjChunk::create();
+    OSG::ShaderStorageBufferObjChunkRefPtr ssbo = OSG::ShaderStorageBufferObjChunk::create();
 
-    ubo->setBlockName("GeomState");
-    ubo->setUsage(GL_DYNAMIC_DRAW);
+    ssbo->setBlockName("GeomState");
+    ssbo->setUsage(GL_DYNAMIC_DRAW);
 
-    ubo->addInt("GeomState.material_index");
+    ssbo->addInt("GeomState.material_index");
 
-    update_geometry_material_state(ubo, geom_state);
+    update_geometry_material_state(ssbo, geom_state);
 
-    return OSG::UniformBufferObjChunkTransitPtr(ubo);
+    return OSG::ShaderStorageBufferObjChunkTransitPtr(ssbo);
 }
 
 //
@@ -447,11 +433,11 @@ boost::random::uniform_int_distribution<> dist(0, num_materials-1);
 OSG::TransformRefPtr cyltrans, tortrans;
 
 //
-// Uniform buffer objects corresponding to transient shader blocks
+// Shader storage buffer objects corresponding to transient shader blocks
 //
-OSG::UniformBufferObjChunkRefPtr ubo_light_state  = NULL;
-OSG::UniformBufferObjChunkRefPtr ubo_geom_state_1 = NULL;
-OSG::UniformBufferObjChunkRefPtr ubo_geom_state_2 = NULL;
+OSG::ShaderStorageBufferObjChunkRefPtr ssbo_light_state  = NULL;
+OSG::ShaderStorageBufferObjChunkRefPtr ssbo_geom_state_1 = NULL;
+OSG::ShaderStorageBufferObjChunkRefPtr ssbo_geom_state_2 = NULL;
 
 //
 // forward declaration so we can have the interesting stuff upfront
@@ -464,7 +450,7 @@ int setupGLUT(int *argc, char *argv[]);
 void display(void)
 {
     // light spot direction and light position must be provided in eye space
-    update_light_state(ubo_light_state, lights);
+    update_light_state(ssbo_light_state, lights);
 
     // create the matrix
     OSG::Matrix m;
@@ -560,27 +546,27 @@ int main(int argc, char **argv)
 
         //
         // binding the unifrom block to a buffer binding point can be performed 
-        // either by calling the shaders's addUniformBlock method or by
-        // adding a 'uniform block' variable to a ShaderProgramVariableChunk.
+        // either by calling the shaders's addShaderStorageBlock method or by
+        // adding a 'shader storage block' variable to a ShaderProgramVariableChunk.
         // In the following we use both variants for illustration.
         //
-        fragShader->addUniformBlock("Materials", 1);    // block binding point
-        fragShader->addUniformBlock("Lights",    2);    // block binding point
+        fragShader->addShaderStorageBlock("Materials", 1);    // block binding point
+        fragShader->addShaderStorageBlock("Lights",    2);    // block binding point
 
         //
         // The following is replaced by adding ShaderProgramVariableChunk objects
         // to the chunk material. See below...
         //
-        // fragShader->addUniformBlock("GeomState", 3);    // block binding point
+        // fragShader->addShaderStorageBlock("GeomState", 3);    // block binding point
 
         prog_chunk->addShader(vertShader);
         prog_chunk->addShader(fragShader);
 
         //
-        // create uniform buffer objects and corresponding materials
+        // create shader storage buffer objects and corresponding materials
         //
-        OSG::UniformBufferObjChunkRefPtr ubo_material_database = create_material_database_state(materials);
-                                         ubo_light_state       = create_light_state(lights);
+        OSG::ShaderStorageBufferObjChunkRefPtr ssbo_material_database = create_material_database_state(materials);
+                                               ssbo_light_state       = create_light_state(lights);
 
         OSG::PolygonChunkRefPtr polygon_chunk = OSG::PolygonChunk::create();
         polygon_chunk->setFrontMode(GL_FILL);
@@ -591,26 +577,26 @@ int main(int argc, char **argv)
         depth_chunk->setEnable(true);
 
         OSG::ChunkMaterialRefPtr prog_state = OSG::ChunkMaterial::create();
-        prog_state->addChunk(ubo_material_database, 1);  // buffer binding point 1
-        prog_state->addChunk(ubo_light_state,       2);  // buffer binding point 2
+        prog_state->addChunk(ssbo_material_database, 1);  // buffer binding point 1
+        prog_state->addChunk(ssbo_light_state,       2);  // buffer binding point 2
         prog_state->addChunk(prog_chunk);
         prog_state->addChunk(polygon_chunk);
         prog_state->addChunk(depth_chunk);
 
         OSG::ShaderProgramVariableChunkRefPtr shader_var_chunk = OSG::ShaderProgramVariableChunk::create();
-        shader_var_chunk->addUniformBlock("GeomState", 3);
+        shader_var_chunk->addShaderStorageBlock("GeomState", 3);
 
         GeomState geom1; geom1.material_index = dist(generator);
         OSG::ChunkMaterialRefPtr geom1_state = OSG::ChunkMaterial::create();
-        ubo_geom_state_1 = create_geometry_material_state(geom1);
-        geom1_state->addChunk(ubo_geom_state_1, 3);     // buffer binding point 3
+        ssbo_geom_state_1 = create_geometry_material_state(geom1);
+        geom1_state->addChunk(ssbo_geom_state_1, 3);     // buffer binding point 3
         geom1_state->addChunk(shader_var_chunk);        // block binding point
 
         GeomState geom2; geom2.material_index = dist(generator);
         OSG::ChunkMaterialRefPtr geom2_state = OSG::ChunkMaterial::create();
-        ubo_geom_state_2 = create_geometry_material_state(geom2);
-        geom2_state->addChunk(ubo_geom_state_2, 3);     // buffer binding point 3
-        geom1_state->addChunk(shader_var_chunk);        // block binding point
+        ssbo_geom_state_2 = create_geometry_material_state(geom2);
+        geom2_state->addChunk(ssbo_geom_state_2, 3);     // buffer binding point 3
+        geom2_state->addChunk(shader_var_chunk);        // block binding point
        
         cylgeo  ->setMaterial(geom1_state);
         torusgeo->setMaterial(geom2_state);
@@ -682,9 +668,9 @@ void keyboard(unsigned char k, int x, int y)
             tortrans = NULL;
             mgr      = NULL;
 
-            ubo_light_state  = NULL;
-            ubo_geom_state_1 = NULL;
-            ubo_geom_state_2 = NULL;
+            ssbo_light_state  = NULL;
+            ssbo_geom_state_1 = NULL;
+            ssbo_geom_state_2 = NULL;
 
             OSG::osgExit();
             exit(0);
@@ -696,8 +682,8 @@ void keyboard(unsigned char k, int x, int y)
             GeomState geom1; geom1.material_index = dist(generator);
             GeomState geom2; geom2.material_index = dist(generator);
 
-            update_geometry_material_state(ubo_geom_state_1, geom1);
-            update_geometry_material_state(ubo_geom_state_2, geom2);
+            update_geometry_material_state(ssbo_geom_state_1, geom1);
+            update_geometry_material_state(ssbo_geom_state_2, geom2);
 
             glutPostRedisplay();
         }
@@ -742,8 +728,8 @@ std::string get_vp_program()
             "\n"
             "#version 330 compatibility\n"
             "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
+            "#extension GL_ARB_separate_shader_objects:      enable\n"
+            "#extension GL_ARB_shader_storage_buffer_object: enable\n"
             "\n"
             "smooth out vec3 vNormalES;        // eye space normal\n"
             "smooth out vec3 vPositionES;      // eye space position\n"
@@ -783,18 +769,22 @@ std::string get_fp_program()
             "\n"
             "#version 330 compatibility\n"
             "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
+            "#extension GL_ARB_separate_shader_objects:      enable\n"
+            "#extension GL_ARB_shader_storage_buffer_object: enable\n"
             "\n"
             "smooth in vec3 vNormalES;         // eye space normal\n"
             "smooth in vec3 vPositionES;       // eye space position\n"
             "\n"
-            "const int num_lights    = 1;\n"
-            "const int num_materials = 100;\n"
+            "const int num_lights    = 2;\n"
+            "const int num_materials = 5000;\n"
+            "\n"
+            "const int directional_light = 0;\n"
+            "const int point_light = 1;\n"
+            "const int spot_light = 2;\n"
+            "const int no_light = 3;\n"
             "\n"
             "struct Light\n"
             "{\n"
-            "    ivec3 type;             // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1\n"
             "    vec3 position;          // in eye space\n"
             "    vec3 spot_direction;    // in eye space\n"
             "\n"
@@ -807,9 +797,10 @@ std::string get_fp_program()
             "    float spot_cos_cutoff;  // cosine cut of angle\n"
             "\n"
             "    float spot_exponent;    // [0-128]\n"
+            "    int  type;              // directional_light, point_light, spot_light, no_light\n"
             "};\n"
             "\n"
-            "layout (shared) uniform Lights\n"
+            "layout (std430) buffer Lights\n"
             "{\n"
             "    Light light[num_lights];\n"
             "} lights;\n"
@@ -825,13 +816,13 @@ std::string get_fp_program()
             "    float shininess;\n"
             "};\n"
             "\n"
-            "layout (shared) uniform Materials\n"
+            "layout (std430) buffer Materials\n"
             "{\n"
             "    Material material[num_materials];\n"
             "} materials;\n"
             "\n"
             "\n"
-            "layout (shared) uniform GeomState\n"
+            "layout (std430) buffer GeomState\n"
             "{\n"
             "    int material_index;\n"
             "} geom_state;\n"
@@ -849,7 +840,7 @@ std::string get_fp_program()
             "    in vec3 n,  // vertex normal in eye space\n"
             "    in vec3 v)  // view direction in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[0] == 0)\n"
+            "    if (lights.light[i].type != directional_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    //\n"
@@ -890,7 +881,7 @@ std::string get_fp_program()
             "    in vec3 v,  // view direction in eye space\n"
             "    in vec3 p)  // vertex position in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[1] == 0)\n"
+            "    if (lights.light[i].type != point_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    vec3  l = vec3(lights.light[i].position) - p;    // direction from surface to light position\n"
@@ -939,7 +930,7 @@ std::string get_fp_program()
             "    in vec3 v,  // view direction in eye space\n"
             "    in vec3 p)  // vertex position in eye space\n"
             "{\n"
-            "    if (lights.light[i].type[2] == 0)\n"
+            "    if (lights.light[i].type != spot_light)\n"
             "        return vec3(0.0, 0.0, 0.0);\n"
             "\n"
             "    vec3  l = vec3(lights.light[i].position) - p;   // direction from surface to light position\n"
@@ -1017,18 +1008,22 @@ std::string get_fp_program()
             "\n"
             "#version 330 compatibility\n"
             "\n"
-            "#extension GL_ARB_separate_shader_objects: enable\n"
-            "#extension GL_ARB_uniform_buffer_object:   enable\n"
+            "#extension GL_ARB_separate_shader_objects:      enable\n"
+            "#extension GL_ARB_shader_storage_buffer_object: enable\n"
             "\n"
             "smooth in vec3 vNormalES;         // eye space normal\n"
             "smooth in vec3 vPositionES;       // eye space position\n"
             "\n"
-            "const int num_lights    = 1;\n"
-            "const int num_materials = 100;\n"
+            "const int num_lights    = 2;\n"
+            "const int num_materials = 5000;\n"
+            "\n"
+            "const int directional_light = 0;\n"
+            "const int point_light = 1;\n"
+            "const int spot_light = 2;\n"
+            "const int no_light = 3;\n"
             "\n"
             "struct Light\n"
             "{\n"
-            "    ivec3 type;             // (dir,point,spot) value is either 1 or 0 and maximal one component can be 1\n"
             "    vec3 position;          // in eye space\n"
             "    vec3 spot_direction;    // in eye space\n"
             "\n"
@@ -1040,9 +1035,10 @@ std::string get_fp_program()
             "\n"
             "    float spot_cos_cutoff;  // cosine cut of angle\n"
             "    float spot_exponent;    // [0-128]\n"
+            "    int  type;              // directional_light, point_light, spot_light, no_light\n"
             "};\n"
             "\n"
-            "layout (shared) uniform Lights\n"
+            "layout (std430) buffer Lights\n"
             "{\n"
             "    Light light[num_lights];\n"
             "} lights;\n"
@@ -1058,13 +1054,13 @@ std::string get_fp_program()
             "    float shininess;\n"
             "};\n"
             "\n"
-            "layout (shared) uniform Materials\n"
+            "layout (std430) buffer Materials\n"
             "{\n"
             "    Material material[num_materials];\n"
             "} materials;\n"
             "\n"
             "\n"
-            "layout (shared) uniform GeomState\n"
+            "layout (std430) buffer GeomState\n"
             "{\n"
             "    int material_index;\n"
             "} geom_state;\n"
@@ -1075,7 +1071,7 @@ std::string get_fp_program()
             "void main()\n"
             "{\n"
             "\n"
-            "    ivec3 type            = lights.light[0].type;\n"
+            "    int   type            = lights.light[0].type;\n"
             "    vec3  position        = lights.light[0].position;\n"
             "    vec3  spot_direction  = lights.light[0].spot_direction;\n"
             "    vec3  Ia              = lights.light[0].Ia;\n"
@@ -1097,7 +1093,7 @@ std::string get_fp_program()
             "    vec4 error = vec4(1.0, 0.0, 0.0, 1.0);\n"
             "    vec4 color = vec4(0.0, 1.0, 0.0, 1.0);\n"
             "\n"
-            "    if (type != ivec3(1,2,3))\n"
+            "    if (type != point_light)\n"
             "        color = error;\n"
             "\n"
             "    if (position != vec3(1.1, 2.2, 3.3))\n"

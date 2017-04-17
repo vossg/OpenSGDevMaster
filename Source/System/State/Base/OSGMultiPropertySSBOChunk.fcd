@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="MultiPropertySSBOChunk"
+    parent="ShaderStorageBufferObjStdLayoutChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+>
+See \ref PageSystemMultiPropertySSBOChunk for a description.
+
+The multi property chunk allows you to easily set up a shader storage block array with a simple 
+plain struct layout in std430 buffer format.
+
+This chunk is basically a specialization of the ShaderStorageBufferObjStdLayoutChunk with a simpler 
+usage pattern but at the cost of handling only a subset of the structural possibilities that the 
+general chunk allows.
+
+It can for instance be perfectly used to define material databases. See the example 'multirangelight'
+in the simple example folder for an application of this chunk.
+
+    <Field
+        name="types"
+        type="UInt8"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        Stores the type of a block entry. This can be any of the set {FLOAT_T, DOUBLE_T, INT_T, UINT_T, BOOL_T, VEC3_T, VEC4_T, MAT4_T}.
+    </Field>
+    <Field
+        name="cardinality"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        Stores the cardinality types, i.e. the consecutive block layout members.
+    </Field>
+    <Field
+        name="cardinalities"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        Stores the accumulated cardinalities for each type.
+    </Field>
+    <Field
+        name="numProperties"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        access="protected"
+	>
+        Stores the number of properties added to the chunk.
+    </Field>
+    <Field
+        name="floatValues"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The float values.
+    </Field>
+    <Field
+        name="doubleValues"
+        type="Real64"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The double values.
+    </Field>
+    <Field
+        name="intValues"
+        type="Int32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The int values.
+    </Field>
+    <Field
+        name="uIntValues"
+        type="UInt32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The unsigned int values.
+    </Field>
+    <Field
+        name="boolValues"
+        type="bool"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The bool values.
+    </Field>
+    <Field
+        name="vec3Values"
+        type="Vec3f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The 3D float vectors.
+    </Field>
+    <Field
+        name="vec4Values"
+        type="Vec4f"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The 4D float vectors.
+    </Field>
+    <Field
+        name="matrixValues"
+        type="Matrix"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+	>
+        The matrices.
+    </Field>
+
+</FieldContainer>
