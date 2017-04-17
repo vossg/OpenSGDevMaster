@@ -196,7 +196,7 @@ void ShaderStorageBufferObjStdLayoutChunk::changed(ConstFieldMaskArg whichField,
 {
     GLenum id = _sfGLId.getValue();
 
-    if((whichField & ~(UsageFieldMask | BufferFieldMask)) == 0)
+    if( (whichField & (UsageFieldMask | BufferFieldMask)) != 0 )
     {
         Window::reinitializeGLObject(id);
     }

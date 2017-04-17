@@ -44,6 +44,9 @@
 #include <cstdio>
 
 #include <boost/bind.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/range/iterator_range_core.hpp>
+#include <boost/unordered_map.hpp>
 
 #include "OSGConfig.h"
 
@@ -59,6 +62,44 @@
 #include "OSGShaderStorageBufferObjChunk.h"
 
 OSG_BEGIN_NAMESPACE
+
+
+struct bracket_expr_finder
+{
+    bracket_expr_finder(int& idx) : idx(idx) {}
+
+    template<typename ForwardIteratorT>
+    boost::iterator_range<ForwardIteratorT> operator()(
+        ForwardIteratorT iter,
+        ForwardIteratorT end )
+    {
+        ForwardIteratorT Begin = iter;
+        ForwardIteratorT End   = iter;
+
+        for (; iter != end; ++iter)
+        {
+            if (*iter == '[')
+                Begin = iter;
+            else if (*iter == ']')
+            {
+                End = ++iter;
+                break;
+            }
+        }
+
+        if (Begin != End)
+        {
+            ForwardIteratorT r1 = Begin;
+            ForwardIteratorT r2 = End;
+            std::string str(++r1, --r2);
+            idx = atoi(str.c_str());
+        }
+
+        return boost::make_iterator_range(Begin, End);
+    }
+
+    int& idx;
+};
 
 // Documentation for this class is emitted in the
 // OSGShaderStorageBufferObjChunkBase.cpp file.
@@ -93,6 +134,7 @@ UInt32 ShaderStorageBufferObjChunk::_funcBindBufferBase                 = Win::i
 
 UInt32 ShaderStorageBufferObjChunk::_funcGetProgramResourceIndex        = Win::invalidFunctionID;
 UInt32 ShaderStorageBufferObjChunk::_funcGetProgramResourceiv           = Win::invalidFunctionID;
+UInt32 ShaderStorageBufferObjChunk::_funcGetProgramResourceName         = Win::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -159,6 +201,10 @@ void ShaderStorageBufferObjChunk::initMethod(InitPhase ePhase)
             OSG_DLSYM_UNDERSCORE"glGetProgramResourceiv",   
             _extProgramInterfaceQuery);
 
+        _funcGetProgramResourceName = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glGetProgramResourceName",   
+            _extProgramInterfaceQuery);
+
 
         _extShaderStorageBufferObject  =
             Window::registerExtension("GL_ARB_shader_storage_buffer_object"  );
@@ -207,7 +253,7 @@ void ShaderStorageBufferObjChunk::changed(ConstFieldMaskArg whichField,
 {
     GLenum id = _sfGLId.getValue();
 
-    if((whichField & ~( UsageFieldMask |
+    if((whichField &  ( UsageFieldMask |
                         BlockNameFieldMask |
                         FundamentalTypesFieldMask |
                         MainTypesFieldMask |
@@ -219,7 +265,7 @@ void ShaderStorageBufferObjChunk::changed(ConstFieldMaskArg whichField,
                         DoubleValuesFieldMask |
                         IntValuesFieldMask |
                         UIntValuesFieldMask |
-                        BoolValuesFieldMask     )) == 0)
+                        BoolValuesFieldMask     )) != 0)
     {
         Window::refreshGLObject(id);
     }
@@ -537,6 +583,11 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
                             _funcGetProgramResourceiv, 
                             pWin);
 
+    OSGGETGLFUNCBYID_GL3_ES(   glGetProgramResourceName, 
+                            osgGlGetProgramResourceName,
+                            _funcGetProgramResourceName, 
+                            pWin);
+
     std::vector<GLubyte> buffer;
 
     GLuint index = osgGlGetProgramResourceIndex(pEnv->getActiveShader(), GL_SHADER_STORAGE_BLOCK, _sfBlockName.getValue().c_str());
@@ -553,12 +604,6 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
     GLint size = block_prop_query_result[0];
     GLint num  = block_prop_query_result[1];
 
-    if (SizeT(num) != _mfIndex.size())
-    {
-        SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid number of active variables in block" << std::endl;
-        return buffer;
-    }
-
     std::vector<GLuint> indices(num);
     const GLenum indices_query[1] = { GL_ACTIVE_VARIABLES };
 
@@ -574,40 +619,63 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
     }
 
     std::vector<GLint> offsets(num), 
+                       array_sizes(num), 
                        array_strides(num), 
-                       matrix_strides(num) 
+                       matrix_strides(num),
+                       top_level_array_sizes(num),
+                       top_level_array_strides(num),
+                       name_lengths(num)
                        ;
+
+    std::vector<std::string> names(num);
+    std::vector<GLchar>      nameData(1024);
+
+    typedef boost::unordered_map<std::string, std::size_t> MapNameToIdxT;
+    MapNameToIdxT mapNameToIdx;
 
     for(int idx = 0; idx < num; ++idx)
     {
-        const GLint num_queries = 3;
+        const GLint num_queries = 7;
         const GLenum query[num_queries] = { 
             //GL_TYPE, 
             GL_OFFSET, 
-            //GL_ARRAY_SIZE, 
+            GL_ARRAY_SIZE, 
             GL_ARRAY_STRIDE, 
-            GL_MATRIX_STRIDE 
+            GL_MATRIX_STRIDE,
             //GL_IS_ROW_MAJOR, 
-            //GL_TOP_LEVEL_ARRAY_SIZE, 
-            //GL_TOP_LEVEL_ARRAY_STRIDE, 
-            //GL_NAME_LENGTH
+            GL_TOP_LEVEL_ARRAY_SIZE, 
+            GL_TOP_LEVEL_ARRAY_STRIDE,
+            GL_NAME_LENGTH
         };
         GLint query_result[num_queries];
         osgGlGetProgramResourceiv(pEnv->getActiveShader(), GL_BUFFER_VARIABLE, indices[idx], num_queries, query, num_queries, NULL, query_result);
 
-        offsets[idx]        = query_result[1];
-        array_strides[idx]  = query_result[2];
-        matrix_strides[idx] = query_result[3];
+        offsets[idx]                 = query_result[0];
+        array_sizes[idx]             = query_result[1];
+        array_strides[idx]           = query_result[2];
+        matrix_strides[idx]          = query_result[3];
+        top_level_array_sizes[idx]   = query_result[4];
+        top_level_array_strides[idx] = query_result[5];
+        name_lengths[idx]            = query_result[6];
+
+        nameData.resize(name_lengths[idx]);
+
+        osgGlGetProgramResourceName(pEnv->getActiveShader(), GL_BUFFER_VARIABLE, indices[idx], (GLsizei)nameData.size(), NULL, &nameData[0]);
+
+        names[idx] = std::string(&nameData[0], nameData.size()-1);
+
+        mapNameToIdx.insert(MapNameToIdxT::value_type(names[idx], idx));
     }
 
     buffer.resize(size);
 
-    for (GLint i = 0; i < num; ++i)
+    for (GLint i = 0; i < _mfIndex.size(); ++i)
     {
         UInt32              idx   =                               _mfIndex           [i];
         FundamentalTypes    fType = static_cast<FundamentalTypes>(_mfFundamentalTypes[i]);
         MainType            mType = static_cast<MainType>        (_mfMainTypes       [i]);
         UInt32              card  =                               _mfCardinality     [i];
+        std::string         name  =                               _mfNames           [i];
 
         UInt8 columns = 0;
         UInt8 rows    = 0;
@@ -667,9 +735,58 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
                 break;
         }
 
-        GLint  offset        = offsets[i];
-        GLint  array_stride  = array_strides[i];
-        GLint  matrix_stride = matrix_strides[i];
+        std::size_t resource_idx = 0;
+
+        int top_level_idx = 0;
+
+        //
+        // Resource name lookup
+        //
+        MapNameToIdxT::const_iterator iter = mapNameToIdx.find(name);
+        if (iter == mapNameToIdx.end())
+        {
+            if (card > 1)
+            {
+                iter = mapNameToIdx.find(name += "[0]");
+            }
+        }
+
+        if (iter == mapNameToIdx.end())
+        {
+            bracket_expr_finder finder(top_level_idx);
+            boost::algorithm::find_format(name, finder, boost::algorithm::const_formatter("[0]"));
+
+            iter = mapNameToIdx.find(name);
+
+            if (iter == mapNameToIdx.end())
+            {
+                if (card > 1)
+                {
+                    iter = mapNameToIdx.find(name += "[0]");
+                }
+            }
+        }
+
+        if (iter != mapNameToIdx.end())
+        {
+            resource_idx = iter->second;
+        }
+        else
+        {
+            SWARNING << "ShaderStorageBufferObjChunk::createBuffer: Invalid resource name found" << std::endl;
+        }
+
+        GLint top_level_array_size    = top_level_array_sizes[resource_idx];
+        GLint top_level_array_stride  = top_level_array_strides[resource_idx];
+
+        OSG_ASSERT(top_level_idx < top_level_array_size);
+
+        GLint top_level_array_offset  = top_level_idx * top_level_array_stride;
+        
+        GLint offset                  = top_level_array_offset + offsets[resource_idx];
+        GLint array_size              = array_sizes[resource_idx];
+        GLint array_stride            = array_strides[resource_idx];
+        GLint matrix_stride           = matrix_strides[resource_idx];
 
         for (UInt32 j = 0; j < card; ++j)
         {
@@ -693,7 +810,7 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
                             reinterpret_cast<UInt32*>(&buffer[0] + offset)[l] = _mfUIntValues[idx_];
                             break;
                         case BOOL_T:
-                            reinterpret_cast<UInt8*>(&buffer[0] + offset)[l] = _mfBoolValues[idx_];
+                            reinterpret_cast<Int32*>(&buffer[0] + offset)[l] = _mfBoolValues[idx_];
                             break;
                     }
                 }

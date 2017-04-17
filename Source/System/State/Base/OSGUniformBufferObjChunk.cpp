@@ -206,7 +206,7 @@ void UniformBufferObjChunk::changed(ConstFieldMaskArg whichField,
 {
     GLenum id = _sfGLId.getValue();
 
-    if((whichField & ~( UsageFieldMask |
+    if((whichField &  ( UsageFieldMask |
                         BlockNameFieldMask |
                         FundamentalTypesFieldMask |
                         MainTypesFieldMask |
@@ -218,7 +218,7 @@ void UniformBufferObjChunk::changed(ConstFieldMaskArg whichField,
                         DoubleValuesFieldMask |
                         IntValuesFieldMask |
                         UIntValuesFieldMask |
-                        BoolValuesFieldMask     )) == 0)
+                        BoolValuesFieldMask     )) != 0)
     {
         Window::refreshGLObject(id);
     }
@@ -659,7 +659,7 @@ std::vector<GLubyte> UniformBufferObjChunk::createBuffer(DrawEnv *pEnv)
                             reinterpret_cast<UInt32*>(&buffer[0] + offset)[l] = _mfUIntValues[idx_];
                             break;
                         case BOOL_T:
-                            reinterpret_cast<UInt8*>(&buffer[0] + offset)[l] = _mfBoolValues[idx_];
+                            reinterpret_cast<Int32*>(&buffer[0] + offset)[l] = _mfBoolValues[idx_];
                             break;
                     }
                 }

@@ -341,6 +341,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunk : public ShaderStorageBu
     static UInt32 _extProgramInterfaceQuery;
     static UInt32 _funcGetProgramResourceIndex;
     static UInt32 _funcGetProgramResourceiv;
+    static UInt32 _funcGetProgramResourceName;
 
     static UInt32 _extShaderStorageBufferObject;
 
