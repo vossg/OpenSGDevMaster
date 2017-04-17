@@ -450,7 +450,7 @@
 	 defaultHeader="&quot;OSGGLEXT.h&quot;"
 	 access="public"
      >
-        Internal format used for depth color buffer. Defaults to GL_DEPTH24_STENCIL8.
+        Internal format used for depth buffer. Defaults to GL_DEPTH24_STENCIL8.
   </Field>
   <Field
 	 name="depthBufferPixelFormat"

@@ -104,6 +104,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING HDR2Stage : public HDR2StageBase
         UPSCALED_SCALED_1
     };
 
+    enum AutoExposureMode
+    {
+        MANUAL = 0,
+        KEY_VALUE, 
+        AUTOMATIC
+    };
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
