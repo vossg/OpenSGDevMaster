@@ -3404,6 +3404,22 @@ OSG::Real128 osgntohdd(OSG::Real128 src)
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
+/*! \name alignOffset                                               */
+/*! \{                                                                 */
+
+inline
+std::size_t alignOffset(
+    std::size_t base_alignment, 
+    std::size_t base_offset)
+{
+    return 
+        base_alignment * (
+            (base_alignment + base_offset - 1) / base_alignment );
+}
+
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 
 // Indirector

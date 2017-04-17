@@ -487,6 +487,12 @@ OSG::Real128 osgntohd(OSG::Real128 src);
 #endif // OSG_1_COMPAT
 
 /*---------------------------------------------------------------------*/
+/*               allignment helper functions                           */
+
+inline
+std::size_t alignOffset(std::size_t base_alignment, std::size_t base_offset);
+
+/*---------------------------------------------------------------------*/
 /* BoostPath Utils, merged from OpenSGToolbox,  Author: David Kabala   */
 
 #if BOOST_FILESYSTEM_VERSION == 3
