@@ -71,7 +71,11 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass MultiPropertySSBOChunk::_class("MultiPropertySSBO", osgMaxShaderStorageBufferBindings, 30);
+const UInt8 MultiPropertySSBOChunk::_numTypes =
+    MultiPropertySSBOChunk::MAT4_T + 1;
+
+StateChunkClass MultiPropertySSBOChunk::_class(
+    "MultiPropertySSBO", osgMaxShaderStorageBufferBindings, 30);
 
 volatile UInt16 MultiPropertySSBOChunk::_uiChunkCounter = 1;
 

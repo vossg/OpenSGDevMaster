@@ -165,7 +165,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPropertyUBOChunk : public MultiPropertyUBOChunk
 
   protected:
 
-    const UInt8 _numTypes = MAT4_T + 1;
+    static const UInt8 _numTypes;
 
     UInt16 _uiChunkId;
     bool   _bUpdateBuffer;
