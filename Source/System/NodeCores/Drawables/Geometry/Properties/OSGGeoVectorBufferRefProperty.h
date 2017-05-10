@@ -98,14 +98,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferRefProperty :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name             OpenGL handling                                  */
-    /*! \{                                                                 */
-
-    virtual void   validate               (DrawEnv *pEnv);
-    virtual Int32  getOpenGLId            (DrawEnv *pEnv);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

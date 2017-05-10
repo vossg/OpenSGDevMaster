@@ -117,38 +117,22 @@ void GeoIntegralBufferRefProperty::dump(      UInt32    ,
     SLOG << "Dump GeoIntegralBufferRefProperty NI" << std::endl;
 }
 
-/*------------------------------ tools --------------------------------------*/
-
-void GeoIntegralBufferRefProperty::validate(DrawEnv *pEnv)
-{
-    pEnv->getWindow()->validateGLObject(this->getGLId(),
-                                        pEnv           );
-}
-
-Int32 GeoIntegralBufferRefProperty::getOpenGLId(DrawEnv *pEnv)
-{
-    return pEnv->getWindow()->getGLObjectId(this->getGLId());
-}
-
 void GeoIntegralBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-    Window *pWin = pEnv->getWindow();
-
-    if(!pWin->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
+    Window *win = pEnv->getWindow();
+    
+    if(!win->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
         return;
 
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
-        validate(pEnv);
-
-        GLuint id = pWin->getGLObjectId(getGLId());
-
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
                                  osgGlBindBuffer,
                                 _funcBindBuffer, 
-                                 pWin);
+                                 win);
 
-        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, id);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 
+                        getGLId());
     }
 }
 
@@ -161,25 +145,22 @@ void GeoIntegralBufferRefProperty::changeFrom(DrawEnv    *pEnv,
     if(old == this)
         return;
 
-    Window *pWin = pEnv->getWindow();
+    Window *win = pEnv->getWindow();
 
     GeoIntegralProperty *o = dynamic_cast<GeoIntegralProperty*>(old);
     
-    if(!pWin->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
+    if(!win->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200))
         return;
 
     OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
                              osgGlBindBuffer,
                             _funcBindBuffer, 
-                             pWin);
+                             win);
 
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
-        validate(pEnv);
-
-        GLuint id = pWin->getGLObjectId(getGLId());
-
-        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, id);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, 
+                        getGLId());
     }
     else if(o != NULL && o->getGLId() != 0 && o->getUseVBO())
     {
@@ -195,10 +176,6 @@ void *GeoIntegralBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
     {
         Window *pWin = pEnv->getWindow();
 
-        validate(pEnv);
-
-        GLuint id = pWin->getGLObjectId(getGLId());
-
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
@@ -211,7 +188,8 @@ void *GeoIntegralBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
                                 _funcMapBuffer, 
                                  pWin);
       
-        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, id);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
+                        getGLId());
 
         returnValue = osgGlMapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, eAccess);
 
@@ -229,10 +207,6 @@ bool GeoIntegralBufferRefProperty::unmapBuffer(DrawEnv *pEnv)
     {
         Window *pWin = pEnv->getWindow();
 
-        validate(pEnv);
-
-        GLuint id = pWin->getGLObjectId(getGLId());
-
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
@@ -245,7 +219,8 @@ bool GeoIntegralBufferRefProperty::unmapBuffer(DrawEnv *pEnv)
                                 _funcUnmapBuffer, 
                                  pWin);
 
-        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB, id);
+        osgGlBindBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB,
+                        getGLId());
 
         returnValue = osgGlUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER_ARB) != 0;
 
