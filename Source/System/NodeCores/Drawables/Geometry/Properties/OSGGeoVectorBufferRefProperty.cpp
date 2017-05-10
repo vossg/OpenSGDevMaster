@@ -117,6 +117,19 @@ void GeoVectorBufferRefProperty::dump(      UInt32    ,
     SLOG << "Dump GeoVectorBufferRefProperty NI" << std::endl;
 }
 
+/*------------------------------ tools --------------------------------------*/
+
+void GeoVectorBufferRefProperty::validate(DrawEnv *pEnv)
+{
+    pEnv->getWindow()->validateGLObject(this->getGLId(),
+                                        pEnv           );
+}
+
+Int32 GeoVectorBufferRefProperty::getOpenGLId(DrawEnv *pEnv)
+{
+    return pEnv->getWindow()->getGLObjectId(this->getGLId());
+}
+
 void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
     Window *pWin = pEnv->getWindow();
@@ -127,6 +140,10 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
     bool hasVBO = pWin->hasExtOrVersion(_extVertexBufferObject, 0x0105, 0x0200);
 
     osgSinkUnusedWarning(pWin);
+
+    validate(pEnv);
+
+    GLuint id = pWin->getGLObjectId(getGLId());
 
     if(hasVBO && isGeneric == true)
     {
@@ -142,8 +159,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
                                     _funcBindBuffer, 
                                      pWin);
             
-            osgGlBindBuffer(GL_ARRAY_BUFFER_ARB,
-                            getGLId());
+            osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, id);
             
             osgGlVertexAttribPointer(slot, 
                                      getDimension(),
@@ -192,8 +208,7 @@ void GeoVectorBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 
         if(hasVBO == true) // Do we have a VBO?
         {
-            osgGlBindBuffer(GL_ARRAY_BUFFER_ARB,
-                            getGLId());
+            osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, id);
         }
         else
         {
@@ -296,6 +311,10 @@ void *GeoVectorBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
     {
         Window *pWin = pEnv->getWindow();
 
+        validate(pEnv);
+
+        GLuint id = pWin->getGLObjectId(getGLId());
+
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
@@ -308,8 +327,7 @@ void *GeoVectorBufferRefProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
                                 _funcMapBuffer, 
                                  pWin);
        
-        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB,
-                        getGLId());
+        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, id);
 
         returnValue = osgGlMapBuffer(GL_ARRAY_BUFFER_ARB, eAccess);
 
@@ -327,6 +345,10 @@ bool GeoVectorBufferRefProperty::unmapBuffer(DrawEnv *pEnv)
     {
         Window *pWin = pEnv->getWindow();
 
+        validate(pEnv);
+
+        GLuint id = pWin->getGLObjectId(getGLId());
+
         osgSinkUnusedWarning(pWin);
 
         OSGGETGLFUNCBYID_GL3_ES( glBindBuffer, 
@@ -339,8 +361,7 @@ bool GeoVectorBufferRefProperty::unmapBuffer(DrawEnv *pEnv)
                                 _funcUnmapBuffer, 
                                  pWin);
 
-        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB,
-                        getGLId());
+        osgGlBindBuffer(GL_ARRAY_BUFFER_ARB, id);
 
         returnValue = osgGlUnmapBuffer(GL_ARRAY_BUFFER_ARB) != 0;
 
