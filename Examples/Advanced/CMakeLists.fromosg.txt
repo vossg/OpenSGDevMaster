@@ -1,0 +1,192 @@
+
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  RETURN()
+ENDIF()
+
+PROJECT(OpenSGAdvancedExamples)
+
+MESSAGE(STATUS "Building advanced examples integrated")
+
+#############################################################################
+# find sources
+
+FILE(GLOB SRCFILES "*.cpp")
+
+#############################################################################
+# get dependencies
+
+SET(OSG_COMPONENTS OSGBase
+                   OSGCluster
+                   OSGDrawable
+                   OSGDynamics
+                   OSGFileIO
+                   OSGGroup
+                   OSGEffectGroups
+                   OSGImageFileIO
+                   OSGState
+                   OSGSystem
+                   OSGUtil
+                   OSGWindow
+                   OSGWindowGLUT
+                   OSGContribBackgroundLoader
+                   OSGContribTrapezoidalShadowMaps
+                   OSGContribComputeBase)
+
+IF(UNIX)
+    IF(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowCocoa)
+    ELSE(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowX)
+    ENDIF(APPLE)
+ENDIF(UNIX)
+
+IF(WIN32)
+    LIST(APPEND OSG_COMPONENTS OSGWindowWIN32)
+ENDIF(WIN32)
+
+SET(DEP_INCLUDE_DIRS)
+SET(DEP_LIBRARY_DIRS)
+SET(DEP_LIBRARIES)
+
+SET(OSG_EXTERNAL_COMPONENTS Boost GLUT)
+
+#############
+#### X11 (optional)
+
+IF(X11_FOUND AND NOT APPLE)
+    LIST(APPEND OSG_EXTERNAL_COMPONENTS X11)
+    LIST(APPEND OSG_COMPONENTS OSGWindowX)
+ENDIF(X11_FOUND AND NOT APPLE)
+
+#############
+#### OpenSG
+
+FOREACH(OSGDEP ${OSG_COMPONENTS})
+    IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        MESSAGE(STATUS "Dependency (${OSGDEP}) not found, "
+                       "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+
+    INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+ENDFOREACH()
+
+FOREACH(OSGEXTDEP ${OSG_EXTERNAL_COMPONENTS})
+    IF(NOT ${OSGEXTDEP}_FOUND)
+        MESSAGE(FATAL_ERROR "Dependency (${OSGEXTDEP}) not found, "
+                            "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF()
+
+    INCLUDE_DIRECTORIES(SYSTEM ${${OSGEXTDEP}_INCLUDE_DIR})
+ENDFOREACH()
+
+set(OSG_ADDON_LIBRARIES "")
+
+IF(ANTTWEAKBAR_FOUND)
+    INCLUDE_DIRECTORIES(AFTER ${ANTTWEAKBAR_INCLUDE_DIR})
+    LIST(APPEND OSG_ADDON_LIBRARIES ${ANTTWEAKBAR_LIBRARIES})
+    add_definitions(-DOSG_WITH_ANTTWEAKBAR)
+ENDIF()
+
+IF(QHULL_FOUND)
+    INCLUDE_DIRECTORIES(AFTER ${QHULL_INCLUDE_DIR})
+    LIST(APPEND OSG_ADDON_LIBRARIES ${QHULL_LIBRARIES})
+    add_definitions(-DOSG_WITH_QHULL)
+ENDIF()
+
+OSG_FIND_PACKAGE(Glm_OpenSG)
+IF(GLM_FOUND)
+    INCLUDE_DIRECTORIES(AFTER ${GLM_INCLUDE_DIR})
+    add_definitions(-DOSG_WITH_GLM)
+ENDIF(GLM_FOUND)
+
+OSG_FIND_PACKAGE(VMath_OpenSG)
+IF(VMATH_FOUND)
+    INCLUDE_DIRECTORIES(AFTER ${VMATH_INCLUDE_DIR})
+    add_definitions(-DOSG_WITH_VMATH)
+ENDIF(VMATH_FOUND)
+
+#############################################################################
+# build executables
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+FOREACH(GLOBAL_INC ${OSG_GLOBAL_DEP_INCDIR})
+  INCLUDE_DIRECTORIES(${${GLOBAL_INC}})
+ENDFOREACH()
+
+FOREACH(SRC ${SRCFILES})
+
+    GET_FILENAME_COMPONENT(EXE ${SRC} NAME_WE)
+
+    ADD_EXECUTABLE(${EXE} ${OSGEXCLUDE_EXAMPLES_ADVANCED} 
+                          ${SRC} ${OSG_ADD_GLOBAL_EXE_SRC})
+
+    ADD_DEPENDENCIES(OSGAllAdvancedExamples ${EXE})
+
+    FOREACH(OSGDEP ${OSG_COMPONENTS})
+        ADD_DEPENDENCIES(${EXE} ${OSGDEP})
+
+        TARGET_LINK_LIBRARIES(${EXE} ${OSGDEP})
+    ENDFOREACH()
+
+    TARGET_LINK_LIBRARIES(${EXE} ${OSG_ADDON_LIBRARIES})
+
+    IF(LINUX AND CMAKE_BUILD_TYPE STREQUAL "DebugGV" AND OSG_ADD_CXX_FLAGS_GV)
+        SET_PROPERTY(TARGET ${EXE}
+                     APPEND PROPERTY COMPILE_FLAGS ${OSG_ADD_CXX_FLAGS_GV})
+    ENDIF()
+    
+    IF(WIN32)
+      SET_PROPERTY(TARGET ${EXE} PROPERTY FOLDER "Examples/Advanced")
+    ENDIF()
+    
+    #Install
+    IF(OSG_INSTALL_EXAMPLES_EXE)
+      IF(WIN32)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/bin/rel)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/bin/debug)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS ReleaseNoOpt
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/bin/relnoopt)
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugOpt
+                RUNTIME DESTINATION share/OpenSG/Examples/Advanced/bin/debugopt)
+      ELSE()
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Release
+                DESTINATION share/OpenSG/Examples/Advanced/bin
+                COMPONENT examples_basic)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS Debug
+                DESTINATION share/OpenSG/Examples/Advanced/bin/debug
+                COMPONENT examples_basic)
+
+        INSTALL(TARGETS ${EXE}
+                CONFIGURATIONS DebugGV
+                DESTINATION share/OpenSG/Examples/Advanced/bin/debug
+                COMPONENT examples_basic)
+      ENDIF()
+    ENDIF()
+    IF(OSG_INSTALL_EXAMPLES)
+        INSTALL(FILES "${SRC}"
+                DESTINATION share/OpenSG/Examples/Advanced
+                COMPONENT examples_basic)
+    ENDIF()
+ENDFOREACH(SRC)
+    
+
+IF(OSG_INSTALL_EXAMPLES)
+    INSTALL(FILES CMakeLists.standalone.txt
+            DESTINATION share/OpenSG/Examples/Advanced
+            RENAME CMakeLists.txt
+            COMPONENT examples_basic)
+ENDIF()
+

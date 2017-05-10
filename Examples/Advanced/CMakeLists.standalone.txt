@@ -1,0 +1,157 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(OpenSGAdvancedExamples)
+
+MESSAGE(STATUS "Building advanced examples standalone")
+
+IF(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/../../CMake")
+  SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${PROJECT_NAME}_SOURCE_DIR}/../../CMake")
+ENDIF()
+
+IF(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/../../cmake")
+  SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${PROJECT_NAME}_SOURCE_DIR}/../../cmake")
+ENDIF()
+
+# show build command lines
+SET(CMAKE_VERBOSE_MAKEFILE ON)
+
+OPTION(OSG_USE_OSGSUPPORT_LIBS "" OFF)
+
+IF(NOT OSG_SUPPORT_ROOT)
+  SET(OSG_SUPPORT_ROOT "" CACHE PATH "")
+ENDIF()
+
+IF(NOT OpenSG_DIR)
+  SET(OpenSG_DIR "" CACHE PATH "")
+ENDIF()
+
+#############################################################################
+# find sources
+
+FILE(GLOB SRCFILES "*.cpp")
+
+#############################################################################
+# get dependencies
+
+SET(OSG_COMPONENTS OSGBase 
+                   OSGCluster 
+                   OSGDrawable 
+                   OSGDynamics
+                   OSGFileIO 
+                   OSGGroup 
+                   OSGEffectGroups
+                   OSGImageFileIO
+                   OSGState 
+                   OSGSystem 
+                   OSGUtil 
+                   OSGWindow 
+                   OSGWindowGLUT
+                   OSGContribBackgroundLoader
+                   OSGContribTrapezoidalShadowMaps
+                   OSGContribComputeBase)
+
+IF(UNIX)
+    IF(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowCarbon)
+    ELSE(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowX)
+    ENDIF(APPLE)
+ENDIF(UNIX)
+
+IF(WIN32)
+    LIST(APPEND OSG_COMPONENTS OSGWindowWIN32)
+ENDIF(WIN32)
+
+SET(DEP_INCLUDE_DIRS)
+SET(DEP_LIBRARY_DIRS)
+SET(DEP_LIBRARIES)
+
+#############
+#### GLUT
+
+FIND_PACKAGE(GLUT REQUIRED)
+LIST(APPEND DEP_INCLUDE_DIRS ${GLUT_INCLUDE_DIR})
+LIST(APPEND DEP_LIBRARIES ${GLUT_LIBRARIES})
+
+#############
+#### OpenGL
+
+FIND_PACKAGE(OpenGL REQUIRED)
+LIST(APPEND DEP_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
+LIST(APPEND DEP_LIBRARIES ${OPENGL_LIBRARIES})
+
+#############
+#### X11 (optional)
+
+FIND_PACKAGE(X11)
+
+IF(X11_FOUND)
+    LIST(APPEND DEP_INCLUDE_DIRS ${X11_X11_INCLUDE_PATH})
+    LIST(APPEND DEP_LIBRARIES ${X11_X11_LIB})
+ENDIF(X11_FOUND)
+
+#############
+#### Collada (optional, depending on how OpenSG was built)
+
+FIND_PACKAGE(Collada)
+
+IF(COLLADA_FOUND)
+    LIST(APPEND DEP_INCLUDE_DIRS ${COLLADA_INCLUDE_DIRS})
+    LIST(APPEND DEP_LIBRARY_DIRS ${COLLADA_LIBRARY_DIRS})
+ENDIF(COLLADA_FOUND)
+
+#############
+#### Boost
+
+SET(Boost_USE_MULTITHREAD ON)
+SET(Boost_STATIC_LIBS OFF)
+
+SET(Boost_COMPONENTS system ${Boost_COMPONENTS})
+
+IF(COLLADA_FOUND)
+    LIST(APPEND Boost_COMPONENTS filesystem)
+ENDIF(COLLADA_FOUND)
+
+FIND_PACKAGE(Boost COMPONENTS ${Boost_COMPONENTS} REQUIRED)
+
+IF(Boost_FOUND)
+    LIST(APPEND DEP_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+    LIST(APPEND DEP_LIBRARY_DIRS ${Boost_LIBRARY_DIRS})
+    LIST(APPEND DEP_LIBRARIES ${Boost_LIBRARIES})
+ENDIF(Boost_FOUND)
+
+##################
+#### AntTweakBar
+
+FIND_PACKAGE(AntTweakBar)
+IF(ANTTWEAKBAR_FOUND)
+    LIST(APPEND DEP_INCLUDE_DIRS ${ANTTWEAKBAR_INCLUDE_DIRS})
+    LIST(APPEND DEP_LIBRARY_DIRS ${ANTTWEAKBAR_LIBRARY_DIRS})
+    LIST(APPEND DEP_LIBRARIES    ${ANTTWEAKBAR_LIBRARIES})
+ENDIF(ANTTWEAKBAR_FOUND)
+
+#############
+#### OpenSG
+
+FIND_PACKAGE(OpenSG REQUIRED COMPONENTS ${OSG_COMPONENTS})
+
+
+#############################################################################
+# build executables
+
+FOREACH(SRC ${SRCFILES})
+
+    GET_FILENAME_COMPONENT(EXE ${SRC} NAME_WE)
+
+    INCLUDE_DIRECTORIES(${OpenSG_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${DEP_INCLUDE_DIRS})
+
+    LINK_DIRECTORIES(${OpenSG_LIBRARY_DIRS})
+    LINK_DIRECTORIES(${DEP_LIBRARY_DIRS})
+
+    ADD_EXECUTABLE(${EXE} ${SRC} ${OSG_ADD_GLOBAL_EXE_SRC})
+
+    TARGET_LINK_LIBRARIES(${EXE} ${OpenSG_LIBRARIES})
+    TARGET_LINK_LIBRARIES(${EXE} ${DEP_LIBRARIES})
+ENDFOREACH(SRC)

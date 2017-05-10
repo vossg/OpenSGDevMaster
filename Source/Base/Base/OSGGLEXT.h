@@ -3138,6 +3138,22 @@ typedef void (OSG_APIENTRY * GLDEBUGPROC)(GLenum source,GLenum type,GLuint id,GL
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
+/*! \name GL_ARB_compute_variable_group_size                           */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_ARB_compute_variable_group_size
+#define GL_ARB_compute_variable_group_size 1
+
+#define GL_MAX_COMPUTE_VARIABLE_GROUP_INVOCATIONS_ARB   0x9344
+#define GL_MAX_COMPUTE_FIXED_GROUP_INVOCATIONS_ARB      0x90EB
+#define GL_MAX_COMPUTE_VARIABLE_GROUP_SIZE_ARB          0x9345
+#define GL_MAX_COMPUTE_FIXED_GROUP_SIZE_ARB             0x91BF
+
+#endif /* GL_ARB_compute_variable_group_size */
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 /*! \name GL_ARB_shader_image_load_store                               */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
 /*  \{                                                                 */

@@ -925,6 +925,21 @@ typedef void (OSG_APIENTRY *osgGlDispatchComputeIndirectProc)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name compute variable group size                                        */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY * osgGlDispatchComputeGroupSizeARBProc )(
+    GLuint num_groups_x, 
+    GLuint num_groups_y, 
+    GLuint num_groups_z, 
+    GLuint group_size_x, 
+    GLuint group_size_y, 
+    GLuint group_size_z);
+
+/*! \}                                                                       */
+
+/*---------------------------------------------------------------------------*/
 /*! \name shader image load/store                                            */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

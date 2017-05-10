@@ -44,6 +44,9 @@
 
 #include "OSGConfig.h"
 
+#include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
+
 #include "OSGAction.h"
 #include "OSGCamera.h"
 #include "OSGSceneFileHandler.h"
@@ -54,8 +57,13 @@
 
 #include "OSGTextureImageChunk.h"
 #include "OSGComputeShaderChunk.h"
+#include "OSGChunkMaterial.h"
 
-#include "OSGGLFuncProtos.h"
+#include "OSGShaderStorageBufferObjChunk.h"
+#include "OSGShaderStorageBufferObjRefChunk.h"
+#include "OSGShaderStorageBufferObjStdLayoutChunk.h"
+#include "OSGUniformBufferObjChunk.h"
+#include "OSGUniformBufferObjStd140Chunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -64,10 +72,22 @@ OSG_BEGIN_NAMESPACE
 // To modify it, please change the .fcd file (OSGComputeShaderAlgorithm.fcd)
 // and regenerate the base file.
 
-UInt32 ComputeShaderAlgorithm::_arbComputeShader      = 
+UInt32 ComputeShaderAlgorithm::_arbComputeShader = 
+    Window::invalidExtensionID;
+
+UInt32 ComputeShaderAlgorithm::_arbComputeVariableGroupSize = 
+    Window::invalidExtensionID;
+
+UInt32 ComputeShaderAlgorithm::_arbShaderImageLoadStore = 
     Window::invalidExtensionID;
 
 UInt32 ComputeShaderAlgorithm:: FuncIdDispatchCompute = 
+    Window::invalidFunctionID;
+
+UInt32 ComputeShaderAlgorithm:: FuncIdDispatchComputeGroupSize = 
+    Window::invalidFunctionID;
+
+UInt32 ComputeShaderAlgorithm:: FuncIdMemoryBarrier = 
     Window::invalidFunctionID;
 
 /*-------------------------------------------------------------------------*/
@@ -138,6 +158,24 @@ void ComputeShaderAlgorithm::execute(HardwareContext *pContext,
         return;
     }
 
+    if(_sfUseVariableWorkGroupSize.getValue() == true &&
+       !pWin->hasExtOrVersion(_arbComputeVariableGroupSize, 0x0403, 0xFFFF))
+    {
+        FWARNING(("OpenGL variable group size is not supported, couldn't find "
+                    "extension 'GL_ARB_compute_variable_group_size'!\n"));
+
+        return;
+    }
+
+    if(_sfUseMemoryBarrier.getValue() == true &&
+       !pWin->hasExtOrVersion(_arbShaderImageLoadStore, 0x0402))
+    {
+        FWARNING(("OpenGL memory barrier is not supported, couldn't find "
+                    "extension 'GL_ARB_shader_image_load_store'!\n"));
+
+        return;
+    }
+
     if(_sfComputeShader.getValue() == NULL)
     {
         return;
@@ -158,16 +196,99 @@ void ComputeShaderAlgorithm::execute(HardwareContext *pContext,
 
     _sfComputeShader.getValue()->activate(pEnv, 0);
 
-    OSGGETGLFUNCBYID_GL4(glDispatchCompute,
-                         osgGlDispatchCompute,
-                         ComputeShaderAlgorithm::FuncIdDispatchCompute,
-                         pWin);
+    //
+    // Buffer objects might introspect the shader code. Therefore their activation must
+    // happen after the activation of the shader itself.
+    //
+    if (_sfChunkMaterial.getValue() != NULL)
+    {
+        const MFUnrecStateChunkPtr *chunks = _sfChunkMaterial.getValue()->getMFChunks();
+        const MFInt32              *slots  = _sfChunkMaterial.getValue()->getMFSlots ();
 
-    osgGlDispatchCompute(_sfDispatchConfig.getValue()[0],
-                         _sfDispatchConfig.getValue()[1],
-                         _sfDispatchConfig.getValue()[2]);
+        for(SizeT i = 0; i < chunks->size(); ++i)
+        {
+            StateChunk* chunk = (*chunks)[i];
+            if (chunk != NULL)
+            {
+                UInt32 slot = (*slots)[i];
+
+                if ( chunk->getType().isDerivedFrom(ShaderStorageBufferObjChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(ShaderStorageBufferObjRefChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(ShaderStorageBufferObjStdLayoutChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(UniformBufferObjChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(UniformBufferObjStd140Chunk::getClassType())
+                  || chunk->getType().isDerivedFrom(TextureImageChunk::getClassType())
+                    )
+                {
+                    chunk->activate(pEnv, slot);
+                }
+            }
+        }
+    }
+
+    if (_sfUseVariableWorkGroupSize.getValue() == true)
+    {
+        OSGGETGLFUNCBYID_GL4(glDispatchComputeGroupSizeARB,
+                             osgGlDispatchComputeGroupSizeARB,
+                             ComputeShaderAlgorithm::FuncIdDispatchComputeGroupSize,
+                             pWin);
+
+        osgGlDispatchComputeGroupSizeARB(_sfDispatchConfig.getValue()[0],
+                                         _sfDispatchConfig.getValue()[1],
+                                         _sfDispatchConfig.getValue()[2],
+                                         _sfWorkGroupSize.getValue()[0],
+                                         _sfWorkGroupSize.getValue()[1],
+                                         _sfWorkGroupSize.getValue()[2]);
+    }
+    else
+    {
+        OSGGETGLFUNCBYID_GL4(glDispatchCompute,
+                             osgGlDispatchCompute,
+                             ComputeShaderAlgorithm::FuncIdDispatchCompute,
+                             pWin);
+
+        osgGlDispatchCompute(_sfDispatchConfig.getValue()[0],
+                             _sfDispatchConfig.getValue()[1],
+                             _sfDispatchConfig.getValue()[2]);
+    }
+
+    if (_sfUseMemoryBarrier.getValue() == true)
+    {
+        OSGGETGLFUNCBYID_GL4(glMemoryBarrier,
+                        osgGlMemoryBarrier,
+                        ComputeShaderAlgorithm::FuncIdMemoryBarrier,
+                        pWin);
+
+        osgGlMemoryBarrier(_sfMemoryBarrier.getValue());
+    }
 
     _sfComputeShader.getValue()->deactivate(pEnv, 0);
+
+    if (_sfChunkMaterial.getValue() != NULL)
+    {
+        const MFUnrecStateChunkPtr *chunks = _sfChunkMaterial.getValue()->getMFChunks();
+        const MFInt32              *slots  = _sfChunkMaterial.getValue()->getMFSlots ();
+
+        for(SizeT i = 0; i < chunks->size(); ++i)
+        {
+            StateChunk* chunk = (*chunks)[i];
+            if (chunk != NULL)
+            {
+                UInt32 slot = (*slots)[i];
+
+                if ( chunk->getType().isDerivedFrom(ShaderStorageBufferObjChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(ShaderStorageBufferObjRefChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(ShaderStorageBufferObjStdLayoutChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(UniformBufferObjChunk::getClassType())
+                  || chunk->getType().isDerivedFrom(UniformBufferObjStd140Chunk::getClassType())
+                  || chunk->getType().isDerivedFrom(TextureImageChunk::getClassType())
+                    )
+                {
+                    chunk->deactivate(pEnv, slot);
+                }
+            }
+        }
+    }
 
     tIt    = _mfTextureImages.begin();
     uiSlot = 0;
@@ -179,6 +300,8 @@ void ComputeShaderAlgorithm::execute(HardwareContext *pContext,
             (*tIt)->deactivate(pEnv, uiSlot);
         }
     }
+
+
 }
 
 /*-------------------------------------------------------------------------*/
@@ -196,11 +319,26 @@ void ComputeShaderAlgorithm::initMethod(InitPhase ePhase)
         _arbComputeShader = 
             Window::registerExtension("GL_ARB_compute_shader");
 
-        FuncIdDispatchCompute =
+        _arbComputeVariableGroupSize = 
+            Window::registerExtension("GL_ARB_compute_variable_group_size");
+
+        _arbShaderImageLoadStore = 
+            Window::registerExtension("GL_ARB_shader_image_load_store");
+
+        FuncIdDispatchCompute = 
             Window::registerFunction
             (OSG_DLSYM_UNDERSCORE"glDispatchCompute",
              _arbComputeShader);
 
+        FuncIdDispatchComputeGroupSize = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glDispatchComputeGroupSizeARB",
+             _arbComputeVariableGroupSize);
+
+        FuncIdMemoryBarrier = 
+            Window::registerFunction
+            (OSG_DLSYM_UNDERSCORE"glMemoryBarrier",
+             _arbShaderImageLoadStore);
     }
 }
 

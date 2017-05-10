@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -36,93 +36,120 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOMPUTESHADERALGORITHM_H_
-#define _OSGCOMPUTESHADERALGORITHM_H_
+#ifndef _OSGSHADERSTORAGEBUFFEROBJREFCHUNK_H_
+#define _OSGSHADERSTORAGEBUFFEROBJREFCHUNK_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-#include <queue>
-
-#include "OSGComputeShaderAlgorithmBase.h"
+#include "OSGShaderStorageBufferObjRefChunkBase.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DrawEnv;
-class Action;
+/*! \brief ShaderStorageBufferObjRefChunk class. See \ref
+           PageSystemShaderStorageBufferObjRefChunk for a description.
+*/
 
-//! Stage
-//! \ingroup GrpSystemNodeCoresMisc
-
-class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeShaderAlgorithm : 
-    public ComputeShaderAlgorithmBase
+class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunk : public ShaderStorageBufferObjRefChunkBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef ShaderStorageBufferObjRefChunkBase Inherited;
+    typedef ShaderStorageBufferObjRefChunk     Self;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                 Chunk Class Access                           */
+    /*! \{                                                                 */
+
+    virtual const StateChunkClass *getClass(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name              Static Chunk Class Access                       */
+    /*! \{                                                                 */
+
+    static       UInt32           getStaticClassId(void);
+    static const StateChunkClass *getStaticClass  (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Chunk Id                                  */
+    /*! \{                                                                 */
+
+    virtual UInt16 getChunkId(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Execute                                 */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual Action::ResultE renderEnter(Action          *pAction );
-    virtual Action::ResultE renderLeave(Action          *pAction );
-
-    virtual void            execute    (HardwareContext *pContext, 
-                                        DrawEnv         *pEnv    );
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Execute                                 */
+    /*! \name                       State                                  */
     /*! \{                                                                 */
+
+    virtual void activate   (DrawEnv    *pEnv,
+                             UInt32      index = 0);
+
+    virtual void changeFrom (DrawEnv    *pEnv,
+                             StateChunk *pOld,
+                             UInt32      index = 0);
+
+    virtual void deactivate (DrawEnv    *pEnv,
+                             UInt32      index = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name             OpenGL handling                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void   validate               (DrawEnv *pEnv);
+    virtual Int32  getOpenGLId            (DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    static  UInt32                     _arbComputeShader;
-    static  UInt32                     _arbComputeVariableGroupSize;
-    static  UInt32                     _arbShaderImageLoadStore;
+    UInt16 _uiChunkId;
 
-    static  UInt32                      FuncIdDispatchCompute;
-    static  UInt32                      FuncIdDispatchComputeGroupSize;
-    static  UInt32                      FuncIdMemoryBarrier;
+    // Variables should all be in ShaderStorageBufferObjRefChunkBase.
 
-    typedef ComputeShaderAlgorithmBase  Inherited;
+    void onCreate      (const ShaderStorageBufferObjRefChunk *source      = NULL);
+    void onCreateAspect(const ShaderStorageBufferObjRefChunk *createAspect,
+                        const ShaderStorageBufferObjRefChunk *source      = NULL);
+    void onDestroy     (      UInt32                          uiContainerId     );
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ComputeShaderAlgorithm(void);
-    ComputeShaderAlgorithm(const ComputeShaderAlgorithm &source);
+    ShaderStorageBufferObjRefChunk(void);
+    ShaderStorageBufferObjRefChunk(const ShaderStorageBufferObjRefChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComputeShaderAlgorithm(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
+    virtual ~ShaderStorageBufferObjRefChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,34 +159,35 @@ class OSG_CONTRIBCOMPUTEBASE_DLLMAPPING ComputeShaderAlgorithm :
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+
+    // extension indices for used extensions;
+    static UInt32 _extVertexBufferObject;
+    static UInt32 _funcBindBuffer;
+
+    static UInt32 _extUniformBufferObject;    
+    static UInt32 _funcBindBufferBase;
+
+    static UInt32 _extShaderStorageBufferObject;
+
+    static StateChunkClass _class;
+    static volatile UInt16 _uiChunkCounter;
+
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class ComputeShaderAlgorithmBase;
+    friend class ShaderStorageBufferObjRefChunkBase;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                   thread local                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    load thread                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const ComputeShaderAlgorithm &source);
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const ShaderStorageBufferObjRefChunk &source);
 };
 
-typedef ComputeShaderAlgorithm *ComputeShaderAlgorithmP;
+typedef ShaderStorageBufferObjRefChunk *ShaderStorageBufferObjRefChunkP;
 
 OSG_END_NAMESPACE
 
-#include "OSGComputeShaderAlgorithmBase.inl"
-#include "OSGComputeShaderAlgorithm.inl"
+#include "OSGShaderStorageBufferObjRefChunkBase.inl"
+#include "OSGShaderStorageBufferObjRefChunk.inl"
 
-#endif /* _OSGCOMPUTESHADERALGORITHM_H_ */
+#endif /* _OSGSHADERSTORAGEBUFFEROBJREFCHUNK_H_ */

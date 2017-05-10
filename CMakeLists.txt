@@ -1339,6 +1339,7 @@ ENDIF(OSGBUILD_EXAMPLES_SIMPLE)
 
 IF(OSGBUILD_EXAMPLES_ADVANCED)
     ADD_CUSTOM_TARGET(OSGAllAdvancedExamples)
+    ADD_SUBDIRECTORY("Examples/Advanced")
     ADD_SUBDIRECTORY("Examples/Advanced/DeferredShading")
     ADD_SUBDIRECTORY("Examples/Advanced/Character")
     ADD_DEPENDENCIES(OSGAllExamples OSGAllAdvancedExamples)

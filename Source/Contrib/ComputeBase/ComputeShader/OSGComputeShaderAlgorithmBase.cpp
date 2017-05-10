@@ -63,6 +63,7 @@
 
 
 #include "OSGTextureImageChunk.h"       // TextureImages Class
+#include "OSGChunkMaterial.h"           // ChunkMaterial Class
 #include "OSGComputeShaderChunk.h"      // ComputeShader Class
 
 #include "OSGComputeShaderAlgorithmBase.h"
@@ -77,7 +78,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ComputeShaderAlgorithm
-    
+    This class allows the operation of a compute shader algorithm. It allows the specification of 
+    shader buffers and textures to be used in the computation task and the details of the computational
+    space the compute shader operats on.
  */
 
 /***************************************************************************\
@@ -85,15 +88,46 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var TextureImageChunk * ComputeShaderAlgorithmBase::_mfTextureImages
-    
+    Texture images to be used for reading/writing in the compute shader.
+    The texture images uses the binding points starting from 0 and then 
+    incrementing by 1.
+*/
+
+/*! \var ChunkMaterial * ComputeShaderAlgorithmBase::_sfChunkMaterial
+    This chunk material allows the usage of texture images, uniform buffer objects
+    and shader storage buffer objects in the compute shader. Only these material
+    chunks are going to be respected, all other will simply omitted. A valid
+    chunk in the chunk material specifies the binding point to be used in the compute
+    shader.
 */
 
 /*! \var ComputeShaderChunk * ComputeShaderAlgorithmBase::_sfComputeShader
-    
+    The compute shader abstracts the actual shader code and the variable specifications
+    used in the shader.
 */
 
 /*! \var Vec3i           ComputeShaderAlgorithmBase::_sfDispatchConfig
-    
+    The number of work groups, i.e. the work group count.
+*/
+
+/*! \var Vec3i           ComputeShaderAlgorithmBase::_sfWorkGroupSize
+    The size of the work groups, i.e. the local_size_var value of the layout specifier.
+    This does need the ARB_compute_variable_group_size GL extension to work.
+*/
+
+/*! \var bool            ComputeShaderAlgorithmBase::_sfUseMemoryBarrier
+    This flag toggles the usage of the memory barrier call after the operation of
+    the compute shader.
+*/
+
+/*! \var bool            ComputeShaderAlgorithmBase::_sfUseVariableWorkGroupSize
+    This flag enables the useage of the variable work group size dispatch API that
+    is specified in the ARB_compute_variable_group_size extension.
+*/
+
+/*! \var GLenum          ComputeShaderAlgorithmBase::_sfMemoryBarrier
+    This bitmask determines the behavior of the memory barrier that is issued after the
+    operation of the compute shader.
 */
 
 
@@ -131,7 +165,9 @@ void ComputeShaderAlgorithmBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUnrecTextureImageChunkPtr::Description(
         MFUnrecTextureImageChunkPtr::getClassType(),
         "textureImages",
-        "",
+        "Texture images to be used for reading/writing in the compute shader.\n"
+        "The texture images uses the binding points starting from 0 and then \n"
+        "incrementing by 1.\n",
         TextureImagesFieldId, TextureImagesFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -140,10 +176,27 @@ void ComputeShaderAlgorithmBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFUnrecChunkMaterialPtr::Description(
+        SFUnrecChunkMaterialPtr::getClassType(),
+        "chunkMaterial",
+        "This chunk material allows the usage of texture images, uniform buffer objects\n"
+        "and shader storage buffer objects in the compute shader. Only these material\n"
+        "chunks are going to be respected, all other will simply omitted. A valid\n"
+        "chunk in the chunk material specifies the binding point to be used in the compute\n"
+        "shader.\n",
+        ChunkMaterialFieldId, ChunkMaterialFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleChunkMaterial),
+        static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleChunkMaterial));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFUnrecComputeShaderChunkPtr::Description(
         SFUnrecComputeShaderChunkPtr::getClassType(),
         "computeShader",
-        "",
+        "The compute shader abstracts the actual shader code and the variable specifications\n"
+        "used in the shader.\n",
         ComputeShaderFieldId, ComputeShaderFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -155,12 +208,64 @@ void ComputeShaderAlgorithmBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3i::Description(
         SFVec3i::getClassType(),
         "dispatchConfig",
-        "",
+        "The number of work groups, i.e. the work group count.\n",
         DispatchConfigFieldId, DispatchConfigFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleDispatchConfig),
         static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleDispatchConfig));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFVec3i::Description(
+        SFVec3i::getClassType(),
+        "workGroupSize",
+        "The size of the work groups, i.e. the local_size_var value of the layout specifier.\n"
+        "This does need the ARB_compute_variable_group_size GL extension to work.\n",
+        WorkGroupSizeFieldId, WorkGroupSizeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleWorkGroupSize),
+        static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleWorkGroupSize));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useMemoryBarrier",
+        "This flag toggles the usage of the memory barrier call after the operation of\n"
+        "the compute shader.\n",
+        UseMemoryBarrierFieldId, UseMemoryBarrierFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleUseMemoryBarrier),
+        static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleUseMemoryBarrier));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useVariableWorkGroupSize",
+        "This flag enables the useage of the variable work group size dispatch API that\n"
+        "is specified in the ARB_compute_variable_group_size extension.\n",
+        UseVariableWorkGroupSizeFieldId, UseVariableWorkGroupSizeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleUseVariableWorkGroupSize),
+        static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleUseVariableWorkGroupSize));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "memoryBarrier",
+        "This bitmask determines the behavior of the memory barrier that is issued after the\n"
+        "operation of the compute shader.\n",
+        MemoryBarrierFieldId, MemoryBarrierFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ComputeShaderAlgorithm::editHandleMemoryBarrier),
+        static_cast<FieldGetMethodSig >(&ComputeShaderAlgorithm::getHandleMemoryBarrier));
 
     oType.addInitialDesc(pDesc);
 }
@@ -191,6 +296,10 @@ ComputeShaderAlgorithmBase::TypeObject ComputeShaderAlgorithmBase::_type(
     "\tuseLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    >\n"
+    "        This class allows the operation of a compute shader algorithm. It allows the specification of \n"
+    "        shader buffers and textures to be used in the computation task and the details of the computational\n"
+    "        space the compute shader operats on.\n"
+    "        \n"
     "  <Field\n"
     "      name=\"textureImages\"\n"
     "      type=\"TextureImageChunk\"\n"
@@ -199,6 +308,23 @@ ComputeShaderAlgorithmBase::TypeObject ComputeShaderAlgorithmBase::_type(
     "      visibility=\"external\"\n"
     "      access=\"public\"\n"
     "      >\n"
+    "        Texture images to be used for reading/writing in the compute shader.\n"
+    "        The texture images uses the binding points starting from 0 and then \n"
+    "        incrementing by 1.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "      name=\"chunkMaterial\"\n"
+    "      type=\"ChunkMaterial\"\n"
+    "      category=\"pointer\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      >\n"
+    "        This chunk material allows the usage of texture images, uniform buffer objects\n"
+    "        and shader storage buffer objects in the compute shader. Only these material\n"
+    "        chunks are going to be respected, all other will simply omitted. A valid\n"
+    "        chunk in the chunk material specifies the binding point to be used in the compute\n"
+    "        shader.\n"
     "  </Field>\n"
     "  <Field\n"
     "      name=\"computeShader\"\n"
@@ -208,6 +334,8 @@ ComputeShaderAlgorithmBase::TypeObject ComputeShaderAlgorithmBase::_type(
     "      visibility=\"external\"\n"
     "      access=\"public\"\n"
     "      >\n"
+    "        The compute shader abstracts the actual shader code and the variable specifications\n"
+    "        used in the shader.\n"
     "  </Field>\n"
     "  <Field\n"
     "      name=\"dispatchConfig\"\n"
@@ -217,10 +345,60 @@ ComputeShaderAlgorithmBase::TypeObject ComputeShaderAlgorithmBase::_type(
     "      access=\"public\"\n"
     "      defaultValue=\"1, 0, 0\"\n"
     "      >\n"
+    "        The number of work groups, i.e. the work group count.\n"
+    "  </Field>\n"
+    "<Field\n"
+    "      name=\"workGroupSize\"\n"
+    "      type=\"Vec3i\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"1, 1, 1\"\n"
+    "      >\n"
+    "        The size of the work groups, i.e. the local_size_var value of the layout specifier.\n"
+    "        This does need the ARB_compute_variable_group_size GL extension to work.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"useMemoryBarrier\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"false\"\n"
+    "      >\n"
+    "        This flag toggles the usage of the memory barrier call after the operation of\n"
+    "        the compute shader.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"useVariableWorkGroupSize\"\n"
+    "      type=\"bool\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"false\"\n"
+    "      >\n"
+    "        This flag enables the useage of the variable work group size dispatch API that\n"
+    "        is specified in the ARB_compute_variable_group_size extension.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "      name=\"memoryBarrier\"\n"
+    "      type=\"GLenum\"\n"
+    "      cardinality=\"single\"\n"
+    "      visibility=\"external\"\n"
+    "      access=\"public\"\n"
+    "      defaultValue=\"GL_SHADER_STORAGE_BARRIER_BIT\"\n"
+    "      >\n"
+    "        This bitmask determines the behavior of the memory barrier that is issued after the\n"
+    "        operation of the compute shader.\n"
     "  </Field>\n"
     "\n"
     "</FieldContainer>\n",
-    ""
+    "This class allows the operation of a compute shader algorithm. It allows the specification of \n"
+    "shader buffers and textures to be used in the computation task and the details of the computational\n"
+    "space the compute shader operats on.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -260,6 +438,34 @@ TextureImageChunk * ComputeShaderAlgorithmBase::getTextureImages(const UInt32 in
     return _mfTextureImages[index];
 }
 
+//! Get the ComputeShaderAlgorithm::_sfChunkMaterial field.
+const SFUnrecChunkMaterialPtr *ComputeShaderAlgorithmBase::getSFChunkMaterial(void) const
+{
+    return &_sfChunkMaterial;
+}
+
+SFUnrecChunkMaterialPtr *ComputeShaderAlgorithmBase::editSFChunkMaterial  (void)
+{
+    editSField(ChunkMaterialFieldMask);
+
+    return &_sfChunkMaterial;
+}
+
+//! Get the value of the ComputeShaderAlgorithm::_sfChunkMaterial field.
+ChunkMaterial * ComputeShaderAlgorithmBase::getChunkMaterial(void) const
+{
+    return _sfChunkMaterial.getValue();
+}
+
+//! Set the value of the ComputeShaderAlgorithm::_sfChunkMaterial field.
+void ComputeShaderAlgorithmBase::setChunkMaterial(ChunkMaterial * const value)
+{
+    editSField(ChunkMaterialFieldMask);
+
+    _sfChunkMaterial.setValue(value);
+}
+
+
 //! Get the ComputeShaderAlgorithm::_sfComputeShader field.
 const SFUnrecComputeShaderChunkPtr *ComputeShaderAlgorithmBase::getSFComputeShader(void) const
 {
@@ -298,6 +504,58 @@ SFVec3i *ComputeShaderAlgorithmBase::editSFDispatchConfig(void)
 const SFVec3i *ComputeShaderAlgorithmBase::getSFDispatchConfig(void) const
 {
     return &_sfDispatchConfig;
+}
+
+
+SFVec3i *ComputeShaderAlgorithmBase::editSFWorkGroupSize(void)
+{
+    editSField(WorkGroupSizeFieldMask);
+
+    return &_sfWorkGroupSize;
+}
+
+const SFVec3i *ComputeShaderAlgorithmBase::getSFWorkGroupSize(void) const
+{
+    return &_sfWorkGroupSize;
+}
+
+
+SFBool *ComputeShaderAlgorithmBase::editSFUseMemoryBarrier(void)
+{
+    editSField(UseMemoryBarrierFieldMask);
+
+    return &_sfUseMemoryBarrier;
+}
+
+const SFBool *ComputeShaderAlgorithmBase::getSFUseMemoryBarrier(void) const
+{
+    return &_sfUseMemoryBarrier;
+}
+
+
+SFBool *ComputeShaderAlgorithmBase::editSFUseVariableWorkGroupSize(void)
+{
+    editSField(UseVariableWorkGroupSizeFieldMask);
+
+    return &_sfUseVariableWorkGroupSize;
+}
+
+const SFBool *ComputeShaderAlgorithmBase::getSFUseVariableWorkGroupSize(void) const
+{
+    return &_sfUseVariableWorkGroupSize;
+}
+
+
+SFGLenum *ComputeShaderAlgorithmBase::editSFMemoryBarrier(void)
+{
+    editSField(MemoryBarrierFieldMask);
+
+    return &_sfMemoryBarrier;
+}
+
+const SFGLenum *ComputeShaderAlgorithmBase::getSFMemoryBarrier(void) const
+{
+    return &_sfMemoryBarrier;
 }
 
 
@@ -368,6 +626,10 @@ SizeT ComputeShaderAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfTextureImages.getBinSize();
     }
+    if(FieldBits::NoField != (ChunkMaterialFieldMask & whichField))
+    {
+        returnValue += _sfChunkMaterial.getBinSize();
+    }
     if(FieldBits::NoField != (ComputeShaderFieldMask & whichField))
     {
         returnValue += _sfComputeShader.getBinSize();
@@ -375,6 +637,22 @@ SizeT ComputeShaderAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (DispatchConfigFieldMask & whichField))
     {
         returnValue += _sfDispatchConfig.getBinSize();
+    }
+    if(FieldBits::NoField != (WorkGroupSizeFieldMask & whichField))
+    {
+        returnValue += _sfWorkGroupSize.getBinSize();
+    }
+    if(FieldBits::NoField != (UseMemoryBarrierFieldMask & whichField))
+    {
+        returnValue += _sfUseMemoryBarrier.getBinSize();
+    }
+    if(FieldBits::NoField != (UseVariableWorkGroupSizeFieldMask & whichField))
+    {
+        returnValue += _sfUseVariableWorkGroupSize.getBinSize();
+    }
+    if(FieldBits::NoField != (MemoryBarrierFieldMask & whichField))
+    {
+        returnValue += _sfMemoryBarrier.getBinSize();
     }
 
     return returnValue;
@@ -389,6 +667,10 @@ void ComputeShaderAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfTextureImages.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ChunkMaterialFieldMask & whichField))
+    {
+        _sfChunkMaterial.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ComputeShaderFieldMask & whichField))
     {
         _sfComputeShader.copyToBin(pMem);
@@ -396,6 +678,22 @@ void ComputeShaderAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DispatchConfigFieldMask & whichField))
     {
         _sfDispatchConfig.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (WorkGroupSizeFieldMask & whichField))
+    {
+        _sfWorkGroupSize.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (UseMemoryBarrierFieldMask & whichField))
+    {
+        _sfUseMemoryBarrier.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (UseVariableWorkGroupSizeFieldMask & whichField))
+    {
+        _sfUseVariableWorkGroupSize.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MemoryBarrierFieldMask & whichField))
+    {
+        _sfMemoryBarrier.copyToBin(pMem);
     }
 }
 
@@ -409,6 +707,11 @@ void ComputeShaderAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
         editMField(TextureImagesFieldMask, _mfTextureImages);
         _mfTextureImages.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ChunkMaterialFieldMask & whichField))
+    {
+        editSField(ChunkMaterialFieldMask);
+        _sfChunkMaterial.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ComputeShaderFieldMask & whichField))
     {
         editSField(ComputeShaderFieldMask);
@@ -418,6 +721,26 @@ void ComputeShaderAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(DispatchConfigFieldMask);
         _sfDispatchConfig.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (WorkGroupSizeFieldMask & whichField))
+    {
+        editSField(WorkGroupSizeFieldMask);
+        _sfWorkGroupSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseMemoryBarrierFieldMask & whichField))
+    {
+        editSField(UseMemoryBarrierFieldMask);
+        _sfUseMemoryBarrier.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseVariableWorkGroupSizeFieldMask & whichField))
+    {
+        editSField(UseVariableWorkGroupSizeFieldMask);
+        _sfUseVariableWorkGroupSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MemoryBarrierFieldMask & whichField))
+    {
+        editSField(MemoryBarrierFieldMask);
+        _sfMemoryBarrier.copyFromBin(pMem);
     }
 }
 
@@ -545,16 +868,26 @@ FieldContainerTransitPtr ComputeShaderAlgorithmBase::shallowCopy(void) const
 ComputeShaderAlgorithmBase::ComputeShaderAlgorithmBase(void) :
     Inherited(),
     _mfTextureImages          (),
+    _sfChunkMaterial          (NULL),
     _sfComputeShader          (NULL),
-    _sfDispatchConfig         (Vec3i(1, 0, 0))
+    _sfDispatchConfig         (Vec3i(1, 0, 0)),
+    _sfWorkGroupSize          (Vec3i(1, 1, 1)),
+    _sfUseMemoryBarrier       (bool(false)),
+    _sfUseVariableWorkGroupSize(bool(false)),
+    _sfMemoryBarrier          (GLenum(GL_SHADER_STORAGE_BARRIER_BIT))
 {
 }
 
 ComputeShaderAlgorithmBase::ComputeShaderAlgorithmBase(const ComputeShaderAlgorithmBase &source) :
     Inherited(source),
     _mfTextureImages          (),
+    _sfChunkMaterial          (NULL),
     _sfComputeShader          (NULL),
-    _sfDispatchConfig         (source._sfDispatchConfig         )
+    _sfDispatchConfig         (source._sfDispatchConfig         ),
+    _sfWorkGroupSize          (source._sfWorkGroupSize          ),
+    _sfUseMemoryBarrier       (source._sfUseMemoryBarrier       ),
+    _sfUseVariableWorkGroupSize(source._sfUseVariableWorkGroupSize),
+    _sfMemoryBarrier          (source._sfMemoryBarrier          )
 {
 }
 
@@ -584,6 +917,8 @@ void ComputeShaderAlgorithmBase::onCreate(const ComputeShaderAlgorithm *source)
 
             ++TextureImagesIt;
         }
+
+        pThis->setChunkMaterial(source->getChunkMaterial());
 
         pThis->setComputeShader(source->getComputeShader());
     }
@@ -622,6 +957,34 @@ EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleTextureImages  (void)
                     static_cast<ComputeShaderAlgorithm *>(this)));
 
     editMField(TextureImagesFieldMask, _mfTextureImages);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComputeShaderAlgorithmBase::getHandleChunkMaterial   (void) const
+{
+    SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecChunkMaterialPtr::GetHandle(
+             &_sfChunkMaterial,
+             this->getType().getFieldDesc(ChunkMaterialFieldId),
+             const_cast<ComputeShaderAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleChunkMaterial  (void)
+{
+    SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecChunkMaterialPtr::EditHandle(
+             &_sfChunkMaterial,
+             this->getType().getFieldDesc(ChunkMaterialFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&ComputeShaderAlgorithm::setChunkMaterial,
+                    static_cast<ComputeShaderAlgorithm *>(this), _1));
+
+    editSField(ChunkMaterialFieldMask);
 
     return returnValue;
 }
@@ -679,6 +1042,106 @@ EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleDispatchConfig (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ComputeShaderAlgorithmBase::getHandleWorkGroupSize   (void) const
+{
+    SFVec3i::GetHandlePtr returnValue(
+        new  SFVec3i::GetHandle(
+             &_sfWorkGroupSize,
+             this->getType().getFieldDesc(WorkGroupSizeFieldId),
+             const_cast<ComputeShaderAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleWorkGroupSize  (void)
+{
+    SFVec3i::EditHandlePtr returnValue(
+        new  SFVec3i::EditHandle(
+             &_sfWorkGroupSize,
+             this->getType().getFieldDesc(WorkGroupSizeFieldId),
+             this));
+
+
+    editSField(WorkGroupSizeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComputeShaderAlgorithmBase::getHandleUseMemoryBarrier (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseMemoryBarrier,
+             this->getType().getFieldDesc(UseMemoryBarrierFieldId),
+             const_cast<ComputeShaderAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleUseMemoryBarrier(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseMemoryBarrier,
+             this->getType().getFieldDesc(UseMemoryBarrierFieldId),
+             this));
+
+
+    editSField(UseMemoryBarrierFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComputeShaderAlgorithmBase::getHandleUseVariableWorkGroupSize (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseVariableWorkGroupSize,
+             this->getType().getFieldDesc(UseVariableWorkGroupSizeFieldId),
+             const_cast<ComputeShaderAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleUseVariableWorkGroupSize(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseVariableWorkGroupSize,
+             this->getType().getFieldDesc(UseVariableWorkGroupSizeFieldId),
+             this));
+
+
+    editSField(UseVariableWorkGroupSizeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ComputeShaderAlgorithmBase::getHandleMemoryBarrier   (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfMemoryBarrier,
+             this->getType().getFieldDesc(MemoryBarrierFieldId),
+             const_cast<ComputeShaderAlgorithmBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ComputeShaderAlgorithmBase::editHandleMemoryBarrier  (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfMemoryBarrier,
+             this->getType().getFieldDesc(MemoryBarrierFieldId),
+             this));
+
+
+    editSField(MemoryBarrierFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ComputeShaderAlgorithmBase::execSyncV(      FieldContainer    &oFrom,
@@ -717,6 +1180,8 @@ void ComputeShaderAlgorithmBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<ComputeShaderAlgorithm *>(this)->clearTextureImages();
+
+    static_cast<ComputeShaderAlgorithm *>(this)->setChunkMaterial(NULL);
 
     static_cast<ComputeShaderAlgorithm *>(this)->setComputeShader(NULL);
 

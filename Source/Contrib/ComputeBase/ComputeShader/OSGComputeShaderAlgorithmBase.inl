@@ -99,6 +99,106 @@ void ComputeShaderAlgorithmBase::setDispatchConfig(const Vec3i &value)
 
     _sfDispatchConfig.setValue(value);
 }
+//! Get the value of the ComputeShaderAlgorithm::_sfWorkGroupSize field.
+
+inline
+Vec3i &ComputeShaderAlgorithmBase::editWorkGroupSize(void)
+{
+    editSField(WorkGroupSizeFieldMask);
+
+    return _sfWorkGroupSize.getValue();
+}
+
+//! Get the value of the ComputeShaderAlgorithm::_sfWorkGroupSize field.
+inline
+const Vec3i &ComputeShaderAlgorithmBase::getWorkGroupSize(void) const
+{
+    return _sfWorkGroupSize.getValue();
+}
+
+//! Set the value of the ComputeShaderAlgorithm::_sfWorkGroupSize field.
+inline
+void ComputeShaderAlgorithmBase::setWorkGroupSize(const Vec3i &value)
+{
+    editSField(WorkGroupSizeFieldMask);
+
+    _sfWorkGroupSize.setValue(value);
+}
+//! Get the value of the ComputeShaderAlgorithm::_sfUseMemoryBarrier field.
+
+inline
+bool &ComputeShaderAlgorithmBase::editUseMemoryBarrier(void)
+{
+    editSField(UseMemoryBarrierFieldMask);
+
+    return _sfUseMemoryBarrier.getValue();
+}
+
+//! Get the value of the ComputeShaderAlgorithm::_sfUseMemoryBarrier field.
+inline
+      bool  ComputeShaderAlgorithmBase::getUseMemoryBarrier(void) const
+{
+    return _sfUseMemoryBarrier.getValue();
+}
+
+//! Set the value of the ComputeShaderAlgorithm::_sfUseMemoryBarrier field.
+inline
+void ComputeShaderAlgorithmBase::setUseMemoryBarrier(const bool value)
+{
+    editSField(UseMemoryBarrierFieldMask);
+
+    _sfUseMemoryBarrier.setValue(value);
+}
+//! Get the value of the ComputeShaderAlgorithm::_sfUseVariableWorkGroupSize field.
+
+inline
+bool &ComputeShaderAlgorithmBase::editUseVariableWorkGroupSize(void)
+{
+    editSField(UseVariableWorkGroupSizeFieldMask);
+
+    return _sfUseVariableWorkGroupSize.getValue();
+}
+
+//! Get the value of the ComputeShaderAlgorithm::_sfUseVariableWorkGroupSize field.
+inline
+      bool  ComputeShaderAlgorithmBase::getUseVariableWorkGroupSize(void) const
+{
+    return _sfUseVariableWorkGroupSize.getValue();
+}
+
+//! Set the value of the ComputeShaderAlgorithm::_sfUseVariableWorkGroupSize field.
+inline
+void ComputeShaderAlgorithmBase::setUseVariableWorkGroupSize(const bool value)
+{
+    editSField(UseVariableWorkGroupSizeFieldMask);
+
+    _sfUseVariableWorkGroupSize.setValue(value);
+}
+//! Get the value of the ComputeShaderAlgorithm::_sfMemoryBarrier field.
+
+inline
+GLenum &ComputeShaderAlgorithmBase::editMemoryBarrier(void)
+{
+    editSField(MemoryBarrierFieldMask);
+
+    return _sfMemoryBarrier.getValue();
+}
+
+//! Get the value of the ComputeShaderAlgorithm::_sfMemoryBarrier field.
+inline
+const GLenum &ComputeShaderAlgorithmBase::getMemoryBarrier(void) const
+{
+    return _sfMemoryBarrier.getValue();
+}
+
+//! Set the value of the ComputeShaderAlgorithm::_sfMemoryBarrier field.
+inline
+void ComputeShaderAlgorithmBase::setMemoryBarrier(const GLenum &value)
+{
+    editSField(MemoryBarrierFieldMask);
+
+    _sfMemoryBarrier.setValue(value);
+}
 
 
 
@@ -118,11 +218,26 @@ void ComputeShaderAlgorithmBase::execSync (      ComputeShaderAlgorithmBase *pFr
                                 uiSyncInfo,
                                 oOffsets);
 
+    if(FieldBits::NoField != (ChunkMaterialFieldMask & whichField))
+        _sfChunkMaterial.syncWith(pFrom->_sfChunkMaterial);
+
     if(FieldBits::NoField != (ComputeShaderFieldMask & whichField))
         _sfComputeShader.syncWith(pFrom->_sfComputeShader);
 
     if(FieldBits::NoField != (DispatchConfigFieldMask & whichField))
         _sfDispatchConfig.syncWith(pFrom->_sfDispatchConfig);
+
+    if(FieldBits::NoField != (WorkGroupSizeFieldMask & whichField))
+        _sfWorkGroupSize.syncWith(pFrom->_sfWorkGroupSize);
+
+    if(FieldBits::NoField != (UseMemoryBarrierFieldMask & whichField))
+        _sfUseMemoryBarrier.syncWith(pFrom->_sfUseMemoryBarrier);
+
+    if(FieldBits::NoField != (UseVariableWorkGroupSizeFieldMask & whichField))
+        _sfUseVariableWorkGroupSize.syncWith(pFrom->_sfUseVariableWorkGroupSize);
+
+    if(FieldBits::NoField != (MemoryBarrierFieldMask & whichField))
+        _sfMemoryBarrier.syncWith(pFrom->_sfMemoryBarrier);
 }
 #endif
 

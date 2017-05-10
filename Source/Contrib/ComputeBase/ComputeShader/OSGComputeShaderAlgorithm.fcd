@@ -12,6 +12,10 @@
 	useLocalIncludes="false"
     isNodeCore="false"
     >
+        This class allows the operation of a compute shader algorithm. It allows the specification of 
+        shader buffers and textures to be used in the computation task and the details of the computational
+        space the compute shader operats on.
+        
   <Field
       name="textureImages"
       type="TextureImageChunk"
@@ -20,6 +24,23 @@
       visibility="external"
       access="public"
       >
+        Texture images to be used for reading/writing in the compute shader.
+        The texture images uses the binding points starting from 0 and then 
+        incrementing by 1.
+  </Field>
+  <Field
+      name="chunkMaterial"
+      type="ChunkMaterial"
+      category="pointer"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      >
+        This chunk material allows the usage of texture images, uniform buffer objects
+        and shader storage buffer objects in the compute shader. Only these material
+        chunks are going to be respected, all other will simply omitted. A valid
+        chunk in the chunk material specifies the binding point to be used in the compute
+        shader.
   </Field>
   <Field
       name="computeShader"
@@ -29,6 +50,8 @@
       visibility="external"
       access="public"
       >
+        The compute shader abstracts the actual shader code and the variable specifications
+        used in the shader.
   </Field>
   <Field
       name="dispatchConfig"
@@ -38,6 +61,54 @@
       access="public"
       defaultValue="1, 0, 0"
       >
+        The number of work groups, i.e. the work group count.
+  </Field>
+<Field
+      name="workGroupSize"
+      type="Vec3i"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="1, 1, 1"
+      >
+        The size of the work groups, i.e. the local_size_var value of the layout specifier.
+        This does need the ARB_compute_variable_group_size GL extension to work.
+  </Field>
+
+  <Field
+      name="useMemoryBarrier"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="false"
+      >
+        This flag toggles the usage of the memory barrier call after the operation of
+        the compute shader.
+  </Field>
+
+  <Field
+      name="useVariableWorkGroupSize"
+      type="bool"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="false"
+      >
+        This flag enables the useage of the variable work group size dispatch API that
+        is specified in the ARB_compute_variable_group_size extension.
+  </Field>
+
+  <Field
+      name="memoryBarrier"
+      type="GLenum"
+      cardinality="single"
+      visibility="external"
+      access="public"
+      defaultValue="GL_SHADER_STORAGE_BARRIER_BIT"
+      >
+        This bitmask determines the behavior of the memory barrier that is issued after the
+        operation of the compute shader.
   </Field>
 
 </FieldContainer>

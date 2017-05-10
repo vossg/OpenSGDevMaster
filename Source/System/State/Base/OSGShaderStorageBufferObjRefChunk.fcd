@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ShaderStorageBufferObjRefChunk"
+    parent="StateChunk"
+    library="System"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    docGroupBase="GrpSystemState"
+    >
+    See \ref PageSystemShaderStorageBufferObjRefChunk for a description.
+
+    This chunk wraps the OpenGL shader storage buffer object extension (ARB_shader_storage_buffer_object). 
+    Basically, it holds a raw memory buffer and a buffer object binding point. The raw memory 
+    buffer is expected to be provided by the chunk user in either an OpenGL std140 or std430 compatible format. 
+    Any shader, binding a shader storage block to the very same binding point, is expected to respect 
+    the corresponding block layout.
+
+    This one differs from the ShaderStorageBufferObjStdLayoutChunk in that it does not manage the buffer by
+    itself , but just takes the GLid of that buffer. The idea is that the buffer of a GeoVectorPropertyBuffer can be 
+    used if its layout is compatible to std140 or std430 format.
+
+    <Field
+        name="GLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+	>
+            The OpenGL object id for this shader storage buffer object.
+    </Field>
+
+</FieldContainer>
