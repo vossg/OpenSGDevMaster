@@ -122,7 +122,7 @@ void osgUniformShaderVariableUInt(DrawEnv        *pEnv,
                                   bool            warnUnknown)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdGPUShader4(), 0x0330, 0x0200))
+        ShaderProgram::getExtIdGPUShader4(), 0x0303, 0x0200))
     {
         SWARNING << "Uniforms of type 'uint' are not supported, could not "
                  << "find extension 'EXT_gpu_shader4'!"
@@ -370,7 +370,7 @@ void osgUniformShaderVariableMUInt(DrawEnv        *pEnv,
                                    bool            warnUnknown)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdGPUShader4(), 0x0330, 0x0200))
+        ShaderProgram::getExtIdGPUShader4(), 0x0303, 0x0200))
     {
         SWARNING << "Uniforms of type 'uint' are not supported, could not "
                  << "find extension 'EXT_gpu_shader4'!"
@@ -547,7 +547,7 @@ void osgUniformShaderUniformBlockLocation(DrawEnv        *pEnv,
                                           UInt32          uiProgram)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdUniformBufferObject(), 0x0210, 0x0200))
+        ShaderProgram::getExtIdUniformBufferObject(), 0x0201, 0x0200))
     {
         SWARNING << "Uniform blocks are not supported, could not "
                  << "find extension 'GL_ARB_uniform_buffer_object'!"
@@ -577,7 +577,7 @@ void osgUniformShaderUniformBlockBinding(DrawEnv        *pEnv,
                                          bool            warnUnknown)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdUniformBufferObject(), 0x0210, 0x0200))
+        ShaderProgram::getExtIdUniformBufferObject(), 0x0201, 0x0200))
     {
         SWARNING << "Uniform blocks are not supported, could not "
                  << "find extension 'GL_ARB_uniform_buffer_object'!"
@@ -610,7 +610,7 @@ void osgUniformShaderStorageBlockLocation(DrawEnv        *pEnv,
                                           UInt32          uiProgram)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdProgramInterfaceQuery(), 0x0420))
+        ShaderProgram::getExtIdProgramInterfaceQuery(), 0x0402))
     {
         SWARNING << "Shader Storage are not supported, could not "
                  << "find extension 'GL_ARB_program_interface_query'!"
@@ -619,7 +619,7 @@ void osgUniformShaderStorageBlockLocation(DrawEnv        *pEnv,
     }
 
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0430))
+        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0403))
     {
         SWARNING << "Shader Storage are not supported, could not "
                  << "find extension 'GL_ARB_shader_storage_buffer_object'!"
@@ -649,7 +649,7 @@ void osgUniformShaderStorageBlockBinding(DrawEnv        *pEnv,
                                          bool            warnUnknown)
 {
     if(!pEnv->getWindow()->hasExtOrVersion(
-        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0430))
+        ShaderProgram::getExtIdShaderStorageBufferObject(), 0x0403))
     {
         SWARNING << "Shader Storage blocks are not supported, could not "
                  << "find extension 'GL_ARB_shader_storage_buffer_object'!"
