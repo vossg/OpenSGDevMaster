@@ -144,9 +144,9 @@ void Polygon::reverseVertices()
 
 void Polygon::orderVertices(VertexOrder order)
 {
-    for (int i = 1, sz = _vertices.size(); i < sz; ++i)
+    for (std::size_t i = 1, sz = _vertices.size(); i < sz; ++i)
     {
-        for (int j = i + 1; j < sz; ++j)
+        for (std::size_t j = i + 1; j < sz; ++j)
         {
             Vec3f v_i = _vertices[i]-_vertices[0];
             Vec3f v_j = _vertices[j]-_vertices[0];
