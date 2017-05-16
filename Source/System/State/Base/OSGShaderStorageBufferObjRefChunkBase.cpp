@@ -92,8 +92,14 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var GLenum          ShaderStorageBufferObjRefChunkBase::_sfGLId
-    The OpenGL object id for this shader storage buffer object.
+/*! \var GLenum          ShaderStorageBufferObjRefChunkBase::_sfOglGLId
+    The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the 
+    osgGLId is set to 0.
+*/
+
+/*! \var GLenum          ShaderStorageBufferObjRefChunkBase::_sfOsgGLId
+    The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id
+    is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.
 */
 
 
@@ -130,13 +136,27 @@ void ShaderStorageBufferObjRefChunkBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
-        "GLId",
-        "The OpenGL object id for this shader storage buffer object.\n",
-        GLIdFieldId, GLIdFieldMask,
+        "oglGLId",
+        "The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the \n"
+        "osgGLId is set to 0.\n",
+        OglGLIdFieldId, OglGLIdFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&ShaderStorageBufferObjRefChunk::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&ShaderStorageBufferObjRefChunk::getHandleGLId));
+        static_cast<FieldEditMethodSig>(&ShaderStorageBufferObjRefChunk::editHandleOglGLId),
+        static_cast<FieldGetMethodSig >(&ShaderStorageBufferObjRefChunk::getHandleOglGLId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(),
+        "osgGLId",
+        "The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id\n"
+        "is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.\n",
+        OsgGLIdFieldId, OsgGLIdFieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&ShaderStorageBufferObjRefChunk::editHandleOsgGLId),
+        static_cast<FieldGetMethodSig >(&ShaderStorageBufferObjRefChunk::getHandleOsgGLId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -180,7 +200,7 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     "    used if its layout is compatible to std140 or std430 format.\n"
     "\n"
     "    <Field\n"
-    "        name=\"GLId\"\n"
+    "        name=\"oglGLId\"\n"
     "        type=\"GLenum\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
@@ -188,9 +208,22 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     "        defaultValue=\"0\"\n"
     "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
-    "            The OpenGL object id for this shader storage buffer object.\n"
+    "            The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the \n"
+    "             osgGLId is set to 0.\n"
     "    </Field>\n"
     "\n"
+    "    <Field\n"
+    "        name=\"osgGLId\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "            The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id\n"
+    "            is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "See \\ref PageSystemShaderStorageBufferObjRefChunk for a description.\n"
     "\n"
@@ -225,16 +258,29 @@ UInt32 ShaderStorageBufferObjRefChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-SFGLenum *ShaderStorageBufferObjRefChunkBase::editSFGLId(void)
+SFGLenum *ShaderStorageBufferObjRefChunkBase::editSFOglGLId(void)
 {
-    editSField(GLIdFieldMask);
+    editSField(OglGLIdFieldMask);
 
-    return &_sfGLId;
+    return &_sfOglGLId;
 }
 
-const SFGLenum *ShaderStorageBufferObjRefChunkBase::getSFGLId(void) const
+const SFGLenum *ShaderStorageBufferObjRefChunkBase::getSFOglGLId(void) const
 {
-    return &_sfGLId;
+    return &_sfOglGLId;
+}
+
+
+SFGLenum *ShaderStorageBufferObjRefChunkBase::editSFOsgGLId(void)
+{
+    editSField(OsgGLIdFieldMask);
+
+    return &_sfOsgGLId;
+}
+
+const SFGLenum *ShaderStorageBufferObjRefChunkBase::getSFOsgGLId(void) const
+{
+    return &_sfOsgGLId;
 }
 
 
@@ -248,9 +294,13 @@ SizeT ShaderStorageBufferObjRefChunkBase::getBinSize(ConstFieldMaskArg whichFiel
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
     {
-        returnValue += _sfGLId.getBinSize();
+        returnValue += _sfOglGLId.getBinSize();
+    }
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
+    {
+        returnValue += _sfOsgGLId.getBinSize();
     }
 
     return returnValue;
@@ -261,9 +311,13 @@ void ShaderStorageBufferObjRefChunkBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
     {
-        _sfGLId.copyToBin(pMem);
+        _sfOglGLId.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
+    {
+        _sfOsgGLId.copyToBin(pMem);
     }
 }
 
@@ -272,10 +326,15 @@ void ShaderStorageBufferObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
     {
-        editSField(GLIdFieldMask);
-        _sfGLId.copyFromBin(pMem);
+        editSField(OglGLIdFieldMask);
+        _sfOglGLId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
+    {
+        editSField(OsgGLIdFieldMask);
+        _sfOsgGLId.copyFromBin(pMem);
     }
 }
 
@@ -402,13 +461,15 @@ FieldContainerTransitPtr ShaderStorageBufferObjRefChunkBase::shallowCopy(void) c
 
 ShaderStorageBufferObjRefChunkBase::ShaderStorageBufferObjRefChunkBase(void) :
     Inherited(),
-    _sfGLId                   (GLenum(0))
+    _sfOglGLId                (GLenum(0)),
+    _sfOsgGLId                (GLenum(0))
 {
 }
 
 ShaderStorageBufferObjRefChunkBase::ShaderStorageBufferObjRefChunkBase(const ShaderStorageBufferObjRefChunkBase &source) :
     Inherited(source),
-    _sfGLId                   (source._sfGLId                   )
+    _sfOglGLId                (source._sfOglGLId                ),
+    _sfOsgGLId                (source._sfOsgGLId                )
 {
 }
 
@@ -420,27 +481,52 @@ ShaderStorageBufferObjRefChunkBase::~ShaderStorageBufferObjRefChunkBase(void)
 }
 
 
-GetFieldHandlePtr ShaderStorageBufferObjRefChunkBase::getHandleGLId            (void) const
+GetFieldHandlePtr ShaderStorageBufferObjRefChunkBase::getHandleOglGLId         (void) const
 {
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
+             &_sfOglGLId,
+             this->getType().getFieldDesc(OglGLIdFieldId),
              const_cast<ShaderStorageBufferObjRefChunkBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ShaderStorageBufferObjRefChunkBase::editHandleGLId           (void)
+EditFieldHandlePtr ShaderStorageBufferObjRefChunkBase::editHandleOglGLId        (void)
 {
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
+             &_sfOglGLId,
+             this->getType().getFieldDesc(OglGLIdFieldId),
              this));
 
 
-    editSField(GLIdFieldMask);
+    editSField(OglGLIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ShaderStorageBufferObjRefChunkBase::getHandleOsgGLId         (void) const
+{
+    SFGLenum::GetHandlePtr returnValue(
+        new  SFGLenum::GetHandle(
+             &_sfOsgGLId,
+             this->getType().getFieldDesc(OsgGLIdFieldId),
+             const_cast<ShaderStorageBufferObjRefChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShaderStorageBufferObjRefChunkBase::editHandleOsgGLId        (void)
+{
+    SFGLenum::EditHandlePtr returnValue(
+        new  SFGLenum::EditHandle(
+             &_sfOsgGLId,
+             this->getType().getFieldDesc(OsgGLIdFieldId),
+             this));
+
+
+    editSField(OsgGLIdFieldMask);
 
     return returnValue;
 }

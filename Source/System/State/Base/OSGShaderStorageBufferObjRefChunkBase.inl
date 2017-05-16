@@ -74,30 +74,55 @@ OSG::UInt16 ShaderStorageBufferObjRefChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the ShaderStorageBufferObjRefChunk::_sfGLId field.
+//! Get the value of the ShaderStorageBufferObjRefChunk::_sfOglGLId field.
 
 inline
-GLenum &ShaderStorageBufferObjRefChunkBase::editGLId(void)
+GLenum &ShaderStorageBufferObjRefChunkBase::editOglGLId(void)
 {
-    editSField(GLIdFieldMask);
+    editSField(OglGLIdFieldMask);
 
-    return _sfGLId.getValue();
+    return _sfOglGLId.getValue();
 }
 
-//! Get the value of the ShaderStorageBufferObjRefChunk::_sfGLId field.
+//! Get the value of the ShaderStorageBufferObjRefChunk::_sfOglGLId field.
 inline
-const GLenum &ShaderStorageBufferObjRefChunkBase::getGLId(void) const
+const GLenum &ShaderStorageBufferObjRefChunkBase::getOglGLId(void) const
 {
-    return _sfGLId.getValue();
+    return _sfOglGLId.getValue();
 }
 
-//! Set the value of the ShaderStorageBufferObjRefChunk::_sfGLId field.
+//! Set the value of the ShaderStorageBufferObjRefChunk::_sfOglGLId field.
 inline
-void ShaderStorageBufferObjRefChunkBase::setGLId(const GLenum &value)
+void ShaderStorageBufferObjRefChunkBase::setOglGLId(const GLenum &value)
 {
-    editSField(GLIdFieldMask);
+    editSField(OglGLIdFieldMask);
 
-    _sfGLId.setValue(value);
+    _sfOglGLId.setValue(value);
+}
+//! Get the value of the ShaderStorageBufferObjRefChunk::_sfOsgGLId field.
+
+inline
+GLenum &ShaderStorageBufferObjRefChunkBase::editOsgGLId(void)
+{
+    editSField(OsgGLIdFieldMask);
+
+    return _sfOsgGLId.getValue();
+}
+
+//! Get the value of the ShaderStorageBufferObjRefChunk::_sfOsgGLId field.
+inline
+const GLenum &ShaderStorageBufferObjRefChunkBase::getOsgGLId(void) const
+{
+    return _sfOsgGLId.getValue();
+}
+
+//! Set the value of the ShaderStorageBufferObjRefChunk::_sfOsgGLId field.
+inline
+void ShaderStorageBufferObjRefChunkBase::setOsgGLId(const GLenum &value)
+{
+    editSField(OsgGLIdFieldMask);
+
+    _sfOsgGLId.setValue(value);
 }
 
 
@@ -111,8 +136,11 @@ void ShaderStorageBufferObjRefChunkBase::execSync (      ShaderStorageBufferObjR
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-        _sfGLId.syncWith(pFrom->_sfGLId);
+    if(FieldBits::NoField != (OglGLIdFieldMask & whichField))
+        _sfOglGLId.syncWith(pFrom->_sfOglGLId);
+
+    if(FieldBits::NoField != (OsgGLIdFieldMask & whichField))
+        _sfOsgGLId.syncWith(pFrom->_sfOsgGLId);
 }
 #endif
 

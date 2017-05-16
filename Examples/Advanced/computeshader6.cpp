@@ -303,7 +303,7 @@ OSG::ShaderStorageBufferObjRefChunkTransitPtr create_ssbo_ref_chunk(OSG::UInt32 
 {
     OSG::ShaderStorageBufferObjRefChunkRefPtr chunk = OSG::ShaderStorageBufferObjRefChunk::create();
 
-    chunk->setGLId(glId);
+    chunk->setOsgGLId(glId);
 
     return OSG::ShaderStorageBufferObjRefChunkTransitPtr(chunk);
 }

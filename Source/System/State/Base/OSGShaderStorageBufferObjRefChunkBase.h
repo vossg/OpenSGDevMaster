@@ -65,7 +65,7 @@
 
 #include "OSGShaderStorageBufferObjBaseChunk.h" // Parent
 
-#include "OSGBaseFields.h"              // GLId type
+#include "OSGBaseFields.h"              // OglGLId type
 
 #include "OSGShaderStorageBufferObjRefChunkFields.h"
 
@@ -94,16 +94,20 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunkBase : public ShaderSt
 
     enum
     {
-        GLIdFieldId = Inherited::NextFieldId,
-        NextFieldId = GLIdFieldId + 1
+        OglGLIdFieldId = Inherited::NextFieldId,
+        OsgGLIdFieldId = OglGLIdFieldId + 1,
+        NextFieldId = OsgGLIdFieldId + 1
     };
 
-    static const OSG::BitVector GLIdFieldMask =
-        (TypeTraits<BitVector>::One << GLIdFieldId);
+    static const OSG::BitVector OglGLIdFieldMask =
+        (TypeTraits<BitVector>::One << OglGLIdFieldId);
+    static const OSG::BitVector OsgGLIdFieldMask =
+        (TypeTraits<BitVector>::One << OsgGLIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFGLenum          SFGLIdType;
+    typedef SFGLenum          SFOglGLIdType;
+    typedef SFGLenum          SFOsgGLIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -129,19 +133,26 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunkBase : public ShaderSt
     /*! \{                                                                 */
 
 
-                  SFGLenum            *editSFGLId           (void);
-            const SFGLenum            *getSFGLId            (void) const;
+                  SFGLenum            *editSFOglGLId        (void);
+            const SFGLenum            *getSFOglGLId         (void) const;
+
+                  SFGLenum            *editSFOsgGLId        (void);
+            const SFGLenum            *getSFOsgGLId         (void) const;
 
 
-                  GLenum              &editGLId           (void);
-            const GLenum              &getGLId            (void) const;
+                  GLenum              &editOglGLId        (void);
+            const GLenum              &getOglGLId         (void) const;
+
+                  GLenum              &editOsgGLId        (void);
+            const GLenum              &getOsgGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setGLId           (const GLenum &value);
+            void setOglGLId        (const GLenum &value);
+            void setOsgGLId        (const GLenum &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,7 +212,8 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunkBase : public ShaderSt
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum          _sfGLId;
+    SFGLenum          _sfOglGLId;
+    SFGLenum          _sfOsgGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,8 +241,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunkBase : public ShaderSt
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-     GetFieldHandlePtr  getHandleGLId            (void) const;
-     EditFieldHandlePtr editHandleGLId           (void);
+     GetFieldHandlePtr  getHandleOglGLId         (void) const;
+     EditFieldHandlePtr editHandleOglGLId        (void);
+     GetFieldHandlePtr  getHandleOsgGLId         (void) const;
+     EditFieldHandlePtr editHandleOsgGLId        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

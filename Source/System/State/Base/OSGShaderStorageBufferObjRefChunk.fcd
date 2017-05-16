@@ -25,15 +25,26 @@
     used if its layout is compatible to std140 or std430 format.
 
     <Field
-        name="GLId"
+        name="oglGLId"
         type="GLenum"
         cardinality="single"
         visibility="internal"
         access="public"
         defaultValue="0"
         fieldFlags="FClusterLocal"
-	>
-            The OpenGL object id for this shader storage buffer object.
+    >
+        The external OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the osgGLId is set to 0.
     </Field>
 
+    <Field
+        name="osgGLId"
+        type="GLenum"
+        cardinality="single"
+        visibility="internal"
+        access="public"
+        defaultValue="0"
+        fieldFlags="FClusterLocal"
+    >
+        The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id is determined by OpenSG. If this id equals 0, the oglGLId is used directly as the GL object id.
+    </Field>
 </FieldContainer>

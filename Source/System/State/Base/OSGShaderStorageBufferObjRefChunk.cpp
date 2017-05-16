@@ -179,13 +179,23 @@ void ShaderStorageBufferObjRefChunk::dump(UInt32          uiIndent,
 
 void ShaderStorageBufferObjRefChunk::validate(DrawEnv *pEnv)
 {
-    pEnv->getWindow()->validateGLObject(this->getGLId(),
-                                        pEnv           );
+    if(this->getOsgGLId() != 0)
+    {
+        pEnv->getWindow()->validateGLObject(this->getOsgGLId(),
+                                            pEnv              );
+    }
 }
 
 Int32 ShaderStorageBufferObjRefChunk::getOpenGLId(DrawEnv *pEnv)
 {
-    return pEnv->getWindow()->getGLObjectId(this->getGLId());
+    if(this->getOsgGLId() != 0)
+    {
+        return pEnv->getWindow()->getGLObjectId(this->getOsgGLId());
+    }
+    else
+    {
+        return this->getOglGLId();
+    }
 }
 
 /*------------------------------ activate -----------------------------------*/
@@ -194,9 +204,8 @@ void ShaderStorageBufferObjRefChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     Window *pWin = pEnv->getWindow();
 
-    pWin->validateGLObject(getGLId(), pEnv);
-
-    GLuint id = pWin->getGLObjectId(getGLId());
+    validate(pEnv);
+    GLuint id = this->getOpenGLId(pEnv);
 
     OSGGETGLFUNCBYID_GL3_ES( glBindBuffer,
                              osgGlBindBuffer,
