@@ -110,10 +110,6 @@ struct bracket_expr_finder
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ShaderStorageBufferObjChunk::_class("ShaderStorageBuffer", osgMaxShaderStorageBufferBindings, 30);
-
-volatile UInt16 ShaderStorageBufferObjChunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 UInt32 ShaderStorageBufferObjChunk::_extVertexBufferObject              = Win::invalidExtensionID;
@@ -223,14 +219,12 @@ void ShaderStorageBufferObjChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderStorageBufferObjChunk::ShaderStorageBufferObjChunk(void) :
-    Inherited(),
-    _uiChunkId(0)
+    Inherited()
 {
 }
 
 ShaderStorageBufferObjChunk::ShaderStorageBufferObjChunk(const ShaderStorageBufferObjChunk &source) :
-    Inherited(source),
-    _uiChunkId(     0)
+    Inherited(source)
 {
 }
 
@@ -239,13 +233,6 @@ ShaderStorageBufferObjChunk::~ShaderStorageBufferObjChunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *ShaderStorageBufferObjChunk::getClass(void) const
-{
-    return &_class;
-}
 
 void ShaderStorageBufferObjChunk::changed(ConstFieldMaskArg whichField, 
                                           UInt32            origin,
@@ -282,8 +269,6 @@ void ShaderStorageBufferObjChunk::onCreate(const ShaderStorageBufferObjChunk *so
     if(GlobalSystemState == Startup)
         return;
 
-    _uiChunkId = _uiChunkCounter++;
-
     setGLId(Window::registerGLObject(
                 boost::bind(&ShaderStorageBufferObjChunk::handleGL, 
                             ShaderStorageBufferObjChunkMTUncountedPtr(this), 
@@ -296,8 +281,6 @@ void ShaderStorageBufferObjChunk::onCreateAspect(
     const ShaderStorageBufferObjChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void ShaderStorageBufferObjChunk::onDestroy(UInt32 uiContainerId)
@@ -347,7 +330,7 @@ UInt32 ShaderStorageBufferObjChunk::handleGL(DrawEnv                 *pEnv,
         return 0;
     }
 
-    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0310);
+    bool hasUBO = pWin->hasExtOrVersion(_extUniformBufferObject, 0x0301);
     if(!hasUBO)
     {
         FWARNING(
@@ -356,7 +339,7 @@ UInt32 ShaderStorageBufferObjChunk::handleGL(DrawEnv                 *pEnv,
         return 0;
     }
 
-    bool hasSSBO = pWin->hasExtOrVersion(_extShaderStorageBufferObject, 0x0430);
+    bool hasSSBO = pWin->hasExtOrVersion(_extShaderStorageBufferObject, 0x0403);
     if(!hasSSBO)
     {
         FWARNING(
@@ -365,7 +348,7 @@ UInt32 ShaderStorageBufferObjChunk::handleGL(DrawEnv                 *pEnv,
         return 0;
     }
 
-    bool hasPIQ = pWin->hasExtOrVersion(_extProgramInterfaceQuery, 0x0420);
+    bool hasPIQ = pWin->hasExtOrVersion(_extProgramInterfaceQuery, 0x0402);
     if(!hasPIQ)
     {
         FWARNING(

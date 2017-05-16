@@ -69,10 +69,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass UniformBufferObjStd140Chunk::_class("UniformBuffer", osgMaxUniformBufferBindings, 30);
-
-volatile UInt16 UniformBufferObjStd140Chunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 UInt32 UniformBufferObjStd140Chunk::_extUniformBufferObject   = Win::invalidExtensionID;
@@ -155,14 +151,12 @@ void UniformBufferObjStd140Chunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 UniformBufferObjStd140Chunk::UniformBufferObjStd140Chunk(void) :
-    Inherited ( ),
-    _uiChunkId(0)
+    Inherited()
 {
 }
 
 UniformBufferObjStd140Chunk::UniformBufferObjStd140Chunk(const UniformBufferObjStd140Chunk &source) :
-    Inherited (source),
-    _uiChunkId(     0)
+    Inherited(source)
 {
 }
 
@@ -171,13 +165,6 @@ UniformBufferObjStd140Chunk::~UniformBufferObjStd140Chunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *UniformBufferObjStd140Chunk::getClass(void) const
-{
-    return &_class;
-}
 
 void UniformBufferObjStd140Chunk::changed(ConstFieldMaskArg whichField, 
                                           UInt32            origin,
@@ -202,8 +189,6 @@ void UniformBufferObjStd140Chunk::onCreate(const UniformBufferObjStd140Chunk *so
     if(GlobalSystemState == Startup)
         return;
 
-    _uiChunkId = _uiChunkCounter++;
-
     setGLId(Window::registerGLObject(
                 boost::bind(&UniformBufferObjStd140Chunk::handleGL, 
                             UniformBufferObjStd140ChunkMTUncountedPtr(this), 
@@ -215,8 +200,6 @@ void UniformBufferObjStd140Chunk::onCreateAspect(const UniformBufferObjStd140Chu
                                                  const UniformBufferObjStd140Chunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void UniformBufferObjStd140Chunk::onDestroy(UInt32 uiContainerId)

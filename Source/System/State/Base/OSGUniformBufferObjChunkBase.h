@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGStateChunk.h" // Parent
+#include "OSGUniformBufferObjBaseChunk.h" // Parent
 
 #include "OSGBaseFields.h"              // GLId type
 #include "OSGSysFields.h"               // FundamentalTypes type
@@ -78,12 +78,12 @@ class UniformBufferObjChunk;
 
 //! \brief UniformBufferObjChunk Base Class.
 
-class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunkBase : public StateChunk
+class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunkBase : public UniformBufferObjBaseChunk
 {
   public:
 
-    typedef StateChunk Inherited;
-    typedef StateChunk ParentContainer;
+    typedef UniformBufferObjBaseChunk Inherited;
+    typedef UniformBufferObjBaseChunk ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

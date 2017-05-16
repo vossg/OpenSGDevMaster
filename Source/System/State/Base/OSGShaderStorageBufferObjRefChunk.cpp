@@ -69,12 +69,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass ShaderStorageBufferObjRefChunk::_class("ShaderStorageBuffer", 
-                                                       osgMaxShaderStorageBufferBindings, // number if slots
-                                                       30);                               // priority
-
-volatile UInt16 ShaderStorageBufferObjRefChunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 UInt32 ShaderStorageBufferObjRefChunk::_extUniformBufferObject        = Win::invalidExtensionID;
@@ -126,15 +120,13 @@ void ShaderStorageBufferObjRefChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ShaderStorageBufferObjRefChunk::ShaderStorageBufferObjRefChunk(void) :
-    Inherited(),
-    _uiChunkId(0)
+    Inherited()
 {
 }
 
 ShaderStorageBufferObjRefChunk::ShaderStorageBufferObjRefChunk(
     const ShaderStorageBufferObjRefChunk &source) :
-    Inherited(source),
-    _uiChunkId(0)
+    Inherited(source)
 {
 }
 
@@ -143,13 +135,6 @@ ShaderStorageBufferObjRefChunk::~ShaderStorageBufferObjRefChunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *ShaderStorageBufferObjRefChunk::getClass(void) const
-{
-    return &_class;
-}
 
 void ShaderStorageBufferObjRefChunk::changed(ConstFieldMaskArg whichField, 
                                              UInt32            origin,
@@ -166,8 +151,6 @@ void ShaderStorageBufferObjRefChunk::onCreate(const ShaderStorageBufferObjRefChu
 
     if(GlobalSystemState == Startup)
         return;
-
-    _uiChunkId = _uiChunkCounter++;
 }
 
 void ShaderStorageBufferObjRefChunk::onCreateAspect(
@@ -175,8 +158,6 @@ void ShaderStorageBufferObjRefChunk::onCreateAspect(
     const ShaderStorageBufferObjRefChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void ShaderStorageBufferObjRefChunk::onDestroy(UInt32 uiContainerId)

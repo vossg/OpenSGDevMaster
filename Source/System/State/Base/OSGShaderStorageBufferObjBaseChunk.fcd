@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ShaderStorageBufferObjBaseChunk"
+   parent="StateChunk"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemState"
+   >
+  
+  Base class for all ShaderStorageBufferObj chunk classes.
+</FieldContainer>

@@ -69,10 +69,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass UniformBufferObjChunk::_class("UniformBuffer", osgMaxUniformBufferBindings, 30);
-
-volatile UInt16 UniformBufferObjChunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 UInt32 UniformBufferObjChunk::_extUniformBufferObject      = Win::invalidExtensionID;
@@ -176,14 +172,12 @@ void UniformBufferObjChunk::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 UniformBufferObjChunk::UniformBufferObjChunk(void) :
-    Inherited ( ),
-    _uiChunkId(0)
+    Inherited()
 {
 }
 
 UniformBufferObjChunk::UniformBufferObjChunk(const UniformBufferObjChunk &source) :
-    Inherited (source),
-    _uiChunkId(     0)
+    Inherited(source)
 {
 }
 
@@ -192,13 +186,6 @@ UniformBufferObjChunk::~UniformBufferObjChunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *UniformBufferObjChunk::getClass(void) const
-{
-    return &_class;
-}
 
 void UniformBufferObjChunk::changed(ConstFieldMaskArg whichField, 
                                     UInt32            origin,
@@ -235,8 +222,6 @@ void UniformBufferObjChunk::onCreate(const UniformBufferObjChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-    _uiChunkId = _uiChunkCounter++;
-
     setGLId(Window::registerGLObject(
                 boost::bind(&UniformBufferObjChunk::handleGL, 
                             UniformBufferObjChunkMTUncountedPtr(this), 
@@ -248,8 +233,6 @@ void UniformBufferObjChunk::onCreateAspect(const UniformBufferObjChunk *createAs
                                            const UniformBufferObjChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void UniformBufferObjChunk::onDestroy(UInt32 uiContainerId)

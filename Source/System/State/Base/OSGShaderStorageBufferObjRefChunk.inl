@@ -40,22 +40,4 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-const StateChunkClass *ShaderStorageBufferObjRefChunk::getStaticClass(void)
-{
-    return &ShaderStorageBufferObjRefChunk::_class;
-}
-
-inline
-UInt32 ShaderStorageBufferObjRefChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
-
-inline
-UInt16 ShaderStorageBufferObjRefChunk::getChunkId(void)
-{
-    return _uiChunkId;
-}
-
 OSG_END_NAMESPACE

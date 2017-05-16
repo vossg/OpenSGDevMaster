@@ -63,28 +63,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
     typedef UniformBufferObjStd140Chunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
@@ -127,9 +105,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    UInt16 _uiChunkId;
-
     // Variables should all be in UniformBufferObjStd140ChunkBase.
 
     void onCreate      (const UniformBufferObjStd140Chunk *source      = NULL);
@@ -176,10 +151,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjStd140Chunk : public UniformBufferOb
     static UInt32 _extUniformBufferObject;
 
     static UInt32 _funcBindBufferBase;
-
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
 

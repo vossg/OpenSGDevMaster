@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="ShaderStorageBufferObjStdLayoutChunk"
-    parent="StateChunk"
+    parent="ShaderStorageBufferObjBaseChunk"
     library="System"
     pointerfieldtypes="both"
     structure="concrete"

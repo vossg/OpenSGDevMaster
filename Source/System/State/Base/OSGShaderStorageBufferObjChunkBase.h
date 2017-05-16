@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGStateChunk.h" // Parent
+#include "OSGShaderStorageBufferObjBaseChunk.h" // Parent
 
 #include "OSGBaseFields.h"              // GLId type
 #include "OSGSysFields.h"               // FundamentalTypes type
@@ -78,12 +78,12 @@ class ShaderStorageBufferObjChunk;
 
 //! \brief ShaderStorageBufferObjChunk Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunkBase : public StateChunk
+class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunkBase : public ShaderStorageBufferObjBaseChunk
 {
   public:
 
-    typedef StateChunk Inherited;
-    typedef StateChunk ParentContainer;
+    typedef ShaderStorageBufferObjBaseChunk Inherited;
+    typedef ShaderStorageBufferObjBaseChunk ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

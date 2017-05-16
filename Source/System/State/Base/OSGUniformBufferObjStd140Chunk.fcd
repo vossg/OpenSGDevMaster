@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="UniformBufferObjStd140Chunk"
-    parent="StateChunk"
+    parent="UniformBufferObjBaseChunk"
     library="System"
     pointerfieldtypes="both"
     structure="concrete"

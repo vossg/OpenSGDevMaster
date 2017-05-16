@@ -71,28 +71,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunk : public ShaderStorageBu
     typedef ShaderStorageBufferObjChunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Interface                               */
     /*! \{                                                                 */
     UInt32  addFloat    (const std::string& name, UInt32 cardinality = 1);
@@ -291,9 +269,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunk : public ShaderStorageBu
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    UInt16 _uiChunkId;
-
     // Variables should all be in ShaderStorageBufferObjChunkBase.
 
     void onCreate      (const ShaderStorageBufferObjChunk *source      = NULL);
@@ -344,9 +319,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjChunk : public ShaderStorageBu
     static UInt32 _funcGetProgramResourceName;
 
     static UInt32 _extShaderStorageBufferObject;
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
 

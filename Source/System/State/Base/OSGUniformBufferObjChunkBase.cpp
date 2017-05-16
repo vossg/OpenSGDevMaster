@@ -152,7 +152,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<UniformBufferObjChunk *, nsOSG>::_type(
     "UniformBufferObjChunkPtr", 
-    "StateChunkPtr", 
+    "UniformBufferObjBaseChunkPtr", 
     UniformBufferObjChunk::getClassType(),
     nsOSG);
 #endif
@@ -365,7 +365,7 @@ UniformBufferObjChunkBase::TypeObject UniformBufferObjChunkBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"UniformBufferObjChunk\"\n"
-    "    parent=\"StateChunk\"\n"
+    "    parent=\"UniformBufferObjBaseChunk\"\n"
     "    library=\"System\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"

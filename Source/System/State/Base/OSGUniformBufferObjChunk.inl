@@ -40,22 +40,4 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-const StateChunkClass *UniformBufferObjChunk::getStaticClass(void)
-{
-    return &UniformBufferObjChunk::_class;
-}
-
-inline
-UInt32 UniformBufferObjChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
-
-inline
-UInt16 UniformBufferObjChunk::getChunkId(void)
-{
-    return _uiChunkId;
-}
-
 OSG_END_NAMESPACE

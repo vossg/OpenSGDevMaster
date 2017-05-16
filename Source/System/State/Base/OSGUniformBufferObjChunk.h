@@ -71,28 +71,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunk : public UniformBufferObjChunk
     typedef UniformBufferObjChunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Interface                               */
     /*! \{                                                                 */
     UInt32  addFloat    (const std::string& name, UInt32 cardinality = 1);
@@ -291,9 +269,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunk : public UniformBufferObjChunk
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    UInt16 _uiChunkId;
-
     // Variables should all be in UniformBufferObjChunkBase.
 
     void onCreate      (const UniformBufferObjChunk *source      = NULL);
@@ -345,9 +320,6 @@ class OSG_SYSTEM_DLLMAPPING UniformBufferObjChunk : public UniformBufferObjChunk
     static UInt32 _funcGetActiveUniformBlockiv;
     static UInt32 _funcGetActiveUniformsiv;
     static UInt32 _funcGetUniformIndices;
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
 

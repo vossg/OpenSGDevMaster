@@ -104,7 +104,7 @@ OSG_BEGIN_NAMESPACE
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<ShaderStorageBufferObjRefChunk *, nsOSG>::_type(
     "ShaderStorageBufferObjRefChunkPtr", 
-    "StateChunkPtr", 
+    "ShaderStorageBufferObjBaseChunkPtr", 
     ShaderStorageBufferObjRefChunk::getClassType(),
     nsOSG);
 #endif
@@ -157,7 +157,7 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     "\n"
     "<FieldContainer\n"
     "    name=\"ShaderStorageBufferObjRefChunk\"\n"
-    "    parent=\"StateChunk\"\n"
+    "    parent=\"ShaderStorageBufferObjBaseChunk\"\n"
     "    library=\"System\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"

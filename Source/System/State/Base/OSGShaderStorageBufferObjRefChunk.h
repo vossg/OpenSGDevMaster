@@ -63,28 +63,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunk : public ShaderStorag
     typedef ShaderStorageBufferObjRefChunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
@@ -127,9 +105,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunk : public ShaderStorag
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    UInt16 _uiChunkId;
-
     // Variables should all be in ShaderStorageBufferObjRefChunkBase.
 
     void onCreate      (const ShaderStorageBufferObjRefChunk *source      = NULL);
@@ -168,9 +143,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderStorageBufferObjRefChunk : public ShaderStorag
     static UInt32 _funcBindBufferBase;
 
     static UInt32 _extShaderStorageBufferObject;
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
 
