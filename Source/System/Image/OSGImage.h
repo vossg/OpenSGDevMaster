@@ -73,6 +73,10 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_I_PF       = GL_INTENSITY,
         OSG_L_PF       = GL_LUMINANCE,
         OSG_LA_PF      = GL_LUMINANCE_ALPHA,
+
+        OSG_R_PF       = GL_RED,
+        OSG_RG_PF      = GL_RG,
+
         OSG_RGB_PF     = GL_RGB,
         OSG_RGBA_PF    = GL_RGBA,
 /*** BGR ***/
@@ -123,7 +127,9 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_DEPTH_PF                   = GL_DEPTH_COMPONENT,
 
 /*** GL_EXT_packed_depth_stencil ***/
-#if defined(GL_DEPTH_STENCIL_EXT)
+#if defined(GL_DEPTH_STENCIL)
+        OSG_DEPTH_STENCIL_PF           = GL_DEPTH_STENCIL,
+#elif defined(GL_DEPTH_STENCIL_EXT)
         OSG_DEPTH_STENCIL_PF           = GL_DEPTH_STENCIL_EXT,
 #elif defined(GL_DEPTH_STENCIL_NV)
         OSG_DEPTH_STENCIL_PF           = GL_DEPTH_STENCIL_NV,
@@ -138,6 +144,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_BGRA_INTEGER_PF            = GL_BGRA_INTEGER_EXT,
         OSG_LUMINANCE_INTEGER_PF       = GL_LUMINANCE_INTEGER_EXT,
         OSG_LUMINANCE_ALPHA_INTEGER_PF = GL_LUMINANCE_ALPHA_INTEGER_EXT
+
+
     };
 
     enum Type 

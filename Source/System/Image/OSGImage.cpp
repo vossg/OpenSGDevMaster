@@ -92,6 +92,8 @@ UInt32 Image::_formatDic[][2] =
     { OSG_I_PF,      1 },
     { OSG_L_PF,      1 },
     { OSG_LA_PF,     2 },
+    { OSG_R_PF,      1 },
+    { OSG_RG_PF,     2 },
     { OSG_RGB_PF,    3 },
     { OSG_RGBA_PF,   4 },
     { OSG_BGR_PF,    3 },
@@ -219,6 +221,12 @@ void Image::dump(      UInt32    ,
             break;
         case OSG_BGRA_PF:
             pfStr = "BGRA";
+            break;
+        case OSG_R_PF:
+            pfStr = "RED";
+            break;
+        case OSG_RG_PF:
+            pfStr = "RG";
             break;
         case OSG_RGB_PF:
             pfStr = "RGB";
@@ -2208,6 +2216,8 @@ bool Image::reformat(const Image::PixelFormat  pixelFormat,
                 case OSG_BGRA_INTEGER_PF:
                 case OSG_LUMINANCE_INTEGER_PF:
                 case OSG_LUMINANCE_ALPHA_INTEGER_PF:
+                case OSG_R_PF:
+                case OSG_RG_PF:
                 {
                     FFATAL((" 'reformat' NYI\n "));
                 }
@@ -4110,13 +4120,19 @@ bool Image::createData(const UInt8 *data, bool allocMem)
     for(i = 0; i < mapSizeFormat; i++)
     {
         if(_formatDic[i][0] == getPixelFormat())
+        {
             pixelFormat = _formatDic[i][1];
+            break;
+        }
     }
 
     for(i = 0; i < mapSizeType; i++)
     {
         if(_typeDic[i][0] == getDataType())
+        {
             typeFormat = _typeDic[i][1];
+            break;
+        }
     }
 
     setComponentSize(typeFormat              );
@@ -4142,7 +4158,7 @@ bool Image::createData(const UInt8 *data, bool allocMem)
     }
 
     // set sideSize
-	UInt32 mipmapSumSize = calcMipmapSumSize(getMipMapCount());
+    UInt32 mipmapSumSize = calcMipmapSumSize(getMipMapCount());
     setSideSize (mipmapSumSize);
 
     // set frameSize
