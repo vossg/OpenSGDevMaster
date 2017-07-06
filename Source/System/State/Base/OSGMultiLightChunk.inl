@@ -40,24 +40,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-const StateChunkClass *MultiLightChunk::getStaticClass(void)
-{
-    return &MultiLightChunk::_class;
-}
-
-inline
-UInt32 MultiLightChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
-
-inline
-UInt16 MultiLightChunk::getChunkId(void)
-{
-    return _uiChunkId;
-}
-
 inline 
 UInt32 MultiLightChunk::numLights() const
 {
@@ -174,6 +156,13 @@ Real32 MultiLightChunk::getSuperEllipsesRoundness(const UInt32 idx) const
 {
     OSG_ASSERT(idx < _mfSuperEllipsesRoundness.size());
     return Inherited::getSuperEllipsesRoundness(idx);
+}
+
+inline
+Real32 MultiLightChunk::getSuperEllipsesTwist(const UInt32 idx) const
+{
+    OSG_ASSERT(idx < _mfSuperEllipsesTwist.size());
+    return Inherited::getSuperEllipsesTwist(idx);
 }
 
 inline
@@ -338,6 +327,13 @@ void MultiLightChunk::setSuperEllipsesRoundness(const UInt32 idx, Real32 roundne
 }
 
 inline
+void MultiLightChunk::setSuperEllipsesTwist(const UInt32 idx, Real32 twist)
+{
+    OSG_ASSERT(idx < _mfSuperEllipsesTwist.size());
+    editSuperEllipsesTwist(idx) = twist;
+}
+
+inline
 void MultiLightChunk::setRangeCutOn(const UInt32 idx, Real32 cutOn)
 {
     OSG_ASSERT(idx < _mfRangeCutOn.size());
@@ -366,7 +362,7 @@ void MultiLightChunk::setRangeFarZone(const UInt32 idx, Real32 farZone)
 }
 
 inline
-void MultiLightChunk::setType(const UInt32 idx, LightType eType)
+void MultiLightChunk::setType(const UInt32 idx, MultiLight::Type eType)
 {
     OSG_ASSERT(idx < _mfType.size());
     editType(idx) = eType;
@@ -436,7 +432,8 @@ bool MultiLightChunk::check_invariant() const
         sz != _mfInnerSuperEllipsesHeight.size() ||
         sz != _mfOuterSuperEllipsesWidth.size() ||
         sz != _mfOuterSuperEllipsesHeight.size() ||
-        sz != _mfSuperEllipsesRoundness.size()))
+        sz != _mfSuperEllipsesRoundness.size() ||
+        sz != _mfSuperEllipsesTwist.size()))
         return false;
 
     return sz == _mfDirection.size() 

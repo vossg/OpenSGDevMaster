@@ -43,6 +43,7 @@ struct entry is omitted.
         float rangeCutOff;
         float rangeNearZone;
         float rangeFarZone;
+        float cosSpotlightAngle;
         float spotlightAngle;
         float spotExponent;
         float innerSuperEllipsesWidth;
@@ -50,6 +51,7 @@ struct entry is omitted.
         float outerSuperEllipsesWidth;
         float outerSuperEllipsesHeight;
         float superEllipsesRoundness;
+        float superEllipsesTwist;
         int   type;
         bool  enabled;
     };
@@ -72,7 +74,7 @@ for standard OpenGL lights
         float constantAttenuation;
         float linearAttenuation;
         float quadraticAttenuation;
-        float spotlightAngle;
+        float cosSpotlightAngle;
         float spotExponent;
         int   type;
         bool  enabled;
@@ -87,7 +89,7 @@ or for simple range lights:
         vec3  color;
         float intensity;
         float rangeCutOff;
-        float spotlightAngle;
+        float cosSpotlightAngle;
         int   type;
         bool  enabled;
     };
@@ -282,6 +284,32 @@ or for simple range lights:
     >
         This flag determines if the hasRangeFarZone attribute is part of the shader storage block, i.e.
         if the "float hasRangeFarZone;" entry is contained in the shader struct for the Light.
+    </Field>
+
+    <Field
+        name="hasCosSpotlightAngle"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="true"
+    >
+        This flag determines if the cosine of the spot light angle attribute is part of the shader storage block, i.e.
+        if the "float  cosSpotlightAngle;" entry is contained in the shader struct for the Light. If neither this flag
+        nor the hasSpotlightAngle flag is true, then this flag is treated as if it has value true.
+    </Field>
+
+    <Field
+        name="hasSpotlightAngle"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="false"
+    >
+        This flag determines if the spot light angle attribute is part of the shader storage block, i.e.
+        if the "float  spotlightAngle;" entry is contained in the shader struct for the Light. If neither this flag
+        nor the hasCosSpotlightAngle flag is true, then the hasCosSpotlightAngle flag is treated as if it has value true.
     </Field>
 
     <Field
@@ -483,6 +511,16 @@ or for simple range lights:
     </Field>
 
     <Field
+        name="superEllipsesTwist"
+        type="Real32"
+        cardinality="multi"
+        visibility="external"
+        access="protected"
+    >
+    The twist angle in degree by which the superellipses is rotatet in the xy-plane.
+    </Field>
+
+    <Field
         name="rangeCutOn"
         type="Real32"
         cardinality="multi"
@@ -621,6 +659,28 @@ or for simple range lights:
         access="protected"
     >
         The camera last to world matrix.
+    </Field>
+
+    <Field
+     name="LightBlockName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"Lights"'
+     >
+        The shader storage buffer block name for the light buffer.
+    </Field>
+
+    <Field
+     name="LightVariableName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"lights"'
+     >
+        The shader variable name for the light buffer.
     </Field>
 
 </FieldContainer>

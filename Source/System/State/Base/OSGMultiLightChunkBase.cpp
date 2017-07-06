@@ -107,6 +107,7 @@ OSG_BEGIN_NAMESPACE
     float rangeCutOff;
     float rangeNearZone;
     float rangeFarZone;
+    float cosSpotlightAngle;
     float spotlightAngle;
     float spotExponent;
     float innerSuperEllipsesWidth;
@@ -114,6 +115,7 @@ OSG_BEGIN_NAMESPACE
     float outerSuperEllipsesWidth;
     float outerSuperEllipsesHeight;
     float superEllipsesRoundness;
+    float superEllipsesTwist;
     int   type;
     bool  enabled;
     };
@@ -136,7 +138,7 @@ OSG_BEGIN_NAMESPACE
     float constantAttenuation;
     float linearAttenuation;
     float quadraticAttenuation;
-    float spotlightAngle;
+    float cosSpotlightAngle;
     float spotExponent;
     int   type;
     bool  enabled;
@@ -151,7 +153,7 @@ OSG_BEGIN_NAMESPACE
     vec3  color;
     float intensity;
     float rangeCutOff;
-    float spotlightAngle;
+    float cosSpotlightAngle;
     int   type;
     bool  enabled;
     };
@@ -248,6 +250,18 @@ OSG_BEGIN_NAMESPACE
     if the "float hasRangeFarZone;" entry is contained in the shader struct for the Light.
 */
 
+/*! \var bool            MultiLightChunkBase::_sfHasCosSpotlightAngle
+    This flag determines if the cosine of the spot light angle attribute is part of the shader storage block, i.e.
+    if the "float  cosSpotlightAngle;" entry is contained in the shader struct for the Light. If neither this flag
+    nor the hasSpotlightAngle flag is true, then this flag is treated as if it has value true.
+*/
+
+/*! \var bool            MultiLightChunkBase::_sfHasSpotlightAngle
+    This flag determines if the spot light angle attribute is part of the shader storage block, i.e.
+    if the "float  spotlightAngle;" entry is contained in the shader struct for the Light. If neither this flag
+    nor the hasCosSpotlightAngle flag is true, then the hasCosSpotlightAngle flag is treated as if it has value true.
+*/
+
 /*! \var bool            MultiLightChunkBase::_sfHasSpotExponent
     This flag determines if the spot expenent attribute is part of the shader storage block, i.e.
     if the "float  spotExponent;" entry is contained in the shader struct for the Light.
@@ -342,6 +356,10 @@ OSG_BEGIN_NAMESPACE
     https://en.wikipedia.org/wiki/Superellipse
 */
 
+/*! \var Real32          MultiLightChunkBase::_mfSuperEllipsesTwist
+    The twist angle in degree by which the superellipses is rotatet in the xy-plane.
+*/
+
 /*! \var Real32          MultiLightChunkBase::_mfRangeCutOn
     The cinema light is described among others by a rangeCutOn parameter.
     In the interval rangeCutOn to rangeCutOff the lighted fragments are
@@ -405,6 +423,14 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Matrix          MultiLightChunkBase::_sfLastCamToWorld
     The camera last to world matrix.
+*/
+
+/*! \var std::string     MultiLightChunkBase::_sfLightBlockName
+    The shader storage buffer block name for the light buffer.
+*/
+
+/*! \var std::string     MultiLightChunkBase::_sfLightVariableName
+    The shader variable name for the light buffer.
 */
 
 
@@ -648,6 +674,34 @@ void MultiLightChunkBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
+        "hasCosSpotlightAngle",
+        "This flag determines if the cosine of the spot light angle attribute is part of the shader storage block, i.e.\n"
+        "if the \"float  cosSpotlightAngle;\" entry is contained in the shader struct for the Light. If neither this flag\n"
+        "nor the hasSpotlightAngle flag is true, then this flag is treated as if it has value true.\n",
+        HasCosSpotlightAngleFieldId, HasCosSpotlightAngleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiLightChunk::editHandleHasCosSpotlightAngle),
+        static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleHasCosSpotlightAngle));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "hasSpotlightAngle",
+        "This flag determines if the spot light angle attribute is part of the shader storage block, i.e.\n"
+        "if the \"float  spotlightAngle;\" entry is contained in the shader struct for the Light. If neither this flag\n"
+        "nor the hasCosSpotlightAngle flag is true, then the hasCosSpotlightAngle flag is treated as if it has value true.\n",
+        HasSpotlightAngleFieldId, HasSpotlightAngleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiLightChunk::editHandleHasSpotlightAngle),
+        static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleHasSpotlightAngle));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
         "hasSpotExponent",
         "This flag determines if the spot expenent attribute is part of the shader storage block, i.e.\n"
         "if the \"float  spotExponent;\" entry is contained in the shader struct for the Light.\n",
@@ -878,6 +932,18 @@ void MultiLightChunkBase::classDescInserter(TypeObject &oType)
 
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(),
+        "superEllipsesTwist",
+        "The twist angle in degree by which the superellipses is rotatet in the xy-plane.\n",
+        SuperEllipsesTwistFieldId, SuperEllipsesTwistFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiLightChunk::editHandleSuperEllipsesTwist),
+        static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleSuperEllipsesTwist));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
         "rangeCutOn",
         "The cinema light is described among others by a rangeCutOn parameter.\n"
         "In the interval rangeCutOn to rangeCutOff the lighted fragments are\n"
@@ -1036,6 +1102,30 @@ void MultiLightChunkBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleLastCamToWorld));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "LightBlockName",
+        "The shader storage buffer block name for the light buffer.\n",
+        LightBlockNameFieldId, LightBlockNameFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiLightChunk::editHandleLightBlockName),
+        static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleLightBlockName));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "LightVariableName",
+        "The shader variable name for the light buffer.\n",
+        LightVariableNameFieldId, LightVariableNameFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&MultiLightChunk::editHandleLightVariableName),
+        static_cast<FieldGetMethodSig >(&MultiLightChunk::getHandleLightVariableName));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -1095,6 +1185,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "        float rangeCutOff;\n"
     "        float rangeNearZone;\n"
     "        float rangeFarZone;\n"
+    "        float cosSpotlightAngle;\n"
     "        float spotlightAngle;\n"
     "        float spotExponent;\n"
     "        float innerSuperEllipsesWidth;\n"
@@ -1102,6 +1193,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "        float outerSuperEllipsesWidth;\n"
     "        float outerSuperEllipsesHeight;\n"
     "        float superEllipsesRoundness;\n"
+    "        float superEllipsesTwist;\n"
     "        int   type;\n"
     "        bool  enabled;\n"
     "    };\n"
@@ -1124,7 +1216,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "        float constantAttenuation;\n"
     "        float linearAttenuation;\n"
     "        float quadraticAttenuation;\n"
-    "        float spotlightAngle;\n"
+    "        float cosSpotlightAngle;\n"
     "        float spotExponent;\n"
     "        int   type;\n"
     "        bool  enabled;\n"
@@ -1139,7 +1231,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "        vec3  color;\n"
     "        float intensity;\n"
     "        float rangeCutOff;\n"
-    "        float spotlightAngle;\n"
+    "        float cosSpotlightAngle;\n"
     "        int   type;\n"
     "        bool  enabled;\n"
     "    };\n"
@@ -1334,6 +1426,32 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "    >\n"
     "        This flag determines if the hasRangeFarZone attribute is part of the shader storage block, i.e.\n"
     "        if the \"float hasRangeFarZone;\" entry is contained in the shader struct for the Light.\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"hasCosSpotlightAngle\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"true\"\n"
+    "    >\n"
+    "        This flag determines if the cosine of the spot light angle attribute is part of the shader storage block, i.e.\n"
+    "        if the \"float  cosSpotlightAngle;\" entry is contained in the shader struct for the Light. If neither this flag\n"
+    "        nor the hasSpotlightAngle flag is true, then this flag is treated as if it has value true.\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "        name=\"hasSpotlightAngle\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"false\"\n"
+    "    >\n"
+    "        This flag determines if the spot light angle attribute is part of the shader storage block, i.e.\n"
+    "        if the \"float  spotlightAngle;\" entry is contained in the shader struct for the Light. If neither this flag\n"
+    "        nor the hasCosSpotlightAngle flag is true, then the hasCosSpotlightAngle flag is treated as if it has value true.\n"
     "    </Field>\n"
     "\n"
     "    <Field\n"
@@ -1535,6 +1653,16 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "    </Field>\n"
     "\n"
     "    <Field\n"
+    "        name=\"superEllipsesTwist\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"protected\"\n"
+    "    >\n"
+    "    The twist angle in degree by which the superellipses is rotatet in the xy-plane.\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
     "        name=\"rangeCutOn\"\n"
     "        type=\"Real32\"\n"
     "        cardinality=\"multi\"\n"
@@ -1675,6 +1803,28 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "        The camera last to world matrix.\n"
     "    </Field>\n"
     "\n"
+    "    <Field\n"
+    "     name=\"LightBlockName\"\n"
+    "     type=\"std::string\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue='\"Lights\"'\n"
+    "     >\n"
+    "        The shader storage buffer block name for the light buffer.\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "     name=\"LightVariableName\"\n"
+    "     type=\"std::string\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue='\"lights\"'\n"
+    "     >\n"
+    "        The shader variable name for the light buffer.\n"
+    "    </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     "See \\ref PageSystemMultiLightChunk for a description.\n"
     "\n"
@@ -1707,6 +1857,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "float rangeCutOff;\n"
     "float rangeNearZone;\n"
     "float rangeFarZone;\n"
+    "float cosSpotlightAngle;\n"
     "float spotlightAngle;\n"
     "float spotExponent;\n"
     "float innerSuperEllipsesWidth;\n"
@@ -1714,6 +1865,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "float outerSuperEllipsesWidth;\n"
     "float outerSuperEllipsesHeight;\n"
     "float superEllipsesRoundness;\n"
+    "float superEllipsesTwist;\n"
     "int   type;\n"
     "bool  enabled;\n"
     "};\n"
@@ -1736,7 +1888,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "float constantAttenuation;\n"
     "float linearAttenuation;\n"
     "float quadraticAttenuation;\n"
-    "float spotlightAngle;\n"
+    "float cosSpotlightAngle;\n"
     "float spotExponent;\n"
     "int   type;\n"
     "bool  enabled;\n"
@@ -1751,7 +1903,7 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     "vec3  color;\n"
     "float intensity;\n"
     "float rangeCutOff;\n"
-    "float spotlightAngle;\n"
+    "float cosSpotlightAngle;\n"
     "int   type;\n"
     "bool  enabled;\n"
     "};\n"
@@ -1969,6 +2121,32 @@ SFBool *MultiLightChunkBase::editSFHasRangeFarZone(void)
 const SFBool *MultiLightChunkBase::getSFHasRangeFarZone(void) const
 {
     return &_sfHasRangeFarZone;
+}
+
+
+SFBool *MultiLightChunkBase::editSFHasCosSpotlightAngle(void)
+{
+    editSField(HasCosSpotlightAngleFieldMask);
+
+    return &_sfHasCosSpotlightAngle;
+}
+
+const SFBool *MultiLightChunkBase::getSFHasCosSpotlightAngle(void) const
+{
+    return &_sfHasCosSpotlightAngle;
+}
+
+
+SFBool *MultiLightChunkBase::editSFHasSpotlightAngle(void)
+{
+    editSField(HasSpotlightAngleFieldMask);
+
+    return &_sfHasSpotlightAngle;
+}
+
+const SFBool *MultiLightChunkBase::getSFHasSpotlightAngle(void) const
+{
+    return &_sfHasSpotlightAngle;
 }
 
 
@@ -2193,6 +2371,19 @@ const MFReal32 *MultiLightChunkBase::getMFSuperEllipsesRoundness(void) const
 }
 
 
+MFReal32 *MultiLightChunkBase::editMFSuperEllipsesTwist(void)
+{
+    editMField(SuperEllipsesTwistFieldMask, _mfSuperEllipsesTwist);
+
+    return &_mfSuperEllipsesTwist;
+}
+
+const MFReal32 *MultiLightChunkBase::getMFSuperEllipsesTwist(void) const
+{
+    return &_mfSuperEllipsesTwist;
+}
+
+
 MFReal32 *MultiLightChunkBase::editMFRangeCutOn(void)
 {
     editMField(RangeCutOnFieldMask, _mfRangeCutOn);
@@ -2353,6 +2544,32 @@ const SFMatrix *MultiLightChunkBase::getSFLastCamToWorld(void) const
 }
 
 
+SFString *MultiLightChunkBase::editSFLightBlockName(void)
+{
+    editSField(LightBlockNameFieldMask);
+
+    return &_sfLightBlockName;
+}
+
+const SFString *MultiLightChunkBase::getSFLightBlockName(void) const
+{
+    return &_sfLightBlockName;
+}
+
+
+SFString *MultiLightChunkBase::editSFLightVariableName(void)
+{
+    editSField(LightVariableNameFieldMask);
+
+    return &_sfLightVariableName;
+}
+
+const SFString *MultiLightChunkBase::getSFLightVariableName(void) const
+{
+    return &_sfLightVariableName;
+}
+
+
 
 
 void MultiLightChunkBase::pushToBeacon(Node * const value)
@@ -2476,6 +2693,14 @@ SizeT MultiLightChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfHasRangeFarZone.getBinSize();
     }
+    if(FieldBits::NoField != (HasCosSpotlightAngleFieldMask & whichField))
+    {
+        returnValue += _sfHasCosSpotlightAngle.getBinSize();
+    }
+    if(FieldBits::NoField != (HasSpotlightAngleFieldMask & whichField))
+    {
+        returnValue += _sfHasSpotlightAngle.getBinSize();
+    }
     if(FieldBits::NoField != (HasSpotExponentFieldMask & whichField))
     {
         returnValue += _sfHasSpotExponent.getBinSize();
@@ -2544,6 +2769,10 @@ SizeT MultiLightChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfSuperEllipsesRoundness.getBinSize();
     }
+    if(FieldBits::NoField != (SuperEllipsesTwistFieldMask & whichField))
+    {
+        returnValue += _mfSuperEllipsesTwist.getBinSize();
+    }
     if(FieldBits::NoField != (RangeCutOnFieldMask & whichField))
     {
         returnValue += _mfRangeCutOn.getBinSize();
@@ -2591,6 +2820,14 @@ SizeT MultiLightChunkBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (LastCamToWorldFieldMask & whichField))
     {
         returnValue += _sfLastCamToWorld.getBinSize();
+    }
+    if(FieldBits::NoField != (LightBlockNameFieldMask & whichField))
+    {
+        returnValue += _sfLightBlockName.getBinSize();
+    }
+    if(FieldBits::NoField != (LightVariableNameFieldMask & whichField))
+    {
+        returnValue += _sfLightVariableName.getBinSize();
     }
 
     return returnValue;
@@ -2661,6 +2898,14 @@ void MultiLightChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfHasRangeFarZone.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (HasCosSpotlightAngleFieldMask & whichField))
+    {
+        _sfHasCosSpotlightAngle.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (HasSpotlightAngleFieldMask & whichField))
+    {
+        _sfHasSpotlightAngle.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (HasSpotExponentFieldMask & whichField))
     {
         _sfHasSpotExponent.copyToBin(pMem);
@@ -2729,6 +2974,10 @@ void MultiLightChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfSuperEllipsesRoundness.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SuperEllipsesTwistFieldMask & whichField))
+    {
+        _mfSuperEllipsesTwist.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (RangeCutOnFieldMask & whichField))
     {
         _mfRangeCutOn.copyToBin(pMem);
@@ -2776,6 +3025,14 @@ void MultiLightChunkBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (LastCamToWorldFieldMask & whichField))
     {
         _sfLastCamToWorld.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (LightBlockNameFieldMask & whichField))
+    {
+        _sfLightBlockName.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (LightVariableNameFieldMask & whichField))
+    {
+        _sfLightVariableName.copyToBin(pMem);
     }
 }
 
@@ -2858,6 +3115,16 @@ void MultiLightChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(HasRangeFarZoneFieldMask);
         _sfHasRangeFarZone.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (HasCosSpotlightAngleFieldMask & whichField))
+    {
+        editSField(HasCosSpotlightAngleFieldMask);
+        _sfHasCosSpotlightAngle.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (HasSpotlightAngleFieldMask & whichField))
+    {
+        editSField(HasSpotlightAngleFieldMask);
+        _sfHasSpotlightAngle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HasSpotExponentFieldMask & whichField))
     {
@@ -2944,6 +3211,11 @@ void MultiLightChunkBase::copyFromBin(BinaryDataHandler &pMem,
         editMField(SuperEllipsesRoundnessFieldMask, _mfSuperEllipsesRoundness);
         _mfSuperEllipsesRoundness.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (SuperEllipsesTwistFieldMask & whichField))
+    {
+        editMField(SuperEllipsesTwistFieldMask, _mfSuperEllipsesTwist);
+        _mfSuperEllipsesTwist.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (RangeCutOnFieldMask & whichField))
     {
         editMField(RangeCutOnFieldMask, _mfRangeCutOn);
@@ -3003,6 +3275,16 @@ void MultiLightChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         editSField(LastCamToWorldFieldMask);
         _sfLastCamToWorld.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (LightBlockNameFieldMask & whichField))
+    {
+        editSField(LightBlockNameFieldMask);
+        _sfLightBlockName.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (LightVariableNameFieldMask & whichField))
+    {
+        editSField(LightVariableNameFieldMask);
+        _sfLightVariableName.copyFromBin(pMem);
     }
 }
 
@@ -3144,6 +3426,8 @@ MultiLightChunkBase::MultiLightChunkBase(void) :
     _sfHasRangeCutOff         (bool(false)),
     _sfHasRangeNearZone       (bool(false)),
     _sfHasRangeFarZone        (bool(false)),
+    _sfHasCosSpotlightAngle   (bool(true)),
+    _sfHasSpotlightAngle      (bool(false)),
     _sfHasSpotExponent        (bool(true)),
     _sfHasCinemaLight         (bool(false)),
     _mfPosition               (),
@@ -3161,6 +3445,7 @@ MultiLightChunkBase::MultiLightChunkBase(void) :
     _mfOuterSuperEllipsesWidth(),
     _mfOuterSuperEllipsesHeight(),
     _mfSuperEllipsesRoundness (),
+    _mfSuperEllipsesTwist     (),
     _mfRangeCutOn             (),
     _mfRangeCutOff            (),
     _mfRangeNearZone          (),
@@ -3172,7 +3457,9 @@ MultiLightChunkBase::MultiLightChunkBase(void) :
     _sfEyeSpace               (bool(false)),
     _sfLastCamNear            (Real32(0.f)),
     _sfLastCamFar             (Real32(0.f)),
-    _sfLastCamToWorld         ()
+    _sfLastCamToWorld         (),
+    _sfLightBlockName         (std::string("Lights")),
+    _sfLightVariableName      (std::string("lights"))
 {
 }
 
@@ -3193,6 +3480,8 @@ MultiLightChunkBase::MultiLightChunkBase(const MultiLightChunkBase &source) :
     _sfHasRangeCutOff         (source._sfHasRangeCutOff         ),
     _sfHasRangeNearZone       (source._sfHasRangeNearZone       ),
     _sfHasRangeFarZone        (source._sfHasRangeFarZone        ),
+    _sfHasCosSpotlightAngle   (source._sfHasCosSpotlightAngle   ),
+    _sfHasSpotlightAngle      (source._sfHasSpotlightAngle      ),
     _sfHasSpotExponent        (source._sfHasSpotExponent        ),
     _sfHasCinemaLight         (source._sfHasCinemaLight         ),
     _mfPosition               (source._mfPosition               ),
@@ -3210,6 +3499,7 @@ MultiLightChunkBase::MultiLightChunkBase(const MultiLightChunkBase &source) :
     _mfOuterSuperEllipsesWidth(source._mfOuterSuperEllipsesWidth),
     _mfOuterSuperEllipsesHeight(source._mfOuterSuperEllipsesHeight),
     _mfSuperEllipsesRoundness (source._mfSuperEllipsesRoundness ),
+    _mfSuperEllipsesTwist     (source._mfSuperEllipsesTwist     ),
     _mfRangeCutOn             (source._mfRangeCutOn             ),
     _mfRangeCutOff            (source._mfRangeCutOff            ),
     _mfRangeNearZone          (source._mfRangeNearZone          ),
@@ -3221,7 +3511,9 @@ MultiLightChunkBase::MultiLightChunkBase(const MultiLightChunkBase &source) :
     _sfEyeSpace               (source._sfEyeSpace               ),
     _sfLastCamNear            (source._sfLastCamNear            ),
     _sfLastCamFar             (source._sfLastCamFar             ),
-    _sfLastCamToWorld         (source._sfLastCamToWorld         )
+    _sfLastCamToWorld         (source._sfLastCamToWorld         ),
+    _sfLightBlockName         (source._sfLightBlockName         ),
+    _sfLightVariableName      (source._sfLightVariableName      )
 {
 }
 
@@ -3625,6 +3917,56 @@ EditFieldHandlePtr MultiLightChunkBase::editHandleHasRangeFarZone(void)
 
 
     editSField(HasRangeFarZoneFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MultiLightChunkBase::getHandleHasCosSpotlightAngle (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfHasCosSpotlightAngle,
+             this->getType().getFieldDesc(HasCosSpotlightAngleFieldId),
+             const_cast<MultiLightChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiLightChunkBase::editHandleHasCosSpotlightAngle(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfHasCosSpotlightAngle,
+             this->getType().getFieldDesc(HasCosSpotlightAngleFieldId),
+             this));
+
+
+    editSField(HasCosSpotlightAngleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MultiLightChunkBase::getHandleHasSpotlightAngle (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfHasSpotlightAngle,
+             this->getType().getFieldDesc(HasSpotlightAngleFieldId),
+             const_cast<MultiLightChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiLightChunkBase::editHandleHasSpotlightAngle(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfHasSpotlightAngle,
+             this->getType().getFieldDesc(HasSpotlightAngleFieldId),
+             this));
+
+
+    editSField(HasSpotlightAngleFieldMask);
 
     return returnValue;
 }
@@ -4054,6 +4396,31 @@ EditFieldHandlePtr MultiLightChunkBase::editHandleSuperEllipsesRoundness(void)
     return returnValue;
 }
 
+GetFieldHandlePtr MultiLightChunkBase::getHandleSuperEllipsesTwist (void) const
+{
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfSuperEllipsesTwist,
+             this->getType().getFieldDesc(SuperEllipsesTwistFieldId),
+             const_cast<MultiLightChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiLightChunkBase::editHandleSuperEllipsesTwist(void)
+{
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfSuperEllipsesTwist,
+             this->getType().getFieldDesc(SuperEllipsesTwistFieldId),
+             this));
+
+
+    editMField(SuperEllipsesTwistFieldMask, _mfSuperEllipsesTwist);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr MultiLightChunkBase::getHandleRangeCutOn      (void) const
 {
     MFReal32::GetHandlePtr returnValue(
@@ -4366,6 +4733,56 @@ EditFieldHandlePtr MultiLightChunkBase::editHandleLastCamToWorld (void)
     return returnValue;
 }
 
+GetFieldHandlePtr MultiLightChunkBase::getHandleLightBlockName  (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfLightBlockName,
+             this->getType().getFieldDesc(LightBlockNameFieldId),
+             const_cast<MultiLightChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiLightChunkBase::editHandleLightBlockName (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfLightBlockName,
+             this->getType().getFieldDesc(LightBlockNameFieldId),
+             this));
+
+
+    editSField(LightBlockNameFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr MultiLightChunkBase::getHandleLightVariableName (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfLightVariableName,
+             this->getType().getFieldDesc(LightVariableNameFieldId),
+             const_cast<MultiLightChunkBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr MultiLightChunkBase::editHandleLightVariableName(void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfLightVariableName,
+             this->getType().getFieldDesc(LightVariableNameFieldId),
+             this));
+
+
+    editSField(LightVariableNameFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void MultiLightChunkBase::execSyncV(      FieldContainer    &oFrom,
@@ -4469,6 +4886,10 @@ void MultiLightChunkBase::resolveLinks(void)
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfSuperEllipsesRoundness.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfSuperEllipsesTwist.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT

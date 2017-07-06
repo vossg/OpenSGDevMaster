@@ -45,6 +45,51 @@
 
 OSG_BEGIN_NAMESPACE
 
+struct OSG_SYSTEM_DLLMAPPING  MultiLight
+{
+    enum Type
+    {
+        POINT_LIGHT = 1,
+        DIRECTIONAL_LIGHT = 2,
+        SPOT_LIGHT = 3,
+        CINEMA_LIGHT = 4
+    };
+
+    enum Layout {
+         SIMPLE_LAYOUT = 0x01,  // Color,Intensity,RangeCutOff
+          RANGE_LAYOUT = 0x02,  // RangeCutOn, RangeCutOff
+           ZONE_LAYOUT = 0x04,  // RangeNearZone, RangeFarZone
+         OPENGL_LAYOUT = 0x08,  // Ambient-, Diffuse-, Specular Intensity, Attenuation
+         CINEMA_LAYOUT = 0x10   // SuperEllipses
+    };
+
+    explicit MultiLight(Type e);
+
+    Pnt3f       position;
+    Vec3f       direction;
+    Color3f     color;
+    Real32      intensity;
+    Vec3f       ambientIntensity;
+    Vec3f       diffuseIntensity;
+    Vec3f       specularIntensity;
+    Vec3f       attenuation;
+    Real32      spotlightAngle;
+    Real32      spotExponent;
+    Real32      innerSuperEllipsesWidth;
+    Real32      innerSuperEllipsesHeight;
+    Real32      outerSuperEllipsesWidth;
+    Real32      outerSuperEllipsesHeight;
+    Real32      superEllipsesRoundness;
+    Real32      superEllipsesTwist;
+    Real32      rangeCutOn;
+    Real32      rangeCutOff;
+    Real32      rangeNearZone;
+    Real32      rangeFarZone;
+    Type        type;
+    bool        enabled;
+    NodeRefPtr  beacon;
+};
+
 /*! \brief MultiLightChunk class. See \ref
            PageSystemMultiLightChunk for a description.
 */
@@ -61,47 +106,12 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunk : public MultiLightChunkBase
     typedef MultiLightChunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Interface                               */
     /*! \{                                                                 */
 
-    enum LightType {
-        POINT_LIGHT = 1,
-        DIRECTIONAL_LIGHT = 2,
-        SPOT_LIGHT = 3,
-        CINEMA_LIGHT = 4
-    };
-
-    enum LayoutType {
-         SIMPLE_LAYOUT = 0x01,  // Color,Intensity,RangeCutOff
-          RANGE_LAYOUT = 0x02,  // RangeCutOn, RangeCutOff
-           ZONE_LAYOUT = 0x04,  // RangeNearZone, RangeFarZone
-         OPENGL_LAYOUT = 0x08,  // Ambient-, Diffuse-, Specular Intensity, Attenuation
-         CINEMA_LAYOUT = 0x10   // SuperEllipses
-    };
-
-          UInt32               addLight                     (LightType eType);
+          UInt32               addLight                     (MultiLight::Type eType);
+          UInt32               addLight                     (const MultiLight& light);
+          void                 updateLight                  (const UInt32 idx, const MultiLight& light);
           void                 removeLight                  (const UInt32 idx);
           void                 clearLights                  ();
           UInt32               numLights                    () const;
@@ -123,6 +133,7 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunk : public MultiLightChunkBase
           Real32               getOuterSuperEllipsesWidth   (const UInt32 idx) const;
           Real32               getOuterSuperEllipsesHeight  (const UInt32 idx) const;
           Real32               getSuperEllipsesRoundness    (const UInt32 idx) const;
+          Real32               getSuperEllipsesTwist        (const UInt32 idx) const;
           Real32               getRangeCutOn                (const UInt32 idx) const;
           Real32               getRangeCutOff               (const UInt32 idx) const;
           Real32               getRangeNearZone             (const UInt32 idx) const;
@@ -147,15 +158,18 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunk : public MultiLightChunkBase
           void                 setOuterSuperEllipsesWidth   (const UInt32 idx, Real32 width);
           void                 setOuterSuperEllipsesHeight  (const UInt32 idx, Real32 height);
           void                 setSuperEllipsesRoundness    (const UInt32 idx, Real32 roundness);
+          void                 setSuperEllipsesTwist        (const UInt32 idx, Real32 twist);
           void                 setRangeCutOn                (const UInt32 idx, Real32 cutOn);
           void                 setRangeCutOff               (const UInt32 idx, Real32 cutOff);
           void                 setRangeNearZone             (const UInt32 idx, Real32 nearZone);
           void                 setRangeFarZone              (const UInt32 idx, Real32 farZone);
-          void                 setType                      (const UInt32 idx, LightType eType);
+          void                 setType                      (const UInt32 idx, MultiLight::Type eType);
           void                 setEnabled                   (const UInt32 idx, bool flag);
           void                 setBeacon                    (const UInt32 idx, Node* const beacon);
 
-          void                 changedBeacon      ();
+          void                 changedBeacon                ();
+
+          std::string          getLightProgSnippet          () const;
 
     /*! \}                                                                 */
     
@@ -198,8 +212,6 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunk : public MultiLightChunkBase
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    UInt16 _uiChunkId;
     bool   _bUpdateBuffer;
 
     ChangedFunctor  _cameraCB;
@@ -233,10 +245,6 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunk : public MultiLightChunkBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
-
     /*==========================  PRIVATE  ================================*/
 
   private:

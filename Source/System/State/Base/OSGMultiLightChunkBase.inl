@@ -449,6 +449,56 @@ void MultiLightChunkBase::setHasRangeFarZone(const bool value)
 
     _sfHasRangeFarZone.setValue(value);
 }
+//! Get the value of the MultiLightChunk::_sfHasCosSpotlightAngle field.
+
+inline
+bool &MultiLightChunkBase::editHasCosSpotlightAngle(void)
+{
+    editSField(HasCosSpotlightAngleFieldMask);
+
+    return _sfHasCosSpotlightAngle.getValue();
+}
+
+//! Get the value of the MultiLightChunk::_sfHasCosSpotlightAngle field.
+inline
+      bool  MultiLightChunkBase::getHasCosSpotlightAngle(void) const
+{
+    return _sfHasCosSpotlightAngle.getValue();
+}
+
+//! Set the value of the MultiLightChunk::_sfHasCosSpotlightAngle field.
+inline
+void MultiLightChunkBase::setHasCosSpotlightAngle(const bool value)
+{
+    editSField(HasCosSpotlightAngleFieldMask);
+
+    _sfHasCosSpotlightAngle.setValue(value);
+}
+//! Get the value of the MultiLightChunk::_sfHasSpotlightAngle field.
+
+inline
+bool &MultiLightChunkBase::editHasSpotlightAngle(void)
+{
+    editSField(HasSpotlightAngleFieldMask);
+
+    return _sfHasSpotlightAngle.getValue();
+}
+
+//! Get the value of the MultiLightChunk::_sfHasSpotlightAngle field.
+inline
+      bool  MultiLightChunkBase::getHasSpotlightAngle(void) const
+{
+    return _sfHasSpotlightAngle.getValue();
+}
+
+//! Set the value of the MultiLightChunk::_sfHasSpotlightAngle field.
+inline
+void MultiLightChunkBase::setHasSpotlightAngle(const bool value)
+{
+    editSField(HasSpotlightAngleFieldMask);
+
+    _sfHasSpotlightAngle.setValue(value);
+}
 //! Get the value of the MultiLightChunk::_sfHasSpotExponent field.
 
 inline
@@ -598,6 +648,56 @@ void MultiLightChunkBase::setLastCamToWorld(const Matrix &value)
     editSField(LastCamToWorldFieldMask);
 
     _sfLastCamToWorld.setValue(value);
+}
+//! Get the value of the MultiLightChunk::_sfLightBlockName field.
+
+inline
+std::string &MultiLightChunkBase::editLightBlockName(void)
+{
+    editSField(LightBlockNameFieldMask);
+
+    return _sfLightBlockName.getValue();
+}
+
+//! Get the value of the MultiLightChunk::_sfLightBlockName field.
+inline
+const std::string &MultiLightChunkBase::getLightBlockName(void) const
+{
+    return _sfLightBlockName.getValue();
+}
+
+//! Set the value of the MultiLightChunk::_sfLightBlockName field.
+inline
+void MultiLightChunkBase::setLightBlockName(const std::string &value)
+{
+    editSField(LightBlockNameFieldMask);
+
+    _sfLightBlockName.setValue(value);
+}
+//! Get the value of the MultiLightChunk::_sfLightVariableName field.
+
+inline
+std::string &MultiLightChunkBase::editLightVariableName(void)
+{
+    editSField(LightVariableNameFieldMask);
+
+    return _sfLightVariableName.getValue();
+}
+
+//! Get the value of the MultiLightChunk::_sfLightVariableName field.
+inline
+const std::string &MultiLightChunkBase::getLightVariableName(void) const
+{
+    return _sfLightVariableName.getValue();
+}
+
+//! Set the value of the MultiLightChunk::_sfLightVariableName field.
+inline
+void MultiLightChunkBase::setLightVariableName(const std::string &value)
+{
+    editSField(LightVariableNameFieldMask);
+
+    _sfLightVariableName.setValue(value);
 }
 
 //! Get the value of the \a index element the MultiLightChunk::_mfPosition field.
@@ -825,6 +925,21 @@ MFReal32           ::reference MultiLightChunkBase::editSuperEllipsesRoundness(c
     return _mfSuperEllipsesRoundness[index];
 }
 
+//! Get the value of the \a index element the MultiLightChunk::_mfSuperEllipsesTwist field.
+inline
+      Real32  MultiLightChunkBase::getSuperEllipsesTwist(const UInt32 index) const
+{
+    return _mfSuperEllipsesTwist[index];
+}
+
+inline
+MFReal32           ::reference MultiLightChunkBase::editSuperEllipsesTwist(const UInt32 index)
+{
+    editMField(SuperEllipsesTwistFieldMask, _mfSuperEllipsesTwist);
+
+    return _mfSuperEllipsesTwist[index];
+}
+
 //! Get the value of the \a index element the MultiLightChunk::_mfRangeCutOn field.
 inline
       Real32  MultiLightChunkBase::getRangeCutOn(const UInt32 index) const
@@ -987,6 +1102,12 @@ void MultiLightChunkBase::execSync (      MultiLightChunkBase *pFrom,
     if(FieldBits::NoField != (HasRangeFarZoneFieldMask & whichField))
         _sfHasRangeFarZone.syncWith(pFrom->_sfHasRangeFarZone);
 
+    if(FieldBits::NoField != (HasCosSpotlightAngleFieldMask & whichField))
+        _sfHasCosSpotlightAngle.syncWith(pFrom->_sfHasCosSpotlightAngle);
+
+    if(FieldBits::NoField != (HasSpotlightAngleFieldMask & whichField))
+        _sfHasSpotlightAngle.syncWith(pFrom->_sfHasSpotlightAngle);
+
     if(FieldBits::NoField != (HasSpotExponentFieldMask & whichField))
         _sfHasSpotExponent.syncWith(pFrom->_sfHasSpotExponent);
 
@@ -1083,6 +1204,12 @@ void MultiLightChunkBase::execSync (      MultiLightChunkBase *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
 
+    if(FieldBits::NoField != (SuperEllipsesTwistFieldMask & whichField))
+        _mfSuperEllipsesTwist.syncWith(pFrom->_mfSuperEllipsesTwist,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
     if(FieldBits::NoField != (RangeCutOnFieldMask & whichField))
         _mfRangeCutOn.syncWith(pFrom->_mfRangeCutOn,
                                 syncMode,
@@ -1142,6 +1269,12 @@ void MultiLightChunkBase::execSync (      MultiLightChunkBase *pFrom,
 
     if(FieldBits::NoField != (LastCamToWorldFieldMask & whichField))
         _sfLastCamToWorld.syncWith(pFrom->_sfLastCamToWorld);
+
+    if(FieldBits::NoField != (LightBlockNameFieldMask & whichField))
+        _sfLightBlockName.syncWith(pFrom->_sfLightBlockName);
+
+    if(FieldBits::NoField != (LightVariableNameFieldMask & whichField))
+        _sfLightVariableName.syncWith(pFrom->_sfLightVariableName);
 }
 #endif
 

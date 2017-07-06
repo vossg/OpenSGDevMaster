@@ -113,7 +113,9 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         HasRangeCutOffFieldId = HasRangeCutOnFieldId + 1,
         HasRangeNearZoneFieldId = HasRangeCutOffFieldId + 1,
         HasRangeFarZoneFieldId = HasRangeNearZoneFieldId + 1,
-        HasSpotExponentFieldId = HasRangeFarZoneFieldId + 1,
+        HasCosSpotlightAngleFieldId = HasRangeFarZoneFieldId + 1,
+        HasSpotlightAngleFieldId = HasCosSpotlightAngleFieldId + 1,
+        HasSpotExponentFieldId = HasSpotlightAngleFieldId + 1,
         HasCinemaLightFieldId = HasSpotExponentFieldId + 1,
         PositionFieldId = HasCinemaLightFieldId + 1,
         DirectionFieldId = PositionFieldId + 1,
@@ -130,7 +132,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         OuterSuperEllipsesWidthFieldId = InnerSuperEllipsesHeightFieldId + 1,
         OuterSuperEllipsesHeightFieldId = OuterSuperEllipsesWidthFieldId + 1,
         SuperEllipsesRoundnessFieldId = OuterSuperEllipsesHeightFieldId + 1,
-        RangeCutOnFieldId = SuperEllipsesRoundnessFieldId + 1,
+        SuperEllipsesTwistFieldId = SuperEllipsesRoundnessFieldId + 1,
+        RangeCutOnFieldId = SuperEllipsesTwistFieldId + 1,
         RangeCutOffFieldId = RangeCutOnFieldId + 1,
         RangeNearZoneFieldId = RangeCutOffFieldId + 1,
         RangeFarZoneFieldId = RangeNearZoneFieldId + 1,
@@ -142,7 +145,9 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         LastCamNearFieldId = EyeSpaceFieldId + 1,
         LastCamFarFieldId = LastCamNearFieldId + 1,
         LastCamToWorldFieldId = LastCamFarFieldId + 1,
-        NextFieldId = LastCamToWorldFieldId + 1
+        LightBlockNameFieldId = LastCamToWorldFieldId + 1,
+        LightVariableNameFieldId = LightBlockNameFieldId + 1,
+        NextFieldId = LightVariableNameFieldId + 1
     };
 
     static const OSG::BitVector HasWorldToLightSpaceMatrixFieldMask =
@@ -175,6 +180,10 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         (TypeTraits<BitVector>::One << HasRangeNearZoneFieldId);
     static const OSG::BitVector HasRangeFarZoneFieldMask =
         (TypeTraits<BitVector>::One << HasRangeFarZoneFieldId);
+    static const OSG::BitVector HasCosSpotlightAngleFieldMask =
+        (TypeTraits<BitVector>::One << HasCosSpotlightAngleFieldId);
+    static const OSG::BitVector HasSpotlightAngleFieldMask =
+        (TypeTraits<BitVector>::One << HasSpotlightAngleFieldId);
     static const OSG::BitVector HasSpotExponentFieldMask =
         (TypeTraits<BitVector>::One << HasSpotExponentFieldId);
     static const OSG::BitVector HasCinemaLightFieldMask =
@@ -209,6 +218,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         (TypeTraits<BitVector>::One << OuterSuperEllipsesHeightFieldId);
     static const OSG::BitVector SuperEllipsesRoundnessFieldMask =
         (TypeTraits<BitVector>::One << SuperEllipsesRoundnessFieldId);
+    static const OSG::BitVector SuperEllipsesTwistFieldMask =
+        (TypeTraits<BitVector>::One << SuperEllipsesTwistFieldId);
     static const OSG::BitVector RangeCutOnFieldMask =
         (TypeTraits<BitVector>::One << RangeCutOnFieldId);
     static const OSG::BitVector RangeCutOffFieldMask =
@@ -233,6 +244,10 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
         (TypeTraits<BitVector>::One << LastCamFarFieldId);
     static const OSG::BitVector LastCamToWorldFieldMask =
         (TypeTraits<BitVector>::One << LastCamToWorldFieldId);
+    static const OSG::BitVector LightBlockNameFieldMask =
+        (TypeTraits<BitVector>::One << LightBlockNameFieldId);
+    static const OSG::BitVector LightVariableNameFieldMask =
+        (TypeTraits<BitVector>::One << LightVariableNameFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -251,6 +266,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     typedef SFBool            SFHasRangeCutOffType;
     typedef SFBool            SFHasRangeNearZoneType;
     typedef SFBool            SFHasRangeFarZoneType;
+    typedef SFBool            SFHasCosSpotlightAngleType;
+    typedef SFBool            SFHasSpotlightAngleType;
     typedef SFBool            SFHasSpotExponentType;
     typedef SFBool            SFHasCinemaLightType;
     typedef MFPnt3f           MFPositionType;
@@ -268,6 +285,7 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     typedef MFReal32          MFOuterSuperEllipsesWidthType;
     typedef MFReal32          MFOuterSuperEllipsesHeightType;
     typedef MFReal32          MFSuperEllipsesRoundnessType;
+    typedef MFReal32          MFSuperEllipsesTwistType;
     typedef MFReal32          MFRangeCutOnType;
     typedef MFReal32          MFRangeCutOffType;
     typedef MFReal32          MFRangeNearZoneType;
@@ -280,6 +298,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     typedef SFReal32          SFLastCamNearType;
     typedef SFReal32          SFLastCamFarType;
     typedef SFMatrix          SFLastCamToWorldType;
+    typedef SFString          SFLightBlockNameType;
+    typedef SFString          SFLightVariableNameType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -350,6 +370,12 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
                   SFBool              *editSFHasRangeFarZone(void);
             const SFBool              *getSFHasRangeFarZone (void) const;
 
+                  SFBool              *editSFHasCosSpotlightAngle(void);
+            const SFBool              *getSFHasCosSpotlightAngle (void) const;
+
+                  SFBool              *editSFHasSpotlightAngle(void);
+            const SFBool              *getSFHasSpotlightAngle (void) const;
+
                   SFBool              *editSFHasSpotExponent(void);
             const SFBool              *getSFHasSpotExponent (void) const;
 
@@ -358,6 +384,12 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
 
                   SFBool              *editSFEyeSpace       (void);
             const SFBool              *getSFEyeSpace        (void) const;
+
+                  SFString            *editSFLightBlockName (void);
+            const SFString            *getSFLightBlockName  (void) const;
+
+                  SFString            *editSFLightVariableName(void);
+            const SFString            *getSFLightVariableName (void) const;
 
 
                   bool                &editHasWorldToLightSpaceMatrix(void);
@@ -405,6 +437,12 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
                   bool                &editHasRangeFarZone(void);
                   bool                 getHasRangeFarZone (void) const;
 
+                  bool                &editHasCosSpotlightAngle(void);
+                  bool                 getHasCosSpotlightAngle (void) const;
+
+                  bool                &editHasSpotlightAngle(void);
+                  bool                 getHasSpotlightAngle (void) const;
+
                   bool                &editHasSpotExponent(void);
                   bool                 getHasSpotExponent (void) const;
 
@@ -413,6 +451,12 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
 
                   bool                &editEyeSpace       (void);
                   bool                 getEyeSpace        (void) const;
+
+                  std::string         &editLightBlockName (void);
+            const std::string         &getLightBlockName  (void) const;
+
+                  std::string         &editLightVariableName(void);
+            const std::string         &getLightVariableName (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -434,9 +478,13 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
             void setHasRangeCutOff (const bool value);
             void setHasRangeNearZone(const bool value);
             void setHasRangeFarZone(const bool value);
+            void setHasCosSpotlightAngle(const bool value);
+            void setHasSpotlightAngle(const bool value);
             void setHasSpotExponent(const bool value);
             void setHasCinemaLight (const bool value);
             void setEyeSpace       (const bool value);
+            void setLightBlockName (const std::string &value);
+            void setLightVariableName(const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -516,6 +564,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     SFBool            _sfHasRangeCutOff;
     SFBool            _sfHasRangeNearZone;
     SFBool            _sfHasRangeFarZone;
+    SFBool            _sfHasCosSpotlightAngle;
+    SFBool            _sfHasSpotlightAngle;
     SFBool            _sfHasSpotExponent;
     SFBool            _sfHasCinemaLight;
     MFPnt3f           _mfPosition;
@@ -533,6 +583,7 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     MFReal32          _mfOuterSuperEllipsesWidth;
     MFReal32          _mfOuterSuperEllipsesHeight;
     MFReal32          _mfSuperEllipsesRoundness;
+    MFReal32          _mfSuperEllipsesTwist;
     MFReal32          _mfRangeCutOn;
     MFReal32          _mfRangeCutOff;
     MFReal32          _mfRangeNearZone;
@@ -545,6 +596,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
     SFReal32          _sfLastCamNear;
     SFReal32          _sfLastCamFar;
     SFMatrix          _sfLastCamToWorld;
+    SFString          _sfLightBlockName;
+    SFString          _sfLightVariableName;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -603,6 +656,10 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
      EditFieldHandlePtr editHandleHasRangeNearZone(void);
      GetFieldHandlePtr  getHandleHasRangeFarZone (void) const;
      EditFieldHandlePtr editHandleHasRangeFarZone(void);
+     GetFieldHandlePtr  getHandleHasCosSpotlightAngle (void) const;
+     EditFieldHandlePtr editHandleHasCosSpotlightAngle(void);
+     GetFieldHandlePtr  getHandleHasSpotlightAngle (void) const;
+     EditFieldHandlePtr editHandleHasSpotlightAngle(void);
      GetFieldHandlePtr  getHandleHasSpotExponent (void) const;
      EditFieldHandlePtr editHandleHasSpotExponent(void);
      GetFieldHandlePtr  getHandleHasCinemaLight  (void) const;
@@ -637,6 +694,8 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
      EditFieldHandlePtr editHandleOuterSuperEllipsesHeight(void);
      GetFieldHandlePtr  getHandleSuperEllipsesRoundness (void) const;
      EditFieldHandlePtr editHandleSuperEllipsesRoundness(void);
+     GetFieldHandlePtr  getHandleSuperEllipsesTwist (void) const;
+     EditFieldHandlePtr editHandleSuperEllipsesTwist(void);
      GetFieldHandlePtr  getHandleRangeCutOn      (void) const;
      EditFieldHandlePtr editHandleRangeCutOn     (void);
      GetFieldHandlePtr  getHandleRangeCutOff     (void) const;
@@ -661,6 +720,10 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
      EditFieldHandlePtr editHandleLastCamFar     (void);
      GetFieldHandlePtr  getHandleLastCamToWorld  (void) const;
      EditFieldHandlePtr editHandleLastCamToWorld (void);
+     GetFieldHandlePtr  getHandleLightBlockName  (void) const;
+     EditFieldHandlePtr editHandleLightBlockName (void);
+     GetFieldHandlePtr  getHandleLightVariableName (void) const;
+     EditFieldHandlePtr editHandleLightVariableName(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -712,6 +775,9 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
 
                   MFReal32            *editMFSuperEllipsesRoundness(void);
             const MFReal32            *getMFSuperEllipsesRoundness (void) const;
+
+                  MFReal32            *editMFSuperEllipsesTwist(void);
+            const MFReal32            *getMFSuperEllipsesTwist (void) const;
 
                   MFReal32            *editMFRangeCutOn     (void);
             const MFReal32            *getMFRangeCutOn      (void) const;
@@ -790,6 +856,9 @@ class OSG_SYSTEM_DLLMAPPING MultiLightChunkBase : public ShaderStorageBufferObjS
 
                   MFReal32           ::reference editSuperEllipsesRoundness(const UInt32 index);
                   Real32               getSuperEllipsesRoundness (const UInt32 index) const;
+
+                  MFReal32           ::reference editSuperEllipsesTwist(const UInt32 index);
+                  Real32               getSuperEllipsesTwist (const UInt32 index) const;
 
                   MFReal32           ::reference editRangeCutOn     (const UInt32 index);
                   Real32               getRangeCutOn      (const UInt32 index) const;

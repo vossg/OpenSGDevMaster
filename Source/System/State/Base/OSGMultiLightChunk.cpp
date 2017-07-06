@@ -75,10 +75,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass MultiLightChunk::_class("MultiLight", osgMaxShaderStorageBufferBindings, 30);
-
-volatile UInt16 MultiLightChunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 /***************************************************************************\
@@ -99,6 +95,33 @@ void MultiLightChunk::initMethod(InitPhase ePhase)
  *                           Instance methods                              *
 \***************************************************************************/
 
+MultiLight::MultiLight(Type e)
+    : position(0.f,0.f,0.f)
+    , direction(0.f,0.f,1.f)
+    , color(1.f,1.f,1.f)
+    , intensity(1.f)
+    , ambientIntensity(1.f,1.f,1.f)
+    , diffuseIntensity(1.f,1.f,1.f)
+    , specularIntensity(1.f,1.f,1.f)
+    , attenuation(1.f, 0.0001f, 0.000001f)
+    , spotlightAngle(20.f)
+    , spotExponent(1.f)
+    , innerSuperEllipsesWidth(1.f)
+    , innerSuperEllipsesHeight(1.f)
+    , outerSuperEllipsesWidth(1.3f)
+    , outerSuperEllipsesHeight(1.3f)
+    , superEllipsesRoundness(1.f)
+    , superEllipsesTwist(0.f)
+    , rangeCutOn(0.f)
+    , rangeCutOff(1.f)
+    , rangeNearZone(0.f)
+    , rangeFarZone(0.f)
+    , type(e)
+    , enabled(true)
+    , beacon(NULL)
+{
+}
+
 /*-------------------------------------------------------------------------*\
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
@@ -107,14 +130,12 @@ void MultiLightChunk::initMethod(InitPhase ePhase)
 
 MultiLightChunk::MultiLightChunk(void) :
     Inherited(),
-    _uiChunkId(0),
     _bUpdateBuffer(false)
 {
 }
 
 MultiLightChunk::MultiLightChunk(const MultiLightChunk &source) :
     Inherited(source),
-    _uiChunkId(     0),
     _bUpdateBuffer(false)
 {
 }
@@ -125,13 +146,6 @@ MultiLightChunk::~MultiLightChunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *MultiLightChunk::getClass(void) const
-{
-    return &_class;
-}
 
 void MultiLightChunk::changed(ConstFieldMaskArg whichField, 
                               UInt32            origin,
@@ -154,6 +168,8 @@ void MultiLightChunk::changed(ConstFieldMaskArg whichField,
                        HasRangeCutOffFieldMask |
                        HasRangeNearZoneFieldMask |
                        HasRangeFarZoneFieldMask |
+                       HasCosSpotlightAngleFieldMask |
+                       HasSpotlightAngleFieldMask |
                        HasSpotExponentFieldMask |
                        HasCinemaLightFieldMask |
                        AutoCalcRangesFieldMask | 
@@ -176,6 +192,7 @@ void MultiLightChunk::changed(ConstFieldMaskArg whichField,
                        OuterSuperEllipsesWidthFieldMask |
                        OuterSuperEllipsesHeightFieldMask |
                        SuperEllipsesRoundnessFieldMask |
+                       SuperEllipsesTwistFieldMask |
                        TypeFieldMask |
                        EnabledFieldMask |
                        BeaconFieldMask |
@@ -195,8 +212,6 @@ void MultiLightChunk::onCreate(const MultiLightChunk *source)
 
     if(GlobalSystemState == Startup)
         return;
-
-    _uiChunkId = _uiChunkCounter++;
 }
 
 void MultiLightChunk::onCreateAspect(
@@ -204,8 +219,6 @@ void MultiLightChunk::onCreateAspect(
     const MultiLightChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void MultiLightChunk::onDestroy(UInt32 uiContainerId)
@@ -409,6 +422,8 @@ std::size_t MultiLightChunk::calcLightBufferSize() const
     //    mat4  lightToWorldSpaceMatrix;
     //    mat4  eyeToLightSpaceMatrix;
     //    mat4  lightToEyeSpaceMatrix;
+    //    mat4  lightPerspectiveMatrix
+    //    mat4  InvLightPerspectiveMatrix;
     //    vec3  position;
     //    vec3  direction;
     //    vec3  color;
@@ -416,13 +431,14 @@ std::size_t MultiLightChunk::calcLightBufferSize() const
     //    vec3  diffuseIntensity;
     //    vec3  specularIntensity;
     //    float intensity;
+    //    float constantAttenuation;
+    //    float linearAttenuation;
+    //    float quadraticAttenuation;
     //    float rangeCutOn;
     //    float rangeCutOff;
     //    float rangeNearZone;
     //    float rangeFarZone;
-    //    float constantAttenuation;
-    //    float linearAttenuation;
-    //    float quadraticAttenuation;
+    //    float cosSpotlightAngle;
     //    float spotlightAngle;
     //    float spotExponent;
     //    float innerSuperEllipsesWidth;
@@ -430,6 +446,7 @@ std::size_t MultiLightChunk::calcLightBufferSize() const
     //    float outerSuperEllipsesWidth;
     //    float outerSuperEllipsesHeight;
     //    float superEllipsesRoundness;
+    //    float superEllipsesTwist;
     //    int   type;
     //    bool  enabled;
     //};
@@ -535,7 +552,15 @@ std::size_t MultiLightChunk::calcLightBufferSize() const
         ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);     // Real32  rangeFarZone
     }
 
-    ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);         // Real32  spotlightAngle
+    if (getHasCosSpotlightAngle() || (!getHasCosSpotlightAngle() && !getHasSpotlightAngle()))
+    {
+        ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);     // Real32  cosSpotlightAngle
+    }
+
+    if (getHasSpotlightAngle())
+    {
+        ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);     // Real32  spotlightAngle
+    }
 
     if (getHasSpotExponent())
     {
@@ -549,6 +574,7 @@ std::size_t MultiLightChunk::calcLightBufferSize() const
         ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);    // Real32  outerSuperEllipsesWidth
         ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);    // Real32  outerSuperEllipsesHeight
         ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);    // Real32  superEllipsesRoundness
+        ao = alignOffset( 4, bo); bo = ao + sizeof(Real32);    // Real32  superEllipsesTwist
     }
 
     ao = alignOffset( 4, bo); bo = ao + sizeof(Int32);         // UInt8   type
@@ -578,18 +604,20 @@ std::vector<UInt8> MultiLightChunk::createLightBuffer(DrawEnv* pEnv) const
         Pnt3f position;
         Vec3f direction;
         
-        Real32  spotLightCosCutOff = 1.0;
+        Real32  cosSpotlightAngle = 1.f;
+        Real32  spotlightAngle    = 0.f;
 
         switch (getType(idx))
         {
-            case POINT_LIGHT:
+            case MultiLight::POINT_LIGHT:
                 break;
-            case DIRECTIONAL_LIGHT:
+            case MultiLight::DIRECTIONAL_LIGHT:
                 break;
-            case SPOT_LIGHT:
-                spotLightCosCutOff = osgCos(osgDegree2Rad(getSpotlightAngle(idx)));
+            case MultiLight::SPOT_LIGHT:
+                cosSpotlightAngle = osgCos(osgDegree2Rad(getSpotlightAngle(idx)));
+                spotlightAngle    = osgDegree2Rad(getSpotlightAngle(idx));
                 break;
-            case CINEMA_LIGHT:
+            case MultiLight::CINEMA_LIGHT:
                 break;
         }
 
@@ -622,14 +650,14 @@ std::vector<UInt8> MultiLightChunk::createLightBuffer(DrawEnv* pEnv) const
         {
             switch (getType(idx))
             {
-                case POINT_LIGHT:
+                case MultiLight::POINT_LIGHT:
                     calcPointLightMatrices(pEnv, getBeacon(idx), getPosition(idx), matLSFromWS, matLSFromES);
                     break;
-                case DIRECTIONAL_LIGHT:
+                case MultiLight::DIRECTIONAL_LIGHT:
                     calcDirectionalLightMatrices(pEnv, getBeacon(idx), getDirection(idx), matLSFromWS, matLSFromES);
                     break;
-                case SPOT_LIGHT:
-                case CINEMA_LIGHT:
+                case MultiLight::SPOT_LIGHT:
+                case MultiLight::CINEMA_LIGHT:
                     calcSpotLightMatrices(pEnv, getBeacon(idx), getPosition(idx), getDirection(idx), matLSFromWS, matLSFromES);
                     break;
             }
@@ -679,23 +707,24 @@ std::vector<UInt8> MultiLightChunk::createLightBuffer(DrawEnv* pEnv) const
         {
             switch (getType(idx))
             {
-                case POINT_LIGHT:
+                case MultiLight::POINT_LIGHT:
                     MatrixPerspective(matLightPerspProj, Pi / 4.f, 1.f, cutOnRange, cutOffRange);
                     break;
-                case DIRECTIONAL_LIGHT:
+                case MultiLight::DIRECTIONAL_LIGHT:
                     break;
-                case SPOT_LIGHT:
-                    MatrixPerspective(matLightPerspProj, spotLightCosCutOff, 1.f, cutOnRange, cutOffRange);
+                case MultiLight::SPOT_LIGHT:
+                    MatrixPerspective(matLightPerspProj, cosSpotlightAngle, 1.f, cutOnRange, cutOffRange);
                     break;
-                case CINEMA_LIGHT:
+                case MultiLight::CINEMA_LIGHT:
                     {
                         Real32 s = osgMax(osgMax(getInnerSuperEllipsesWidth(idx), getInnerSuperEllipsesHeight(idx)),
                                           osgMax(getOuterSuperEllipsesWidth(idx), getOuterSuperEllipsesHeight(idx)));
 
                         Real32 a = osgATan(s/1.f);
-                        spotLightCosCutOff = cos(a);
+                        cosSpotlightAngle = cos(a);
+                        spotlightAngle    = a;
 
-                        MatrixPerspective(matLightPerspProj, spotLightCosCutOff, 1.f, cutOnRange, cutOffRange);
+                        MatrixPerspective(matLightPerspProj, cosSpotlightAngle, 1.f, cutOnRange, cutOffRange);
                     }
                     break;
             }
@@ -768,7 +797,15 @@ std::vector<UInt8> MultiLightChunk::createLightBuffer(DrawEnv* pEnv) const
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getRangeFarZone (idx); bo = ao + sizeof(Real32);
         }
 
-        ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = spotLightCosCutOff; bo = ao + sizeof(Real32);
+        if (getHasCosSpotlightAngle() || (!getHasCosSpotlightAngle() && !getHasSpotlightAngle()))
+        {
+            ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = cosSpotlightAngle; bo = ao + sizeof(Real32);
+        }
+
+        if (getHasSpotlightAngle())
+        {
+            ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = spotlightAngle; bo = ao + sizeof(Real32);
+        }
 
         if (getHasSpotExponent())
         {
@@ -777,11 +814,14 @@ std::vector<UInt8> MultiLightChunk::createLightBuffer(DrawEnv* pEnv) const
 
         if (getHasCinemaLight())
         {
+            OSG::Real32 twistAngle = osgDegree2Rad(getSuperEllipsesTwist(idx));
+
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getInnerSuperEllipsesWidth (idx); bo = ao + sizeof(Real32);
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getInnerSuperEllipsesHeight(idx); bo = ao + sizeof(Real32);
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getOuterSuperEllipsesWidth (idx); bo = ao + sizeof(Real32);
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getOuterSuperEllipsesHeight(idx); bo = ao + sizeof(Real32);
             ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = getSuperEllipsesRoundness  (idx); bo = ao + sizeof(Real32);
+            ao = alignOffset( 4, bo); *(reinterpret_cast<Real32*>(&buffer[0] + ao)) = twistAngle;                       bo = ao + sizeof(Real32);
         }
 
         ao = alignOffset( 4, bo); *(reinterpret_cast<Int32*>(&buffer[0] + ao)) = Int32(getType(idx)); bo = ao + sizeof(Int32);
@@ -877,104 +917,275 @@ void MultiLightChunk::changeFrom(DrawEnv    *pEnv,
 
 /*------------------------------ interface ----------------------------------*/
 
-UInt32 MultiLightChunk::addLight(LightType eType)
+UInt32 MultiLightChunk::addLight(MultiLight::Type eType)
 {
     if (!check_invariant())
         clearLights();
 
-    editMField(PositionFieldMask, _mfPosition);
-    editMField(DirectionFieldMask, _mfDirection);
-    editMField(SpotlightAngleFieldMask, _mfSpotlightAngle);
-    editMField(TypeFieldMask, _mfType);
-    editMField(EnabledFieldMask, _mfEnabled);
-    editMField(BeaconFieldMask, _mfBeacon);
-    editMField(BeaconMatrixFieldMask, _mfBeaconMatrix);
+    editMField(PositionFieldMask,           _mfPosition);
+    editMField(DirectionFieldMask,          _mfDirection);
+    editMField(SpotlightAngleFieldMask,     _mfSpotlightAngle);
+    editMField(TypeFieldMask,               _mfType);
+    editMField(EnabledFieldMask,            _mfEnabled);
+    editMField(BeaconFieldMask,             _mfBeacon);
+    editMField(BeaconMatrixFieldMask,       _mfBeaconMatrix);
 
-    _mfPosition.push_back(Pnt3f(0.f,0.f,0.f));
-    _mfDirection.push_back(Vec3f(0.f,0.f,1.f));
-    _mfSpotlightAngle.push_back(45.f);
-    _mfType.push_back(POINT_LIGHT);
-    _mfEnabled.push_back(false);
-    pushToBeacon(NULL);
-    _mfBeaconMatrix.push_back(Matrix());
+    _mfPosition.        push_back(Pnt3f(0.f,0.f,0.f));
+    _mfDirection.       push_back(Vec3f(0.f,0.f,1.f));
+    _mfSpotlightAngle.  push_back(45.f);
+    _mfType.            push_back(eType);
+    _mfEnabled.         push_back(false);
+                        pushToBeacon(NULL);
+    _mfBeaconMatrix.    push_back(Matrix());
 
     if (getHasSeparateIntensities())
     {
-        editMField(AmbientIntensityFieldMask, _mfAmbientIntensity);
-        editMField(DiffuseIntensityFieldMask, _mfDiffuseIntensity);
-        editMField(SpecularIntensityFieldMask, _mfSpecularIntensity);
+        editMField(AmbientIntensityFieldMask,   _mfAmbientIntensity);
+        editMField(DiffuseIntensityFieldMask,   _mfDiffuseIntensity);
+        editMField(SpecularIntensityFieldMask,  _mfSpecularIntensity);
 
-        _mfAmbientIntensity.push_back(Vec3f(1.f,1.f,1.f));
-        _mfDiffuseIntensity.push_back(Vec3f(1.f,1.f,1.f));
+        _mfAmbientIntensity. push_back(Vec3f(1.f,1.f,1.f));
+        _mfDiffuseIntensity. push_back(Vec3f(1.f,1.f,1.f));
         _mfSpecularIntensity.push_back(Vec3f(1.f,1.f,1.f));
     }
 
     if (getHasColor())
     {
-        editMField(ColorFieldMask, _mfColor);
+        editMField(ColorFieldMask,          _mfColor);
         _mfColor.push_back(Vec3f(1.f,1.f,1.f));
     }
 
     if (getHasIntensity())
     {
-        editMField(IntensityFieldMask, _mfIntensity);
+        editMField(IntensityFieldMask,      _mfIntensity);
         _mfIntensity.push_back(1.f);
     }
 
     if (getHasAttenuation())
     {
-        editMField(AttenuationFieldMask, _mfAttenuation);
+        editMField(AttenuationFieldMask,    _mfAttenuation);
         _mfAttenuation.push_back(Vec3f(1.f,0.f,0.f));
     }
 
     if (getHasRangeCutOn())
     {
-        editMField(RangeCutOnFieldMask, _mfRangeCutOn);
+        editMField(RangeCutOnFieldMask,     _mfRangeCutOn);
         _mfRangeCutOn.push_back(0.f);
     }
 
     if (getHasRangeCutOff())
     {
-        editMField(RangeCutOffFieldMask, _mfRangeCutOff);
+        editMField(RangeCutOffFieldMask,    _mfRangeCutOff);
         _mfRangeCutOff.push_back(0.f);
     }
 
     if (getHasRangeNearZone())
     {
-        editMField(RangeNearZoneFieldMask, _mfRangeNearZone);
+        editMField(RangeNearZoneFieldMask,  _mfRangeNearZone);
         _mfRangeNearZone.push_back(0.f);
     }
 
     if (getHasRangeFarZone())
     {
-        editMField(RangeFarZoneFieldMask, _mfRangeFarZone);
+        editMField(RangeFarZoneFieldMask,   _mfRangeFarZone);
         _mfRangeFarZone.push_back(0.f);
     }
 
     if (getHasSpotExponent())
     {
-        editMField(SpotExponentFieldMask, _mfSpotExponent);
+        editMField(SpotExponentFieldMask,   _mfSpotExponent);
         _mfSpotExponent.push_back(1.f);
     }
 
     if (getHasCinemaLight())
     {
-        editMField(InnerSuperEllipsesWidthFieldMask, _mfInnerSuperEllipsesWidth);
-        editMField(InnerSuperEllipsesHeightFieldMask, _mfInnerSuperEllipsesHeight);
-        editMField(OuterSuperEllipsesWidthFieldMask, _mfOuterSuperEllipsesWidth);
-        editMField(OuterSuperEllipsesHeightFieldMask, _mfOuterSuperEllipsesHeight);
-        editMField(SuperEllipsesRoundnessFieldMask, _mfSuperEllipsesRoundness);
+        editMField(InnerSuperEllipsesWidthFieldMask,    _mfInnerSuperEllipsesWidth);
+        editMField(InnerSuperEllipsesHeightFieldMask,   _mfInnerSuperEllipsesHeight);
+        editMField(OuterSuperEllipsesWidthFieldMask,    _mfOuterSuperEllipsesWidth);
+        editMField(OuterSuperEllipsesHeightFieldMask,   _mfOuterSuperEllipsesHeight);
+        editMField(SuperEllipsesRoundnessFieldMask,     _mfSuperEllipsesRoundness);
+        editMField(SuperEllipsesTwistFieldMask,         _mfSuperEllipsesTwist);
 
-        _mfInnerSuperEllipsesWidth.push_back(1.f);
+        _mfInnerSuperEllipsesWidth. push_back(1.f);
         _mfInnerSuperEllipsesHeight.push_back(1.f);
-        _mfOuterSuperEllipsesWidth.push_back(1.f);
+        _mfOuterSuperEllipsesWidth. push_back(1.f);
         _mfOuterSuperEllipsesHeight.push_back(1.f);
-        _mfSuperEllipsesRoundness.push_back(0.f);
+        _mfSuperEllipsesRoundness.  push_back(0.f);
+        _mfSuperEllipsesTwist.      push_back(0.f);
     }
 
     OSG_ASSERT(check_invariant());
 
     return UInt32(_mfPosition.size() - 1);
+}
+
+UInt32 MultiLightChunk::addLight(const MultiLight& light)
+{
+    if (!check_invariant())
+        clearLights();
+
+    editMField(PositionFieldMask,           _mfPosition);
+    editMField(DirectionFieldMask,          _mfDirection);
+    editMField(SpotlightAngleFieldMask,     _mfSpotlightAngle);
+    editMField(TypeFieldMask,               _mfType);
+    editMField(EnabledFieldMask,            _mfEnabled);
+    editMField(BeaconFieldMask,             _mfBeacon);
+    editMField(BeaconMatrixFieldMask,       _mfBeaconMatrix);
+
+    _mfPosition.        push_back(light.position);
+    _mfDirection.       push_back(light.direction);
+    _mfSpotlightAngle.  push_back(light.spotlightAngle);
+    _mfType.            push_back(light.type);
+    _mfEnabled.         push_back(light.enabled);
+                        pushToBeacon(light.beacon);
+    _mfBeaconMatrix.    push_back(Matrix());
+
+    if (getHasSeparateIntensities())
+    {
+        editMField(AmbientIntensityFieldMask,   _mfAmbientIntensity);
+        editMField(DiffuseIntensityFieldMask,   _mfDiffuseIntensity);
+        editMField(SpecularIntensityFieldMask,  _mfSpecularIntensity);
+
+        _mfAmbientIntensity. push_back(light.ambientIntensity);
+        _mfDiffuseIntensity. push_back(light.diffuseIntensity);
+        _mfSpecularIntensity.push_back(light.specularIntensity);
+    }
+
+    if (getHasColor())
+    {
+        editMField(ColorFieldMask,          _mfColor);
+        _mfColor.push_back(light.color);
+    }
+
+    if (getHasIntensity())
+    {
+        editMField(IntensityFieldMask,      _mfIntensity);
+        _mfIntensity.push_back(light.intensity);
+    }
+
+    if (getHasAttenuation())
+    {
+        editMField(AttenuationFieldMask,    _mfAttenuation);
+        _mfAttenuation.push_back(light.attenuation);
+    }
+
+    if (getHasRangeCutOn())
+    {
+        editMField(RangeCutOnFieldMask,     _mfRangeCutOn);
+        _mfRangeCutOn.push_back(light.rangeCutOn);
+    }
+
+    if (getHasRangeCutOff())
+    {
+        editMField(RangeCutOffFieldMask,    _mfRangeCutOff);
+        _mfRangeCutOff.push_back(light.rangeCutOff);
+    }
+
+    if (getHasRangeNearZone())
+    {
+        editMField(RangeNearZoneFieldMask,  _mfRangeNearZone);
+        _mfRangeNearZone.push_back(light.rangeNearZone);
+    }
+
+    if (getHasRangeFarZone())
+    {
+        editMField(RangeFarZoneFieldMask,   _mfRangeFarZone);
+        _mfRangeFarZone.push_back(light.rangeFarZone);
+    }
+
+    if (getHasSpotExponent())
+    {
+        editMField(SpotExponentFieldMask,   _mfSpotExponent);
+        _mfSpotExponent.push_back(light.spotExponent);
+    }
+
+    if (getHasCinemaLight())
+    {
+        editMField(InnerSuperEllipsesWidthFieldMask,    _mfInnerSuperEllipsesWidth);
+        editMField(InnerSuperEllipsesHeightFieldMask,   _mfInnerSuperEllipsesHeight);
+        editMField(OuterSuperEllipsesWidthFieldMask,    _mfOuterSuperEllipsesWidth);
+        editMField(OuterSuperEllipsesHeightFieldMask,   _mfOuterSuperEllipsesHeight);
+        editMField(SuperEllipsesRoundnessFieldMask,     _mfSuperEllipsesRoundness);
+        editMField(SuperEllipsesTwistFieldMask,         _mfSuperEllipsesTwist);
+
+        _mfInnerSuperEllipsesWidth. push_back(light.innerSuperEllipsesWidth);
+        _mfInnerSuperEllipsesHeight.push_back(light.innerSuperEllipsesHeight);
+        _mfOuterSuperEllipsesWidth. push_back(light.outerSuperEllipsesWidth);
+        _mfOuterSuperEllipsesHeight.push_back(light.outerSuperEllipsesHeight);
+        _mfSuperEllipsesRoundness.  push_back(light.superEllipsesRoundness);
+        _mfSuperEllipsesTwist.      push_back(light.superEllipsesTwist);
+    }
+
+    OSG_ASSERT(check_invariant());
+
+    return UInt32(_mfPosition.size() - 1);
+}
+
+void MultiLightChunk::updateLight(const UInt32 idx, const MultiLight& light)
+{
+    setPosition         (idx, light.position);
+    setDirection        (idx, light.direction);
+    setSpotlightAngle   (idx, light.spotlightAngle);
+    setType             (idx, light.type);
+    setEnabled          (idx, light.enabled);
+    setBeacon           (idx, light.beacon);
+
+    if (getHasSeparateIntensities())
+    {
+        setAmbientIntensity (idx, light.ambientIntensity);
+        setDiffuseIntensity (idx, light.diffuseIntensity);
+        setSpecularIntensity(idx, light.specularIntensity);
+    }
+
+    if (getHasColor())
+    {
+        setColor(idx, light.color);
+    }
+
+    if (getHasIntensity())
+    {
+        setIntensity(idx, light.intensity);
+    }
+
+    if (getHasAttenuation())
+    {
+        setAttenuation(idx, light.attenuation);
+    }
+
+    if (getHasRangeCutOn())
+    {
+        setRangeCutOn(idx, light.rangeCutOn);
+    }
+
+    if (getHasRangeCutOff())
+    {
+        setRangeCutOff(idx, light.rangeCutOff);
+    }
+
+    if (getHasRangeNearZone())
+    {
+        setRangeNearZone(idx, light.rangeNearZone);
+    }
+
+    if (getHasRangeFarZone())
+    {
+        setRangeFarZone(idx, light.rangeFarZone);
+    }
+
+    if (getHasSpotExponent())
+    {
+        setSpotExponent(idx, light.spotExponent);
+    }
+
+    if (getHasCinemaLight())
+    {
+        setInnerSuperEllipsesWidth  (idx, light.innerSuperEllipsesWidth);
+        setInnerSuperEllipsesHeight (idx, light.innerSuperEllipsesHeight);
+        setOuterSuperEllipsesWidth  (idx, light.outerSuperEllipsesWidth);
+        setOuterSuperEllipsesHeight (idx, light.outerSuperEllipsesHeight);
+        setSuperEllipsesRoundness   (idx, light.superEllipsesRoundness);
+        setSuperEllipsesTwist       (idx, light.superEllipsesTwist);
+    }
 }
 
 void MultiLightChunk::removeLight(const UInt32 idx)
@@ -984,94 +1195,96 @@ void MultiLightChunk::removeLight(const UInt32 idx)
     if (idx >= _mfPosition.size())
         return;
 
-    editMField(PositionFieldMask, _mfPosition);
-    editMField(DirectionFieldMask, _mfDirection);
-    editMField(SpotlightAngleFieldMask, _mfSpotlightAngle);
-    editMField(TypeFieldMask, _mfType);
-    editMField(EnabledFieldMask, _mfEnabled);
-    editMField(BeaconFieldMask, _mfBeacon);
-    editMField(BeaconMatrixFieldMask, _mfBeaconMatrix);
+    editMField(PositionFieldMask,           _mfPosition);
+    editMField(DirectionFieldMask,          _mfDirection);
+    editMField(SpotlightAngleFieldMask,     _mfSpotlightAngle);
+    editMField(TypeFieldMask,               _mfType);
+    editMField(EnabledFieldMask,            _mfEnabled);
+    editMField(BeaconFieldMask,             _mfBeacon);
+    editMField(BeaconMatrixFieldMask,       _mfBeaconMatrix);
 
-    _mfPosition.erase(idx);
-    _mfDirection.erase(idx);
-    _mfSpotlightAngle.erase(idx);
-    _mfType.erase(idx);
-    _mfEnabled.erase(idx);
-    _mfBeacon.erase(idx);
-    _mfBeaconMatrix.erase(idx);
+    _mfPosition.        erase(idx);
+    _mfDirection.       erase(idx);
+    _mfSpotlightAngle.  erase(idx);
+    _mfType.            erase(idx);
+    _mfEnabled.         erase(idx);
+    _mfBeacon.          erase(idx);
+    _mfBeaconMatrix.    erase(idx);
 
     if (getHasSeparateIntensities())
     {
-        editMField(AmbientIntensityFieldMask, _mfAmbientIntensity);
-        editMField(DiffuseIntensityFieldMask, _mfDiffuseIntensity);
-        editMField(SpecularIntensityFieldMask, _mfSpecularIntensity);
+        editMField(AmbientIntensityFieldMask,   _mfAmbientIntensity);
+        editMField(DiffuseIntensityFieldMask,   _mfDiffuseIntensity);
+        editMField(SpecularIntensityFieldMask,  _mfSpecularIntensity);
 
-        _mfAmbientIntensity.erase(idx);
-        _mfDiffuseIntensity.erase(idx);
+        _mfAmbientIntensity. erase(idx);
+        _mfDiffuseIntensity. erase(idx);
         _mfSpecularIntensity.erase(idx);
     }
 
     if (getHasColor())
     {
-        editMField(ColorFieldMask, _mfColor);
+        editMField(ColorFieldMask,          _mfColor);
         _mfColor.erase(idx);
     }
 
     if (getHasIntensity())
     {
-        editMField(IntensityFieldMask, _mfIntensity);
+        editMField(IntensityFieldMask,      _mfIntensity);
         _mfIntensity.erase(idx);
     }
 
     if (getHasAttenuation())
     {
-        editMField(AttenuationFieldMask, _mfAttenuation);
+        editMField(AttenuationFieldMask,    _mfAttenuation);
         _mfAttenuation.erase(idx);
     }
 
     if (getHasRangeCutOn())
     {
-        editMField(RangeCutOnFieldMask, _mfRangeCutOn);
+        editMField(RangeCutOnFieldMask,     _mfRangeCutOn);
         _mfRangeCutOn.erase(idx);
     }
 
     if (getHasRangeCutOff())
     {
-        editMField(RangeCutOffFieldMask, _mfRangeCutOff);
+        editMField(RangeCutOffFieldMask,    _mfRangeCutOff);
         _mfRangeCutOff.erase(idx);
     }
 
     if (getHasRangeNearZone())
     {
-        editMField(RangeNearZoneFieldMask, _mfRangeNearZone);
+        editMField(RangeNearZoneFieldMask,  _mfRangeNearZone);
         _mfRangeNearZone.erase(idx);
     }
 
     if (getHasRangeFarZone())
     {
-        editMField(RangeFarZoneFieldMask, _mfRangeFarZone);
+        editMField(RangeFarZoneFieldMask,   _mfRangeFarZone);
         _mfRangeFarZone.erase(idx);
     }
 
     if (getHasSpotExponent())
     {
-        editMField(SpotExponentFieldMask, _mfSpotExponent);
+        editMField(SpotExponentFieldMask,   _mfSpotExponent);
         _mfSpotExponent.erase(idx);
     }
 
     if (getHasCinemaLight())
     {
-        editMField(InnerSuperEllipsesWidthFieldMask, _mfInnerSuperEllipsesWidth);
-        editMField(InnerSuperEllipsesHeightFieldMask, _mfInnerSuperEllipsesHeight);
-        editMField(OuterSuperEllipsesWidthFieldMask, _mfOuterSuperEllipsesWidth);
-        editMField(OuterSuperEllipsesHeightFieldMask, _mfOuterSuperEllipsesHeight);
-        editMField(SuperEllipsesRoundnessFieldMask, _mfSuperEllipsesRoundness);
+        editMField(InnerSuperEllipsesWidthFieldMask,    _mfInnerSuperEllipsesWidth);
+        editMField(InnerSuperEllipsesHeightFieldMask,   _mfInnerSuperEllipsesHeight);
+        editMField(OuterSuperEllipsesWidthFieldMask,    _mfOuterSuperEllipsesWidth);
+        editMField(OuterSuperEllipsesHeightFieldMask,   _mfOuterSuperEllipsesHeight);
+        editMField(SuperEllipsesRoundnessFieldMask,     _mfSuperEllipsesRoundness);
+        editMField(SuperEllipsesTwistFieldMask,         _mfSuperEllipsesTwist);
 
-        _mfInnerSuperEllipsesWidth.erase(idx);
+        _mfInnerSuperEllipsesWidth. erase(idx);
         _mfInnerSuperEllipsesHeight.erase(idx);
-        _mfOuterSuperEllipsesWidth.erase(idx);
+        _mfOuterSuperEllipsesWidth. erase(idx);
         _mfOuterSuperEllipsesHeight.erase(idx);
-        _mfSuperEllipsesRoundness.erase(idx);
+        _mfSuperEllipsesRoundness.  erase(idx);
+        _mfSuperEllipsesTwist.      erase(idx);
     }
    
     OSG_ASSERT(check_invariant());
@@ -1079,100 +1292,277 @@ void MultiLightChunk::removeLight(const UInt32 idx)
 
 void MultiLightChunk::clearLights()
 {
-    editMField(PositionFieldMask, _mfPosition);
-    editMField(DirectionFieldMask, _mfDirection);
-    editMField(ColorFieldMask, _mfColor);
-    editMField(IntensityFieldMask, _mfIntensity);
-    editMField(AmbientIntensityFieldMask, _mfAmbientIntensity);
-    editMField(DiffuseIntensityFieldMask, _mfDiffuseIntensity);
-    editMField(SpecularIntensityFieldMask, _mfSpecularIntensity);
-    editMField(AttenuationFieldMask, _mfAttenuation);
-    editMField(RangeCutOnFieldMask, _mfRangeCutOn);
-    editMField(RangeCutOffFieldMask, _mfRangeCutOff);
-    editMField(RangeNearZoneFieldMask, _mfRangeNearZone);
-    editMField(RangeFarZoneFieldMask, _mfRangeFarZone);
-    editMField(SpotlightAngleFieldMask, _mfSpotlightAngle);
-    editMField(SpotExponentFieldMask, _mfSpotExponent);
-    editMField(InnerSuperEllipsesWidthFieldMask, _mfInnerSuperEllipsesWidth);
-    editMField(InnerSuperEllipsesHeightFieldMask, _mfInnerSuperEllipsesHeight);
-    editMField(OuterSuperEllipsesWidthFieldMask, _mfOuterSuperEllipsesWidth);
-    editMField(OuterSuperEllipsesHeightFieldMask, _mfOuterSuperEllipsesHeight);
-    editMField(SuperEllipsesRoundnessFieldMask, _mfSuperEllipsesRoundness);
-    editMField(TypeFieldMask, _mfType);
-    editMField(EnabledFieldMask, _mfEnabled);
-    editMField(BeaconFieldMask, _mfBeacon);
-    editMField(BeaconMatrixFieldMask, _mfBeaconMatrix);
+    editMField(PositionFieldMask,                   _mfPosition);
+    editMField(DirectionFieldMask,                  _mfDirection);
+    editMField(ColorFieldMask,                      _mfColor);
+    editMField(IntensityFieldMask,                  _mfIntensity);
+    editMField(AmbientIntensityFieldMask,           _mfAmbientIntensity);
+    editMField(DiffuseIntensityFieldMask,           _mfDiffuseIntensity);
+    editMField(SpecularIntensityFieldMask,          _mfSpecularIntensity);
+    editMField(AttenuationFieldMask,                _mfAttenuation);
+    editMField(RangeCutOnFieldMask,                 _mfRangeCutOn);
+    editMField(RangeCutOffFieldMask,                _mfRangeCutOff);
+    editMField(RangeNearZoneFieldMask,              _mfRangeNearZone);
+    editMField(RangeFarZoneFieldMask,               _mfRangeFarZone);
+    editMField(SpotlightAngleFieldMask,             _mfSpotlightAngle);
+    editMField(SpotExponentFieldMask,               _mfSpotExponent);
+    editMField(InnerSuperEllipsesWidthFieldMask,    _mfInnerSuperEllipsesWidth);
+    editMField(InnerSuperEllipsesHeightFieldMask,   _mfInnerSuperEllipsesHeight);
+    editMField(OuterSuperEllipsesWidthFieldMask,    _mfOuterSuperEllipsesWidth);
+    editMField(OuterSuperEllipsesHeightFieldMask,   _mfOuterSuperEllipsesHeight);
+    editMField(SuperEllipsesRoundnessFieldMask,     _mfSuperEllipsesRoundness);
+    editMField(SuperEllipsesTwistFieldMask,         _mfSuperEllipsesTwist);
+    editMField(TypeFieldMask,                       _mfType);
+    editMField(EnabledFieldMask,                    _mfEnabled);
+    editMField(BeaconFieldMask,                     _mfBeacon);
+    editMField(BeaconMatrixFieldMask,               _mfBeaconMatrix);
 
-    _mfPosition.clear();
-    _mfDirection.clear();
-    _mfColor.clear();
-    _mfIntensity.clear();
-    _mfAmbientIntensity.clear();
-    _mfDiffuseIntensity.clear();
-    _mfSpecularIntensity.clear();
-    _mfAttenuation.clear();
-    _mfRangeCutOn.clear();
-    _mfRangeCutOff.clear();
-    _mfRangeNearZone.clear();
-    _mfRangeFarZone.clear();
-    _mfSpotlightAngle.clear();
-    _mfSpotExponent.clear();
-    _mfInnerSuperEllipsesWidth.clear();
+    _mfPosition.                clear();
+    _mfDirection.               clear();
+    _mfColor.                   clear();
+    _mfIntensity.               clear();
+    _mfAmbientIntensity.        clear();
+    _mfDiffuseIntensity.        clear();
+    _mfSpecularIntensity.       clear();
+    _mfAttenuation.             clear();
+    _mfRangeCutOn.              clear();
+    _mfRangeCutOff.             clear();
+    _mfRangeNearZone.           clear();
+    _mfRangeFarZone.            clear();
+    _mfSpotlightAngle.          clear();
+    _mfSpotExponent.            clear();
+    _mfInnerSuperEllipsesWidth. clear();
     _mfInnerSuperEllipsesHeight.clear();
-    _mfOuterSuperEllipsesWidth.clear();
+    _mfOuterSuperEllipsesWidth. clear();
     _mfOuterSuperEllipsesHeight.clear();
-    _mfSuperEllipsesRoundness.clear();
-    _mfType.clear();
-    _mfEnabled.clear();
-    _mfBeacon.clear();
-    _mfBeaconMatrix.clear();
+    _mfSuperEllipsesRoundness.  clear();
+    _mfSuperEllipsesTwist.      clear();
+    _mfType.                    clear();
+    _mfEnabled.                 clear();
+    _mfBeacon.                  clear();
+    _mfBeaconMatrix.            clear();
 }
 
 void MultiLightChunk::setLayoutType(UInt32 layout)
 {
-    setHasColor(false);
-    setHasIntensity(false);
-    setHasSeparateIntensities(false);
-    setHasAttenuation(false);
-    setHasRangeCutOn(false);
-    setHasRangeCutOff(false);
-    setHasRangeNearZone(false);
-    setHasRangeFarZone(false);
-    setHasSpotExponent(false);
-    setHasCinemaLight(false);
+    setHasColor                     (false);
+    setHasIntensity                 (false);
+    setHasSeparateIntensities       (false);
+    setHasAttenuation               (false);
+    setHasRangeCutOn                (false);
+    setHasRangeCutOff               (false);
+    setHasRangeNearZone             (false);
+    setHasRangeFarZone              (false);
+    setHasCosSpotlightAngle         (true);
+    setHasSpotlightAngle            (false);
+    setHasSpotExponent              (false);
+    setHasCinemaLight               (false);
 
-    if (layout & SIMPLE_LAYOUT)
+    if (layout & MultiLight::SIMPLE_LAYOUT)
     {
-        setHasColor(true);
-        setHasIntensity(true);
-        setHasRangeCutOff(true);
+        setHasColor                 (true);
+        setHasIntensity             (true);
+        setHasRangeCutOff           (true);
     }
 
-    if (layout & RANGE_LAYOUT)
+    if (layout & MultiLight::RANGE_LAYOUT)
     {
-        setHasRangeCutOn(true);
-        setHasRangeCutOff(true);
+        setHasRangeCutOn            (true);
+        setHasRangeCutOff           (true);
     }
 
-    if (layout & ZONE_LAYOUT)
+    if (layout & MultiLight::ZONE_LAYOUT)
     {
-        setHasRangeNearZone(true);
-        setHasRangeFarZone(true);
+        setHasRangeNearZone         (true);
+        setHasRangeFarZone          (true);
     }
 
-    if (layout & OPENGL_LAYOUT)
+    if (layout & MultiLight::OPENGL_LAYOUT)
     {
-        setHasSeparateIntensities(true);
-        setHasAttenuation(true);
-        setHasSpotExponent(true);
+        setHasSeparateIntensities   (true);
+        setHasAttenuation           (true);
+        setHasSpotExponent          (true);
     }
 
-    if (layout & CINEMA_LAYOUT)
+    if (layout & MultiLight::CINEMA_LAYOUT)
     {
-        setHasCinemaLight(true);
+        setHasCinemaLight           (true);
     }
 
     clearLights();
+}
+
+std::string MultiLightChunk::getLightProgSnippet() const
+{
+    using namespace std;
+
+    stringstream ost;
+
+    ost
+    << endl <<     "//"
+    << endl <<     "// The supported light types"
+    << endl <<     "//"
+    << endl <<     "const int POINT_LIGHT       = " << MultiLight::POINT_LIGHT       << ";"
+    << endl <<     "const int DIRECTIONAL_LIGHT = " << MultiLight::DIRECTIONAL_LIGHT << ";"
+    << endl <<     "const int SPOT_LIGHT        = " << MultiLight::SPOT_LIGHT        << ";"
+    << endl <<     "const int CINEMA_LIGHT      = " << MultiLight::CINEMA_LIGHT      << ";"
+    << endl <<     ""
+    << endl <<     "//"
+    << endl <<     "// The multi light type declaration"
+    << endl <<     "//"
+    << endl <<     "struct Light"
+    << endl <<     "{"
+    ;
+    if (getHasWorldToLightSpaceMatrix())
+    {
+        ost
+        << endl << "    mat4  worldToLightSpaceMatrix;"
+        ;
+    }
+
+    if (getHasLightToWorldSpaceMatrix())
+    {
+        ost
+        << endl << "    mat4  lightToWorldSpaceMatrix;"
+        ;
+    }
+
+    if (getHasEyeToLightSpaceMatrix())
+    {
+        ost
+        << endl << "    mat4  eyeToLightSpaceMatrix;"
+        ;
+    }
+
+    if (getHasLightToEyeSpaceMatrix())
+    {
+        ost
+        << endl << "    mat4  lightToEyeSpaceMatrix;"
+        ;
+    }
+
+    if (getHasLightPerspectiveMatrix())
+    {
+        ost
+        << endl << "    mat4  lightPerspectiveMatrix;"
+        ;
+    }
+
+    if (getHasInvLightPerspectiveMatrix())
+    {
+        ost
+        << endl << "    mat4  invLightPerspectiveMatrix;"
+        ;
+    }
+    ost 
+    << endl <<     "    vec3  position;                 // in " << (getEyeSpace() ? "eye" : "world") << " space"
+    << endl <<     "    vec3  direction;                // in " << (getEyeSpace() ? "eye" : "world") << " space"
+    ;
+    if (getHasColor())
+    {
+        ost
+        << endl << "    vec3  color;"
+        ;
+    }
+
+    if (getHasSeparateIntensities())
+    {
+        ost
+        << endl << "    vec3  ambientIntensity;"
+        << endl << "    vec3  diffuseIntensity;"
+        << endl << "    vec3  specularIntensity;"
+        ;
+    }
+
+    if (getHasIntensity())
+    {
+        ost
+        << endl << "    float intensity;"
+        ;
+    }
+
+    if (getHasAttenuation())
+    {
+        ost
+        << endl << "    float constantAttenuation;"
+        << endl << "    float linearAttenuation;"
+        << endl << "    float quadraticAttenuation;"
+        ;
+    }
+
+    if (getHasRangeCutOn())
+    {
+        ost
+        << endl << "    float rangeCutOn;"
+        ;
+    }
+
+    if (getHasRangeCutOff())
+    {
+        ost
+        << endl << "    float rangeCutOff;"
+        ;
+    }
+
+    if (getHasRangeNearZone())
+    {
+        ost
+        << endl << "    float rangeNearZone;"
+        ;
+    }
+
+    if (getHasRangeFarZone())
+    {
+        ost
+        << endl << "    float rangeFarZone;"
+        ;
+    }
+
+    if (getHasCosSpotlightAngle() || (!getHasCosSpotlightAngle() && !getHasSpotlightAngle()))
+    {
+        ost
+        << endl << "    float cosSpotlightAngle;"
+        ;
+    }
+
+    if (getHasSpotlightAngle())
+    {
+        ost
+        << endl << "    float spotlightAngle;           // in radians"
+        ;
+    }
+
+    if (getHasSpotExponent())
+    {
+        ost
+        << endl << "    float spotExponent;"
+        ;
+    }
+
+    if (getHasCinemaLight())
+    {
+        ost
+        << endl << "    float innerSuperEllipsesWidth;  // a" 
+        << endl << "    float innerSuperEllipsesHeight; // b"
+        << endl << "    float outerSuperEllipsesWidth;  // A"
+        << endl << "    float outerSuperEllipsesHeight; // B"
+        << endl << "    float superEllipsesRoundness;   // r"
+        << endl << "    float superEllipsesTwist;       // // twist angle theta in radians"
+        ;
+    }
+    ost
+    << endl <<     "    int   type;                     // specific type of light: POINT_LIGHT, DIRECTIONAL_LIGHT, SPOT_LIGHT or CINEMA_LIGHT"
+    << endl <<     "    bool  enabled;                  // on/off state of light"
+    << endl <<     "};"
+    << endl <<     ""
+    << endl <<     "layout (std430) buffer " << getLightBlockName()
+    << endl <<     "{"
+    << endl <<     "    Light light[];"
+    << endl <<     "} " << getLightVariableName() << ";"
+    << endl
+    ;
+
+    return ost.str();
 }
 
 OSG_END_NAMESPACE
