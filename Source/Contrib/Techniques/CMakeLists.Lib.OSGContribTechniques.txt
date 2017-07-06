@@ -1,0 +1,71 @@
+
+IF(OSG_OGL_COREONLY AND NOT OSG_CHECK_COREONLY)
+  RETURN()
+ENDIF()
+
+OSG_ADD_PROJECT("OSGContribTechniques")
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
+                                OSGDrawable
+                                OSGGroup
+                                OSGState
+                                OSGSystem
+                                OSGUtil
+                                OSGWindow
+                                OSGContribComputeBase)
+
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGBase
+                                     OSGDrawable
+                                     OSGGroup
+                                     OSGFileIO
+                                     OSGImageFileIO
+                                     OSGState
+                                     OSGSystem
+                                     OSGUtil
+                                     OSGWindow
+                                     OSGWindowGLUT
+                                     OSGContribComputeBase)
+
+# dependencies - External
+SET(${PROJECT_NAME}_DEP_LIB OSG_BOOST_LIBS)
+# SET(${PROJECT_NAME}_DEP_LIBDIR)
+SET(${PROJECT_NAME}_DEP_INCDIR OSG_BOOST_INCDIRS)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+#SET(${PROJECT_NAME}_DEP_TEST_INCDIR OSG_GLUT_INC_DIR)
+
+OSG_ADD_GLUTPACKAGE(TRUE)
+
+# dependencies - Additional
+# SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
+SET(${PROJECT_NAME}_NO_DOC TRUE)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/Contrib/Techniques")
+
+##############################################################################
+# setup python bindings
+##############################################################################
+
+SET(${PROJECT_NAME}_NO_PYTHON TRUE)
+
+##############################################################################
+# setup build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBTECHNIQUESLIB")

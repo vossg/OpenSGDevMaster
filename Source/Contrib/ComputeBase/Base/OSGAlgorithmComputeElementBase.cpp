@@ -102,6 +102,14 @@ PointerType FieldTraits<AlgorithmComputeElement *, nsOSG>::_type(
 
 OSG_FIELDTRAITS_GETTYPE_NS(AlgorithmComputeElement *, nsOSG)
 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           AlgorithmComputeElement *,
+                           nsOSG)
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           AlgorithmComputeElement *,
+                           nsOSG)
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -142,7 +150,7 @@ AlgorithmComputeElementBase::TypeObject AlgorithmComputeElementBase::_type(
     "   name=\"AlgorithmComputeElement\"\n"
     "   parent=\"ComputeElement\"\n"
     "   library=\"ContribComputeBase\"\n"
-    "   pointerfieldtypes=\"none\"\n"
+    "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"

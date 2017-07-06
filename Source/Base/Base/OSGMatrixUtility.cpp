@@ -1050,6 +1050,50 @@ void MatrixSkew(      Matrix &result,
     result[2][2] = a2.z() * b.z() * alpha + 1.0f;
 }
 
+void MatrixReflectOriginPlane(Matrix& Result, const Vec3f& N)
+{
+    Real32 xx = N[0]*N[0];
+    Real32 yy = N[1]*N[1];
+    Real32 zz = N[2]*N[2];
+    Real32 xy = N[0]*N[1];
+    Real32 xz = N[0]*N[2];
+    Real32 yz = N[1]*N[2];
+
+    Result.setValue(1.f-2.f*xx,    -2.f*xy,    -2.f*xz, 0.f,
+                       -2.f*xy, 1.f-2.f*yy,    -2.f*yz, 0.f,
+                       -2.f*xz,    -2.f*yz, 1.f-2.f*zz, 0.f,
+                           0.f,        0.f,        0.f, 1.f);
+}
+
+void MatrixRotateTowards(Matrix& Result, Vec3f a, Vec3f b)
+{
+    Result.setIdentity();
+
+    a.normalize();
+    b.normalize();
+
+    Real32 c = a.dot(b);
+    if (osgAbs(1.f - c) < Eps)
+        return;
+
+    if (osgAbs(-1.f - c) < Eps)
+    {
+        MatrixReflectOriginPlane(Result, a);
+        return;
+    }
+
+    Vec3f v = a.cross(b);
+
+    Matrix skew( 0.f,-v[2], v[1],  0.f,
+                v[2],  0.f,-v[0],  0.f,
+               -v[1], v[0],  0.f,  0.f,
+                 0.f,  0.f,  0.f,  0.f);
+
+    Matrix T(skew); T.mult(skew); T.scale(1.f / (1.f + c));
+
+    Result.add(skew); Result.add(T);
+}
+
 OSG_END_NAMESPACE
 
 

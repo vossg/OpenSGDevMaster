@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ClusterShadingStageData"
+   parent="StageData"
+   library="ContribTechniques"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   >
+
+    View dependent Data used by the ClusterShadingStage.
+
+    <Field
+    name="frustDispDatUBOChunk"
+    type="UniformBufferObjStd140ChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        This represents a lightweight data struct used by the calc frustums computation shader.
+    </Field>
+
+    <Field
+    name="cullDispDatUBOChunk"
+    type="UniformBufferObjStd140ChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        This represents a lightweight data struct used by the cull lights computation shader.
+    </Field>
+
+    <Field
+    name="cullClusterDatUBOChunk"
+    type="UniformBufferObjStd140ChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        Cluster data are used for calculation of the cluster keys respectively cluster z-Values.
+        This UBO is needed in the shading material fragment shader. 
+    </Field>
+
+    <Field
+    name="cullLightIndexCounterSSBOChunk"
+    type="ShaderStorageBufferObjStdLayoutChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        This is a helper SSBO that contains a global counter used for the light culling shader.
+    </Field>
+
+    <Field
+    name="frustumsSSBOChunk"
+    type="ShaderStorageBufferObjStdLayoutChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The frustums of the current view frustum.
+    </Field>
+
+    <Field
+    name="affectedLightIndexListSSBOChunk"
+    type="ShaderStorageBufferObjStdLayoutChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The light index list affecting the view frustum. I.e. this index list is the
+        result of a pre light culling process before any cluster shading happens.
+        This SSBO is needed in the shading material fragment shader. 
+    </Field>
+
+    <Field
+    name="lightIndexListSSBOChunk"
+    type="ShaderStorageBufferObjStdLayoutChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The global light index list, containing the result of the cluster shading calculations.
+        This SSBO is needed in the shading material fragment shader. 
+    </Field>
+
+    <Field
+    name="frustChunkMat"
+    type="ChunkMaterialPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The material used for the GPU frustums calculations.
+    </Field>
+
+    <Field
+    name="cullChunkMat"
+    type="ChunkMaterialPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The material used for the GPU light culling process.
+    </Field>
+    
+    <Field
+    name="lightGridImage"
+    type="ImagePtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The underlying image of the light grid.
+    </Field>
+
+    <Field
+    name="lightGridTexObjChunk"
+    type="TextureObjChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The texture object taking the underlying image of the light grid.
+    </Field>
+
+     <Field
+    name="lightGridTexImgChunkCS"
+    type="TextureImageChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The write only texture image chunk that is used in the light culling compute shader.
+    </Field>
+
+     <Field
+    name="lightGridTexImgChunkFS"
+    type="TextureImageChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="public"
+    >
+        The read only texture image chunk that is used in the fragment shader.
+    </Field>
+
+  <Field
+     name="frustumPlanesNormals"
+     type="Matrix"
+     cardinality="multi"
+     visibility="internal"
+     access="public"
+     >
+    The four tile frustum planes normal vectors.
+  </Field>
+
+  <Field
+     name="frustumPlanesDistances"
+     type="Vec4f"
+     cardinality="multi"
+     visibility="internal"
+     access="public"
+     >
+    The four tile frustum planes distances from the origin.
+  </Field>
+
+    <Field
+    name="left"
+    type="Int32"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="0"
+    access="public"
+    >
+    </Field>
+
+    <Field
+    name="bottom"
+    type="Int32"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="0"
+    access="public"
+    >
+    </Field>
+
+    <Field
+    name="width"
+    type="Int32"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="0"
+    access="public"
+    >
+    </Field>
+
+    <Field
+    name="height"
+    type="Int32"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="0"
+    access="public"
+    >
+    </Field>
+
+    <Field
+    name="isOrthographicCamera"
+    type="bool"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="false"
+    access="public"
+    >
+        This flag tracks whether we have an orthographic or perspective camera setup.
+    </Field>
+
+  </FieldContainer>

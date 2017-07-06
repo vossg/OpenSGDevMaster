@@ -87,16 +87,130 @@ struct FieldTraits<AlgorithmComputeElement *, nsOSG> :
 
     static OSG_CONTRIBCOMPUTEBASE_DLLMAPPING DataType &getType(void);
 
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
 };
 
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecAlgorithmComputeElementPtr"; 
+}
 
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakAlgorithmComputeElementPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AlgorithmComputeElement *, nsOSG>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdAlgorithmComputeElementPtr"; 
+}
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribComputeBaseFieldSFields */
+typedef PointerSField<AlgorithmComputeElement *,
+                      RecordedRefCountPolicy, nsOSG  > SFRecAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldSFields */
+typedef PointerSField<AlgorithmComputeElement *,
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldSFields */
+typedef PointerSField<AlgorithmComputeElement *,
+                      WeakRefCountPolicy, nsOSG      > SFWeakAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldSFields */
+typedef PointerSField<AlgorithmComputeElement *,
+                      NoRefCountPolicy, nsOSG        > SFUncountedAlgorithmComputeElementPtr;
+
+
+/*! \ingroup GrpContribComputeBaseFieldMFields */
+typedef PointerMField<AlgorithmComputeElement *,
+                      RecordedRefCountPolicy, nsOSG  > MFRecAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldMFields */
+typedef PointerMField<AlgorithmComputeElement *,
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldMFields */
+typedef PointerMField<AlgorithmComputeElement *,
+                      WeakRefCountPolicy, nsOSG      > MFWeakAlgorithmComputeElementPtr;
+/*! \ingroup GrpContribComputeBaseFieldMFields */
+typedef PointerMField<AlgorithmComputeElement *,
+                      NoRefCountPolicy, nsOSG        > MFUncountedAlgorithmComputeElementPtr;
+
 
 
 
 #else // these are the doxygen hacks
+
+/*! \ingroup GrpContribComputeBaseFieldSFields \ingroup GrpLibOSGContribComputeBase */
+struct SFRecAlgorithmComputeElementPtr : 
+    public PointerSField<AlgorithmComputeElement *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribComputeBaseFieldSFields \ingroup GrpLibOSGContribComputeBase */
+struct SFUnrecAlgorithmComputeElementPtr : 
+    public PointerSField<AlgorithmComputeElement *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribComputeBaseFieldSFields \ingroup GrpLibOSGContribComputeBase */
+struct SFWeakAlgorithmComputeElementPtr :
+    public PointerSField<AlgorithmComputeElement *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribComputeBaseFieldSFields \ingroup GrpLibOSGContribComputeBase */
+struct SFUncountedAlgorithmComputeElementPtr :
+    public PointerSField<AlgorithmComputeElement *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribComputeBaseFieldMFields \ingroup GrpLibOSGContribComputeBase */
+struct MFRecAlgorithmComputeElementPtr :
+    public PointerMField<AlgorithmComputeElement *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribComputeBaseFieldMFields \ingroup GrpLibOSGContribComputeBase */
+struct MFUnrecAlgorithmComputeElementPtr :
+    public PointerMField<AlgorithmComputeElement *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribComputeBaseFieldMFields \ingroup GrpLibOSGContribComputeBase */
+struct MFWeakAlgorithmComputeElementPtr :
+    public PointerMField<AlgorithmComputeElement *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribComputeBaseFieldMFields \ingroup GrpLibOSGContribComputeBase */
+struct MFUncountedAlgorithmComputeElementPtr :
+    public PointerMField<AlgorithmComputeElement *,
+                         NoRefCountPolicy        > {};
 
 
 

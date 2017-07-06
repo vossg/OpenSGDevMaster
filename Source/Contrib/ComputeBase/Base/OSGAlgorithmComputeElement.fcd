@@ -4,7 +4,7 @@
    name="AlgorithmComputeElement"
    parent="ComputeElement"
    library="ContribComputeBase"
-   pointerfieldtypes="none"
+   pointerfieldtypes="both"
    structure="concrete"
    systemcomponent="true"
    parentsystemcomponent="true"

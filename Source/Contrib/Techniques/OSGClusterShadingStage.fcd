@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ClusterShadingStage"
+   parent="Stage"
+   library="ContribTechniques"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   >
+
+     <Field
+    name="blockSize"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="16"
+    access="public"
+    >
+        The number of compute shader work group threads per xy-direction
+    </Field>
+
+    <Field
+    name="tileSize"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="64"
+    access="public"
+    >
+        The number of pixel per cluster tile per xy-direction. The overall number if
+        clusters is then tileSize^2  * numClusterZ.
+    </Field>
+
+    <Field
+    name="numClusterZ"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="32"
+    access="public"
+    >
+        The number of clusters in the z direction. The overall number if
+        clusters is then tileSize^2  * numClusterZ.
+    </Field>
+
+     <Field
+    name="nearPlaneOffset"
+    type="Real32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="5.f"
+    access="public"
+    >
+        z-coords below of zNear + near_plane_offset are mapped to cluster key 0, i.e.
+        the logarithmic clustering starts at zNear + near_plane_offset with key 1. Key 0
+        is therefor artificially. With this parameter you can enhance the cluster utilization.
+    </Field>
+
+     <Field
+    name="dispatchDataBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="1"
+    access="public"
+    >
+        The fragment shader binding point for the clustering data UBO.
+    </Field>
+
+     <Field
+    name="clusterDataBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="2"
+    access="public"
+    >
+        The fragment shader binding point for the clustering data UBO.
+    </Field>
+
+    <Field
+    name="lightBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="1"
+    access="public"
+    >
+        The fragment shader SSBO binding point for the multi light chunk.
+    </Field>
+
+    <Field
+    name="affectedLightIndexListBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="2"
+    access="public"
+    >
+        The fragment shader binding point for the index list SSBO of the view frustum affecting lights.
+    </Field>
+
+    <Field
+    name="frustumBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="3"
+    access="public"
+    >
+        The frustum and cull light computation shader binding point for the SSBO frustum buffer.
+    </Field>
+
+    <Field
+    name="lightIndexListBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="4"
+    access="public"
+    >
+        The fragment shader binding point for the index list SSBO of the cluster shading lights.
+    </Field>
+
+    <Field
+    name="lightIndexCounterBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="5"
+    access="public"
+    >
+        The fragment shader binding point for the index list global counter SSBO.
+    </Field>
+
+    <Field
+    name="lightGridBindingPnt"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="0"
+    access="public"
+    >
+        The fragment shader binding point for the texture image of the light grid.
+    </Field>
+
+    <Field
+     name="affectedLightIndexListBlockName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"AffectedLightIndexList"'
+     >
+        The shader storage buffer block name for the affected light index buffer.
+    </Field>
+
+    <Field
+     name="affectedLightIndexListVariableName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"affectedLightIndexList"'
+     >
+        The variable name for the affected light index buffer.
+    </Field>
+
+    <Field
+     name="lightIndexListBlockName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"LightIndexList"'
+     >
+        The shader storage buffer block name for the global light index buffer.
+    </Field>
+
+    <Field
+     name="lightIndexListVariableName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"lightIndexList"'
+     >
+        The variable name for the global light index buffer.
+    </Field>
+
+    <Field
+     name="clusteringDataBlockName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"ClusteringData"'
+     >
+        The uniform buffer block name for the clustering data buffer.
+    </Field>
+
+    <Field
+     name="clusteringDataVariableName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"clusteringData"'
+     >
+        The variable name for the clustering data buffer.
+    </Field>
+
+    <Field
+     name="lightGridVariableName"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue='"light_grid"'
+     >
+        The variable name for the uniform light grid image array .
+    </Field>
+
+    <Field
+    name="calcFrustumsOnCPU"
+    type="bool"
+    cardinality="single"
+    visibility="external"
+    defaultValue="false"
+    access="public"
+    >
+        Calculate the view frustums on the CPU.
+    </Field>
+
+    <Field
+    name="cullLighsOnCPU"
+    type="bool"
+    cardinality="single"
+    visibility="external"
+    defaultValue="false"
+    access="public"
+    >
+        Cull the lights on the CPU.
+    </Field>
+
+    <Field
+    name="disabled"
+    type="bool"
+    cardinality="single"
+    visibility="external"
+    defaultValue="false"
+    access="public"
+    >
+        Disable the stage completely. The geometry fragment shaders must act accordingly.
+    </Field>
+
+     <Field
+    name="maxLightIndexListSize"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="2097152"
+    access="public"
+    >
+        The maximal number of light indices, i.e. the accumulated sum of all cluster lights. If the light index
+        list is completely filled all additional lights are silently dropped.
+    </Field>
+
+    <Field
+    name="maxClusterLightCount"
+    type="UInt32"
+    cardinality="single"
+    visibility="external"
+    defaultValue="1024"
+    access="public"
+    >
+        The maximal number of lights that can be attributed to one specific cluster. Realize, that
+        the accumulated sum of all  cluster attributed lights must not exceed the maxLightIndexListSize.
+        If the number of lights for one cluster exceeds this limit the excessive lights are silently dropped.
+    </Field>
+
+    <Field
+    name="frustNode"
+    type="NodePtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum computation node.
+    </Field>
+
+    <Field
+    name="frustAlgoElement"
+    type="AlgorithmComputeElementPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum algorithm computation element.
+    </Field>
+
+    <Field
+    name="frustCompShaderAlgo"
+    type="ComputeShaderAlgorithmPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum computation shader algorithm.
+    </Field>
+
+    <Field
+    name="cullNode"
+    type="NodePtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum computation node.
+    </Field>
+
+    <Field
+    name="cullAlgoElement"
+    type="AlgorithmComputeElementPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum algorithm computation element.
+    </Field>
+
+    <Field
+    name="cullCompShaderAlgo"
+    type="ComputeShaderAlgorithmPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The frustum computation shader algorithm.
+    </Field>
+
+    <Field
+    name="multiLightChunk"
+    type="MultiLightChunkPtr"
+    cardinality="single"
+    visibility="external"
+    defaultValue="NULL"
+    access="public"
+    >
+        The multi light chunk.
+    </Field>
+
+    <Field
+    name="shaderProgChunk"
+    type="ShaderProgramChunkPtr"
+    cardinality="single"
+    visibility="internal"
+    defaultValue="NULL"
+    access="protected"
+    >
+        The shader program chunk.
+    </Field>
+
+</FieldContainer>

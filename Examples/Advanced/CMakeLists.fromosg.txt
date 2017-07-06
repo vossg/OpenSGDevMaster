@@ -30,7 +30,8 @@ SET(OSG_COMPONENTS OSGBase
                    OSGWindowGLUT
                    OSGContribBackgroundLoader
                    OSGContribTrapezoidalShadowMaps
-                   OSGContribComputeBase)
+                   OSGContribComputeBase
+                   OSGContribTechniques)
 
 IF(UNIX)
     IF(APPLE)

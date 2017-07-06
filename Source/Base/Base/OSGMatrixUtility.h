@@ -276,11 +276,29 @@ OSG_BASE_DLLMAPPING void getPFromViewMat        (      Pnt3f  &P,
 OSG_BASE_DLLMAPPING void setViewMatEyePos       (      Matrix &Result,
                                                  const Pnt3f  &P           );
 
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+ */
+OSG_BASE_DLLMAPPING void MatrixReflectOriginPlane
+                                                (      Matrix &Result,
+                                                 const Vec3f  &N           );
+
+/*! \ingroup GrpBaseBaseMathMatrixFn
+    \relatesalso TransformationMatrix
+
+    The resulting orthonormal matrix rotates vector a into the direction 
+    of vector b. If b is a unit vector then the resulting vector b' = M*b
+    is identical to vector b. For some unit vector a' the resulting vector 
+    b' = M*a' is also a unit vector. 
+    Neither the length of a nor b is used in the calculation of the
+    rotation matrix!
+ */
+OSG_BASE_DLLMAPPING  void MatrixRotateTowards   (       Matrix &Result,
+                                                        Vec3f  a, 
+                                                        Vec3f  b           );
 /*! \} 
  */
 
 OSG_END_NAMESPACE
 
 #endif /* _OSGMATRIXUTILITY_H_ */
-
-
