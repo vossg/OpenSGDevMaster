@@ -41,24 +41,6 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-const StateChunkClass *MultiPropertyUBOChunk::getStaticClass(void)
-{
-    return &MultiPropertyUBOChunk::_class;
-}
-
-inline
-UInt32 MultiPropertyUBOChunk::getStaticClassId(void)
-{
-    return getStaticClass()->getId();
-}
-
-inline
-UInt16 MultiPropertyUBOChunk::getChunkId(void)
-{
-    return _uiChunkId;
-}
-
-inline
 bool MultiPropertyUBOChunk::check_invariant() const
 {
     UInt32 num = getNumProperties();

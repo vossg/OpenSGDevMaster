@@ -74,11 +74,6 @@ OSG_BEGIN_NAMESPACE
 const UInt8 MultiPropertySSBOChunk::_numTypes =
     MultiPropertySSBOChunk::MAT4_T + 1;
 
-StateChunkClass MultiPropertySSBOChunk::_class(
-    "MultiPropertySSBO", osgMaxShaderStorageBufferBindings, 30);
-
-volatile UInt16 MultiPropertySSBOChunk::_uiChunkCounter = 1;
-
 typedef OSG::Window Win;
 
 /***************************************************************************\
@@ -107,14 +102,12 @@ void MultiPropertySSBOChunk::initMethod(InitPhase ePhase)
 
 MultiPropertySSBOChunk::MultiPropertySSBOChunk(void) :
     Inherited(),
-    _uiChunkId(0),
     _bUpdateBuffer(false)
 {
 }
 
 MultiPropertySSBOChunk::MultiPropertySSBOChunk(const MultiPropertySSBOChunk &source) :
     Inherited(source),
-    _uiChunkId(     0),
     _bUpdateBuffer(false)
 {
 }
@@ -124,13 +117,6 @@ MultiPropertySSBOChunk::~MultiPropertySSBOChunk(void)
 }
 
 /*----------------------------- class specific ----------------------------*/
-
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *MultiPropertySSBOChunk::getClass(void) const
-{
-    return &_class;
-}
 
 void MultiPropertySSBOChunk::changed(ConstFieldMaskArg whichField, 
                                      UInt32            origin,
@@ -163,8 +149,6 @@ void MultiPropertySSBOChunk::onCreate(const MultiPropertySSBOChunk *source)
 
     if(GlobalSystemState == Startup)
         return;
-
-    _uiChunkId = _uiChunkCounter++;
 }
 
 void MultiPropertySSBOChunk::onCreateAspect(
@@ -172,8 +156,6 @@ void MultiPropertySSBOChunk::onCreateAspect(
     const MultiPropertySSBOChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
-
-    _uiChunkId = createAspect->_uiChunkId;
 }
 
 void MultiPropertySSBOChunk::onDestroy(UInt32 uiContainerId)

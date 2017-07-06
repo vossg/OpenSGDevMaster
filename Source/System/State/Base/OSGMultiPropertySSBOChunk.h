@@ -62,28 +62,6 @@ class OSG_SYSTEM_DLLMAPPING MultiPropertySSBOChunk : public MultiPropertySSBOChu
     typedef MultiPropertySSBOChunk     Self;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass *getClass(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    static       UInt32           getStaticClassId(void);
-    static const StateChunkClass *getStaticClass  (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Chunk Id                                  */
-    /*! \{                                                                 */
-
-    virtual UInt16 getChunkId(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Interface                               */
     /*! \{                                                                 */
 
@@ -166,9 +144,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPropertySSBOChunk : public MultiPropertySSBOChu
   protected:
 
     static const UInt8 _numTypes;
-
-    UInt16 _uiChunkId;
-    bool   _bUpdateBuffer;
+    bool               _bUpdateBuffer;
 
     // Variables should all be in MultiPropertySSBOChunkBase.
 
@@ -197,9 +173,6 @@ class OSG_SYSTEM_DLLMAPPING MultiPropertySSBOChunk : public MultiPropertySSBOChu
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
-
-    static StateChunkClass _class;
-    static volatile UInt16 _uiChunkCounter;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
