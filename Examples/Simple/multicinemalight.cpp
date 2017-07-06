@@ -270,13 +270,13 @@ struct Light
 {
     enum Type
     {
-        directional_light = OSG::MultiLightChunk::DIRECTIONAL_LIGHT,
-        point_light       = OSG::MultiLightChunk::POINT_LIGHT,
-        spot_light        = OSG::MultiLightChunk::SPOT_LIGHT,
-        cinema_light      = OSG::MultiLightChunk::CINEMA_LIGHT
+        directional_light = OSG::MultiLight::DIRECTIONAL_LIGHT,
+        point_light       = OSG::MultiLight::POINT_LIGHT,
+        spot_light        = OSG::MultiLight::SPOT_LIGHT,
+        cinema_light      = OSG::MultiLight::CINEMA_LIGHT
     };
 
-    OSG::MultiLightChunk::LightType getType() const { return static_cast<OSG::MultiLightChunk::LightType>(type); }
+    OSG::MultiLight::Type getType() const { return static_cast<OSG::MultiLight::Type>(type); }
 
     explicit Light(Type e);
             ~Light();
@@ -298,6 +298,7 @@ struct Light
     OSG::Real32  outerSuperEllipsesWidth;   // cinema light parameter
     OSG::Real32  outerSuperEllipsesHeight;  // cinema light parameter
     OSG::Real32  superEllipsesRoundness;    // cinema light parameter
+    OSG::Real32  superEllipsesTwist;        // cinema light parameter
 
     OSG::Int32   type;                  // the type of light: see OSG::MultiLight::LightType
     bool         enabled;               // on/off state of the light
@@ -326,6 +327,7 @@ Light::Light(Type e)
 , outerSuperEllipsesWidth(1.3f)
 , outerSuperEllipsesHeight(1.3f)
 , superEllipsesRoundness(0.45f)
+, superEllipsesTwist(0.f)
 , type(e)
 , enabled(true)
 , beacon(NULL)
@@ -448,9 +450,9 @@ OSG::MultiLightChunkTransitPtr create_light_state(const VecLightsT& vLights)
 
     lightChunk->setUsage(GL_DYNAMIC_DRAW);
     lightChunk->setLayoutType(
-                    OSG::MultiLightChunk::OPENGL_LAYOUT | 
-                    OSG::MultiLightChunk::RANGE_LAYOUT |
-                    OSG::MultiLightChunk::CINEMA_LAYOUT);
+                    OSG::MultiLight::OPENGL_LAYOUT | 
+                    OSG::MultiLight::RANGE_LAYOUT |
+                    OSG::MultiLight::CINEMA_LAYOUT);
 
     lightChunk->setHasEyeToLightSpaceMatrix(true);
     lightChunk->setAutoCalcRanges(true);
@@ -474,6 +476,7 @@ OSG::MultiLightChunkTransitPtr create_light_state(const VecLightsT& vLights)
         lightChunk->setOuterSuperEllipsesWidth  (idx, light.outerSuperEllipsesWidth);
         lightChunk->setOuterSuperEllipsesHeight (idx, light.outerSuperEllipsesHeight);
         lightChunk->setSuperEllipsesRoundness   (idx, light.superEllipsesRoundness);
+        lightChunk->setSuperEllipsesTwist       (idx, light.superEllipsesTwist);
         lightChunk->setEnabled                  (idx, light.enabled);
         lightChunk->setType                     (idx, light.getType());
         lightChunk->setBeacon                   (idx, light.beacon);
@@ -509,6 +512,7 @@ void update_light_state(OSG::MultiLightChunk* lightChunk, const VecLightsT& vLig
                 lightChunk->setOuterSuperEllipsesWidth  (idx, light.outerSuperEllipsesWidth);
                 lightChunk->setOuterSuperEllipsesHeight (idx, light.outerSuperEllipsesHeight);
                 lightChunk->setSuperEllipsesRoundness   (idx, light.superEllipsesRoundness);
+                lightChunk->setSuperEllipsesTwist       (idx, light.superEllipsesTwist);
                 lightChunk->setEnabled                  (idx, light.enabled);
                 lightChunk->setType                     (idx, light.getType());
                 lightChunk->setBeacon                   (idx, light.beacon);
@@ -535,6 +539,7 @@ void update_light_state(OSG::MultiLightChunk* lightChunk, const VecLightsT& vLig
                 lightChunk->setOuterSuperEllipsesWidth  (idx, light.outerSuperEllipsesWidth);
                 lightChunk->setOuterSuperEllipsesHeight (idx, light.outerSuperEllipsesHeight);
                 lightChunk->setSuperEllipsesRoundness   (idx, light.superEllipsesRoundness);
+                lightChunk->setSuperEllipsesTwist       (idx, light.superEllipsesTwist);
                 lightChunk->setEnabled                  (idx, light.enabled);
                 lightChunk->setType                     (idx, light.getType());
                 lightChunk->setBeacon                   (idx, light.beacon);
@@ -1072,6 +1077,7 @@ OSG::NodeTransitPtr createBox()
     polygonChunk->setOffsetFill(true);
     polygonChunk->setCullFace(GL_NONE);
     geom_state->addChunk(polygonChunk);
+    geom_state->setTransparencyMode(OSG::Material::TransparencyForceOpaque);
 
     OSG::TwoSidedLightingChunkRefPtr twoSidedLightingChunk = OSG::TwoSidedLightingChunk::create();
     geom_state->addChunk(twoSidedLightingChunk);
@@ -1545,6 +1551,9 @@ void keyboard(unsigned char k, int x, int y)
 
                 light.innerSuperEllipsesWidth *= ellipsesGeomFactor;
                 light.outerSuperEllipsesWidth = r * light.innerSuperEllipsesWidth;
+
+                std::cout << "innerSuperEllipsesWidth = " << light.innerSuperEllipsesWidth << std::endl;
+                std::cout << "outerSuperEllipsesWidth = " << light.outerSuperEllipsesWidth << std::endl;
             }
 
             update_light_state(multi_light_chunk, lights);
@@ -1562,6 +1571,9 @@ void keyboard(unsigned char k, int x, int y)
 
                     light.innerSuperEllipsesWidth /= ellipsesGeomFactor;
                     light.outerSuperEllipsesWidth = r * light.innerSuperEllipsesWidth;
+
+                    std::cout << "innerSuperEllipsesWidth = " << light.innerSuperEllipsesWidth << std::endl;
+                    std::cout << "outerSuperEllipsesWidth = " << light.outerSuperEllipsesWidth << std::endl;
                 }
             }
 
@@ -1578,6 +1590,9 @@ void keyboard(unsigned char k, int x, int y)
 
                 light.innerSuperEllipsesHeight *= ellipsesGeomFactor;
                 light.outerSuperEllipsesHeight = r * light.innerSuperEllipsesHeight;
+
+                std::cout << "innerSuperEllipsesHeight = " << light.innerSuperEllipsesHeight << std::endl;
+                std::cout << "outerSuperEllipsesHeight = " << light.outerSuperEllipsesHeight << std::endl;
             }
 
             update_light_state(multi_light_chunk, lights);
@@ -1595,6 +1610,9 @@ void keyboard(unsigned char k, int x, int y)
 
                     light.innerSuperEllipsesHeight /= ellipsesGeomFactor;
                     light.outerSuperEllipsesHeight = r * light.innerSuperEllipsesHeight;
+
+                    std::cout << "innerSuperEllipsesHeight = " << light.innerSuperEllipsesHeight << std::endl;
+                    std::cout << "outerSuperEllipsesHeight = " << light.outerSuperEllipsesHeight << std::endl;
                 }
             }
 
@@ -1611,6 +1629,9 @@ void keyboard(unsigned char k, int x, int y)
 
                 r *= ellipsesGeomFactor;
                 light.outerSuperEllipsesWidth = r * light.innerSuperEllipsesWidth;
+
+                std::cout << "innerSuperEllipsesWidth = " << light.innerSuperEllipsesWidth << std::endl;
+                std::cout << "outerSuperEllipsesWidth = " << light.outerSuperEllipsesWidth << std::endl;
             }
 
             update_light_state(multi_light_chunk, lights);
@@ -1627,6 +1648,9 @@ void keyboard(unsigned char k, int x, int y)
                 {
                     r /= ellipsesGeomFactor;
                     light.outerSuperEllipsesWidth = r * light.innerSuperEllipsesWidth;
+
+                    std::cout << "innerSuperEllipsesWidth = " << light.innerSuperEllipsesWidth << std::endl;
+                    std::cout << "outerSuperEllipsesWidth = " << light.outerSuperEllipsesWidth << std::endl;
                 }
             }
 
@@ -1643,6 +1667,9 @@ void keyboard(unsigned char k, int x, int y)
 
                 r *= ellipsesGeomFactor;
                 light.outerSuperEllipsesHeight = r * light.innerSuperEllipsesHeight;
+
+                std::cout << "innerSuperEllipsesHeight = " << light.innerSuperEllipsesHeight << std::endl;
+                std::cout << "outerSuperEllipsesHeight = " << light.outerSuperEllipsesHeight << std::endl;
             }
 
             update_light_state(multi_light_chunk, lights);
@@ -1659,6 +1686,9 @@ void keyboard(unsigned char k, int x, int y)
                 {
                     r /= ellipsesGeomFactor;
                     light.outerSuperEllipsesHeight = r * light.innerSuperEllipsesHeight;
+
+                    std::cout << "innerSuperEllipsesHeight = " << light.innerSuperEllipsesHeight << std::endl;
+                    std::cout << "outerSuperEllipsesHeight = " << light.outerSuperEllipsesHeight << std::endl;
                 }
             }
 
@@ -1670,7 +1700,11 @@ void keyboard(unsigned char k, int x, int y)
         case 'b':
         {
             BOOST_FOREACH(Light& light, lights)
+            {
                 light.superEllipsesRoundness *= ellipsesRoundFactor;
+
+                std::cout << "superEllipsesRoundness = " << light.superEllipsesRoundness << std::endl;
+            }
 
             update_light_state(multi_light_chunk, lights);
             glutPostRedisplay();
@@ -1680,14 +1714,51 @@ void keyboard(unsigned char k, int x, int y)
         case 'B':
         {
             BOOST_FOREACH(Light& light, lights)
+            {
                 if (light.superEllipsesRoundness / ellipsesRoundFactor >= OSG::Eps)
+                {
                     light.superEllipsesRoundness /= ellipsesRoundFactor;
+
+                    std::cout << "superEllipsesRoundness = " << light.superEllipsesRoundness << std::endl;
+                }
+            }
 
             update_light_state(multi_light_chunk, lights);
             glutPostRedisplay();
         }
         break;
 
+        case 'd':
+        {
+            BOOST_FOREACH(Light& light, lights)
+            {
+                light.superEllipsesTwist += 360.f / 40.f;
+                if (light.superEllipsesTwist >= 360.f)
+                    light.superEllipsesTwist = light.superEllipsesTwist - 360.f;
+
+                std::cout << "superEllipsesTwist = " << light.superEllipsesTwist << std::endl;
+            }
+
+            update_light_state(multi_light_chunk, lights);
+            glutPostRedisplay();
+        }
+        break;
+
+        case 'D':
+        {
+            BOOST_FOREACH(Light& light, lights)
+            {
+                light.superEllipsesTwist -= 360.f / 40.f;
+                if (light.superEllipsesTwist < 0.f)
+                    light.superEllipsesTwist = light.superEllipsesTwist + 360.0;
+
+                std::cout << "superEllipsesTwist = " << light.superEllipsesTwist << std::endl;
+            }
+
+            update_light_state(multi_light_chunk, lights);
+            glutPostRedisplay();
+        }
+        break;
 
         case '1':
         {
@@ -1857,6 +1928,7 @@ void print_help()
     std::cout << "f/F   : increase/decrease ratio of outer to inner ellipses width" << std::endl;
     std::cout << "g/G   : increase/decrease ratio of outer to inner ellipses height" << std::endl;
     std::cout << "b/B   : increase/decrease super ellipses roundness" << std::endl;
+    std::cout << "d/D   : increase/decrease super ellipses twist" << std::endl;
 }
 
 // ============================================================================
@@ -2366,15 +2438,13 @@ std::string get_fp_program()
     << endl << "const int SPOT_LIGHT        = 3;"
     << endl << "const int CINEMA_LIGHT      = 4;"
     << endl << ""
-    << endl << "const float epsilon         = 1.0e-6;"
-    << endl << ""
     << endl << "uniform mat4  OSGViewMatrix;"
     << endl << ""
     << endl << "struct Light"
     << endl << "{"
     << endl << "    mat4  eyeToLightSpaceMatrix;"
-    << endl << "    vec3  position;                 // in eye space"
-    << endl << "    vec3  direction;                // in eye space"
+    << endl << "    vec3  position;                 // in world space"
+    << endl << "    vec3  direction;                // in world space"
     << endl << "    vec3  Ia;"
     << endl << "    vec3  Id;"
     << endl << "    vec3  Is;"
@@ -2383,13 +2453,14 @@ std::string get_fp_program()
     << endl << "    float quadratic_attenuation;"
     << endl << "    float rangeCutOn;"
     << endl << "    float rangeCutOff;"
-    << endl << "    float spotlightAngle;"
+    << endl << "    float cosSpotlightAngle;"
     << endl << "    float spotExponent;"
     << endl << "    float innerSuperEllipsesWidth;"
     << endl << "    float innerSuperEllipsesHeight;"
     << endl << "    float outerSuperEllipsesWidth;"
     << endl << "    float outerSuperEllipsesHeight;"
     << endl << "    float superEllipsesRoundness;"
+    << endl << "    float superEllipsesTwist;"
     << endl << "    int   type;                     // specific type of light: POINT_LIGHT, DIRECTIONAL_LIGHT, SPOT_LIGHT or CINEMA_LIGHT"
     << endl << "    bool  enabled;                  // on/off state of light"
     << endl << "};"
@@ -2455,39 +2526,56 @@ std::string get_fp_program()
     << endl << "//"
     << endl << "// cinema (uber) light super ellipses clipping"
     << endl << "// Parameters:"
-    << endl << "//      a   :  inner super ellipses width"
-    << endl << "//      b   :  inner super ellipses height"
-    << endl << "//      A   :  outer super ellipses width"
-    << endl << "//      B   :  outer super ellipses height"
-    << endl << "//      d   :  roundness parameter"
-    << endl << "//      pos :  fragment position in light space"
+    << endl << "//      a     :  inner super ellipses width"
+    << endl << "//      b     :  inner super ellipses height"
+    << endl << "//      A     :  outer super ellipses width"
+    << endl << "//      B     :  outer super ellipses height"
+    << endl << "//      r     :  roundness parameter"
+    << endl << "//      theta :  twist parameter"
+    << endl << "//      pos   :  fragment position in light space"
+    << endl << "//"
+    << endl << "//      |x/a|^r + |y/b|^r = 1 <=> a*b*(|b*x|^r + |a*y|^r)^(-1/r) = 1"
+    << endl << "//"
+    << endl << "// smoothstep(e0,e1,x)"
+    << endl << "//      Perform smooth Hermite interpolation between 0 and 1, when e0<x<e1"
+    << endl << "//      float t = clamp((x-e0)/(e1-e0),0.0,1.0);"
+    << endl << "//      smoothstep(e0,e1,x) = t*t*(3-2*t);"
     << endl << "//"
     << endl << "float clipSuperEllipses("
     << endl << "    in float a,"
     << endl << "    in float b,"
     << endl << "    in float A,"
     << endl << "    in float B,"
-    << endl << "    in float d,"
+    << endl << "    in float r,"
+    << endl << "    in float theta,"
     << endl << "    in vec3 pos)"
     << endl << "{"
     << endl << "    float result = 1.0;"
     << endl << ""
-    << endl << "    vec2 Q = abs(pos.xy / pos.z);"
-    << endl << "    if (all(equal(Q, vec2(0.0, 0.0))))"
-    << endl << "        return result;"
+    << endl << "    vec2 P = pos.xy / pos.z;"
+    << endl << "    if (all(equal(P, vec2(0.0, 0.0))))"
+    << endl << "        return 1.0;"
     << endl << ""
-    << endl << "    if (d < epsilon)"
+    << endl << "    float cos_theta = cos(-theta);"
+    << endl << "    float sin_theta = sin(-theta);"
+    << endl << ""
+    << endl << "    float x =  abs(cos_theta * P.x - sin_theta * P.y);"
+    << endl << "    float y =  abs(sin_theta * P.x + cos_theta * P.y);"
+    << endl << ""
+    << endl << "    if (r > 50) // basically a square"
     << endl << "    {"
     << endl << "        // Simpler case of a square"
-    << endl << "        result = (1.0 - smoothstep(a, A, Q.x)) * (1.0 - smoothstep(b, B, Q.y));"
+    << endl << "        result = (1.0 - smoothstep(a, A, x)) * (1.0 - smoothstep(b, B, y));"
     << endl << "    }"
     << endl << "    else"
     << endl << "    {"
-    << endl << "        float e =  2.0 / d;     // roundness exponent"
-    << endl << "        float f = -1.0 / e;"
-    << endl << "        float q = a * b * pow( pow(b * Q.x, e) + pow(a * Q.y, e), f );"
-    << endl << "        float r = A * B * pow( pow(B * Q.x, e) + pow(A * Q.y, e), f );"
-    << endl << "        result = 1.0 - smoothstep(q, r, 1.0);"
+    << endl << "        float q = pow(x/a, r) + pow(y/b, r);"
+    << endl << "        float Q = pow(x/A, r) + pow(y/B, r);"
+    << endl << ""
+    << endl << "        if (q <  1) return 1.0;"
+    << endl << "        if (Q >= 1) return 0.0;"
+    << endl << ""
+    << endl << "        result = 1.0 - smoothstep(q, Q, 1.0);"
     << endl << "    }"
     << endl << ""
     << endl << "    return result;"
@@ -2634,7 +2722,7 @@ std::string get_fp_program()
     << endl << "                            lights.light[i].quadratic_attenuation,"
     << endl << "                            d);"
     << endl << ""
-    << endl << "    attenuation *= spotAttenuation(lights.light[i].spotlightAngle, lights.light[i].spotExponent, l, s);"
+    << endl << "    attenuation *= spotAttenuation(lights.light[i].cosSpotlightAngle, lights.light[i].spotExponent, l, s);"
     << endl << ""
     << endl << "    return materials.material[j].emissive"
     << endl << "     + attenuation * lights.light[i].Ia * materials.material[j].ambient"
@@ -2699,6 +2787,7 @@ std::string get_fp_program()
     << endl << "                            lights.light[i].outerSuperEllipsesWidth,"
     << endl << "                            lights.light[i].outerSuperEllipsesHeight,"
     << endl << "                            lights.light[i].superEllipsesRoundness,"
+    << endl << "                            lights.light[i].superEllipsesTwist,"
     << endl << "                            p_LS);"
     << endl << ""
     << endl << "    if (p_LS.z > 0.0) attenuation = 0.0;"

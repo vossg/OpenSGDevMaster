@@ -269,13 +269,13 @@ struct Light
 {
     enum Type
     {
-        directional_light = OSG::MultiLightChunk::DIRECTIONAL_LIGHT,
-        point_light       = OSG::MultiLightChunk::POINT_LIGHT,
-        spot_light        = OSG::MultiLightChunk::SPOT_LIGHT,
-        cinema_light      = OSG::MultiLightChunk::CINEMA_LIGHT
+        directional_light = OSG::MultiLight::DIRECTIONAL_LIGHT,
+        point_light       = OSG::MultiLight::POINT_LIGHT,
+        spot_light        = OSG::MultiLight::SPOT_LIGHT,
+        cinema_light      = OSG::MultiLight::CINEMA_LIGHT
     };
 
-    OSG::MultiLightChunk::LightType getType() const { return static_cast<OSG::MultiLightChunk::LightType>(type); }
+    OSG::MultiLight::Type getType() const { return static_cast<OSG::MultiLight::Type>(type); }
 
     explicit Light(Type e);
             ~Light();
@@ -427,7 +427,7 @@ OSG::MultiLightChunkTransitPtr create_light_state(const VecLightsT& vLights)
     OSG::MultiLightChunkRefPtr lightChunk = OSG::MultiLightChunk::create();
 
     lightChunk->setUsage(GL_DYNAMIC_DRAW);
-    lightChunk->setLayoutType(OSG::MultiLightChunk::SIMPLE_LAYOUT);
+    lightChunk->setLayoutType(OSG::MultiLight::SIMPLE_LAYOUT);
 
     BOOST_FOREACH(const Light& light, vLights)
     {
@@ -949,6 +949,7 @@ OSG::NodeTransitPtr createBox()
     polygonChunk->setOffsetFill(true);
     polygonChunk->setCullFace(GL_NONE);
     geom_state->addChunk(polygonChunk);
+    geom_state->setTransparencyMode(OSG::Material::TransparencyForceOpaque);
 
     OSG::TwoSidedLightingChunkRefPtr twoSidedLightingChunk = OSG::TwoSidedLightingChunk::create();
     geom_state->addChunk(twoSidedLightingChunk);
@@ -2070,12 +2071,12 @@ std::string get_fp_program()
     << endl << ""
     << endl << "struct Light"
     << endl << "{"
-    << endl << "    vec3  position;                 // in eye space"
-    << endl << "    vec3  direction;                // in eye space"
+    << endl << "    vec3  position;                 // in world space"
+    << endl << "    vec3  direction;                // in world space"
     << endl << "    vec3  color;"
     << endl << "    float intensity;"
     << endl << "    float range;"
-    << endl << "    float spotlightAngle;"
+    << endl << "    float cosSpotlightAngle;"
     << endl << "    int   type;                     // specific type of light: POINT_LIGHT, DIRECTIONAL_LIGHT, SPOT_LIGHT or CINEMA_LIGHT"
     << endl << "    bool  enabled;                  // on/off state of light"
     << endl << "};"
@@ -2270,7 +2271,7 @@ std::string get_fp_program()
     << endl << "       pf = pow(n_dot_h, m);"
     << endl << ""
     << endl << "    float attenuation = calcAttenuation(lights.light[i].range, d);"
-    << endl << "    attenuation *= spotAttenuation(lights.light[i].spotlightAngle, l, s);"
+    << endl << "    attenuation *= spotAttenuation(lights.light[i].cosSpotlightAngle, l, s);"
     << endl << ""
     << endl << "    vec3 light_intensity = attenuation * lights.light[i].intensity * lights.light[i].color;"
     << endl << ""
