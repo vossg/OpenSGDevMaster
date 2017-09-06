@@ -133,97 +133,123 @@ IF(MSVC)
     STRING(REPLACE "W3"  "W3 /wd4244 /wd4290 /wd4251 /wd4275 /wd4661 /wd4351 /wd4996 /wd4231" OSG_CXX_FLAGS ${OSG_CXX_FLAGS})
     STRING(REPLACE "W3"  "W3 /wd4244 /wd4290 /wd4251 /wd4275 /wd4351 /wd4996" OSG_C_FLAGS ${OSG_C_FLAGS})
 
-    SET(OSG_CXX_FLAGS "/bigobj ${OSG_CXX_FLAGS} /D_WIN32_WINNT=0x0601 /DWINVER=0x0601")
-    SET(OSG_C_FLAGS   "/bigobj ${OSG_C_FLAGS} /D_WIN32_WINNT=0x0601 /DWINVER=0x0601")
+    IF(NOT OSG_WIN_VERSION)
+      SET(OSG_WIN_VERSION "0x0601" CACHE STRING "" FORCE)
+    ENDIF()
+    
+    SET(OSG_CXX_FLAGS "/bigobj ${OSG_CXX_FLAGS} ${OSG_ADD_CXX_FLAGS} /D_WIN32_WINNT=${OSG_WIN_VERSION} /DWINVER=${OSG_WIN_VERSION}")
+    SET(OSG_C_FLAGS   "/bigobj ${OSG_C_FLAGS} ${OSG_ADD_CXX_FLAGS} /D_WIN32_WINNT=${OSG_WIN_VERSION} /DWINVER=${OSG_WIN_VERSION}")
 
 
     # Libs
+    IF(NOT OSG_WITH_DEFAULTLIBS)
+      SET(OSG_EXE_LINKER_FLAGS    "${OSG_EXE_LINKER_FLAGS} /nodefaultlib") 
+      SET(OSG_SHARED_LINKER_FLAGS "${OSG_SHARED_LINKER_FLAGS} /nodefaultlib") 
 
-    SET(OSG_EXE_LINKER_FLAGS "${OSG_EXE_LINKER_FLAGS} /nodefaultlib") 
-    SET(OSG_SHARED_LINKER_FLAGS "${OSG_SHARED_LINKER_FLAGS} /nodefaultlib") 
+      SET(OSG_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} winmm.lib wsock32.lib oldnames.lib")
+      SET(OSG_C_STANDARD_LIBRARIES   "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib oldnames.lib")
 
-    SET(OSG_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} winmm.lib wsock32.lib oldnames.lib")
-    SET(OSG_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib oldnames.lib")
+      SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib
+                             uuid.lib comdlg32.lib msvcprt.lib msvcrt.lib)
 
-    SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib
-                           uuid.lib comdlg32.lib msvcprt.lib msvcrt.lib)
-
-    FOREACH(STD_LIB ${OSG_CLEAR_STD_LIBS})
+      FOREACH(STD_LIB ${OSG_CLEAR_STD_LIBS})
         STRING(REPLACE ${STD_LIB} "" OSG_CXX_STANDARD_LIBRARIES ${OSG_CXX_STANDARD_LIBRARIES})
         STRING(REPLACE ${STD_LIB} "" OSG_C_STANDARD_LIBRARIES   ${OSG_C_STANDARD_LIBRARIES})
-    ENDFOREACH()
+      ENDFOREACH()
 
-    SET(CMAKE_CXX_STANDARD_LIBRARIES ${OSG_CXX_STANDARD_LIBRARIES} 
+      SET(CMAKE_CXX_STANDARD_LIBRARIES ${OSG_CXX_STANDARD_LIBRARIES} 
                                      CACHE STRING "OpenSG defaults" FORCE )
-    SET(CMAKE_C_STANDARD_LIBRARIES   ${OSG_C_STANDARD_LIBRARIES} 
+      SET(CMAKE_C_STANDARD_LIBRARIES   ${OSG_C_STANDARD_LIBRARIES} 
                                      CACHE STRING "OpenSG defaults" FORCE )
 
-#    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo;DebugRT" 
-#                                  CACHE STRING "OpenSG Build Types" FORCE )
+#      SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo;DebugRT" 
+#                                    CACHE STRING "OpenSG Build Types" FORCE )
 
-    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt" 
-                                  CACHE STRING "OpenSG Build Types" FORCE )
+      SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt" 
+                                    CACHE STRING "OpenSG Build Types" FORCE )
 
-
-
-    IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "19")
+      IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "19")
        SET(OSG_ADD_MSVC_STD_LIBS_DEBUG   "vcruntimed.lib ucrtd.lib")
        SET(OSG_ADD_MSVC_STD_LIBS_RELEASE "vcruntime.lib ucrt.lib")
-    ENDIF()
+      ENDIF()
 
-    IF(OSG_WINDOWS_LINK_OPTIMIZE)
-        SET(windows_link_optimization "/OPT:REF /OPT:ICF")
-    ENDIF()
+      IF(OSG_WINDOWS_LINK_OPTIMIZE)
+          SET(windows_link_optimization "/OPT:REF /OPT:ICF")
+      ENDIF()
 
-    # Shared Linker Flags
-    SET(CMAKE_SHARED_LINKER_FLAGS_RELEASENOOPT 
-        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE STRING "OpenSG defaults" FORCE )
+      # Shared Linker Flags
+      SET(CMAKE_SHARED_LINKER_FLAGS_RELEASENOOPT 
+          "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT 
-        "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
-        CACHE STRING "OpenSG defaults" FORCE )
+      SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT 
+          "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_SHARED_LINKER_FLAGS_RELEASE 
-        "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE STRING "OpenSG defaults" FORCE )
+      SET(CMAKE_SHARED_LINKER_FLAGS_RELEASE 
+          "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL 
-        "${CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE INTERNAL "OpenSG defaults" FORCE )
+      SET(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL 
+          "${CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE INTERNAL "OpenSG defaults" FORCE )
 
-    SET(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO 
-        "${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE INTERNAL "OpenSG defaults" FORCE )
+      SET(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO 
+          "${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE INTERNAL "OpenSG defaults" FORCE )
     
-    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
-        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
-        CACHE STRING "OpenSG defaults" FORCE )
+#      STRING(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replacementFlags ${CMAKE_SHARED_LINKER_FLAGS_DEBUG})
+#      SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG "/INCREMENTAL:NO ${replacementFlags}" )
+    
+      SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
+          "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    # Exe Linker Flags
-    SET(CMAKE_EXE_LINKER_FLAGS_RELEASENOOPT 
-        "${CMAKE_EXE_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_EXE_LINKER_FLAGS_DEBUGOPT 
-        "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
-        CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_EXE_LINKER_FLAGS_RELEASE 
-        "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE STRING "OpenSG defaults" FORCE )
+      # Exe Linker Flags
+      SET(CMAKE_EXE_LINKER_FLAGS_RELEASENOOPT 
+          "${CMAKE_EXE_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL 
-        "${CMAKE_EXE_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE INTERNAL "OpenSG defaults" FORCE )
+      SET(CMAKE_EXE_LINKER_FLAGS_DEBUGOPT 
+          "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO 
-        "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
-        CACHE INTERNAL "OpenSG defaults" FORCE )
+      SET(CMAKE_EXE_LINKER_FLAGS_RELEASE 
+          "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /debug ${windows_link_optimization} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_EXE_LINKER_FLAGS_DEBUG 
-        "${CMAKE_EXE_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
-        CACHE STRING "OpenSG defaults" FORCE )
+      SET(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL 
+          "${CMAKE_EXE_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE INTERNAL "OpenSG defaults" FORCE )
+
+      SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO 
+          "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib ${OSG_ADD_MSVC_STD_LIBS_RELEASE}"
+          CACHE INTERNAL "OpenSG defaults" FORCE )
+
+      SET(CMAKE_EXE_LINKER_FLAGS_DEBUG 
+          "${CMAKE_EXE_LINKER_FLAGS_DEBUG} msvcprtd.lib msvcrtd.lib ${OSG_ADD_MSVC_STD_LIBS_DEBUG}"
+          CACHE STRING "OpenSG defaults" FORCE )
+    ELSE()
+
+#      MESSAGE(STATUS "foo ${CMAKE_SHARED_LINKER_FLAGS_DEBUG} ${CMAKE_SHARED_LINKER_FLAGS_RELEASE} ${CMAKE_SHARED_LINKER_FLAGS_RELEASENOOPT} ${CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT}")
+
+      SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}       ${OSG_ADD_EXE_LIB_REL} /debug"    CACHE INTERNAL "OpenSG defaults" FORCE)
+      SET(CMAKE_EXE_LINKER_FLAGS_DEBUG   "${CMAKE_EXE_LINKER_FLAGS_DEBUG}         ${OSG_ADD_EXE_LIB_DEBUG}"         CACHE INTERNAL "OpenSG defaults" FORCE)
+
+      SET(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} ${OSG_ADD_SHARED_LIB_REL} /debug" CACHE INTERNAL "OpenSG defaults" FORCE)
+      SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG   "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}   ${OSG_ADD_SHARED_LIB_DEBUG}"      CACHE INTERNAL "OpenSG defaults" FORCE)
+
+      SET(CMAKE_EXE_LINKER_FLAGS_RELEASENOOPT    "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /debug"    CACHE INTERNAL "OpenSG defaults" FORCE)
+      SET(CMAKE_EXE_LINKER_FLAGS_DEBUGOPT        "${CMAKE_EXE_LINKER_FLAGS_DEBUG}"             CACHE INTERNAL "OpenSG defaults" FORCE)
+
+      SET(CMAKE_SHARED_LINKER_FLAGS_RELEASENOOPT "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /debug" CACHE INTERNAL "OpenSG defaults" FORCE)
+      SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGOPT     "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}"          CACHE INTERNAL "OpenSG defaults" FORCE)
+      
+      SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
+                                    CACHE STRING "OpenSG Build Types" FORCE )
+    ENDIF()
 
     # Hide unused vars
 
