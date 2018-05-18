@@ -43,6 +43,10 @@ INCLUDE(OpenSGVersion)
 
 SET(OSG_BUILD_ACTIVE TRUE)
 
+FOREACH(_OSG_GLOBAL_DEP_DEF ${OSG_GLOBAL_DEP_DEFS})
+  ADD_DEFINITIONS(-D${_OSG_GLOBAL_DEP_DEF})
+ENDFOREACH(_OSG_GLOBAL_DEP_DEF)
+
 ##############################################
 # Subdirs
 ##############################################
