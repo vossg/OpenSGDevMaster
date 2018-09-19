@@ -17,12 +17,12 @@ IF(CMAKE_COMPILER_IS_GNUCC)
 
             IF(CMAKE_CXX_FLAGS)
                 STRING(REGEX MATCH "-msse2 ${OSG_GCC_FPMATHOPT}" 
-                                   SSE2_CXX_RES ${CMAKE_CXX_FLAGS})
+                             SSE2_CXX_RES ${CMAKE_CXX_FLAGS})
             ENDIF(CMAKE_CXX_FLAGS)
 
             IF(CMAKE_C_FLAGS)
                 STRING(REGEX MATCH "-msse2 ${OSG_GCC_FPMATHOPT}" 
-                                   SSE2_C_RES ${CMAKE_C_FLAGS})
+                             SSE2_C_RES ${CMAKE_C_FLAGS})
             ENDIF(CMAKE_C_FLAGS)
 
             IF(NOT SSE2_CXX_RES)
@@ -60,9 +60,113 @@ IF(CMAKE_COMPILER_IS_GNUCC)
                                 CACHE STRING "OpenSG defaults" FORCE )
             SET(CMAKE_C_FLAGS   ${TMP_C_FLAGS} 
                                 CACHE STRING "OpenSG defaults" FORCE )
+           
+        ENDIF(OSG_ENABLE_SSE2)
+
+        IF(OSG_ENABLE_AVX)
+
+            MESSAGE(STATUS "Apply avx settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REGEX MATCH "-mavx2 -mfma" 
+                                   AVX_CXX_RES ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REGEX MATCH "-mavx2 -mfma" 
+                                   AVX_C_RES ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            IF(NOT AVX_CXX_RES)
+                SET(TMP_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2 -mfma")
+
+
+                SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                    CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT AVX_CXX_RES)
+
+            IF(NOT AVX_C_RES)
+                SET(TMP_C_FLAGS "${CMAKE_C_FLAGS} -mavx2 -mfma")
+
+
+                SET(CMAKE_C_FLAGS ${TMP_C_FLAGS} 
+                                  CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT AVX_C_RES)
             
 
-        ENDIF(OSG_ENABLE_SSE2)
+        ELSE(OSG_ENABLE_AVX)
+
+            MESSAGE(STATUS "Remove avx settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REPLACE " -mavx2 -mfma" "" 
+                       TMP_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REPLACE " -mavx2 -mfma" "" 
+                       TMP_C_FLAGS ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+            SET(CMAKE_C_FLAGS   ${TMP_C_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+           
+        ENDIF(OSG_ENABLE_AVX)
+
+        IF(OSG_ENABLE_ABI6)
+
+            MESSAGE(STATUS "Apply abi6 settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REGEX MATCH "-fabi-version=6" 
+                                   ABI6_CXX_RES ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REGEX MATCH "-fabi-version=6" 
+                                   ABI6_C_RES ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            IF(NOT ABI6_CXX_RES)
+                SET(TMP_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fabi-version=6")
+
+
+                SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                    CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT ABI6_CXX_RES)
+
+            IF(NOT ABI6_C_RES)
+                SET(TMP_C_FLAGS "${CMAKE_C_FLAGS} -fabi-version=6")
+
+
+                SET(CMAKE_C_FLAGS ${TMP_C_FLAGS} 
+                                  CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT ABI6_C_RES)
+            
+
+        ELSE(OSG_ENABLE_ABI6)
+
+            MESSAGE(STATUS "Remove abi6 settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REPLACE " -fabi-version=6" "" 
+                       TMP_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REPLACE " -fabi-version=6" "" 
+                       TMP_C_FLAGS ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+            SET(CMAKE_C_FLAGS   ${TMP_C_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+           
+        ENDIF(OSG_ENABLE_ABI6)
+
     ENDIF(LINUX OR APPLE)
 
     IF(CMAKE_CXX_FLAGS)

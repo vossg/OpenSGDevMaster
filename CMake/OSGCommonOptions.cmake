@@ -11,8 +11,11 @@ MACRO(OSG_COMMON_OPTIONS)
   SET(BUILD_SHARED_LIBS ON CACHE INTERNAL 
                         "Set to OFF to build static libraries")
 
-  OPTION(OSGBUILD_TESTS  "Build test programs" ON)
-  OPTION(OSG_ENABLE_SSE2 ""                    ON)
+  OPTION(OSGBUILD_TESTS   "Build test programs" ON )
+  OPTION(OSG_ENABLE_SSE2  ""                    ON )
+  OPTION(OSG_ENABLE_AVX   ""                    OFF)
+  OPTION(OSG_ENABLE_ABI6  ""                    OFF)
+  OPTION(OSG_ENABLE_C++11 ""                    ON )
 
 ENDMACRO()
 
