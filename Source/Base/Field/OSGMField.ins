@@ -112,9 +112,9 @@ FieldDescriptionBase *MField<ValueT,
 
 template <class ValueT, Int32 iNamespace, class AllocT>
 FieldType MField<ValueT, iNamespace, AllocT>::_fieldType = FieldType(
-     MFieldTraits::getMName (),
-     MFieldTraits::getMPName(),
-     MFieldTraits::getType  (),
+     typename MFieldTraits::getMName (),
+     typename MFieldTraits::getMPName(),
+     typename MFieldTraits::getType  (),
      FieldType::MultiField,
      Self::Class,
     &Self::createFieldDescription,
@@ -124,9 +124,9 @@ FieldType MField<ValueT, iNamespace, AllocT>::_fieldType = FieldType(
 
 template <class ValueT, Int32 iNamespace, class AllocT>
 FieldType MField<ValueT, iNamespace, AllocT>::_fieldType(
-     MFieldTraits::getMName (),
-     MFieldTraits::getMPName(),
-     MFieldTraits::getType  (),
+     typename MFieldTraits::getMName (),
+     typename MFieldTraits::getMPName(),
+     typename MFieldTraits::getType  (),
      FieldType::MultiField,
      Self::Class,
     &Self::createFieldDescription,

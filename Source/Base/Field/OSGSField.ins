@@ -108,9 +108,9 @@ FieldDescriptionBase *SField<ValueT, iNamespace>::createIdxFieldDescription(
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType = FieldType(
-     SFieldTraits::getSName (),
-     SFieldTraits::getSPName(),
-     SFieldTraits::getType  (),
+     typename SFieldTraits::getSName (),
+     typename SFieldTraits::getSPName(),
+     typename SFieldTraits::getType  (),
      FieldType::SingleField,
      Self::Class,
     &Self::createFieldDescription,
@@ -120,9 +120,9 @@ FieldType SField<ValueT, iNamespace>::_fieldType = FieldType(
 
 template <class ValueT, Int32 iNamespace>
 FieldType SField<ValueT, iNamespace>::_fieldType(
-     SFieldTraits::getSName (),
-     SFieldTraits::getSPName(),
-     SFieldTraits::getType  (),
+     typename SFieldTraits::getSName (),
+     typename SFieldTraits::getSPName(),
+     typename SFieldTraits::getType  (),
      FieldType::SingleField,
      Self::Class,
     &Self::createFieldDescription,

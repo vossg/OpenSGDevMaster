@@ -95,7 +95,7 @@ class MField : public Field
     typedef typename StorageType::size_type             size_type;
     typedef typename StorageType::value_type            value_type;
 
-    typedef          FieldTraits      <ValueT, 
+    typedef          FieldTraits      <ValueT,
                                        iNamespace>      MFieldTraits;
  
     typedef          MField           <ValueT, 

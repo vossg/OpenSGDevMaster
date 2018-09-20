@@ -111,6 +111,9 @@ struct InvalidTrait
 template<class ValueT, Int32 NamespaceI = 0>
 struct FieldTraitsTemplateBase : public FieldTraitsBase
 {
+    using FieldTraitsBase::getSPName;
+    using FieldTraitsBase::getMPName;
+
 #ifndef __hpux
     static const UInt32 uiTest = TypeTraits<ValueT>::IsPOD == true;
 
@@ -143,6 +146,9 @@ template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
                                                                    iNamespace>
 {
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getSPName;
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getMPName;
+
     static bool      getFromCString(      ValueT  &outVal,
                                     const Char8  *&inVal )
     {
@@ -211,6 +217,9 @@ template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
                                                                    iNamespace>
 {
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getSPName;
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getMPName;
+
     // Binary
 
     typedef FieldTraitsVecTemplateBase<ValueT,
@@ -274,6 +283,9 @@ template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsPtrToStringTemplateBase :
     public FieldTraitsTemplateBase<ValueT, iNamespace>
 {
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getSPName;
+    using FieldTraitsTemplateBase<ValueT, iNamespace>::getMPName;
+
     // Binary
 
     typedef FieldTraitsPtrToStringTemplateBase<ValueT,
@@ -369,6 +381,9 @@ struct FieldTraitsVec1TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
+    using FieldTraitsVecTemplateBase<ValueT, iNamespace>::getSPName;
+    using FieldTraitsVecTemplateBase<ValueT, iNamespace>::getMPName;
+    
     static void putToStream(const ValueT    &val,
                                   OutStream &str)
     {
@@ -389,6 +404,9 @@ struct FieldTraitsVec2TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
+    using FieldTraitsVecTemplateBase<ValueT, iNamespace>::getSPName;
+    using FieldTraitsVecTemplateBase<ValueT, iNamespace>::getMPName;
+
     static void putToStream(const ValueT    &val,
                                   OutStream &str)
     {
