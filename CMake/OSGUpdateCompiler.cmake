@@ -11,7 +11,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
           SET(OSG_GCC_FPMATHOPT "")
         ENDIF(NOT APPLE)
 
-        IF(OSG_ENABLE_SSE2)
+        IF(OSG_ENABLE_SSE2 AND NOT OSG_ENABLE_SSE4)
 
             MESSAGE(STATUS "Apply sse2 settings")
 
@@ -42,7 +42,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             ENDIF(NOT SSE2_C_RES)
             
 
-        ELSE(OSG_ENABLE_SSE2)
+        ELSE(OSG_ENABLE_SSE2 AND NOT OSG_ENABLE_SSE4)
 
             MESSAGE(STATUS "Remove sse2 settings")
 
@@ -61,7 +61,59 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             SET(CMAKE_C_FLAGS   ${TMP_C_FLAGS} 
                                 CACHE STRING "OpenSG defaults" FORCE )
            
-        ENDIF(OSG_ENABLE_SSE2)
+        ENDIF(OSG_ENABLE_SSE2 AND NOT OSG_ENABLE_SSE4)
+
+        IF(OSG_ENABLE_SSE4)
+
+            MESSAGE(STATUS "Apply sse4 settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REGEX MATCH "-msse4.1" 
+                                   SSE4_CXX_RES ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REGEX MATCH "-msse4.1" 
+                                   SSE4_C_RES ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            IF(NOT SSE4_CXX_RES)
+                SET(TMP_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.1")
+
+
+                SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                    CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT SSE4_CXX_RES)
+
+            IF(NOT SSE4_C_RES)
+                SET(TMP_C_FLAGS "${CMAKE_C_FLAGS} -msse4.1")
+
+
+                SET(CMAKE_C_FLAGS ${TMP_C_FLAGS} 
+                                  CACHE STRING "OpenSG defaults" FORCE )
+            ENDIF(NOT SSE4_C_RES)
+            
+
+        ELSE(OSG_ENABLE_SSE4)
+
+            MESSAGE(STATUS "Remove sse4 settings")
+
+            IF(CMAKE_CXX_FLAGS)
+                STRING(REPLACE "-msse4.1" "" 
+                       TMP_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+            ENDIF(CMAKE_CXX_FLAGS)
+
+            IF(CMAKE_C_FLAGS)
+                STRING(REPLACE "-msse4.1" "" 
+                       TMP_C_FLAGS ${CMAKE_C_FLAGS})
+            ENDIF(CMAKE_C_FLAGS)
+
+            SET(CMAKE_CXX_FLAGS ${TMP_CXX_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+            SET(CMAKE_C_FLAGS   ${TMP_C_FLAGS} 
+                                CACHE STRING "OpenSG defaults" FORCE )
+           
+        ENDIF(OSG_ENABLE_SSE4)
 
         IF(OSG_ENABLE_AVX)
 
