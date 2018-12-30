@@ -157,7 +157,8 @@ ChunkListHelperBase::TypeObject ChunkListHelperBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ChunkListHelperBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ChunkListHelper::initMethod),
     reinterpret_cast<ExitContainerF>(&ChunkListHelper::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkListHelper::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ChunkListHelper::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

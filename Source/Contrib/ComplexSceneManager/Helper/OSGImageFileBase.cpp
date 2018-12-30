@@ -132,7 +132,8 @@ ImageFileBase::TypeObject ImageFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ImageFileBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ImageFile::initMethod),
     reinterpret_cast<ExitContainerF>(&ImageFile::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ImageFile::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ImageFile::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

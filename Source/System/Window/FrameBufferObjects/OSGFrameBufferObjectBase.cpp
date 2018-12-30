@@ -392,7 +392,8 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FrameBufferObjectBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FrameBufferObject::initMethod),
     reinterpret_cast<ExitContainerF>(&FrameBufferObject::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FrameBufferObject::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FrameBufferObject::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

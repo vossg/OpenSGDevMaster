@@ -122,7 +122,8 @@ AnimDataSourceBase::TypeObject AnimDataSourceBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&AnimDataSource::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimDataSource::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimDataSource::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimDataSource::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

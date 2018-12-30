@@ -339,7 +339,8 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMViewportBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMViewport::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMViewport::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMViewport::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMViewport::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

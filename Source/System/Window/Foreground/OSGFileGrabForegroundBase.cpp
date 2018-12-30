@@ -179,7 +179,8 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FileGrabForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FileGrabForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&FileGrabForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FileGrabForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FileGrabForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

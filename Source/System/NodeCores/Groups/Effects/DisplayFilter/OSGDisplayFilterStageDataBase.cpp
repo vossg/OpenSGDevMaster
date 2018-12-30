@@ -216,7 +216,8 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterStageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DisplayFilterStageData::initMethod),
     reinterpret_cast<ExitContainerF>(&DisplayFilterStageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DisplayFilterStageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -268,7 +268,8 @@ AnimQuaternionDataSourceBase::TypeObject AnimQuaternionDataSourceBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionDataSourceBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimQuaternionDataSource::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimQuaternionDataSource::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimQuaternionDataSource::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimQuaternionDataSource::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

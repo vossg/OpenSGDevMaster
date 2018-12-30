@@ -239,7 +239,8 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoMultiProperty::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoMultiProperty::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiProperty::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoMultiProperty::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

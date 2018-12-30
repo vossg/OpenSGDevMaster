@@ -192,7 +192,8 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColorBufferViewportBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ColorBufferViewport::initMethod),
     reinterpret_cast<ExitContainerF>(&ColorBufferViewport::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ColorBufferViewport::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ColorBufferViewport::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

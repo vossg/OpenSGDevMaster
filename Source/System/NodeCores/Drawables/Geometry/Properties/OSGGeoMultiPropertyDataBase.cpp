@@ -156,7 +156,8 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoMultiPropertyData::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoMultiPropertyData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiPropertyData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoMultiPropertyData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

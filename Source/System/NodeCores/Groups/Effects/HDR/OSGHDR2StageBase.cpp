@@ -316,7 +316,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var GLenum          HDR2StageBase::_sfDepthBufferInternalFormat
-    Internal format used for depth color buffer. Defaults to GL_DEPTH24_STENCIL8.
+    Internal format used for depth buffer. Defaults to GL_DEPTH24_STENCIL8.
 */
 
 /*! \var GLenum          HDR2StageBase::_sfDepthBufferPixelFormat
@@ -866,7 +866,7 @@ void HDR2StageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "depthBufferInternalFormat",
-        "Internal format used for depth color buffer. Defaults to GL_DEPTH24_STENCIL8.\n",
+        "Internal format used for depth buffer. Defaults to GL_DEPTH24_STENCIL8.\n",
         DepthBufferInternalFormatFieldId, DepthBufferInternalFormatFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -1007,7 +1007,8 @@ HDR2StageBase::TypeObject HDR2StageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&HDR2StageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&HDR2Stage::initMethod),
     reinterpret_cast<ExitContainerF>(&HDR2Stage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&HDR2Stage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&HDR2Stage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1462,7 +1463,7 @@ HDR2StageBase::TypeObject HDR2StageBase::_type(
     "\t defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t access=\"public\"\n"
     "     >\n"
-    "        Internal format used for depth color buffer. Defaults to GL_DEPTH24_STENCIL8.\n"
+    "        Internal format used for depth buffer. Defaults to GL_DEPTH24_STENCIL8.\n"
     "  </Field>\n"
     "  <Field\n"
     "\t name=\"depthBufferPixelFormat\"\n"

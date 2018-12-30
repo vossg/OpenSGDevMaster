@@ -196,7 +196,8 @@ SortFirstWindowBase::TypeObject SortFirstWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SortFirstWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SortFirstWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&SortFirstWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SortFirstWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SortFirstWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

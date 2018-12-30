@@ -236,7 +236,8 @@ AnimVec3fDataSourceBase::TypeObject AnimVec3fDataSourceBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fDataSourceBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimVec3fDataSource::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimVec3fDataSource::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimVec3fDataSource::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimVec3fDataSource::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

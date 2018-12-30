@@ -302,7 +302,8 @@ AnimTimeSensorBase::TypeObject AnimTimeSensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimTimeSensorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimTimeSensor::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimTimeSensor::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimTimeSensor::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimTimeSensor::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

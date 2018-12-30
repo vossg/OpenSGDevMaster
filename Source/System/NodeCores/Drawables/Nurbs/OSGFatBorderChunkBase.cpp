@@ -122,7 +122,8 @@ FatBorderChunkBase::TypeObject FatBorderChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FatBorderChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FatBorderChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&FatBorderChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FatBorderChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FatBorderChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

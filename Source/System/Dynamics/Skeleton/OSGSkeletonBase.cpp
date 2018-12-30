@@ -361,7 +361,8 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkeletonBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Skeleton::initMethod),
     reinterpret_cast<ExitContainerF>(&Skeleton::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Skeleton::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Skeleton::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

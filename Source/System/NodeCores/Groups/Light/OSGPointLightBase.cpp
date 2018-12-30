@@ -136,7 +136,8 @@ PointLightBase::TypeObject PointLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PointLightBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PointLight::initMethod),
     reinterpret_cast<ExitContainerF>(&PointLight::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PointLight::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PointLight::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

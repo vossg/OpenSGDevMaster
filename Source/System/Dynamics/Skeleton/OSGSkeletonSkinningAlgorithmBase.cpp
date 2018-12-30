@@ -156,7 +156,8 @@ SkeletonSkinningAlgorithmBase::TypeObject SkeletonSkinningAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkeletonSkinningAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkeletonSkinningAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&SkeletonSkinningAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkeletonSkinningAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkeletonSkinningAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -156,7 +156,8 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleShadowMapEngineBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleShadowMapEngine::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleShadowMapEngine::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleShadowMapEngine::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleShadowMapEngine::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

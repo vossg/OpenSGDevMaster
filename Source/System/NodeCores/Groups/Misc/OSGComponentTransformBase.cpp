@@ -204,7 +204,8 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComponentTransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComponentTransform::initMethod),
     reinterpret_cast<ExitContainerF>(&ComponentTransform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComponentTransform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComponentTransform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

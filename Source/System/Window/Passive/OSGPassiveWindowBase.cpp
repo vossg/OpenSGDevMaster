@@ -123,7 +123,8 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PassiveWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&PassiveWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PassiveWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PassiveWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

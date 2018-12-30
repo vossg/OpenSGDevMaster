@@ -352,7 +352,8 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderExecutableChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderExecutableChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderExecutableChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderExecutableChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderExecutableChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

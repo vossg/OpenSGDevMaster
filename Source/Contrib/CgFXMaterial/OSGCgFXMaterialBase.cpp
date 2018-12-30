@@ -315,7 +315,8 @@ CgFXMaterialBase::TypeObject CgFXMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CgFXMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CgFXMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&CgFXMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CgFXMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CgFXMaterial::classDescInserter)),
     false,
     TreatTechniquesAsVariantsFieldMask | EffectStringFieldMask | EffectFileFieldMask,
     "<?xml version=\"1.0\"?>\n"

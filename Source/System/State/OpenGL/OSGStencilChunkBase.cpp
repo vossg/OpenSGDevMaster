@@ -283,7 +283,8 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StencilChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&StencilChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&StencilChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StencilChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StencilChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

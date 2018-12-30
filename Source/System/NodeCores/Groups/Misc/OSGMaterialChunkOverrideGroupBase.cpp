@@ -144,7 +144,8 @@ MaterialChunkOverrideGroupBase::TypeObject MaterialChunkOverrideGroupBase::_type
     reinterpret_cast<PrototypeCreateF>(&MaterialChunkOverrideGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MaterialChunkOverrideGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&MaterialChunkOverrideGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialChunkOverrideGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MaterialChunkOverrideGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

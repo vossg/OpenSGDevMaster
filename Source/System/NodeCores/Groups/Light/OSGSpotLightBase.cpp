@@ -171,7 +171,8 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SpotLightBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SpotLight::initMethod),
     reinterpret_cast<ExitContainerF>(&SpotLight::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SpotLight::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SpotLight::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -350,7 +350,8 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TiledQuadTreeTerrainBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TiledQuadTreeTerrain::initMethod),
     reinterpret_cast<ExitContainerF>(&TiledQuadTreeTerrain::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TiledQuadTreeTerrain::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TiledQuadTreeTerrain::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

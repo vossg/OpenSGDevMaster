@@ -180,7 +180,8 @@ CSMStatisticsForegroundBase::TypeObject CSMStatisticsForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMStatisticsForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMStatisticsForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMStatisticsForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMStatisticsForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMStatisticsForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

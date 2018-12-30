@@ -123,7 +123,8 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveViewportBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PassiveViewport::initMethod),
     reinterpret_cast<ExitContainerF>(&PassiveViewport::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PassiveViewport::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PassiveViewport::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

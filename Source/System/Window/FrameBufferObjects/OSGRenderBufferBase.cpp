@@ -224,7 +224,8 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderBufferBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RenderBuffer::initMethod),
     reinterpret_cast<ExitContainerF>(&RenderBuffer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RenderBuffer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RenderBuffer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

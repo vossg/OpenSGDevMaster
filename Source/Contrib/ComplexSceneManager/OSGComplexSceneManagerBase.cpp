@@ -310,7 +310,8 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComplexSceneManagerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComplexSceneManager::initMethod),
     reinterpret_cast<ExitContainerF>(&ComplexSceneManager::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComplexSceneManager::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComplexSceneManager::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

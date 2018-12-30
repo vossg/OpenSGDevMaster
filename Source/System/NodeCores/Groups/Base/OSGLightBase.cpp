@@ -306,7 +306,8 @@ LightBase::TypeObject LightBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Light::initMethod),
     reinterpret_cast<ExitContainerF>(&Light::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Light::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Light::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

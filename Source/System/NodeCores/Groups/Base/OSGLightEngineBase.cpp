@@ -140,7 +140,8 @@ LightEngineBase::TypeObject LightEngineBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&LightEngine::initMethod),
     reinterpret_cast<ExitContainerF>(&LightEngine::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LightEngine::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LightEngine::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

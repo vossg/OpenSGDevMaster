@@ -235,7 +235,8 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TextureBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

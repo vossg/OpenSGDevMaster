@@ -182,7 +182,8 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InterfaceOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&InterfaceOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&InterfaceOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&InterfaceOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&InterfaceOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

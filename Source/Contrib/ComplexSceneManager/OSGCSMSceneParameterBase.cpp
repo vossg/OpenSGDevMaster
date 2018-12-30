@@ -255,7 +255,8 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMSceneParameterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMSceneParameter::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMSceneParameter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMSceneParameter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMSceneParameter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

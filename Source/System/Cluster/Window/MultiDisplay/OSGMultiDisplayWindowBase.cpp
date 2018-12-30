@@ -214,7 +214,8 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiDisplayWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiDisplayWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiDisplayWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiDisplayWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiDisplayWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

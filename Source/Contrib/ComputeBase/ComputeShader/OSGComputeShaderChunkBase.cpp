@@ -222,7 +222,8 @@ ComputeShaderChunkBase::TypeObject ComputeShaderChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComputeShaderChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComputeShaderChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ComputeShaderChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComputeShaderChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComputeShaderChunk::classDescInserter)),
     false,
     ComputeProgramFieldMask,
     "<?xml version=\"1.0\"?>\n"

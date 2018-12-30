@@ -147,7 +147,8 @@ IntersectProxyAttachmentBase::TypeObject IntersectProxyAttachmentBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&IntersectProxyAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&IntersectProxyAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&IntersectProxyAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&IntersectProxyAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

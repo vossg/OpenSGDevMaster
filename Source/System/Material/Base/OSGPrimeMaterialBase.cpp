@@ -140,7 +140,8 @@ PrimeMaterialBase::TypeObject PrimeMaterialBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&PrimeMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&PrimeMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PrimeMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PrimeMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

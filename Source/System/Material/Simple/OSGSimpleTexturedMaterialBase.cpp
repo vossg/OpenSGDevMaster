@@ -226,7 +226,8 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleTexturedMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleTexturedMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleTexturedMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleTexturedMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleTexturedMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

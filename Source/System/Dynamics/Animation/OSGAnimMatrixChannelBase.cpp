@@ -157,7 +157,8 @@ AnimMatrixChannelBase::TypeObject AnimMatrixChannelBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixChannelBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimMatrixChannel::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimMatrixChannel::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimMatrixChannel::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimMatrixChannel::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -140,7 +140,8 @@ BoostPathAttachmentBase::TypeObject BoostPathAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BoostPathAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&BoostPathAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&BoostPathAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&BoostPathAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&BoostPathAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

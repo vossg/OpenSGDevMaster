@@ -152,7 +152,8 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&ShaderVariable::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariable::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariable::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariable::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

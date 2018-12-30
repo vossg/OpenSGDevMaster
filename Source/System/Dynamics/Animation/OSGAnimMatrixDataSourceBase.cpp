@@ -140,7 +140,8 @@ AnimMatrixDataSourceBase::TypeObject AnimMatrixDataSourceBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixDataSourceBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimMatrixDataSource::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimMatrixDataSource::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimMatrixDataSource::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimMatrixDataSource::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -141,7 +141,8 @@ VariantMaterialBase::TypeObject VariantMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VariantMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VariantMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&VariantMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VariantMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VariantMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

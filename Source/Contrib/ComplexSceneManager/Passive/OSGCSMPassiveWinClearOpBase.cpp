@@ -140,7 +140,8 @@ CSMPassiveWinClearOpBase::TypeObject CSMPassiveWinClearOpBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMPassiveWinClearOpBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMPassiveWinClearOp::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMPassiveWinClearOp::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMPassiveWinClearOp::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMPassiveWinClearOp::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

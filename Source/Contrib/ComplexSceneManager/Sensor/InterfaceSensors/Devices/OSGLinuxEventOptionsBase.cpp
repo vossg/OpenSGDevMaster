@@ -181,7 +181,8 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LinuxEventOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LinuxEventOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&LinuxEventOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LinuxEventOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LinuxEventOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

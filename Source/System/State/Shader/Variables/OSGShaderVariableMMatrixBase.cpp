@@ -140,7 +140,8 @@ ShaderVariableMMatrixBase::TypeObject ShaderVariableMMatrixBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMMatrixBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableMMatrix::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableMMatrix::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMMatrix::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableMMatrix::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

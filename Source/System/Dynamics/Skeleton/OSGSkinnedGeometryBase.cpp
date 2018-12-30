@@ -274,7 +274,8 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkinnedGeometryBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkinnedGeometry::initMethod),
     reinterpret_cast<ExitContainerF>(&SkinnedGeometry::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkinnedGeometry::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkinnedGeometry::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -140,7 +140,8 @@ DSLightChunkBase::TypeObject DSLightChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DSLightChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DSLightChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&DSLightChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DSLightChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DSLightChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

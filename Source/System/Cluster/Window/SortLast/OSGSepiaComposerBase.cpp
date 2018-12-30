@@ -114,7 +114,8 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SepiaComposerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SepiaComposer::initMethod),
     reinterpret_cast<ExitContainerF>(&SepiaComposer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SepiaComposer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SepiaComposer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

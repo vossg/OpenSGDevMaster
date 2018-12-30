@@ -93,13 +93,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          ShaderStorageBufferObjRefChunkBase::_sfOglGLId
-    The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the 
-    osgGLId is set to 0.
+    The external OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the osgGLId is set to 0.
 */
 
 /*! \var GLenum          ShaderStorageBufferObjRefChunkBase::_sfOsgGLId
-    The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id
-    is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.
+    The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id is determined by OpenSG. If this id equals 0, the oglGLId is used directly as the GL object id.
 */
 
 
@@ -137,8 +135,7 @@ void ShaderStorageBufferObjRefChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "oglGLId",
-        "The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the \n"
-        "osgGLId is set to 0.\n",
+        "The external OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the osgGLId is set to 0.\n",
         OglGLIdFieldId, OglGLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -150,8 +147,7 @@ void ShaderStorageBufferObjRefChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
         "osgGLId",
-        "The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id\n"
-        "is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.\n",
+        "The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id is determined by OpenSG. If this id equals 0, the oglGLId is used directly as the GL object id.\n",
         OsgGLIdFieldId, OsgGLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -170,7 +166,8 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     reinterpret_cast<PrototypeCreateF>(&ShaderStorageBufferObjRefChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderStorageBufferObjRefChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderStorageBufferObjRefChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderStorageBufferObjRefChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderStorageBufferObjRefChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -207,9 +204,8 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     "        access=\"public\"\n"
     "        defaultValue=\"0\"\n"
     "        fieldFlags=\"FClusterLocal\"\n"
-    "\t>\n"
-    "            The extern OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the \n"
-    "             osgGLId is set to 0.\n"
+    "    >\n"
+    "        The external OpenGL object id for this shader storage buffer object. This id is used as the GL object id iff the osgGLId is set to 0.\n"
     "    </Field>\n"
     "\n"
     "    <Field\n"
@@ -220,9 +216,8 @@ ShaderStorageBufferObjRefChunkBase::TypeObject ShaderStorageBufferObjRefChunkBas
     "        access=\"public\"\n"
     "        defaultValue=\"0\"\n"
     "        fieldFlags=\"FClusterLocal\"\n"
-    "\t>\n"
-    "            The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id\n"
-    "            is determined by OpenSG. If this id equals 0, the GLId is used directly as the GL object id.\n"
+    "    >\n"
+    "        The OpenSG GL object id for this shader storage buffer object. If this id is set the GL object id is determined by OpenSG. If this id equals 0, the oglGLId is used directly as the GL object id.\n"
     "    </Field>\n"
     "</FieldContainer>\n",
     "See \\ref PageSystemShaderStorageBufferObjRefChunk for a description.\n"

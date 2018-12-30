@@ -141,7 +141,8 @@ ChunkBlockBase::TypeObject ChunkBlockBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ChunkBlockBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ChunkBlock::initMethod),
     reinterpret_cast<ExitContainerF>(&ChunkBlock::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkBlock::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ChunkBlock::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

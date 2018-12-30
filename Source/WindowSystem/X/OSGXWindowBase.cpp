@@ -188,7 +188,8 @@ XWindowBase::TypeObject XWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&XWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&XWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&XWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&XWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&XWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

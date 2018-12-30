@@ -175,7 +175,8 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&StatisticsForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&StatisticsForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StatisticsForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StatisticsForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

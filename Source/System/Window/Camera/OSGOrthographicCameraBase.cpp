@@ -176,7 +176,8 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     reinterpret_cast<PrototypeCreateF>(&OrthographicCameraBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&OrthographicCamera::initMethod),
     reinterpret_cast<ExitContainerF>(&OrthographicCamera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&OrthographicCamera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&OrthographicCamera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

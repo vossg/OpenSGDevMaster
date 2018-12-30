@@ -140,7 +140,8 @@ ScaleTransformationElementBase::TypeObject ScaleTransformationElementBase::_type
     reinterpret_cast<PrototypeCreateF>(&ScaleTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ScaleTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&ScaleTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ScaleTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ScaleTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

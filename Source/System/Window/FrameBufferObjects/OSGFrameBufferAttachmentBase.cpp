@@ -174,7 +174,8 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&FrameBufferAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&FrameBufferAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FrameBufferAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FrameBufferAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

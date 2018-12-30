@@ -255,7 +255,8 @@ ShaderProgramChunkBase::TypeObject ShaderProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderProgramChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderProgramChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderProgramChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

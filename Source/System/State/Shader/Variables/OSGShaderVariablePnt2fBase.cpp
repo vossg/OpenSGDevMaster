@@ -140,7 +140,8 @@ ShaderVariablePnt2fBase::TypeObject ShaderVariablePnt2fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariablePnt2fBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariablePnt2f::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariablePnt2f::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariablePnt2f::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariablePnt2f::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

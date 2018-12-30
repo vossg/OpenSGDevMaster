@@ -124,7 +124,8 @@ GroupBase::TypeObject GroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Group::initMethod),
     reinterpret_cast<ExitContainerF>(&Group::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Group::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Group::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

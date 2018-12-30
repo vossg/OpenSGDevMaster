@@ -160,7 +160,8 @@ MultiSwitchBase::TypeObject MultiSwitchBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiSwitchBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiSwitch::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiSwitch::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiSwitch::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiSwitch::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

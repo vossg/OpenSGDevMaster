@@ -362,7 +362,8 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MaterialChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MaterialChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&MaterialChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MaterialChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

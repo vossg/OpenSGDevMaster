@@ -172,7 +172,8 @@ SkewTransformationElementBase::TypeObject SkewTransformationElementBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkewTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkewTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&SkewTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkewTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkewTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

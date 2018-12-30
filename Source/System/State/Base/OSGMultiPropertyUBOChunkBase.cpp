@@ -326,7 +326,8 @@ MultiPropertyUBOChunkBase::TypeObject MultiPropertyUBOChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiPropertyUBOChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiPropertyUBOChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiPropertyUBOChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiPropertyUBOChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiPropertyUBOChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

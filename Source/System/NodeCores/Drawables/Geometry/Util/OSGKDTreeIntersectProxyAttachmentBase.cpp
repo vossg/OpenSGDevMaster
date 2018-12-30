@@ -189,7 +189,8 @@ KDTreeIntersectProxyAttachmentBase::TypeObject KDTreeIntersectProxyAttachmentBas
     reinterpret_cast<PrototypeCreateF>(&KDTreeIntersectProxyAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&KDTreeIntersectProxyAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&KDTreeIntersectProxyAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&KDTreeIntersectProxyAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&KDTreeIntersectProxyAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

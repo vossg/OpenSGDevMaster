@@ -157,7 +157,8 @@ GeoInstancerBase::TypeObject GeoInstancerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoInstancerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoInstancer::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoInstancer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoInstancer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoInstancer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

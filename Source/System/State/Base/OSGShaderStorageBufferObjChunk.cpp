@@ -66,7 +66,7 @@ OSG_BEGIN_NAMESPACE
 
 struct bracket_expr_finder
 {
-    bracket_expr_finder(int& idx) : idx(idx) {}
+    bracket_expr_finder(int& index) : idx(index) {}
 
     template<typename ForwardIteratorT>
     boost::iterator_range<ForwardIteratorT> operator()(
@@ -643,7 +643,7 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
 
         nameData.resize(name_lengths[idx]);
 
-        osgGlGetProgramResourceName(pEnv->getActiveShader(), GL_BUFFER_VARIABLE, indices[idx], (GLsizei)nameData.size(), NULL, &nameData[0]);
+        osgGlGetProgramResourceName(pEnv->getActiveShader(), GL_BUFFER_VARIABLE, indices[idx], GLsizei(nameData.size()), NULL, &nameData[0]);
 
         names[idx] = std::string(&nameData[0], nameData.size()-1);
 
@@ -652,7 +652,7 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
 
     buffer.resize(size);
 
-    for (GLint i = 0; i < _mfIndex.size(); ++i)
+    for (GLint i = 0; i < GLint(_mfIndex.size()); ++i)
     {
         UInt32              idx   =                               _mfIndex           [i];
         FundamentalTypes    fType = static_cast<FundamentalTypes>(_mfFundamentalTypes[i]);
@@ -767,7 +767,7 @@ std::vector<GLubyte> ShaderStorageBufferObjChunk::createBuffer(DrawEnv *pEnv)
         GLint top_level_array_offset  = top_level_idx * top_level_array_stride;
         
         GLint offset                  = top_level_array_offset + offsets[resource_idx];
-        GLint array_size              = array_sizes[resource_idx];
+//        GLint array_size              = array_sizes[resource_idx];
         GLint array_stride            = array_strides[resource_idx];
         GLint matrix_stride           = matrix_strides[resource_idx];
 

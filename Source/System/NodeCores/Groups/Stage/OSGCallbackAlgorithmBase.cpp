@@ -172,7 +172,8 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CallbackAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CallbackAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&CallbackAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CallbackAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CallbackAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

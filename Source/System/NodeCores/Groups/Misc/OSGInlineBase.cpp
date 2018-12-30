@@ -205,7 +205,8 @@ InlineBase::TypeObject InlineBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InlineBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Inline::initMethod),
     reinterpret_cast<ExitContainerF>(&Inline::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Inline::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Inline::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

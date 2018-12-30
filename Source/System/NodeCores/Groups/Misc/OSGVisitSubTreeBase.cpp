@@ -174,7 +174,8 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VisitSubTreeBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VisitSubTree::initMethod),
     reinterpret_cast<ExitContainerF>(&VisitSubTree::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VisitSubTree::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VisitSubTree::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

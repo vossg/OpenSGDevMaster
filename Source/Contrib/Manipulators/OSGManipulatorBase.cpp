@@ -463,7 +463,8 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Manipulator::initMethod),
     reinterpret_cast<ExitContainerF>(&Manipulator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Manipulator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Manipulator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

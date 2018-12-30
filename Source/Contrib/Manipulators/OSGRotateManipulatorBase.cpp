@@ -114,7 +114,8 @@ RotateManipulatorBase::TypeObject RotateManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RotateManipulatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RotateManipulator::initMethod),
     reinterpret_cast<ExitContainerF>(&RotateManipulator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RotateManipulator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RotateManipulator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

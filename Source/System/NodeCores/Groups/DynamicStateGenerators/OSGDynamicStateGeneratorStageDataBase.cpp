@@ -150,7 +150,8 @@ DynamicStateGeneratorStageDataBase::TypeObject DynamicStateGeneratorStageDataBas
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorStageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DynamicStateGeneratorStageData::initMethod),
     reinterpret_cast<ExitContainerF>(&DynamicStateGeneratorStageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorStageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DynamicStateGeneratorStageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

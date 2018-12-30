@@ -248,7 +248,8 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleStage::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

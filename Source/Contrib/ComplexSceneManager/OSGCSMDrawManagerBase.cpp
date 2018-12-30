@@ -205,7 +205,8 @@ CSMDrawManagerBase::TypeObject CSMDrawManagerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMDrawManagerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMDrawManager::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMDrawManager::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawManager::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMDrawManager::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

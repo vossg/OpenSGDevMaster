@@ -140,7 +140,8 @@ TranslationTransformationElementBase::TypeObject TranslationTransformationElemen
     reinterpret_cast<PrototypeCreateF>(&TranslationTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TranslationTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&TranslationTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TranslationTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TranslationTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -157,7 +157,8 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fChannelBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimVec3fChannel::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimVec3fChannel::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimVec3fChannel::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimVec3fChannel::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

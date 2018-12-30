@@ -158,7 +158,8 @@ FBOGrabForegroundBase::TypeObject FBOGrabForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FBOGrabForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FBOGrabForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&FBOGrabForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FBOGrabForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FBOGrabForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -140,7 +140,8 @@ ShaderVariableMUIntBase::TypeObject ShaderVariableMUIntBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMUIntBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableMUInt::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableMUInt::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMUInt::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableMUInt::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

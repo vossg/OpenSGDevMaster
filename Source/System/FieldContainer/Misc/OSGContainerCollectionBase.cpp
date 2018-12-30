@@ -157,7 +157,8 @@ ContainerCollectionBase::TypeObject ContainerCollectionBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ContainerCollectionBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ContainerCollection::initMethod),
     reinterpret_cast<ExitContainerF>(&ContainerCollection::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ContainerCollection::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ContainerCollection::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

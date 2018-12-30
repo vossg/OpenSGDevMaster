@@ -224,7 +224,8 @@ DisplayFilterGroupBase::TypeObject DisplayFilterGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DisplayFilterGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&DisplayFilterGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DisplayFilterGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

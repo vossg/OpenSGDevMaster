@@ -251,7 +251,8 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ProjectionCameraDecoratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ProjectionCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&ProjectionCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ProjectionCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ProjectionCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

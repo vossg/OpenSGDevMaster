@@ -140,7 +140,8 @@ CalibrationPatternFilterBase::TypeObject CalibrationPatternFilterBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&CalibrationPatternFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&CalibrationPatternFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CalibrationPatternFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CalibrationPatternFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

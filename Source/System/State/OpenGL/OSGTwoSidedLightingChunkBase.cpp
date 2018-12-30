@@ -114,7 +114,8 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TwoSidedLightingChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TwoSidedLightingChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TwoSidedLightingChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TwoSidedLightingChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TwoSidedLightingChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

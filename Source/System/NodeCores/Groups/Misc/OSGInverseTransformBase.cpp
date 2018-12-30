@@ -122,7 +122,8 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InverseTransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&InverseTransform::initMethod),
     reinterpret_cast<ExitContainerF>(&InverseTransform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&InverseTransform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&InverseTransform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

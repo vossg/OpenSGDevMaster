@@ -269,7 +269,8 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PolygonBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PolygonBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&PolygonBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PolygonBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PolygonBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

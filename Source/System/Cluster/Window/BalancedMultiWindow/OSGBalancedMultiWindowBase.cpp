@@ -200,7 +200,8 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BalancedMultiWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&BalancedMultiWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&BalancedMultiWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&BalancedMultiWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&BalancedMultiWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

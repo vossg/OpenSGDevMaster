@@ -204,7 +204,8 @@ BillboardBase::TypeObject BillboardBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BillboardBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Billboard::initMethod),
     reinterpret_cast<ExitContainerF>(&Billboard::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Billboard::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Billboard::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

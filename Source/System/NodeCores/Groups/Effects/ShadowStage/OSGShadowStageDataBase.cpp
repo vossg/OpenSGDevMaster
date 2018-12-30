@@ -263,7 +263,8 @@ ShadowStageDataBase::TypeObject ShadowStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadowStageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShadowStageData::initMethod),
     reinterpret_cast<ExitContainerF>(&ShadowStageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShadowStageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShadowStageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

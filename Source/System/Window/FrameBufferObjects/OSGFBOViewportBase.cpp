@@ -143,7 +143,8 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FBOViewportBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FBOViewport::initMethod),
     reinterpret_cast<ExitContainerF>(&FBOViewport::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FBOViewport::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FBOViewport::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

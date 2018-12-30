@@ -142,7 +142,8 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TransformChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TransformChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TransformChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TransformChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TransformChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

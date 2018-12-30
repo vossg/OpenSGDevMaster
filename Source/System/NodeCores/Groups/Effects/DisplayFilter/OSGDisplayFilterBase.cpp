@@ -140,7 +140,8 @@ DisplayFilterBase::TypeObject DisplayFilterBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&DisplayFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&DisplayFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DisplayFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

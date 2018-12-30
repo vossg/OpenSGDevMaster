@@ -140,7 +140,8 @@ ShaderVariableIntBase::TypeObject ShaderVariableIntBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableIntBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableInt::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableInt::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableInt::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableInt::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

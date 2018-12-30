@@ -238,7 +238,8 @@ GeoVectorBufferPropertyBase::TypeObject GeoVectorBufferPropertyBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoVectorBufferPropertyBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoVectorBufferProperty::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoVectorBufferProperty::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoVectorBufferProperty::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoVectorBufferProperty::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

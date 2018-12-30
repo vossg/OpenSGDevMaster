@@ -165,7 +165,8 @@ CSMLoggerBase::TypeObject CSMLoggerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMLoggerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMLogger::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMLogger::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMLogger::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMLogger::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

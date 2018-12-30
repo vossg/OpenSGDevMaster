@@ -122,7 +122,8 @@ CPUSkinningAlgorithmBase::TypeObject CPUSkinningAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CPUSkinningAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CPUSkinningAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&CPUSkinningAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CPUSkinningAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CPUSkinningAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

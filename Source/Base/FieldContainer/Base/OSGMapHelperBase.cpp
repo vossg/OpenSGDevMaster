@@ -157,7 +157,8 @@ MapHelperBase::TypeObject MapHelperBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MapHelperBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MapHelper::initMethod),
     reinterpret_cast<ExitContainerF>(&MapHelper::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MapHelper::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MapHelper::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

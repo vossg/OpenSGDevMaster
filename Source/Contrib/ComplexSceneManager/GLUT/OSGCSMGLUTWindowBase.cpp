@@ -122,7 +122,8 @@ CSMGLUTWindowBase::TypeObject CSMGLUTWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMGLUTWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMGLUTWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMGLUTWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMGLUTWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMGLUTWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

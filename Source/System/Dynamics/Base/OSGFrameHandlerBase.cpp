@@ -265,7 +265,8 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FrameHandlerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FrameHandler::initMethod),
     reinterpret_cast<ExitContainerF>(&FrameHandler::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FrameHandler::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FrameHandler::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

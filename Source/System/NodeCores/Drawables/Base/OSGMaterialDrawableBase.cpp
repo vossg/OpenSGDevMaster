@@ -141,7 +141,8 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&MaterialDrawable::initMethod),
     reinterpret_cast<ExitContainerF>(&MaterialDrawable::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialDrawable::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MaterialDrawable::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

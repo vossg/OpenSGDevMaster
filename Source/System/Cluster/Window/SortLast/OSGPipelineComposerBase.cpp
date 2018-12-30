@@ -180,7 +180,8 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PipelineComposerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PipelineComposer::initMethod),
     reinterpret_cast<ExitContainerF>(&PipelineComposer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PipelineComposer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PipelineComposer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -180,7 +180,8 @@ PlaneMoveManipulatorBase::TypeObject PlaneMoveManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PlaneMoveManipulatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PlaneMoveManipulator::initMethod),
     reinterpret_cast<ExitContainerF>(&PlaneMoveManipulator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PlaneMoveManipulator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PlaneMoveManipulator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

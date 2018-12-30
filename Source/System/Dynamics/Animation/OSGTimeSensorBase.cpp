@@ -286,7 +286,8 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TimeSensorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TimeSensor::initMethod),
     reinterpret_cast<ExitContainerF>(&TimeSensor::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TimeSensor::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TimeSensor::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

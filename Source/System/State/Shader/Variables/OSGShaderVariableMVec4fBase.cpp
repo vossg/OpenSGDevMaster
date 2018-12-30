@@ -140,7 +140,8 @@ ShaderVariableMVec4fBase::TypeObject ShaderVariableMVec4fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMVec4fBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableMVec4f::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableMVec4f::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMVec4f::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableMVec4f::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

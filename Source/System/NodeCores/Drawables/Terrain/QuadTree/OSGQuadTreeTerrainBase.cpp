@@ -514,7 +514,8 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     reinterpret_cast<PrototypeCreateF>(&QuadTreeTerrainBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&QuadTreeTerrain::initMethod),
     reinterpret_cast<ExitContainerF>(&QuadTreeTerrain::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&QuadTreeTerrain::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&QuadTreeTerrain::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

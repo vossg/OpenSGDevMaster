@@ -197,7 +197,8 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&ProgramChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ProgramChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ProgramChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ProgramChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

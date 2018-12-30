@@ -554,7 +554,8 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadowStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShadowStage::initMethod),
     reinterpret_cast<ExitContainerF>(&ShadowStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShadowStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShadowStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

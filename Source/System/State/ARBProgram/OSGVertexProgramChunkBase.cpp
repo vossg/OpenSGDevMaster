@@ -124,7 +124,8 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VertexProgramChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VertexProgramChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&VertexProgramChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VertexProgramChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VertexProgramChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

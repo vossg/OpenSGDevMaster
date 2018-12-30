@@ -140,7 +140,8 @@ ComputeCallbackAlgorithmBase::TypeObject ComputeCallbackAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComputeCallbackAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComputeCallbackAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&ComputeCallbackAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComputeCallbackAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComputeCallbackAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

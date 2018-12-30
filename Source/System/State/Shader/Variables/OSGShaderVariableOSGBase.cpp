@@ -140,7 +140,8 @@ ShaderVariableOSGBase::TypeObject ShaderVariableOSGBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableOSGBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableOSG::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableOSG::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableOSG::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableOSG::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

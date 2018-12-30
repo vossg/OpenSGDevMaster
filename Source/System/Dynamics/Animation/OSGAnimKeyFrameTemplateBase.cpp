@@ -122,7 +122,8 @@ AnimKeyFrameTemplateBase::TypeObject AnimKeyFrameTemplateBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimKeyFrameTemplateBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimKeyFrameTemplate::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimKeyFrameTemplate::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimKeyFrameTemplate::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimKeyFrameTemplate::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -141,7 +141,8 @@ TransformBase::TypeObject TransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Transform::initMethod),
     reinterpret_cast<ExitContainerF>(&Transform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Transform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Transform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

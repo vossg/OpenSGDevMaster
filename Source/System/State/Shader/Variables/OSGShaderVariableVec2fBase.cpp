@@ -140,7 +140,8 @@ ShaderVariableVec2fBase::TypeObject ShaderVariableVec2fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableVec2fBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableVec2f::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableVec2f::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableVec2f::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableVec2f::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

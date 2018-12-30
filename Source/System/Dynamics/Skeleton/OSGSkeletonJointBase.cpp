@@ -218,7 +218,8 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkeletonJointBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkeletonJoint::initMethod),
     reinterpret_cast<ExitContainerF>(&SkeletonJoint::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkeletonJoint::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkeletonJoint::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

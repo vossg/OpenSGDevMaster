@@ -603,7 +603,8 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureEnvChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TextureEnvChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureEnvChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureEnvChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureEnvChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

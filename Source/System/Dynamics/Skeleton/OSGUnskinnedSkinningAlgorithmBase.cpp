@@ -122,7 +122,8 @@ UnskinnedSkinningAlgorithmBase::TypeObject UnskinnedSkinningAlgorithmBase::_type
     reinterpret_cast<PrototypeCreateF>(&UnskinnedSkinningAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&UnskinnedSkinningAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&UnskinnedSkinningAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&UnskinnedSkinningAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&UnskinnedSkinningAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

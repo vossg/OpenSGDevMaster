@@ -159,7 +159,8 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&StereoCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&StereoCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StereoCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StereoCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

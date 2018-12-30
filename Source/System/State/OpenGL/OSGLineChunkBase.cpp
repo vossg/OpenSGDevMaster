@@ -198,7 +198,8 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LineChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LineChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&LineChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LineChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LineChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

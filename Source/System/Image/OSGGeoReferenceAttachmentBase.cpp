@@ -204,7 +204,8 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoReferenceAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoReferenceAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoReferenceAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoReferenceAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoReferenceAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

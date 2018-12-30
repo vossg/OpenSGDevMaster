@@ -529,7 +529,8 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&CSMWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

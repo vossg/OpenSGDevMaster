@@ -148,7 +148,8 @@ VRMLCoordinateInterpolatorBase::TypeObject VRMLCoordinateInterpolatorBase::_type
     reinterpret_cast<PrototypeCreateF>(&VRMLCoordinateInterpolatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLCoordinateInterpolator::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLCoordinateInterpolator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLCoordinateInterpolator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLCoordinateInterpolator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

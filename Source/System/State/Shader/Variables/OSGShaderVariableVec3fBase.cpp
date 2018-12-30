@@ -140,7 +140,8 @@ ShaderVariableVec3fBase::TypeObject ShaderVariableVec3fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableVec3fBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableVec3f::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableVec3f::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableVec3f::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableVec3f::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

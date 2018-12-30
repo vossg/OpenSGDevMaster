@@ -159,7 +159,8 @@ StateBase::TypeObject StateBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StateBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&State::initMethod),
     reinterpret_cast<ExitContainerF>(&State::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&State::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&State::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

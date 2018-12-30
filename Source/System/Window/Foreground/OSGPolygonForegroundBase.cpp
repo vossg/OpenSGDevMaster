@@ -276,7 +276,8 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PolygonForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PolygonForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&PolygonForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PolygonForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PolygonForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

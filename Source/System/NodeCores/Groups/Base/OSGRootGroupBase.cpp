@@ -123,7 +123,8 @@ RootGroupBase::TypeObject RootGroupBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&RootGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&RootGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RootGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RootGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -190,7 +190,8 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMDrawerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMDrawer::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMDrawer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMDrawer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

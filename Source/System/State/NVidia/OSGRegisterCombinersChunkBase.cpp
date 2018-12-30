@@ -648,7 +648,8 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RegisterCombinersChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RegisterCombinersChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&RegisterCombinersChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RegisterCombinersChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RegisterCombinersChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -140,7 +140,8 @@ ShaderVariablePnt3fBase::TypeObject ShaderVariablePnt3fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariablePnt3fBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariablePnt3f::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariablePnt3f::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariablePnt3f::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariablePnt3f::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

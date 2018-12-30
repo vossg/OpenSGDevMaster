@@ -149,7 +149,8 @@ ForegroundBase::TypeObject ForegroundBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Foreground::initMethod),
     reinterpret_cast<ExitContainerF>(&Foreground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Foreground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Foreground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

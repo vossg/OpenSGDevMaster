@@ -314,7 +314,8 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ProxyGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ProxyGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&ProxyGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ProxyGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ProxyGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -155,7 +155,8 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StringAttributeMapBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&StringAttributeMap::initMethod),
     reinterpret_cast<ExitContainerF>(&StringAttributeMap::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StringAttributeMap::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StringAttributeMap::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

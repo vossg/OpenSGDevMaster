@@ -168,7 +168,8 @@ DeviceInterfaceSensorBase::TypeObject DeviceInterfaceSensorBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&DeviceInterfaceSensor::initMethod),
     reinterpret_cast<ExitContainerF>(&DeviceInterfaceSensor::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DeviceInterfaceSensor::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DeviceInterfaceSensor::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

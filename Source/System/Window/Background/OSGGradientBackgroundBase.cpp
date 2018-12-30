@@ -190,7 +190,8 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GradientBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GradientBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&GradientBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GradientBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GradientBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

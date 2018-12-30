@@ -122,7 +122,8 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&StatsAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&StatsAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StatsAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StatsAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

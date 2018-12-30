@@ -157,7 +157,8 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimVec3fBlenderBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimVec3fBlender::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimVec3fBlender::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimVec3fBlender::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimVec3fBlender::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

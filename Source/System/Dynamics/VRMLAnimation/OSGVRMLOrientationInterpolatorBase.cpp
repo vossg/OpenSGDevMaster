@@ -148,7 +148,8 @@ VRMLOrientationInterpolatorBase::TypeObject VRMLOrientationInterpolatorBase::_ty
     reinterpret_cast<PrototypeCreateF>(&VRMLOrientationInterpolatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLOrientationInterpolator::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLOrientationInterpolator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLOrientationInterpolator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLOrientationInterpolator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

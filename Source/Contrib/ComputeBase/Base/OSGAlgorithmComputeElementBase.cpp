@@ -141,7 +141,8 @@ AlgorithmComputeElementBase::TypeObject AlgorithmComputeElementBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AlgorithmComputeElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AlgorithmComputeElement::initMethod),
     reinterpret_cast<ExitContainerF>(&AlgorithmComputeElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmComputeElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AlgorithmComputeElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

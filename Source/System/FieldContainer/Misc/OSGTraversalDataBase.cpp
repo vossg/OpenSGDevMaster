@@ -114,7 +114,8 @@ TraversalDataBase::TypeObject TraversalDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TraversalDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TraversalData::initMethod),
     reinterpret_cast<ExitContainerF>(&TraversalData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TraversalData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TraversalData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

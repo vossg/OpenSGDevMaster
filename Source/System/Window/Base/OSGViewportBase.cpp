@@ -242,7 +242,8 @@ ViewportBase::TypeObject ViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ViewportBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Viewport::initMethod),
     reinterpret_cast<ExitContainerF>(&Viewport::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Viewport::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Viewport::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

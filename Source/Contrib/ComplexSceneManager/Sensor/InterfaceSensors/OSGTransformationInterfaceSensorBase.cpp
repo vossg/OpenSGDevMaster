@@ -196,7 +196,8 @@ TransformationInterfaceSensorBase::TypeObject TransformationInterfaceSensorBase:
     reinterpret_cast<PrototypeCreateF>(&TransformationInterfaceSensorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TransformationInterfaceSensor::initMethod),
     reinterpret_cast<ExitContainerF>(&TransformationInterfaceSensor::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TransformationInterfaceSensor::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TransformationInterfaceSensor::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

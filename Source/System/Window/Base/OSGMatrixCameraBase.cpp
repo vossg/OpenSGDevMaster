@@ -176,7 +176,8 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MatrixCamera::initMethod),
     reinterpret_cast<ExitContainerF>(&MatrixCamera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MatrixCamera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MatrixCamera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

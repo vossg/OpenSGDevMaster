@@ -222,7 +222,8 @@ GeoIntegralBufferPropertyBase::TypeObject GeoIntegralBufferPropertyBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoIntegralBufferPropertyBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GeoIntegralBufferProperty::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoIntegralBufferProperty::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoIntegralBufferProperty::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoIntegralBufferProperty::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

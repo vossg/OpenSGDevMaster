@@ -551,7 +551,8 @@ ImageBase::TypeObject ImageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ImageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Image::initMethod),
     reinterpret_cast<ExitContainerF>(&Image::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Image::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Image::classDescInserter)),
     false,
     (ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask),
     "<?xml version=\"1.0\"?>\n"

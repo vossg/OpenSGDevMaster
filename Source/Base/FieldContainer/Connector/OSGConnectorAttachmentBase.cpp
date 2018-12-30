@@ -122,7 +122,8 @@ ConnectorAttachmentBase::TypeObject ConnectorAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ConnectorAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ConnectorAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&ConnectorAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ConnectorAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ConnectorAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

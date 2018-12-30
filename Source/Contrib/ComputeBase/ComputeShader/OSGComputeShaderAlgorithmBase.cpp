@@ -279,7 +279,8 @@ ComputeShaderAlgorithmBase::TypeObject ComputeShaderAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComputeShaderAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComputeShaderAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&ComputeShaderAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComputeShaderAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComputeShaderAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -176,7 +176,8 @@ LightModelChunkBase::TypeObject LightModelChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LightModelChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LightModelChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&LightModelChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LightModelChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LightModelChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

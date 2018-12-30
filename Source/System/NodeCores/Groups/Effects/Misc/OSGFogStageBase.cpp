@@ -217,7 +217,8 @@ FogStageBase::TypeObject FogStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FogStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FogStage::initMethod),
     reinterpret_cast<ExitContainerF>(&FogStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FogStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FogStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

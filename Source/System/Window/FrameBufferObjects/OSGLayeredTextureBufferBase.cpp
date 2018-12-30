@@ -193,7 +193,8 @@ LayeredTextureBufferBase::TypeObject LayeredTextureBufferBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LayeredTextureBufferBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LayeredTextureBuffer::initMethod),
     reinterpret_cast<ExitContainerF>(&LayeredTextureBuffer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LayeredTextureBuffer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LayeredTextureBuffer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

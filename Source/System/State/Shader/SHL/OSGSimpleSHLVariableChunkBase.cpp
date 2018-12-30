@@ -157,7 +157,8 @@ SimpleSHLVariableChunkBase::TypeObject SimpleSHLVariableChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLVariableChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleSHLVariableChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleSHLVariableChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLVariableChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleSHLVariableChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

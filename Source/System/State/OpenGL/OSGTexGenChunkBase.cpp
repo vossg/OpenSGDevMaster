@@ -364,7 +364,8 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TexGenChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TexGenChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TexGenChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TexGenChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TexGenChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

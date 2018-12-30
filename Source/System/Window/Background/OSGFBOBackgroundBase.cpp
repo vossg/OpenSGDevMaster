@@ -138,7 +138,8 @@ FBOBackgroundBase::TypeObject FBOBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FBOBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FBOBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&FBOBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FBOBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FBOBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -140,7 +140,8 @@ ShaderVariableShaderStorageBlockBase::TypeObject ShaderVariableShaderStorageBloc
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableShaderStorageBlockBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableShaderStorageBlock::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableShaderStorageBlock::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableShaderStorageBlock::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableShaderStorageBlock::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -122,7 +122,8 @@ FullStateChunkBase::TypeObject FullStateChunkBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&FullStateChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&FullStateChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FullStateChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FullStateChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

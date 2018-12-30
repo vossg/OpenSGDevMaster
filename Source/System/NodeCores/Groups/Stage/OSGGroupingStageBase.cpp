@@ -115,7 +115,8 @@ GroupingStageBase::TypeObject GroupingStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GroupingStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GroupingStage::initMethod),
     reinterpret_cast<ExitContainerF>(&GroupingStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GroupingStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GroupingStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

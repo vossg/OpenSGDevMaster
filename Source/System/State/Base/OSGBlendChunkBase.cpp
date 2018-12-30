@@ -275,7 +275,8 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BlendChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&BlendChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&BlendChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&BlendChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&BlendChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

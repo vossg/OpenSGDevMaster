@@ -180,7 +180,8 @@ CSMSortFirstWinOptionsBase::TypeObject CSMSortFirstWinOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMSortFirstWinOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMSortFirstWinOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMSortFirstWinOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMSortFirstWinOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMSortFirstWinOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

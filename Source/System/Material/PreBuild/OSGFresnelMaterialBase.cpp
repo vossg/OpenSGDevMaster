@@ -318,7 +318,8 @@ FresnelMaterialBase::TypeObject FresnelMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FresnelMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FresnelMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&FresnelMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FresnelMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FresnelMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

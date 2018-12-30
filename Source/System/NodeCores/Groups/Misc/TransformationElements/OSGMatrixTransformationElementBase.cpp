@@ -140,7 +140,8 @@ MatrixTransformationElementBase::TypeObject MatrixTransformationElementBase::_ty
     reinterpret_cast<PrototypeCreateF>(&MatrixTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MatrixTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&MatrixTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MatrixTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MatrixTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

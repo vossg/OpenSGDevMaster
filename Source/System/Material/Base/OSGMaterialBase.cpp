@@ -169,7 +169,8 @@ MaterialBase::TypeObject MaterialBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Material::initMethod),
     reinterpret_cast<ExitContainerF>(&Material::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Material::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Material::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

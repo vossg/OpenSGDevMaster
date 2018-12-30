@@ -209,7 +209,8 @@ AttachmentBase::TypeObject AttachmentBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Attachment::initMethod),
     reinterpret_cast<ExitContainerF>(&Attachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Attachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Attachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

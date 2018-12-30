@@ -141,7 +141,8 @@ DoubleTransformBase::TypeObject DoubleTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DoubleTransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DoubleTransform::initMethod),
     reinterpret_cast<ExitContainerF>(&DoubleTransform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DoubleTransform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DoubleTransform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

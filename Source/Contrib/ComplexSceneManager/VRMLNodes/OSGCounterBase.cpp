@@ -164,7 +164,8 @@ CounterBase::TypeObject CounterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CounterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Counter::initMethod),
     reinterpret_cast<ExitContainerF>(&Counter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Counter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Counter::classDescInserter)),
     false,
     (IncTriggerFieldMask | DecTriggerFieldMask | ResetTriggerFieldMask),
     "<?xml version=\"1.0\"?>\n"

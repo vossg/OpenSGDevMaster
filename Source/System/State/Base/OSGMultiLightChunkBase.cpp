@@ -1137,7 +1137,8 @@ MultiLightChunkBase::TypeObject MultiLightChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiLightChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiLightChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiLightChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiLightChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiLightChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -206,7 +206,8 @@ FogChunkBase::TypeObject FogChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FogChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FogChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&FogChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FogChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FogChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

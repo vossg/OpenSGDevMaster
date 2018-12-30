@@ -157,7 +157,8 @@ AnimMatrixBlenderBase::TypeObject AnimMatrixBlenderBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimMatrixBlenderBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimMatrixBlender::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimMatrixBlender::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimMatrixBlender::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimMatrixBlender::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

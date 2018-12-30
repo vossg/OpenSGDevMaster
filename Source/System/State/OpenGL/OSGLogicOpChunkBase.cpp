@@ -144,7 +144,8 @@ LogicOpChunkBase::TypeObject LogicOpChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LogicOpChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LogicOpChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&LogicOpChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LogicOpChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LogicOpChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

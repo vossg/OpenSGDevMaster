@@ -188,7 +188,8 @@ CheckerboardCalibFilterBase::TypeObject CheckerboardCalibFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CheckerboardCalibFilterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CheckerboardCalibFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&CheckerboardCalibFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CheckerboardCalibFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CheckerboardCalibFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

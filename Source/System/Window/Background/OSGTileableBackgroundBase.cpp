@@ -138,7 +138,8 @@ TileableBackgroundBase::TypeObject TileableBackgroundBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&TileableBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&TileableBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TileableBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TileableBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

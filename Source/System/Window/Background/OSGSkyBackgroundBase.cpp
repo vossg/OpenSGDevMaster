@@ -468,7 +468,8 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkyBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkyBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&SkyBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkyBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkyBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

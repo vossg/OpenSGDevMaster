@@ -122,7 +122,8 @@ GPUVolRTV1Base::TypeObject GPUVolRTV1Base::_type(
     reinterpret_cast<PrototypeCreateF>(&GPUVolRTV1Base::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GPUVolRTV1::initMethod),
     reinterpret_cast<ExitContainerF>(&GPUVolRTV1::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GPUVolRTV1::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GPUVolRTV1::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

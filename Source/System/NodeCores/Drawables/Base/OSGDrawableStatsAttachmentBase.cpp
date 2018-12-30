@@ -264,7 +264,8 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DrawableStatsAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DrawableStatsAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&DrawableStatsAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DrawableStatsAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DrawableStatsAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

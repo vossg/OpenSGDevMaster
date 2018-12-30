@@ -177,7 +177,8 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ImageForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ImageForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&ImageForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ImageForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ImageForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

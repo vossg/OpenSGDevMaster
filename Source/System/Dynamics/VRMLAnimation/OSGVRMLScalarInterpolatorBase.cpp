@@ -148,7 +148,8 @@ VRMLScalarInterpolatorBase::TypeObject VRMLScalarInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VRMLScalarInterpolatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLScalarInterpolator::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLScalarInterpolator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLScalarInterpolator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLScalarInterpolator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

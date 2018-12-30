@@ -621,7 +621,8 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RenderOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&RenderOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RenderOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RenderOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

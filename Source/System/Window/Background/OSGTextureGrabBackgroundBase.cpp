@@ -187,7 +187,8 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureGrabBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TextureGrabBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureGrabBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureGrabBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureGrabBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -179,7 +179,8 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PerspectiveCameraBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PerspectiveCamera::initMethod),
     reinterpret_cast<ExitContainerF>(&PerspectiveCamera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PerspectiveCamera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PerspectiveCamera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

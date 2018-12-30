@@ -157,7 +157,8 @@ AnimTargetAttachmentBase::TypeObject AnimTargetAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimTargetAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimTargetAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimTargetAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimTargetAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimTargetAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

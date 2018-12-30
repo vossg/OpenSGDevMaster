@@ -158,7 +158,8 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GrabForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GrabForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&GrabForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GrabForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GrabForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

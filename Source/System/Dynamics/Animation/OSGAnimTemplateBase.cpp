@@ -173,7 +173,8 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&AnimTemplate::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimTemplate::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimTemplate::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimTemplate::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

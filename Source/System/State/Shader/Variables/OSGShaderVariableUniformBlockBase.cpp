@@ -140,7 +140,8 @@ ShaderVariableUniformBlockBase::TypeObject ShaderVariableUniformBlockBase::_type
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableUniformBlockBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableUniformBlock::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableUniformBlock::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableUniformBlock::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableUniformBlock::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

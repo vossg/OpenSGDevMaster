@@ -133,7 +133,8 @@ ShadeModelChunkBase::TypeObject ShadeModelChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadeModelChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShadeModelChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShadeModelChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShadeModelChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShadeModelChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -156,7 +156,8 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&AnimKeyFrameDataSource::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimKeyFrameDataSource::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimKeyFrameDataSource::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimKeyFrameDataSource::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

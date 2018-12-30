@@ -144,7 +144,8 @@ CallbackAlgorithmForegroundBase::TypeObject CallbackAlgorithmForegroundBase::_ty
     reinterpret_cast<PrototypeCreateF>(&CallbackAlgorithmForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CallbackAlgorithmForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&CallbackAlgorithmForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CallbackAlgorithmForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CallbackAlgorithmForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

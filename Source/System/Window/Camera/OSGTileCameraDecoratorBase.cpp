@@ -226,7 +226,8 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TileCameraDecoratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TileCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&TileCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TileCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TileCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

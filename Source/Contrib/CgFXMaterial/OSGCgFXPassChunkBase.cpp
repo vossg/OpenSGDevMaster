@@ -141,7 +141,8 @@ CgFXPassChunkBase::TypeObject CgFXPassChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CgFXPassChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CgFXPassChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&CgFXPassChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CgFXPassChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CgFXPassChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

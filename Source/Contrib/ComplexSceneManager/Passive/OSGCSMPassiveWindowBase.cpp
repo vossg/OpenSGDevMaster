@@ -157,7 +157,8 @@ CSMPassiveWindowBase::TypeObject CSMPassiveWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMPassiveWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMPassiveWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMPassiveWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMPassiveWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMPassiveWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -114,7 +114,8 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LightEnvBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LightEnv::initMethod),
     reinterpret_cast<ExitContainerF>(&LightEnv::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LightEnv::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LightEnv::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

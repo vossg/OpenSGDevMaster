@@ -164,7 +164,8 @@ StageDataBase::TypeObject StageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&StageData::initMethod),
     reinterpret_cast<ExitContainerF>(&StageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

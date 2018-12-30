@@ -122,7 +122,8 @@ CompositeMaterialBase::TypeObject CompositeMaterialBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&CompositeMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&CompositeMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CompositeMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CompositeMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

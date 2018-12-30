@@ -149,7 +149,8 @@ RenderCallbackStageBase::TypeObject RenderCallbackStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderCallbackStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RenderCallbackStage::initMethod),
     reinterpret_cast<ExitContainerF>(&RenderCallbackStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RenderCallbackStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RenderCallbackStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

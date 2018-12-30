@@ -173,7 +173,8 @@ CSMPerspectiveCameraBase::TypeObject CSMPerspectiveCameraBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMPerspectiveCameraBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMPerspectiveCamera::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMPerspectiveCamera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMPerspectiveCamera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMPerspectiveCamera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

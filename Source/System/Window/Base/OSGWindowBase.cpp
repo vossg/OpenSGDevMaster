@@ -379,7 +379,8 @@ WindowBase::TypeObject WindowBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Window::initMethod),
     reinterpret_cast<ExitContainerF>(&Window::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Window::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Window::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

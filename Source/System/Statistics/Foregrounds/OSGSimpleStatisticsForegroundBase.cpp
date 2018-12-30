@@ -336,7 +336,8 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     reinterpret_cast<PrototypeCreateF>(&SimpleStatisticsForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleStatisticsForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleStatisticsForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleStatisticsForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleStatisticsForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

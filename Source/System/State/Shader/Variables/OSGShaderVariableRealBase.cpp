@@ -140,7 +140,8 @@ ShaderVariableRealBase::TypeObject ShaderVariableRealBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableRealBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderVariableReal::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderVariableReal::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableReal::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderVariableReal::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

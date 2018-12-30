@@ -215,7 +215,8 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CubeTextureObjChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CubeTextureObjChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&CubeTextureObjChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CubeTextureObjChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CubeTextureObjChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

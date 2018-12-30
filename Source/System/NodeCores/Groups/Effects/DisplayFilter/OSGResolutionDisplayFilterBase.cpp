@@ -140,7 +140,8 @@ ResolutionDisplayFilterBase::TypeObject ResolutionDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ResolutionDisplayFilterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ResolutionDisplayFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&ResolutionDisplayFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ResolutionDisplayFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ResolutionDisplayFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

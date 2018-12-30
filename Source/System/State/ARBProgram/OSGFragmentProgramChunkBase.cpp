@@ -122,7 +122,8 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FragmentProgramChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FragmentProgramChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&FragmentProgramChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FragmentProgramChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FragmentProgramChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

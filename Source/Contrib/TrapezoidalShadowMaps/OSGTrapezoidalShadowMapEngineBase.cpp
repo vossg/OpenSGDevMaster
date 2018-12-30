@@ -123,7 +123,8 @@ TrapezoidalShadowMapEngineBase::TypeObject TrapezoidalShadowMapEngineBase::_type
     reinterpret_cast<PrototypeCreateF>(&TrapezoidalShadowMapEngineBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TrapezoidalShadowMapEngine::initMethod),
     reinterpret_cast<ExitContainerF>(&TrapezoidalShadowMapEngine::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TrapezoidalShadowMapEngine::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TrapezoidalShadowMapEngine::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

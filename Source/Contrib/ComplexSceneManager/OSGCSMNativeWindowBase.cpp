@@ -122,7 +122,8 @@ CSMNativeWindowBase::TypeObject CSMNativeWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMNativeWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMNativeWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMNativeWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMNativeWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMNativeWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

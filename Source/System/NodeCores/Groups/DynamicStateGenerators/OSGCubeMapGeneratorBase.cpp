@@ -312,7 +312,8 @@ CubeMapGeneratorBase::TypeObject CubeMapGeneratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CubeMapGenerator::initMethod),
     reinterpret_cast<ExitContainerF>(&CubeMapGenerator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CubeMapGenerator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CubeMapGenerator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

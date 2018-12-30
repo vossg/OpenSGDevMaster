@@ -150,7 +150,8 @@ DepthPeelingStageBase::TypeObject DepthPeelingStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DepthPeelingStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DepthPeelingStage::initMethod),
     reinterpret_cast<ExitContainerF>(&DepthPeelingStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DepthPeelingStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DepthPeelingStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

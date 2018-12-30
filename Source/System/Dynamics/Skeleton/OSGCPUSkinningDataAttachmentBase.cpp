@@ -189,7 +189,8 @@ CPUSkinningDataAttachmentBase::TypeObject CPUSkinningDataAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CPUSkinningDataAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CPUSkinningDataAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&CPUSkinningDataAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CPUSkinningDataAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CPUSkinningDataAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

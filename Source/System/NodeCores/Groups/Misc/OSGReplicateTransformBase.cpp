@@ -145,7 +145,8 @@ ReplicateTransformBase::TypeObject ReplicateTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ReplicateTransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ReplicateTransform::initMethod),
     reinterpret_cast<ExitContainerF>(&ReplicateTransform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ReplicateTransform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ReplicateTransform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

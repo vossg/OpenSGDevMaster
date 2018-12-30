@@ -140,7 +140,8 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     reinterpret_cast<PrototypeCreateF>(&OffCenterPerspectiveCameraBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&OffCenterPerspectiveCamera::initMethod),
     reinterpret_cast<ExitContainerF>(&OffCenterPerspectiveCamera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&OffCenterPerspectiveCamera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&OffCenterPerspectiveCamera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

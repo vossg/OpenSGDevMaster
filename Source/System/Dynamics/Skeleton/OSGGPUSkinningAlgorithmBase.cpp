@@ -122,7 +122,8 @@ GPUSkinningAlgorithmBase::TypeObject GPUSkinningAlgorithmBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GPUSkinningAlgorithmBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GPUSkinningAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&GPUSkinningAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GPUSkinningAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GPUSkinningAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

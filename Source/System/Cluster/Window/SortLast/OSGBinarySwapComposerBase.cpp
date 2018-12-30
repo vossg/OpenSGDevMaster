@@ -164,7 +164,8 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BinarySwapComposerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&BinarySwapComposer::initMethod),
     reinterpret_cast<ExitContainerF>(&BinarySwapComposer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&BinarySwapComposer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&BinarySwapComposer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

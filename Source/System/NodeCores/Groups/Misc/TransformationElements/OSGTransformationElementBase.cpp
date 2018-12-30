@@ -153,7 +153,8 @@ TransformationElementBase::TypeObject TransformationElementBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&TransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&TransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

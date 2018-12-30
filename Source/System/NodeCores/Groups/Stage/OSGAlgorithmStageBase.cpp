@@ -181,7 +181,8 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AlgorithmStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AlgorithmStage::initMethod),
     reinterpret_cast<ExitContainerF>(&AlgorithmStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AlgorithmStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

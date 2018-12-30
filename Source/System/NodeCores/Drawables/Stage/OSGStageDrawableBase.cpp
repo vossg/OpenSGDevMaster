@@ -124,7 +124,8 @@ StageDrawableBase::TypeObject StageDrawableBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&StageDrawable::initMethod),
     reinterpret_cast<ExitContainerF>(&StageDrawable::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StageDrawable::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StageDrawable::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

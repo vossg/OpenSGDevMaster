@@ -314,7 +314,8 @@ SkeletonOgreJointBase::TypeObject SkeletonOgreJointBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SkeletonOgreJointBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SkeletonOgreJoint::initMethod),
     reinterpret_cast<ExitContainerF>(&SkeletonOgreJoint::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkeletonOgreJoint::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkeletonOgreJoint::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

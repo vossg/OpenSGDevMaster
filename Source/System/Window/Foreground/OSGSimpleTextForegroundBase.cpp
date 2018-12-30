@@ -341,7 +341,8 @@ SimpleTextForegroundBase::TypeObject SimpleTextForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleTextForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleTextForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleTextForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleTextForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleTextForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

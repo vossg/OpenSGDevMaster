@@ -140,7 +140,8 @@ FileContextAttachmentBase::TypeObject FileContextAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FileContextAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FileContextAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&FileContextAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FileContextAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FileContextAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

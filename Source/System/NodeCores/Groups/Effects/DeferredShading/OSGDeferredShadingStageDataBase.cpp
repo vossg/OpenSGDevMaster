@@ -236,7 +236,8 @@ DeferredShadingStageDataBase::TypeObject DeferredShadingStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DeferredShadingStageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DeferredShadingStageData::initMethod),
     reinterpret_cast<ExitContainerF>(&DeferredShadingStageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DeferredShadingStageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DeferredShadingStageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

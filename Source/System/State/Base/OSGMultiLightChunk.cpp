@@ -130,13 +130,15 @@ MultiLight::MultiLight(Type e)
 
 MultiLightChunk::MultiLightChunk(void) :
     Inherited(),
-    _bUpdateBuffer(false)
+    _bUpdateBuffer(false),
+    _cameraCB()
 {
 }
 
 MultiLightChunk::MultiLightChunk(const MultiLightChunk &source) :
     Inherited(source),
-    _bUpdateBuffer(false)
+    _bUpdateBuffer(false),
+    _cameraCB()
 {
 }
 
@@ -866,7 +868,7 @@ void MultiLightChunk::updateLightState(DrawEnv* pEnv)
 
 /*------------------------------ activate -----------------------------------*/
 
-void MultiLightChunk::activate(DrawEnv *pEnv, UInt32 idx)
+void MultiLightChunk::activate(DrawEnv *pEnv, UInt32 index)
 {
     if (getLastCamNear   () != pEnv->getCameraNear() ||
         getLastCamFar    () != pEnv->getCameraFar()  ||
@@ -896,23 +898,23 @@ void MultiLightChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if (_bUpdateBuffer)
         updateLightState(pEnv);
 
-    Inherited::activate(pEnv, idx);
+    Inherited::activate(pEnv, index);
 }
 
 /*------------------------------ deactivate ---------------------------------*/
 
-void MultiLightChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void MultiLightChunk::deactivate(DrawEnv *pEnv, UInt32 index)
 {
-    Inherited::deactivate(pEnv, idx);
+    Inherited::deactivate(pEnv, index);
 }
 
 /*------------------------------ changeFrom ---------------------------------*/
 
 void MultiLightChunk::changeFrom(DrawEnv    *pEnv,
                                  StateChunk *old,
-                                 UInt32      idx )
+                                 UInt32      index )
 {
-    Inherited::changeFrom(pEnv, old, idx);
+    Inherited::changeFrom(pEnv, old, index);
 }
 
 /*------------------------------ interface ----------------------------------*/

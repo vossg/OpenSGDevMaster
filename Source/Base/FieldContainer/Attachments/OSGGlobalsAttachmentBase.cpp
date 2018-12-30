@@ -188,7 +188,8 @@ GlobalsAttachmentBase::TypeObject GlobalsAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GlobalsAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GlobalsAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&GlobalsAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GlobalsAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GlobalsAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

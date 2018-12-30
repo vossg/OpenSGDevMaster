@@ -164,7 +164,8 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ChunkOverrideGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ChunkOverrideGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&ChunkOverrideGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkOverrideGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ChunkOverrideGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -326,7 +326,8 @@ FishEyeProjectorBase::TypeObject FishEyeProjectorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FishEyeProjectorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&FishEyeProjector::initMethod),
     reinterpret_cast<ExitContainerF>(&FishEyeProjector::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&FishEyeProjector::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FishEyeProjector::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -157,7 +157,8 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     reinterpret_cast<PrototypeCreateF>(&ShearedStereoCameraDecoratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShearedStereoCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&ShearedStereoCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShearedStereoCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShearedStereoCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

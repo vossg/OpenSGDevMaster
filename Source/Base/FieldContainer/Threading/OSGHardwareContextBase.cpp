@@ -170,7 +170,8 @@ HardwareContextBase::TypeObject HardwareContextBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&HardwareContext::initMethod),
     reinterpret_cast<ExitContainerF>(&HardwareContext::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&HardwareContext::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&HardwareContext::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

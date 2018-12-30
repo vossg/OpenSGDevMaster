@@ -144,7 +144,8 @@ HeadTrackedStereoCameraDecoratorBase::TypeObject HeadTrackedStereoCameraDecorato
     reinterpret_cast<PrototypeCreateF>(&HeadTrackedStereoCameraDecoratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&HeadTrackedStereoCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&HeadTrackedStereoCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&HeadTrackedStereoCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&HeadTrackedStereoCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

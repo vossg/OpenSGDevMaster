@@ -141,7 +141,8 @@ StackedTransformBase::TypeObject StackedTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StackedTransformBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&StackedTransform::initMethod),
     reinterpret_cast<ExitContainerF>(&StackedTransform::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&StackedTransform::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&StackedTransform::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

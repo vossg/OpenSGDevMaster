@@ -133,7 +133,8 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DirectionalLightBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DirectionalLight::initMethod),
     reinterpret_cast<ExitContainerF>(&DirectionalLight::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DirectionalLight::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DirectionalLight::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

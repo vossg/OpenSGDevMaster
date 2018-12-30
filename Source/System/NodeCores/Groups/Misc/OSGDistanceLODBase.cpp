@@ -183,7 +183,8 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DistanceLODBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DistanceLOD::initMethod),
     reinterpret_cast<ExitContainerF>(&DistanceLOD::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DistanceLOD::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DistanceLOD::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

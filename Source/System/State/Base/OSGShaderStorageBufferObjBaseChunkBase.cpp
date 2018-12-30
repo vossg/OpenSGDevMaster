@@ -122,7 +122,8 @@ ShaderStorageBufferObjBaseChunkBase::TypeObject ShaderStorageBufferObjBaseChunkB
     NULL,
     reinterpret_cast<InitContainerF>(&ShaderStorageBufferObjBaseChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderStorageBufferObjBaseChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderStorageBufferObjBaseChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderStorageBufferObjBaseChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

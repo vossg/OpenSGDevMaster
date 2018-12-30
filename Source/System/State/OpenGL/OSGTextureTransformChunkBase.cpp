@@ -143,7 +143,8 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureTransformChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TextureTransformChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureTransformChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureTransformChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureTransformChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

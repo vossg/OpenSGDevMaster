@@ -172,7 +172,8 @@ DistortionDisplayFilterBase::TypeObject DistortionDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DistortionDisplayFilterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DistortionDisplayFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&DistortionDisplayFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DistortionDisplayFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DistortionDisplayFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

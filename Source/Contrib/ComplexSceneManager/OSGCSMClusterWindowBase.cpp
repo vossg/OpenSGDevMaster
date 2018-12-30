@@ -288,7 +288,8 @@ CSMClusterWindowBase::TypeObject CSMClusterWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMClusterWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMClusterWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMClusterWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMClusterWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMClusterWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -141,7 +141,8 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiPassMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiPassMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiPassMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiPassMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiPassMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

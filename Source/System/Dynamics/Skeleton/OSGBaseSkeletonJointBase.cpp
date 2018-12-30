@@ -207,7 +207,8 @@ BaseSkeletonJointBase::TypeObject BaseSkeletonJointBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&BaseSkeletonJoint::initMethod),
     reinterpret_cast<ExitContainerF>(&BaseSkeletonJoint::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&BaseSkeletonJoint::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&BaseSkeletonJoint::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

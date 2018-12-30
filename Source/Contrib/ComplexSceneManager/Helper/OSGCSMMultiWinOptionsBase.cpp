@@ -212,7 +212,8 @@ CSMMultiWinOptionsBase::TypeObject CSMMultiWinOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMMultiWinOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMMultiWinOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMMultiWinOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMMultiWinOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMMultiWinOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

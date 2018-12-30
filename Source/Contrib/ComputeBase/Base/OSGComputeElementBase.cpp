@@ -124,7 +124,8 @@ ComputeElementBase::TypeObject ComputeElementBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComputeElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ComputeElement::initMethod),
     reinterpret_cast<ExitContainerF>(&ComputeElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComputeElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComputeElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

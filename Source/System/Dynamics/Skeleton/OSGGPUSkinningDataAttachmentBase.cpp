@@ -157,7 +157,8 @@ GPUSkinningDataAttachmentBase::TypeObject GPUSkinningDataAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GPUSkinningDataAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GPUSkinningDataAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&GPUSkinningDataAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GPUSkinningDataAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GPUSkinningDataAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

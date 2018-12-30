@@ -164,7 +164,8 @@ RangeLODBase::TypeObject RangeLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RangeLODBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RangeLOD::initMethod),
     reinterpret_cast<ExitContainerF>(&RangeLOD::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RangeLOD::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RangeLOD::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

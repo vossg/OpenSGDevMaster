@@ -142,7 +142,8 @@ SwitchBase::TypeObject SwitchBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SwitchBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Switch::initMethod),
     reinterpret_cast<ExitContainerF>(&Switch::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Switch::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Switch::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

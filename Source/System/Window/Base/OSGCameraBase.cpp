@@ -179,7 +179,8 @@ CameraBase::TypeObject CameraBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Camera::initMethod),
     reinterpret_cast<ExitContainerF>(&Camera::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Camera::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Camera::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

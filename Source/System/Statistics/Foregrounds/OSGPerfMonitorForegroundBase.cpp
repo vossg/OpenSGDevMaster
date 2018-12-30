@@ -256,7 +256,8 @@ PerfMonitorForegroundBase::TypeObject PerfMonitorForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PerfMonitorForegroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PerfMonitorForeground::initMethod),
     reinterpret_cast<ExitContainerF>(&PerfMonitorForeground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PerfMonitorForeground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PerfMonitorForeground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -235,7 +235,8 @@ AnimationBase::TypeObject AnimationBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimationBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Animation::initMethod),
     reinterpret_cast<ExitContainerF>(&Animation::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Animation::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Animation::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

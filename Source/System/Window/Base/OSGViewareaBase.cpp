@@ -319,7 +319,8 @@ ViewareaBase::TypeObject ViewareaBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ViewareaBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Viewarea::initMethod),
     reinterpret_cast<ExitContainerF>(&Viewarea::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Viewarea::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Viewarea::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -122,7 +122,8 @@ DrawableBase::TypeObject DrawableBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Drawable::initMethod),
     reinterpret_cast<ExitContainerF>(&Drawable::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Drawable::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Drawable::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

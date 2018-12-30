@@ -164,7 +164,8 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MoveManipulatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MoveManipulator::initMethod),
     reinterpret_cast<ExitContainerF>(&MoveManipulator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MoveManipulator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MoveManipulator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

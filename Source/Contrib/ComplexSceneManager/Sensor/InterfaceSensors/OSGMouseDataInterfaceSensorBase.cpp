@@ -132,7 +132,8 @@ MouseDataInterfaceSensorBase::TypeObject MouseDataInterfaceSensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MouseDataInterfaceSensorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MouseDataInterfaceSensor::initMethod),
     reinterpret_cast<ExitContainerF>(&MouseDataInterfaceSensor::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MouseDataInterfaceSensor::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MouseDataInterfaceSensor::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

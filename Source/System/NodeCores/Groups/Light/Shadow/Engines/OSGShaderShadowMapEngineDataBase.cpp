@@ -218,7 +218,8 @@ ShaderShadowMapEngineDataBase::TypeObject ShaderShadowMapEngineDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderShadowMapEngineDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderShadowMapEngineData::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderShadowMapEngineData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderShadowMapEngineData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderShadowMapEngineData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -164,7 +164,8 @@ SimpleSHLChunkFileBase::TypeObject SimpleSHLChunkFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkFileBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleSHLChunkFile::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleSHLChunkFile::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunkFile::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleSHLChunkFile::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

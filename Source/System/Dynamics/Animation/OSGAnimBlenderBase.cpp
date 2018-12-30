@@ -124,7 +124,8 @@ AnimBlenderBase::TypeObject AnimBlenderBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&AnimBlender::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimBlender::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimBlender::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimBlender::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

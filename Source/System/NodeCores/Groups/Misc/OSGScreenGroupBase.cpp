@@ -122,7 +122,8 @@ ScreenGroupBase::TypeObject ScreenGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScreenGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ScreenGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&ScreenGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ScreenGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ScreenGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

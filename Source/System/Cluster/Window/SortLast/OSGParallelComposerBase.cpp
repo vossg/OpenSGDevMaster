@@ -164,7 +164,8 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ParallelComposerBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ParallelComposer::initMethod),
     reinterpret_cast<ExitContainerF>(&ParallelComposer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ParallelComposer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ParallelComposer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

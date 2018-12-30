@@ -190,7 +190,8 @@ NodeCoreBase::TypeObject NodeCoreBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&NodeCore::initMethod),
     reinterpret_cast<ExitContainerF>(&NodeCore::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&NodeCore::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&NodeCore::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

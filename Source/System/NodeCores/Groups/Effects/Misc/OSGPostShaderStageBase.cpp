@@ -217,7 +217,8 @@ PostShaderStageBase::TypeObject PostShaderStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PostShaderStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PostShaderStage::initMethod),
     reinterpret_cast<ExitContainerF>(&PostShaderStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PostShaderStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PostShaderStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -191,7 +191,8 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&GeoProperty::initMethod),
     reinterpret_cast<ExitContainerF>(&GeoProperty::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GeoProperty::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GeoProperty::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

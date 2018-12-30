@@ -150,7 +150,8 @@ CSMClusterWinOptionsBase::TypeObject CSMClusterWinOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMClusterWinOptionsBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CSMClusterWinOptions::initMethod),
     reinterpret_cast<ExitContainerF>(&CSMClusterWinOptions::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CSMClusterWinOptions::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CSMClusterWinOptions::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

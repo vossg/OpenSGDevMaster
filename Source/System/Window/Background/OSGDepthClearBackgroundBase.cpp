@@ -120,7 +120,8 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DepthClearBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&DepthClearBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&DepthClearBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&DepthClearBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&DepthClearBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

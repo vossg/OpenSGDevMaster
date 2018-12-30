@@ -298,7 +298,8 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PointChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PointChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&PointChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PointChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PointChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

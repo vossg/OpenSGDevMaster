@@ -186,7 +186,8 @@ ShaderStorageBufferObjStdLayoutChunkBase::TypeObject ShaderStorageBufferObjStdLa
     reinterpret_cast<PrototypeCreateF>(&ShaderStorageBufferObjStdLayoutChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderStorageBufferObjStdLayoutChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderStorageBufferObjStdLayoutChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderStorageBufferObjStdLayoutChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderStorageBufferObjStdLayoutChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

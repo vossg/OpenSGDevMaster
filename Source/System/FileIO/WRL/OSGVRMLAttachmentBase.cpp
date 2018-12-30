@@ -140,7 +140,8 @@ VRMLAttachmentBase::TypeObject VRMLAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VRMLAttachmentBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLAttachment::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLAttachment::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLAttachment::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLAttachment::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

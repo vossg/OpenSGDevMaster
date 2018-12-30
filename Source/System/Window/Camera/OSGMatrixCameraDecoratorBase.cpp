@@ -238,7 +238,8 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraDecoratorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MatrixCameraDecorator::initMethod),
     reinterpret_cast<ExitContainerF>(&MatrixCameraDecorator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MatrixCameraDecorator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MatrixCameraDecorator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

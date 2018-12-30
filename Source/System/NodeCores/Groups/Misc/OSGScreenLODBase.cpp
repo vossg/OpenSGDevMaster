@@ -143,7 +143,8 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScreenLODBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ScreenLOD::initMethod),
     reinterpret_cast<ExitContainerF>(&ScreenLOD::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ScreenLOD::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ScreenLOD::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

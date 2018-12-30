@@ -147,7 +147,8 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&TextureBaseChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureBaseChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureBaseChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureBaseChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

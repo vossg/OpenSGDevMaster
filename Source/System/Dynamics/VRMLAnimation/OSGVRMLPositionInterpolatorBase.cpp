@@ -148,7 +148,8 @@ VRMLPositionInterpolatorBase::TypeObject VRMLPositionInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VRMLPositionInterpolatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLPositionInterpolator::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLPositionInterpolator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLPositionInterpolator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLPositionInterpolator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

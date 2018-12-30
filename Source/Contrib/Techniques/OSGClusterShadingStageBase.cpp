@@ -647,7 +647,8 @@ ClusterShadingStageBase::TypeObject ClusterShadingStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ClusterShadingStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ClusterShadingStage::initMethod),
     reinterpret_cast<ExitContainerF>(&ClusterShadingStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ClusterShadingStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ClusterShadingStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

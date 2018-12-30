@@ -157,7 +157,8 @@ AnimQuaternionBlenderBase::TypeObject AnimQuaternionBlenderBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionBlenderBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimQuaternionBlender::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimQuaternionBlender::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimQuaternionBlender::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimQuaternionBlender::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -156,7 +156,8 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SolidBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SolidBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&SolidBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SolidBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SolidBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

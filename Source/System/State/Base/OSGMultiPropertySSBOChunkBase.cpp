@@ -326,7 +326,8 @@ MultiPropertySSBOChunkBase::TypeObject MultiPropertySSBOChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiPropertySSBOChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiPropertySSBOChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiPropertySSBOChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiPropertySSBOChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiPropertySSBOChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

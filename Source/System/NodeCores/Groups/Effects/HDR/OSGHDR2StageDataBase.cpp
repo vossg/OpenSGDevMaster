@@ -744,7 +744,8 @@ HDR2StageDataBase::TypeObject HDR2StageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&HDR2StageDataBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&HDR2StageData::initMethod),
     reinterpret_cast<ExitContainerF>(&HDR2StageData::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&HDR2StageData::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&HDR2StageData::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

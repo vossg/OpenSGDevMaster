@@ -157,7 +157,8 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiCoreBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MultiCore::initMethod),
     reinterpret_cast<ExitContainerF>(&MultiCore::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MultiCore::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MultiCore::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

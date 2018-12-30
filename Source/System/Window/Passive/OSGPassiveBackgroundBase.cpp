@@ -157,7 +157,8 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveBackgroundBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PassiveBackground::initMethod),
     reinterpret_cast<ExitContainerF>(&PassiveBackground::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PassiveBackground::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PassiveBackground::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

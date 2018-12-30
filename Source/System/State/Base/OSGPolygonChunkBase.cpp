@@ -325,7 +325,8 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PolygonChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&PolygonChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&PolygonChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&PolygonChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&PolygonChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

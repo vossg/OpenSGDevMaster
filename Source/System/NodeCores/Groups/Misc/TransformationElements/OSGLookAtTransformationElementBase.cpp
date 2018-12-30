@@ -172,7 +172,8 @@ LookAtTransformationElementBase::TypeObject LookAtTransformationElementBase::_ty
     reinterpret_cast<PrototypeCreateF>(&LookAtTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&LookAtTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&LookAtTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&LookAtTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&LookAtTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

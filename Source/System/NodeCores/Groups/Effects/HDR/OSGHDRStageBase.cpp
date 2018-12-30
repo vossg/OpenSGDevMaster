@@ -231,7 +231,8 @@ HDRStageBase::TypeObject HDRStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&HDRStageBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&HDRStage::initMethod),
     reinterpret_cast<ExitContainerF>(&HDRStage::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&HDRStage::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&HDRStage::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

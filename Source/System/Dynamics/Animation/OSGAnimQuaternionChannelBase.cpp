@@ -157,7 +157,8 @@ AnimQuaternionChannelBase::TypeObject AnimQuaternionChannelBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AnimQuaternionChannelBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&AnimQuaternionChannel::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimQuaternionChannel::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimQuaternionChannel::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimQuaternionChannel::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -144,7 +144,8 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MaterialGroupBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&MaterialGroup::initMethod),
     reinterpret_cast<ExitContainerF>(&MaterialGroup::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialGroup::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&MaterialGroup::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

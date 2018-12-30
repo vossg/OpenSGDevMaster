@@ -122,7 +122,8 @@ UniformBufferObjBaseChunkBase::TypeObject UniformBufferObjBaseChunkBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&UniformBufferObjBaseChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&UniformBufferObjBaseChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&UniformBufferObjBaseChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&UniformBufferObjBaseChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

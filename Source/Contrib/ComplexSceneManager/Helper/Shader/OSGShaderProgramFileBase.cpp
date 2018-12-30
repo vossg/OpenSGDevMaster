@@ -132,7 +132,8 @@ ShaderProgramFileBase::TypeObject ShaderProgramFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramFileBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ShaderProgramFile::initMethod),
     reinterpret_cast<ExitContainerF>(&ShaderProgramFile::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramFile::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ShaderProgramFile::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -122,7 +122,8 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&Algorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&Algorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Algorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Algorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

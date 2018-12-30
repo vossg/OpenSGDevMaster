@@ -254,7 +254,8 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleMaterialBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleMaterial::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleMaterial::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleMaterial::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleMaterial::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

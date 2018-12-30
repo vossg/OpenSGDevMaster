@@ -176,7 +176,8 @@ SkinningAlgorithmBase::TypeObject SkinningAlgorithmBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&SkinningAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&SkinningAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SkinningAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SkinningAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

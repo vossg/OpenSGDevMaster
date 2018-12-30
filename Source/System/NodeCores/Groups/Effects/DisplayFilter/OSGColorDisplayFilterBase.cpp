@@ -254,7 +254,8 @@ ColorDisplayFilterBase::TypeObject ColorDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColorDisplayFilterBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ColorDisplayFilter::initMethod),
     reinterpret_cast<ExitContainerF>(&ColorDisplayFilter::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ColorDisplayFilter::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ColorDisplayFilter::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

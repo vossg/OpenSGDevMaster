@@ -140,7 +140,8 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GLUTWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&GLUTWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&GLUTWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&GLUTWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&GLUTWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

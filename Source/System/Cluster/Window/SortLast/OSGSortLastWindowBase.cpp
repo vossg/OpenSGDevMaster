@@ -165,7 +165,8 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SortLastWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SortLastWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&SortLastWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SortLastWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SortLastWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

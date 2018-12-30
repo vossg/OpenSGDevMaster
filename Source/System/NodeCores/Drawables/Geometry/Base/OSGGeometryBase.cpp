@@ -348,7 +348,8 @@ GeometryBase::TypeObject GeometryBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeometryBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Geometry::initMethod),
     reinterpret_cast<ExitContainerF>(&Geometry::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Geometry::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Geometry::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -193,7 +193,8 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureBufferBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&TextureBuffer::initMethod),
     reinterpret_cast<ExitContainerF>(&TextureBuffer::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&TextureBuffer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&TextureBuffer::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -191,7 +191,8 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&AnimChannel::initMethod),
     reinterpret_cast<ExitContainerF>(&AnimChannel::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&AnimChannel::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&AnimChannel::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

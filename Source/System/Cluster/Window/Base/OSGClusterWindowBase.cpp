@@ -350,7 +350,8 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ClusterWindowBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ClusterWindow::initMethod),
     reinterpret_cast<ExitContainerF>(&ClusterWindow::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ClusterWindow::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ClusterWindow::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

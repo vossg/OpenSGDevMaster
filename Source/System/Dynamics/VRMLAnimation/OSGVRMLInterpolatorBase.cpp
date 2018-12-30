@@ -164,7 +164,8 @@ VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VRMLInterpolatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&VRMLInterpolator::initMethod),
     reinterpret_cast<ExitContainerF>(&VRMLInterpolator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLInterpolator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&VRMLInterpolator::classDescInserter)),
     false,
     ResortIndexFieldMask,
     "<?xml version=\"1.0\"?>\n"

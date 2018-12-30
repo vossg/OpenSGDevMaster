@@ -389,7 +389,8 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SurfaceBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Surface::initMethod),
     reinterpret_cast<ExitContainerF>(&Surface::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Surface::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Surface::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

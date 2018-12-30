@@ -156,7 +156,8 @@ RotationTransformationElementBase::TypeObject RotationTransformationElementBase:
     reinterpret_cast<PrototypeCreateF>(&RotationTransformationElementBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&RotationTransformationElement::initMethod),
     reinterpret_cast<ExitContainerF>(&RotationTransformationElement::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&RotationTransformationElement::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&RotationTransformationElement::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

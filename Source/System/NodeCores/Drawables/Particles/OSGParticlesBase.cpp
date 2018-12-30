@@ -361,7 +361,8 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ParticlesBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&Particles::initMethod),
     reinterpret_cast<ExitContainerF>(&Particles::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&Particles::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Particles::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

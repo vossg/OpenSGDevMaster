@@ -301,7 +301,8 @@ SimpleSHLChunkBase::TypeObject SimpleSHLChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&SimpleSHLChunk::initMethod),
     reinterpret_cast<ExitContainerF>(&SimpleSHLChunk::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunk::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&SimpleSHLChunk::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

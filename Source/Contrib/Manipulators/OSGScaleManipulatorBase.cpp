@@ -132,7 +132,8 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScaleManipulatorBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&ScaleManipulator::initMethod),
     reinterpret_cast<ExitContainerF>(&ScaleManipulator::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ScaleManipulator::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ScaleManipulator::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

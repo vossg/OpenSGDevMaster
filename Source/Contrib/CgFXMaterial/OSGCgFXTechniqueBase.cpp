@@ -141,7 +141,8 @@ CgFXTechniqueBase::TypeObject CgFXTechniqueBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CgFXTechniqueBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CgFXTechnique::initMethod),
     reinterpret_cast<ExitContainerF>(&CgFXTechnique::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CgFXTechnique::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CgFXTechnique::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

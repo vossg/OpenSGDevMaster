@@ -122,7 +122,8 @@ ComputeAlgorithmBase::TypeObject ComputeAlgorithmBase::_type(
     NULL,
     reinterpret_cast<InitContainerF>(&ComputeAlgorithm::initMethod),
     reinterpret_cast<ExitContainerF>(&ComputeAlgorithm::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&ComputeAlgorithm::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&ComputeAlgorithm::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

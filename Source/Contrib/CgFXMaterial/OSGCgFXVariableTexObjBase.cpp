@@ -156,7 +156,8 @@ CgFXVariableTexObjBase::TypeObject CgFXVariableTexObjBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CgFXVariableTexObjBase::createEmptyLocal),
     reinterpret_cast<InitContainerF>(&CgFXVariableTexObj::initMethod),
     reinterpret_cast<ExitContainerF>(&CgFXVariableTexObj::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&CgFXVariableTexObj::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&CgFXVariableTexObj::classDescInserter)),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
