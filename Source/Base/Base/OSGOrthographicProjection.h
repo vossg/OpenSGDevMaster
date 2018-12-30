@@ -116,6 +116,8 @@ class OSG_BASE_DLLMAPPING OrthographicProjection : public Projection
 
   protected:
 
+    typedef Projection Inherited;
+
     /*==========================  PRIVATE  ================================*/
 
   private:

@@ -108,6 +108,8 @@ class OSG_BASE_DLLMAPPING PerspectiveProjection : public Projection
 
   protected:
 
+    typedef Projection Inherited;
+
     /*==========================  PRIVATE  ================================*/
 
   private:

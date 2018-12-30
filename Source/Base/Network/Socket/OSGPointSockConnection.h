@@ -100,15 +100,15 @@ class OSG_BASE_DLLMAPPING PointSockConnection : public PointConnection
     /*! \name                   synchronisation                            */
     /*! \{                                                                 */
 
-    virtual bool wait  (Time timeout) throw (ReadError );
-    virtual void signal(void        ) throw (WriteError);
+    virtual bool wait  (Time timeout) OSG_THROW (ReadError );
+    virtual void signal(void        ) OSG_THROW (WriteError);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   channel handling                           */
     /*! \{                                                                 */
 
-    virtual Channel selectChannel (Time timeout=-1) throw (ReadError);
+    virtual Channel selectChannel (Time timeout=-1) OSG_THROW (ReadError);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -139,7 +139,7 @@ class OSG_BASE_DLLMAPPING PointSockConnection : public PointConnection
     /*! \{                                                                 */
 
     virtual void read             (MemoryHandle mem, UInt32 size);
-    virtual void readBuffer       (void) throw (ReadError);
+    virtual void readBuffer       (void) OSG_THROW (ReadError);
     virtual void write            (MemoryHandle mem, UInt32 size);
     virtual void writeBuffer      (void);
 

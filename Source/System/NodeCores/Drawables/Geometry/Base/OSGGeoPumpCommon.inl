@@ -45,6 +45,11 @@
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+
 namespace
 {
     // Pumping function definitions
@@ -607,6 +612,10 @@ namespace
     }
 
 }
+
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic pop
+#endif
 
 #endif // remove from all but dev docs
 

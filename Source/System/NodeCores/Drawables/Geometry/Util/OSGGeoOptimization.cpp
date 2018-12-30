@@ -44,6 +44,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+
 namespace
 {
     // Index Tuple (IT) comparison function objects.
@@ -2430,5 +2435,9 @@ makeOptimizedProperties(Geometry *geo)
         }
     }
 }
+
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic pop
+#endif
 
 OSG_END_NAMESPACE

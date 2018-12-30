@@ -85,7 +85,8 @@ FieldContainer::TypeObject FieldContainer::_type(
     NULL,
     NULL,
     NULL,
-    reinterpret_cast<InitalInsertDescFunc>(&FieldContainer::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&FieldContainer::classDescInserter)),
     false,
     0);
 

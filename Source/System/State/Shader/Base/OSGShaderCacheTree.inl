@@ -1177,7 +1177,7 @@ ObjectT *ShaderCacheTreeV1<ObjectT, LevelBits>::find(const IdStore &vIds)
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
 
     if(pCurrNode == NULL)
-        return;
+        return nullptr;
 
     for(; uiCurrId < uiLastId; ++uiCurrId)
     {

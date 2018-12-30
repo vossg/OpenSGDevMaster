@@ -100,7 +100,7 @@ const TextVectorGlyph &TextVectorFace::getVectorGlyph(TextGlyph::Index glyphInde
     }
 
     // We did not find the glyph, so we have to create it
-    auto_ptr<TextVectorGlyph> glyph = createGlyph(glyphIndex);
+    unique_ptr<TextVectorGlyph> glyph = createGlyph(glyphIndex);
 
     // We could not create the glyph, return 0
     if (glyph.get() == 0)

@@ -167,7 +167,8 @@ class OSG_CONTRIBTECHNIQUES_DLLMAPPING ClusterShadingStage : public ClusterShadi
     {
         ClusteringData() 
         : zNear  (0.f), zFar(0.f)  //, D(0.f)
-        , nD     (0.f), a   (0.f), b(0.f) //, c(0)
+        , nD     (0.f), lg_nD(0.f)
+        , a   (0.f), b(0.f) //, c(0)
         , c_1    (0),   p_v (0,0)  //, n_c(0,0,0)
         , enabled(true)
         {}
@@ -190,6 +191,12 @@ class OSG_CONTRIBTECHNIQUES_DLLMAPPING ClusterShadingStage : public ClusterShadi
     {
         Pnt3f position;
         Vec3f direction;
+
+        LightEyeSpaceData(void) :
+            position (0.f, 0.f, 0.f),
+            direction(0.f, 0.f, 0.f)
+        {
+        }
     };
 
     typedef std::vector<Frustum>            VecFrustumsT;
@@ -202,6 +209,12 @@ class OSG_CONTRIBTECHNIQUES_DLLMAPPING ClusterShadingStage : public ClusterShadi
     {
         Pnt3f  c;   // Center point.
         Real32 r;   // Radius.
+
+        Sphere(void) :
+            c(0.f, 0.f, 0.f),
+            r(0.f          )
+        {
+        }
     };
 
     struct Cone
@@ -210,6 +223,14 @@ class OSG_CONTRIBTECHNIQUES_DLLMAPPING ClusterShadingStage : public ClusterShadi
         Real32 h;   // Height of the cone.
         Vec3f  d;   // Direction of the cone.
         Real32 r;   // bottom radius of the cone.
+        
+        Cone(void) :
+            T(0.f, 0.f, 0.f),
+            h(0.f          ),
+            d(0.f, 0.f, 0.f),
+            r(0.f          )
+        {
+        }
     };
 
     /*! \}                                                                 */

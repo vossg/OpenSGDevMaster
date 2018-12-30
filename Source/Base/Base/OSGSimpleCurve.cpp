@@ -104,7 +104,7 @@ OSG::Matrix CubicBezierCurve::getFrame(OSG::Real32 t, bool position_only) const
         OSG::Vec3f N = getNormal(t);
         OSG::Vec3f B = getBinormal(t);
     
-
+#if 0
         OSG::Real32 lT = T.length();
         OSG::Real32 lN = N.length();
         OSG::Real32 lB = B.length();
@@ -112,6 +112,7 @@ OSG::Matrix CubicBezierCurve::getFrame(OSG::Real32 t, bool position_only) const
         OSG::Real32 v1 = T.dot(N);
         OSG::Real32 v2 = T.dot(B);
         OSG::Real32 v3 = N.dot(B);
+#endif
 
         OSG_ASSERT(OSG::osgAbs(T.length() - 1.f) < OSG::Eps);
         OSG_ASSERT(OSG::osgAbs(N.length() - 1.f) < OSG::Eps);
@@ -176,8 +177,10 @@ OSG::Vec3f CubicBezierCurve::thr_devivative(OSG::Real32 t) const
 }
 
 
-SmoothCubicBezierSpline::SmoothCubicBezierSpline(const std::vector<OSG::Pnt3f>& knots)
-: knots(knots)
+SmoothCubicBezierSpline::SmoothCubicBezierSpline(const std::vector<OSG::Pnt3f>& vKnots)
+: knots(vKnots)
+, intervals()
+, curves()
 {
     OSG_ASSERT(knots.size() > 3);
 

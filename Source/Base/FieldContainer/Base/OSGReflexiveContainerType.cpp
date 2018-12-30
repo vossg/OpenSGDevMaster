@@ -125,7 +125,7 @@ bool ReflexiveContainerType::initialize(void)
 
     if(_descInsertFunc != NULL)
     {
-        _descInsertFunc(this);
+        _descInsertFunc(*this);
     }
 
     _bInitialized = initParentFields();

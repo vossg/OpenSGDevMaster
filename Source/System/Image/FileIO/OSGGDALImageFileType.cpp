@@ -303,18 +303,20 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
         Int32 iSampleX = osgMin(_vSize[0] - vSampleOrigin.x(), iTextureSize);
         Int32 iSampleY = osgMin(_vSize[1] - vSampleOrigin.y(), iTextureSize);
 
-        _pBand->RasterIO(GF_Read,
-                         vSampleOrigin.x(), 
-                         vSampleOrigin.y(),
-                         iSampleX, 
-                         iSampleY,
-                         &(_vI16Buffer[0]),
-                         iSampleX, 
-                         iSampleY,
-                         GDT_Int16,
-                         0,
-                         0);
+        CPLErr res = _pBand->RasterIO(GF_Read,
+                                      vSampleOrigin.x(), 
+                                      vSampleOrigin.y(),
+                                      iSampleX, 
+                                      iSampleY,
+                                      &(_vI16Buffer[0]),
+                                      iSampleX, 
+                                      iSampleY,
+                                      GDT_Int16,
+                                      0,
+                                      0                );
         
+        if(res == CE_Failure || res == CE_Fatal)
+            return false;
 
         for(Int32 y = yMin; y < yMax; y++)
         {
@@ -337,17 +339,20 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
     }
     else
     {
-        _pBand->RasterIO(GF_Read,
-                         vSampleOrigin.x(), 
-                         vSampleOrigin.y(),
-                         iTextureSize, 
-                         iTextureSize,
-                         pTarget,
-                         iTextureSize, 
-                         iTextureSize,
-                         GDT_Int16,
-                         0,
-                         0);
+        CPLErr res = _pBand->RasterIO(GF_Read,
+                                      vSampleOrigin.x(), 
+                                      vSampleOrigin.y(),
+                                      iTextureSize, 
+                                      iTextureSize,
+                                      pTarget,
+                                      iTextureSize, 
+                                      iTextureSize,
+                                      GDT_Int16,
+                                      0,
+                                      0                );
+
+        if(res == CE_Failure || res == CE_Fatal)
+            return false;
     }
 #endif
 
@@ -531,17 +536,20 @@ bool GDALImageFileType::read(      Image       *OSG_GDAL_ARG(pImage),
             
             UChar8 *dst = pImage->editData();
 
-            pBand->RasterIO(GF_Read,
-                            0, 
-                            0,
-                            pDataset->GetRasterXSize(), 
-                            pDataset->GetRasterYSize(),
-                            dst,
-                            pDataset->GetRasterXSize(), 
-                            pDataset->GetRasterYSize(),
-                            pBand->GetRasterDataType(),
-                            0,
-                            0);
+            CPLErr res = pBand->RasterIO(GF_Read,
+                                         0, 
+                                         0,
+                                         pDataset->GetRasterXSize(), 
+                                         pDataset->GetRasterYSize(),
+                                         dst,
+                                         pDataset->GetRasterXSize(), 
+                                         pDataset->GetRasterYSize(),
+                                         pBand->GetRasterDataType(),
+                                         0,
+                                         0                         );
+
+            if(res == CE_Failure || res == CE_Fatal)
+                return returnValue;
 
             pGeoRef->setNoDataValue(pBand->GetNoDataValue());
 

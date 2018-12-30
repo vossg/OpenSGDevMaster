@@ -50,13 +50,15 @@ OSG_BEGIN_NAMESPACE
     abstracts the projection type of a camera.
 */
 PerspectiveProjection::PerspectiveProjection()
-: _fov   (0.f)
+: Inherited()
+, _fov   (0.f)
 , _aspect(1.f)
 {
 }
 
 PerspectiveProjection::PerspectiveProjection(const PerspectiveProjection& rhs)
-: _fov   (rhs._fov)
+: Inherited()
+, _fov   (rhs._fov)
 , _aspect(rhs._aspect)
 {
 }

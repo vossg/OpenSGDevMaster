@@ -180,7 +180,7 @@ const Matrix& LiSPSMTechnique::getLiSPMtx(
     const VecVerticesT&     camFrustCorners,
     const FrustumVolume*    lightFrust,
     const BoxVolume&        sceneAABB,
-    const Vec2f&            zRange)
+    const Vec2f&            vZRange)
 {
     Matrix lProjMat = _lProjMat;
     Matrix lViewMat = _lViewMat;
@@ -219,7 +219,7 @@ const Matrix& LiSPSMTechnique::getLiSPMtx(
     // look(from position, into the direction of the projected direction, with unchanged up-vector)
     //
     Matrix viewMat;
-    bool result = MatrixLookAtGL(viewMat, Pnt3f(0.f, 0.f, 0.f), projViewDir_LS, Vec3f(0.f, 0.f, 1.f));
+    MatrixLookAtGL(viewMat, Pnt3f(0.f, 0.f, 0.f), projViewDir_LS, Vec3f(0.f, 0.f, 1.f));
 
     lProjMat.multLeft(viewMat);
 
@@ -263,7 +263,7 @@ const Matrix& LiSPSMTechnique::getLiSPMtx(
                 bodyBaabb_LS,
                 nearCamPt,
                 split,
-                zRange
+                vZRange
             );
 
     _distances[PSEUDO_NEAR][split][0] =
@@ -321,7 +321,7 @@ const Matrix& LiSPSMTechnique::getLiSPMtx(
                 // here done with a standard FrustumVolume call that maps lispPersp onto the unit cube
                 //
                 Matrix liSP;
-                bool ret = getFrustumMatrix(liSP, -1.f, 1.f, -1.f, 1.f, n, n + zRange);
+                getFrustumMatrix(liSP, -1.f, 1.f, -1.f, 1.f, n, n + zRange);
 
                 Matrix trans;
                 trans.setTranslate(-projCenter);

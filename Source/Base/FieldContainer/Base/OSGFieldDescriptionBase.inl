@@ -137,7 +137,7 @@ UInt32 FieldDescriptionBase::getFlags(void) const
 inline
 bool FieldDescriptionBase::isValid(void)  const
 {
-    return (this != NULL && _szName.size()) ? true : false;
+    return (_szName.size()) ? true : false;
 }
 
 inline

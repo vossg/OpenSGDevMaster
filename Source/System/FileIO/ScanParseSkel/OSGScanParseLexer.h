@@ -48,6 +48,11 @@
 
 #include "OSGConfig.h"
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Weffc++"
+#endif
+
 // We have to prevent double inclusion of the scanner header file
 #ifndef TOK_HEADER
 #include "OSGScanParseSkelParser.hpp"
@@ -67,6 +72,10 @@
 #include "FlexLexer.h"
 #endif
 #undef yyFlexLexer
+#endif
+
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic pop
 #endif
 
 #include "OSGBaseTypes.h"

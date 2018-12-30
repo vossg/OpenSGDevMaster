@@ -221,6 +221,11 @@
 #     endif
 # endif
 
+# if __GNUC__ >= 8
+#  define OSG_THROW(X) 
+# else
+#  define OSG_THROW(X) throw(X)
+# endif
 # endif
 
 

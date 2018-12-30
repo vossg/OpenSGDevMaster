@@ -55,7 +55,7 @@ class ReflexiveContainerType;
 /*! \ingroup GrpBaseFieldContainerBase
  */
 
-typedef void (*InitalInsertDescFunc)(OSG::ReflexiveContainerType *);
+typedef void (*InitalInsertDescFunc)(OSG::ReflexiveContainerType &);
 
 /*! \class ReflexiveContainerType
     \ingroup GrpBaseFieldContainerBase

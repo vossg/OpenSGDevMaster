@@ -161,8 +161,8 @@ class OSG_BASE_DLLMAPPING GroupMCastConnection :
     /*! \name                   synchronisation                            */
     /*! \{                                                                 */
     
-    virtual bool wait  (Time timeout) throw (ReadError);
-    virtual void signal(void        ) throw (WriteError);
+    virtual bool wait  (Time timeout) OSG_THROW (ReadError);
+    virtual void signal(void        ) OSG_THROW (WriteError);
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

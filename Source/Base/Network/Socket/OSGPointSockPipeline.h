@@ -99,7 +99,7 @@ class OSG_BASE_DLLMAPPING PointSockPipeline : public PointSockConnection
     /*! \name                   channel handling                           */
     /*! \{                                                                 */
 
-    virtual Channel selectChannel (Time timeout=-1) throw (ReadError);
+    virtual Channel selectChannel (Time timeout=-1) OSG_THROW (ReadError);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -118,7 +118,7 @@ class OSG_BASE_DLLMAPPING PointSockPipeline : public PointSockConnection
     /*! \{                                                                 */
 
     virtual void read             (MemoryHandle mem, UInt32 size);
-    virtual void readBuffer       (void) throw (ReadError);
+    virtual void readBuffer       (void) OSG_THROW (ReadError);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

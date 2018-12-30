@@ -162,7 +162,7 @@ void ExceptionBinaryDataHandler::putAndFree(MemoryHandle src, SizeT size)
 /*-------------------------------------------------------------------------*/
 /*                                Put                                      */
 
-void ExceptionBinaryDataHandler::get(void *dst, SizeT size) throw (ReadError)
+void ExceptionBinaryDataHandler::get(void *dst, SizeT size) OSG_THROW (ReadError)
 {
     MemoryHandle data = static_cast<MemoryHandle>(dst);
 
@@ -230,7 +230,7 @@ void ExceptionBinaryDataHandler::get(void *dst, SizeT size) throw (ReadError)
 
 void ExceptionBinaryDataHandler::getAndAlloc(
     MemoryHandle &src, 
-    SizeT         size) throw (ReadError)
+    SizeT         size) OSG_THROW (ReadError)
 {
     src = new UInt8[size];
 
@@ -349,7 +349,7 @@ void ExceptionBinaryDataHandler::writeBufClear(void)
 #pragma warning (disable : 383)
 #endif
 
-void ExceptionBinaryDataHandler::readBuffer(void) throw (ReadError)
+void ExceptionBinaryDataHandler::readBuffer(void) OSG_THROW (ReadError)
 {
     BuffersT::iterator i;
     UInt32             size,nsize;
@@ -485,7 +485,7 @@ void ExceptionBinaryDataHandler::pushBuffer()
     _currentWriteBuffer->setDataSize(0);
 }
 
-void ExceptionBinaryDataHandler::pullBuffer(void) throw (ReadError)
+void ExceptionBinaryDataHandler::pullBuffer(void) OSG_THROW (ReadError)
 {
     readBuffer();
 

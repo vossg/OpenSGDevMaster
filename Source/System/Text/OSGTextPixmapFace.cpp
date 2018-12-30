@@ -99,7 +99,7 @@ const TextPixmapGlyph &TextPixmapFace::getPixmapGlyph(TextGlyph::Index glyphInde
     }
 
     // We did not find the glyph, so we have to create it
-    auto_ptr<TextPixmapGlyph> glyph = createGlyph(glyphIndex);
+    unique_ptr<TextPixmapGlyph> glyph = createGlyph(glyphIndex);
 
     // We could not create the glyph, return the empty glyph
     if (glyph.get() == 0)

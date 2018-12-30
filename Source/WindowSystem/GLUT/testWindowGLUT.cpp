@@ -235,6 +235,7 @@ void key(unsigned char key, int x, int y)
             exit(0);
         case 'v':
             rentravact->setVolumeDrawing(!rentravact->getVolumeDrawing());
+            break;
         case 'a':   
             glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;

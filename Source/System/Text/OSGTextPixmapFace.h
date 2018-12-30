@@ -197,7 +197,7 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
      * glyph index.
      */
     virtual
-    std::auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
+    std::unique_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex) = 0;
 
     /** An empty glyph */
     static TextPixmapGlyph _emptyGlyph;

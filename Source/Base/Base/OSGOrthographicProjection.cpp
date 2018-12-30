@@ -50,7 +50,8 @@ OSG_BEGIN_NAMESPACE
     abstracts the projection type of a camera.
 */
 OrthographicProjection::OrthographicProjection()
-: _left  (0.f)
+: Inherited()
+, _left  (0.f)
 , _right (0.f)
 , _bottom(0.f)
 , _top   (0.f)
@@ -58,7 +59,8 @@ OrthographicProjection::OrthographicProjection()
 }
 
 OrthographicProjection::OrthographicProjection(const OrthographicProjection& rhs)
-: _left  (rhs._left)
+: Inherited()
+, _left  (rhs._left)
 , _right (rhs._right)
 , _bottom(rhs._bottom)
 , _top   (rhs._top)

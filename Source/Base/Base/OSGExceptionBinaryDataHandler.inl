@@ -451,7 +451,7 @@ void ExceptionBinaryDataHandler::putValues(const GLenum *value, SizeT size)
 #endif
 
 inline 
-void ExceptionBinaryDataHandler::getValue(bool &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(bool &value) OSG_THROW (ReadError)
 {
     //get(&value, sizeof(bool));
     UInt8 temp;
@@ -460,13 +460,13 @@ void ExceptionBinaryDataHandler::getValue(bool &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(UInt8 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(UInt8 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(UInt8));
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(UInt16 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(UInt16 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(UInt16));
 
@@ -474,7 +474,7 @@ void ExceptionBinaryDataHandler::getValue(UInt16 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(UInt32 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(UInt32 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(UInt32));
 
@@ -482,7 +482,7 @@ void ExceptionBinaryDataHandler::getValue(UInt32 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(UInt64 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(UInt64 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(UInt64));
 
@@ -490,13 +490,13 @@ void ExceptionBinaryDataHandler::getValue(UInt64 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(Int8 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Int8 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(Int8));
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(Int16 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Int16 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(Int16));
 
@@ -504,7 +504,7 @@ void ExceptionBinaryDataHandler::getValue(Int16 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(Int32 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Int32 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(Int32));
 
@@ -512,7 +512,7 @@ void ExceptionBinaryDataHandler::getValue(Int32 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(Int64 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Int64 &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(Int64));
 
@@ -520,7 +520,7 @@ void ExceptionBinaryDataHandler::getValue(Int64 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(Real16 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Real16 &value) OSG_THROW (ReadError)
 {
     UInt16 v;
 
@@ -531,7 +531,7 @@ void ExceptionBinaryDataHandler::getValue(Real16 &value) throw (ReadError)
 }
 
 inline
-void ExceptionBinaryDataHandler::getValue(Fixed32 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Fixed32 &value) OSG_THROW (ReadError)
 {
     Int32 v;
 
@@ -543,7 +543,7 @@ void ExceptionBinaryDataHandler::getValue(Fixed32 &value) throw (ReadError)
 }
 
 inline
-void ExceptionBinaryDataHandler::getValue(Real32 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Real32 &value) OSG_THROW (ReadError)
 {
     UInt32 v;
     get(&v, sizeof(UInt32));
@@ -552,7 +552,7 @@ void ExceptionBinaryDataHandler::getValue(Real32 &value) throw (ReadError)
 }
 
 inline
-void ExceptionBinaryDataHandler::getValue(Real64 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Real64 &value) OSG_THROW (ReadError)
 {
     UInt64 v;
     get(&v, sizeof(UInt64));
@@ -561,7 +561,7 @@ void ExceptionBinaryDataHandler::getValue(Real64 &value) throw (ReadError)
 }
 
 inline
-void ExceptionBinaryDataHandler::getValue(Real128 &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(Real128 &value) OSG_THROW (ReadError)
 {
 #if 0
     UInt64 v;
@@ -574,7 +574,8 @@ void ExceptionBinaryDataHandler::getValue(Real128 &value) throw (ReadError)
 }
 
 inline 
-void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(
+    std::string &value) OSG_THROW (ReadError)
 {
     UInt32  len(0);
     Char8  *str = NULL;
@@ -601,7 +602,7 @@ void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
 
 #ifdef OSG_GLENUM_NEQ_UINT32
 inline
-void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
+void ExceptionBinaryDataHandler::getValue(GLenum &value) OSG_THROW (ReadError)
 {
     get(&value, sizeof(UInt32));
 
@@ -611,7 +612,7 @@ void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
 
 inline 
 void ExceptionBinaryDataHandler::getValues(bool   *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     for(SizeT i = 0; i < size; ++i)
         getValue(value[i]);
@@ -619,14 +620,14 @@ void ExceptionBinaryDataHandler::getValues(bool   *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt8  *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(UInt8));
 }
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt16 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(UInt16));
 
@@ -643,7 +644,7 @@ void ExceptionBinaryDataHandler::getValues(UInt16 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt32 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(UInt32));
 
@@ -660,7 +661,7 @@ void ExceptionBinaryDataHandler::getValues(UInt32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(UInt64 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(UInt64));
 
@@ -677,14 +678,14 @@ void ExceptionBinaryDataHandler::getValues(UInt64 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int8   *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Int8));
 }
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int16  *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Int16));
 
@@ -701,7 +702,7 @@ void ExceptionBinaryDataHandler::getValues(Int16  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int32  *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Int32));
 
@@ -718,7 +719,7 @@ void ExceptionBinaryDataHandler::getValues(Int32  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Int64  *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Int64));
 
@@ -735,7 +736,7 @@ void ExceptionBinaryDataHandler::getValues(Int64  *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real16 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Real16));
 
@@ -754,7 +755,7 @@ void ExceptionBinaryDataHandler::getValues(Real16 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Fixed32 *value, 
-                                           SizeT    size ) throw (ReadError)
+                                           SizeT    size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Int32));
 
@@ -773,7 +774,7 @@ void ExceptionBinaryDataHandler::getValues(Fixed32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real32 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Real32));
 
@@ -787,7 +788,7 @@ void ExceptionBinaryDataHandler::getValues(Real32 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real64 *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(Real64));
 
@@ -801,7 +802,7 @@ void ExceptionBinaryDataHandler::getValues(Real64 *value,
 
 inline 
 void ExceptionBinaryDataHandler::getValues(Real128 *value, 
-                                           SizeT    size ) throw (ReadError)
+                                           SizeT    size ) OSG_THROW (ReadError)
 {
 #if 0
     get(value, size * sizeof(Real128));
@@ -818,9 +819,9 @@ void ExceptionBinaryDataHandler::getValues(Real128 *value,
 }
 
 inline 
-void 
-    ExceptionBinaryDataHandler::getValues(std::string *value, 
-                                          SizeT        size ) throw (ReadError)
+void ExceptionBinaryDataHandler::getValues(
+    std::string *value, 
+    SizeT        size ) OSG_THROW (ReadError)
 {
     for(SizeT i = 0; i < size; ++i)
     {
@@ -831,7 +832,7 @@ void
 #ifdef OSG_GLENUM_NEQ_UINT32
 inline 
 void ExceptionBinaryDataHandler::getValues(GLenum *value, 
-                                           SizeT   size ) throw (ReadError)
+                                           SizeT   size ) OSG_THROW (ReadError)
 {
     get(value, size * sizeof(UInt32));
 

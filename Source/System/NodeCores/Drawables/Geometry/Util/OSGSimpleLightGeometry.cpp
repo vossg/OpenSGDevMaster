@@ -190,7 +190,7 @@ GeometryTransitPtr makeSpotGeo(
 
         Pnt3f pR = pT + l_cone * ey;
 
-        Real32 d_phi = (j & 0) ?  delta_phi : delta_phi + delta_phi/2.f;
+//        Real32 d_phi = (j & 0) ?  delta_phi : delta_phi + delta_phi/2.f;
 
         Real32 phi = (j & 0) ?  0 : delta_phi/2.f;
 
@@ -257,9 +257,9 @@ GeometryTransitPtr makeSpotGeo(
                 phi += delta_phi;
                 (*pvecCurr)[i] = pj + r_cone * Vec3f(osgSin(phi), 0, -osgCos(phi));
 
-                Vec3f n = (*pvecCurr)[i] - pT;
-                n.normalize();
-                vecNormals[i] = n;
+                Vec3f vN = (*pvecCurr)[i] - pT;
+                vN.normalize();
+                vecNormals[i] = vN;
             }
 
             (*pvecCurr)[sides-1] = (*pvecCurr)[0];
@@ -443,23 +443,23 @@ GeometryTransitPtr makeCinemaGeo(
             Real32 x = A * osgSgn(c) * osgPow(osgAbs(c), two_inv_r);
             Real32 z = B * osgSgn(s) * osgPow(osgAbs(s), two_inv_r);
 
-            Pnt3f  p = pR + Vec3f(
+            Pnt3f  pP = pR + Vec3f(
                                        x * cos_theta - z * sin_theta, 
                                        0,
                                        x * sin_theta + z * cos_theta
                                     );
 
-            Real32 L = p.subZero().length();
+            Real32 L = pP.subZero().length();
 
             if (L > h)
             {
-                Vec3f v = p.subZero();
+                Vec3f v = pP.subZero();
                 v.normalize();
                 v *= h;
-                p = v.addToZero();
+                pP = v.addToZero();
             }
 
-            (*pvecCurr)[i] = p;
+            (*pvecCurr)[i] = pP;
 
             phi += delta_phi;
         }
@@ -561,23 +561,23 @@ GeometryTransitPtr makeCinemaGeo(
             Real32 x = A * osgSgn(c) * osgPow(osgAbs(c), two_inv_r);
             Real32 z = B * osgSgn(s) * osgPow(osgAbs(s), two_inv_r);
 
-            Pnt3f  p = pE + Vec3f(
+            Pnt3f  pP = pE + Vec3f(
                                         x * cos_theta - z * sin_theta, 
                                         0,
                                         x * sin_theta + z * cos_theta
                                     );
 
-            Real32 L = p.subZero().length();
+            Real32 L = pP.subZero().length();
 
             if (L > h)
             {
-                Vec3f v = p.subZero();
+                Vec3f v = pP.subZero();
                 v.normalize();
                 v *= h;
-                p = v.addToZero();
+                pP = v.addToZero();
             }
 
-            (*pvecCurr)[i] = p;
+            (*pvecCurr)[i] = pP;
 
             phi += delta_phi;
         }
@@ -642,7 +642,7 @@ GeometryTransitPtr makeCinemaGeo(
                     v0 = (*pvecCurr)[i]   - pE;
                     v1 = (*pvecCurr)[i+1] - pE;
                 }
-                else if (i == sides-1)
+                else if (i == Int32(sides-1))
                 {
                     v0 = (*pvecCurr)[0] - pE;
                     v1 = (*pvecCurr)[1] - pE;

@@ -174,7 +174,8 @@ Node::TypeObject Node::_type(
     reinterpret_cast<PrototypeCreateF>(&Node::createEmptyLocal),
     NULL,
     NULL,
-    reinterpret_cast<InitalInsertDescFunc>(&Node::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&Node::classDescInserter)),
     false,
     0);
 

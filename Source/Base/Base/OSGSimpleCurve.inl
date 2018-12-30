@@ -124,8 +124,10 @@ inline OSG::Real32 SmoothCubicBezierSpline::t_(OSG::Real32 t, std::size_t idx) c
     OSG::Real32 t0 = 0.f;
     OSG::Real32 t1 = 1.f;
 
-    if (idx > 0) t0 = intervals[idx-1];
-                 t1 = intervals[idx];
+    if (idx > 0) 
+        t0 = intervals[idx-1];
+
+    t1 = intervals[idx];
 
     OSG::Real32 r = (t - t0) / (t1 - t0);
 

@@ -71,7 +71,7 @@ void SimplePool<Int32, PoolTag, LockPolicy>::release(Int32 uiVal)
 template <class PoolTag, class LockPolicy> inline
 void SimplePool<Int32, PoolTag, LockPolicy>::printStat(void)
 {
-    fprintf(stderr, "\n%d\n", _currentValue());
+    fprintf(stderr, "\n%d\n", _currentValue);
 }
 #endif
 

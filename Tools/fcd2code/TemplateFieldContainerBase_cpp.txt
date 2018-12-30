@@ -283,7 +283,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@endif // isAbstract
     reinterpret_cast<InitContainerF>(&@!Classname!@::initMethod),
     reinterpret_cast<ExitContainerF>(&@!Classname!@::exitMethod),
-    reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(
+        reinterpret_cast<void *>(&@!Classname!@::classDescInserter)),
     @!TypeDescAddable!@,
     @!FieldsUnmarkedOnCreate!@,
     @!Fcdxml!@,

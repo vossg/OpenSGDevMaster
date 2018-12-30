@@ -809,8 +809,8 @@ bool ClusterShadingStage::check_frustum_state(
 {
     if (getCalcFrustumsOnCPU() == true || getCullLighsOnCPU() == true)
     {
-        Real32 x_v = static_cast<Real32>(viewport[0]);
-        Real32 y_v = static_cast<Real32>(viewport[1]);
+//        Real32 x_v = static_cast<Real32>(viewport[0]);
+//        Real32 y_v = static_cast<Real32>(viewport[1]);
         Real32 w   = static_cast<Real32>(viewport[2]);
         Real32 h   = static_cast<Real32>(viewport[3]);
 
@@ -893,8 +893,8 @@ bool ClusterShadingStage::isOrthographicCamera(
         Matrix matProjection;
         matrixCam->getProjection(matProjection, width, height);
 
-        float m32 = matProjection[2][3];
-        float m33 = matProjection[3][3];
+//        float m32 = matProjection[2][3];
+//        float m33 = matProjection[3][3];
 
         if (matProjection[2][3] == 0.f && matProjection[3][3] == 1.f)
             return true;
@@ -983,7 +983,7 @@ void ClusterShadingStage::calc_persp_frustums_cpu(
     if (getDisabled())
         return;
 
-    Pnt3f pEye = (0.f, 0.f, 0.f);    // eye position in view space
+    Pnt3f pEye = Pnt3f(0.f, 0.f, 0.f);    // eye position in view space
 
     Pnt3f pnts_w[4];
     Pnt4f pnts_n[4];
@@ -1762,8 +1762,8 @@ void ClusterShadingStage::update_dispatch_config_frustums(
     const Vec4u&             viewport,
     const Matrix&            matInvProjection)
 {
-    Real32 x_v = static_cast<Real32>(viewport[0]);
-    Real32 y_v = static_cast<Real32>(viewport[1]);
+//    Real32 x_v = static_cast<Real32>(viewport[0]);
+//    Real32 y_v = static_cast<Real32>(viewport[1]);
     Real32 w   = static_cast<Real32>(viewport[2]);
     Real32 h   = static_cast<Real32>(viewport[3]);
 
@@ -1795,8 +1795,8 @@ void ClusterShadingStage::update_dispatch_config_cull_lights(
     const Vec4u&             viewport,
     const Matrix&            matViewing)
 {
-    Real32 x_v = static_cast<Real32>(viewport[0]);
-    Real32 y_v = static_cast<Real32>(viewport[1]);
+//    Real32 x_v = static_cast<Real32>(viewport[0]);
+//    Real32 y_v = static_cast<Real32>(viewport[1]);
     Real32 w   = static_cast<Real32>(viewport[2]);
     Real32 h   = static_cast<Real32>(viewport[3]);
 

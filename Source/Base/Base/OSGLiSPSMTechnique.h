@@ -210,7 +210,7 @@ class OSG_BASE_DLLMAPPING LiSPSMTechnique
                     const BoxVolume&        bodyBaabb_LS,
                     const Pnt3f&            nearCamPt,
                     UInt32                  split,
-                    const Vec2f&            zRange
+                    const Vec2f&            vZRange
                 );
     Real32      getPseudoNearN  (
                     const Matrix&           lViewProjMat,

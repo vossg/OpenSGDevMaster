@@ -109,7 +109,7 @@ class TextFT2VectorFace: public TextVectorFace
   protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
   private:
 
@@ -166,7 +166,7 @@ class TextFT2PixmapFace: public TextPixmapFace
   protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
   private:
     
@@ -1091,24 +1091,24 @@ static int cubicToFunc(const FT_Vector *control1, const FT_Vector *control2, con
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextVectorGlyph> TextFT2VectorFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextVectorGlyph> TextFT2VectorFace::createGlyph(TextGlyph::Index glyphIndex)
 {
     // We cannot create glyphs for invalid glyph indices
     if (glyphIndex == TextGlyph::INVALID_INDEX)
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
 
     // Try to get the glyph
     FT_Error error = FT_Load_Glyph(_face, glyphIndex, FT_LOAD_NO_SCALE);
     if (error)
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
 
     // We are only interested in outlines
     FT_GlyphSlot glyphSlot = _face->glyph;
     if (glyphSlot->format != ft_glyph_format_outline/*FT_GLYPH_FORMAT_OUTLINE*/)
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
 
     // Create and return the new glyph object
-    return auto_ptr<TextVectorGlyph>(new TextFT2VectorGlyph(glyphIndex, _scale, glyphSlot));
+    return unique_ptr<TextVectorGlyph>(new TextFT2VectorGlyph(glyphIndex, _scale, glyphSlot));
 }
 
 
@@ -1289,16 +1289,16 @@ void TextFT2PixmapFace::layout(const wstring &text, const TextLayoutParam &param
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextPixmapGlyph> TextFT2PixmapFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextPixmapGlyph> TextFT2PixmapFace::createGlyph(TextGlyph::Index glyphIndex)
 {
     // We cannot create glyphs for invalid glyph indices
     if (glyphIndex == TextGlyph::INVALID_INDEX)
-        return auto_ptr<TextPixmapGlyph>();
+        return unique_ptr<TextPixmapGlyph>();
 
     // Try to get the glyph
     FT_Error error = FT_Load_Glyph(_face, glyphIndex, FT_LOAD_DEFAULT);
     if (error)
-        return auto_ptr<TextPixmapGlyph>();
+        return unique_ptr<TextPixmapGlyph>();
 
     // We are only interested in outlines
     FT_GlyphSlot glyphSlot = _face->glyph;
@@ -1306,11 +1306,11 @@ auto_ptr<TextPixmapGlyph> TextFT2PixmapFace::createGlyph(TextGlyph::Index glyphI
     {
         error = FT_Render_Glyph(glyphSlot, ft_render_mode_normal/*FT_RENDER_MODE_NORMAL*/);
         if (error)
-            return auto_ptr<TextPixmapGlyph>();
+            return unique_ptr<TextPixmapGlyph>();
     }
 
     // Create and return the new glyph object
-    return auto_ptr<TextPixmapGlyph>(new TextFT2PixmapGlyph(glyphIndex, this, glyphSlot));
+    return unique_ptr<TextPixmapGlyph>(new TextFT2PixmapGlyph(glyphIndex, this, glyphSlot));
 }
 
 

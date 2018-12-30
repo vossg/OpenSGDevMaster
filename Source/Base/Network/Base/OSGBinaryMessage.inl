@@ -83,7 +83,8 @@ inline void BinaryMessage::putUInt8 (const UInt8   value)
 
 inline void BinaryMessage::putInt8  (const Int8   value)
 {
-    UInt8 v = static_cast<const UInt8>(value);
+    UInt8 v = UInt8(value);
+
     _buffer.push_back(v);
 }
 
@@ -95,6 +96,7 @@ inline void BinaryMessage::putString(const std::string &value)
     {
         const UInt8 *s = reinterpret_cast<const UInt8*>(value.c_str());
         const UInt8 *e = s + value.size();
+
         _buffer.insert(_buffer.end(), s, e);
     }
 }

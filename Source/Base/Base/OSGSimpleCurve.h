@@ -121,7 +121,7 @@ public:
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SmoothCubicBezierSpline(const points_t& knots);
+    SmoothCubicBezierSpline(const points_t& vKnots);
     SmoothCubicBezierSpline(const SmoothCubicBezierSpline& rhs);
 
     /*! \}                                                                 */

@@ -342,7 +342,8 @@ SimpleAttachment< DESC >::TypeObject                                      \
         reinterpret_cast<PrototypeCreateF>(&Self::createEmptyLocal),      \
         NULL,                                                             \
         NULL,                                                             \
-        reinterpret_cast<InitalInsertDescFunc>(&Self::classDescInserter), \
+        reinterpret_cast<InitalInsertDescFunc>(                           \
+            reinterpret_cast<void *>(&Self::classDescInserter)),          \
         false,                                                            \
         0)
 

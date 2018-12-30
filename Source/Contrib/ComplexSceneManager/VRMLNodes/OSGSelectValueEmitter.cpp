@@ -123,7 +123,7 @@ SelectSValueEmitter<DESC>::TypeObject                                    \
         Self::initMethod,                                                \
         Self::exitMethod,                                                \
         reinterpret_cast<InitalInsertDescFunc>(                          \
-            &Self::classDescInserter),                                   \
+            reinterpret_cast<void *>(&Self::classDescInserter)),         \
         false,                                                           \
         (Self::TriggerFieldMask         |                                \
          Self::ValueFieldMask           |                                \
