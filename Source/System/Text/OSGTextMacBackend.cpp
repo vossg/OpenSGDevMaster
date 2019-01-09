@@ -90,7 +90,7 @@ public:
 protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
 private:
 
@@ -149,7 +149,7 @@ public:
 protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
 private:
 
@@ -953,14 +953,14 @@ static OSStatus cubicClosePathCallback(void *callBackDataPtr)
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextVectorGlyph> TextMacVectorFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextVectorGlyph> TextMacVectorFace::createGlyph(TextGlyph::Index glyphIndex)
 {
     // We cannot create glyphs for invalid glyph indices
     if (glyphIndex == TextGlyph::INVALID_INDEX)
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
 
     // Create and return the new glyph object
-    return auto_ptr<TextVectorGlyph>(new TextMacVectorGlyph(glyphIndex, _scale, _horiFontStyle, _vertFontStyle));
+    return unique_ptr<TextVectorGlyph>(new TextMacVectorGlyph(glyphIndex, _scale, _horiFontStyle, _vertFontStyle));
 }
 
 
@@ -1200,9 +1200,9 @@ void TextMacPixmapFace::layout(const wstring &text, const TextLayoutParam &param
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextPixmapGlyph> TextMacPixmapFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextPixmapGlyph> TextMacPixmapFace::createGlyph(TextGlyph::Index glyphIndex)
 {
-    return auto_ptr<TextPixmapGlyph>();
+    return unique_ptr<TextPixmapGlyph>();
 }
 
 
@@ -1341,7 +1341,7 @@ const TextPixmapGlyph &TextMacPixmapFace::getPixmapGlyph(const ATSLayoutRecord &
         drawGlyph(textLayout, layoutRecord, xPos, yPos, width, height, pixmap, 0);
     }
 
-    auto_ptr<TextPixmapGlyph> glyph(new TextMacPixmapGlyph(glyphID, width, height, horiAdvance, horiBearingX, horiBearingY, vertAdvance, vertBearingX, vertBearingY, pixmap));
+    unique_ptr<TextPixmapGlyph> glyph(new TextMacPixmapGlyph(glyphID, width, height, horiAdvance, horiBearingX, horiBearingY, vertAdvance, vertBearingX, vertBearingY, pixmap));
 
     // Put the glyph into the glyph cache
     _glyphMap.insert(GlyphMap::value_type(glyphID, glyph.get()));

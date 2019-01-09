@@ -90,7 +90,7 @@ public:
 protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextVectorGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
 private:
 
@@ -152,7 +152,7 @@ public:
 protected:
 
     // Creates a new Glyph object
-    virtual auto_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
+    virtual unique_ptr<TextPixmapGlyph> createGlyph(TextGlyph::Index glyphIndex);
 
 private:
 
@@ -671,11 +671,11 @@ void TextWIN32VectorFace::layout(const wstring &text, const TextLayoutParam &par
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextVectorGlyph> TextWIN32VectorFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextVectorGlyph> TextWIN32VectorFace::createGlyph(TextGlyph::Index glyphIndex)
 {
     // We cannot create glyphs for invalid glyph indices
     if (glyphIndex == TextGlyph::INVALID_INDEX)
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
 
     // Select the vertical font into the device context
     HGDIOBJ oldFont = SelectObject(_backend->_hDC, _hVertFont);
@@ -688,7 +688,7 @@ auto_ptr<TextVectorGlyph> TextWIN32VectorFace::createGlyph(TextGlyph::Index glyp
     if (size == GDI_ERROR)
     {
         SelectObject(_backend->_hDC, oldFont);
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
     }
 
     // Select the horizontal font into the device context
@@ -700,7 +700,7 @@ auto_ptr<TextVectorGlyph> TextWIN32VectorFace::createGlyph(TextGlyph::Index glyp
     if (size == GDI_ERROR)
     {
         SelectObject(_backend->_hDC, oldFont);
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
     }
     LPTTPOLYGONHEADER lpHeader = (LPTTPOLYGONHEADER) new char[size];
     size = GetGlyphOutlineW(_backend->_hDC, glyphIndex, GGO_NATIVE | GGO_GLYPH_INDEX, &hpgm, size, lpHeader, &mat2);
@@ -711,11 +711,11 @@ auto_ptr<TextVectorGlyph> TextWIN32VectorFace::createGlyph(TextGlyph::Index glyp
     if (size == GDI_ERROR)
     {
         delete [] lpHeader;
-        return auto_ptr<TextVectorGlyph>();
+        return unique_ptr<TextVectorGlyph>();
     }
 
     // Create and return the new glyph object
-    auto_ptr<TextVectorGlyph> glyph(new TextWIN32VectorGlyph(glyphIndex, _scale,
+    unique_ptr<TextVectorGlyph> glyph(new TextWIN32VectorGlyph(glyphIndex, _scale,
                                                              hpgm, vpgm, lpHeader, size));
     delete [] lpHeader;
     return glyph;
@@ -1047,11 +1047,11 @@ void TextWIN32PixmapFace::layout(const wstring &text, const TextLayoutParam &par
 // Creates a new Glyph object
 // Author: pdaehne
 //----------------------------------------------------------------------
-auto_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyphIndex)
+unique_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyphIndex)
 {
     // We cannot create glyphs for invalid glyph indices
     if (glyphIndex == TextGlyph::INVALID_INDEX)
-        return auto_ptr<TextPixmapGlyph>();
+        return unique_ptr<TextPixmapGlyph>();
 
     // Select the vertical font into the device context
     HGDIOBJ oldFont = SelectObject(_backend->_hDC, _hVertFont);
@@ -1064,7 +1064,7 @@ auto_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyp
     if (size == GDI_ERROR)
     {
         SelectObject(_backend->_hDC, oldFont);
-        return auto_ptr<TextPixmapGlyph>();
+        return unique_ptr<TextPixmapGlyph>();
     }
 
     // Select the horizontal font into the device context
@@ -1076,7 +1076,7 @@ auto_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyp
     if (size == GDI_ERROR)
     {
         SelectObject(_backend->_hDC, oldFont);
-        return auto_ptr<TextPixmapGlyph>();
+        return unique_ptr<TextPixmapGlyph>();
     }
     UInt8 *buffer;
     if (size == 0)
@@ -1091,7 +1091,7 @@ auto_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyp
         {
             delete [] buffer;
             SelectObject(_backend->_hDC, oldFont);
-            return auto_ptr<TextPixmapGlyph>();
+            return unique_ptr<TextPixmapGlyph>();
         }
 
         // The gray values in the buffer are between 0 and 64, inclusively.
@@ -1107,7 +1107,7 @@ auto_ptr<TextPixmapGlyph> TextWIN32PixmapFace::createGlyph(TextGlyph::Index glyp
     SelectObject(_backend->_hDC, oldFont);
 
     // Create and return the new glyph object
-    return auto_ptr<TextPixmapGlyph>(new TextWIN32PixmapGlyph(glyphIndex, hpgm, vpgm, buffer));
+    return unique_ptr<TextPixmapGlyph>(new TextWIN32PixmapGlyph(glyphIndex, hpgm, vpgm, buffer));
 }
 
 
