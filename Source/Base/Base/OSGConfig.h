@@ -226,6 +226,8 @@
 # else
 #  define OSG_THROW(X) throw(X)
 # endif
+# else // __GNUC__
+#  define OSG_THROW(X) throw(X)
 # endif
 
 
